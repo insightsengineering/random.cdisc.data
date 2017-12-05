@@ -1,0 +1,38 @@
+#' Time To Event Dataset
+#'
+#'
+#' @examples
+#'
+#' radam("AQS")
+aqs <- function(ADSL,
+                FUN = function(p) {
+
+
+                  PARAMCD <- c("BFIALL", "FATIGI", "FKSI-FWB", "FKSI-TSE", "FKSIALL")
+                  PARAM <- c("BFI All Questions", "Fatigue Interference", "Function/Well-Being (GF1,GF3,GF7)",
+                             "Treatment Side Effects (GP2,C5,GP5)", "FKSI-19 All Questions")
+
+                  nvisits <- ceiling(runif(1) * 10 + 1 )
+
+                  data.frame(
+                    USUBJID = p$USUBJID,
+                    PARAMCD = rep(PARAMCD, each = nvisits),
+                    PARAM = rep(PARAM, each = nvisits),
+                    AVAL = rnorm(length(PARAM) * nvisits),
+                    AVISIT = paste("WEEK", 1:nvisits),
+                    AVISITN = 1:nvisits,
+                    ABLFL =  rep(c("Y", ""), c(1, nvisits - 1)),
+                    APBFL = rep(c("", "Y"), c(1, nvisits - 1)),
+                    stringsAsFactors = TRUE
+                  ) %>%
+                    mutate(CHG = AVAL - AVAL[1], PCHG = CHG/AVAL[1])
+
+                }, ..., start_with) {
+
+  patient_info <- split(ADSL, ADSL$USUBJID)
+
+  Reduce(rbind, lapply(patient_info, FUN)) %>%
+    add_replace_variables(start_with)
+
+
+}

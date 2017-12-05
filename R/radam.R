@@ -31,6 +31,7 @@ radam <- function(domain, N = 100, ..., ADSL = NULL, start_with = list()) {
       domain,
       ATE = ate(ADSL, ..., start_with = start_with),
       ARS = ars(ADSL, ..., start_with = start_with),
+      AQS = aqs(ADSL, ..., start_with = start_with),
       stop("random dataset generator for ", domain, "has currently not been implemented")
     )
 
