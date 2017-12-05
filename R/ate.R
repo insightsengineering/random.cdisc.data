@@ -20,6 +20,7 @@ ate <- function(ADSL,
                         "PFS" = ifelse(p$ARM == "ARM A", rexp(1, 1/80), rexp(1, 1/65))
                       )
                     }, numeric(1)),
+                    AVALU = "MONTH",
                     CNSR = sample(c(T,F), length(PARAMCD), replace = TRUE),
                     stringsAsFactors = TRUE
                   )
