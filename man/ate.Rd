@@ -6,11 +6,12 @@
 \usage{
 ate(ADSL, FUN = function(p) {     PARAMCD <- c("OS", "PFS")     PARAM <-
   c("Overall Survival", "Progression Free Survival")     data.frame(USUBJID =
-  p$USUBJID, PARAMCD = PARAMCD, PARAM = PARAM, AVAL = vapply(PARAMCD,
-  function(paramcd) {         switch(paramcd, OS = ifelse(p$ARM == "ARM A",
-  rexp(1, 1/100), rexp(1, 1/80)), PFS = ifelse(p$ARM == "ARM A", rexp(1, 1/80),
-  rexp(1, 1/65)))     }, numeric(1)), CNSR = sample(c(T, F), length(PARAMCD),
-  replace = TRUE), stringsAsFactors = TRUE) }, ..., start_with)
+  p$USUBJID, STUDYID = p$STUDYID, PARAMCD = PARAMCD, PARAM = PARAM, AVAL =
+  vapply(PARAMCD, function(paramcd) {         switch(paramcd, OS = ifelse(p$ARM
+  == "ARM A", rexp(1, 1/100), rexp(1, 1/80)), PFS = ifelse(p$ARM == "ARM A",
+  rexp(1, 1/80), rexp(1, 1/65)))     }, numeric(1)), AVALU = "MONTH", CNSR =
+  sample(c(T, F), length(PARAMCD), replace = TRUE), stringsAsFactors = FALSE) },
+  ..., start_with)
 }
 \description{
 Time To Event Dataset

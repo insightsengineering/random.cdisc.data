@@ -16,6 +16,7 @@ aqs <- function(ADSL,
 
                   data.frame(
                     USUBJID = p$USUBJID,
+                    STUDYID = p$STUDYID,
                     PARAMCD = rep(PARAMCD, each = nvisits),
                     PARAM = rep(PARAM, each = nvisits),
                     AVAL = rnorm(length(PARAM) * nvisits),
@@ -23,7 +24,7 @@ aqs <- function(ADSL,
                     AVISITN = rep(1:nvisits, length(PARAM)),
                     ABLFL =  rep(rep(c("Y", ""), c(1, nvisits - 1)), length(PARAM)),
                     APBFL = rep(rep(c("", "Y"), c(1, nvisits - 1)), length(PARAM)),
-                    stringsAsFactors = TRUE
+                    stringsAsFactors = FALSE
                   ) %>%
                     mutate(CHG = AVAL - AVAL[1], PCHG = CHG/AVAL[1])
 

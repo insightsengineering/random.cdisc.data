@@ -11,6 +11,7 @@ ate <- function(ADSL,
 
                   data.frame(
                     USUBJID = p$USUBJID,
+                    STUDYID = p$STUDYID,
                     PARAMCD = PARAMCD,
                     PARAM = PARAM,
                     AVAL = vapply(PARAMCD, function(paramcd) {
@@ -22,7 +23,7 @@ ate <- function(ADSL,
                     }, numeric(1)),
                     AVALU = "MONTH",
                     CNSR = sample(c(T,F), length(PARAMCD), replace = TRUE),
-                    stringsAsFactors = TRUE
+                    stringsAsFactors = FALSE
                   )
                 }, ..., start_with) {
 

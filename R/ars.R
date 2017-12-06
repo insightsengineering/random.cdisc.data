@@ -7,6 +7,7 @@ ars <- function(ADSL,
 
                   data.frame(
                     USUBJID = p$USUBJID,
+                    STUDYID = p$STUDYID,
                     PARAMCD = PARAMCD,
                     PARAM = PARAM,
                     AVALC = vapply(PARAMCD, function(paramcd) {
@@ -15,7 +16,7 @@ ars <- function(ADSL,
                         sample(c("CR", "PD", "PR", "SD", "NE"), 1)
                       )
                     }, character(1)),
-                    stringsAsFactors = TRUE
+                    stringsAsFactors = FALSE
                   ) %>% mutate(
                     AVAL = recode(AVALC, "CR" = 1, "PD" = 5, "PR" = 2, "SD" = 3, "NE" = 6)
                   )
