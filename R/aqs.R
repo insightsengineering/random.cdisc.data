@@ -20,9 +20,9 @@ aqs <- function(ADSL,
                     PARAM = rep(PARAM, each = nvisits),
                     AVAL = rnorm(length(PARAM) * nvisits),
                     AVISIT = paste("WEEK", 1:nvisits),
-                    AVISITN = 1:nvisits,
-                    ABLFL =  rep(c("Y", ""), c(1, nvisits - 1)),
-                    APBFL = rep(c("", "Y"), c(1, nvisits - 1)),
+                    AVISITN = rep(1:nvisits, length(PARAM)),
+                    ABLFL =  rep(rep(c("Y", ""), c(1, nvisits - 1)), length(PARAM)),
+                    APBFL = rep(rep(c("", "Y"), c(1, nvisits - 1)), length(PARAM)),
                     stringsAsFactors = TRUE
                   ) %>%
                     mutate(CHG = AVAL - AVAL[1], PCHG = CHG/AVAL[1])
