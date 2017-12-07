@@ -4,7 +4,7 @@
 \alias{dm}
 \title{Generate DM dataset}
 \usage{
-dm(N, ..., start_with = list())
+dm(N, arm_choices = c("ARM A", "ARM B"), start_with = list())
 }
 \description{
 Generate DM dataset

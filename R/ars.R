@@ -25,6 +25,7 @@ ars <- function(ADSL,
   patient_info <- split(ADSL, ADSL$USUBJID)
 
   Reduce(rbind, lapply(patient_info, FUN)) %>%
-    add_replace_variables(start_with)
+    add_replace_variables(start_with) %>%
+    arrange(USUBJID, STUDYID, PARAMCD)
 
 }

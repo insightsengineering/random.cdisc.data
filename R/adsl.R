@@ -23,7 +23,7 @@
 #'
 adsl <- function(N, ..., DM = NULL, start_with = list()) {
 
-  dm <- if(is.null(DM)) dm(N) else DM
+  dm <- if(is.null(DM)) dm(N, ...) else DM
 
   ## add derived variables with mutate
   dm %>%

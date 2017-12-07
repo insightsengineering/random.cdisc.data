@@ -41,6 +41,7 @@ ate <- function(ADSL,
         c("Death", "First Response", "Disease Progression"),
         n(), TRUE
       )
-    ))
+    )) %>%
+    arrange(USUBJID, STUDYID, PARAMCD)
 
 }

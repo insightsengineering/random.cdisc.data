@@ -25,7 +25,7 @@ radam <- function(domain, N = 100, ..., ADSL = NULL, start_with = list()) {
 
   } else {
 
-    ADSL <-  adsl(N)
+    ADSL <- if (is.null(ADSL)) adsl(N) else ADSL
 
     switch(
       domain,
