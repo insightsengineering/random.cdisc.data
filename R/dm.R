@@ -11,7 +11,7 @@ dm <- function(N, arm_choices = c("ARM A", "ARM B"), start_with = list()) {
     SEX = sample(ct[["SEX"]], N, TRUE, prob = c(.499, .499, .001, .001)), # C66731
     ARM = sample(arm_choices, N, replace = TRUE),
     RACE = sample(ct[["RACE"]], N, TRUE),
-    stringsAsFactors = FALSE
+    stringsAsFactors = TRUE
   ) %>% add_replace_variables(start_with)
 
   dm %>%
