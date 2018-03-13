@@ -2,7 +2,7 @@
 #' Generate Dataset
 #'
 #' @param domain dataset domain
-#' @param N number of rows
+#' @param N number of pts
 #' @param add_replace_vars list of variables that should be added or replaced after
 #'   the default creation of the dataset
 #' @param ... arguments forwarded to data generation function
@@ -32,6 +32,7 @@ radam <- function(domain, N = 100, ..., ADSL = NULL, start_with = list()) {
       ATE = ate(ADSL, ..., start_with = start_with),
       ARS = ars(ADSL, ..., start_with = start_with),
       AQS = aqs(ADSL, ..., start_with = start_with),
+      ATR = atr(ADSL, ..., start_with = start_with),
       stop("random dataset generator for ", domain, "has currently not been implemented")
     )
 

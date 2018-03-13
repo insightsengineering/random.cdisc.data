@@ -7,7 +7,7 @@
 adsl(N, ..., DM = NULL, start_with = list())
 }
 \arguments{
-\item{N}{number of rows}
+\item{N}{number of pts}
 
 \item{...}{specific ADSL variables}
 }
