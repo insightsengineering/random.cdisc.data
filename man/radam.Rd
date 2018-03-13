@@ -9,7 +9,7 @@ radam(domain, N = 100, ..., ADSL = NULL, start_with = list())
 \arguments{
 \item{domain}{dataset domain}
 
-\item{N}{number of rows}
+\item{N}{number of pts}
 
 \item{...}{arguments forwarded to data generation function}
 

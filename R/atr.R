@@ -5,9 +5,8 @@
 #' @examples
 #'
 #' radam("ATR")
+#' min(rlnorm(100, 1.2))
 #'
-min(rlnorm(100, 1.2))
-
 atr <- function(ADSL,
                 FUN = function(p) {
                   PARAMCD <- c("LDIAM", "SUMTGLES")
