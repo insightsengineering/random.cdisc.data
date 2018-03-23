@@ -3,9 +3,9 @@
 #'
 #' @param domain dataset domain
 #' @param N number of pts
-#' @param add_replace_vars list of variables that should be added or replaced after
-#'   the default creation of the dataset
+#' @param start_with named list with variable
 #' @param ... arguments forwarded to data generation function
+#' @param ADLS data set (to take USUBJID from)
 #'
 #' @export
 #'

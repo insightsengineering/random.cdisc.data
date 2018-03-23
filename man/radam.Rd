@@ -13,8 +13,9 @@ radam(domain, N = 100, ..., ADSL = NULL, start_with = list())
 
 \item{...}{arguments forwarded to data generation function}
 
-\item{add_replace_vars}{list of variables that should be added or replaced after
-the default creation of the dataset}
+\item{start_with}{named list with variable}
+
+\item{ADLS}{data set (to take USUBJID from)}
 }
 \description{
 Generate Dataset

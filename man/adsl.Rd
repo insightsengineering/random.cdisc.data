@@ -10,6 +10,8 @@ adsl(N, ..., DM = NULL, start_with = list())
 \item{N}{number of pts}
 
 \item{...}{specific ADSL variables}
+
+\item{start_with}{named list with variable}
 }
 \description{
 Generate ADSL dataset
