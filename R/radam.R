@@ -18,6 +18,7 @@
 #'
 radam <- function(domain, N = 100, ..., ADSL = NULL, start_with = list()) {
 
+  cl <- match.call()
 
   data <- if (domain %in% c("ASL", "ADSL")) {
 
@@ -39,6 +40,7 @@ radam <- function(domain, N = 100, ..., ADSL = NULL, start_with = list()) {
   }
 
   rownames(data) <- NULL
+  attr(data, 'source') <- paste0(deparse(cl), collapse = "\n  ")
   data
 
 }
