@@ -25,6 +25,8 @@ evntdescr_sel <- c(
 #' @export
 radte <- function(ASL, seed = NULL) {
 
+  if (!is.null(seed)) set.seed(seed)
+
   # pinfo <- split(ASL, ASL$USUBJID)[[1]]
   split(ASL, ASL$USUBJID) %>% lapply(FUN = function(pinfo) {
 

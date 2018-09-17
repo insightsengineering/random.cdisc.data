@@ -9,3 +9,18 @@ devtools::install_github(
   upgrade_dependencies = FALSE
 )
 ```
+
+
+# TOOD
+
+* Document the `radxx` functions
+
+* Use medra data for `adae` (in sysdat, see `aae` in `R/deprecated.R`)
+
+* Create `radqs` (see `aqs` in `R/deprecated.R`)
+
+* Create a web documentation with `pkgdown::build_site()`
+
+* Make the lookup tables and other scoped data objects arguments of the functions
+
+
