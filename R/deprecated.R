@@ -283,6 +283,7 @@ ars <- function(ADSL,
     arrange(USUBJID, STUDYID, PARAMCD)
 
 }
+
 #' Time To Event Dataset
 #'
 #'
