@@ -13,6 +13,8 @@ devtools::install_github(
 
 # TOOD
 
+* Update the `README.md` file
+
 * Document the `radxx` functions
 
 * Use medra data for `adae` (in sysdat, see `aae` in `R/deprecated.R`)
