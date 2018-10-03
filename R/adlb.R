@@ -2,7 +2,7 @@
 
 #' lab dataset
 #' @export
-#'
+#' @author tomlinsj
 #' @examples
 #'
 #' ADSL <- radsl()
