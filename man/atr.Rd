@@ -4,13 +4,14 @@
 \alias{atr}
 \title{Measurements Dataset}
 \usage{
-atr(ADSL, FUN = function(p) {     PARAMCD <- c("LDIAM", "SUMTGLES")     PARAM
-  <- c("Longest Diameter", "Sum of Target Lesions")     data.frame(USUBJID =
-  p$USUBJID, STUDYID = p$STUDYID, PARAMCD = PARAMCD, PARAM = PARAM, AVAL =
-  vapply(PARAMCD, function(paramcd) {         switch(paramcd, LDIAM =
-  ifelse(p$ARM == "ARM A", rlnorm(1, 1), rlnorm(1, 1.2)), SUMTGLES =
-  ifelse(p$ARM == "ARM A", rlnorm(1, 2), rlnorm(1, 2.2)))     }, numeric(1)),
-  AVALU = "mm", stringsAsFactors = FALSE) }, ..., start_with)
+atr(ADSL, FUN = function(p) {     PARAMCD <- c("LDIAM", "SUMTGLES")    
+  PARAM <- c("Longest Diameter", "Sum of Target Lesions")    
+  data.frame(USUBJID = p$USUBJID, STUDYID = p$STUDYID, PARAMCD = PARAMCD,
+  PARAM = PARAM, AVAL = vapply(PARAMCD, function(paramcd) {        
+  switch(paramcd, LDIAM = ifelse(p$ARM == "ARM A", rlnorm(1, 1), rlnorm(1,
+  1.2)), SUMTGLES = ifelse(p$ARM == "ARM A", rlnorm(1, 2), rlnorm(1, 2.2)))
+      }, numeric(1)), AVALU = "mm", stringsAsFactors = FALSE) }, ...,
+  start_with)
 }
 \description{
 This is reflecting measurement data used in SPA ed(pRed)

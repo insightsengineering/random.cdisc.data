@@ -12,8 +12,23 @@ lookup_ae = tribble(
 )
 
 
+#' Adverse Events Analysis Dataset
+#'
+#' @param ADSL adsl start data set
+#' @param max_n_aes is the maximum number of adverse events per patient
+#' @param seed for random number generation
+#'
+#'
 #' @export
-radae <- function(ASL, max_n_aes = 10, seed = NULL) {
+#'
+#' @examples
+#'
+#' ADSL <- radsl()
+#' ADAE <- radae(ADSL)
+#'
+#' head(ADAE)
+#'
+radae <- function(ADSL, max_n_aes = 10, seed = NULL) {
 
   if (!is.null(seed)) set.seed(seed)
 
@@ -24,7 +39,7 @@ radae <- function(ASL, max_n_aes = 10, seed = NULL) {
       USUBJID = id,
       STUDYID = sid
     )
-  }, ASL$USUBJID, ASL$STUDYID) %>%
+  }, ADSL$USUBJID, ADSL$STUDYID) %>%
     Reduce(rbind, .) %>%
     `[`(c(4,5,1,2,3)) %>%
     var_relabel(
