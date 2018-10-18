@@ -7,14 +7,22 @@
 radae(ADSL, max_n_aes = 10, seed = NULL)
 }
 \arguments{
-\item{ADSL}{adsl start data set}
+\item{ADSL}{adsl (Subject-Level Analysis Dataset) start data set}
 
 \item{max_n_aes}{is the maximum number of adverse events per patient}
 
 \item{seed}{for random number generation}
 }
+\value{
+a data frame containing random generated adverse events for
+Subject-Level Analysis Dataset. The dataset consists of following variables:
+USUBJID (Unique Subject Identifier), STUDYID (Study Identifier), AEBODSYS
+(Body System or Organ Class), AEDECOD (Dictionary Derived Term), AETOXGR
+(Standard Toxicity Grade)
+}
 \description{
-Adverse Events Analysis Dataset
+Function for generating random Adverse Events Analysis Dataset for a given
+Subject-Level Analysis Dataset
 }
 \examples{
 

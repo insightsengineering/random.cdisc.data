@@ -2,10 +2,28 @@
 % Please edit documentation in R/radrs.R
 \name{radrs}
 \alias{radrs}
-\title{Random ARS}
+\title{Random Response Analysis Dataset}
 \usage{
-radrs(ASL, seed = NULL)
+radrs(ADSL, seed = NULL)
+}
+\arguments{
+\item{ADSL}{adsl (Subject-Level Analysis Dataset) start data set}
+
+\item{seed}{for random number generation}
+}
+\value{
+a data frame containing generated Response Analysis Dataset for
+Subject-Level Analysis Dataset. The dataset consists of following variables:
+STUDYID (Study Identifier), SITEID (Site Identifier), USUBJID (Unique Subject
+Identifier), PARAMCD (Parameter Code), PARAM (Parameter Name),
+AVALC (Analysis Value C), AVAL (Analysis Value), AVISIT (Analysis Visit)
 }
 \description{
-Random ARS
+Function for generating random Response Analysis Dataset for a given
+Subject-Level Analysis Dataset
+}
+\examples{
+ADSL <- radsl()
+ADRS <- radrs(ADSL)
+head(ADRS)
 }

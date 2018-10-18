@@ -1,15 +1,30 @@
 #' Generate a random ADSL dataset
 #'
-#' ADSL is the subjectlevel dataset
+#' Function for generating random Subject-Level Analysis Dataset
+#'
+#' @details The Subject-Level Analysis Data set (ADSL) is used to provide
+#'  the variables that describe attributes of a subject. ADSL is a source
+#'  for subject-level variables used in other analysis data sets, such as
+#'  population flags and treatment variables. There is only one ADSL per
+#'  study. ADSL and its related metadata are required in a CDISC-based
+#'  submission of data from a clinical trial even if no other analysis data
+#'  sets are submitted.
 #'
 #' @param N number of patients
 #' @param seed seed for random number generation
 #'
 #' @export
+#' @return a data frame containing following attributes is returned: SUBJID (Subject Identification
+#'  Number), STUDYID (Study Identification Number), SITEID (Site Identification Number),
+#'  USUBJID (Unique Subject Identifier), AGE, SEX, ARMCD (Planned Arme Code),
+#'  COUNTRY, RACE, STRATA1 (Stratification Factor 1), STRATA2 (Stratification Factor 2),
+#'  BMRKR1 (Cont. Biomarker 1), BMRKR2 (Cat. Biomarker 2), ARM (Description of Planned Arm),
+#'  ACTARM (Description of Actual Arm).
 #'
 #' @examples
 #'
 #' ADSL <- radsl()
+#' head(ADSL)
 #'
 radsl <- function(N = 400, seed = NULL) {
 

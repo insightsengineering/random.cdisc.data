@@ -11,11 +11,27 @@ radsl(N = 400, seed = NULL)
 
 \item{seed}{seed for random number generation}
 }
+\value{
+a data frame containing following attributes is returned: SUBJID (Subject Identification
+ Number), STUDYID (Study Identification Number), SITEID (Site Identification Number),
+ USUBJID (Unique Subject Identifier), AGE, SEX, ARMCD (Planned Arme Code),
+ COUNTRY, RACE, STRATA1, STRATA2, BMRKR1,BMRKR2, ARM, ACTARM (Actual Arm).
+}
 \description{
-ADSL is the subjectlevel dataset
+Function for generating random Subject-Level Analysis Dataset
+}
+\details{
+The Subject-Level Analysis Data set (ADSL) is used to provide
+ the variables that describe attributes of a subject. ADSL is a source
+ for subject-level variables used in other analysis data sets, such as
+ population flags and treatment variables. There is only one ADSL per
+ study. ADSL and its related metadata are required in a CDISC-based
+ submission of data from a clinical trial even if no other analysis data
+ sets are submitted.
 }
 \examples{
 
 ADSL <- radsl()
+head(ADSL)
 
 }

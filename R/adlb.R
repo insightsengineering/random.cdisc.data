@@ -1,8 +1,22 @@
 
 
 #' lab dataset
+#'
+#' Function for generating random dataset from laboratory Test Findings domain for a given
+#' Subject-Level Analysis Dataset
+#'
+#' @param ADSL adsl (Subject-Level Analysis Dataset) start data set
+#' @param seed for random number generation
+#'
 #' @export
 #' @author tomlinsj
+#' @return a data frame containing generated Test Findings dataset for
+#' Subject-Level Analysis Dataset. The dataset contains following variables:
+#' USUBJID (Unique Subject Identifier), AVISIT (Analysis Visit Window),
+#' PARAMCD (Parameter Code), AVISITCD(Analysis Visit Window Code),
+#' AVAL (Analysis Value), BASE (Baseline Analysis Value), STUDYID (Study Identifier),
+#' CHG (...), PHG (...), LOQFL (...).
+#'
 #' @examples
 #'
 #' ADSL <- radsl()

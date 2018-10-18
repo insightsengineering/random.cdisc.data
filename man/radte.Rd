@@ -6,6 +6,9 @@
 \usage{
 radte(ASL, seed = NULL)
 }
+\arguments{
+\item{seed}{}
+}
 \description{
 random ATE
 }

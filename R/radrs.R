@@ -13,15 +13,32 @@ lookup_ARS <- expand.grid(
   p_fu = c(c(.3, .2, .4), c(.2, .1, .3), c(.2, .2, .2), c(.3, .5, 0.1), rep(0, 3))
 )
 
-#' Random ARS
+#' Random Response Analysis Dataset
+#'
+#' Function for generating random Response Analysis Dataset for a given
+#' Subject-Level Analysis Dataset
+#'
+#' @param ADSL adsl (Subject-Level Analysis Dataset) start data set
+#' @param seed for random number generation
 #'
 #' @export
-radrs <- function(ASL, seed = NULL) {
+#' @return a data frame containing generated Response Analysis Dataset for
+#' Subject-Level Analysis Dataset. The dataset consists of following variables:
+#' STUDYID (Study Identifier), SITEID (Site Identifier), USUBJID (Unique Subject
+#' Identifier), PARAMCD (Parameter Code), PARAM (Parameter Description),
+#' AVALC (Analysis Value Category), AVAL (Analysis Value), AVISIT (Analysis Visit Window).
+#'
+#'
+#'@examples
+#' ADSL <- radsl()
+#' ADRS <- radrs(ADSL)
+#' head(ADRS)
+radrs <- function(ADSL, seed = NULL) {
 
   if (!is.null(seed)) set.seed(seed)
 
 
-  split(ASL, ASL$USUBJID) %>% lapply(FUN = function(pinfo) {
+  split(ADSL, ADSL$USUBJID) %>% lapply(FUN = function(pinfo) {
 
     probs <- lookup_ARS %>%
       filter(ARM == as.character(pinfo$ACTARM))
