@@ -15,10 +15,12 @@ radae(ADSL, max_n_aes = 10, seed = NULL)
 }
 \value{
 a data frame containing random generated adverse events for
-Subject-Level Analysis Dataset. The dataset consists of following variables:
-USUBJID (Unique Subject Identifier), STUDYID (Study Identifier), AEBODSYS
-(Body System or Organ Class), AEDECOD (Dictionary Derived Term), AETOXGR
-(Standard Toxicity Grade)
+[,1] Subject-Level Analysis Dataset. The dataset consists of following variables:
+[,2] USUBJID (Unique Subject Identifier), \cr
+[,3] STUDYID (Study Identifier), \cr
+[,4] AEBODSYS (Body System or Organ Class), \cr
+[,5] AEDECOD (Dictionary Derived Term), \cr
+[,6] AETOXGR (Standard Toxicity Grade)\cr
 }
 \description{
 Function for generating random Adverse Events Analysis Dataset for a given

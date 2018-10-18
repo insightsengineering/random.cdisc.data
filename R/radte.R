@@ -30,14 +30,18 @@ evntdescr_sel <- c(
 #'
 #' @export
 #' @return a data frame containing generated random Triale Elements Dataset for
-#' Subject-Level Analysis Dataset. The dataset consists of following variables:
-#' STUDYID (Study Identifier), USUBJID (Unique Subject Identifier),
-#' SITEID (Study Site Identifier), PARAM (Parameter Description),
-#' PARAMCD (Parameter Code), AVAL (Analysis Value),
-#' AVALU (Analysis Value Unit), EVNTDESC (Event Description),
-#' CNSR (Censoring Status Value (1=cens, 0=evt)).
+#' Subject-Level Analysis Dataset. The dataset consists of following variables:\cr
+#' [,1] STUDYID (Study Identifier),\cr
+#' [,2] USUBJID (Unique Subject Identifier),\cr
+#' [,3] SITEID (Study Site Identifier),\cr
+#' [,4] PARAM (Parameter Description),\cr
+#' [,5] PARAMCD (Parameter Code), \cr
+#' [,6] AVAL (Analysis Value),\cr
+#' [,7] AVALU (Analysis Value Unit), \cr
+#' [,8] EVNTDESC (Event Description),\cr
+#' [,9] CNSR (Censoring Status Value (1=cens, 0=evt)).
 #'
-#' @example
+#' @examples
 #' ADSL <- radsl()
 #' ADTE <- radte(ADSL)
 #' head(ADTE)

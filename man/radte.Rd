@@ -4,11 +4,33 @@
 \alias{radte}
 \title{random ATE}
 \usage{
-radte(ASL, seed = NULL)
+radte(ADSL, seed = NULL)
 }
 \arguments{
-\item{seed}{}
+\item{ADSL}{adsl (Subject-Level Analysis Dataset) start data set}
+
+\item{seed}{for random number generation}
+}
+\value{
+a data frame containing generated random Triale Elements Dataset for
+Subject-Level Analysis Dataset. The dataset consists of following variables:\cr
+[,1] STUDYID (Study Identifier),\cr
+[,2] USUBJID (Unique Subject Identifier),\cr
+[,3] SITEID (Study Site Identifier),\cr
+[,4] PARAM (Parameter Description),\cr
+[,5] PARAMCD (Parameter Code), \cr
+[,6] AVAL (Analysis Value),\cr
+[,7] AVALU (Analysis Value Unit), \cr
+[,8] EVNTDESC (Event Description),\cr
+[,9] CNSR (Censoring Status Value (1=cens, 0=evt)).
 }
 \description{
-random ATE
+Function for generating random Dataset from Trial Elements domain for a given
+Subject-Level Analysis Dataset
+}
+\examples{
+ADSL <- radsl()
+ADTE <- radte(ADSL)
+head(ADTE)
+
 }

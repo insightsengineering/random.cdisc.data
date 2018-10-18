@@ -11,7 +11,7 @@ devtools::install_github(
 ```
 
 
-# TOOD
+# TODO
 
 * Update the `README.md` file
 

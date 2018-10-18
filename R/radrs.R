@@ -24,9 +24,14 @@ lookup_ARS <- expand.grid(
 #' @export
 #' @return a data frame containing generated Response Analysis Dataset for
 #' Subject-Level Analysis Dataset. The dataset consists of following variables:
-#' STUDYID (Study Identifier), SITEID (Site Identifier), USUBJID (Unique Subject
-#' Identifier), PARAMCD (Parameter Code), PARAM (Parameter Description),
-#' AVALC (Analysis Value Category), AVAL (Analysis Value), AVISIT (Analysis Visit Window).
+#' [,1] STUDYID (Study Identifier), \cr
+#' [,2] SITEID (Site Identifier), \cr
+#' [,3] USUBJID (Unique Subject Identifier), \cr
+#' [,4] PARAMCD (Parameter Code),\cr
+#' [,5] PARAM (Parameter Description),\cr
+#' [,6] AVALC (Analysis Value Category),\cr
+#' [,7] AVAL (Analysis Value), \cr
+#' [,8] AVISIT (Analysis Visit Window).
 #'
 #'
 #'@examples

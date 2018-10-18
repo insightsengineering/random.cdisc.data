@@ -6,8 +6,28 @@
 \usage{
 radlb(ADSL, seed = NULL)
 }
+\arguments{
+\item{ADSL}{adsl (Subject-Level Analysis Dataset) start data set}
+
+\item{seed}{for random number generation}
+}
+\value{
+a data frame containing generated Test Findings dataset for
+Subject-Level Analysis Dataset. The dataset contains following variables:
+[,1] USUBJID (Unique Subject Identifier), \cr
+[,2] AVISIT (Analysis Visit Window),\cr
+[,3] PARAMCD (Parameter Code), \cr
+[,4] AVISITCD (Analysis Visit Window Code),\cr
+[,5] AVAL (Analysis Value), \cr
+[,6] BASE (Baseline Analysis Value), \cr
+[,7] STUDYID (Study Identifier),\cr
+[,8] CHG (...), \cr
+[,9] PHG (...), \cr
+[,10] LOQFL (...).
+}
 \description{
-lab dataset
+Function for generating random dataset from laboratory Test Findings domain for a given
+Subject-Level Analysis Dataset
 }
 \examples{
 

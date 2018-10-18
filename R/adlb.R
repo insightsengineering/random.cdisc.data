@@ -12,10 +12,16 @@
 #' @author tomlinsj
 #' @return a data frame containing generated Test Findings dataset for
 #' Subject-Level Analysis Dataset. The dataset contains following variables:
-#' USUBJID (Unique Subject Identifier), AVISIT (Analysis Visit Window),
-#' PARAMCD (Parameter Code), AVISITCD(Analysis Visit Window Code),
-#' AVAL (Analysis Value), BASE (Baseline Analysis Value), STUDYID (Study Identifier),
-#' CHG (...), PHG (...), LOQFL (...).
+#' [,1] USUBJID (Unique Subject Identifier), \cr
+#' [,2] AVISIT (Analysis Visit Window),\cr
+#' [,3] PARAMCD (Parameter Code), \cr
+#' [,4] AVISITCD (Analysis Visit Window Code),\cr
+#' [,5] AVAL (Analysis Value), \cr
+#' [,6] BASE (Baseline Analysis Value), \cr
+#' [,7] STUDYID (Study Identifier),\cr
+#' [,8] CHG (...), \cr
+#' [,9] PHG (...), \cr
+#' [,10] LOQFL (...).
 #'
 #' @examples
 #'
