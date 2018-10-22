@@ -20,7 +20,7 @@ evntdescr_sel <- c(
 )
 
 
-#' random ATE
+#' random ATE  - Trial Elements domain
 #'
 #' Function for generating random Dataset from Trial Elements domain for a given
 #' Subject-Level Analysis Dataset

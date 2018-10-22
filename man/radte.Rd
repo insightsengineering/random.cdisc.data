@@ -2,7 +2,7 @@
 % Please edit documentation in R/radte.R
 \name{radte}
 \alias{radte}
-\title{random ATE}
+\title{random ATE  - Trial Elements domain}
 \usage{
 radte(ADSL, seed = NULL)
 }
