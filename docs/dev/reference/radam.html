@@ -138,7 +138,710 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>DM</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rsdtm.html'>rsdtm</a></span>(<span class='st'>"DM"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in rsdtm("DM"): nie udało się znaleźć funkcji 'rsdtm'</span></div><div class='input'><span class='no'>ASL</span> <span class='kw'>&lt;-</span> <span class='fu'>radam</span>(<span class='st'>"ASL"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in radam("ASL"): nie udało się znaleźć funkcji 'radam'</span></div><div class='input'><span class='fu'>radam</span>(<span class='st'>"ATE"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in radam("ATE"): nie udało się znaleźć funkcji 'radam'</span></div><div class='input'><span class='fu'>radam</span>(<span class='st'>"ARS"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in radam("ARS"): nie udało się znaleźć funkcji 'radam'</span></div><div class='input'>
+<span class='no'>DM</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rsdtm.html'>rsdtm</a></span>(<span class='st'>"DM"</span>)
+<span class='no'>ASL</span> <span class='kw'>&lt;-</span> <span class='fu'>radam</span>(<span class='st'>"ASL"</span>)
+<span class='fu'>radam</span>(<span class='st'>"ATE"</span>)</div><div class='output co'>#&gt;     USUBJID STUDYID PARAMCD                     PARAM        AVAL AVALU  CNSR
+#&gt; 1      id-1 STUDY A      OS          Overall Survival 130.2899916 MONTH  TRUE
+#&gt; 2      id-1 STUDY A     PFS Progression Free Survival  12.0006185 MONTH FALSE
+#&gt; 3     id-10 STUDY A      OS          Overall Survival 196.1841133 MONTH  TRUE
+#&gt; 4     id-10 STUDY A     PFS Progression Free Survival  49.2140127 MONTH  TRUE
+#&gt; 5    id-100 STUDY A      OS          Overall Survival 104.4891575 MONTH  TRUE
+#&gt; 6    id-100 STUDY A     PFS Progression Free Survival 270.9099757 MONTH  TRUE
+#&gt; 7     id-11 STUDY A      OS          Overall Survival  95.2276958 MONTH FALSE
+#&gt; 8     id-11 STUDY A     PFS Progression Free Survival  15.7246074 MONTH FALSE
+#&gt; 9     id-12 STUDY A      OS          Overall Survival   0.9294057 MONTH FALSE
+#&gt; 10    id-12 STUDY A     PFS Progression Free Survival 109.4425562 MONTH  TRUE
+#&gt; 11    id-13 STUDY A      OS          Overall Survival 232.7652257 MONTH  TRUE
+#&gt; 12    id-13 STUDY A     PFS Progression Free Survival 167.4281938 MONTH  TRUE
+#&gt; 13    id-14 STUDY A      OS          Overall Survival  55.7502532 MONTH FALSE
+#&gt; 14    id-14 STUDY A     PFS Progression Free Survival 139.0889662 MONTH FALSE
+#&gt; 15    id-15 STUDY A      OS          Overall Survival  87.3736045 MONTH  TRUE
+#&gt; 16    id-15 STUDY A     PFS Progression Free Survival  88.4086705 MONTH  TRUE
+#&gt; 17    id-16 STUDY A      OS          Overall Survival  50.6542401 MONTH  TRUE
+#&gt; 18    id-16 STUDY A     PFS Progression Free Survival  18.7711961 MONTH FALSE
+#&gt; 19    id-17 STUDY A      OS          Overall Survival  11.3112778 MONTH  TRUE
+#&gt; 20    id-17 STUDY A     PFS Progression Free Survival  98.0335182 MONTH  TRUE
+#&gt; 21    id-18 STUDY A      OS          Overall Survival  19.5537874 MONTH  TRUE
+#&gt; 22    id-18 STUDY A     PFS Progression Free Survival  29.2275332 MONTH FALSE
+#&gt; 23    id-19 STUDY A      OS          Overall Survival  93.1111255 MONTH  TRUE
+#&gt; 24    id-19 STUDY A     PFS Progression Free Survival   3.0574408 MONTH FALSE
+#&gt; 25     id-2 STUDY A      OS          Overall Survival 128.3196702 MONTH FALSE
+#&gt; 26     id-2 STUDY A     PFS Progression Free Survival 239.4277108 MONTH  TRUE
+#&gt; 27    id-20 STUDY A      OS          Overall Survival  64.2758312 MONTH FALSE
+#&gt; 28    id-20 STUDY A     PFS Progression Free Survival 203.7021740 MONTH FALSE
+#&gt; 29    id-21 STUDY A      OS          Overall Survival  37.9303864 MONTH FALSE
+#&gt; 30    id-21 STUDY A     PFS Progression Free Survival  26.9246272 MONTH FALSE
+#&gt; 31    id-22 STUDY A      OS          Overall Survival   7.6159293 MONTH  TRUE
+#&gt; 32    id-22 STUDY A     PFS Progression Free Survival  90.9491955 MONTH  TRUE
+#&gt; 33    id-23 STUDY A      OS          Overall Survival  98.8172271 MONTH FALSE
+#&gt; 34    id-23 STUDY A     PFS Progression Free Survival  38.9411882 MONTH  TRUE
+#&gt; 35    id-24 STUDY A      OS          Overall Survival  80.0914739 MONTH FALSE
+#&gt; 36    id-24 STUDY A     PFS Progression Free Survival   2.1043942 MONTH  TRUE
+#&gt; 37    id-25 STUDY A      OS          Overall Survival  78.1896399 MONTH FALSE
+#&gt; 38    id-25 STUDY A     PFS Progression Free Survival  93.2659076 MONTH  TRUE
+#&gt; 39    id-26 STUDY A      OS          Overall Survival 163.6048426 MONTH FALSE
+#&gt; 40    id-26 STUDY A     PFS Progression Free Survival 191.8878343 MONTH  TRUE
+#&gt; 41    id-27 STUDY A      OS          Overall Survival  33.3354647 MONTH FALSE
+#&gt; 42    id-27 STUDY A     PFS Progression Free Survival  71.2349501 MONTH  TRUE
+#&gt; 43    id-28 STUDY A      OS          Overall Survival  13.4535187 MONTH FALSE
+#&gt; 44    id-28 STUDY A     PFS Progression Free Survival 174.4471185 MONTH  TRUE
+#&gt; 45    id-29 STUDY A      OS          Overall Survival  26.8862732 MONTH FALSE
+#&gt; 46    id-29 STUDY A     PFS Progression Free Survival  45.4313920 MONTH FALSE
+#&gt; 47     id-3 STUDY A      OS          Overall Survival  28.5026844 MONTH  TRUE
+#&gt; 48     id-3 STUDY A     PFS Progression Free Survival  19.9781958 MONTH FALSE
+#&gt; 49    id-30 STUDY A      OS          Overall Survival  25.8291629 MONTH FALSE
+#&gt; 50    id-30 STUDY A     PFS Progression Free Survival  21.8082076 MONTH FALSE
+#&gt; 51    id-31 STUDY A      OS          Overall Survival  55.2977166 MONTH FALSE
+#&gt; 52    id-31 STUDY A     PFS Progression Free Survival  40.6527263 MONTH FALSE
+#&gt; 53    id-32 STUDY A      OS          Overall Survival  18.1442653 MONTH  TRUE
+#&gt; 54    id-32 STUDY A     PFS Progression Free Survival  34.3192263 MONTH  TRUE
+#&gt; 55    id-33 STUDY A      OS          Overall Survival 135.4227803 MONTH  TRUE
+#&gt; 56    id-33 STUDY A     PFS Progression Free Survival 130.2986898 MONTH  TRUE
+#&gt; 57    id-34 STUDY A      OS          Overall Survival 140.9299567 MONTH  TRUE
+#&gt; 58    id-34 STUDY A     PFS Progression Free Survival  48.7711557 MONTH FALSE
+#&gt; 59    id-35 STUDY A      OS          Overall Survival  19.7205141 MONTH FALSE
+#&gt; 60    id-35 STUDY A     PFS Progression Free Survival 115.4461141 MONTH  TRUE
+#&gt; 61    id-36 STUDY A      OS          Overall Survival 130.6287749 MONTH FALSE
+#&gt; 62    id-36 STUDY A     PFS Progression Free Survival  32.6586531 MONTH FALSE
+#&gt; 63    id-37 STUDY A      OS          Overall Survival 110.2218735 MONTH  TRUE
+#&gt; 64    id-37 STUDY A     PFS Progression Free Survival  15.1239969 MONTH FALSE
+#&gt; 65    id-38 STUDY A      OS          Overall Survival  55.7150776 MONTH FALSE
+#&gt; 66    id-38 STUDY A     PFS Progression Free Survival  58.5407838 MONTH  TRUE
+#&gt; 67    id-39 STUDY A      OS          Overall Survival 160.9675296 MONTH FALSE
+#&gt; 68    id-39 STUDY A     PFS Progression Free Survival  48.8157283 MONTH FALSE
+#&gt; 69     id-4 STUDY A      OS          Overall Survival  98.3627189 MONTH FALSE
+#&gt; 70     id-4 STUDY A     PFS Progression Free Survival  55.5046951 MONTH FALSE
+#&gt; 71    id-40 STUDY A      OS          Overall Survival  53.5924709 MONTH  TRUE
+#&gt; 72    id-40 STUDY A     PFS Progression Free Survival   1.4583848 MONTH FALSE
+#&gt; 73    id-41 STUDY A      OS          Overall Survival  17.4574317 MONTH FALSE
+#&gt; 74    id-41 STUDY A     PFS Progression Free Survival  68.4697396 MONTH FALSE
+#&gt; 75    id-42 STUDY A      OS          Overall Survival  95.1737614 MONTH  TRUE
+#&gt; 76    id-42 STUDY A     PFS Progression Free Survival  44.8568940 MONTH  TRUE
+#&gt; 77    id-43 STUDY A      OS          Overall Survival  78.7042019 MONTH  TRUE
+#&gt; 78    id-43 STUDY A     PFS Progression Free Survival   6.3125565 MONTH  TRUE
+#&gt; 79    id-44 STUDY A      OS          Overall Survival  12.1660188 MONTH FALSE
+#&gt; 80    id-44 STUDY A     PFS Progression Free Survival   9.3182183 MONTH  TRUE
+#&gt; 81    id-45 STUDY A      OS          Overall Survival 203.4706591 MONTH FALSE
+#&gt; 82    id-45 STUDY A     PFS Progression Free Survival 236.6212468 MONTH FALSE
+#&gt; 83    id-46 STUDY A      OS          Overall Survival  30.4245996 MONTH FALSE
+#&gt; 84    id-46 STUDY A     PFS Progression Free Survival 165.4980728 MONTH  TRUE
+#&gt; 85    id-47 STUDY A      OS          Overall Survival  24.8332623 MONTH FALSE
+#&gt; 86    id-47 STUDY A     PFS Progression Free Survival  28.4252376 MONTH FALSE
+#&gt; 87    id-48 STUDY A      OS          Overall Survival 108.9420636 MONTH FALSE
+#&gt; 88    id-48 STUDY A     PFS Progression Free Survival  48.5413398 MONTH  TRUE
+#&gt; 89    id-49 STUDY A      OS          Overall Survival  89.9705228 MONTH  TRUE
+#&gt; 90    id-49 STUDY A     PFS Progression Free Survival  36.0770319 MONTH  TRUE
+#&gt; 91     id-5 STUDY A      OS          Overall Survival 411.2776603 MONTH  TRUE
+#&gt; 92     id-5 STUDY A     PFS Progression Free Survival  91.4767311 MONTH  TRUE
+#&gt; 93    id-50 STUDY A      OS          Overall Survival 104.2959826 MONTH  TRUE
+#&gt; 94    id-50 STUDY A     PFS Progression Free Survival  37.1089389 MONTH FALSE
+#&gt; 95    id-51 STUDY A      OS          Overall Survival 305.8017197 MONTH FALSE
+#&gt; 96    id-51 STUDY A     PFS Progression Free Survival  85.3644498 MONTH  TRUE
+#&gt; 97    id-52 STUDY A      OS          Overall Survival  16.6194501 MONTH  TRUE
+#&gt; 98    id-52 STUDY A     PFS Progression Free Survival  78.2009372 MONTH FALSE
+#&gt; 99    id-53 STUDY A      OS          Overall Survival 101.6051122 MONTH FALSE
+#&gt; 100   id-53 STUDY A     PFS Progression Free Survival  95.9737400 MONTH  TRUE
+#&gt; 101   id-54 STUDY A      OS          Overall Survival  58.0990630 MONTH  TRUE
+#&gt; 102   id-54 STUDY A     PFS Progression Free Survival  78.3675886 MONTH  TRUE
+#&gt; 103   id-55 STUDY A      OS          Overall Survival 249.1379907 MONTH  TRUE
+#&gt; 104   id-55 STUDY A     PFS Progression Free Survival  59.0037186 MONTH  TRUE
+#&gt; 105   id-56 STUDY A      OS          Overall Survival 339.4084683 MONTH  TRUE
+#&gt; 106   id-56 STUDY A     PFS Progression Free Survival 236.6666103 MONTH  TRUE
+#&gt; 107   id-57 STUDY A      OS          Overall Survival 136.6909509 MONTH  TRUE
+#&gt; 108   id-57 STUDY A     PFS Progression Free Survival  16.9601413 MONTH FALSE
+#&gt; 109   id-58 STUDY A      OS          Overall Survival  98.5196904 MONTH  TRUE
+#&gt; 110   id-58 STUDY A     PFS Progression Free Survival 146.1526744 MONTH FALSE
+#&gt; 111   id-59 STUDY A      OS          Overall Survival  51.7536427 MONTH  TRUE
+#&gt; 112   id-59 STUDY A     PFS Progression Free Survival  33.6779028 MONTH FALSE
+#&gt; 113    id-6 STUDY A      OS          Overall Survival  56.4215264 MONTH  TRUE
+#&gt; 114    id-6 STUDY A     PFS Progression Free Survival   7.3450230 MONTH FALSE
+#&gt; 115   id-60 STUDY A      OS          Overall Survival  97.6134566 MONTH FALSE
+#&gt; 116   id-60 STUDY A     PFS Progression Free Survival  43.6408911 MONTH FALSE
+#&gt; 117   id-61 STUDY A      OS          Overall Survival 158.5031027 MONTH  TRUE
+#&gt; 118   id-61 STUDY A     PFS Progression Free Survival  38.4528099 MONTH FALSE
+#&gt; 119   id-62 STUDY A      OS          Overall Survival  80.4967631 MONTH FALSE
+#&gt; 120   id-62 STUDY A     PFS Progression Free Survival  11.7803915 MONTH FALSE
+#&gt; 121   id-63 STUDY A      OS          Overall Survival  34.1760647 MONTH FALSE
+#&gt; 122   id-63 STUDY A     PFS Progression Free Survival  65.3441718 MONTH FALSE
+#&gt; 123   id-64 STUDY A      OS          Overall Survival  86.5278118 MONTH FALSE
+#&gt; 124   id-64 STUDY A     PFS Progression Free Survival 201.0357110 MONTH  TRUE
+#&gt; 125   id-65 STUDY A      OS          Overall Survival  17.8448951 MONTH FALSE
+#&gt; 126   id-65 STUDY A     PFS Progression Free Survival  23.5118522 MONTH FALSE
+#&gt; 127   id-66 STUDY A      OS          Overall Survival  20.4260438 MONTH FALSE
+#&gt; 128   id-66 STUDY A     PFS Progression Free Survival  17.2411960 MONTH FALSE
+#&gt; 129   id-67 STUDY A      OS          Overall Survival 102.5574515 MONTH FALSE
+#&gt; 130   id-67 STUDY A     PFS Progression Free Survival  17.8251311 MONTH FALSE
+#&gt; 131   id-68 STUDY A      OS          Overall Survival  17.7207322 MONTH FALSE
+#&gt; 132   id-68 STUDY A     PFS Progression Free Survival 195.7744233 MONTH  TRUE
+#&gt; 133   id-69 STUDY A      OS          Overall Survival 189.5082749 MONTH  TRUE
+#&gt; 134   id-69 STUDY A     PFS Progression Free Survival  27.9534003 MONTH FALSE
+#&gt; 135    id-7 STUDY A      OS          Overall Survival  23.3426813 MONTH FALSE
+#&gt; 136    id-7 STUDY A     PFS Progression Free Survival  18.7031352 MONTH  TRUE
+#&gt; 137   id-70 STUDY A      OS          Overall Survival 117.3065701 MONTH FALSE
+#&gt; 138   id-70 STUDY A     PFS Progression Free Survival  23.6091590 MONTH  TRUE
+#&gt; 139   id-71 STUDY A      OS          Overall Survival 245.8441448 MONTH  TRUE
+#&gt; 140   id-71 STUDY A     PFS Progression Free Survival 135.5313107 MONTH  TRUE
+#&gt; 141   id-72 STUDY A      OS          Overall Survival  31.3333902 MONTH FALSE
+#&gt; 142   id-72 STUDY A     PFS Progression Free Survival  62.9096125 MONTH  TRUE
+#&gt; 143   id-73 STUDY A      OS          Overall Survival 406.4491367 MONTH FALSE
+#&gt; 144   id-73 STUDY A     PFS Progression Free Survival  24.1226377 MONTH FALSE
+#&gt; 145   id-74 STUDY A      OS          Overall Survival  26.0693327 MONTH  TRUE
+#&gt; 146   id-74 STUDY A     PFS Progression Free Survival  85.8170017 MONTH  TRUE
+#&gt; 147   id-75 STUDY A      OS          Overall Survival 207.3246593 MONTH FALSE
+#&gt; 148   id-75 STUDY A     PFS Progression Free Survival  77.6493599 MONTH  TRUE
+#&gt; 149   id-76 STUDY A      OS          Overall Survival  74.2502994 MONTH FALSE
+#&gt; 150   id-76 STUDY A     PFS Progression Free Survival 116.6990942 MONTH FALSE
+#&gt; 151   id-77 STUDY A      OS          Overall Survival 156.5013932 MONTH FALSE
+#&gt; 152   id-77 STUDY A     PFS Progression Free Survival  65.0347507 MONTH  TRUE
+#&gt; 153   id-78 STUDY A      OS          Overall Survival  15.5042105 MONTH FALSE
+#&gt; 154   id-78 STUDY A     PFS Progression Free Survival  17.1663172 MONTH  TRUE
+#&gt; 155   id-79 STUDY A      OS          Overall Survival  93.3509371 MONTH FALSE
+#&gt; 156   id-79 STUDY A     PFS Progression Free Survival  16.0578912 MONTH  TRUE
+#&gt; 157    id-8 STUDY A      OS          Overall Survival  35.4177625 MONTH FALSE
+#&gt; 158    id-8 STUDY A     PFS Progression Free Survival 115.8029365 MONTH  TRUE
+#&gt; 159   id-80 STUDY A      OS          Overall Survival  99.6456386 MONTH  TRUE
+#&gt; 160   id-80 STUDY A     PFS Progression Free Survival  93.0335131 MONTH  TRUE
+#&gt; 161   id-81 STUDY A      OS          Overall Survival 155.4218955 MONTH  TRUE
+#&gt; 162   id-81 STUDY A     PFS Progression Free Survival  18.4366618 MONTH  TRUE
+#&gt; 163   id-82 STUDY A      OS          Overall Survival   9.3313364 MONTH  TRUE
+#&gt; 164   id-82 STUDY A     PFS Progression Free Survival   1.9293290 MONTH  TRUE
+#&gt; 165   id-83 STUDY A      OS          Overall Survival 198.6214386 MONTH  TRUE
+#&gt; 166   id-83 STUDY A     PFS Progression Free Survival  70.3204166 MONTH FALSE
+#&gt; 167   id-84 STUDY A      OS          Overall Survival   3.1978593 MONTH  TRUE
+#&gt; 168   id-84 STUDY A     PFS Progression Free Survival   4.6469277 MONTH  TRUE
+#&gt; 169   id-85 STUDY A      OS          Overall Survival  52.3291738 MONTH FALSE
+#&gt; 170   id-85 STUDY A     PFS Progression Free Survival  42.3934286 MONTH FALSE
+#&gt; 171   id-86 STUDY A      OS          Overall Survival 100.6986216 MONTH  TRUE
+#&gt; 172   id-86 STUDY A     PFS Progression Free Survival   0.2270679 MONTH FALSE
+#&gt; 173   id-87 STUDY A      OS          Overall Survival 136.8554346 MONTH  TRUE
+#&gt; 174   id-87 STUDY A     PFS Progression Free Survival  11.5255509 MONTH FALSE
+#&gt; 175   id-88 STUDY A      OS          Overall Survival 107.9669056 MONTH  TRUE
+#&gt; 176   id-88 STUDY A     PFS Progression Free Survival 119.9175329 MONTH  TRUE
+#&gt; 177   id-89 STUDY A      OS          Overall Survival 144.7628079 MONTH  TRUE
+#&gt; 178   id-89 STUDY A     PFS Progression Free Survival 124.5278814 MONTH FALSE
+#&gt; 179    id-9 STUDY A      OS          Overall Survival 203.1367425 MONTH  TRUE
+#&gt; 180    id-9 STUDY A     PFS Progression Free Survival 113.4347426 MONTH FALSE
+#&gt; 181   id-90 STUDY A      OS          Overall Survival   2.6256178 MONTH FALSE
+#&gt; 182   id-90 STUDY A     PFS Progression Free Survival   4.1669560 MONTH FALSE
+#&gt; 183   id-91 STUDY A      OS          Overall Survival 356.9222351 MONTH  TRUE
+#&gt; 184   id-91 STUDY A     PFS Progression Free Survival  41.6056111 MONTH FALSE
+#&gt; 185   id-92 STUDY A      OS          Overall Survival  17.1816652 MONTH FALSE
+#&gt; 186   id-92 STUDY A     PFS Progression Free Survival 123.0462265 MONTH FALSE
+#&gt; 187   id-93 STUDY A      OS          Overall Survival   4.3357165 MONTH FALSE
+#&gt; 188   id-93 STUDY A     PFS Progression Free Survival   3.0550001 MONTH FALSE
+#&gt; 189   id-94 STUDY A      OS          Overall Survival  59.5511830 MONTH  TRUE
+#&gt; 190   id-94 STUDY A     PFS Progression Free Survival  69.5629567 MONTH  TRUE
+#&gt; 191   id-95 STUDY A      OS          Overall Survival  13.3852487 MONTH  TRUE
+#&gt; 192   id-95 STUDY A     PFS Progression Free Survival  19.2242024 MONTH FALSE
+#&gt; 193   id-96 STUDY A      OS          Overall Survival 105.4069068 MONTH  TRUE
+#&gt; 194   id-96 STUDY A     PFS Progression Free Survival  20.5114940 MONTH FALSE
+#&gt; 195   id-97 STUDY A      OS          Overall Survival 151.5594146 MONTH FALSE
+#&gt; 196   id-97 STUDY A     PFS Progression Free Survival 128.4099182 MONTH  TRUE
+#&gt; 197   id-98 STUDY A      OS          Overall Survival  72.1980279 MONTH FALSE
+#&gt; 198   id-98 STUDY A     PFS Progression Free Survival  54.0707919 MONTH  TRUE
+#&gt; 199   id-99 STUDY A      OS          Overall Survival 183.3779206 MONTH FALSE
+#&gt; 200   id-99 STUDY A     PFS Progression Free Survival 465.5357134 MONTH  TRUE
+#&gt;                                                     EVNTDESC
+#&gt; 1                                                      Alive
+#&gt; 2                                        Disease Progression
+#&gt; 3                                              Randomization
+#&gt; 4   Disease Progression or Death Censored for Missing Visits
+#&gt; 5                                                      Alive
+#&gt; 6                                      Last tumor assessment
+#&gt; 7                                        Disease Progression
+#&gt; 8                                        Disease Progression
+#&gt; 9                                        Disease Progression
+#&gt; 10                                             Randomization
+#&gt; 11                                     Last tumor assessment
+#&gt; 12  Disease Progression or Death Censored for Missing Visits
+#&gt; 13                                                     Death
+#&gt; 14                                                     Death
+#&gt; 15  Disease Progression or Death Censored for Missing Visits
+#&gt; 16                                     Last tumor assessment
+#&gt; 17  Disease Progression or Death Censored for Missing Visits
+#&gt; 18                                       Disease Progression
+#&gt; 19                                     Last tumor assessment
+#&gt; 20                                             Randomization
+#&gt; 21                                     Last tumor assessment
+#&gt; 22                                            First Response
+#&gt; 23                                                     Alive
+#&gt; 24                                                     Death
+#&gt; 25                                       Disease Progression
+#&gt; 26                                             Randomization
+#&gt; 27                                            First Response
+#&gt; 28                                       Disease Progression
+#&gt; 29                                       Disease Progression
+#&gt; 30                                            First Response
+#&gt; 31                                             Randomization
+#&gt; 32                                     Last tumor assessment
+#&gt; 33                                            First Response
+#&gt; 34                                     Last tumor assessment
+#&gt; 35                                                     Death
+#&gt; 36                                             Randomization
+#&gt; 37                                            First Response
+#&gt; 38  Disease Progression or Death Censored for Missing Visits
+#&gt; 39                                       Disease Progression
+#&gt; 40                                             Randomization
+#&gt; 41                                            First Response
+#&gt; 42  Disease Progression or Death Censored for Missing Visits
+#&gt; 43                                                     Death
+#&gt; 44                                     Last tumor assessment
+#&gt; 45                                            First Response
+#&gt; 46                                                     Death
+#&gt; 47  Disease Progression or Death Censored for Missing Visits
+#&gt; 48                                       Disease Progression
+#&gt; 49                                            First Response
+#&gt; 50                                                     Death
+#&gt; 51                                       Disease Progression
+#&gt; 52                                            First Response
+#&gt; 53                                             Randomization
+#&gt; 54                                     Last tumor assessment
+#&gt; 55                                             Randomization
+#&gt; 56                                                     Alive
+#&gt; 57                                             Randomization
+#&gt; 58                                            First Response
+#&gt; 59                                                     Death
+#&gt; 60                                     Last tumor assessment
+#&gt; 61                                                     Death
+#&gt; 62                                       Disease Progression
+#&gt; 63                                             Randomization
+#&gt; 64                                       Disease Progression
+#&gt; 65                                            First Response
+#&gt; 66                                     Last tumor assessment
+#&gt; 67                                       Disease Progression
+#&gt; 68                                       Disease Progression
+#&gt; 69                                                     Death
+#&gt; 70                                                     Death
+#&gt; 71                                     Last tumor assessment
+#&gt; 72                                                     Death
+#&gt; 73                                                     Death
+#&gt; 74                                            First Response
+#&gt; 75                                     Last tumor assessment
+#&gt; 76  Disease Progression or Death Censored for Missing Visits
+#&gt; 77                                                     Alive
+#&gt; 78  Disease Progression or Death Censored for Missing Visits
+#&gt; 79                                       Disease Progression
+#&gt; 80                                             Randomization
+#&gt; 81                                            First Response
+#&gt; 82                                                     Death
+#&gt; 83                                            First Response
+#&gt; 84  Disease Progression or Death Censored for Missing Visits
+#&gt; 85                                       Disease Progression
+#&gt; 86                                       Disease Progression
+#&gt; 87                                            First Response
+#&gt; 88  Disease Progression or Death Censored for Missing Visits
+#&gt; 89                                             Randomization
+#&gt; 90                                             Randomization
+#&gt; 91  Disease Progression or Death Censored for Missing Visits
+#&gt; 92                                     Last tumor assessment
+#&gt; 93                                                     Alive
+#&gt; 94                                                     Death
+#&gt; 95                                                     Death
+#&gt; 96                                             Randomization
+#&gt; 97                                             Randomization
+#&gt; 98                                            First Response
+#&gt; 99                                                     Death
+#&gt; 100 Disease Progression or Death Censored for Missing Visits
+#&gt; 101                                                    Alive
+#&gt; 102                                    Last tumor assessment
+#&gt; 103                                                    Alive
+#&gt; 104                                    Last tumor assessment
+#&gt; 105                                            Randomization
+#&gt; 106                                    Last tumor assessment
+#&gt; 107                                            Randomization
+#&gt; 108                                                    Death
+#&gt; 109                                    Last tumor assessment
+#&gt; 110                                                    Death
+#&gt; 111 Disease Progression or Death Censored for Missing Visits
+#&gt; 112                                           First Response
+#&gt; 113 Disease Progression or Death Censored for Missing Visits
+#&gt; 114                                                    Death
+#&gt; 115                                           First Response
+#&gt; 116                                                    Death
+#&gt; 117 Disease Progression or Death Censored for Missing Visits
+#&gt; 118                                           First Response
+#&gt; 119                                      Disease Progression
+#&gt; 120                                      Disease Progression
+#&gt; 121                                      Disease Progression
+#&gt; 122                                      Disease Progression
+#&gt; 123                                           First Response
+#&gt; 124                                    Last tumor assessment
+#&gt; 125                                      Disease Progression
+#&gt; 126                                      Disease Progression
+#&gt; 127                                           First Response
+#&gt; 128                                      Disease Progression
+#&gt; 129                                      Disease Progression
+#&gt; 130                                      Disease Progression
+#&gt; 131                                                    Death
+#&gt; 132                                                    Alive
+#&gt; 133 Disease Progression or Death Censored for Missing Visits
+#&gt; 134                                                    Death
+#&gt; 135                                           First Response
+#&gt; 136                                                    Alive
+#&gt; 137                                           First Response
+#&gt; 138                                                    Alive
+#&gt; 139                                                    Alive
+#&gt; 140 Disease Progression or Death Censored for Missing Visits
+#&gt; 141                                           First Response
+#&gt; 142                                            Randomization
+#&gt; 143                                           First Response
+#&gt; 144                                           First Response
+#&gt; 145                                                    Alive
+#&gt; 146                                            Randomization
+#&gt; 147                                      Disease Progression
+#&gt; 148 Disease Progression or Death Censored for Missing Visits
+#&gt; 149                                                    Death
+#&gt; 150                                                    Death
+#&gt; 151                                           First Response
+#&gt; 152 Disease Progression or Death Censored for Missing Visits
+#&gt; 153                                           First Response
+#&gt; 154 Disease Progression or Death Censored for Missing Visits
+#&gt; 155                                      Disease Progression
+#&gt; 156                                                    Alive
+#&gt; 157                                      Disease Progression
+#&gt; 158                                            Randomization
+#&gt; 159 Disease Progression or Death Censored for Missing Visits
+#&gt; 160                                    Last tumor assessment
+#&gt; 161                                    Last tumor assessment
+#&gt; 162                                                    Alive
+#&gt; 163 Disease Progression or Death Censored for Missing Visits
+#&gt; 164                                            Randomization
+#&gt; 165                                                    Alive
+#&gt; 166                                      Disease Progression
+#&gt; 167                                            Randomization
+#&gt; 168 Disease Progression or Death Censored for Missing Visits
+#&gt; 169                                           First Response
+#&gt; 170                                      Disease Progression
+#&gt; 171                                    Last tumor assessment
+#&gt; 172                                      Disease Progression
+#&gt; 173                                                    Alive
+#&gt; 174                                                    Death
+#&gt; 175 Disease Progression or Death Censored for Missing Visits
+#&gt; 176                                                    Alive
+#&gt; 177 Disease Progression or Death Censored for Missing Visits
+#&gt; 178                                                    Death
+#&gt; 179                                            Randomization
+#&gt; 180                                                    Death
+#&gt; 181                                           First Response
+#&gt; 182                                      Disease Progression
+#&gt; 183                                                    Alive
+#&gt; 184                                           First Response
+#&gt; 185                                           First Response
+#&gt; 186                                           First Response
+#&gt; 187                                                    Death
+#&gt; 188                                      Disease Progression
+#&gt; 189                                                    Alive
+#&gt; 190                                                    Alive
+#&gt; 191                                    Last tumor assessment
+#&gt; 192                                                    Death
+#&gt; 193                                            Randomization
+#&gt; 194                                           First Response
+#&gt; 195                                                    Death
+#&gt; 196                                    Last tumor assessment
+#&gt; 197                                           First Response
+#&gt; 198                                                    Alive
+#&gt; 199                                           First Response
+#&gt; 200                                            Randomization</div><div class='input'><span class='fu'>radam</span>(<span class='st'>"ARS"</span>)</div><div class='output co'>#&gt;     USUBJID STUDYID PARAMCD         PARAM AVALC AVAL
+#&gt; 1      id-1 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 2      id-1 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 3      id-1 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 4     id-10 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 5     id-10 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 6     id-10 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 7    id-100 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 8    id-100 STUDY A  OVRINV  label OVRINV    PR    2
+#&gt; 9    id-100 STUDY A  OVRSPI        OVRSPI    CR    1
+#&gt; 10    id-11 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 11    id-11 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 12    id-11 STUDY A  OVRSPI        OVRSPI    CR    1
+#&gt; 13    id-12 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 14    id-12 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 15    id-12 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 16    id-13 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 17    id-13 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 18    id-13 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 19    id-14 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 20    id-14 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 21    id-14 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 22    id-15 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 23    id-15 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 24    id-15 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 25    id-16 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 26    id-16 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 27    id-16 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 28    id-17 STUDY A BESRSPI label BESRSPI    PD    5
+#&gt; 29    id-17 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 30    id-17 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 31    id-18 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 32    id-18 STUDY A  OVRINV  label OVRINV    PR    2
+#&gt; 33    id-18 STUDY A  OVRSPI        OVRSPI    CR    1
+#&gt; 34    id-19 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 35    id-19 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 36    id-19 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 37     id-2 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 38     id-2 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 39     id-2 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 40    id-20 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 41    id-20 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 42    id-20 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 43    id-21 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 44    id-21 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 45    id-21 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 46    id-22 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 47    id-22 STUDY A  OVRINV  label OVRINV    PR    2
+#&gt; 48    id-22 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 49    id-23 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 50    id-23 STUDY A  OVRINV  label OVRINV    PR    2
+#&gt; 51    id-23 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 52    id-24 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 53    id-24 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 54    id-24 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 55    id-25 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 56    id-25 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 57    id-25 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 58    id-26 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 59    id-26 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 60    id-26 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 61    id-27 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 62    id-27 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 63    id-27 STUDY A  OVRSPI        OVRSPI    CR    1
+#&gt; 64    id-28 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 65    id-28 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 66    id-28 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 67    id-29 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 68    id-29 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 69    id-29 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 70     id-3 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 71     id-3 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 72     id-3 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 73    id-30 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 74    id-30 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 75    id-30 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 76    id-31 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 77    id-31 STUDY A  OVRINV  label OVRINV    PR    2
+#&gt; 78    id-31 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 79    id-32 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 80    id-32 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 81    id-32 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 82    id-33 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 83    id-33 STUDY A  OVRINV  label OVRINV    PR    2
+#&gt; 84    id-33 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 85    id-34 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 86    id-34 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 87    id-34 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 88    id-35 STUDY A BESRSPI label BESRSPI    PD    5
+#&gt; 89    id-35 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 90    id-35 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 91    id-36 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 92    id-36 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 93    id-36 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 94    id-37 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 95    id-37 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 96    id-37 STUDY A  OVRSPI        OVRSPI    CR    1
+#&gt; 97    id-38 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 98    id-38 STUDY A  OVRINV  label OVRINV    PR    2
+#&gt; 99    id-38 STUDY A  OVRSPI        OVRSPI    CR    1
+#&gt; 100   id-39 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 101   id-39 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 102   id-39 STUDY A  OVRSPI        OVRSPI    CR    1
+#&gt; 103    id-4 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 104    id-4 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 105    id-4 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 106   id-40 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 107   id-40 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 108   id-40 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 109   id-41 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 110   id-41 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 111   id-41 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 112   id-42 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 113   id-42 STUDY A  OVRINV  label OVRINV    PR    2
+#&gt; 114   id-42 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 115   id-43 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 116   id-43 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 117   id-43 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 118   id-44 STUDY A BESRSPI label BESRSPI    PD    5
+#&gt; 119   id-44 STUDY A  OVRINV  label OVRINV    PR    2
+#&gt; 120   id-44 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 121   id-45 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 122   id-45 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 123   id-45 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 124   id-46 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 125   id-46 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 126   id-46 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 127   id-47 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 128   id-47 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 129   id-47 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 130   id-48 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 131   id-48 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 132   id-48 STUDY A  OVRSPI        OVRSPI    CR    1
+#&gt; 133   id-49 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 134   id-49 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 135   id-49 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 136    id-5 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 137    id-5 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 138    id-5 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 139   id-50 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 140   id-50 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 141   id-50 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 142   id-51 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 143   id-51 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 144   id-51 STUDY A  OVRSPI        OVRSPI    CR    1
+#&gt; 145   id-52 STUDY A BESRSPI label BESRSPI    PD    5
+#&gt; 146   id-52 STUDY A  OVRINV  label OVRINV    PR    2
+#&gt; 147   id-52 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 148   id-53 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 149   id-53 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 150   id-53 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 151   id-54 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 152   id-54 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 153   id-54 STUDY A  OVRSPI        OVRSPI    CR    1
+#&gt; 154   id-55 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 155   id-55 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 156   id-55 STUDY A  OVRSPI        OVRSPI    CR    1
+#&gt; 157   id-56 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 158   id-56 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 159   id-56 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 160   id-57 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 161   id-57 STUDY A  OVRINV  label OVRINV    PR    2
+#&gt; 162   id-57 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 163   id-58 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 164   id-58 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 165   id-58 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 166   id-59 STUDY A BESRSPI label BESRSPI    PD    5
+#&gt; 167   id-59 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 168   id-59 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 169    id-6 STUDY A BESRSPI label BESRSPI    PD    5
+#&gt; 170    id-6 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 171    id-6 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 172   id-60 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 173   id-60 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 174   id-60 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 175   id-61 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 176   id-61 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 177   id-61 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 178   id-62 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 179   id-62 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 180   id-62 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 181   id-63 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 182   id-63 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 183   id-63 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 184   id-64 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 185   id-64 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 186   id-64 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 187   id-65 STUDY A BESRSPI label BESRSPI    PD    5
+#&gt; 188   id-65 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 189   id-65 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 190   id-66 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 191   id-66 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 192   id-66 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 193   id-67 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 194   id-67 STUDY A  OVRINV  label OVRINV    PR    2
+#&gt; 195   id-67 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 196   id-68 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 197   id-68 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 198   id-68 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 199   id-69 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 200   id-69 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 201   id-69 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 202    id-7 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 203    id-7 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 204    id-7 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 205   id-70 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 206   id-70 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 207   id-70 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 208   id-71 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 209   id-71 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 210   id-71 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 211   id-72 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 212   id-72 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 213   id-72 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 214   id-73 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 215   id-73 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 216   id-73 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 217   id-74 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 218   id-74 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 219   id-74 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 220   id-75 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 221   id-75 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 222   id-75 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 223   id-76 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 224   id-76 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 225   id-76 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 226   id-77 STUDY A BESRSPI label BESRSPI    PD    5
+#&gt; 227   id-77 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 228   id-77 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 229   id-78 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 230   id-78 STUDY A  OVRINV  label OVRINV    PR    2
+#&gt; 231   id-78 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 232   id-79 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 233   id-79 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 234   id-79 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 235    id-8 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 236    id-8 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 237    id-8 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 238   id-80 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 239   id-80 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 240   id-80 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 241   id-81 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 242   id-81 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 243   id-81 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 244   id-82 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 245   id-82 STUDY A  OVRINV  label OVRINV    PR    2
+#&gt; 246   id-82 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 247   id-83 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 248   id-83 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 249   id-83 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 250   id-84 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 251   id-84 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 252   id-84 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 253   id-85 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 254   id-85 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 255   id-85 STUDY A  OVRSPI        OVRSPI    CR    1
+#&gt; 256   id-86 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 257   id-86 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 258   id-86 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 259   id-87 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 260   id-87 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 261   id-87 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 262   id-88 STUDY A BESRSPI label BESRSPI    PD    5
+#&gt; 263   id-88 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 264   id-88 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 265   id-89 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 266   id-89 STUDY A  OVRINV  label OVRINV    PR    2
+#&gt; 267   id-89 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 268    id-9 STUDY A BESRSPI label BESRSPI    PD    5
+#&gt; 269    id-9 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 270    id-9 STUDY A  OVRSPI        OVRSPI    CR    1
+#&gt; 271   id-90 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 272   id-90 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 273   id-90 STUDY A  OVRSPI        OVRSPI    PR    2
+#&gt; 274   id-91 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 275   id-91 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 276   id-91 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 277   id-92 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 278   id-92 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 279   id-92 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 280   id-93 STUDY A BESRSPI label BESRSPI    SD    3
+#&gt; 281   id-93 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 282   id-93 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 283   id-94 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 284   id-94 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 285   id-94 STUDY A  OVRSPI        OVRSPI    CR    1
+#&gt; 286   id-95 STUDY A BESRSPI label BESRSPI    CR    1
+#&gt; 287   id-95 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 288   id-95 STUDY A  OVRSPI        OVRSPI    PD    5
+#&gt; 289   id-96 STUDY A BESRSPI label BESRSPI    PD    5
+#&gt; 290   id-96 STUDY A  OVRINV  label OVRINV    PD    5
+#&gt; 291   id-96 STUDY A  OVRSPI        OVRSPI    NE    6
+#&gt; 292   id-97 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 293   id-97 STUDY A  OVRINV  label OVRINV    NE    6
+#&gt; 294   id-97 STUDY A  OVRSPI        OVRSPI    CR    1
+#&gt; 295   id-98 STUDY A BESRSPI label BESRSPI    PR    2
+#&gt; 296   id-98 STUDY A  OVRINV  label OVRINV    SD    3
+#&gt; 297   id-98 STUDY A  OVRSPI        OVRSPI    SD    3
+#&gt; 298   id-99 STUDY A BESRSPI label BESRSPI    NE    6
+#&gt; 299   id-99 STUDY A  OVRINV  label OVRINV    CR    1
+#&gt; 300   id-99 STUDY A  OVRSPI        OVRSPI    CR    1</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

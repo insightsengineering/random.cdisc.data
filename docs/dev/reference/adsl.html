@@ -130,13 +130,34 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>ASL</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='radam.html'>radam</a></span>(<span class='st'>"ASL"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in radam("ASL"): nie udało się znaleźć funkcji 'radam'</span></div><div class='input'><span class='fu'>head</span>(<span class='no'>ASL</span>)</div><div class='output co'>#&gt; <span class='error'>Error in head(ASL): nie znaleziono obiektu 'ASL'</span></div><div class='input'>
+<span class='no'>ASL</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='radam.html'>radam</a></span>(<span class='st'>"ASL"</span>)
+<span class='fu'>head</span>(<span class='no'>ASL</span>)</div><div class='output co'>#&gt;   USUBJID STUDYID BAGE SEX   ARM                             RACE ARMCD
+#&gt; 1    id-1 STUDY A   21   F ARM A                            WHITE ARM A
+#&gt; 2   id-10 STUDY A   40   M ARM B AMERICAN INDIAN OR ALASKA NATIVE ARM B
+#&gt; 3  id-100 STUDY A   51   F ARM A                            WHITE ARM A
+#&gt; 4   id-11 STUDY A   23   F ARM B                            WHITE ARM B
+#&gt; 5   id-12 STUDY A   24   F ARM B                            WHITE ARM B
+#&gt; 6   id-13 STUDY A   46   F ARM A                            WHITE ARM A</div><div class='input'>
 <span class='no'>ASL</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='radam.html'>radam</a></span>(<span class='st'>"ASL"</span>,
    <span class='kw'>start_with</span> <span class='kw'>=</span> <span class='fu'>list</span>(
       <span class='kw'>BECOG</span> <span class='kw'>=</span> <span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='fl'>5</span>],
       <span class='kw'>BAGED</span> <span class='kw'>=</span> <span class='fu'>sample</span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'>nrow</span>(<span class='no'>ASL</span>), <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>5</span>], <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
    )
-)</div><div class='output co'>#&gt; <span class='error'>Error in radam("ASL", start_with = list(BECOG = LETTERS[1:5], BAGED = sample(size = nrow(ASL),     letters[1:5], replace = TRUE))): nie udało się znaleźć funkcji 'radam'</span></div><div class='input'><span class='fu'>head</span>(<span class='no'>ASL</span>)</div><div class='output co'>#&gt; <span class='error'>Error in head(ASL): nie znaleziono obiektu 'ASL'</span></div><div class='input'>
+)
+<span class='fu'>head</span>(<span class='no'>ASL</span>)</div><div class='output co'>#&gt;   USUBJID STUDYID BAGE SEX   ARM                                      RACE
+#&gt; 1    id-1 STUDY A   74   F ARM B NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER
+#&gt; 2   id-10 STUDY A   46   M ARM B          AMERICAN INDIAN OR ALASKA NATIVE
+#&gt; 3  id-100 STUDY A   32   F ARM A                 BLACK OR AFRICAN AMERICAN
+#&gt; 4   id-11 STUDY A   33   F ARM A          AMERICAN INDIAN OR ALASKA NATIVE
+#&gt; 5   id-12 STUDY A   76   F ARM A          AMERICAN INDIAN OR ALASKA NATIVE
+#&gt; 6   id-13 STUDY A   42   M ARM A                                     WHITE
+#&gt;   ARMCD BECOG BAGED
+#&gt; 1 ARM B     B     d
+#&gt; 2 ARM B     C     a
+#&gt; 3 ARM A     D     c
+#&gt; 4 ARM A     E     b
+#&gt; 5 ARM A     A     a
+#&gt; 6 ARM A     A     c</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

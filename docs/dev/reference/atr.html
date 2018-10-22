@@ -120,7 +120,20 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='radam.html'>radam</a></span>(<span class='st'>"ATR"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in radam("ATR"): nie udało się znaleźć funkcji 'radam'</span></div><div class='input'><span class='fu'>min</span>(<span class='fu'>rlnorm</span>(<span class='fl'>100</span>, <span class='fl'>1.2</span>))</div><div class='output co'>#&gt; [1] 0.243574</div><div class='input'>
+<span class='fu'><a href='radam.html'>radam</a></span>(<span class='st'>"ATR"</span>)</div><div class='output co'>#&gt; # A tibble: 800 x 9
+#&gt;    USUBJID STUDYID PARAMCD  PARAM                AVAL AVALU  BASE    PCHG  TUDY
+#&gt;    &lt;fct&gt;   &lt;fct&gt;   &lt;chr&gt;    &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+#&gt;  1 id-1    STUDY A LDIAM    Longest Diameter     6.61 mm     6.61  0          0
+#&gt;  2 id-1    STUDY A LDIAM    Longest Diameter     5.97 mm     6.61 -0.0971    10
+#&gt;  3 id-1    STUDY A LDIAM    Longest Diameter     2.01 mm     6.61 -0.695     19
+#&gt;  4 id-1    STUDY A LDIAM    Longest Diameter     4.63 mm     6.61 -0.299     37
+#&gt;  5 id-1    STUDY A SUMTGLES Sum of Target Lesi~  7.48 mm     7.48  0          0
+#&gt;  6 id-1    STUDY A SUMTGLES Sum of Target Lesi~ 24.2  mm     7.48  2.23      10
+#&gt;  7 id-1    STUDY A SUMTGLES Sum of Target Lesi~  6.04 mm     7.48 -0.193     19
+#&gt;  8 id-1    STUDY A SUMTGLES Sum of Target Lesi~  5.82 mm     7.48 -0.223     37
+#&gt;  9 id-10   STUDY A LDIAM    Longest Diameter     2.50 mm     2.50  0          0
+#&gt; 10 id-10   STUDY A LDIAM    Longest Diameter     3.36 mm     2.50  0.344     10
+#&gt; # ... with 790 more rows</div><div class='input'><span class='fu'>min</span>(<span class='fu'>rlnorm</span>(<span class='fl'>100</span>, <span class='fl'>1.2</span>))</div><div class='output co'>#&gt; [1] 0.2057274</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
