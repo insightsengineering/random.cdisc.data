@@ -1,0 +1,27 @@
+url: https://pages.github.roche.com/Rpackages/random.cdisc.data
+
+template:
+  params:
+    bootswatch: cerulean
+
+navbar:
+  right:
+    - icon: fa-github
+      href: https://github.roche.com/Rpackages/random.cdisc.data
+
+development:
+  mode: devel
+
+reference:
+  - title: Generating random datasets
+    desc:
+    contents:
+     - radsl
+     - radrs
+     - radae
+     - radlb
+     - radte
+     - radqs
+
+
+
