@@ -12,14 +12,24 @@ lookup_ae = tribble(
 )
 
 
-#' Adverse Events Analysis Dataset
+#' Generate a random Adverse Events Analysis Dataset
 #'
-#' @param ADSL adsl start data set
+#' Function for generating random Adverse Events Analysis Dataset for a given
+#' Subject-Level Analysis Dataset
+#'
+#' @param ADSL adsl (Subject-Level Analysis Dataset) start data set
 #' @param max_n_aes is the maximum number of adverse events per patient
 #' @param seed for random number generation
 #'
 #'
 #' @export
+#' @return a data frame containing random generated adverse events for
+#' [,1] Subject-Level Analysis Dataset. The dataset consists of following variables:
+#' [,2] USUBJID (Unique Subject Identifier), \cr
+#' [,3] STUDYID (Study Identifier), \cr
+#' [,4] AEBODSYS (Body System or Organ Class), \cr
+#' [,5] AEDECOD (Dictionary Derived Term), \cr
+#' [,6] AETOXGR (Standard Toxicity Grade)\cr
 #'
 #' @examples
 #'

@@ -20,15 +20,38 @@ evntdescr_sel <- c(
 )
 
 
-#' random ATE
+#' Generate a random Trial Elements domain dataset (ATE)
+#'
+#' Function for generating random Dataset from Trial Elements domain for a given
+#' Subject-Level Analysis Dataset
+#'
+#' @param ADSL adsl (Subject-Level Analysis Dataset) start data set
+#' @param seed for random number generation
 #'
 #' @export
-radte <- function(ASL, seed = NULL) {
+#' @return a data frame containing generated random Trial Elements Dataset for
+#' Subject-Level Analysis Dataset. The dataset consists of following variables:\cr
+#' [,1] STUDYID (Study Identifier),\cr
+#' [,2] USUBJID (Unique Subject Identifier),\cr
+#' [,3] SITEID (Study Site Identifier),\cr
+#' [,4] PARAM (Parameter Description),\cr
+#' [,5] PARAMCD (Parameter Code), \cr
+#' [,6] AVAL (Analysis Value),\cr
+#' [,7] AVALU (Analysis Value Unit), \cr
+#' [,8] EVNTDESC (Event Description),\cr
+#' [,9] CNSR (Censoring Status Value (1=cens, 0=evt)).
+#'
+#' @examples
+#' ADSL <- radsl()
+#' ADTE <- radte(ADSL)
+#' head(ADTE)
+#'
+radte <- function(ADSL, seed = NULL) {
 
   if (!is.null(seed)) set.seed(seed)
 
-  # pinfo <- split(ASL, ASL$USUBJID)[[1]]
-  split(ASL, ASL$USUBJID) %>% lapply(FUN = function(pinfo) {
+  # pinfo <- split(ADSL, ADSL$USUBJID)[[1]]
+  split(ADSL, ADSL$USUBJID) %>% lapply(FUN = function(pinfo) {
 
     lookup_ATE %>% filter(ARM == as.character(pinfo$ACTARM)) %>%
       rowwise() %>%
