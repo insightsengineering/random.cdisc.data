@@ -1,24 +1,13 @@
 
-as_length_N <- function(N, var_list) {
 
-  lapply(var_list, function(var) {
-    if (length(var) != N) sample(var, size = N, replace = TRUE) else var
-  })
-
-}
-
-
-add_replace_variables <- function(df, var_list) {
-
-  if (!is.list(var_list)) stop("var_list is not a list")
-
-  var_listN <- as_length_N(nrow(df), var_list)
-
-
-  for (i in seq_along(var_listN)) {
-    df[[names(var_listN)[i]]] <- var_listN[[i]]
+# available in tern
+var_relabel <- function(x, ...) {
+  dots <- list(...)
+  varnames <- names(dots)
+  if (is.null(varnames)) stop("missing variable declarations")
+  map_varnames <- match(varnames, names(x))
+  for (i in seq_along(map_varnames)) {
+    attr(x[[map_varnames[[i]]]], "label") <-  dots[[i]]
   }
-
-  df
-
+  x
 }
