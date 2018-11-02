@@ -5,7 +5,7 @@
 #' Function for generating random dataset from laboratory Test Findings domain for a given
 #' Subject-Level Analysis Dataset
 #'
-#' @param ADSL adsl (Subject-Level Analysis Dataset) start data set
+#' @template param_ADSL
 #' @param seed for random number generation
 #'
 #' @export

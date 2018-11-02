@@ -11,7 +11,7 @@ PARAM_var <- c("BFI All Questions", "Fatigue Interference", "Function/Well-Being
 #' @param ADSL adsl (Subject-Level Analysis Dataset) start data set
 #' @param seed for random number generation
 #'
-#' @returna data frame containing generated random Questionaires dataset for
+#' @return data frame containing generated random Questionaires dataset for
 #' Subject-Level Analysis Dataset. The dataset consists of following variables:\cr
 #' [,1] USUBJID (Unique Subject Identifier),\cr
 #' [,2] STUDYID (Study Identifier),\cr

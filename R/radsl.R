@@ -1,35 +1,18 @@
-#' Generate a random Subject-Level Analysis Dataset (ADSL)
+#' Subject-Level Analysis Dataset (ADSL)
 #'
-#' Function for generating random Subject-Level Analysis Dataset
-#'
-#' @details The Subject-Level Analysis Data set (ADSL) is used to provide
-#'  the variables that describe attributes of a subject. ADSL is a source
-#'  for subject-level variables used in other analysis data sets, such as
-#'  population flags and treatment variables. There is only one ADSL per
-#'  study. ADSL and its related metadata are required in a CDISC-based
-#'  submission of data from a clinical trial even if no other analysis data
-#'  sets are submitted.
+#' The Subject-Level Analysis Data set (ADSL) is used to provide the variables
+#' that describe attributes of a subject. ADSL is a source for subject-level
+#' variables used in other analysis data sets, such as population flags and
+#' treatment variables. There is only one ADSL per study. ADSL and its related
+#' metadata are required in a CDISC-based submission of data from a clinical
+#' trial even if no other analysis data sets are submitted.
 #'
 #' @param N number of patients
 #' @param seed seed for random number generation
 #'
 #' @export
-#' @return a data frame containing following attributes is returned:
-#'  [,1] SUBJID (Subject Identification Number), \cr
-#'  [,2] STUDYID (Study Identification Number), \cr
-#'  [,3] SITEID (Site Identification Number),\cr
-#'  [,4] USUBJID (Unique Subject Identifier),\cr
-#'  [,5] AGE,\cr
-#'  [,6] SEX, \cr
-#'  [,7] ARMCD (Planned Arme Code),\cr
-#'  [,8] COUNTRY, \cr
-#'  [,9] RACE, \cr
-#'  [,10] STRATA1 (Stratification Factor 1), \cr
-#'  [,11] STRATA2 (Stratification Factor 2),\cr
-#'  [,12] BMRKR1 (Cont. Biomarker 1),\cr
-#'  [,13] BMRKR2 (Cat. Biomarker 2), \cr
-#'  [,14] ARM (Description of Planned Arm),\cr
-#'  [,15] ACTARM (Description of Actual Arm).\cr
+#'
+#' @template return_data.frame
 #'
 #' @examples
 #'

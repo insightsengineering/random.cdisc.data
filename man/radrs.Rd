@@ -2,33 +2,36 @@
 % Please edit documentation in R/radrs.R
 \name{radrs}
 \alias{radrs}
-\title{Generate a random Response Analysis Dataset}
+\title{Tumor Response Analysis Data Set (ADRS)}
 \usage{
 radrs(ADSL, seed = NULL)
 }
 \arguments{
 \item{ADSL}{adsl (Subject-Level Analysis Dataset) start data set}
 
-\item{seed}{for random number generation}
+\item{seed}{seed for random number generation}
 }
 \value{
 a data frame containing generated Response Analysis Dataset for
-Subject-Level Analysis Dataset. The dataset consists of following variables:
-[,1] STUDYID (Study Identifier), \cr
-[,2] SITEID (Site Identifier), \cr
-[,3] USUBJID (Unique Subject Identifier), \cr
-[,4] PARAMCD (Parameter Code),\cr
-[,5] PARAM (Parameter Description),\cr
-[,6] AVALC (Analysis Value Category),\cr
-[,7] AVAL (Analysis Value), \cr
-[,8] AVISIT (Analysis Visit Window).
+  Subject-Level Analysis Dataset. The dataset consists of following variables:
+  [,1] STUDYID (Study Identifier), \cr [,2] SITEID (Site Identifier), \cr [,3]
+  USUBJID (Unique Subject Identifier), \cr [,4] PARAMCD (Parameter Code),\cr
+  [,5] PARAM (Parameter Description),\cr [,6] AVALC (Analysis Value
+  Category),\cr [,7] AVAL (Analysis Value), \cr [,8] AVISIT (Analysis Visit
+  Window).
 }
 \description{
-Function for generating random Response Analysis Dataset for a given
-Subject-Level Analysis Dataset
+Tumor Response Analysis Data Set
+}
+\details{
+One record per subject per parameter per analysis visit per analysis date.
+SDTM variables are populated on new records coming from other single records.
+Otherwise, SDTM variables are left blank.
+
+Keys: STUDYID USUBJID PARAMCD AVISITN ADT RSSEQ
 }
 \examples{
-ADSL <- radsl()
-ADRS <- radrs(ADSL)
-head(ADRS)
+ ADSL <- radsl()
+ ADRS <- radrs(ADSL)
+ head(ADRS)
 }
