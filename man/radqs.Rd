@@ -2,7 +2,7 @@
 % Please edit documentation in R/radqs.R
 \name{radqs}
 \alias{radqs}
-\title{Questionaires dataset}
+\title{Generate a random Questionaires Dataset}
 \usage{
 radqs(ADSL, seed = NULL)
 }

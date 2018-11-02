@@ -2,7 +2,7 @@
 % Please edit documentation in R/radrs.R
 \name{radrs}
 \alias{radrs}
-\title{Random Response Analysis Dataset}
+\title{Generate a random Response Analysis Dataset}
 \usage{
 radrs(ADSL, seed = NULL)
 }

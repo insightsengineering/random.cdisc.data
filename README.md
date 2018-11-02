@@ -32,7 +32,7 @@ devtools::install_github(
 
 * Create `radqs` (see `aqs` in `R/deprecated.R`) - done
 
-* Create a web documentation with `pkgdown::build_site()`
+* Create a web documentation with `pkgdown::build_site()` - done
 
 * Make the lookup tables and other scoped data objects arguments of the functions
 

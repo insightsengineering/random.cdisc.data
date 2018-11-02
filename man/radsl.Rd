@@ -2,7 +2,7 @@
 % Please edit documentation in R/radsl.R
 \name{radsl}
 \alias{radsl}
-\title{Generate a random ADSL dataset}
+\title{Generate a random Subject-Level Analysis Dataset (ADSL)}
 \usage{
 radsl(N = 400, seed = NULL)
 }

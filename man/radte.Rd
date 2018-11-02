@@ -2,7 +2,7 @@
 % Please edit documentation in R/radte.R
 \name{radte}
 \alias{radte}
-\title{random ATE  - Trial Elements domain}
+\title{Generate a random Trial Elements domain dataset (ATE)}
 \usage{
 radte(ADSL, seed = NULL)
 }
@@ -12,7 +12,7 @@ radte(ADSL, seed = NULL)
 \item{seed}{for random number generation}
 }
 \value{
-a data frame containing generated random Triale Elements Dataset for
+a data frame containing generated random Trial Elements Dataset for
 Subject-Level Analysis Dataset. The dataset consists of following variables:\cr
 [,1] STUDYID (Study Identifier),\cr
 [,2] USUBJID (Unique Subject Identifier),\cr

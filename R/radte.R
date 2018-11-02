@@ -20,7 +20,7 @@ evntdescr_sel <- c(
 )
 
 
-#' random ATE  - Trial Elements domain
+#' Generate a random Trial Elements domain dataset (ATE)
 #'
 #' Function for generating random Dataset from Trial Elements domain for a given
 #' Subject-Level Analysis Dataset
@@ -29,7 +29,7 @@ evntdescr_sel <- c(
 #' @param seed for random number generation
 #'
 #' @export
-#' @return a data frame containing generated random Triale Elements Dataset for
+#' @return a data frame containing generated random Trial Elements Dataset for
 #' Subject-Level Analysis Dataset. The dataset consists of following variables:\cr
 #' [,1] STUDYID (Study Identifier),\cr
 #' [,2] USUBJID (Unique Subject Identifier),\cr

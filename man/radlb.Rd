@@ -2,7 +2,7 @@
 % Please edit documentation in R/adlb.R
 \name{radlb}
 \alias{radlb}
-\title{lab dataset}
+\title{Generate a random lab dataset}
 \usage{
 radlb(ADSL, seed = NULL)
 }
@@ -21,9 +21,9 @@ Subject-Level Analysis Dataset. The dataset contains following variables:
 [,5] AVAL (Analysis Value), \cr
 [,6] BASE (Baseline Analysis Value), \cr
 [,7] STUDYID (Study Identifier),\cr
-[,8] CHG (...), \cr
-[,9] PHG (...), \cr
-[,10] LOQFL (...).
+[,8] CHG (change between the Analysis Value and Baseline Analysis Value), \cr
+[,9] PHG (Percentage of change), \cr
+[,10] LOQFL (Indicator if the AVAL is greater then 32).
 }
 \description{
 Function for generating random dataset from laboratory Test Findings domain for a given

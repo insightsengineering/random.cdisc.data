@@ -1,4 +1,4 @@
-#' Generate a random ADSL dataset
+#' Generate a random Subject-Level Analysis Dataset (ADSL)
 #'
 #' Function for generating random Subject-Level Analysis Dataset
 #'

@@ -3,7 +3,7 @@ PARAMCD_var <- c("BFIALL", "FATIGI", "FKSI-FWB", "FKSI-TSE", "FKSIALL")
 PARAM_var <- c("BFI All Questions", "Fatigue Interference", "Function/Well-Being (GF1,GF3,GF7)",
            "Treatment Side Effects (GP2,C5,GP5)", "FKSI-19 All Questions")
 
-#' Questionaires dataset
+#' Generate a random Questionaires Dataset
 #'
 #'Function for generating random questionaire dataset for a given
 #'Subject-Level Analysis Dataset
@@ -32,8 +32,7 @@ PARAM_var <- c("BFI All Questions", "Fatigue Interference", "Function/Well-Being
 #' ADQS <- radqs(ADSL)
 #' head(ADQS)
 #'
-radqs <- function(ADSL, seed = NULL)
-  {
+radqs <- function(ADSL, seed = NULL) {
   if (!is.null(seed)) set.seed(seed)
 
 

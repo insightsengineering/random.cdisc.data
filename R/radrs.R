@@ -13,7 +13,7 @@ lookup_ARS <- expand.grid(
   p_fu = c(c(.3, .2, .4), c(.2, .1, .3), c(.2, .2, .2), c(.3, .5, 0.1), rep(0, 3))
 )
 
-#' Random Response Analysis Dataset
+#' Generate a random Response Analysis Dataset
 #'
 #' Function for generating random Response Analysis Dataset for a given
 #' Subject-Level Analysis Dataset

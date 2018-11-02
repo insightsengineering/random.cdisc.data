@@ -12,7 +12,7 @@ lookup_ae = tribble(
 )
 
 
-#' Adverse Events Analysis Dataset
+#' Generate a random Adverse Events Analysis Dataset
 #'
 #' Function for generating random Adverse Events Analysis Dataset for a given
 #' Subject-Level Analysis Dataset
