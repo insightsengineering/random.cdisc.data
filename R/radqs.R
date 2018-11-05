@@ -9,8 +9,6 @@
 #' @param paramcd Vector of questionaire parameter codes of the same length
 #' as parameters and corresponding to their values.
 #'
-#' @description
-#'
 #' @export
 #' @template return_data.frame
 #'

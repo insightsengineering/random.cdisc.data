@@ -20,9 +20,6 @@ as parameters and corresponding to their values.}
 data.frame
 }
 \description{
-
-}
-\details{
 Function for generating random questionaire dataset for a given
 Subject-Level Analysis Dataset
 }
