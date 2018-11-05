@@ -7,9 +7,9 @@
 radlb(ADSL, seed = NULL)
 }
 \arguments{
-\item{ADSL}{adsl (Subject-Level Analysis Dataset) start data set}
+\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
 
-\item{seed}{seed for random number generation}
+\item{seed}{Seed for random number generation.}
 }
 \value{
 data.frame

@@ -7,9 +7,9 @@
 radsl(N = 400, seed = NULL)
 }
 \arguments{
-\item{N}{number of patients}
+\item{N}{Number of patients.}
 
-\item{seed}{seed for random number generation}
+\item{seed}{Seed for random number generation.}
 }
 \value{
 data.frame

@@ -11,8 +11,8 @@
 #'
 #' Keys: STUDYID USUBJID
 #'
-#' @param N number of patients
-#' @param seed seed for random number generation
+#' @param N Number of patients.
+#' @param seed Seed for random number generation.
 #'
 #' @export
 #'

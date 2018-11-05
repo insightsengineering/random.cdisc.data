@@ -7,19 +7,22 @@
 radqs(ADSL, seed = NULL, param = NULL, paramcd = NULL)
 }
 \arguments{
-\item{ADSL}{adsl (Subject-Level Analysis Dataset) start data set}
+\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
 
-\item{seed}{seed for random number generation}
+\item{seed}{Seed for random number generation.}
 
-\item{param}{vector of questionaire parameters}
+\item{param}{Vector of questionaire parameters.}
 
-\item{paramcd}{vector of questionaire parameter codes of the same length
-as parameters and corresponding to their values}
+\item{paramcd}{Vector of questionaire parameter codes of the same length
+as parameters and corresponding to their values.}
 }
 \value{
 data.frame
 }
 \description{
+
+}
+\details{
 Function for generating random questionaire dataset for a given
 Subject-Level Analysis Dataset
 }

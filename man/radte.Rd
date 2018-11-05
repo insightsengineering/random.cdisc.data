@@ -7,13 +7,13 @@
 radte(ADSL, seed = NULL, lookup = NULL, event.descr = NULL)
 }
 \arguments{
-\item{ADSL}{adsl (Subject-Level Analysis Dataset) start data set}
+\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
 
-\item{seed}{seed for random number generation}
+\item{seed}{Seed for random number generation.}
 
-\item{lookup}{data.frame containing additional parameters}
+\item{lookup}{Data.frame containing additional parameters.}
 
-\item{event.descr}{character vector with description of events}
+\item{event.descr}{Character vector with description of events.}
 }
 \value{
 data.frame

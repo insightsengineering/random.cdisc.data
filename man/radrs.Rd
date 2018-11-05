@@ -7,13 +7,13 @@
 radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL)
 }
 \arguments{
-\item{ADSL}{adsl (Subject-Level Analysis Dataset) start data set}
+\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
 
-\item{seed}{seed for random number generation}
+\item{seed}{Seed for random number generation.}
 
-\item{avalc}{vector of analysis value categories}
+\item{avalc}{Vector of analysis value categories.}
 
-\item{lookup}{data.frame containing additional parameters}
+\item{lookup}{Data.frame containing additional parameters.}
 }
 \value{
 data.frame

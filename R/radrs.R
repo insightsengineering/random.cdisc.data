@@ -10,7 +10,7 @@
 #'
 #' Keys: STUDYID USUBJID PARAMCD AVISITN ADT RSSEQ
 #'
-#' @param avalc vector of analysis value categories
+#' @param avalc Vector of analysis value categories.
 #' @template param_lookup
 #' @inheritParams radsl
 #' @template param_ADSL

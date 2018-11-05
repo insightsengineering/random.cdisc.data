@@ -1,1 +1,1 @@
-#' @param ADSL adsl (Subject-Level Analysis Dataset) start data set
+#' @param ADSL ADSL (Subject-Level Analysis Dataset) start data set.

@@ -1,1 +1,1 @@
-#' @param lookup data.frame containing additional parameters
+#' @param lookup Data.frame containing additional parameters.

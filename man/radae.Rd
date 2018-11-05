@@ -7,13 +7,13 @@
 radae(ADSL, max_n_aes = 10, seed = NULL, lookup = NULL)
 }
 \arguments{
-\item{ADSL}{adsl (Subject-Level Analysis Dataset) start data set}
+\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
 
-\item{max_n_aes}{is the maximum number of adverse events per patient}
+\item{max_n_aes}{The maximum number of adverse events per patient.}
 
-\item{seed}{seed for random number generation}
+\item{seed}{Seed for random number generation.}
 
-\item{lookup}{data.frame containing additional parameters}
+\item{lookup}{Data.frame containing additional parameters.}
 }
 \value{
 data.frame

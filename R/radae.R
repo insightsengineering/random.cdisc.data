@@ -9,7 +9,7 @@
 #'
 #' @inheritParams radsl
 #' @template param_ADSL
-#' @param max_n_aes is the maximum number of adverse events per patient
+#' @param max_n_aes The maximum number of adverse events per patient.
 #' @template param_lookup
 #'
 #' @export

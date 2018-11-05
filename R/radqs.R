@@ -5,9 +5,11 @@
 #'
 #' @inheritParams radsl
 #' @template param_ADSL
-#' @param param vector of questionaire parameters
-#' @param paramcd vector of questionaire parameter codes of the same length
-#' as parameters and corresponding to their values
+#' @param param Vector of questionaire parameters.
+#' @param paramcd Vector of questionaire parameter codes of the same length
+#' as parameters and corresponding to their values.
+#'
+#' @description
 #'
 #' @export
 #' @template return_data.frame

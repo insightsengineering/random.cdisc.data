@@ -6,7 +6,7 @@
 #' @inheritParams radsl
 #' @template param_ADSL
 #' @template param_lookup
-#' @param event.descr character vector with description of events
+#' @param event.descr Character vector with description of events.
 #'
 #' @export
 #' @template return_data.frame
