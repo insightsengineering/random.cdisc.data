@@ -2,27 +2,21 @@
 % Please edit documentation in R/radte.R
 \name{radte}
 \alias{radte}
-\title{Generate a random Trial Elements domain dataset (ATE)}
+\title{Trial Elements domain dataset (ATE)}
 \usage{
-radte(ADSL, seed = NULL)
+radte(ADSL, seed = NULL, lookup = NULL, event.descr = NULL)
 }
 \arguments{
 \item{ADSL}{adsl (Subject-Level Analysis Dataset) start data set}
 
-\item{seed}{for random number generation}
+\item{seed}{seed for random number generation}
+
+\item{lookup}{data.frame containing additional parameters}
+
+\item{event.descr}{character vector with description of events}
 }
 \value{
-a data frame containing generated random Trial Elements Dataset for
-Subject-Level Analysis Dataset. The dataset consists of following variables:\cr
-[,1] STUDYID (Study Identifier),\cr
-[,2] USUBJID (Unique Subject Identifier),\cr
-[,3] SITEID (Study Site Identifier),\cr
-[,4] PARAM (Parameter Description),\cr
-[,5] PARAMCD (Parameter Code), \cr
-[,6] AVAL (Analysis Value),\cr
-[,7] AVALU (Analysis Value Unit), \cr
-[,8] EVNTDESC (Event Description),\cr
-[,9] CNSR (Censoring Status Value (1=cens, 0=evt)).
+data.frame
 }
 \description{
 Function for generating random Dataset from Trial Elements domain for a given

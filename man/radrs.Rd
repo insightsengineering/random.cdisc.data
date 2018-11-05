@@ -4,21 +4,19 @@
 \alias{radrs}
 \title{Tumor Response Analysis Data Set (ADRS)}
 \usage{
-radrs(ADSL, seed = NULL)
+radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL)
 }
 \arguments{
 \item{ADSL}{adsl (Subject-Level Analysis Dataset) start data set}
 
 \item{seed}{seed for random number generation}
+
+\item{avalc}{vector of analysis value categories}
+
+\item{lookup}{data.frame containing additional parameters}
 }
 \value{
-a data frame containing generated Response Analysis Dataset for
-  Subject-Level Analysis Dataset. The dataset consists of following variables:
-  [,1] STUDYID (Study Identifier), \cr [,2] SITEID (Site Identifier), \cr [,3]
-  USUBJID (Unique Subject Identifier), \cr [,4] PARAMCD (Parameter Code),\cr
-  [,5] PARAM (Parameter Description),\cr [,6] AVALC (Analysis Value
-  Category),\cr [,7] AVAL (Analysis Value), \cr [,8] AVISIT (Analysis Visit
-  Window).
+data.frame
 }
 \description{
 Tumor Response Analysis Data Set

@@ -1,26 +1,16 @@
-## use the medra data in sysdat
-
-
-lookup_ae = tribble(
-  ~AEBODSYS,   ~AEDECOD, ~AETOXGR,
-  "cl A",   "trm A_1/2",        1,
-  "cl A",   "trm A_2/2",        2,
-  "cl B",   "trm B_1/3",        5,
-  "cl B",   "trm B_2/3",        3,
-  "cl B",   "trm B_3/3",        1,
-  "cl C",   "trm C_1/1",        4
-)
-
-
-#' Generate a random Adverse Events Analysis Dataset
+#' Adverse Events Analysis Dataset (ADAE)
 #'
 #' Function for generating random Adverse Events Analysis Dataset for a given
 #' Subject-Level Analysis Dataset
 #'
+#' @details One record per each record in the corresponding SDTM domain
+#'
+#' Keys: STUDYID USUBJID ASTDTM AETERM AESEQ
+#'
 #' @inheritParams radsl
 #' @template param_ADSL
 #' @param max_n_aes is the maximum number of adverse events per patient
-#'
+#' @template param_lookup
 #'
 #' @export
 #' @template return_data.frame
@@ -32,7 +22,21 @@ lookup_ae = tribble(
 #'
 #' head(ADAE)
 #'
-radae <- function(ADSL, max_n_aes = 10, seed = NULL) {
+radae <- function(ADSL, max_n_aes = 10, seed = NULL,lookup = NULL) {
+
+  if(is.null(lookup)){
+    lookup_ae = tribble(
+    ~AEBODSYS,   ~AEDECOD, ~AETOXGR,
+    "cl A",   "trm A_1/2",        1,
+    "cl A",   "trm A_2/2",        2,
+    "cl B",   "trm B_1/3",        5,
+    "cl B",   "trm B_2/3",        3,
+    "cl B",   "trm B_3/3",        1,
+    "cl C",   "trm C_1/1",        4
+    )
+  } else {
+    lookup_ae <- lookup
+  }
 
   if (!is.null(seed)) set.seed(seed)
 

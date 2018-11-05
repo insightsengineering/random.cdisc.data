@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a random Trial Elements domain dataset (ATE) — radte • random.cdisc.data</title>
+<title>Trial Elements domain dataset (ATE) — radte • random.cdisc.data</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="Generate a random Trial Elements domain dataset (ATE) — radte" />
+<meta property="og:title" content="Trial Elements domain dataset (ATE) — radte" />
 
 <meta property="og:description" content="Function for generating random Dataset from Trial Elements domain for a given
 Subject-Level Analysis Dataset" />
@@ -98,7 +98,7 @@ Subject-Level Analysis Dataset" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a random Trial Elements domain dataset (ATE)</h1>
+    <h1>Trial Elements domain dataset (ATE)</h1>
     
     <div class="hidden name"><code>radte.Rd</code></div>
     </div>
@@ -110,7 +110,7 @@ Subject-Level Analysis Dataset</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>radte</span>(<span class='no'>ADSL</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>radte</span>(<span class='no'>ADSL</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lookup</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>event.descr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -121,37 +121,35 @@ Subject-Level Analysis Dataset</p>
     </tr>
     <tr>
       <th>seed</th>
-      <td><p>for random number generation</p></td>
+      <td><p>seed for random number generation</p></td>
+    </tr>
+    <tr>
+      <th>lookup</th>
+      <td><p>data.frame containing additional parameters</p></td>
+    </tr>
+    <tr>
+      <th>event.descr</th>
+      <td><p>character vector with description of events</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a data frame containing generated random Trial Elements Dataset for
-Subject-Level Analysis Dataset. The dataset consists of following variables:<br />
-[,1] STUDYID (Study Identifier),<br />
-[,2] USUBJID (Unique Subject Identifier),<br />
-[,3] SITEID (Study Site Identifier),<br />
-[,4] PARAM (Parameter Description),<br />
-[,5] PARAMCD (Parameter Code), <br />
-[,6] AVAL (Analysis Value),<br />
-[,7] AVALU (Analysis Value Unit), <br />
-[,8] EVNTDESC (Event Description),<br />
-[,9] CNSR (Censoring Status Value (1=cens, 0=evt)).</p>
+    <p>data.frame</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>ADSL</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='radsl.html'>radsl</a></span>()
 <span class='no'>ADTE</span> <span class='kw'>&lt;-</span> <span class='fu'>radte</span>(<span class='no'>ADSL</span>)
 <span class='fu'>head</span>(<span class='no'>ADTE</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 10
-#&gt;   ARM   PARAMCD PARAM     STUDYID SITEID USUBJID   CNSR  AVAL AVALU EVNTDESC   
-#&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;   &lt;fct&gt;  &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      
-#&gt; 1 ARM B OS      Overall ~ AB12345 XYZ1   AB12345~     0  32.6 DAYS  Death      
-#&gt; 2 ARM B PFS     Progress~ AB12345 XYZ1   AB12345~     0 210.  DAYS  Death      
-#&gt; 3 ARM B EFS     Event Fr~ AB12345 XYZ1   AB12345~     0  11.5 DAYS  Last Date ~
-#&gt; 4 ARM A OS      Overall ~ AB12345 XYZ1   AB12345~     0 110.  DAYS  Adverse Ev~
-#&gt; 5 ARM A PFS     Progress~ AB12345 XYZ1   AB12345~     0  44.3 DAYS  Adverse Ev~
-#&gt; 6 ARM A EFS     Event Fr~ AB12345 XYZ1   AB12345~     0 257.  DAYS  Disease Pr~</div><div class='input'>
+#&gt;   ARM   PARAMCD PARAM    STUDYID SITEID USUBJID    CNSR   AVAL AVALU EVNTDESC  
+#&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;fct&gt;  &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     
+#&gt; 1 ARM B OS      Overall~ AB12345 XYZ1   AB12345-~     0 236.   DAYS  Death     
+#&gt; 2 ARM B PFS     Progres~ AB12345 XYZ1   AB12345-~     0  16.8  DAYS  Last Tumo~
+#&gt; 3 ARM B EFS     Event F~ AB12345 XYZ1   AB12345-~     0 117.   DAYS  Last Tumo~
+#&gt; 4 ARM C OS      Overall~ AB12345 XYZ1   AB12345-~     0  53.0  DAYS  Last Date~
+#&gt; 5 ARM C PFS     Progres~ AB12345 XYZ1   AB12345-~     1  51.1  DAYS  Last Date~
+#&gt; 6 ARM C EFS     Event F~ AB12345 XYZ1   AB12345-~     0   4.46 DAYS  Disease P~</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -1,18 +1,3 @@
-
-
-
-param_codes <- setNames(1:5, c("CR", "PR", "SD", "PD", "NE"))
-
-lookup_ARS <- expand.grid(
-  ARM = c("ARM A", "ARM B", "ARM C"),
-  AVALC = names(param_codes)
-) %>% mutate(
-  AVAL = param_codes[AVALC],
-  p_scr = c(rep(0, 3), rep(0, 3), c(1, 1, 1), c(0, 0, 0), c(0, 0, 0)),
-  p_eoi = c(c(.6, .4, .7), c(.3, .2, .2), c(.05, .2, .03), c(.04, 0.1, 0.05), c(.01, 0.1, 0.02)),
-  p_fu = c(c(.3, .2, .4), c(.2, .1, .3), c(.2, .2, .2), c(.3, .5, 0.1), rep(0, 3))
-)
-
 #' Tumor Response Analysis Data Set (ADRS)
 #'
 #' Tumor Response Analysis Data Set
@@ -25,8 +10,11 @@ lookup_ARS <- expand.grid(
 #'
 #' Keys: STUDYID USUBJID PARAMCD AVISITN ADT RSSEQ
 #'
+#' @param avalc vector of analysis value categories
+#' @template param_lookup
 #' @inheritParams radsl
 #' @template param_ADSL
+#'
 #'
 #' @export
 #' @template return_data.frame
@@ -36,7 +24,28 @@ lookup_ARS <- expand.grid(
 #'  ADSL <- radsl()
 #'  ADRS <- radrs(ADSL)
 #'  head(ADRS)
-radrs <- function(ADSL, seed = NULL) {
+radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL) {
+
+  if(is.null(avalc)){
+    param_codes <- setNames(1:5, c("CR", "PR", "SD", "PD", "NE"))
+  } else {
+    param_codes <- avalc
+  }
+
+
+  if(is.null(lookup)){
+    lookup_ARS <- expand.grid(
+      ARM = c("ARM A", "ARM B", "ARM C"),
+      AVALC = names(param_codes)
+    ) %>% mutate(
+      AVAL = param_codes[AVALC],
+      p_scr = c(rep(0, 3), rep(0, 3), c(1, 1, 1), c(0, 0, 0), c(0, 0, 0)),
+      p_eoi = c(c(.6, .4, .7), c(.3, .2, .2), c(.05, .2, .03), c(.04, 0.1, 0.05), c(.01, 0.1, 0.02)),
+      p_fu = c(c(.3, .2, .4), c(.2, .1, .3), c(.2, .2, .2), c(.3, .5, 0.1), rep(0, 3))
+    )
+  } else {
+    lookup_ARS <- lookup
+  }
 
   if (!is.null(seed)) set.seed(seed)
 

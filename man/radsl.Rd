@@ -22,6 +22,11 @@ treatment variables. There is only one ADSL per study. ADSL and its related
 metadata are required in a CDISC-based submission of data from a clinical
 trial even if no other analysis data sets are submitted.
 }
+\details{
+One record per subject
+
+Keys: STUDYID USUBJID
+}
 \examples{
 
 ADSL <- radsl()
