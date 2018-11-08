@@ -1,4 +1,4 @@
-#' Trial Elements domain dataset (ATE)
+#' Time to Event Analysis dataset (ATE)
 #'
 #' Function for generating random Dataset from Trial Elements domain for a given
 #' Subject-Level Analysis Dataset
