@@ -1,27 +1,20 @@
-
-
-#' Generate a random lab dataset
+#' Lab Dataset
 #'
 #' Function for generating random dataset from laboratory Test Findings domain for a given
 #' Subject-Level Analysis Dataset
 #'
+#' @details One record per subject per parameter per analysis visit per analysis date.
+#' SDTM variables are populated on new records coming from other single records.
+#' Otherwise, SDTM variables are left blank.
+#'
+#' Keys: STUDYID USUBJID PARAMCD BASETYPE AVISITN ATPTN DTYPE ADTM LBSEQ ASPID
+#'
 #' @template param_ADSL
-#' @param seed for random number generation
+#' @inheritParams radsl
 #'
 #' @export
 #' @author tomlinsj
-#' @return a data frame containing generated Test Findings dataset for
-#' Subject-Level Analysis Dataset. The dataset contains following variables:
-#' [,1] USUBJID (Unique Subject Identifier), \cr
-#' [,2] AVISIT (Analysis Visit Window),\cr
-#' [,3] PARAMCD (Parameter Code), \cr
-#' [,4] AVISITCD (Analysis Visit Window Code),\cr
-#' [,5] AVAL (Analysis Value), \cr
-#' [,6] BASE (Baseline Analysis Value), \cr
-#' [,7] STUDYID (Study Identifier),\cr
-#' [,8] CHG (change between the Analysis Value and Baseline Analysis Value), \cr
-#' [,9] PHG (Percentage of change), \cr
-#' [,10] LOQFL (Indicator if the AVAL is greater then 32).
+#' @template return_data.frame
 #'
 #' @examples
 #'
@@ -29,7 +22,8 @@
 #' ADLB <- radlb(ADSL)
 #' head(ADLB)
 radlb <- function(ADSL, seed = NULL) {
-  if (!is.null(seed)) set.seed(seed)
+  if (!is.null(seed))
+    set.seed(seed)
 
   # Create an example ALB dataset from the 100 patient, with 6 visits with 3
   # parameters for each subject.
@@ -47,7 +41,7 @@ radlb <- function(ADSL, seed = NULL) {
     x$BASE <- x$AVAL[1]
     x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])]
     x$CHG <- x$AVAL - x$BASE
-    x$PHG <- 100 * x$CHG/x$BASE
+    x$PHG <- 100 * x$CHG / x$BASE
     x$LOQFL = ifelse(x$AVAL < 32, "Y", "N")
     x
   })) %>%

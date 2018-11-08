@@ -1,35 +1,19 @@
-## use the medra data in sysdat
-
-
-lookup_ae = tribble(
-  ~AEBODSYS,   ~AEDECOD, ~AETOXGR,
-  "cl A",   "trm A_1/2",        1,
-  "cl A",   "trm A_2/2",        2,
-  "cl B",   "trm B_1/3",        5,
-  "cl B",   "trm B_2/3",        3,
-  "cl B",   "trm B_3/3",        1,
-  "cl C",   "trm C_1/1",        4
-)
-
-
-#' Generate a random Adverse Events Analysis Dataset
+#' Adverse Events Analysis Dataset (ADAE)
 #'
 #' Function for generating random Adverse Events Analysis Dataset for a given
 #' Subject-Level Analysis Dataset
 #'
-#' @param ADSL adsl (Subject-Level Analysis Dataset) start data set
-#' @param max_n_aes is the maximum number of adverse events per patient
-#' @param seed for random number generation
+#' @details One record per each record in the corresponding SDTM domain
 #'
+#' Keys: STUDYID USUBJID ASTDTM AETERM AESEQ
+#'
+#' @inheritParams radsl
+#' @template param_ADSL
+#' @param max_n_aes The maximum number of adverse events per patient.
+#' @template param_lookup
 #'
 #' @export
-#' @return a data frame containing random generated adverse events for
-#' [,1] Subject-Level Analysis Dataset. The dataset consists of following variables:
-#' [,2] USUBJID (Unique Subject Identifier), \cr
-#' [,3] STUDYID (Study Identifier), \cr
-#' [,4] AEBODSYS (Body System or Organ Class), \cr
-#' [,5] AEDECOD (Dictionary Derived Term), \cr
-#' [,6] AETOXGR (Standard Toxicity Grade)\cr
+#' @template return_data.frame
 #'
 #' @examples
 #'
@@ -38,7 +22,21 @@ lookup_ae = tribble(
 #'
 #' head(ADAE)
 #'
-radae <- function(ADSL, max_n_aes = 10, seed = NULL) {
+radae <- function(ADSL, max_n_aes = 10, seed = NULL,lookup = NULL) {
+
+  if(is.null(lookup)){
+    lookup_ae = tribble(
+    ~AEBODSYS,   ~AEDECOD, ~AETOXGR,
+    "cl A",   "trm A_1/2",        1,
+    "cl A",   "trm A_2/2",        2,
+    "cl B",   "trm B_1/3",        5,
+    "cl B",   "trm B_2/3",        3,
+    "cl B",   "trm B_3/3",        1,
+    "cl C",   "trm C_1/1",        4
+    )
+  } else {
+    lookup_ae <- lookup
+  }
 
   if (!is.null(seed)) set.seed(seed)
 

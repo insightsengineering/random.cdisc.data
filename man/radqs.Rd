@@ -2,30 +2,22 @@
 % Please edit documentation in R/radqs.R
 \name{radqs}
 \alias{radqs}
-\title{Generate a random Questionaires Dataset}
+\title{Questionaires Dataset}
 \usage{
-radqs(ADSL, seed = NULL)
+radqs(ADSL, seed = NULL, param = NULL, paramcd = NULL)
 }
 \arguments{
-\item{ADSL}{adsl (Subject-Level Analysis Dataset) start data set}
+\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
 
-\item{seed}{for random number generation}
+\item{seed}{Seed for random number generation.}
+
+\item{param}{Vector of questionaire parameters.}
+
+\item{paramcd}{Vector of questionaire parameter codes of the same length
+as parameters and corresponding to their values.}
 }
 \value{
-data frame containing generated random Questionaires dataset for
-Subject-Level Analysis Dataset. The dataset consists of following variables:\cr
-[,1] USUBJID (Unique Subject Identifier),\cr
-[,2] STUDYID (Study Identifier),\cr
-[,3] SITEID (Study Site Identifier),\cr
-[,4] PARAMCD (Parameter Code), \cr
-[,5] PARAM (Parameter Description),\cr
-[,6] AVAL (Analysis Value),\cr
-[,7] AVISIT (Analysis Visit), \cr
-[,8] AVISITN (Analysis Visit (N)),\cr
-[,9] ABLFL (Baseline Record Flag),\cr
-[,10] APBFL,\cr
-[,11] CHG (Change From Baseline),\cr
-[,12] PCHG (Percent Change From Baseline),\cr
+data.frame
 }
 \description{
 Function for generating random questionaire dataset for a given

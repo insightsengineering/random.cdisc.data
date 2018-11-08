@@ -1,45 +1,40 @@
-
-PARAMCD_var <- c("BFIALL", "FATIGI", "FKSI-FWB", "FKSI-TSE", "FKSIALL")
-PARAM_var <- c("BFI All Questions", "Fatigue Interference", "Function/Well-Being (GF1,GF3,GF7)",
-           "Treatment Side Effects (GP2,C5,GP5)", "FKSI-19 All Questions")
-
-#' Generate a random Questionaires Dataset
+#' Questionaires Dataset
 #'
 #'Function for generating random questionaire dataset for a given
 #'Subject-Level Analysis Dataset
 #'
-#' @param ADSL adsl (Subject-Level Analysis Dataset) start data set
-#' @param seed for random number generation
+#' @inheritParams radsl
+#' @template param_ADSL
+#' @param param Vector of questionaire parameters.
+#' @param paramcd Vector of questionaire parameter codes of the same length
+#' as parameters and corresponding to their values.
 #'
-#' @return data frame containing generated random Questionaires dataset for
-#' Subject-Level Analysis Dataset. The dataset consists of following variables:\cr
-#' [,1] USUBJID (Unique Subject Identifier),\cr
-#' [,2] STUDYID (Study Identifier),\cr
-#' [,3] SITEID (Study Site Identifier),\cr
-#' [,4] PARAMCD (Parameter Code), \cr
-#' [,5] PARAM (Parameter Description),\cr
-#' [,6] AVAL (Analysis Value),\cr
-#' [,7] AVISIT (Analysis Visit), \cr
-#' [,8] AVISITN (Analysis Visit (N)),\cr
-#' [,9] ABLFL (Baseline Record Flag),\cr
-#' [,10] APBFL,\cr
-#' [,11] CHG (Change From Baseline),\cr
-#' [,12] PCHG (Percent Change From Baseline),\cr
 #' @export
+#' @template return_data.frame
 #'
 #' @examples
 #' ADSL <- radsl()
 #' ADQS <- radqs(ADSL)
 #' head(ADQS)
 #'
-radqs <- function(ADSL, seed = NULL) {
+radqs <- function(ADSL, seed = NULL, param = NULL, paramcd = NULL) {
   if (!is.null(seed)) set.seed(seed)
 
+  if(length(param) != length (paramcd)){
+    stop(simpleError("the length of parameters and parameter codes differ"))
+  } else if (is.null(param) & is.null(paramcd)) {
+    PARAMCD_var <- c("BFIALL", "FATIGI", "FKSI-FWB", "FKSI-TSE", "FKSIALL")
+    PARAM_var <- c("BFI All Questions", "Fatigue Interference", "Function/Well-Being (GF1,GF3,GF7)",
+                   "Treatment Side Effects (GP2,C5,GP5)", "FKSI-19 All Questions")
+  } else {
+    PARAMCD_var <- paramcd
+    PARAM_var <- param
+  }
 
   split(ADSL, ADSL$USUBJID) %>% lapply(FUN = function(pinfo){
 
     nvisits <-ceiling(runif(1) * 10 + 1 )
-      pinfo %>% slice(rep(row_number(), length(PARAMCD)*nvisits)) %>%
+      pinfo %>% slice(rep(row_number(), length(PARAMCD_var)*nvisits)) %>%
       transmute(
         USUBJID = pinfo$USUBJID,
         STUDYID = pinfo$STUDYID,

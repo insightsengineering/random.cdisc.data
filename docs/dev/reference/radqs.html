@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a random Questionaires Dataset — radqs • random.cdisc.data</title>
+<title>Questionaires Dataset — radqs • random.cdisc.data</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,10 +30,9 @@
 
 
 
-<meta property="og:title" content="Generate a random Questionaires Dataset — radqs" />
+<meta property="og:title" content="Questionaires Dataset — radqs" />
 
-<meta property="og:description" content="Function for generating random questionaire dataset for a given
-Subject-Level Analysis Dataset" />
+<meta property="og:description" content="" />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
@@ -98,44 +97,75 @@ Subject-Level Analysis Dataset" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a random Questionaires Dataset</h1>
+    <h1>Questionaires Dataset</h1>
     
     <div class="hidden name"><code>radqs.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Function for generating random questionaire dataset for a given
-Subject-Level Analysis Dataset</p>
+    
     
     </div>
 
-    <pre class="usage"><span class='fu'>radqs</span>(<span class='no'>ADSL</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>radqs</span>(<span class='no'>ADSL</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>paramcd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>ADSL</th>
-      <td><p>adsl (Subject-Level Analysis Dataset) start data set</p></td>
+      <td><p>ADSL (Subject-Level Analysis Dataset) start data set.</p></td>
     </tr>
     <tr>
       <th>seed</th>
-      <td><p>for random number generation</p></td>
+      <td><p>Seed for random number generation.</p></td>
+    </tr>
+    <tr>
+      <th>param</th>
+      <td><p>Vector of questionaire parameters.</p></td>
+    </tr>
+    <tr>
+      <th>paramcd</th>
+      <td><p>Vector of questionaire parameter codes of the same length
+as parameters and corresponding to their values.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>data.frame</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Function for generating random questionaire dataset for a given
+Subject-Level Analysis Dataset</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>ADSL</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='radsl.html'>radsl</a></span>()
-<span class='no'>ADQS</span> <span class='kw'>&lt;-</span> <span class='fu'>radqs</span>(<span class='no'>ADSL</span>)</div><div class='output co'>#&gt; <span class='error'>Error in slice_impl(.data, dots): Evaluation error: nie znaleziono obiektu 'PARAMCD'.</span></div><div class='input'><span class='fu'>head</span>(<span class='no'>ADQS</span>)</div><div class='output co'>#&gt; <span class='error'>Error in head(ADQS): nie znaleziono obiektu 'ADQS'</span></div><div class='input'>
+<span class='no'>ADQS</span> <span class='kw'>&lt;-</span> <span class='fu'>radqs</span>(<span class='no'>ADSL</span>)
+<span class='fu'>head</span>(<span class='no'>ADQS</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 11
+#&gt;   USUBJID STUDYID PARAMCD PARAM    AVAL AVISIT AVISITN ABLFL APBFL    CHG
+#&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;
+#&gt; 1 AB1234~ AB12345 BFIALL  BFI ~ -0.650  WEEK 1       1 Y     ""    0     
+#&gt; 2 AB1234~ AB12345 FATIGI  Fati~ -0.213  WEEK 2       2 ""    Y     0.437 
+#&gt; 3 AB1234~ AB12345 FKSI-F~ Func~  0.820  WEEK 3       3 ""    Y     1.47  
+#&gt; 4 AB1234~ AB12345 FKSI-T~ Trea~  0.0315 WEEK 4       4 ""    Y     0.682 
+#&gt; 5 AB1234~ AB12345 FKSIALL FKSI~ -0.201  WEEK 5       5 ""    Y     0.449 
+#&gt; 6 AB1234~ AB12345 BFIALL  BFI ~ -0.620  WEEK 6       6 ""    Y     0.0298
+#&gt; # ... with 1 more variable: PCHG &lt;dbl&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

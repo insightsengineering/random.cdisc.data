@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a random Subject-Level Analysis Dataset (ADSL) — radsl • random.cdisc.data</title>
+<title>Subject-Level Analysis Dataset (ADSL) — radsl • random.cdisc.data</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,14 @@
 
 
 
-<meta property="og:title" content="Generate a random Subject-Level Analysis Dataset (ADSL) — radsl" />
+<meta property="og:title" content="Subject-Level Analysis Dataset (ADSL) — radsl" />
 
-<meta property="og:description" content="Function for generating random Subject-Level Analysis Dataset" />
+<meta property="og:description" content="The Subject-Level Analysis Data set (ADSL) is used to provide the variables
+that describe attributes of a subject. ADSL is a source for subject-level
+variables used in other analysis data sets, such as population flags and
+treatment variables. There is only one ADSL per study. ADSL and its related
+metadata are required in a CDISC-based submission of data from a clinical
+trial even if no other analysis data sets are submitted." />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
@@ -97,14 +102,19 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a random Subject-Level Analysis Dataset (ADSL)</h1>
+    <h1>Subject-Level Analysis Dataset (ADSL)</h1>
     
     <div class="hidden name"><code>radsl.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Function for generating random Subject-Level Analysis Dataset</p>
+    <p>The Subject-Level Analysis Data set (ADSL) is used to provide the variables
+that describe attributes of a subject. ADSL is a source for subject-level
+variables used in other analysis data sets, such as population flags and
+treatment variables. There is only one ADSL per study. ADSL and its related
+metadata are required in a CDISC-based submission of data from a clinical
+trial even if no other analysis data sets are submitted.</p>
     
     </div>
 
@@ -115,42 +125,22 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>N</th>
-      <td><p>number of patients</p></td>
+      <td><p>Number of patients.</p></td>
     </tr>
     <tr>
       <th>seed</th>
-      <td><p>seed for random number generation</p></td>
+      <td><p>Seed for random number generation.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a data frame containing following attributes is returned:
- [,1] SUBJID (Subject Identification Number), <br />
- [,2] STUDYID (Study Identification Number), <br />
- [,3] SITEID (Site Identification Number),<br />
- [,4] USUBJID (Unique Subject Identifier),<br />
- [,5] AGE,<br />
- [,6] SEX, <br />
- [,7] ARMCD (Planned Arme Code),<br />
- [,8] COUNTRY, <br />
- [,9] RACE, <br />
- [,10] STRATA1 (Stratification Factor 1), <br />
- [,11] STRATA2 (Stratification Factor 2),<br />
- [,12] BMRKR1 (Cont. Biomarker 1),<br />
- [,13] BMRKR2 (Cat. Biomarker 2), <br />
- [,14] ARM (Description of Planned Arm),<br />
- [,15] ACTARM (Description of Actual Arm).<br /></p>
+    <p>data.frame</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The Subject-Level Analysis Data set (ADSL) is used to provide
- the variables that describe attributes of a subject. ADSL is a source
- for subject-level variables used in other analysis data sets, such as
- population flags and treatment variables. There is only one ADSL per
- study. ADSL and its related metadata are required in a CDISC-based
- submission of data from a clinical trial even if no other analysis data
- sets are submitted.</p>
+    <p>One record per subject</p>
+<p>Keys: STUDYID USUBJID</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -159,12 +149,12 @@
 <span class='fu'>head</span>(<span class='no'>ADSL</span>)</div><div class='output co'>#&gt; # A tibble: 6 x 15
 #&gt;   SUBJID STUDYID SITEID USUBJID   AGE SEX   ARMCD COUNTRY RACE  STRATA1 STRATA2
 #&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;fct&gt;  &lt;chr&gt;   &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt; &lt;fct&gt;   &lt;fct&gt; &lt;fct&gt;   &lt;fct&gt;  
-#&gt; 1 id-1   AB12345 XYZ1   AB1234~    36 F     ARM C SXM     NATI~ A       S2     
-#&gt; 2 id-2   AB12345 XYZ2   AB1234~    63 F     ARM A SXM     ASIAN B       S1     
-#&gt; 3 id-3   AB12345 XYZ2   AB1234~    20 M     ARM C SXM     OTHER C       S1     
-#&gt; 4 id-4   AB12345 XYZ2   AB1234~    38 M     ARM C AFG     MULT~ A       S2     
-#&gt; 5 id-5   AB12345 XYZ1   AB1234~    20 U     ARM C CUW     OTHER C       S2     
-#&gt; 6 id-6   AB12345 XYZ1   AB1234~    29 F     ARM B BES     BLAC~ A       S1     
+#&gt; 1 id-1   AB12345 XYZ1   AB1234~    74 M     ARM A SXM     AMER~ A       S2     
+#&gt; 2 id-2   AB12345 XYZ1   AB1234~    23 F     ARM A BES     ASIAN C       S1     
+#&gt; 3 id-3   AB12345 XYZ2   AB1234~    46 M     ARM B SXM     UNKN~ C       S1     
+#&gt; 4 id-4   AB12345 XYZ2   AB1234~    63 F     ARM A SXM     ASIAN C       S2     
+#&gt; 5 id-5   AB12345 XYZ2   AB1234~    88 F     ARM C BES     ASIAN C       S1     
+#&gt; 6 id-6   AB12345 XYZ1   AB1234~    32 M     ARM C BES     BLAC~ C       S2     
 #&gt; # ... with 4 more variables: BMRKR1 &lt;dbl&gt;, BMRKR2 &lt;fct&gt;, ARM &lt;fct&gt;,
 #&gt; #   ACTARM &lt;fct&gt;</div><div class='input'>
 </div></pre>

@@ -7,9 +7,9 @@
 radsl(N = 400, seed = NULL)
 }
 \arguments{
-\item{N}{number of patients}
+\item{N}{Number of patients.}
 
-\item{seed}{seed for random number generation}
+\item{seed}{Seed for random number generation.}
 }
 \value{
 data.frame
@@ -21,6 +21,11 @@ variables used in other analysis data sets, such as population flags and
 treatment variables. There is only one ADSL per study. ADSL and its related
 metadata are required in a CDISC-based submission of data from a clinical
 trial even if no other analysis data sets are submitted.
+}
+\details{
+One record per subject
+
+Keys: STUDYID USUBJID
 }
 \examples{
 

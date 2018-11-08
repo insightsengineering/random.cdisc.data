@@ -10,6 +10,9 @@
     <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/radlb.html</loc>
   </url>
   <url>
+    <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/radqs.html</loc>
+  </url>
+  <url>
     <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/radrs.html</loc>
   </url>
   <url>
@@ -20,8 +23,5 @@
   </url>
   <url>
     <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/sample_fct.html</loc>
-  </url>
-  <url>
-    <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/radqs.html</loc>
   </url>
 </urlset>
