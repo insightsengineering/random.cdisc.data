@@ -1,5 +1,6 @@
+
 lookup_ADSAFTTE <- tribble(
-  ~ARM,  ~PARAMCD, ~PARAM, ~ LAMBDA, ~CNSR_P,
+  ~ARM,  ~PARAMCD, ~PARAM, ~LAMBDA, ~CNSR_P,
   "ARM A", "AETTE1",   "Time to first occurrence of any adverse event",  1/80,     0.4,
   "ARM B", "AETTE1",   "Time to first occurrence of any adverse event", 1/100,     0.2,
   "ARM C", "AETTE1",   "Time to first occurrence of any adverse event",  1/60,     0.42,
@@ -28,24 +29,29 @@ cnsdtdscr_sel <- c(
 
 #' Time To Adverse Event Dataset
 #'
+#'
+#' @inheritParams radae
+#'
+#'
 #' @export
 #'
+#' @import tibble
+#'
+#' @author Xiuting Mi
+#'
 #' @examples
+#' asl <- radsl()
+#' adaette <- radaette(ADSL = asl)
+#' head(adaette)
 #'
-#' library(tern)
-#' radam("adaette")
-#' asl <- radam("ASL")
-#' radaette(ASL = asl)
-#'
-
-radaette <- function(ASL, seed = NULL) {
+radaette <- function(ADSL, seed = NULL) {
 
   if (!is.null(seed)) set.seed(seed)
 
   # pinfo <- split(ASL, ASL$USUBJID)[[1]]
-  split(ASL, ASL$USUBJID) %>% lapply(FUN = function(pinfo) {
+  split(ADSL, ADSL$USUBJID) %>% lapply(FUN = function(pinfo) {
 
-    lookup_ADSAFTTE %>% filter(ARM == as.character(pinfo$ARM)) %>%
+    lookup_ADSAFTTE %>% filter(ARM == as.character(pinfo$ARMCD)) %>%
       rowwise() %>%
       mutate(
         STUDYID = pinfo$STUDYID,

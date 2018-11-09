@@ -14,6 +14,7 @@
 #' @param N Number of patients.
 #' @param seed Seed for random number generation.
 #'
+#' @import dplyr
 #' @export
 #'
 #' @template return_data.frame
