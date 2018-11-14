@@ -2,7 +2,7 @@
 % Please edit documentation in R/radte.R
 \name{radte}
 \alias{radte}
-\title{Trial Elements domain dataset (ATE)}
+\title{Time to Event Analysis dataset (ATE)}
 \usage{
 radte(ADSL, seed = NULL, lookup = NULL, event.descr = NULL)
 }
