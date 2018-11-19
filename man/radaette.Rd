@@ -2,22 +2,33 @@
 % Please edit documentation in R/radaette.R
 \name{radaette}
 \alias{radaette}
-\title{Time To Adverse Event Dataset}
+\title{Time To Adverse Event Dataset (ADAETTE)}
 \usage{
-radaette(ADSL, seed = NULL)
+radaette(ADSL, seed = NULL, lookup = NULL, event.descr = NULL,
+  censor.descr = NULL)
 }
 \arguments{
 \item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
 
 \item{seed}{Seed for random number generation.}
+
+\item{lookup}{Data.frame containing additional parameters.}
+
+\item{event.descr}{Character vector with description of events.}
+
+\item{censor.descr}{Character vector with description of censors.}
 }
 \description{
-Time To Adverse Event Dataset
+Function to generate random time to AE dataset for a
+given subject-level analysis dataset (ADSL)
+}
+\details{
+One record per subject per event.
 }
 \examples{
 asl <- radsl()
-radaette <- radaette(ADSL = asl)
-head(radaette)
+adaette <- radaette(ADSL = asl)
+head(adaette)
 
 }
 \author{
