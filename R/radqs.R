@@ -31,24 +31,43 @@ radqs <- function(ADSL, seed = NULL, param = NULL, paramcd = NULL) {
     PARAM_var <- param
   }
 
-  split(ADSL, ADSL$USUBJID) %>% lapply(FUN = function(pinfo){
+  ADQS <- split(ADSL, ADSL$USUBJID) %>% lapply(FUN = function(pinfo){
 
     nvisits <-ceiling(runif(1) * 10 + 1 )
-      pinfo %>% slice(rep(row_number(), length(PARAMCD_var)*nvisits)) %>%
+
+    pinfo <- pinfo %>% slice(rep(row_number(), length(PARAMCD_var)*nvisits)) %>%
       transmute(
-        USUBJID = pinfo$USUBJID,
         STUDYID = pinfo$STUDYID,
-        PARAMCD = rep(PARAMCD_var,nvisits),
-        PARAM = rep(PARAM_var,nvisits),
+        USUBJID = pinfo$USUBJID,
+        PARAM = rep(PARAM_var, each = nvisits),
+        PARAMCD = rep(PARAMCD_var, each = nvisits),
         AVAL = rnorm(length(PARAMCD_var)*nvisits),
-        AVISIT = rep(paste("WEEK", 1:nvisits),length(PARAMCD_var)),
+        AVISIT = rep(paste("WEEK", 1:nvisits), length(PARAMCD_var)),
         AVISITN = rep(1:nvisits, length(PARAM_var)),
+        BASETYPE = "LAST",
         ABLFL =  rep(rep(c("Y", ""), c(1, nvisits - 1)), length(PARAM_var)),
-        APBFL = rep(rep(c("", "Y"), c(1, nvisits - 1)), length(PARAM_var)),
+        ONTRTFL = rep(rep(c("", "Y"), c(1, nvisits - 1)), length(PARAM_var)),
         CHG = AVAL - AVAL[1],
         PCHG = CHG/AVAL[1]
-      )
+      ) %>% var_relabel(
+        STUDYID = "Study Identifier",
+        USUBJID = "Unique Subject Identifier",
+        PARAM = "Parameter",
+        PARAMCD = "Parameter Code" ,
+        AVAL = "Analysis Value",
+        AVISIT = "Analysis Visit",
+        AVISITN = "Analysis Visit (N)",
+        BASETYPE = "Baseline Type",
+        ABLFL = "Baseline Record Flag",
+        ONTRTFL = "On Treatment Record Flag",
+        CHG = "Change from Baseline",
+        PCHG	= "Percent Change from Baseline")
+
   }
   ) %>% Reduce(rbind,.)
 
+  # order visits
+  ADQS$AVISIT <- factor(ADQS$AVISIT, levels=paste("WEEK", 1:max(ADQS$AVISITN)))
+
+  ADQS
 }
