@@ -50,8 +50,8 @@ radqs <- function(ADSL, seed = NULL, param = NULL, paramcd = NULL) {
         CHG = AVAL - AVAL[1],
         PCHG = CHG/AVAL[1]
       ) %>% var_relabel(
-        STUDYID = "Study Identifier",
-        USUBJID = "Unique Subject Identifier",
+        STUDYID = attr(ADSL$STUDYID, "label"),
+        USUBJID = attr(ADSL$USUBJID, "label"),
         PARAM = "Parameter",
         PARAMCD = "Parameter Code" ,
         AVAL = "Analysis Value",
@@ -67,7 +67,6 @@ radqs <- function(ADSL, seed = NULL, param = NULL, paramcd = NULL) {
   ) %>% Reduce(rbind,.)
 
   # order visits
-  ADQS$AVISIT <- factor(ADQS$AVISIT, levels=paste("WEEK", 1:max(ADQS$AVISITN)))
-
-  ADQS
+  ADQS[["AVISIT"]] <- factor(ADQS$AVISIT, levels=paste("WEEK", 1:max(ADQS$AVISITN)))
+  var_relabel(ADQS, AVISIT = "Analysis Visit")
 }
