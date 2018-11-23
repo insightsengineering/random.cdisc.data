@@ -2,6 +2,7 @@
 
 export(radae)
 export(radaette)
+export(radcm)
 export(radlb)
 export(radqs)
 export(radrs)
