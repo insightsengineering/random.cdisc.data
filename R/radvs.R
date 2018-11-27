@@ -13,6 +13,8 @@
 #' @inheritParams radsl
 #'
 #' @export
+#' @importFrom yaml yaml.load_file
+#'
 #' @author npaszty
 #' @template return_data.frame
 #'
@@ -31,7 +33,7 @@ radvs <- function(ADSL, seed = NULL) {
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
     PARAM = c("Diastolic Blood Pressure", "Pulse Rate", "Respiratory Rate", "Systolic Blood Pressure",
-               "Temperature", "Weight"),
+              "Temperature", "Weight"),
     AVISIT = c("SCREENING", "BASELINE",  paste0("WEEK ", 1:5)),
     stringsAsFactors = FALSE
   )
@@ -39,16 +41,16 @@ radvs <- function(ADSL, seed = NULL) {
   ADVS$PARAMCD <- c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT")
 
   ADVS$AVISITCD <- ifelse(ADVS$AVISIT %in% "SCREENING", "SCR",
-                    ifelse(ADVS$AVISIT %in% "BASELINE", "BL",
-                      ifelse(grepl("WEEK", ADVS$AVISIT), "W", NA)))
+                          ifelse(ADVS$AVISIT %in% "BASELINE", "BL",
+                                 ifelse(grepl("WEEK", ADVS$AVISIT), "W", NA)))
 
   ADVS$AVISITCDN <- as.numeric(ifelse(ADVS$AVISIT %in% "SCREENING", -1,
-                     ifelse(ADVS$AVISIT %in% "BASELINE", 0,
-                       ifelse(grepl("WEEK", ADVS$AVISIT) , substr(ADVS$AVISIT, start=6, stop=7), NA))))
+                                      ifelse(ADVS$AVISIT %in% "BASELINE", 0,
+                                             ifelse(grepl("WEEK", ADVS$AVISIT) , substr(ADVS$AVISIT, start=6, stop=7), NA))))
 
   ADVS$AVAL <- rnorm(nrow(ADVS), mean = 50, sd = 8)
 
-  Reduce(rbind, lapply(split(ADVS, ADVS$USUBJID), function(x) {
+  ADVS <- Reduce(rbind, lapply(split(ADVS, ADVS$USUBJID), function(x) {
     x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])]
     x$BASE2 <- x$AVAL[1]
     x$CHG2 <- x$AVAL - x$BASE2
@@ -65,21 +67,30 @@ radvs <- function(ADSL, seed = NULL) {
       STUDYID = attr(ADSL$STUDYID, "label")
     )
 
+  ## read domain metadata file
+  metadata <- yaml.load_file(file.path(
+    path.package(package = "random.cdisc.data", quiet = FALSE),
+    "advs.yml"
+  ))
+
+  # assign label to data frame
+  attr(ADVS, "label") <- metadata$domain$label
+
+  ## assign labels to variables
+  for(var in intersect(names(ADVS), names(metadata$variables))) {
+    attr(ADVS[[var]], "label") <- metadata$variables[[var]]$label
   }
 
-# read domain metadata file
-metadata <- yaml.load_file("/opt/bee/home_nas/npaszty/random.cdisc.data/inst/advs.yml")
+  ## reorder data frame columns to expected BDS order
+  ADVS <- ADVS[, unique(c("STUDYID", "USUBJID",
+                        intersect(names(ADVS), names(metadata$variables))))]
 
-# assign label to data frame
-attr(ADVS, "label") <- metadata$domain$label
 
-# assign labels to variables
-for(var in intersect(names(ADVS), names(metadata$variables))) {
-  attr(ADVS[[var]], "label") <- metadata$variables[[var]]$label
+  ## add all ADSL variables to domain - BDS is one proc away
+  ADVS <- inner_join(ADSL, ADVS, by=c("STUDYID", "USUBJID"))
+
+  ADVS
+
 }
 
-# reorder data frame columns to expected BDS order
-ADVS <- ADVS[c("STUDYID", "USUBJID", names(metadata$variables))]
 
-# add all ADSL variables to domain - BDS is one proc away
-ADVS <- inner_join(ADSL, ADVS, by=c("STUDYID", "USUBJID"))
