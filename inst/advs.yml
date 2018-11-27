@@ -1,0 +1,31 @@
+domain:
+  name: ADVS
+  label: Vital Signs Analysis Dataset
+
+variables:
+  PARAM:
+    label: Parameter
+  PARAMCD:
+    label: Parameter Code
+  AVISIT:
+    label: Analysis Visit
+  AVISITN:
+    label: Analysis Visit (N)
+  AVISITCD:
+    label: Analysis Visit Code
+  AVISITCDN:
+    label: Analysis Visit Code (N)
+  AVAL:
+    label: Analysis Value
+  BASE2:
+    label: Screeening Value
+  CHG2:
+    label: Absolute Change from Screening
+  PCHG2:
+    label: Percentage Change from Screening
+  BASE:
+    label: Baseline Value
+  CHG:
+    label: Absolute Change from Baseline
+  PCHG:
+    label: Percentage Change from Baseline
