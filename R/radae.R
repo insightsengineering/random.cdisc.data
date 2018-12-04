@@ -40,7 +40,7 @@ radae <- function(ADSL, max_n_aes = 10, seed = NULL,lookup = NULL) {
 
   if (!is.null(seed)) set.seed(seed)
 
-  Map(function(id, sid) {
+  ADAE <- Map(function(id, sid) {
     n_aes <- sample(0:max_n_aes, 1)
     i <- sample(1:nrow(lookup_ae), n_aes, TRUE)
     lookup_ae[i, ] %>% mutate(
@@ -52,10 +52,12 @@ radae <- function(ADSL, max_n_aes = 10, seed = NULL,lookup = NULL) {
     `[`(c(4,5,1,2,3)) %>%
     var_relabel(
       STUDYID = "Study Identifier",
-      USUBJID = "Unique Subject Identifier",
-      AEBODSYS = "Body System or Organ Class",
-      AEDECOD = "Dictionary-Derived Term",
-      AETOXGR = "Standard Toxicity Grade"
+      USUBJID = "Unique Subject Identifier"
     )
-}
 
+  ## apply metadata
+  ADAE <- apply_metadata(ADAE, "ADAE.yml", seed = NULL, join_adsl = TRUE)
+
+  ADAE
+
+}

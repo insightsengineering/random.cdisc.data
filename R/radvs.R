@@ -67,30 +67,10 @@ radvs <- function(ADSL, seed = NULL) {
       STUDYID = attr(ADSL$STUDYID, "label")
     )
 
-  ## read domain metadata file
-  metadata <- yaml.load_file(file.path(
-    path.package(package = "random.cdisc.data", quiet = FALSE),
-    "advs.yml"
-  ))
-
-  # assign label to data frame
-  attr(ADVS, "label") <- metadata$domain$label
-
-  ## assign labels to variables
-  for(var in intersect(names(ADVS), names(metadata$variables))) {
-    attr(ADVS[[var]], "label") <- metadata$variables[[var]]$label
-  }
-
-  ## reorder data frame columns to expected BDS order
-  ADVS <- ADVS[, unique(c("STUDYID", "USUBJID",
-                        intersect(names(ADVS), names(metadata$variables))))]
-
-
-  ## add all ADSL variables to domain - BDS is one proc away
-  ADVS <- inner_join(ADSL, ADVS, by=c("STUDYID", "USUBJID"))
+  ## apply metadata
+  ADVS <- apply_metadata(ADVS, "ADVS.yml", seed = NULL, join_adsl = TRUE)
 
   ADVS
 
 }
-
 

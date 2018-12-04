@@ -28,7 +28,7 @@ radsl <- function(N = 400, seed = NULL) {
 
   if (!is.null(seed)) set.seed(seed)
 
-  tibble(
+ADSL <-   tibble(
     SUBJID = paste("id", seq_len(N), sep = "-"),
     STUDYID = rep("AB12345", N),
     SITEID = paste0("XYZ", 1:2) %>% sample_fct(N),
@@ -44,25 +44,15 @@ radsl <- function(N = 400, seed = NULL) {
     STRATA1 = c("A", "B", "C") %>% sample_fct(N),
     STRATA2 = c("S1", "S2") %>% sample_fct(N),
     BMRKR1 = rchisq(N, 6),
-    BMRKR2 = c("low", "medium", "high") %>% sample_fct(N)
-  ) %>% mutate(
-    ARM = recode(ARMCD, "ARM A" = "A: Drug X", "ARM B" = "B: Placebo", "ARM C" = "C: Combination"),
-    ACTARM = ARMCD
-  ) %>% var_relabel(
-    STUDYID = "Study Identifier",
-    USUBJID = "Unique Subject Identifier",
-    SUBJID = "Subject Identifier for the Study",
-    SITEID = "Study Site Identifier",
-    AGE = "Age",
-    SEX = "Sex",
-    RACE = "Race",
-    ARMCD = "Planned Arm Code",
-    ARM = "Description of Planned Arm",
-    ACTARM = "Description of Actual Arm",
-    COUNTRY = "Country",
-    BMRKR1 = "Cont. Biomarker 1",
-    BMRKR2 = "Cat. Biomarker 2",
-    STRATA1 = "Stratification Factor 1",
-    STRATA2 = "Stratification Factor 2"
-  )
+    BMRKR2 = c("low", "medium", "high") %>% sample_fct(N),
+  ) %>%
+    mutate(ARM = recode(ARMCD, "ARM A" = "A: Drug X", "ARM B" = "B: Placebo", "ARM C" = "C: Combination")) %>%
+    mutate(ACTARM = ARM) %>%
+    mutate(ACTARMCD = ARMCD)
+
+    ## apply metadata
+  ADSL <- apply_metadata(ADSL, "ADSL.yml", seed = seed, join_adsl = FALSE)
+
+  ADSL
+
 }
