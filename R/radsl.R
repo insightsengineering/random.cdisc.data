@@ -15,6 +15,7 @@
 #' @param seed Seed for random number generation.
 #'
 #' @import dplyr
+#' @importFrom stats rchisq reorder rexp rnorm runif setNames
 #' @export
 #'
 #' @template return_data.frame

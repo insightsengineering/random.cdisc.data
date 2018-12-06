@@ -23,7 +23,7 @@ One record per subject per parameter per analysis visit per analysis date.
 SDTM variables are populated on new records coming from other single records.
 Otherwise, SDTM variables are left blank.
 
-Keys: STUDYID USUBJID PARAMCD BASETYPE AVISITN ATPTN DTYPE ADTM LBSEQ ASPID
+Keys: STUDYID USUBJID PARAMCD AVISITN
 }
 \examples{
 
