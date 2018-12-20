@@ -1,6 +1,6 @@
 domain:
-  name: ADVS
-  label: Vital Signs Analysis Dataset
+  name: ADQS
+  label: Questionnaires Analysis Dataset
 
 variables:
   PARAM:
@@ -29,5 +29,3 @@ variables:
     label: Absolute Change from Baseline
   PCHG:
     label: Percentage Change from Baseline
-  LOQFL:
-    label: Limit of Quantification Flag

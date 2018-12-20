@@ -1,71 +1,98 @@
-#' Lab Dataset
+#' Laboratory Analysis Dataset (ADLB).
 #'
-#' Function for generating random dataset from laboratory Test Findings domain for a given
-#' Subject-Level Analysis Dataset
+#' Function for generating random dataset from Laboratory Test Findings domain for a given
+#' Subject-Level Analysis Dataset.
 #'
 #' @details One record per subject per parameter per analysis visit per analysis date.
-#' SDTM variables are populated on new records coming from other single records.
-#' Otherwise, SDTM variables are left blank.
 #'
-#' Keys: STUDYID USUBJID PARAMCD AVISITN
+#' Keys: STUDYID USUBJID PARAMCD AVISITN.
+#'
+#' @param ADSL dataset.
+#' @param visit_format type of visit either "WEEK" or "CYCLE".
+#' @param n_assessments number of weeks or cycles.
+#' @param n_days number of days within cycle.
+#' @param seed starting point used in the generation of a sequence of random numbers
 #'
 #' @template param_ADSL
-#' @inheritParams radsl
-#'
-#' @export
-#' @author tomlinsj
 #' @template return_data.frame
 #'
-#' @examples
+#' @inheritParams radsl
 #'
-#' ADSL <- radsl()
-#' ADLB <- radlb(ADSL)
+#' @import dplyr
+#' @importFrom yaml yaml.load_file
+#'
+#' @export
+#'
+#' @author tomlinsj, npaszty
+#'
+#' @examples
+#' ADSL <- radsl(N = 10)
+#' ADLB <- radlb(ADSL, visit_format = "WEEK", n_assessments = 7)
+#' ADLB <- radlb(ADSL, param = c("Immunoglobulin A Measurement", "Immunoglobulin G Measurement"), paramcd = c("IGA", "IGG"))
+#' ADLB <- radlb(ADSL, visit_format = "CYCLE", n_assessments = 3)
 #' head(ADLB)
-radlb <- function(ADSL, seed = NULL) {
+#'
+radlb <- function(ADSL, param = c("Alanine Aminotransferase Measurement", "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
+                  paramcd = c("ALT", "CRP", "IGA"), visit_format = "WEEK", n_assessments = 5, n_days = 5, seed = NULL) {
+
+  # validate parameter related arguments and initialize param values
+  if(length(param) != length (paramcd)){
+    message(simpleError("The argument value length of parameters (PARAM) and parameter codes (PARAMCD) differ. They must contain the same number of elements."))
+    return(NA)
+  } else {
+    param <- param
+    paramcd <- paramcd
+  }
 
   if (!is.null(seed)) set.seed(seed)
 
-  # Create an example ADLB dataset from the 100 patient, with 6 visits with 3
-  # parameters for each subject.
   ADLB <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
-    PARAM = c("Alanine Aminotransferase Measurement", "C-Reactive Protein Measurement", "Immunoglobulin A Measurement", "Immunoglobulin G Measurement"),
-    AVISIT = c("SCREENING", "BASELINE",  paste0("WEEK ", 1:5)),
+    PARAM = param,
+    AVISIT = visit_schedule(visit_format = visit_format, n_assessments = n_assessments, n_days = n_days),
     stringsAsFactors = FALSE
   )
 
-  ADLB$PARAMCD = c("ALT", "CRP", "IGA", "IGG")
-
-  ADLB$AVISITCD <- ifelse(ADLB$AVISIT %in% "SCREENING", "SCR",
-                          ifelse(ADLB$AVISIT %in% "BASELINE", "BL",
-                                 ifelse(grepl("WEEK", ADLB$AVISIT), "W", NA)))
-
-  ADLB$AVISITCDN <- as.numeric(ifelse(ADLB$AVISIT %in% "SCREENING", -1,
-                                      ifelse(ADLB$AVISIT %in% "BASELINE", 0,
-                                             ifelse(grepl("WEEK", ADLB$AVISIT) , substr(ADLB$AVISIT, start=6, stop=7), NA))))
-
   ADLB$AVAL <- rnorm(nrow(ADLB), mean = 50, sd = 8)
 
+  # assign related variable values: PARAMxPARAMCD are related - USE FACTORS FOR VAR_VALUES AND PARAM
+  ADLB$PARAMCD <- rel_var(df = ADLB, var_name = "PARAMCD", var_values = paramcd, related_var = "PARAM")
+
+  ADLB <- ADLB %>% mutate(AVISITN = case_when(
+    AVISIT == "SCREENING" ~ -1,
+    AVISIT == "BASELINE" ~ 0,
+    (grepl("^WEEK", AVISIT) | grepl("^CYCLE", AVISIT)) ~ as.numeric(AVISIT)-2,
+    TRUE ~ NA_real_
+  ))
+
+  # order to prepare for change from screening and baseline values
+  ADLB <- ADLB[order(ADLB$STUDYID, ADLB$USUBJID, ADLB$PARAMCD, ADLB$AVISITN), ]
+
   ADLB <- Reduce(rbind, lapply(split(ADLB, ADLB$USUBJID), function(x) {
-    x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])]
-    x$BASE2 <- x$AVAL[1]
-    x$CHG2 <- x$AVAL - x$BASE2
-    x$PCHG2 <- 100 * x$CHG2 / x$BASE2
-    x$BASE <- x$AVAL[1]
-    x$CHG <- x$AVAL - x$BASE
-    x$PHG <- 100 * x$CHG / x$BASE
+    x$STUDYID = ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])]
+    x$ABLFL2 = ifelse(x$AVISIT == "SCREENING", "Y", "")
+    x$ABLFL = ifelse(toupper(visit_format) == "WEEK" & x$AVISIT == "BASELINE", "Y",
+                     ifelse(toupper(visit_format) == "CYCLE" & x$AVISIT == "CYCLE 1 DAY 1", "Y",""))
     x$LOQFL = ifelse(x$AVAL < 32, "Y", "N")
     x
-  })) %>%
-    mutate(AVISITCD = factor(AVISITCD) %>% reorder(AVISITCDN)) %>%
-    mutate(AVISITN = AVISITCDN) %>%
+  }))
+
+  ADLB$BASE2 <- retain(ADLB, ADLB$AVAL, ADLB$ABLFL2 == "Y")
+  ADLB$BASE <- ifelse(ADLB$ABLFL2 != "Y", retain(ADLB, ADLB$AVAL, ADLB$ABLFL == "Y"), NA)
+
+  ADLB <- ADLB %>%
+    mutate(CHG2 = AVAL - BASE2) %>%
+    mutate(PCHG2 = 100 * (CHG2 / BASE2)) %>%
+    mutate(CHG = AVAL - BASE) %>%
+    mutate(PCHG = 100 * (CHG / BASE)) %>%
     var_relabel(
-      USUBJID = attr(ADSL$USUBJID, "label"),
-      STUDYID = attr(ADSL$STUDYID, "label")
+      STUDYID = attr(ADSL$STUDYID, "label"),
+      USUBJID = attr(ADSL$USUBJID, "label")
     )
-  ## apply metadata
-  ADLB <- apply_metadata(ADLB, "ADLB.yml", seed = NULL, join_adsl = TRUE)
+
+  # apply metadata
+  ADLB <- apply_metadata(ADLB, "ADLB.yml", seed = seed, ADSL = ADSL)
 
   ADLB
 

@@ -35,3 +35,5 @@ variables:
       label: Stratification Factor 1
     STRATA2:
       label: Stratification Factor 2
+    ITTFL:
+      label: Intent-To-Treat Population Flag

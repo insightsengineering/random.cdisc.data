@@ -1,28 +1,34 @@
-#' Adverse Events Analysis Dataset (ADAE)
+#' Adverse Events Analysis Dataset (ADAE).
 #'
 #' Function for generating random Adverse Events Analysis Dataset for a given
-#' Subject-Level Analysis Dataset
+#' Subject-Level Analysis Dataset.
 #'
-#' @details One record per each record in the corresponding SDTM domain
+#' @details One record per each record in the corresponding SDTM domain.
 #'
-#' Keys: STUDYID USUBJID ASTDTM AETERM AESEQ
+#' Keys: STUDYID USUBJID AESTDTM AETERM AESEQ.
 #'
-#' @inheritParams radsl
+#' @param ADSL dataset.
+#' @param max_n_aes maximum number of AEs per patient.
+#' @param lookup table of AEs.
+#' @param seed starting point used in the generation of a sequence of random numbers.
+#'
 #' @template param_ADSL
-#' @param max_n_aes The maximum number of adverse events per patient.
 #' @template param_lookup
-#'
-#' @export
 #' @template return_data.frame
 #'
-#' @examples
+#' @inheritParams radsl
 #'
+#' @import dplyr
+#' @importFrom yaml yaml.load_file
+#'
+#' @export
+#'
+#' @examples
 #' ADSL <- radsl()
 #' ADAE <- radae(ADSL)
-#'
 #' head(ADAE)
 #'
-radae <- function(ADSL, max_n_aes = 10, seed = NULL,lookup = NULL) {
+radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL) {
 
   if(is.null(lookup)){
     lookup_ae = tribble(
@@ -55,8 +61,8 @@ radae <- function(ADSL, max_n_aes = 10, seed = NULL,lookup = NULL) {
       USUBJID = "Unique Subject Identifier"
     )
 
-  ## apply metadata
-  ADAE <- apply_metadata(ADAE, "ADAE.yml", seed = NULL, join_adsl = TRUE)
+  # apply metadata
+  ADAE <- apply_metadata(ADAE, "ADAE.yml", seed = seed, ADSL = ADSL)
 
   ADAE
 

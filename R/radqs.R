@@ -1,54 +1,91 @@
-#' Questionaires Dataset
+#' Questionnaires Analysis Dataset (ADQS)
 #'
-#'Function for generating random questionaire dataset for a given
-#'Subject-Level Analysis Dataset
+#' Function for generating random questionaire dataset for a given
+#' Subject-Level Analysis Dataset.
 #'
-#' @inheritParams radsl
-#' @template param_ADSL
+#' @details One record per subject per parameter per analysis visit per analysis date.
+#'
+#' Keys: STUDYID USUBJID PARAMCD AVISITN.
+#'
+#' @param ADSL dataset.
+#' @param visit_format type of visit either "WEEK" or "CYCLE".
+#' @param n_assessments number of weeks or cycles.
+#' @param n_days number of days within cycle.
+#' @param seed starting point used in the generation of a sequence of random numbers
 #' @param param Vector of questionaire parameters.
 #' @param paramcd Vector of questionaire parameter codes of the same length
 #' as parameters and corresponding to their values.
 #'
-#' @export
+#' @template param_ADSL
 #' @template return_data.frame
+#'
+#' @inheritParams radsl
+#'
+#' @import dplyr
+#' @importFrom yaml yaml.load_file
+#'
+#' @export
+#'
+#' @author npaszty
 #'
 #' @examples
 #' ADSL <- radsl()
-#' ADQS <- radqs(ADSL)
+#' ADQS <- radqs(ADSL, visit_format = "WEEK", n_assessments = 7)
+#' ADQS <- radqs(ADSL, visit_format = "CYCLE", n_assessments = 3)
 #' head(ADQS)
 #'
-radqs <- function(ADSL, seed = NULL, param = NULL, paramcd = NULL) {
+radqs <- function(ADSL, visit_format = "WEEK", n_assessments = 5, n_days = 5, seed = NULL, param = NULL, paramcd = NULL) {
+
   if (!is.null(seed)) set.seed(seed)
 
-  if(length(param) != length (paramcd)){
-    stop(simpleError("the length of parameters and parameter codes differ"))
-  } else if (is.null(param) & is.null(paramcd)) {
-    PARAMCD_var <- c("BFIALL", "FATIGI", "FKSI-FWB", "FKSI-TSE", "FKSIALL")
-    PARAM_var <- c("BFI All Questions", "Fatigue Interference", "Function/Well-Being (GF1,GF3,GF7)",
-                   "Treatment Side Effects (GP2,C5,GP5)", "FKSI-19 All Questions")
-  } else {
-    PARAMCD_var <- paramcd
-    PARAM_var <- param
-  }
+  ADQS <- expand.grid(
+    STUDYID = unique(ADSL$STUDYID),
+    USUBJID = ADSL$USUBJID,
+    PARAM = c("BFI All Questions", "Fatigue Interference", "Function/Well-Being (GF1,GF3,GF7)", "Treatment Side Effects (GP2,C5,GP5)", "FKSI-19 All Questions"),
+    AVISIT = visit_schedule(visit_format = visit_format, n_assessments = n_assessments, n_days = n_days),
+    stringsAsFactors = FALSE
+  )
 
-  split(ADSL, ADSL$USUBJID) %>% lapply(FUN = function(pinfo){
+  ADQS <- ADQS %>% mutate(AVISITN = case_when(
+    AVISIT == "SCREENING" ~ -1,
+    AVISIT == "BASELINE" ~ 0,
+    (grepl("^WEEK", AVISIT) | grepl("^CYCLE", AVISIT)) ~ as.numeric(AVISIT)-2,
+    TRUE ~ NA_real_
+  ))
 
-    nvisits <-ceiling(runif(1) * 10 + 1 )
-      pinfo %>% slice(rep(row_number(), length(PARAMCD_var)*nvisits)) %>%
-      transmute(
-        USUBJID = pinfo$USUBJID,
-        STUDYID = pinfo$STUDYID,
-        PARAMCD = rep(PARAMCD_var,nvisits),
-        PARAM = rep(PARAM_var,nvisits),
-        AVAL = rnorm(length(PARAMCD_var)*nvisits),
-        AVISIT = rep(paste("WEEK", 1:nvisits),length(PARAMCD_var)),
-        AVISITN = rep(1:nvisits, length(PARAM_var)),
-        ABLFL =  rep(rep(c("Y", ""), c(1, nvisits - 1)), length(PARAM_var)),
-        APBFL = rep(rep(c("", "Y"), c(1, nvisits - 1)), length(PARAM_var)),
-        CHG = AVAL - AVAL[1],
-        PCHG = CHG/AVAL[1]
-      )
-  }
-  ) %>% Reduce(rbind,.)
+  # assign related variable values: PARAMxPARAMCD are related - USE FACTORS FOR VAR_VALUES AND PARAM
+  ADQS$PARAMCD <- rel_var(df = ADQS, var_name = "PARAMCD", var_values = c("BFIALL", "FATIGI", "FKSI-FWB", "FKSI-TSE", "FKSIALL"), related_var = "PARAM")
+
+  ADQS$AVAL <- rnorm(nrow(ADQS), mean = 50, sd = 8)
+
+  # order to prepare for change from screening and baseline values
+  ADQS <- ADQS[order(ADQS$STUDYID, ADQS$USUBJID, ADQS$PARAMCD, ADQS$AVISITN), ]
+
+  ADQS <- Reduce(rbind, lapply(split(ADQS, ADQS$USUBJID), function(x) {
+    x$STUDYID = ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])]
+    x$ABLFL2 = ifelse(x$AVISIT == "SCREENING", "Y", "")
+    x$ABLFL = ifelse(toupper(visit_format) == "WEEK" & x$AVISIT == "BASELINE", "Y",
+                     ifelse(toupper(visit_format) == "CYCLE" & x$AVISIT == "CYCLE 1 DAY 1", "Y",""))
+    x$LOQFL = ifelse(x$AVAL < 32, "Y", "N")
+    x
+  }))
+
+  ADQS$BASE2 <- retain(ADQS, ADQS$AVAL, ADQS$ABLFL2 == "Y")
+  ADQS$BASE <- ifelse(ADQS$ABLFL2 != "Y", retain(ADQS, ADQS$AVAL, ADQS$ABLFL == "Y"), NA)
+
+  ADQS <- ADQS %>%
+    mutate(CHG2 = AVAL - BASE2) %>%
+    mutate(PCHG2 = 100 * (CHG2 / BASE2)) %>%
+    mutate(CHG = AVAL - BASE) %>%
+    mutate(PCHG = 100 * (CHG / BASE)) %>%
+    var_relabel(
+      STUDYID = attr(ADSL$STUDYID, "label"),
+      USUBJID = attr(ADSL$USUBJID, "label")
+    )
+
+  # apply metadata
+  ADQS <- apply_metadata(ADQS, "ADQS.yml", seed = seed, ADSL = ADSL)
+
+  ADQS
 
 }

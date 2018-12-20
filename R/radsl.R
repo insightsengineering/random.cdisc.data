@@ -7,7 +7,7 @@
 #' metadata are required in a CDISC-based submission of data from a clinical
 #' trial even if no other analysis data sets are submitted.
 #'
-#' @details One record per subject
+#' @details One record per subject.
 #'
 #' Keys: STUDYID USUBJID
 #'
@@ -15,43 +15,53 @@
 #' @param seed Seed for random number generation.
 #'
 #' @import dplyr
+#' @importFrom stats rchisq reorder rexp rnorm runif setNames
+#'
 #' @export
 #'
 #' @template return_data.frame
 #'
 #' @examples
-#'
-#' ADSL <- radsl()
+#' ADSL <- radsl(N = 10)
 #' head(ADSL)
 #'
 radsl <- function(N = 400, seed = NULL) {
 
   if (!is.null(seed)) set.seed(seed)
 
-ADSL <-   tibble(
-    SUBJID = paste("id", seq_len(N), sep = "-"),
+  country_site_prob <- c(.5, .121, .077, .077, .075, .052, .046, .025, .014, .003)
+
+  ADSL <- tibble(
     STUDYID = rep("AB12345", N),
-    SITEID = paste0("XYZ", 1:2) %>% sample_fct(N),
-    USUBJID = paste(STUDYID, SITEID, SUBJID, sep = "-"),
+    COUNTRY = c("CHN", "USA", "BRA", "PAK", "NGA", "RUS", "JPN", "GBR", "CAN", "CHE") %>%
+      sample_fct(N, prob = country_site_prob),
+    SITEID = 1:20 %>%
+      sample_fct(N,  prob = rep(country_site_prob, times = 2)),
+    SUBJID = paste("id", seq_len(N), sep = "-"),
     AGE = sapply(floor(rnorm(N, mean = 20, sd = 20)), max, 0) + 20,
     SEX = c("F", "M", "U", "UNDIFFERENTIATED") %>% sample_fct(N, prob = c(.5, .48, .015, .005)),
     ARMCD = c("ARM A", "ARM B", "ARM C") %>%sample_fct(N),
-    COUNTRY = c("BES", "CUW", "SXM", "AFG") %>% sample_fct(N),
-    RACE = c("BLACK OR AFRICAN AMERICAN", "NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER",
-             "AMERICAN INDIAN OR ALASKA NATIVE", "ASIAN", "WHITE", "UNKNOWN",
-             "OTHER", "MULTIPLE") %>%
-      sample_fct(N),
+    RACE = c("ASIAN", "BLACK OR AFRICAN AMERICAN", "WHITE", "AMERICAN INDIAN OR ALASKA NATIVE",
+             "MULTIPLE", "NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER", "OTHER", "UNKNOWN") %>%
+      sample_fct(N, prob = c(.55, .23, .16, .05, .004, .003, .002, .002)),
     STRATA1 = c("A", "B", "C") %>% sample_fct(N),
     STRATA2 = c("S1", "S2") %>% sample_fct(N),
     BMRKR1 = rchisq(N, 6),
-    BMRKR2 = c("low", "medium", "high") %>% sample_fct(N),
+    BMRKR2 = c("LOW", "MEDIUM", "HIGH") %>% sample_fct(N)
   ) %>%
     mutate(ARM = recode(ARMCD, "ARM A" = "A: Drug X", "ARM B" = "B: Placebo", "ARM C" = "C: Combination")) %>%
     mutate(ACTARM = ARM) %>%
-    mutate(ACTARMCD = ARMCD)
+    mutate(ACTARMCD = ARMCD) %>%
+    mutate(ITTFL = "Y")
 
-    ## apply metadata
-  ADSL <- apply_metadata(ADSL, "ADSL.yml", seed = seed, join_adsl = FALSE)
+  # associate sites with countries
+  ADSL <- ADSL %>%
+    mutate(SITEID = paste0(COUNTRY, "-", SITEID)) %>%
+    mutate(USUBJID = paste(STUDYID, SITEID, SUBJID, sep = "-"))
+
+
+  # apply metadata
+  ADSL <- apply_metadata(ADSL, "ADSL.yml", seed = seed)
 
   ADSL
 

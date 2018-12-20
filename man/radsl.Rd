@@ -23,13 +23,12 @@ metadata are required in a CDISC-based submission of data from a clinical
 trial even if no other analysis data sets are submitted.
 }
 \details{
-One record per subject
+One record per subject.
 
 Keys: STUDYID USUBJID
 }
 \examples{
-
-ADSL <- radsl()
+ADSL <- radsl(N = 10)
 head(ADSL)
 
 }

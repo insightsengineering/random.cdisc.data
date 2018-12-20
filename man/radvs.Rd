@@ -2,34 +2,42 @@
 % Please edit documentation in R/radvs.R
 \name{radvs}
 \alias{radvs}
-\title{Vital Signs Dataset}
+\title{Vital Signs Analysis Dataset (ADVS).}
 \usage{
-radvs(ADSL, seed = NULL)
+radvs(ADSL, param = NULL, paramcd = NULL, visit_format = "WEEK",
+  n_assessments = 5, n_days = 5, seed = NULL)
 }
 \arguments{
-\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
+\item{ADSL}{dataset.}
 
-\item{seed}{Seed for random number generation.}
+\item{visit_format}{type of visit either "WEEK" or "CYCLE".}
+
+\item{n_assessments}{number of weeks or cycles.}
+
+\item{n_days}{number of days within cycle.}
+
+\item{seed}{starting point used in the generation of a sequence of random numbers}
+
+\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
 }
 \value{
 data.frame
 }
 \description{
-Function for generating random dataset from laboratory Test Findings domain for a given
-Subject-Level Analysis Dataset
+Function for generating random dataset from Vital Signs Findings domain for a given
+Subject-Level Analysis Dataset.
 }
 \details{
 One record per subject per parameter per analysis visit per analysis date.
-SDTM variables are populated on new records coming from other single records.
-Otherwise, SDTM variables are left blank.
 
-Keys: STUDYID USUBJID PARAMCD AVISITN
+Keys: STUDYID USUBJID PARAMCD AVISITN.
 }
 \examples{
-
 ADSL <- radsl()
-ADVS <- radvs(ADSL)
+ADVS <- radvs(ADSL, visit_format = "WEEK", n_assessments = 7)
+ADVS <- radvs(ADSL, visit_format = "CYCLE", n_assessments = 3)
 head(ADVS)
+
 }
 \author{
 npaszty

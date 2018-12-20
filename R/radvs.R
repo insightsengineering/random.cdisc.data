@@ -1,74 +1,88 @@
-#' Vital Signs Dataset
+#' Vital Signs Analysis Dataset (ADVS).
 #'
-#' Function for generating random dataset from laboratory Test Findings domain for a given
-#' Subject-Level Analysis Dataset
+#' Function for generating random dataset from Vital Signs Findings domain for a given
+#' Subject-Level Analysis Dataset.
 #'
 #' @details One record per subject per parameter per analysis visit per analysis date.
-#' SDTM variables are populated on new records coming from other single records.
-#' Otherwise, SDTM variables are left blank.
 #'
-#' Keys: STUDYID USUBJID PARAMCD AVISITN
+#' Keys: STUDYID USUBJID PARAMCD AVISITN.
+#'
+#' @param ADSL dataset.
+#' @param visit_format type of visit either "WEEK" or "CYCLE".
+#' @param n_assessments number of weeks or cycles.
+#' @param n_days number of days within cycle.
+#' @param seed starting point used in the generation of a sequence of random numbers
 #'
 #' @template param_ADSL
-#' @inheritParams radsl
-#'
-#' @export
-#' @importFrom yaml yaml.load_file
-#'
-#' @author npaszty
 #' @template return_data.frame
 #'
-#' @examples
+#' @inheritParams radsl
 #'
+#' @import dplyr
+#' @importFrom yaml yaml.load_file
+#'
+#' @export
+#'
+#' @author npaszty
+#'
+#' @examples
 #' ADSL <- radsl()
-#' ADVS <- radvs(ADSL)
+#' ADVS <- radvs(ADSL, visit_format = "WEEK", n_assessments = 7)
+#' ADVS <- radvs(ADSL, visit_format = "CYCLE", n_assessments = 3)
 #' head(ADVS)
-radvs <- function(ADSL, seed = NULL) {
+#'
+radvs <- function(ADSL, param = NULL, paramcd = NULL, visit_format = "WEEK", n_assessments = 5, n_days = 5, seed = NULL) {
 
   if (!is.null(seed)) set.seed(seed)
 
-  # Create an example ADVS dataset from the 100 patient, with 7 visits with 6
-  # parameters for each subject.
   ADVS <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
     PARAM = c("Diastolic Blood Pressure", "Pulse Rate", "Respiratory Rate", "Systolic Blood Pressure",
               "Temperature", "Weight"),
-    AVISIT = c("SCREENING", "BASELINE",  paste0("WEEK ", 1:5)),
+    AVISIT = visit_schedule(visit_format = visit_format, n_assessments = n_assessments),
     stringsAsFactors = FALSE
   )
 
-  ADVS$PARAMCD <- c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT")
+  ADVS <- ADVS %>% mutate(AVISITN = case_when(
+    AVISIT == "SCREENING" ~ -1,
+    AVISIT == "BASELINE" ~ 0,
+    (grepl("^WEEK", AVISIT) | grepl("^CYCLE", AVISIT)) ~ as.numeric(AVISIT)-2,
+    TRUE ~ NA_real_
+  ))
 
-  ADVS$AVISITCD <- ifelse(ADVS$AVISIT %in% "SCREENING", "SCR",
-                          ifelse(ADVS$AVISIT %in% "BASELINE", "BL",
-                                 ifelse(grepl("WEEK", ADVS$AVISIT), "W", NA)))
-
-  ADVS$AVISITCDN <- as.numeric(ifelse(ADVS$AVISIT %in% "SCREENING", -1,
-                                      ifelse(ADVS$AVISIT %in% "BASELINE", 0,
-                                             ifelse(grepl("WEEK", ADVS$AVISIT) , substr(ADVS$AVISIT, start=6, stop=7), NA))))
+  # assign related variable values: PARAMxPARAMCD are related - USE FACTORS FOR VAR_VALUES AND PARAM
+  ADVS$PARAMCD <- rel_var(df = ADVS, var_name = "PARAMCD", var_values = c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT"), related_var = "PARAM")
 
   ADVS$AVAL <- rnorm(nrow(ADVS), mean = 50, sd = 8)
 
+  # order to prepare for change from screening and baseline values
+  ADVS <- ADVS[order(ADVS$STUDYID, ADVS$USUBJID, ADVS$PARAMCD, ADVS$AVISITN), ]
+
   ADVS <- Reduce(rbind, lapply(split(ADVS, ADVS$USUBJID), function(x) {
-    x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])]
-    x$BASE2 <- x$AVAL[1]
-    x$CHG2 <- x$AVAL - x$BASE2
-    x$PCHG2 <- 100 * x$CHG2 / x$BASE2
-    x$BASE <- x$AVAL[2]
-    x$CHG <- x$AVAL - x$BASE
-    x$PCHG <- 100 * x$CHG / x$BASE
+    x$STUDYID = ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])]
+    x$ABLFL2 = ifelse(x$AVISIT == "SCREENING", "Y", "")
+    x$ABLFL = ifelse(toupper(visit_format) == "WEEK" & x$AVISIT == "BASELINE", "Y",
+                     ifelse(toupper(visit_format) == "CYCLE" & x$AVISIT == "CYCLE 1 DAY 1", "Y",""))
+    x$LOQFL = ifelse(x$AVAL < 32, "Y", "N")
     x
-  })) %>%
-    mutate(AVISITCD = factor(AVISITCD) %>% reorder(AVISITCDN)) %>%
-    mutate(AVISITN = AVISITCDN) %>%
+  }))
+
+  ADVS$BASE2 <- retain(ADVS, ADVS$AVAL, ADVS$ABLFL2 == "Y")
+  ADVS$BASE <- ifelse(ADVS$ABLFL2 != "Y", retain(ADVS, ADVS$AVAL, ADVS$ABLFL == "Y"), NA)
+
+  ADVS <- ADVS %>%
+    mutate(CHG2 = AVAL - BASE2) %>%
+    mutate(PCHG2 = 100 * (CHG2 / BASE2)) %>%
+    mutate(CHG = AVAL - BASE) %>%
+    mutate(PCHG = 100 * (CHG / BASE)) %>%
     var_relabel(
       USUBJID = attr(ADSL$USUBJID, "label"),
       STUDYID = attr(ADSL$STUDYID, "label")
     )
 
-  ## apply metadata
-  ADVS <- apply_metadata(ADVS, "ADVS.yml", seed = NULL, join_adsl = TRUE)
+  # apply metadata
+  ADVS <- apply_metadata(ADVS, "ADVS.yml", seed = seed, ADSL = ADSL)
 
   ADVS
 

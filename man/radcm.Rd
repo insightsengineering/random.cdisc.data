@@ -2,16 +2,20 @@
 % Please edit documentation in R/radcm.R
 \name{radcm}
 \alias{radcm}
-\title{Concomitant Medication Analysis Dataset (ADCM)}
+\title{Concomitant Medication Analysis Dataset (ADCM).}
 \usage{
 radcm(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL)
 }
 \arguments{
+\item{ADSL}{dataset.}
+
+\item{max_n_cms}{maximum number of concommitant medications per patient.}
+
+\item{seed}{starting point used in the generation of a sequence of random numbers.}
+
+\item{lookup}{table of CMs.}
+
 \item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
-
-\item{max_n_cms}{The maximum number of concomitant medications per patient.}
-
-\item{seed}{Seed for random number generation.}
 
 \item{lookup}{Data.frame containing additional parameters.}
 }
@@ -20,13 +24,16 @@ data.frame
 }
 \description{
 Function for generating random Concomitant Medication Analysis Dataset for a given
-Subject-Level Analysis Dataset
+Subject-Level Analysis Dataset.
+}
+\details{
+One record per each record in the corresponding SDTM domain.
+
+Keys: STUDYID USUBJID CMSTDTM CMTERM CMSEQ.
 }
 \examples{
-
 ADSL <- radsl()
 ADCM <- radcm(ADSL)
-
 head(ADCM)
 
 }
