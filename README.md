@@ -25,16 +25,12 @@ devtools::install_github(
 
 # TODO
 
-* Update the `README.md` file - done
-
-* Document the `radxx` functions - done 
-
 * Use medra data for `adae` (in sysdat, see `aae` in `R/deprecated.R`)
 
-* Create `radqs` (see `aqs` in `R/deprecated.R`) - done
-
-* Create a web documentation with `pkgdown::build_site()` - done
-
 * Make the lookup tables and other scoped data objects arguments of the functions
+
+* Add date variables and associated analysis date/study day to all domains
+
+* Ensure related variable and related record values maintain data integrity. Both within and across domains.
 
 
