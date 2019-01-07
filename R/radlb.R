@@ -1,22 +1,15 @@
-#' Laboratory Analysis Dataset (ADLB).
+#' Laboratory Data Analysis Dataset (ADLB).
 #'
-#' Function for generating random dataset from Laboratory Test Findings domain for a given
+#' Function for generating random dataset from Laboratory Data Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per subject per parameter per analysis visit per analysis date.
 #'
 #' Keys: STUDYID USUBJID PARAMCD AVISITN.
 #'
-#' @param ADSL dataset.
-#' @param visit_format type of visit either "WEEK" or "CYCLE".
-#' @param n_assessments number of weeks or cycles.
-#' @param n_days number of days within cycle.
-#' @param seed starting point used in the generation of a sequence of random numbers
-#'
-#' @template param_ADSL
+#' @template ADSL_params
+#' @template BDS_findings_params
 #' @template return_data.frame
-#'
-#' @inheritParams radsl
 #'
 #' @import dplyr
 #' @importFrom yaml yaml.load_file
@@ -28,28 +21,25 @@
 #' @examples
 #' ADSL <- radsl(N = 10)
 #' ADLB <- radlb(ADSL, visit_format = "WEEK", n_assessments = 7)
-#' ADLB <- radlb(ADSL, param = c("Immunoglobulin A Measurement", "Immunoglobulin G Measurement"), paramcd = c("IGA", "IGG"))
+#' ADLB <- radlb(ADSL, param = c("Immunoglobulin A Measurement", "Immunoglobulin G Measurement"),
+#' paramcd = c("IGA", "IGG"))
 #' ADLB <- radlb(ADSL, visit_format = "CYCLE", n_assessments = 3)
 #' head(ADLB)
 #'
-radlb <- function(ADSL, param = c("Alanine Aminotransferase Measurement", "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
-                  paramcd = c("ALT", "CRP", "IGA"), visit_format = "WEEK", n_assessments = 5, n_days = 5, seed = NULL) {
+radlb <- function(ADSL,
+                  param = c("Alanine Aminotransferase Measurement", "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
+                  paramcd = c("ALT", "CRP", "IGA"),
+                  visit_format = "WEEK", n_assessments = 5, n_days = 5, seed = NULL) {
 
-  # validate parameter related arguments and initialize param values
-  if(length(param) != length (paramcd)){
-    message(simpleError("The argument value length of parameters (PARAM) and parameter codes (PARAMCD) differ. They must contain the same number of elements."))
-    return(NA)
-  } else {
-    param <- param
-    paramcd <- paramcd
-  }
+  # validate and initialize param vectors
+  param_init_list <- param_init(param, paramcd)
 
   if (!is.null(seed)) set.seed(seed)
 
   ADLB <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
-    PARAM = param,
+    PARAM = param_init_list$param,
     AVISIT = visit_schedule(visit_format = visit_format, n_assessments = n_assessments, n_days = n_days),
     stringsAsFactors = FALSE
   )
@@ -57,7 +47,7 @@ radlb <- function(ADSL, param = c("Alanine Aminotransferase Measurement", "C-Rea
   ADLB$AVAL <- rnorm(nrow(ADLB), mean = 50, sd = 8)
 
   # assign related variable values: PARAMxPARAMCD are related - USE FACTORS FOR VAR_VALUES AND PARAM
-  ADLB$PARAMCD <- rel_var(df = ADLB, var_name = "PARAMCD", var_values = paramcd, related_var = "PARAM")
+  ADLB$PARAMCD <- rel_var(df = ADLB, var_name = "PARAMCD", var_values = param_init_list$paramcd, related_var = "PARAM")
 
   ADLB <- ADLB %>% mutate(AVISITN = case_when(
     AVISIT == "SCREENING" ~ -1,

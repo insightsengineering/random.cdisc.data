@@ -4,7 +4,16 @@
     <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/index.html</loc>
   </url>
   <url>
+    <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/apply_metadata.html</loc>
+  </url>
+  <url>
+    <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/param_init.html</loc>
+  </url>
+  <url>
     <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/radae.html</loc>
+  </url>
+  <url>
+    <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/radcm.html</loc>
   </url>
   <url>
     <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/radlb.html</loc>
@@ -19,9 +28,24 @@
     <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/radsl.html</loc>
   </url>
   <url>
-    <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/radte.html</loc>
+    <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/radtte.html</loc>
+  </url>
+  <url>
+    <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/radvs.html</loc>
+  </url>
+  <url>
+    <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/rel_var.html</loc>
+  </url>
+  <url>
+    <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/retain.html</loc>
   </url>
   <url>
     <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/sample_fct.html</loc>
+  </url>
+  <url>
+    <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/var_relabel.html</loc>
+  </url>
+  <url>
+    <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/visit_schedule.html</loc>
   </url>
 </urlset>

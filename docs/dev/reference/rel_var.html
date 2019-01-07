@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • random.cdisc.data</title>
+<title>Assign values to a related variable within a domain. — rel_var • random.cdisc.data</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,10 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Assign values to a related variable within a domain. — rel_var" />
+
+<meta property="og:description" content="Assign values to a related variable within a domain." />
+<meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
 
@@ -47,7 +50,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -94,66 +97,58 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Assign values to a related variable within a domain.</h1>
+    
+    <div class="hidden name"><code>rel_var.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    
+    <p>Assign values to a related variable within a domain.</p>
+    
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-generating-random-datasets" class="hasAnchor"><a href="#section-generating-random-datasets" class="anchor"></a>Generating random datasets</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="radsl.html">radsl()</a></code> </p>
-        </td>
-        <td><p>Subject-Level Analysis Dataset (ADSL)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="radrs.html">radrs()</a></code> </p>
-        </td>
-        <td><p>Tumor Response Analysis Data Set (ADRS)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="radae.html">radae()</a></code> </p>
-        </td>
-        <td><p>Adverse Event Analysis Dataset (ADAE).</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="radlb.html">radlb()</a></code> </p>
-        </td>
-        <td><p>Laboratory Data Analysis Dataset (ADLB).</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="radqs.html">radqs()</a></code> </p>
-        </td>
-        <td><p>Questionnaires Analysis Dataset (ADQS)</p></td>
-      </tr>
-    </tbody>
+    <pre class="usage"><span class='fu'>rel_var</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>var_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>var_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>related_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>df</th>
+      <td><p>data frame containing the related variables.</p></td>
+    </tr>
+    <tr>
+      <th>var_name</th>
+      <td><p>related to variable name.</p></td>
+    </tr>
+    <tr>
+      <th>var_values</th>
+      <td><p>values of related to variable.</p></td>
+    </tr>
+    <tr>
+      <th>related_var</th>
+      <td><p>variable name with existing values to which var_name values must relate.</p></td>
+    </tr>
     </table>
-  </div>
+    
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>rel_var</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='no'>ADLB</span>, <span class='kw'>var_name</span> <span class='kw'>=</span> <span class='st'>"PARAMCD"</span>, <span class='kw'>var_values</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"ALT"</span>, <span class='st'>"CRP"</span>, <span class='st'>"IGA"</span>, <span class='st'>"IGM"</span>),
+<span class='kw'>related_var</span> <span class='kw'>=</span> <span class='st'>"PARAM"</span>)
+<span class='co'># }</span></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-generating-random-datasets">Generating random datasets</a></li>
+      <li><a href="#arguments">Arguments</a></li>
+            
+      <li><a href="#examples">Examples</a></li>
     </ul>
+
   </div>
 </div>
 

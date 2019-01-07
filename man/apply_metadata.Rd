@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{apply_metadata}
 \alias{apply_metadata}
-\title{Apply attributes to domains.}
+\title{Apply label and variable ordering attributes to domains.}
 \usage{
 apply_metadata(df, filename, ..., ADSL = NULL)
 }
@@ -11,13 +11,16 @@ apply_metadata(df, filename, ..., ADSL = NULL)
 
 \item{filename}{yaml file containing domain metadata.}
 
+\item{...}{ellipsis.}
+
 \item{ADSL}{logical to control merging of ADSL data to domain.}
 }
 \description{
-Apply attributes to domains.
+Apply label and variable ordering attributes to domains.
 }
 \examples{
- ADSL <- apply_metadata(ADSL, "ADSL.yml", seed = seed, ADSL = FALSE)
- ADAE <- apply_metadata(ADAE, "ADAE.yml", seed = NULL, ADSL = TRUE)
-
+\dontrun{
+ ADSL <- apply_metadata(ADSL, "ADSL.yml", seed = seed, ADSL = ADSL)
+ ADLB <- apply_metadata(ADLB, "ADLB.yml", seed = seed, ADSL = ADSL)
+}
 }

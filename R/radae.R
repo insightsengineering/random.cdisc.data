@@ -1,22 +1,17 @@
-#' Adverse Events Analysis Dataset (ADAE).
+#' Adverse Event Analysis Dataset (ADAE).
 #'
-#' Function for generating random Adverse Events Analysis Dataset for a given
+#' Function for generating random Adverse Event Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per each record in the corresponding SDTM domain.
 #'
 #' Keys: STUDYID USUBJID AESTDTM AETERM AESEQ.
 #'
-#' @param ADSL dataset.
-#' @param max_n_aes maximum number of AEs per patient.
-#' @param lookup table of AEs.
-#' @param seed starting point used in the generation of a sequence of random numbers.
-#'
-#' @template param_ADSL
-#' @template param_lookup
+#' @template ADSL_params
+#' @template lookup_param
 #' @template return_data.frame
 #'
-#' @inheritParams radsl
+#' @param max_n_aes Maximum number of AEs per patient.
 #'
 #' @import dplyr
 #' @importFrom yaml yaml.load_file
@@ -32,13 +27,13 @@ radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL) {
 
   if(is.null(lookup)){
     lookup_ae = tribble(
-    ~AEBODSYS,   ~AEDECOD, ~AETOXGR,
-    "cl A",   "trm A_1/2",        1,
-    "cl A",   "trm A_2/2",        2,
-    "cl B",   "trm B_1/3",        5,
-    "cl B",   "trm B_2/3",        3,
-    "cl B",   "trm B_3/3",        1,
-    "cl C",   "trm C_1/1",        4
+      ~AEBODSYS,   ~AEDECOD, ~AETOXGR,
+      "cl A",   "trm A_1/2",        1,
+      "cl A",   "trm A_2/2",        2,
+      "cl B",   "trm B_1/3",        5,
+      "cl B",   "trm B_2/3",        3,
+      "cl B",   "trm B_3/3",        1,
+      "cl C",   "trm C_1/1",        4
     )
   } else {
     lookup_ae <- lookup

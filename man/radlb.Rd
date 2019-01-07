@@ -2,7 +2,7 @@
 % Please edit documentation in R/radlb.R
 \name{radlb}
 \alias{radlb}
-\title{Laboratory Analysis Dataset (ADLB).}
+\title{Laboratory Data Analysis Dataset (ADLB).}
 \usage{
 radlb(ADSL, param = c("Alanine Aminotransferase Measurement",
   "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
@@ -10,23 +10,25 @@ radlb(ADSL, param = c("Alanine Aminotransferase Measurement",
   n_assessments = 5, n_days = 5, seed = NULL)
 }
 \arguments{
-\item{ADSL}{dataset.}
+\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
-\item{visit_format}{type of visit either "WEEK" or "CYCLE".}
+\item{param}{As character string. list of PARAM values.}
 
-\item{n_assessments}{number of weeks or cycles.}
+\item{paramcd}{As character string. list of PARAMCD values.}
 
-\item{n_days}{number of days within cycle.}
+\item{visit_format}{Type of visit either "WEEK" or "CYCLE".}
 
-\item{seed}{starting point used in the generation of a sequence of random numbers}
+\item{n_assessments}{Number of weeks or cycles.}
 
-\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
+\item{n_days}{Number of days within cycle.}
+
+\item{seed}{Seed for random number generation.}
 }
 \value{
 data.frame
 }
 \description{
-Function for generating random dataset from Laboratory Test Findings domain for a given
+Function for generating random dataset from Laboratory Data Analysis Dataset for a given
 Subject-Level Analysis Dataset.
 }
 \details{
@@ -37,7 +39,8 @@ Keys: STUDYID USUBJID PARAMCD AVISITN.
 \examples{
 ADSL <- radsl(N = 10)
 ADLB <- radlb(ADSL, visit_format = "WEEK", n_assessments = 7)
-ADLB <- radlb(ADSL, param = c("Immunoglobulin A Measurement", "Immunoglobulin G Measurement"), paramcd = c("IGA", "IGG"))
+ADLB <- radlb(ADSL, param = c("Immunoglobulin A Measurement", "Immunoglobulin G Measurement"),
+paramcd = c("IGA", "IGG"))
 ADLB <- radlb(ADSL, visit_format = "CYCLE", n_assessments = 3)
 head(ADLB)
 

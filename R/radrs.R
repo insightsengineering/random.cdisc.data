@@ -1,7 +1,7 @@
 #' Tumor Response Analysis Data Set (ADRS)
 #'
-#' Tumor Response Analysis Data Set
-#'
+#' Function for generating random Tumor Response Analysis Data Set for a given
+#' Subject-Level Analysis Dataset.
 #'
 #' @details
 #' One record per subject per parameter per analysis visit per analysis date.
@@ -10,15 +10,13 @@
 #'
 #' Keys: STUDYID USUBJID PARAMCD AVISITN ADT RSSEQ
 #'
-#' @param avalc Vector of analysis value categories.
-#' @template param_lookup
-#' @inheritParams radsl
-#' @template param_ADSL
-#'
-#'
-#' @export
+#' @template ADSL_params
+#' @template lookup_param
 #' @template return_data.frame
 #'
+#' @param avalc Vector of analysis value categories.
+#'
+#' @export
 #'
 #' @examples
 #'  ADSL <- radsl()
@@ -32,10 +30,9 @@ radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL) {
     param_codes <- avalc
   }
 
-
   if(is.null(lookup)){
     lookup_ARS <- expand.grid(
-      ARM = c("ARM A", "ARM B", "ARM C"),
+      ARM = c("A: Drug X", "B: Placebo", "C: Combination"),
       AVALC = names(param_codes)
     ) %>% mutate(
       AVAL = param_codes[AVALC],
@@ -49,8 +46,7 @@ radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL) {
 
   if (!is.null(seed)) set.seed(seed)
 
-
-  split(ADSL, ADSL$USUBJID) %>% lapply(FUN = function(pinfo) {
+  ADRS <- split(ADSL, ADSL$USUBJID) %>% lapply(FUN = function(pinfo) {
 
     probs <- lookup_ARS %>%
       filter(ARM == as.character(pinfo$ACTARM))
@@ -67,7 +63,7 @@ radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL) {
     best_rsp <- min(param_codes[c(rsp_screen, rsp_eoi, rsp_fu)])
     best_rsp_i <- which.min(param_codes[c(rsp_screen, rsp_eoi, rsp_fu)])
 
-    avisit = c("screening", "end of induction", "follow up")
+    avisit = c("Screening", "End of Induction", "Follow Up")
 
     tibble(
       STUDYID = pinfo$STUDYID,
@@ -88,13 +84,12 @@ radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL) {
     mutate(AVALC = factor(AVALC, levels = names(param_codes))) %>%
     var_relabel(
       STUDYID = "Study Identifier",
-      USUBJID = "Unique Subject Identifier",
-      SITEID = "Study Site Identifier",
-      PARAM = "Parameter Description",
-      PARAMCD = "Parameter Code",
-      AVAL = "Analysis Value",
-      AVALC = "Analysis Value Category",
-      AVISIT = "Analysis Visit Window"
+      USUBJID = "Unique Subject Identifier"
     )
+
+  # apply metadata
+  ADRS <- apply_metadata(ADRS, "ADRS.yml", seed = seed, ADSL = ADSL)
+
+  ADRS
 
 }

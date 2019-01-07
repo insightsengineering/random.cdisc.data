@@ -7,15 +7,11 @@
 radcm(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL)
 }
 \arguments{
-\item{ADSL}{dataset.}
+\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
 \item{max_n_cms}{maximum number of concommitant medications per patient.}
 
-\item{seed}{starting point used in the generation of a sequence of random numbers.}
-
-\item{lookup}{table of CMs.}
-
-\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
+\item{seed}{Seed for random number generation.}
 
 \item{lookup}{Data.frame containing additional parameters.}
 }

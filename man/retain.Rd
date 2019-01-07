@@ -19,6 +19,7 @@ retain(df, value_var, event, outside = NA)
 Retain values within primary keys.
 }
 \examples{
+\dontrun{
 ADLB$BASE2 <- retain(ADLB, ADLB$AVAL, ADLB$ABLFL2 == "Y")
-
+}
 }

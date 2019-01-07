@@ -1,25 +1,15 @@
 #' Questionnaires Analysis Dataset (ADQS)
 #'
-#' Function for generating random questionaire dataset for a given
+#' Function for generating random Questionaires Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per subject per parameter per analysis visit per analysis date.
 #'
 #' Keys: STUDYID USUBJID PARAMCD AVISITN.
 #'
-#' @param ADSL dataset.
-#' @param visit_format type of visit either "WEEK" or "CYCLE".
-#' @param n_assessments number of weeks or cycles.
-#' @param n_days number of days within cycle.
-#' @param seed starting point used in the generation of a sequence of random numbers
-#' @param param Vector of questionaire parameters.
-#' @param paramcd Vector of questionaire parameter codes of the same length
-#' as parameters and corresponding to their values.
-#'
-#' @template param_ADSL
+#' @template ADSL_params
+#' @template BDS_findings_params
 #' @template return_data.frame
-#'
-#' @inheritParams radsl
 #'
 #' @import dplyr
 #' @importFrom yaml yaml.load_file
@@ -34,14 +24,21 @@
 #' ADQS <- radqs(ADSL, visit_format = "CYCLE", n_assessments = 3)
 #' head(ADQS)
 #'
-radqs <- function(ADSL, visit_format = "WEEK", n_assessments = 5, n_days = 5, seed = NULL, param = NULL, paramcd = NULL) {
+radqs <- function(ADSL,
+                  param = c("BFI All Questions", "Fatigue Interference", "Function/Well-Being (GF1,GF3,GF7)",
+                            "Treatment Side Effects (GP2,C5,GP5)", "FKSI-19 All Questions"),
+                  paramcd = c("BFIALL", "FATIGI", "FKSI-FWB", "FKSI-TSE", "FKSIALL"),
+                  visit_format = "WEEK", n_assessments = 5, n_days = 5, seed = NULL) {
+
+  # validate and initialize param vectors
+  param_init_list <- param_init(param, paramcd)
 
   if (!is.null(seed)) set.seed(seed)
 
   ADQS <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
-    PARAM = c("BFI All Questions", "Fatigue Interference", "Function/Well-Being (GF1,GF3,GF7)", "Treatment Side Effects (GP2,C5,GP5)", "FKSI-19 All Questions"),
+    PARAM = param_init_list$param,
     AVISIT = visit_schedule(visit_format = visit_format, n_assessments = n_assessments, n_days = n_days),
     stringsAsFactors = FALSE
   )
@@ -53,8 +50,8 @@ radqs <- function(ADSL, visit_format = "WEEK", n_assessments = 5, n_days = 5, se
     TRUE ~ NA_real_
   ))
 
-  # assign related variable values: PARAMxPARAMCD are related - USE FACTORS FOR VAR_VALUES AND PARAM
-  ADQS$PARAMCD <- rel_var(df = ADQS, var_name = "PARAMCD", var_values = c("BFIALL", "FATIGI", "FKSI-FWB", "FKSI-TSE", "FKSIALL"), related_var = "PARAM")
+  # assign related variable values: PARAMxPARAMCD are related
+  ADQS$PARAMCD <- rel_var(df = ADQS, var_name = "PARAMCD", var_values = param_init_list$paramcd, related_var = "PARAM")
 
   ADQS$AVAL <- rnorm(nrow(ADQS), mean = 50, sd = 8)
 

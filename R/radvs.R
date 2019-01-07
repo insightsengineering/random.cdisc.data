@@ -1,22 +1,15 @@
 #' Vital Signs Analysis Dataset (ADVS).
 #'
-#' Function for generating random dataset from Vital Signs Findings domain for a given
+#' Function for generating random dataset from Vital Signs Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per subject per parameter per analysis visit per analysis date.
 #'
 #' Keys: STUDYID USUBJID PARAMCD AVISITN.
 #'
-#' @param ADSL dataset.
-#' @param visit_format type of visit either "WEEK" or "CYCLE".
-#' @param n_assessments number of weeks or cycles.
-#' @param n_days number of days within cycle.
-#' @param seed starting point used in the generation of a sequence of random numbers
-#'
-#' @template param_ADSL
+#' @template ADSL_params
+#' @template BDS_findings_params
 #' @template return_data.frame
-#'
-#' @inheritParams radsl
 #'
 #' @import dplyr
 #' @importFrom yaml yaml.load_file
@@ -31,15 +24,21 @@
 #' ADVS <- radvs(ADSL, visit_format = "CYCLE", n_assessments = 3)
 #' head(ADVS)
 #'
-radvs <- function(ADSL, param = NULL, paramcd = NULL, visit_format = "WEEK", n_assessments = 5, n_days = 5, seed = NULL) {
+radvs <- function(ADSL,
+                  param = c("Diastolic Blood Pressure", "Pulse Rate", "Respiratory Rate", "Systolic Blood Pressure",
+                            "Temperature", "Weight"),
+                  paramcd = c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT"),
+                  visit_format = "WEEK", n_assessments = 5, n_days = 5, seed = NULL) {
+
+  # validate and initialize param vectors
+  param_init_list <- param_init(param, paramcd)
 
   if (!is.null(seed)) set.seed(seed)
 
   ADVS <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
-    PARAM = c("Diastolic Blood Pressure", "Pulse Rate", "Respiratory Rate", "Systolic Blood Pressure",
-              "Temperature", "Weight"),
+    PARAM = param_init_list$param,
     AVISIT = visit_schedule(visit_format = visit_format, n_assessments = n_assessments),
     stringsAsFactors = FALSE
   )
@@ -51,8 +50,8 @@ radvs <- function(ADSL, param = NULL, paramcd = NULL, visit_format = "WEEK", n_a
     TRUE ~ NA_real_
   ))
 
-  # assign related variable values: PARAMxPARAMCD are related - USE FACTORS FOR VAR_VALUES AND PARAM
-  ADVS$PARAMCD <- rel_var(df = ADVS, var_name = "PARAMCD", var_values = c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT"), related_var = "PARAM")
+  # assign related variable values: PARAMxPARAMCD are related
+  ADVS$PARAMCD <- rel_var(df = ADVS, var_name = "PARAMCD", var_values = param_init_list$paramcd, related_var = "PARAM")
 
   ADVS$AVAL <- rnorm(nrow(ADVS), mean = 50, sd = 8)
 
@@ -87,4 +86,3 @@ radvs <- function(ADSL, param = NULL, paramcd = NULL, visit_format = "WEEK", n_a
   ADVS
 
 }
-

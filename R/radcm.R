@@ -6,16 +6,12 @@
 #' @details One record per each record in the corresponding SDTM domain.
 #'
 #' Keys: STUDYID USUBJID CMSTDTM CMTERM CMSEQ.
-#' @param ADSL dataset.
-#' @param max_n_cms maximum number of concommitant medications per patient.
-#' @param lookup table of CMs.
-#' @param seed starting point used in the generation of a sequence of random numbers.
 #'
-#' @template param_ADSL
-#' @template param_lookup
+#' @template ADSL_params
+#' @template lookup_param
 #' @template return_data.frame
 #'
-#' @inheritParams radsl
+#' @param max_n_cms maximum number of concommitant medications per patient.
 #'
 #' @import dplyr
 #' @importFrom yaml yaml.load_file

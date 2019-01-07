@@ -4,27 +4,32 @@
 \alias{radvs}
 \title{Vital Signs Analysis Dataset (ADVS).}
 \usage{
-radvs(ADSL, param = NULL, paramcd = NULL, visit_format = "WEEK",
-  n_assessments = 5, n_days = 5, seed = NULL)
+radvs(ADSL, param = c("Diastolic Blood Pressure", "Pulse Rate",
+  "Respiratory Rate", "Systolic Blood Pressure", "Temperature", "Weight"),
+  paramcd = c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT"),
+  visit_format = "WEEK", n_assessments = 5, n_days = 5,
+  seed = NULL)
 }
 \arguments{
-\item{ADSL}{dataset.}
+\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
-\item{visit_format}{type of visit either "WEEK" or "CYCLE".}
+\item{param}{As character string. list of PARAM values.}
 
-\item{n_assessments}{number of weeks or cycles.}
+\item{paramcd}{As character string. list of PARAMCD values.}
 
-\item{n_days}{number of days within cycle.}
+\item{visit_format}{Type of visit either "WEEK" or "CYCLE".}
 
-\item{seed}{starting point used in the generation of a sequence of random numbers}
+\item{n_assessments}{Number of weeks or cycles.}
 
-\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
+\item{n_days}{Number of days within cycle.}
+
+\item{seed}{Seed for random number generation.}
 }
 \value{
 data.frame
 }
 \description{
-Function for generating random dataset from Vital Signs Findings domain for a given
+Function for generating random dataset from Vital Signs Analysis Dataset for a given
 Subject-Level Analysis Dataset.
 }
 \details{

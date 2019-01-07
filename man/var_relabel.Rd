@@ -8,14 +8,14 @@ var_relabel(x, ...)
 }
 \arguments{
 \item{x}{data frame containing variables to which labels are applied.}
+
+\item{...}{ellipsis.}
 }
 \description{
 Apply labels to ADSL primary key variables, available in tern.
 }
 \examples{
- var_relabel(
-    STUDYID = "Study Identifier",
-    USUBJID = "Unique Subject Identifier"
-    )
-
+\dontrun{
+ var_relabel(STUDYID = "Study Identifier", USUBJID = "Unique Subject Identifier")
+}
 }

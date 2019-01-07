@@ -14,12 +14,12 @@
 #' @param N Number of patients.
 #' @param seed Seed for random number generation.
 #'
+#' @template return_data.frame
+#'
 #' @import dplyr
 #' @importFrom stats rchisq reorder rexp rnorm runif setNames
 #'
 #' @export
-#'
-#' @template return_data.frame
 #'
 #' @examples
 #' ADSL <- radsl(N = 10)

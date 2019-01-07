@@ -2,28 +2,24 @@
 % Please edit documentation in R/radae.R
 \name{radae}
 \alias{radae}
-\title{Adverse Events Analysis Dataset (ADAE).}
+\title{Adverse Event Analysis Dataset (ADAE).}
 \usage{
 radae(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL)
 }
 \arguments{
-\item{ADSL}{dataset.}
+\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
-\item{max_n_aes}{maximum number of AEs per patient.}
-
-\item{lookup}{table of AEs.}
-
-\item{seed}{starting point used in the generation of a sequence of random numbers.}
-
-\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
+\item{max_n_aes}{Maximum number of AEs per patient.}
 
 \item{lookup}{Data.frame containing additional parameters.}
+
+\item{seed}{Seed for random number generation.}
 }
 \value{
 data.frame
 }
 \description{
-Function for generating random Adverse Events Analysis Dataset for a given
+Function for generating random Adverse Event Analysis Dataset for a given
 Subject-Level Analysis Dataset.
 }
 \details{

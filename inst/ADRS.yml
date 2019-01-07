@@ -1,0 +1,15 @@
+domain:
+  name: ADVS
+  label: Response Analysis Dataset
+
+variables:
+  PARAM:
+    label: Parameter
+  PARAMCD:
+    label: Parameter Code
+  AVAL:
+    label: Analysis Value
+  AVALC:
+    label: Analysis Value
+  AVISIT:
+    label: Analysis Visit

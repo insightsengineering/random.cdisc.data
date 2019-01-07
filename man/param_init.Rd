@@ -7,7 +7,9 @@
 param_init(param, paramcd)
 }
 \arguments{
-\item{param_list}{as character string. list of PARAM values.}
+\item{param}{as character string. list of PARAM values.}
+
+\item{paramcd}{as character string. list of PARAMCD values.}
 }
 \value{
 a vector of n parameters
@@ -16,6 +18,7 @@ a vector of n parameters
 Verify and initialize parameter (PARAM) values.
 }
 \examples{
-param_init(c("Alanine Aminotransferase Measurement")
-
+\dontrun{
+param_init(c("Alanine Aminotransferase Measurement", "ALT")
+}
 }

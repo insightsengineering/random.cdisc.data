@@ -1,12 +1,35 @@
+#' Create a factor with random elements of x
+#'
+#' Sample elements from x with replacing and build a factor
+#'
+#' @param x character vector or factor, if character vector then it is also used
+#'   as levels of the returned factor, otherwise if it is a factor then the
+#'   levels get used as the new levels
+#' @param N number of
+#' @param ... arguments passed on to \code{\link{sample}}
+#'
+#' @return a factor of length N
+#'
+#' @examples
+#' \dontrun{
+#' sample_fct(letters[1:3], 10)
+#' sample_fct(iris$Species, 10)
+#'}
+sample_fct <- function(x, N, ...) {
+  factor(sample(x, N, replace = TRUE, ...), levels = if (is.factor(x)) levels(x) else x)
+}
+
 #' Verify and initialize parameter (PARAM) values.
 #'
-#' @param param_list as character string. list of PARAM values.
+#' @param param as character string. list of PARAM values.
+#' @param paramcd as character string. list of PARAMCD values.
 #'
 #' @return a vector of n parameters
 #'
 #' @examples
-#'param_init(c("Alanine Aminotransferase Measurement")
-#'
+#' \dontrun{
+#'param_init(c("Alanine Aminotransferase Measurement", "ALT")
+#'}
 param_init <- function(param, paramcd){
 
   if(length(param) != length (paramcd)){
@@ -35,8 +58,10 @@ param_init <- function(param, paramcd){
 #' @return a factor of length n_assessments
 #'
 #' @examples
+#' \dontrun{
 #'AVISIT <- visit_schedule(visit_format = "WEeK", n_assessments = 10)
 #'AVISIT <- visit_schedule(visit_format = "CyCLE", n_assessments = 5, n_days = 2)
+#'}
 visit_schedule <- function(visit_format = "WEEK", n_assessments = 10, n_days = 5, n_timepoints = NULL, times = NULL, n_timepoints_prior_trt = NULL) {
   # trap invalid assessment format
   if (!(toupper(visit_format) %in% c("WEEK", "CYCLE"))) {
@@ -70,8 +95,9 @@ visit_schedule <- function(visit_format = "WEEK", n_assessments = 10, n_days = 5
 #' @param outside value to.
 #'
 #' @examples
+#' \dontrun{
 #' ADLB$BASE2 <- retain(ADLB, ADLB$AVAL, ADLB$ABLFL2 == "Y")
-#'
+#'}
 retain <- function(df, value_var, event, outside=NA)
 {
   indices <- c(1, which(event==TRUE), nrow(df)+1)
@@ -87,8 +113,10 @@ retain <- function(df, value_var, event, outside=NA)
 #' @param related_var variable name with existing values to which var_name values must relate.
 #'
 #' @examples
-#'rel_var(df = ADLB, var_name = "PARAMCD", var_values = c("ALT", "CRP", "IGA", "IGM"), related_var = "PARAM")
-#'
+#' \dontrun{
+#'rel_var(df = ADLB, var_name = "PARAMCD", var_values = c("ALT", "CRP", "IGA", "IGM"),
+#'related_var = "PARAM")
+#'}
 rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var = NULL){
   if (is.null(df)) {
     message("Missing data frame argument value.")
@@ -114,13 +142,12 @@ rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var =
 #' Apply labels to ADSL primary key variables, available in tern.
 #'
 #' @param x data frame containing variables to which labels are applied.
+#' @param ... ellipsis.
 #'
 #' @examples
-#'  var_relabel(
-#'     STUDYID = "Study Identifier",
-#'     USUBJID = "Unique Subject Identifier"
-#'     )
-#'
+#' \dontrun{
+#'  var_relabel(STUDYID = "Study Identifier", USUBJID = "Unique Subject Identifier")
+#'}
 var_relabel <- function(x, ...) {
   dots <- list(...)
   varnames <- names(dots)
@@ -132,17 +159,18 @@ var_relabel <- function(x, ...) {
   x
 }
 
-#' Apply attributes to domains.
+#' Apply label and variable ordering attributes to domains.
 #'
 #' @param df data frame to which metadata are applied.
 #' @param filename yaml file containing domain metadata.
+#' @param ... ellipsis.
 #' @param ADSL logical to control merging of ADSL data to domain.
 #'
 #' @examples
-#'  ADSL <- apply_metadata(ADSL, "ADSL.yml", seed = seed, ADSL = FALSE)
-#'  ADAE <- apply_metadata(ADAE, "ADAE.yml", seed = NULL, ADSL = TRUE)
-#'
-# read domain metadata file to apply labels and ordering
+#' \dontrun{
+#'  ADSL <- apply_metadata(ADSL, "ADSL.yml", seed = seed, ADSL = ADSL)
+#'  ADLB <- apply_metadata(ADLB, "ADLB.yml", seed = seed, ADSL = ADSL)
+#'}
 apply_metadata <- function(df, filename, ..., ADSL = NULL) {
 
   # get metadata
