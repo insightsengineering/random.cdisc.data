@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{var_relabel}
 \alias{var_relabel}
-\title{Apply labels to ADSL primary key variables, available in tern.}
+\title{Apply labels to ADSL primary key variables}
 \usage{
 var_relabel(x, ...)
 }
@@ -12,7 +12,7 @@ var_relabel(x, ...)
 \item{...}{ellipsis.}
 }
 \description{
-Apply labels to ADSL primary key variables, available in tern.
+Apply labels to ADSL primary key variables
 }
 \examples{
 \dontrun{

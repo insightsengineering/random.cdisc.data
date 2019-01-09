@@ -2,7 +2,7 @@
 % Please edit documentation in R/radcm.R
 \name{radcm}
 \alias{radcm}
-\title{Concomitant Medication Analysis Dataset (ADCM).}
+\title{Concomitant Medication Analysis Dataset (ADCM)}
 \usage{
 radcm(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL)
 }

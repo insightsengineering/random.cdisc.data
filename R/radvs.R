@@ -1,4 +1,4 @@
-#' Vital Signs Analysis Dataset (ADVS).
+#' Vital Signs Analysis Dataset (ADVS)
 #'
 #' Function for generating random dataset from Vital Signs Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{rel_var}
 \alias{rel_var}
-\title{Assign values to a related variable within a domain.}
+\title{Assign values to a related variable within a domain}
 \usage{
 rel_var(df = NULL, var_name = NULL, var_values = NULL,
   related_var = NULL)
@@ -17,7 +17,7 @@ rel_var(df = NULL, var_name = NULL, var_values = NULL,
 \item{related_var}{variable name with existing values to which var_name values must relate.}
 }
 \description{
-Assign values to a related variable within a domain.
+Assign values to a related variable within a domain
 }
 \examples{
 \dontrun{

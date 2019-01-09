@@ -1,4 +1,4 @@
-#' Concomitant Medication Analysis Dataset (ADCM).
+#' Concomitant Medication Analysis Dataset (ADCM)
 #'
 #' Function for generating random Concomitant Medication Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.

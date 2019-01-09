@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{param_init}
 \alias{param_init}
-\title{Verify and initialize parameter (PARAM) values.}
+\title{Verify and initialize parameter (PARAM) values}
 \usage{
 param_init(param, paramcd)
 }
@@ -15,7 +15,7 @@ param_init(param, paramcd)
 a vector of n parameters
 }
 \description{
-Verify and initialize parameter (PARAM) values.
+Verify and initialize parameter (PARAM) values
 }
 \examples{
 \dontrun{

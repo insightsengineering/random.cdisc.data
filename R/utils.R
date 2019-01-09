@@ -19,7 +19,7 @@ sample_fct <- function(x, N, ...) {
   factor(sample(x, N, replace = TRUE, ...), levels = if (is.factor(x)) levels(x) else x)
 }
 
-#' Verify and initialize parameter (PARAM) values.
+#' Verify and initialize parameter (PARAM) values
 #'
 #' @param param as character string. list of PARAM values.
 #' @param paramcd as character string. list of PARAMCD values.
@@ -42,7 +42,7 @@ param_init <- function(param, paramcd){
   return(param_init_list <- list("param" = param, "paramcd" = paramcd))
 }
 
-#' Create visit schedule.
+#' Create visit schedule
 #'
 #' Create a visit schedule as factor.
 #'
@@ -87,7 +87,7 @@ visit_schedule <- function(visit_format = "WEEK", n_assessments = 10, n_days = 5
   visit_values <- reorder(factor(visit_values), assessments_ord)
 }
 
-#' Retain values within primary keys.
+#' Retain values within primary keys
 #'
 #' @param df data frame in which to apply the retain.
 #' @param value_var variable containing the value to be retained.
@@ -105,7 +105,7 @@ retain <- function(df, value_var, event, outside=NA)
   retained_val <- rep(values, diff(indices))
 }
 
-#' Assign values to a related variable within a domain.
+#' Assign values to a related variable within a domain
 #'
 #' @param df data frame containing the related variables.
 #' @param var_name related to variable name.
@@ -139,7 +139,7 @@ rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var =
   }
 }
 
-#' Apply labels to ADSL primary key variables, available in tern.
+#' Apply labels to ADSL primary key variables
 #'
 #' @param x data frame containing variables to which labels are applied.
 #' @param ... ellipsis.
@@ -159,7 +159,7 @@ var_relabel <- function(x, ...) {
   x
 }
 
-#' Apply label and variable ordering attributes to domains.
+#' Apply label and variable ordering attributes to domains
 #'
 #' @param df data frame to which metadata are applied.
 #' @param filename yaml file containing domain metadata.
@@ -173,11 +173,11 @@ var_relabel <- function(x, ...) {
 #'}
 apply_metadata <- function(df, filename, ..., ADSL = NULL) {
 
+  # address pkgdown issue where the project path is returned instead of the package path
   pkg_path <- path.package(package = "random.cdisc.data", quiet = FALSE)
   yaml_path <- if(pkg_path %in% .libPaths()) {
     path.package(package = "random.cdisc.data", quiet = FALSE)
   } else {
-    # this is for a pkgdown issue where the project path is returned
     file.path(pkg_path, "inst")
   }
 

@@ -1,4 +1,4 @@
-#' Laboratory Data Analysis Dataset (ADLB).
+#' Laboratory Data Analysis Dataset (ADLB)
 #'
 #' Function for generating random dataset from Laboratory Data Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.

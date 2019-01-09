@@ -2,7 +2,7 @@
 % Please edit documentation in R/radlb.R
 \name{radlb}
 \alias{radlb}
-\title{Laboratory Data Analysis Dataset (ADLB).}
+\title{Laboratory Data Analysis Dataset (ADLB)}
 \usage{
 radlb(ADSL, param = c("Alanine Aminotransferase Measurement",
   "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),

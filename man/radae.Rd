@@ -2,7 +2,7 @@
 % Please edit documentation in R/radae.R
 \name{radae}
 \alias{radae}
-\title{Adverse Event Analysis Dataset (ADAE).}
+\title{Adverse Event Analysis Dataset (ADAE)}
 \usage{
 radae(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL)
 }

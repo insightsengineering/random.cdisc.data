@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{visit_schedule}
 \alias{visit_schedule}
-\title{Create visit schedule.}
+\title{Create visit schedule}
 \usage{
 visit_schedule(visit_format = "WEEK", n_assessments = 10, n_days = 5,
   n_timepoints = NULL, times = NULL, n_timepoints_prior_trt = NULL)

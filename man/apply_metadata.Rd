@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{apply_metadata}
 \alias{apply_metadata}
-\title{Apply label and variable ordering attributes to domains.}
+\title{Apply label and variable ordering attributes to domains}
 \usage{
 apply_metadata(df, filename, ..., ADSL = NULL)
 }
@@ -16,7 +16,7 @@ apply_metadata(df, filename, ..., ADSL = NULL)
 \item{ADSL}{logical to control merging of ADSL data to domain.}
 }
 \description{
-Apply label and variable ordering attributes to domains.
+Apply label and variable ordering attributes to domains
 }
 \examples{
 \dontrun{

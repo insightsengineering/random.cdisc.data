@@ -1,4 +1,4 @@
-#' Adverse Event Analysis Dataset (ADAE).
+#' Adverse Event Analysis Dataset (ADAE)
 #'
 #' Function for generating random Adverse Event Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.

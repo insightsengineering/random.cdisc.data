@@ -1,6 +1,6 @@
 # random.cdisc.data 
 
-The `random.cdisc.data` is a package for creating random cdisc data. 
+The `random.cdisc.data` is a package for creating random CDISC data. 
 The random datasets available to create are:
 
  - Subject-Level Analysis Dataset (radsl)

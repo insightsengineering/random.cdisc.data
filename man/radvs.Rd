@@ -2,7 +2,7 @@
 % Please edit documentation in R/radvs.R
 \name{radvs}
 \alias{radvs}
-\title{Vital Signs Analysis Dataset (ADVS).}
+\title{Vital Signs Analysis Dataset (ADVS)}
 \usage{
 radvs(ADSL, param = c("Diastolic Blood Pressure", "Pulse Rate",
   "Respiratory Rate", "Systolic Blood Pressure", "Temperature", "Weight"),
