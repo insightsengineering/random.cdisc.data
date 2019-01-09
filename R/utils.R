@@ -173,9 +173,17 @@ var_relabel <- function(x, ...) {
 #'}
 apply_metadata <- function(df, filename, ..., ADSL = NULL) {
 
+  pkg_path <- path.package(package = "random.cdisc.data", quiet = FALSE)
+  yaml_path <- if(pkg_path %in% .libPaths()) {
+    path.package(package = "random.cdisc.data", quiet = FALSE)
+  } else {
+    # this is for a pkgdown issue where the project path is returned
+    file.path(pkg_path, "inst")
+  }
+
   # get metadata
   metadata <- yaml.load_file(file.path(
-    path.package(package = "random.cdisc.data", quiet = FALSE),
+    yaml_path,
     filename
   ))
 
