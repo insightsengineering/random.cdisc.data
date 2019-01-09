@@ -11,17 +11,3 @@ navbar:
 
 development:
   mode: devel
-
-reference:
-  - title: Generating random datasets
-    desc:
-    contents:
-     - radsl
-     - radrs
-     - radae
-     - radlb
-     - radte
-     - radqs
-
-
-
