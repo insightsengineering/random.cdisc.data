@@ -173,19 +173,9 @@ var_relabel <- function(x, ...) {
 #'}
 apply_metadata <- function(df, filename, ..., ADSL = NULL) {
 
-  # address pkgdown issue where the project path is returned instead of the package path
-  pkg_path <- path.package(package = "random.cdisc.data", quiet = FALSE)
-  yaml_path <- if(pkg_path %in% .libPaths()) {
-    path.package(package = "random.cdisc.data", quiet = FALSE)
-  } else {
-    file.path(pkg_path, "inst")
-  }
 
   # get metadata
-  metadata <- yaml.load_file(file.path(
-    yaml_path,
-    filename
-  ))
+  metadata <- yaml.load_file(system.file(filename, package = "random.cdisc.data"))
 
   # assign label to data frame
   attr(df, "label") <- metadata$domain$label
