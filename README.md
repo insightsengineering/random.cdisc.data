@@ -25,12 +25,12 @@ devtools::install_github(
 
 # TODO
 
-* Use medra data for `adae` (in sysdat, see `aae` in `R/deprecated.R`)
+* Use MedDRA data for `adae` (in sysdat, see `aae` in `R/deprecated.R`)
 
 * Make the lookup tables and other scoped data objects arguments of the functions
 
 * Add date variables and associated analysis date/study day to all domains
 
-* Ensure related variable and related record values maintain data integrity. Both within and across domains.
+* Ensure related variable and related record values maintain data integrity. Both within and across domains
 
 
