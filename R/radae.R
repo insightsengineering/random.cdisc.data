@@ -57,7 +57,7 @@ radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL) {
     )
 
   # apply metadata
-  ADAE <- apply_metadata(ADAE, "ADAE.yml", seed = seed, ADSL = ADSL)
+  ADAE <- apply_metadata(ADAE, "metadata/ADAE.yml", seed = seed, ADSL = ADSL)
 
   ADAE
 

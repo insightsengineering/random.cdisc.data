@@ -173,7 +173,6 @@ var_relabel <- function(x, ...) {
 #'}
 apply_metadata <- function(df, filename, ..., ADSL = NULL) {
 
-
   # get metadata
   metadata <- yaml.load_file(system.file(filename, package = "random.cdisc.data"))
 

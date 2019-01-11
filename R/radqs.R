@@ -81,7 +81,7 @@ radqs <- function(ADSL,
     )
 
   # apply metadata
-  ADQS <- apply_metadata(ADQS, "ADQS.yml", seed = seed, ADSL = ADSL)
+  ADQS <- apply_metadata(ADQS, "metadata/ADQS.yml", seed = seed, ADSL = ADSL)
 
   ADQS
 

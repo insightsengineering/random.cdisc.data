@@ -88,7 +88,7 @@ radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL) {
     )
 
   # apply metadata
-  ADRS <- apply_metadata(ADRS, "ADRS.yml", seed = seed, ADSL = ADSL)
+  ADRS <- apply_metadata(ADRS, "metadata/ADRS.yml", seed = seed, ADSL = ADSL)
 
   ADRS
 

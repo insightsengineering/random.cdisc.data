@@ -72,7 +72,7 @@ radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL) {
     )
 
   # apply metadata
-  ADTTE <- apply_metadata(ADTTE, "ADTTE.yml", seed = seed, ADSL = ADSL)
+  ADTTE <- apply_metadata(ADTTE, "metadata/ADTTE.yml", seed = seed, ADSL = ADSL)
 
   ADTTE
 

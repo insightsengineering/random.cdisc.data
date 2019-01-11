@@ -81,7 +81,7 @@ radvs <- function(ADSL,
     )
 
   # apply metadata
-  ADVS <- apply_metadata(ADVS, "ADVS.yml", seed = seed, ADSL = ADSL)
+  ADVS <- apply_metadata(ADVS, "metadata/ADVS.yml", seed = seed, ADSL = ADSL)
 
   ADVS
 

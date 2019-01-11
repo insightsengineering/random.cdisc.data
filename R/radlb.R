@@ -82,7 +82,7 @@ radlb <- function(ADSL,
     )
 
   # apply metadata
-  ADLB <- apply_metadata(ADLB, "ADLB.yml", seed = seed, ADSL = ADSL)
+  ADLB <- apply_metadata(ADLB, "metadata/ADLB.yml", seed = seed, ADSL = ADSL)
 
   ADLB
 

@@ -59,7 +59,7 @@ radcm <- function(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL) {
     )
 
   # apply metadata
-  ADCM <- apply_metadata(ADCM, "ADCM.yml", seed = seed, ADSL = ADSL)
+  ADCM <- apply_metadata(ADCM, "metadata/ADCM.yml", seed = seed, ADSL = ADSL)
 
   ADCM
 
