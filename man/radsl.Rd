@@ -31,4 +31,6 @@ Keys: STUDYID USUBJID
 ADSL <- radsl(N = 10)
 head(ADSL)
 
+attr(ADSL, "label") # or also tern::label(ADSL)
+
 }

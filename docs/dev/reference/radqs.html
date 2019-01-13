@@ -166,15 +166,19 @@ Subject-Level Analysis Dataset.</p>
     <pre class="examples"><div class='input'><span class='no'>ADSL</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='radsl.html'>radsl</a></span>()
 <span class='no'>ADQS</span> <span class='kw'>&lt;-</span> <span class='fu'>radqs</span>(<span class='no'>ADSL</span>, <span class='kw'>visit_format</span> <span class='kw'>=</span> <span class='st'>"WEEK"</span>, <span class='kw'>n_assessments</span> <span class='kw'>=</span> <span class='fl'>7</span>)
 <span class='no'>ADQS</span> <span class='kw'>&lt;-</span> <span class='fu'>radqs</span>(<span class='no'>ADSL</span>, <span class='kw'>visit_format</span> <span class='kw'>=</span> <span class='st'>"CYCLE"</span>, <span class='kw'>n_assessments</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>ADQS</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 2</span><span>
-#&gt;   STUDYID USUBJID           
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             
-#&gt; </span><span style='color: #555555;'>1</span><span> AB12345 AB12345-NGA-1-id-1
-#&gt; </span><span style='color: #555555;'>2</span><span> AB12345 AB12345-NGA-1-id-1
-#&gt; </span><span style='color: #555555;'>3</span><span> AB12345 AB12345-NGA-1-id-1
-#&gt; </span><span style='color: #555555;'>4</span><span> AB12345 AB12345-NGA-1-id-1
-#&gt; </span><span style='color: #555555;'>5</span><span> AB12345 AB12345-NGA-1-id-1
-#&gt; </span><span style='color: #555555;'>6</span><span> AB12345 AB12345-NGA-1-id-1</div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>ADQS</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 30</span><span>
+#&gt;   STUDYID USUBJID SUBJID SITEID   AGE SEX   RACE  COUNTRY ARM   ARMCD ACTARM
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> 
+#&gt; </span><span style='color: #555555;'>1</span><span> AB12345 AB1234… id-1   NGA-1     74 M     ASIAN NGA     A: D… ARM A A: Dr…
+#&gt; </span><span style='color: #555555;'>2</span><span> AB12345 AB1234… id-1   NGA-1     74 M     ASIAN NGA     A: D… ARM A A: Dr…
+#&gt; </span><span style='color: #555555;'>3</span><span> AB12345 AB1234… id-1   NGA-1     74 M     ASIAN NGA     A: D… ARM A A: Dr…
+#&gt; </span><span style='color: #555555;'>4</span><span> AB12345 AB1234… id-1   NGA-1     74 M     ASIAN NGA     A: D… ARM A A: Dr…
+#&gt; </span><span style='color: #555555;'>5</span><span> AB12345 AB1234… id-1   NGA-1     74 M     ASIAN NGA     A: D… ARM A A: Dr…
+#&gt; </span><span style='color: #555555;'>6</span><span> AB12345 AB1234… id-1   NGA-1     74 M     ASIAN NGA     A: D… ARM A A: Dr…
+#&gt; </span><span style='color: #555555;'># ... with 19 more variables: ACTARMCD </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, BMRKR1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, BMRKR2 </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>,
+#&gt; #   STRATA1 </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, STRATA2 </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, ITTFL </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, PARAM </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, PARAMCD </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
+#&gt; #   AVISIT </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, AVISITN </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, AVAL </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, BASE2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, ABLFL2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
+#&gt; #   CHG2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, PCHG2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, BASE </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, ABLFL </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, CHG </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, PCHG </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -196,7 +200,7 @@ Subject-Level Analysis Dataset.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Adrian Waddell, Mika Maekinen, Federico Martinello, Heng Wang, Chendi Lioa, Edgar, Nick Paszty.</p>
+  <p>Developed by Adrian Waddell, Nick Paszty, Federico Martinello, Heng Wang, Mika Maekinen, Chendi Lioa, Edgar.</p>
 </div>
 
 <div class="pkgdown">

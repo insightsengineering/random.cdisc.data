@@ -3,14 +3,14 @@
 The `random.cdisc.data` is a package for creating random CDISC data. 
 The random datasets available to create are:
 
- - Subject-Level Analysis Dataset (radsl)
- - Adverse Event Analysis Dataset (radae)
- - Previous and Concomitant Medications Analysis Dataset (radcm)
- - Laboratory Data Analysis Dataset (radlb)
- - Questionnaires Analysis Dataset (radqs)
- - Time-to-Event Dataset (radtte)
- - Tumor Response Analysis Dataset (radrs)
- - Vital Signs Analysis Dataset (radvs)
+ - Subject-Level Analysis Dataset (`radsl`)
+ - Adverse Event Analysis Dataset (`radae`)
+ - Previous and Concomitant Medications Analysis Dataset (`radcm`)
+ - Laboratory Data Analysis Dataset (`radlb`)
+ - Questionnaires Analysis Dataset (`radqs`)
+ - Time-to-Event Dataset (`radtte`)
+ - Tumor Response Analysis Dataset (`radrs`)
+ - Vital Signs Analysis Dataset (`radvs`)
 
 # Installation
 
