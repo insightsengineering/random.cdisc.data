@@ -4,12 +4,12 @@ Title: Create Random SDTM and ADAM Datasets
 Version: 0.1.2.1
 Authors@R: c(
   person("Adrian", "Waddell", email = "adrian.waddell@roche.com", role = c("aut", "cre")),
-  person("Mika", "Maekinen", email = "mika.maekinen@roche.com", role = c("aut")),
+  person("Nick", "Paszty", email = "npaszty@gene.com", role = c("aut")),
   person("Federico", "Martinello", email = "mika.maekinen@roche.com", role = c("aut")),
   person("Heng", "Wang", email = "wangh107@gene.com", role = c("aut")),
+  person("Mika", "Maekinen", email = "mika.maekinen@roche.com", role = c("aut")),
   person("Chendi", "Lioa", email = "", role = c("aut")),
-  person("Edgar", "", email = "", role = c("aut")),
-  person("Nick", "Paszty", email = "npaszty@gene.com", role = c("aut"))
+  person("Edgar", "", email = "", role = c("aut"))
   )
 Description: Create random CDISC data.
 Imports: dplyr, yaml
