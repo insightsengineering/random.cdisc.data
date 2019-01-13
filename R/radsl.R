@@ -25,6 +25,8 @@
 #' ADSL <- radsl(N = 10)
 #' head(ADSL)
 #'
+#' attr(ADSL, "label") # or also tern::label(ADSL)
+#'
 radsl <- function(N = 400, seed = NULL) {
 
   if (!is.null(seed)) set.seed(seed)

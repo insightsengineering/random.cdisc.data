@@ -176,9 +176,6 @@ apply_metadata <- function(df, filename, ..., ADSL = NULL) {
   # get metadata
   metadata <- yaml.load_file(system.file(filename, package = "random.cdisc.data"))
 
-  # assign label to data frame
-  attr(df, "label") <- metadata$domain$label
-
   ## assign labels to variables
   for(var in intersect(names(df), names(metadata$variables))) {
     attr(df[[var]], "label") <- metadata$variables[[var]]$label
@@ -190,10 +187,11 @@ apply_metadata <- function(df, filename, ..., ADSL = NULL) {
   if (!is.null(ADSL)) {
     ## add all ADSL variables to domain, BDS is one proc away
     df <- inner_join(ADSL, df, by=c("STUDYID", "USUBJID"))
-  } else {
-
-    df
-
   }
+
+  # assign label to data frame
+  attr(df, "label") <- metadata$domain$label
+
+  df
 
 }
