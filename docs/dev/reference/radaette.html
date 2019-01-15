@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Laboratory Data Analysis Dataset (ADLB) — radlb • random.cdisc.data</title>
+<title>Time to Adverse Event Analysis Dataset (ADAETTE) — radaette • random.cdisc.data</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,10 @@
 
 
 
-<meta property="og:title" content="Laboratory Data Analysis Dataset (ADLB) — radlb" />
+<meta property="og:title" content="Time to Adverse Event Analysis Dataset (ADAETTE) — radaette" />
 
-<meta property="og:description" content="Function for generating random dataset from Laboratory Data Analysis Dataset for a given
-Subject-Level Analysis Dataset." />
+<meta property="og:description" content="Function to generate random time to AE dataset for a
+given subject-level analysis dataset." />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
@@ -100,22 +100,20 @@ Subject-Level Analysis Dataset." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Laboratory Data Analysis Dataset (ADLB)</h1>
+    <h1>Time to Adverse Event Analysis Dataset (ADAETTE)</h1>
     
-    <div class="hidden name"><code>radlb.Rd</code></div>
+    <div class="hidden name"><code>radaette.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Function for generating random dataset from Laboratory Data Analysis Dataset for a given
-Subject-Level Analysis Dataset.</p>
+    <p>Function to generate random time to AE dataset for a
+given subject-level analysis dataset.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>radlb</span>(<span class='no'>ADSL</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Alanine Aminotransferase Measurement"</span>,
-  <span class='st'>"C-Reactive Protein Measurement"</span>, <span class='st'>"Immunoglobulin A Measurement"</span>),
-  <span class='kw'>paramcd</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"ALT"</span>, <span class='st'>"CRP"</span>, <span class='st'>"IGA"</span>), <span class='kw'>visit_format</span> <span class='kw'>=</span> <span class='st'>"WEEK"</span>,
-  <span class='kw'>n_assessments</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>n_days</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>radaette</span>(<span class='no'>ADSL</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lookup</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>event.descr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>censor.descr</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -125,28 +123,20 @@ Subject-Level Analysis Dataset.</p>
       <td><p>Subject-Level Analysis Dataset (ADSL).</p></td>
     </tr>
     <tr>
-      <th>param</th>
-      <td><p>As character string. list of PARAM values.</p></td>
-    </tr>
-    <tr>
-      <th>paramcd</th>
-      <td><p>As character string. list of PARAMCD values.</p></td>
-    </tr>
-    <tr>
-      <th>visit_format</th>
-      <td><p>Type of visit either "WEEK" or "CYCLE".</p></td>
-    </tr>
-    <tr>
-      <th>n_assessments</th>
-      <td><p>Number of weeks or cycles.</p></td>
-    </tr>
-    <tr>
-      <th>n_days</th>
-      <td><p>Number of days within cycle.</p></td>
-    </tr>
-    <tr>
       <th>seed</th>
       <td><p>Seed for random number generation.</p></td>
+    </tr>
+    <tr>
+      <th>lookup</th>
+      <td><p>Data.frame containing additional parameters.</p></td>
+    </tr>
+    <tr>
+      <th>event.descr</th>
+      <td><p>Character vector with description of events.</p></td>
+    </tr>
+    <tr>
+      <th>censor.descr</th>
+      <td><p>Character vector with description of censors.</p></td>
     </tr>
     </table>
     
@@ -156,30 +146,25 @@ Subject-Level Analysis Dataset.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>One record per subject per parameter per analysis visit per analysis date.</p>
-<p>Keys: STUDYID USUBJID PARAMCD AVISITN.</p>
+    <p>Keys: STUDYID USUBJID PARAMCD AVISITN ADT TTESEQ</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>ADSL</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='radsl.html'>radsl</a></span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>)
-<span class='no'>ADLB</span> <span class='kw'>&lt;-</span> <span class='fu'>radlb</span>(<span class='no'>ADSL</span>, <span class='kw'>visit_format</span> <span class='kw'>=</span> <span class='st'>"WEEK"</span>, <span class='kw'>n_assessments</span> <span class='kw'>=</span> <span class='fl'>7</span>)
-<span class='no'>ADLB</span> <span class='kw'>&lt;-</span> <span class='fu'>radlb</span>(<span class='no'>ADSL</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Immunoglobulin A Measurement"</span>, <span class='st'>"Immunoglobulin G Measurement"</span>),
-<span class='kw'>paramcd</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"IGA"</span>, <span class='st'>"IGG"</span>))
-<span class='no'>ADLB</span> <span class='kw'>&lt;-</span> <span class='fu'>radlb</span>(<span class='no'>ADSL</span>, <span class='kw'>visit_format</span> <span class='kw'>=</span> <span class='st'>"CYCLE"</span>, <span class='kw'>n_assessments</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>ADLB</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 32</span><span>
+    <pre class="examples"><div class='input'><span class='no'>ADSL</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='radsl.html'>radsl</a></span>()
+<span class='no'>ADAETTE</span> <span class='kw'>&lt;-</span> <span class='fu'>radaette</span>(<span class='no'>ADSL</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>ADAETTE</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 25</span><span>
 #&gt;   STUDYID USUBJID SUBJID SITEID   AGE SEX   RACE  COUNTRY ARM   ARMCD ACTARM
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'>1</span><span> AB12345 AB1234~ id-1   PAK-1     29 M     WHITE PAK     B: P~ ARM B B: Pl~
-#&gt; </span><span style='color: #555555;'>2</span><span> AB12345 AB1234~ id-1   PAK-1     29 M     WHITE PAK     B: P~ ARM B B: Pl~
-#&gt; </span><span style='color: #555555;'>3</span><span> AB12345 AB1234~ id-1   PAK-1     29 M     WHITE PAK     B: P~ ARM B B: Pl~
-#&gt; </span><span style='color: #555555;'>4</span><span> AB12345 AB1234~ id-1   PAK-1     29 M     WHITE PAK     B: P~ ARM B B: Pl~
-#&gt; </span><span style='color: #555555;'>5</span><span> AB12345 AB1234~ id-1   PAK-1     29 M     WHITE PAK     B: P~ ARM B B: Pl~
-#&gt; </span><span style='color: #555555;'>6</span><span> AB12345 AB1234~ id-1   PAK-1     29 M     WHITE PAK     B: P~ ARM B B: Pl~
-#&gt; </span><span style='color: #555555;'># ... with 21 more variables: ACTARMCD </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, STRATA1 </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, STRATA2 </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>,
+#&gt; </span><span style='color: #555555;'>1</span><span> AB12345 AB1234~ id-1   PAK-3     43 M     WHITE PAK     C: C~ ARM C C: Co~
+#&gt; </span><span style='color: #555555;'>2</span><span> AB12345 AB1234~ id-1   PAK-3     43 M     WHITE PAK     C: C~ ARM C C: Co~
+#&gt; </span><span style='color: #555555;'>3</span><span> AB12345 AB1234~ id-1   PAK-3     43 M     WHITE PAK     C: C~ ARM C C: Co~
+#&gt; </span><span style='color: #555555;'>4</span><span> AB12345 AB1234~ id-2   CHN-1     55 M     BLAC~ CHN     C: C~ ARM C C: Co~
+#&gt; </span><span style='color: #555555;'>5</span><span> AB12345 AB1234~ id-2   CHN-1     55 M     BLAC~ CHN     C: C~ ARM C C: Co~
+#&gt; </span><span style='color: #555555;'>6</span><span> AB12345 AB1234~ id-2   CHN-1     55 M     BLAC~ CHN     C: C~ ARM C C: Co~
+#&gt; </span><span style='color: #555555;'># ... with 14 more variables: ACTARMCD </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, STRATA1 </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, STRATA2 </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>,
 #&gt; #   BMRKR1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, BMRKR2 </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, ITTFL </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, BEP01FL </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, PARAM </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
-#&gt; #   PARAMCD </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, AVISIT </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, AVISITN </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, AVAL </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, BASE2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   ABLFL2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, CHG2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, PCHG2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, BASE </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, ABLFL </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, CHG </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
-#&gt; #   PCHG </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, LOQFL </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
+#&gt; #   PARAMCD </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, AVAL </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, AVALU </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, CNSR </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, EVNTDESC </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
+#&gt; #   CNSDTDSC </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -195,7 +180,7 @@ Subject-Level Analysis Dataset.</p>
     </ul>
 
     <h2>Author</h2>
-    <p>tomlinsj, npaszty</p>
+    <p>Xiuting Mi</p>
   </div>
 </div>
 

@@ -1,4 +1,4 @@
-#' Time To Adverse Event Analysis Dataset (ADAETTE)
+#' Time to Adverse Event Analysis Dataset (ADAETTE)
 #'
 #' Function to generate random time to AE dataset for a
 #' given subject-level analysis dataset.
@@ -22,7 +22,7 @@
 #' @examples
 #' ADSL <- radsl()
 #' ADAETTE <- radaette(ADSL)
-#' head(adaette)
+#' head(ADAETTE)
 #'
 radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censor.descr = NULL) {
 

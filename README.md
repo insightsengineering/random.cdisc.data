@@ -5,6 +5,7 @@ The random datasets available to create are:
 
  - Subject-Level Analysis Dataset (`radsl`)
  - Adverse Event Analysis Dataset (`radae`)
+ - Time to Adverse Event Analysis Dataset (`radaette`)
  - Previous and Concomitant Medications Analysis Dataset (`radcm`)
  - Laboratory Data Analysis Dataset (`radlb`)
  - Questionnaires Analysis Dataset (`radqs`)

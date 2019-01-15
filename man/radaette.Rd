@@ -2,7 +2,7 @@
 % Please edit documentation in R/radaette.R
 \name{radaette}
 \alias{radaette}
-\title{Time To Adverse Event Analysis Dataset (ADAETTE)}
+\title{Time to Adverse Event Analysis Dataset (ADAETTE)}
 \usage{
 radaette(ADSL, seed = NULL, lookup = NULL, event.descr = NULL,
   censor.descr = NULL)
@@ -31,7 +31,7 @@ Keys: STUDYID USUBJID PARAMCD AVISITN ADT TTESEQ
 \examples{
 ADSL <- radsl()
 ADAETTE <- radaette(ADSL)
-head(adaette)
+head(ADAETTE)
 
 }
 \author{
