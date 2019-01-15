@@ -1,0 +1,19 @@
+domain:
+  name: ADAETTE
+  label: Time To Adverse Event Analysis Dataset
+
+variables:
+  PARAM:
+    label: Parameter
+  PARAMCD:
+    label: Parameter Code
+  AVAL:
+    label: Analysis Value
+  AVALU:
+    label: Analysis Value Unit
+  CNSR:
+    label: Censor
+  EVNTDESC:
+    label: Event or Censoring Description
+  CNSDTDSC:
+    label: Censor Date Description

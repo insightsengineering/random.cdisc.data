@@ -49,7 +49,8 @@ radsl <- function(N = 400, seed = NULL) {
     STRATA1 = c("A", "B", "C") %>% sample_fct(N),
     STRATA2 = c("S1", "S2") %>% sample_fct(N),
     BMRKR1 = rchisq(N, 6),
-    BMRKR2 = c("LOW", "MEDIUM", "HIGH") %>% sample_fct(N)
+    BMRKR2 = c("LOW", "MEDIUM", "HIGH") %>% sample_fct(N),
+    BEP01FL = c("Y", "N") %>% sample_fct(N)
   ) %>%
     mutate(ARM = recode(ARMCD, "ARM A" = "A: Drug X", "ARM B" = "B: Placebo", "ARM C" = "C: Combination")) %>%
     mutate(ACTARM = ARM) %>%

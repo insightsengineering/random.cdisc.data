@@ -1,4 +1,4 @@
-#' Time-to-Event Analysis dataset (ATE)
+#' Time-to-Event Analysis Dataset (ATE)
 #'
 #' Function for generating random Time-to-Event Analysis Dataset for a given
 #' Subject-Level Analysis Dataset
@@ -50,7 +50,6 @@ radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL) {
     evntdescr_sel <-event.descr
   }
 
-  # pinfo <- split(ADSL, ADSL$USUBJID)[[1]]
   ADTTE <- split(ADSL, ADSL$USUBJID) %>% lapply(FUN = function(pinfo) {
 
     lookup_TTE %>% filter(ARM == as.character(pinfo$ACTARMCD)) %>%

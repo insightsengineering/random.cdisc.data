@@ -2,7 +2,7 @@
 % Please edit documentation in R/radtte.R
 \name{radtte}
 \alias{radtte}
-\title{Time-to-Event Analysis dataset (ATE)}
+\title{Time-to-Event Analysis Dataset (ATE)}
 \usage{
 radtte(ADSL, lookup = NULL, event.descr = NULL, seed = NULL)
 }

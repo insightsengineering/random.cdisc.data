@@ -1,24 +1,27 @@
-#' Time To Adverse Event Dataset (ADAETTE)
+#' Time To Adverse Event Analysis Dataset (ADAETTE)
 #'
 #' Function to generate random time to AE dataset for a
-#' given subject-level analysis dataset (ADSL)
+#' given subject-level analysis dataset.
 #'
-#' @details
-#' One record per subject per event.
+#' Keys: STUDYID USUBJID PARAMCD AVISITN ADT TTESEQ
 #'
-#' @inheritParams radsl
+#' @template ADSL_params
+#' @template lookup_param
+#' @template return_data.frame
+#'
 #' @param event.descr Character vector with description of events.
 #' @param censor.descr Character vector with description of censors.
 #'
-#' @noRd
+#' @import dplyr
+#' @importFrom yaml yaml.load_file
 #'
-#' @import tibble
+#' @export
 #'
 #' @author Xiuting Mi
 #'
 #' @examples
-#' asl <- radsl()
-#' adaette <- radaette(ADSL = asl)
+#' ADSL <- radsl()
+#' ADAETTE <- radaette(ADSL)
 #' head(adaette)
 #'
 radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censor.descr = NULL) {
@@ -40,6 +43,7 @@ radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censo
     lookup_ADAETTE <- lookup
   }
 
+  if (!is.null(seed)) set.seed(seed)
 
   if (is.null(event.descr)){
     evntdescr_sel <- c(
@@ -63,9 +67,7 @@ radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censo
     cnsdtdscr_sel <- censor.descr
   }
 
-  if (!is.null(seed)) set.seed(seed)
-
-  split(ADSL, ADSL$USUBJID) %>% lapply(FUN = function(pinfo) {
+  ADAETTE <- split(ADSL, ADSL$USUBJID) %>% lapply(FUN = function(pinfo) {
 
     lookup_ADAETTE %>% filter(ARM == as.character(pinfo$ARMCD)) %>%
       rowwise() %>%
@@ -83,15 +85,12 @@ radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censo
   })  %>% Reduce(rbind, .) %>%
     var_relabel(
       STUDYID = "Study Identifier",
-      USUBJID = "Unique Subject Identifier",
-      SITEID = "Study Site Identifier",
-      PARAM = "Parameter Description",
-      PARAMCD = "Parameter Code",
-      AVAL = "Analysis Value",
-      AVALU = "Analysis Value Unit",
-      EVNTDESC = "Event Description",
-      CNSDTDSC = "Censor Date Description",
-      CNSR = "Censoring Status Value(1=cens, 0=evt)"
+      USUBJID = "Unique Subject Identifier"
     )
+
+  # apply metadata
+  ADAETTE <- apply_metadata(ADAETTE, "metadata/ADAETTE.yml", seed = seed, ADSL = ADSL)
+
+  ADAETTE
 
 }
