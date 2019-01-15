@@ -7,7 +7,7 @@
 radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL)
 }
 \arguments{
-\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
+\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
 \item{seed}{Seed for random number generation.}
 
@@ -19,7 +19,8 @@ radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL)
 data.frame
 }
 \description{
-Tumor Response Analysis Data Set
+Function for generating random Tumor Response Analysis Data Set for a given
+Subject-Level Analysis Dataset.
 }
 \details{
 One record per subject per parameter per analysis visit per analysis date.

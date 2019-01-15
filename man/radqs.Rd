@@ -2,30 +2,49 @@
 % Please edit documentation in R/radqs.R
 \name{radqs}
 \alias{radqs}
-\title{Questionaires Dataset}
+\title{Questionnaires Analysis Dataset (ADQS)}
 \usage{
-radqs(ADSL, seed = NULL, param = NULL, paramcd = NULL)
+radqs(ADSL, param = c("BFI All Questions", "Fatigue Interference",
+  "Function/Well-Being (GF1,GF3,GF7)",
+  "Treatment Side Effects (GP2,C5,GP5)", "FKSI-19 All Questions"),
+  paramcd = c("BFIALL", "FATIGI", "FKSI-FWB", "FKSI-TSE", "FKSIALL"),
+  visit_format = "WEEK", n_assessments = 5, n_days = 5,
+  seed = NULL)
 }
 \arguments{
-\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
+\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+
+\item{param}{As character string. list of PARAM values.}
+
+\item{paramcd}{As character string. list of PARAMCD values.}
+
+\item{visit_format}{Type of visit either "WEEK" or "CYCLE".}
+
+\item{n_assessments}{Number of weeks or cycles.}
+
+\item{n_days}{Number of days within cycle.}
 
 \item{seed}{Seed for random number generation.}
-
-\item{param}{Vector of questionaire parameters.}
-
-\item{paramcd}{Vector of questionaire parameter codes of the same length
-as parameters and corresponding to their values.}
 }
 \value{
 data.frame
 }
 \description{
-Function for generating random questionaire dataset for a given
-Subject-Level Analysis Dataset
+Function for generating random Questionaires Analysis Dataset for a given
+Subject-Level Analysis Dataset.
+}
+\details{
+One record per subject per parameter per analysis visit per analysis date.
+
+Keys: STUDYID USUBJID PARAMCD AVISITN.
 }
 \examples{
 ADSL <- radsl()
-ADQS <- radqs(ADSL)
+ADQS <- radqs(ADSL, visit_format = "WEEK", n_assessments = 7)
+ADQS <- radqs(ADSL, visit_format = "CYCLE", n_assessments = 3)
 head(ADQS)
 
+}
+\author{
+npaszty
 }

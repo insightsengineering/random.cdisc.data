@@ -13,15 +13,28 @@ development:
   mode: devel
 
 reference:
-  - title: Generating random datasets
-    desc:
-    contents:
-     - radsl
-     - radrs
-     - radae
-     - radlb
-     - radte
-     - radqs
 
+  - title: CDISC Domain Functions
+    desc: These functions generate CDISC domains containing randomly assigned data
+    contents:
+      - radsl
+      - radae
+      - radcm
+      - radlb
+      - radqs
+      - radrs
+      - radtte
+      - radvs
+
+  - title: Utility Functions
+    desc: These functions are not exported but are documented for developers
+    contents:
+      - apply_metadata
+      - param_init
+      - rel_var
+      - retain
+      - sample_fct
+      - var_relabel
+      - visit_schedule
 
 

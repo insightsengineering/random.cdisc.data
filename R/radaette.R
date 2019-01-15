@@ -7,12 +7,10 @@
 #' One record per subject per event.
 #'
 #' @inheritParams radsl
-#' @template param_ADSL
-#' @template param_lookup
 #' @param event.descr Character vector with description of events.
 #' @param censor.descr Character vector with description of censors.
 #'
-#' @export
+#' @noRd
 #'
 #' @import tibble
 #'

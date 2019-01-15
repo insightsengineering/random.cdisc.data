@@ -7,9 +7,9 @@
 radcm(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL)
 }
 \arguments{
-\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
+\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
-\item{max_n_cms}{The maximum number of concomitant medications per patient.}
+\item{max_n_cms}{maximum number of concommitant medications per patient.}
 
 \item{seed}{Seed for random number generation.}
 
@@ -20,13 +20,16 @@ data.frame
 }
 \description{
 Function for generating random Concomitant Medication Analysis Dataset for a given
-Subject-Level Analysis Dataset
+Subject-Level Analysis Dataset.
+}
+\details{
+One record per each record in the corresponding SDTM domain.
+
+Keys: STUDYID USUBJID CMSTDTM CMTERM CMSEQ.
 }
 \examples{
-
 ADSL <- radsl()
 ADCM <- radcm(ADSL)
-
 head(ADCM)
 
 }

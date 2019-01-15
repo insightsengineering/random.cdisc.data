@@ -2,12 +2,25 @@
 % Please edit documentation in R/radlb.R
 \name{radlb}
 \alias{radlb}
-\title{Lab Dataset}
+\title{Laboratory Data Analysis Dataset (ADLB)}
 \usage{
-radlb(ADSL, seed = NULL)
+radlb(ADSL, param = c("Alanine Aminotransferase Measurement",
+  "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
+  paramcd = c("ALT", "CRP", "IGA"), visit_format = "WEEK",
+  n_assessments = 5, n_days = 5, seed = NULL)
 }
 \arguments{
-\item{ADSL}{ADSL (Subject-Level Analysis Dataset) start data set.}
+\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+
+\item{param}{As character string. list of PARAM values.}
+
+\item{paramcd}{As character string. list of PARAMCD values.}
+
+\item{visit_format}{Type of visit either "WEEK" or "CYCLE".}
+
+\item{n_assessments}{Number of weeks or cycles.}
+
+\item{n_days}{Number of days within cycle.}
 
 \item{seed}{Seed for random number generation.}
 }
@@ -15,22 +28,23 @@ radlb(ADSL, seed = NULL)
 data.frame
 }
 \description{
-Function for generating random dataset from laboratory Test Findings domain for a given
-Subject-Level Analysis Dataset
+Function for generating random dataset from Laboratory Data Analysis Dataset for a given
+Subject-Level Analysis Dataset.
 }
 \details{
 One record per subject per parameter per analysis visit per analysis date.
-SDTM variables are populated on new records coming from other single records.
-Otherwise, SDTM variables are left blank.
 
-Keys: STUDYID USUBJID PARAMCD BASETYPE AVISITN ATPTN DTYPE ADTM LBSEQ ASPID
+Keys: STUDYID USUBJID PARAMCD AVISITN.
 }
 \examples{
-
-ADSL <- radsl()
-ADLB <- radlb(ADSL)
+ADSL <- radsl(N = 10)
+ADLB <- radlb(ADSL, visit_format = "WEEK", n_assessments = 7)
+ADLB <- radlb(ADSL, param = c("Immunoglobulin A Measurement", "Immunoglobulin G Measurement"),
+paramcd = c("IGA", "IGG"))
+ADLB <- radlb(ADSL, visit_format = "CYCLE", n_assessments = 3)
 head(ADLB)
+
 }
 \author{
-tomlinsj
+tomlinsj, npaszty
 }

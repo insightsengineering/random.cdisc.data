@@ -1,0 +1,11 @@
+domain:
+  name: ADAE
+  label: Adverse Events Analysis Dataset
+
+variables:
+  AEBODSYS:
+    label: Body System or Organ Class
+  AEDECOD:
+    label: Dictionary-Derived Term
+  AETOXGR:
+    label: Standard Toxicity Grade
