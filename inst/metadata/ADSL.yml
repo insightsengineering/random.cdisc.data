@@ -27,13 +27,15 @@ variables:
       label: Description of Actual Arm
     ACTARMCD:
       label: Actual Arm Code
-    BMRKR1:
-      label: Continous Level Biomarker 1
-    BMRKR2:
-      label: Cat. Biomarker 2
     STRATA1:
       label: Stratification Factor 1
     STRATA2:
       label: Stratification Factor 2
+    BMRKR1:
+      label: Continous Level Biomarker 1
+    BMRKR2:
+      label: Categorical Level Biomarker 2
     ITTFL:
       label: Intent-To-Treat Population Flag
+    BEP01FL:
+      label: Biomarker Evaluable Population Flag
