@@ -22,8 +22,8 @@ radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL) {
 
   if (!is.null(seed)) set.seed(seed)
 
-  if (is.null(lookup)){
-    lookup_TTE <- tribble(
+  lookup_TTE <- if (is.null(lookup)){
+    tribble(
       ~ARM,  ~PARAMCD, ~PARAM, ~LAMBDA, ~CNSR_P,
       "ARM A", "OS",  "Overall Survival",          1/80,  0.4,
       "ARM B", "OS",  "Overall Survival",          1/100, 0.2,
@@ -35,11 +35,11 @@ radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL) {
       "ARM B", "EFS", "Event Free Survival",       1/100, 0.08,
       "ARM C", "EFS", "Event Free Survival",       1/60,  0.23)
   } else {
-    lookup_TTE <- lookup
+    lookup
   }
 
-  if (is.null(event.descr)){
-    evntdescr_sel <- c(
+  evntdescr_sel <- if (is.null(event.descr)){
+    c(
       'Death',
       'Disease Progression',
       'Last Tumor Assessment',
@@ -47,7 +47,7 @@ radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL) {
       'Last Date Known To Be Alive'
     )
   } else {
-    evntdescr_sel <-event.descr
+    event.descr
   }
 
   ADTTE <- split(ADSL, ADSL$USUBJID) %>% lapply(FUN = function(pinfo) {
