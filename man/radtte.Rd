@@ -25,8 +25,8 @@ Function for generating random Time-to-Event Analysis Dataset for a given
 Subject-Level Analysis Dataset
 }
 \examples{
-ADSL <- radsl()
-ADTTE <- radtte(ADSL)
+ADSL <- radsl(seed = 1)
+ADTTE <- radtte(ADSL, seed = 2)
 head(ADTTE)
 
 }

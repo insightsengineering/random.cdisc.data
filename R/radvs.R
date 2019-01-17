@@ -19,9 +19,9 @@
 #' @author npaszty
 #'
 #' @examples
-#' ADSL <- radsl()
-#' ADVS <- radvs(ADSL, visit_format = "WEEK", n_assessments = 7)
-#' ADVS <- radvs(ADSL, visit_format = "CYCLE", n_assessments = 3)
+#' ADSL <- radsl(seed = 1)
+#' ADVS <- radvs(ADSL, visit_format = "WEEK", n_assessments = 7, seed = 2)
+#' ADVS <- radvs(ADSL, visit_format = "CYCLE", n_assessments = 3, seed = 2)
 #' head(ADVS)
 #'
 radvs <- function(ADSL,

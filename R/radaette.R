@@ -20,8 +20,8 @@
 #' @author Xiuting Mi
 #'
 #' @examples
-#' ADSL <- radsl()
-#' ADAETTE <- radaette(ADSL)
+#' ADSL <- radsl(seed = 1)
+#' ADAETTE <- radaette(ADSL, seed  = 2)
 #' head(ADAETTE)
 #'
 radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censor.descr = NULL) {

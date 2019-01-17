@@ -19,8 +19,8 @@
 #' @export
 #'
 #' @examples
-#' ADSL <- radsl()
-#' ADCM <- radcm(ADSL)
+#' ADSL <- radsl(seed = 1)
+#' ADCM <- radcm(ADSL, seed = 2)
 #' head(ADCM)
 #'
 radcm <- function(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL) {

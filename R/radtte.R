@@ -14,8 +14,8 @@
 #' @export
 #'
 #' @examples
-#' ADSL <- radsl()
-#' ADTTE <- radtte(ADSL)
+#' ADSL <- radsl(seed = 1)
+#' ADTTE <- radtte(ADSL, seed = 2)
 #' head(ADTTE)
 #'
 radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL) {

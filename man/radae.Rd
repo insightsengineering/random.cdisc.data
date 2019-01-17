@@ -28,8 +28,8 @@ One record per each record in the corresponding SDTM domain.
 Keys: STUDYID USUBJID AESTDTM AETERM AESEQ.
 }
 \examples{
-ADSL <- radsl()
-ADAE <- radae(ADSL)
+ADSL <- radsl(seed = 1)
+ADAE <- radae(ADSL, seed = 2)
 head(ADAE)
 
 }
