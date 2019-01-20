@@ -22,7 +22,7 @@
 #' @export
 #'
 #' @examples
-#' ADSL <- radsl(N = 10)
+#' ADSL <- radsl(N = 10, seed = 1)
 #' head(ADSL)
 #'
 #' attr(ADSL, "label") # or also tern::label(ADSL)

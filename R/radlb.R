@@ -19,11 +19,11 @@
 #' @author tomlinsj, npaszty
 #'
 #' @examples
-#' ADSL <- radsl(N = 10)
-#' ADLB <- radlb(ADSL, visit_format = "WEEK", n_assessments = 7)
+#' ADSL <- radsl(N = 10, seed = 1)
+#' ADLB <- radlb(ADSL, visit_format = "WEEK", n_assessments = 7, seed = 2)
 #' ADLB <- radlb(ADSL, param = c("Immunoglobulin A Measurement", "Immunoglobulin G Measurement"),
-#' paramcd = c("IGA", "IGG"))
-#' ADLB <- radlb(ADSL, visit_format = "CYCLE", n_assessments = 3)
+#' paramcd = c("IGA", "IGG"), seed = 2)
+#' ADLB <- radlb(ADSL, visit_format = "CYCLE", n_assessments = 3, seed = 2)
 #' head(ADLB)
 #'
 radlb <- function(ADSL,

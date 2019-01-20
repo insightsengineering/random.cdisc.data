@@ -19,8 +19,8 @@
 #' @export
 #'
 #' @examples
-#' ADSL <- radsl()
-#' ADAE <- radae(ADSL)
+#' ADSL <- radsl(seed = 1)
+#' ADAE <- radae(ADSL, seed = 2)
 #' head(ADAE)
 #'
 radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL) {

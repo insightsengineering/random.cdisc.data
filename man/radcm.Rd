@@ -28,8 +28,8 @@ One record per each record in the corresponding SDTM domain.
 Keys: STUDYID USUBJID CMSTDTM CMTERM CMSEQ.
 }
 \examples{
-ADSL <- radsl()
-ADCM <- radcm(ADSL)
+ADSL <- radsl(seed = 1)
+ADCM <- radcm(ADSL, seed = 2)
 head(ADCM)
 
 }

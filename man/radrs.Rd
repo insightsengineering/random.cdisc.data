@@ -30,7 +30,7 @@ Otherwise, SDTM variables are left blank.
 Keys: STUDYID USUBJID PARAMCD AVISITN ADT RSSEQ
 }
 \examples{
- ADSL <- radsl()
- ADRS <- radrs(ADSL)
+ ADSL <- radsl(seed = 1)
+ ADRS <- radrs(ADSL, seed = 2)
  head(ADRS)
 }

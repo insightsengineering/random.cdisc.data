@@ -39,9 +39,9 @@ One record per subject per parameter per analysis visit per analysis date.
 Keys: STUDYID USUBJID PARAMCD AVISITN.
 }
 \examples{
-ADSL <- radsl()
-ADQS <- radqs(ADSL, visit_format = "WEEK", n_assessments = 7)
-ADQS <- radqs(ADSL, visit_format = "CYCLE", n_assessments = 3)
+ADSL <- radsl(seed = 1)
+ADQS <- radqs(ADSL, visit_format = "WEEK", n_assessments = 7, seed = 2)
+ADQS <- radqs(ADSL, visit_format = "CYCLE", n_assessments = 3, seed = 2)
 head(ADQS)
 
 }
