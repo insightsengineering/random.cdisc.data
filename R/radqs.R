@@ -31,14 +31,14 @@ radqs <- function(ADSL,
                   visit_format = "WEEK", n_assessments = 5, n_days = 5, seed = NULL) {
 
   # validate and initialize param vectors
-  param_init_list <- param_init(param, paramcd)
+  param_init_list <- relvar_init(param, paramcd)
 
   if (!is.null(seed)) set.seed(seed)
 
   ADQS <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
-    PARAM = param_init_list$param,
+    PARAM = param_init_list$relvar1,
     AVISIT = visit_schedule(visit_format = visit_format, n_assessments = n_assessments, n_days = n_days),
     stringsAsFactors = FALSE
   )
@@ -51,7 +51,7 @@ radqs <- function(ADSL,
   ))
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADQS$PARAMCD <- rel_var(df = ADQS, var_name = "PARAMCD", var_values = param_init_list$paramcd, related_var = "PARAM")
+  ADQS$PARAMCD <- rel_var(df = ADQS, var_name = "PARAMCD", var_values = param_init_list$relvar2, related_var = "PARAM")
 
   ADQS$AVAL <- rnorm(nrow(ADQS), mean = 50, sd = 8)
 

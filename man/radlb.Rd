@@ -6,15 +6,18 @@
 \usage{
 radlb(ADSL, param = c("Alanine Aminotransferase Measurement",
   "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
-  paramcd = c("ALT", "CRP", "IGA"), visit_format = "WEEK",
-  n_assessments = 5, n_days = 5, seed = NULL)
+  paramcd = c("ALT", "CRP", "IGA"), paramu = c("U/L", "mg/L", "g/L"),
+  visit_format = "WEEK", n_assessments = 5, n_days = 5,
+  seed = NULL)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
-\item{param}{As character string. list of PARAM values.}
+\item{param}{As character string. list of parameter values.}
 
-\item{paramcd}{As character string. list of PARAMCD values.}
+\item{paramcd}{As character string. list of parameter code values.}
+
+\item{paramu}{As character string. list of parameter unit values.}
 
 \item{visit_format}{Type of visit either "WEEK" or "CYCLE".}
 
@@ -40,7 +43,7 @@ Keys: STUDYID USUBJID PARAMCD AVISITN.
 ADSL <- radsl(N = 10, seed = 1)
 ADLB <- radlb(ADSL, visit_format = "WEEK", n_assessments = 7, seed = 2)
 ADLB <- radlb(ADSL, param = c("Immunoglobulin A Measurement", "Immunoglobulin G Measurement"),
-paramcd = c("IGA", "IGG"), seed = 2)
+paramcd = c("IGA", "IGG"), paramu = c("g/L", "g/L"), seed = 2)
 ADLB <- radlb(ADSL, visit_format = "CYCLE", n_assessments = 3, seed = 2)
 head(ADLB)
 

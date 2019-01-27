@@ -7,15 +7,18 @@
 radvs(ADSL, param = c("Diastolic Blood Pressure", "Pulse Rate",
   "Respiratory Rate", "Systolic Blood Pressure", "Temperature", "Weight"),
   paramcd = c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT"),
+  paramu = c("Pa", "beats/min", "breaths/min", "Pa", "C", "Kg"),
   visit_format = "WEEK", n_assessments = 5, n_days = 5,
   seed = NULL)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
-\item{param}{As character string. list of PARAM values.}
+\item{param}{As character string. list of parameter values.}
 
-\item{paramcd}{As character string. list of PARAMCD values.}
+\item{paramcd}{As character string. list of parameter code values.}
+
+\item{paramu}{As character string. list of parameter unit values.}
 
 \item{visit_format}{Type of visit either "WEEK" or "CYCLE".}
 

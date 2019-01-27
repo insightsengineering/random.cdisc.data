@@ -19,27 +19,62 @@ sample_fct <- function(x, N, ...) {
   factor(sample(x, N, replace = TRUE, ...), levels = if (is.factor(x)) levels(x) else x)
 }
 
-#' Verify and initialize parameter (PARAM) values
+#' Verify and initialize related variable values
 #'
-#' @param param as character string. list of PARAM values.
-#' @param paramcd as character string. list of PARAMCD values.
+#' @param relvar1 as character string. list of n elements.
+#' @param relvar2 as character string. list of n elements.
 #'
-#' @return a vector of n parameters
+#' @return a vector of n elements
 #'
 #' @examples
 #' \dontrun{
-#'param_init(c("Alanine Aminotransferase Measurement", "ALT")
+#' relvar_init(c("Alanine Aminotransferase Measurement", "ALT")
+#' relvar_init(c("Alanine Aminotransferase Measurement", "U/L")
 #'}
-param_init <- function(param, paramcd){
+relvar_init <- function(relvar1, relvar2){
 
-  if(length(param) != length (paramcd)){
-    message(simpleError("The argument value length of parameters (PARAM) and parameter codes (PARAMCD) differ. They must contain the same number of elements."))
+  if(length(relvar1) != length (relvar2)){
+    message(simpleError("The argument value length of relvar1 and relvar2 differ. They must contain the same number of elements."))
     return(NA)
   } else {
-    param <- param
-    paramcd <- paramcd
+    relvar1 <- relvar1
+    relvar2 <- relvar2
   }
-  return(param_init_list <- list("param" = param, "paramcd" = paramcd))
+  return(relvar_init_list <- list("relvar1" = relvar1, "relvar2" = relvar2))
+}
+
+#' Assign values to a related variable within a domain
+#'
+#' @param df data frame containing the related variables.
+#' @param var_name related to variable name.
+#' @param var_values values of related to variable.
+#' @param related_var variable name with existing values to which var_name values must relate.
+#'
+#' @examples
+#' \dontrun{
+#'rel_var(df = ADLB, var_name = "PARAMCD", var_values = c("ALT", "CRP", "IGA", "IGM"),
+#'related_var = "PARAM")
+#'}
+rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var = NULL){
+  if (is.null(df)) {
+    message("Missing data frame argument value.")
+    return(NA)
+  } else{
+    n_relvar1 <- length(unique(df[,related_var]))
+    n_relvar2 <- length(var_values)
+    if (n_relvar1 != n_relvar2){
+      message(paste("Unequal vector lengths for", related_var, "and", var_name))
+      return(NA)
+    } else {
+      relvar1 <- unique(df[,related_var])
+      relvar2_values = rep(NULL,nrow(df))
+      for (r in 1:length(relvar1)) {
+        matched = which(df[,related_var] == relvar1[r])
+        relvar2_values[matched] = var_values[r]
+      }
+      return(relvar2_values)
+    }
+  }
 }
 
 #' Create visit schedule
@@ -103,40 +138,6 @@ retain <- function(df, value_var, event, outside=NA)
   indices <- c(1, which(event==TRUE), nrow(df)+1)
   values <- c(outside, value_var[event==TRUE])
   retained_val <- rep(values, diff(indices))
-}
-
-#' Assign values to a related variable within a domain
-#'
-#' @param df data frame containing the related variables.
-#' @param var_name related to variable name.
-#' @param var_values values of related to variable.
-#' @param related_var variable name with existing values to which var_name values must relate.
-#'
-#' @examples
-#' \dontrun{
-#'rel_var(df = ADLB, var_name = "PARAMCD", var_values = c("ALT", "CRP", "IGA", "IGM"),
-#'related_var = "PARAM")
-#'}
-rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var = NULL){
-  if (is.null(df)) {
-    message("Missing data frame argument value.")
-    return(NA)
-  } else{
-    n_params <- length(unique(df[,related_var]))
-    n_paramcds <- length(var_values)
-    if (n_params != n_paramcds){
-      message(paste("Unequal vector lengths for", related_var, "and", var_name))
-      return(NA)
-    } else {
-      params <- unique(df[,related_var])
-      paramcd_values = rep(NULL,nrow(df))
-      for (p in 1:length(params)) {
-        matched = which(df[,related_var] == params[p])
-        paramcd_values[matched] = var_values[p]
-      }
-      return(paramcd_values)
-    }
-  }
 }
 
 #' Apply labels to ADSL primary key variables

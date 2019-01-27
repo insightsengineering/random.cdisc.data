@@ -7,9 +7,6 @@
     <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/apply_metadata.html</loc>
   </url>
   <url>
-    <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/param_init.html</loc>
-  </url>
-  <url>
     <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/radae.html</loc>
   </url>
   <url>
@@ -35,6 +32,9 @@
   </url>
   <url>
     <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/radvs.html</loc>
+  </url>
+  <url>
+    <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/relvar_init.html</loc>
   </url>
   <url>
     <loc>https://pages.github.roche.com/Rpackages/random.cdisc.data/reference/rel_var.html</loc>
