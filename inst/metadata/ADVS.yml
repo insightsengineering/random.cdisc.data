@@ -13,6 +13,8 @@ variables:
     label: Analysis Visit (N)
   AVAL:
     label: Analysis Value
+  AVALU:
+    label: Analysis Value Unit
   BASE2:
     label: Screeening Value
   ABLFL2:

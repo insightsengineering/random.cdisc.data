@@ -14,9 +14,9 @@ radqs(ADSL, param = c("BFI All Questions", "Fatigue Interference",
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
-\item{param}{As character string. list of PARAM values.}
+\item{param}{As character string. list of parameter values.}
 
-\item{paramcd}{As character string. list of PARAMCD values.}
+\item{paramcd}{As character string. list of parameter code values.}
 
 \item{visit_format}{Type of visit either "WEEK" or "CYCLE".}
 

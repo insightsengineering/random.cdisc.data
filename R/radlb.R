@@ -10,6 +10,7 @@
 #' @template ADSL_params
 #' @template BDS_findings_params
 #' @template return_data.frame
+#' @param paramu As character string. list of parameter unit values.
 #'
 #' @import dplyr
 #' @importFrom yaml yaml.load_file
@@ -22,32 +23,35 @@
 #' ADSL <- radsl(N = 10, seed = 1)
 #' ADLB <- radlb(ADSL, visit_format = "WEEK", n_assessments = 7, seed = 2)
 #' ADLB <- radlb(ADSL, param = c("Immunoglobulin A Measurement", "Immunoglobulin G Measurement"),
-#' paramcd = c("IGA", "IGG"), seed = 2)
+#' paramcd = c("IGA", "IGG"), paramu = c("g/L", "g/L"), seed = 2)
 #' ADLB <- radlb(ADSL, visit_format = "CYCLE", n_assessments = 3, seed = 2)
 #' head(ADLB)
 #'
 radlb <- function(ADSL,
                   param = c("Alanine Aminotransferase Measurement", "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
                   paramcd = c("ALT", "CRP", "IGA"),
+                  paramu = c("U/L", "mg/L", "g/L"),
                   visit_format = "WEEK", n_assessments = 5, n_days = 5, seed = NULL) {
 
-  # validate and initialize param vectors
-  param_init_list <- param_init(param, paramcd)
+  # validate and initialize related variables
+  param_init_list <- relvar_init(param, paramcd)
+  unit_init_list <- relvar_init(param, paramu)
 
   if (!is.null(seed)) set.seed(seed)
 
   ADLB <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
-    PARAM = param_init_list$param,
+    PARAM = as.factor(param_init_list$relvar1),
     AVISIT = visit_schedule(visit_format = visit_format, n_assessments = n_assessments, n_days = n_days),
     stringsAsFactors = FALSE
   )
 
   ADLB$AVAL <- rnorm(nrow(ADLB), mean = 50, sd = 8)
 
-  # assign related variable values: PARAMxPARAMCD are related - USE FACTORS FOR VAR_VALUES AND PARAM
-  ADLB$PARAMCD <- rel_var(df = ADLB, var_name = "PARAMCD", var_values = param_init_list$paramcd, related_var = "PARAM")
+  # assign related variable values: PARAMxPARAMCD are related
+  ADLB$PARAMCD <- as.factor(rel_var(df = ADLB, var_name = "PARAMCD", var_values = param_init_list$relvar2, related_var = "PARAM"))
+  ADLB$AVALU <- as.factor(rel_var(df = ADLB, var_name = "AVALU", var_values = unit_init_list$relvar2, related_var = "PARAM"))
 
   ADLB <- ADLB %>% mutate(AVISITN = case_when(
     AVISIT == "SCREENING" ~ -1,

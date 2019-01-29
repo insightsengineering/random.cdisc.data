@@ -31,7 +31,7 @@ reference:
     desc: These functions are not exported but are documented for developers
     contents:
       - apply_metadata
-      - param_init
+      - relvar_init
       - rel_var
       - retain
       - sample_fct

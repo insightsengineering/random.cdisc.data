@@ -10,6 +10,7 @@
 #' @template ADSL_params
 #' @template BDS_findings_params
 #' @template return_data.frame
+#' @param paramu As character string. list of parameter unit values.
 #'
 #' @import dplyr
 #' @importFrom yaml yaml.load_file
@@ -28,17 +29,19 @@ radvs <- function(ADSL,
                   param = c("Diastolic Blood Pressure", "Pulse Rate", "Respiratory Rate", "Systolic Blood Pressure",
                             "Temperature", "Weight"),
                   paramcd = c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT"),
+                  paramu = c("Pa", "beats/min", "breaths/min", "Pa", "C", "Kg"),
                   visit_format = "WEEK", n_assessments = 5, n_days = 5, seed = NULL) {
 
   # validate and initialize param vectors
-  param_init_list <- param_init(param, paramcd)
+  param_init_list <- relvar_init(param, paramcd)
+  unit_init_list <- relvar_init(param, paramu)
 
   if (!is.null(seed)) set.seed(seed)
 
   ADVS <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
-    PARAM = param_init_list$param,
+    PARAM = as.factor(param_init_list$relvar1),
     AVISIT = visit_schedule(visit_format = visit_format, n_assessments = n_assessments),
     stringsAsFactors = FALSE
   )
@@ -51,7 +54,8 @@ radvs <- function(ADSL,
   ))
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADVS$PARAMCD <- rel_var(df = ADVS, var_name = "PARAMCD", var_values = param_init_list$paramcd, related_var = "PARAM")
+  ADVS$PARAMCD <- as.factor(rel_var(df = ADVS, var_name = "PARAMCD", var_values = param_init_list$relvar2, related_var = "PARAM"))
+  ADVS$AVALU <- as.factor(rel_var(df = ADVS, var_name = "AVALU", var_values = unit_init_list$relvar2, related_var = "PARAM"))
 
   ADVS$AVAL <- rnorm(nrow(ADVS), mean = 50, sd = 8)
 
