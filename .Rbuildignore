@@ -1,2 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+README.md
+^man-roxygen/*
+^_pkgdown.yml$
+^docs/*

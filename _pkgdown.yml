@@ -1,0 +1,41 @@
+url: https://pages.github.roche.com/NEST/random.cdisc.data
+
+template:
+  params:
+    bootswatch: cerulean
+
+navbar:
+  right:
+    - icon: fa-github
+      href: https://github.roche.com/NEST/random.cdisc.data
+
+development:
+  mode: release
+
+reference:
+
+  - title: CDISC Domain Functions
+    desc: These functions generate CDISC domains containing randomly assigned data
+    contents:
+      - radsl
+      - radae
+      - radaette
+      - radcm
+      - radlb
+      - radqs
+      - radrs
+      - radtte
+      - radvs
+
+  - title: Utility Functions
+    desc: These functions are not exported but are documented for developers
+    contents:
+      - apply_metadata
+      - relvar_init
+      - rel_var
+      - retain
+      - sample_fct
+      - var_relabel
+      - visit_schedule
+
+

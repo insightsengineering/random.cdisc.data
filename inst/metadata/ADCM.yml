@@ -1,0 +1,11 @@
+domain:
+  name: ADCM
+  label: Concomitant Medications Analysis Dataset
+
+variables:
+  CMDECOD:
+    label: Standardized Medication Name
+  CMCLAS:
+    label: Medication Class
+  ATIREL:
+    label: Time Relation of Medication
