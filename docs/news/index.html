@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a factor with random elements of x — sample_fct • random.cdisc.data</title>
+<title>Changelog • random.cdisc.data</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,7 @@
 
 
 
-<meta property="og:title" content="Create a factor with random elements of x — sample_fct" />
-
-<meta property="og:description" content="Sample elements from x with replacing and build a factor" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Changelog" />
 
 
 
@@ -50,7 +47,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -102,60 +99,48 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a factor with random elements of x</h1>
-    
-    <div class="hidden name"><code>sample_fct.Rd</code></div>
+      <h1>Changelog <small></small></h1>
+      
     </div>
 
-    <div class="ref-description">
-    
-    <p>Sample elements from x with replacing and build a factor</p>
-    
-    </div>
-
-    <pre class="usage"><span class='fu'>sample_fct</span>(<span class='no'>x</span>, <span class='no'>N</span>, <span class='no'>...</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>character vector or factor, if character vector then it is also used
-as levels of the returned factor, otherwise if it is a factor then the
-levels get used as the new levels</p></td>
-    </tr>
-    <tr>
-      <th>N</th>
-      <td><p>number of</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>arguments passed on to <code><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></code></p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>a factor of length N</p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>sample_fct</span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fl'>10</span>)
-<span class='fu'>sample_fct</span>(<span class='no'>iris</span>$<span class='no'>Species</span>, <span class='fl'>10</span>)
-<span class='co'># }</span></pre>
+    <div id="random-cdisc-data-0-2-0" class="section level1">
+<h1 class="page-header">
+<a href="#random-cdisc-data-0-2-0" class="anchor"></a>random.cdisc.data 0.2.0</h1>
+<ul>
+<li>New consistent approach of creating random data for the different domains.</li>
+<li>Switch to new CDISC names (e.g. <code>ADSL</code> instead of <code>ASL</code>)</li>
+<li>Random dataset generators are:
+<ul>
+<li>Subject-Level Analysis Dataset (<code>radsl</code>)</li>
+<li>Adverse Event Analysis Dataset (<code>radae</code>)</li>
+<li>Time to Adverse Event Analysis Dataset (<code>radaette</code>)</li>
+<li>Previous and Concomitant Medications Analysis Dataset (<code>radcm</code>)</li>
+<li>Laboratory Data Analysis Dataset (<code>radlb</code>)</li>
+<li>Questionnaires Analysis Dataset (<code>radqs</code>)</li>
+<li>Time-to-Event Dataset (<code>radtte</code>)</li>
+<li>Tumor Response Analysis Dataset (<code>radrs</code>)</li>
+<li>Vital Signs Analysis Dataset (<code>radvs</code>)</li>
+</ul>
+</li>
+</ul>
+</div>
+    <div id="random-cdisc-data-0-1-0" class="section level1">
+<h1 class="page-header">
+<a href="#random-cdisc-data-0-1-0" class="anchor"></a>random.cdisc.data 0.1.0</h1>
+<p>Initial release.</p>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+    <div id="tocnav">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#random-cdisc-data-0-2-0">0.2.0</a></li>
+        <li><a href="#random-cdisc-data-0-1-0">0.1.0</a></li>
+      </ul>
+    </div>
   </div>
+
 </div>
 
       <footer>

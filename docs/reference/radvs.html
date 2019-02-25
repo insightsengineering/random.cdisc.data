@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tumor Response Analysis Data Set (ADRS) — radrs • random.cdisc.data</title>
+<title>Vital Signs Analysis Dataset (ADVS) — radvs • random.cdisc.data</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Tumor Response Analysis Data Set (ADRS) — radrs" />
+<meta property="og:title" content="Vital Signs Analysis Dataset (ADVS) — radvs" />
 
-<meta property="og:description" content="Function for generating random Tumor Response Analysis Data Set for a given
+<meta property="og:description" content="Function for generating random dataset from Vital Signs Analysis Dataset for a given
 Subject-Level Analysis Dataset." />
 <meta name="twitter:card" content="summary" />
 
@@ -103,19 +103,24 @@ Subject-Level Analysis Dataset." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tumor Response Analysis Data Set (ADRS)</h1>
+    <h1>Vital Signs Analysis Dataset (ADVS)</h1>
     
-    <div class="hidden name"><code>radrs.Rd</code></div>
+    <div class="hidden name"><code>radvs.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Function for generating random Tumor Response Analysis Data Set for a given
+    <p>Function for generating random dataset from Vital Signs Analysis Dataset for a given
 Subject-Level Analysis Dataset.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>radrs</span>(<span class='no'>ADSL</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>avalc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lookup</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>radvs</span>(<span class='no'>ADSL</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Diastolic Blood Pressure"</span>, <span class='st'>"Pulse Rate"</span>,
+  <span class='st'>"Respiratory Rate"</span>, <span class='st'>"Systolic Blood Pressure"</span>, <span class='st'>"Temperature"</span>, <span class='st'>"Weight"</span>),
+  <span class='kw'>paramcd</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"DIABP"</span>, <span class='st'>"PULSE"</span>, <span class='st'>"RESP"</span>, <span class='st'>"SYSBP"</span>, <span class='st'>"TEMP"</span>, <span class='st'>"WEIGHT"</span>),
+  <span class='kw'>paramu</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Pa"</span>, <span class='st'>"beats/min"</span>, <span class='st'>"breaths/min"</span>, <span class='st'>"Pa"</span>, <span class='st'>"C"</span>, <span class='st'>"Kg"</span>),
+  <span class='kw'>visit_format</span> <span class='kw'>=</span> <span class='st'>"WEEK"</span>, <span class='kw'>n_assessments</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>n_days</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -125,16 +130,32 @@ Subject-Level Analysis Dataset.</p>
       <td><p>Subject-Level Analysis Dataset (ADSL).</p></td>
     </tr>
     <tr>
+      <th>param</th>
+      <td><p>As character string. list of parameter values.</p></td>
+    </tr>
+    <tr>
+      <th>paramcd</th>
+      <td><p>As character string. list of parameter code values.</p></td>
+    </tr>
+    <tr>
+      <th>paramu</th>
+      <td><p>As character string. list of parameter unit values.</p></td>
+    </tr>
+    <tr>
+      <th>visit_format</th>
+      <td><p>Type of visit either "WEEK" or "CYCLE".</p></td>
+    </tr>
+    <tr>
+      <th>n_assessments</th>
+      <td><p>Number of weeks or cycles.</p></td>
+    </tr>
+    <tr>
+      <th>n_days</th>
+      <td><p>Number of days within cycle.</p></td>
+    </tr>
+    <tr>
       <th>seed</th>
       <td><p>Seed for random number generation.</p></td>
-    </tr>
-    <tr>
-      <th>avalc</th>
-      <td><p>Vector of analysis value categories.</p></td>
-    </tr>
-    <tr>
-      <th>lookup</th>
-      <td><p>Data.frame containing additional parameters.</p></td>
     </tr>
     </table>
     
@@ -144,16 +165,15 @@ Subject-Level Analysis Dataset.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>One record per subject per parameter per analysis visit per analysis date.
-SDTM variables are populated on new records coming from other single records.
-Otherwise, SDTM variables are left blank.</p>
-<p>Keys: STUDYID USUBJID PARAMCD AVISITN ADT RSSEQ</p>
+    <p>One record per subject per parameter per analysis visit per analysis date.</p>
+<p>Keys: STUDYID USUBJID PARAMCD AVISITN.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='no'>ADSL</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='radsl.html'>radsl</a></span>(<span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1</span>)
- <span class='no'>ADRS</span> <span class='kw'>&lt;-</span> <span class='fu'>radrs</span>(<span class='no'>ADSL</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>2</span>)
- <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>ADRS</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 23</span><span>
+    <pre class="examples"><div class='input'><span class='no'>ADSL</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='radsl.html'>radsl</a></span>(<span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='no'>ADVS</span> <span class='kw'>&lt;-</span> <span class='fu'>radvs</span>(<span class='no'>ADSL</span>, <span class='kw'>visit_format</span> <span class='kw'>=</span> <span class='st'>"WEEK"</span>, <span class='kw'>n_assessments</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='no'>ADVS</span> <span class='kw'>&lt;-</span> <span class='fu'>radvs</span>(<span class='no'>ADSL</span>, <span class='kw'>visit_format</span> <span class='kw'>=</span> <span class='st'>"CYCLE"</span>, <span class='kw'>n_assessments</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>ADVS</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 6 x 33</span><span>
 #&gt;   STUDYID USUBJID SUBJID SITEID   AGE SEX   RACE  COUNTRY ARM   ARMCD ACTARM
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span> 
 #&gt; </span><span style='color: #555555;'>1</span><span> AB12345 AB1234… id-1   CHN-14    61 F     ASIAN CHN     C: C… ARM C C: Co…
@@ -161,10 +181,13 @@ Otherwise, SDTM variables are left blank.</p>
 #&gt; </span><span style='color: #555555;'>3</span><span> AB12345 AB1234… id-1   CHN-14    61 F     ASIAN CHN     C: C… ARM C C: Co…
 #&gt; </span><span style='color: #555555;'>4</span><span> AB12345 AB1234… id-1   CHN-14    61 F     ASIAN CHN     C: C… ARM C C: Co…
 #&gt; </span><span style='color: #555555;'>5</span><span> AB12345 AB1234… id-1   CHN-14    61 F     ASIAN CHN     C: C… ARM C C: Co…
-#&gt; </span><span style='color: #555555;'>6</span><span> AB12345 AB1234… id-2   CHN-11    77 F     ASIAN CHN     C: C… ARM C C: Co…
-#&gt; </span><span style='color: #555555;'># … with 12 more variables: ACTARMCD </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, STRATA1 </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, STRATA2 </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>,
-#&gt; #   BMRKR1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, BMRKR2 </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, ITTFL </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, BEP01FL </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, PARAM </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
-#&gt; #   PARAMCD </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, AVAL </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>, AVALC </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, AVISIT </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span></div></span></pre>
+#&gt; </span><span style='color: #555555;'>6</span><span> AB12345 AB1234… id-1   CHN-14    61 F     ASIAN CHN     C: C… ARM C C: Co…
+#&gt; </span><span style='color: #555555;'># … with 22 more variables: ACTARMCD </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, STRATA1 </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, STRATA2 </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>,
+#&gt; #   BMRKR1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, BMRKR2 </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, ITTFL </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, BEP01FL </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, PARAM </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>,
+#&gt; #   PARAMCD </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, AVISIT </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>, AVISITN </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, AVAL </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, AVALU </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span style='color: #555555;'>,
+#&gt; #   BASE2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, ABLFL2 </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, CHG2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, PCHG2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, BASE </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>,
+#&gt; #   ABLFL </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>, CHG </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, PCHG </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, LOQFL </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -178,6 +201,8 @@ Otherwise, SDTM variables are left blank.</p>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
+    <h2>Author</h2>
+    <p>npaszty</p>
   </div>
 </div>
 

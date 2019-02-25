@@ -1,4 +1,4 @@
-url: https://pages.github.roche.com/Rpackages/random.cdisc.data
+url: https://pages.github.roche.com/NEST/random.cdisc.data
 
 template:
   params:
@@ -7,10 +7,10 @@ template:
 navbar:
   right:
     - icon: fa-github
-      href: https://github.roche.com/Rpackages/random.cdisc.data
+      href: https://github.roche.com/NEST/random.cdisc.data
 
 development:
-  mode: devel
+  mode: release
 
 reference:
 

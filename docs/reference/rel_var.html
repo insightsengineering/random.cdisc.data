@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a factor with random elements of x — sample_fct • random.cdisc.data</title>
+<title>Assign values to a related variable within a domain — rel_var • random.cdisc.data</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Create a factor with random elements of x — sample_fct" />
+<meta property="og:title" content="Assign values to a related variable within a domain — rel_var" />
 
-<meta property="og:description" content="Sample elements from x with replacing and build a factor" />
+<meta property="og:description" content="Assign values to a related variable within a domain" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -102,56 +102,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a factor with random elements of x</h1>
+    <h1>Assign values to a related variable within a domain</h1>
     
-    <div class="hidden name"><code>sample_fct.Rd</code></div>
+    <div class="hidden name"><code>rel_var.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Sample elements from x with replacing and build a factor</p>
+    <p>Assign values to a related variable within a domain</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sample_fct</span>(<span class='no'>x</span>, <span class='no'>N</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>rel_var</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>var_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>var_values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>related_var</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>character vector or factor, if character vector then it is also used
-as levels of the returned factor, otherwise if it is a factor then the
-levels get used as the new levels</p></td>
+      <th>df</th>
+      <td><p>data frame containing the related variables.</p></td>
     </tr>
     <tr>
-      <th>N</th>
-      <td><p>number of</p></td>
+      <th>var_name</th>
+      <td><p>related to variable name.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>arguments passed on to <code><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></code></p></td>
+      <th>var_values</th>
+      <td><p>values of related to variable.</p></td>
+    </tr>
+    <tr>
+      <th>related_var</th>
+      <td><p>variable name with existing values to which var_name values must relate.</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>a factor of length N</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>sample_fct</span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fl'>10</span>)
-<span class='fu'>sample_fct</span>(<span class='no'>iris</span>$<span class='no'>Species</span>, <span class='fl'>10</span>)
+<span class='fu'>rel_var</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='no'>ADLB</span>, <span class='kw'>var_name</span> <span class='kw'>=</span> <span class='st'>"PARAMCD"</span>, <span class='kw'>var_values</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"ALT"</span>, <span class='st'>"CRP"</span>, <span class='st'>"IGA"</span>, <span class='st'>"IGM"</span>),
+<span class='kw'>related_var</span> <span class='kw'>=</span> <span class='st'>"PARAM"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
