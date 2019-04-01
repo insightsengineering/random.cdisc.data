@@ -1,3 +1,11 @@
+
+# to remove R CMD CHECK notes cause by using dplyr and NSE
+utils::globalVariables(c(
+  '.', 'ARM', 'ARMCD', 'AVAL', 'AVALC', 'BASE', 'BASE2', 'CHG', 'CHG2', 'CNSR', 'CNSR_P', 'COUNTRY', 'LAMBDA',
+  'PARAMCD', 'SITEID', 'STUDYID', 'SUBJID'
+))
+
+
 #' Create a factor with random elements of x
 #'
 #' Sample elements from x with replacing and build a factor
