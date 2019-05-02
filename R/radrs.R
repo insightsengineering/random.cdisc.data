@@ -10,11 +10,13 @@
 #'
 #' Keys: STUDYID USUBJID PARAMCD AVISITN ADT RSSEQ
 #'
+#' @param avalc Vector of analysis value categories.
+#'
 #' @template ADSL_params
 #' @template lookup_param
 #' @template return_data.frame
 #'
-#' @param avalc Vector of analysis value categories.
+#' @importFrom tibble tibble
 #'
 #' @export
 #'
