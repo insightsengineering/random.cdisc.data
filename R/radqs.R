@@ -28,7 +28,16 @@ radqs <- function(ADSL,
                   param = c("BFI All Questions", "Fatigue Interference", "Function/Well-Being (GF1,GF3,GF7)",
                             "Treatment Side Effects (GP2,C5,GP5)", "FKSI-19 All Questions"),
                   paramcd = c("BFIALL", "FATIGI", "FKSI-FWB", "FKSI-TSE", "FKSIALL"),
-                  visit_format = "WEEK", n_assessments = 5, n_days = 5, seed = NULL) {
+                  visit_format = "WEEK",
+                  n_assessments = 5,
+                  n_days = 5,
+                  seed = NULL,
+                  cached = isTRUE(getOption("random.cdisc.data.cached"))) {
+
+  if (cached) {
+    data(adqs, envir = environment())
+    return(adqs)
+  }
 
   # validate and initialize param vectors
   param_init_list <- relvar_init(param, paramcd)

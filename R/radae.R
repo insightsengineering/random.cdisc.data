@@ -23,7 +23,12 @@
 #' ADAE <- radae(ADSL, seed = 2)
 #' head(ADAE)
 #'
-radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL) {
+radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL, cached = isTRUE(getOption("random.cdisc.data.cached"))) {
+
+  if (cached) {
+    data(adae, envir = environment())
+    return(adae)
+  }
 
   if(is.null(lookup)){
     lookup_ae = tribble(

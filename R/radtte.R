@@ -18,7 +18,12 @@
 #' ADTTE <- radtte(ADSL, seed = 2)
 #' head(ADTTE)
 #'
-radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL) {
+radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL, cached = isTRUE(getOption("random.cdisc.data.cached"))) {
+
+  if (cached) {
+    data(adtte, envir = environment())
+    return(adtte)
+  }
 
   if (!is.null(seed)) set.seed(seed)
 

@@ -4,7 +4,8 @@
 \alias{radrs}
 \title{Tumor Response Analysis Data Set (ADRS)}
 \usage{
-radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL)
+radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL,
+  cached = isTRUE(getOption("random.cdisc.data.cached")))
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -14,6 +15,8 @@ radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL)
 \item{avalc}{Vector of analysis value categories.}
 
 \item{lookup}{Data.frame containing additional parameters.}
+
+\item{cashed}{Whether to use cashed data}
 }
 \value{
 data.frame

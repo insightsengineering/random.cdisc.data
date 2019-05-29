@@ -23,7 +23,13 @@
 #' ADCM <- radcm(ADSL, seed = 2)
 #' head(ADCM)
 #'
-radcm <- function(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL) {
+radcm <- function(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL, cached = isTRUE(getOption("random.cdisc.data.cached"))) {
+
+  if (cached) {
+    data(adcm, envir = environment())
+    return(adcm)
+  }
+
   if (is.null(lookup)){
     lookup_cm = tribble(
       ~CMCLAS,   ~CMDECOD, ~ATIREL,

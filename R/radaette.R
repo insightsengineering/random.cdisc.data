@@ -24,7 +24,12 @@
 #' ADAETTE <- radaette(ADSL, seed  = 2)
 #' head(ADAETTE)
 #'
-radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censor.descr = NULL) {
+radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censor.descr = NULL, cached = isTRUE(getOption("random.cdisc.data.cached"))) {
+
+  if (cached) {
+    data(adaette, envir = environment())
+    return(adaette)
+  }
 
   if (is.null(lookup)){
     lookup_ADAETTE <- tribble(

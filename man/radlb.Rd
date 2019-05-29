@@ -8,7 +8,7 @@ radlb(ADSL, param = c("Alanine Aminotransferase Measurement",
   "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
   paramcd = c("ALT", "CRP", "IGA"), paramu = c("U/L", "mg/L", "g/L"),
   visit_format = "WEEK", n_assessments = 5, n_days = 5,
-  seed = NULL)
+  seed = NULL, cached = isTRUE(getOption("random.cdisc.data.cached")))
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -26,6 +26,8 @@ radlb(ADSL, param = c("Alanine Aminotransferase Measurement",
 \item{n_days}{Number of days within cycle.}
 
 \item{seed}{Seed for random number generation.}
+
+\item{cashed}{Whether to use cashed data}
 }
 \value{
 data.frame

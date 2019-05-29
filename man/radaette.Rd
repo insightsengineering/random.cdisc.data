@@ -5,7 +5,8 @@
 \title{Time to Adverse Event Analysis Dataset (ADAETTE)}
 \usage{
 radaette(ADSL, seed = NULL, lookup = NULL, event.descr = NULL,
-  censor.descr = NULL)
+  censor.descr = NULL,
+  cached = isTRUE(getOption("random.cdisc.data.cached")))
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -17,6 +18,8 @@ radaette(ADSL, seed = NULL, lookup = NULL, event.descr = NULL,
 \item{event.descr}{Character vector with description of events.}
 
 \item{censor.descr}{Character vector with description of censors.}
+
+\item{cashed}{Whether to use cashed data}
 }
 \value{
 data.frame

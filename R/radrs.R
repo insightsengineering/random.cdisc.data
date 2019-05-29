@@ -24,7 +24,12 @@
 #'  ADSL <- radsl(seed = 1)
 #'  ADRS <- radrs(ADSL, seed = 2)
 #'  head(ADRS)
-radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL) {
+radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL, cached = isTRUE(getOption("random.cdisc.data.cached"))) {
+
+  if (cached) {
+    data(adrs, envir = environment())
+    return(adrs)
+  }
 
   if(is.null(avalc)){
     param_codes <- setNames(1:5, c("CR", "PR", "SD", "PD", "NE"))
