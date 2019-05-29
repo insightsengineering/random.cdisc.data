@@ -28,7 +28,7 @@ radvs(ADSL, param = c("Diastolic Blood Pressure", "Pulse Rate",
 
 \item{seed}{Seed for random number generation.}
 
-\item{cashed}{Whether to use cashed data}
+\item{cached}{Whether to use cashed data}
 }
 \value{
 data.frame

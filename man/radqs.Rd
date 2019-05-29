@@ -26,7 +26,7 @@ radqs(ADSL, param = c("BFI All Questions", "Fatigue Interference",
 
 \item{seed}{Seed for random number generation.}
 
-\item{cashed}{Whether to use cashed data}
+\item{cached}{Whether to use cashed data}
 }
 \value{
 data.frame

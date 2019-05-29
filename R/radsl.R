@@ -13,13 +13,14 @@
 #'
 #' @param N Number of patients.
 #' @param seed Seed for random number generation.
-#' @param cashed Whether to use cashed data
+#' @param cached Whether to use cashed data
 #'
 #' @template return_data.frame
 #'
 #' @import dplyr
 #' @importFrom stats rchisq reorder rexp rnorm runif setNames
 #' @importFrom tibble tibble
+#' @importFrom utils data
 #'
 #' @export
 #'

@@ -19,7 +19,7 @@ radaette(ADSL, seed = NULL, lookup = NULL, event.descr = NULL,
 
 \item{censor.descr}{Character vector with description of censors.}
 
-\item{cashed}{Whether to use cashed data}
+\item{cached}{Whether to use cashed data}
 }
 \value{
 data.frame

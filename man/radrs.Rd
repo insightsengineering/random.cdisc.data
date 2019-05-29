@@ -16,7 +16,7 @@ radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL,
 
 \item{lookup}{Data.frame containing additional parameters.}
 
-\item{cashed}{Whether to use cashed data}
+\item{cached}{Whether to use cashed data}
 }
 \value{
 data.frame

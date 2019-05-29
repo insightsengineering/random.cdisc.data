@@ -27,7 +27,7 @@ radlb(ADSL, param = c("Alanine Aminotransferase Measurement",
 
 \item{seed}{Seed for random number generation.}
 
-\item{cashed}{Whether to use cashed data}
+\item{cached}{Whether to use cashed data}
 }
 \value{
 data.frame
