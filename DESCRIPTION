@@ -12,7 +12,12 @@ Authors@R: c(
   person("Edgar", "", email = "", role = c("aut"))
   )
 Description: Create random CDISC data.
-Imports: dplyr, yaml, tibble
+Depends:
+    R (>= 3.3),
+Imports: 
+    dplyr, 
+    yaml, 
+    tibble
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
