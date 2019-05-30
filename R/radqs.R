@@ -31,13 +31,7 @@ radqs <- function(ADSL,
                   visit_format = "WEEK",
                   n_assessments = 5,
                   n_days = 5,
-                  seed = NULL,
-                  cached = isTRUE(getOption("random.cdisc.data.cached"))) {
-
-  if (cached) {
-    data(adqs, envir = environment())
-    return(adqs)
-  }
+                  seed = NULL) {
 
   # validate and initialize param vectors
   param_init_list <- relvar_init(param, paramcd)
@@ -94,4 +88,17 @@ radqs <- function(ADSL,
 
   ADQS
 
+}
+
+
+#' Cached ADQS dataset
+#'
+#' Data generated with default arguments values and \code{seed = 1}
+#'
+#' @seealso \code{\link{radqs}}
+#'
+#' @export
+cadqs <- function() {
+  data(adqs, envir = environment())
+  return(adqs)
 }

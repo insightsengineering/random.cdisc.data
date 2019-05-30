@@ -23,12 +23,7 @@
 #' ADCM <- radcm(ADSL, seed = 2)
 #' head(ADCM)
 #'
-radcm <- function(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL, cached = isTRUE(getOption("random.cdisc.data.cached"))) {
-
-  if (cached) {
-    data(adcm, envir = environment())
-    return(adcm)
-  }
+radcm <- function(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL) {
 
   if (is.null(lookup)){
     lookup_cm = tribble(
@@ -69,4 +64,17 @@ radcm <- function(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL, cached = isT
 
   ADCM
 
+}
+
+
+#' Cached ADCM dataset
+#'
+#' Data generated with default arguments values and \code{seed = 1}
+#'
+#' @seealso \code{\link{radcm}}
+#'
+#' @export
+cadcm <- function() {
+  data(adcm, envir = environment())
+  return(adcm)
 }

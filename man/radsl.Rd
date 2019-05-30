@@ -4,15 +4,12 @@
 \alias{radsl}
 \title{Subject-Level Analysis Dataset (ADSL)}
 \usage{
-radsl(N = 400, seed = NULL,
-  cached = isTRUE(getOption("random.cdisc.data.cached")))
+radsl(N = 400, seed = NULL)
 }
 \arguments{
 \item{N}{Number of patients.}
 
 \item{seed}{Seed for random number generation.}
-
-\item{cached}{Whether to use cashed data}
 }
 \value{
 data.frame

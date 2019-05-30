@@ -24,12 +24,7 @@
 #' ADAETTE <- radaette(ADSL, seed  = 2)
 #' head(ADAETTE)
 #'
-radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censor.descr = NULL, cached = isTRUE(getOption("random.cdisc.data.cached"))) {
-
-  if (cached) {
-    data(adaette, envir = environment())
-    return(adaette)
-  }
+radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censor.descr = NULL) {
 
   if (is.null(lookup)){
     lookup_ADAETTE <- tribble(
@@ -98,4 +93,17 @@ radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censo
 
   ADAETTE
 
+}
+
+
+#' Cached ADAETTE dataset
+#'
+#' Data generated with default arguments values and \code{seed = 1}
+#'
+#' @seealso \code{\link{radaette}}
+#'
+#' @export
+cadaette <- function() {
+  data(adaette, envir = environment())
+  return(adaette)
 }

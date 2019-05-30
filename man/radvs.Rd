@@ -9,7 +9,7 @@ radvs(ADSL, param = c("Diastolic Blood Pressure", "Pulse Rate",
   paramcd = c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT"),
   paramu = c("Pa", "beats/min", "breaths/min", "Pa", "C", "Kg"),
   visit_format = "WEEK", n_assessments = 5, n_days = 5,
-  seed = NULL, cached = isTRUE(getOption("random.cdisc.data.cached")))
+  seed = NULL)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -27,8 +27,6 @@ radvs(ADSL, param = c("Diastolic Blood Pressure", "Pulse Rate",
 \item{n_days}{Number of days within cycle.}
 
 \item{seed}{Seed for random number generation.}
-
-\item{cached}{Whether to use cashed data}
 }
 \value{
 data.frame

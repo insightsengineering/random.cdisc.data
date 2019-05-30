@@ -13,7 +13,6 @@
 #'
 #' @param N Number of patients.
 #' @param seed Seed for random number generation.
-#' @param cached Whether to use cashed data
 #'
 #' @template return_data.frame
 #'
@@ -30,12 +29,7 @@
 #'
 #' attr(ADSL, "label") # or also tern::label(ADSL)
 #'
-radsl <- function(N = 400, seed = NULL, cached = isTRUE(getOption("random.cdisc.data.cached"))) {
-
-  if (cached) {
-    data(adsl, envir = environment())
-    return(adsl)
-  }
+radsl <- function(N = 400, seed = NULL) {
 
   if (!is.null(seed)) set.seed(seed)
 
@@ -75,4 +69,17 @@ radsl <- function(N = 400, seed = NULL, cached = isTRUE(getOption("random.cdisc.
 
   ADSL
 
+}
+
+
+#' Cached ADSL dataset
+#'
+#' Data generated with default arguments values and \code{seed = 1}
+#'
+#' @seealso \code{\link{radsl}}
+#'
+#' @export
+cadsl <- function() {
+  data(adsl, envir = environment())
+  return(adsl)
 }

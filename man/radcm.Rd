@@ -4,8 +4,7 @@
 \alias{radcm}
 \title{Concomitant Medication Analysis Dataset (ADCM)}
 \usage{
-radcm(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL,
-  cached = isTRUE(getOption("random.cdisc.data.cached")))
+radcm(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -15,8 +14,6 @@ radcm(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL,
 \item{seed}{Seed for random number generation.}
 
 \item{lookup}{Data.frame containing additional parameters.}
-
-\item{cached}{Whether to use cashed data}
 }
 \value{
 data.frame

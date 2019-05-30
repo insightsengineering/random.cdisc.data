@@ -9,7 +9,7 @@ radqs(ADSL, param = c("BFI All Questions", "Fatigue Interference",
   "Treatment Side Effects (GP2,C5,GP5)", "FKSI-19 All Questions"),
   paramcd = c("BFIALL", "FATIGI", "FKSI-FWB", "FKSI-TSE", "FKSIALL"),
   visit_format = "WEEK", n_assessments = 5, n_days = 5,
-  seed = NULL, cached = isTRUE(getOption("random.cdisc.data.cached")))
+  seed = NULL)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -25,8 +25,6 @@ radqs(ADSL, param = c("BFI All Questions", "Fatigue Interference",
 \item{n_days}{Number of days within cycle.}
 
 \item{seed}{Seed for random number generation.}
-
-\item{cached}{Whether to use cashed data}
 }
 \value{
 data.frame

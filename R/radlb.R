@@ -34,13 +34,7 @@ radlb <- function(ADSL,
                   visit_format = "WEEK",
                   n_assessments = 5,
                   n_days = 5,
-                  seed = NULL,
-                  cached = isTRUE(getOption("random.cdisc.data.cached"))) {
-
-  if (cached) {
-    data(adlb, envir = environment())
-    return(adlb)
-  }
+                  seed = NULL) {
 
   # validate and initialize related variables
   param_init_list <- relvar_init(param, paramcd)
@@ -99,4 +93,17 @@ radlb <- function(ADSL,
 
   ADLB
 
+}
+
+
+#' Cached ADLB dataset
+#'
+#' Data generated with default arguments values and \code{seed = 1}
+#'
+#' @seealso \code{\link{radlb}}
+#'
+#' @export
+cadlb <- function() {
+  data(adlb, envir = environment())
+  return(adlb)
 }

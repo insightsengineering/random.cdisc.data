@@ -18,12 +18,7 @@
 #' ADTTE <- radtte(ADSL, seed = 2)
 #' head(ADTTE)
 #'
-radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL, cached = isTRUE(getOption("random.cdisc.data.cached"))) {
-
-  if (cached) {
-    data(adtte, envir = environment())
-    return(adtte)
-  }
+radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL) {
 
   if (!is.null(seed)) set.seed(seed)
 
@@ -80,4 +75,17 @@ radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL, cached 
 
   ADTTE
 
+}
+
+
+#' Cached ADTTE dataset
+#'
+#' Data generated with default arguments values and \code{seed = 1}
+#'
+#' @seealso \code{\link{radtte}}
+#'
+#' @export
+cadtte <- function() {
+  data(adtte, envir = environment())
+  return(adtte)
 }

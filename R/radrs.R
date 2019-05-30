@@ -24,12 +24,7 @@
 #'  ADSL <- radsl(seed = 1)
 #'  ADRS <- radrs(ADSL, seed = 2)
 #'  head(ADRS)
-radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL, cached = isTRUE(getOption("random.cdisc.data.cached"))) {
-
-  if (cached) {
-    data(adrs, envir = environment())
-    return(adrs)
-  }
+radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL) {
 
   if(is.null(avalc)){
     param_codes <- setNames(1:5, c("CR", "PR", "SD", "PD", "NE"))
@@ -99,4 +94,17 @@ radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL, cached = isTRU
 
   ADRS
 
+}
+
+
+#' Cached ADRS dataset
+#'
+#' Data generated with default arguments values and \code{seed = 1}
+#'
+#' @seealso \code{\link{radrs}}
+#'
+#' @export
+cadrs <- function() {
+  data(adrs, envir = environment())
+  return(adrs)
 }
