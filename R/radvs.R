@@ -93,16 +93,3 @@ radvs <- function(ADSL,
   ADVS
 
 }
-
-
-#' Cached ADVS dataset
-#'
-#' Data generated with default arguments values and \code{seed = 1}
-#'
-#' @seealso \code{\link{radvs}}
-#'
-#' @export
-cadvs <- function() {
-  data(advs, envir = environment())
-  return(advs)
-}

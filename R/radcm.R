@@ -65,16 +65,3 @@ radcm <- function(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL) {
   ADCM
 
 }
-
-
-#' Cached ADCM dataset
-#'
-#' Data generated with default arguments values and \code{seed = 1}
-#'
-#' @seealso \code{\link{radcm}}
-#'
-#' @export
-cadcm <- function() {
-  data(adcm, envir = environment())
-  return(adcm)
-}

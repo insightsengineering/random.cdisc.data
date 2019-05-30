@@ -70,16 +70,3 @@ radsl <- function(N = 400, seed = NULL) {
   ADSL
 
 }
-
-
-#' Cached ADSL dataset
-#'
-#' Data generated with default arguments values and \code{seed = 1}
-#'
-#' @seealso \code{\link{radsl}}
-#'
-#' @export
-cadsl <- function() {
-  data(adsl, envir = environment())
-  return(adsl)
-}

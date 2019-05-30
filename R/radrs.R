@@ -95,16 +95,3 @@ radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL) {
   ADRS
 
 }
-
-
-#' Cached ADRS dataset
-#'
-#' Data generated with default arguments values and \code{seed = 1}
-#'
-#' @seealso \code{\link{radrs}}
-#'
-#' @export
-cadrs <- function() {
-  data(adrs, envir = environment())
-  return(adrs)
-}

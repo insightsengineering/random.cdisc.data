@@ -95,15 +95,3 @@ radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censo
 
 }
 
-
-#' Cached ADAETTE dataset
-#'
-#' Data generated with default arguments values and \code{seed = 1}
-#'
-#' @seealso \code{\link{radaette}}
-#'
-#' @export
-cadaette <- function() {
-  data(adaette, envir = environment())
-  return(adaette)
-}

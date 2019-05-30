@@ -76,16 +76,3 @@ radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL) {
   ADTTE
 
 }
-
-
-#' Cached ADTTE dataset
-#'
-#' Data generated with default arguments values and \code{seed = 1}
-#'
-#' @seealso \code{\link{radtte}}
-#'
-#' @export
-cadtte <- function() {
-  data(adtte, envir = environment())
-  return(adtte)
-}

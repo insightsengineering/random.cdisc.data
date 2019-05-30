@@ -63,14 +63,3 @@ radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL) {
 
 }
 
-#' Cached ADAE dataset
-#'
-#' Data generated with default arguments values and \code{seed = 1}
-#'
-#' @seealso \code{\link{radae}}
-#'
-#' @export
-cadae <- function() {
-  data(adae, envir = environment())
-  return(adae)
-}

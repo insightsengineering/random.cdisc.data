@@ -89,16 +89,3 @@ radqs <- function(ADSL,
   ADQS
 
 }
-
-
-#' Cached ADQS dataset
-#'
-#' Data generated with default arguments values and \code{seed = 1}
-#'
-#' @seealso \code{\link{radqs}}
-#'
-#' @export
-cadqs <- function() {
-  data(adqs, envir = environment())
-  return(adqs)
-}

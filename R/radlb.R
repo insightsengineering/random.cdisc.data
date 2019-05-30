@@ -94,16 +94,3 @@ radlb <- function(ADSL,
   ADLB
 
 }
-
-
-#' Cached ADLB dataset
-#'
-#' Data generated with default arguments values and \code{seed = 1}
-#'
-#' @seealso \code{\link{radlb}}
-#'
-#' @export
-cadlb <- function() {
-  data(adlb, envir = environment())
-  return(adlb)
-}
