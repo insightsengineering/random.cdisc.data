@@ -19,7 +19,6 @@
 #' @import dplyr
 #' @importFrom stats rchisq reorder rexp rnorm runif setNames
 #' @importFrom tibble tibble
-#' @importFrom utils data
 #'
 #' @export
 #'
