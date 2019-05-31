@@ -30,7 +30,10 @@ radvs <- function(ADSL,
                             "Temperature", "Weight"),
                   paramcd = c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT"),
                   paramu = c("Pa", "beats/min", "breaths/min", "Pa", "C", "Kg"),
-                  visit_format = "WEEK", n_assessments = 5, n_days = 5, seed = NULL) {
+                  visit_format = "WEEK",
+                  n_assessments = 5,
+                  n_days = 5,
+                  seed = NULL) {
 
   # validate and initialize param vectors
   param_init_list <- relvar_init(param, paramcd)

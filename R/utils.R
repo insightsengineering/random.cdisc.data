@@ -2,7 +2,8 @@
 # to remove R CMD CHECK notes cause by using dplyr and NSE
 utils::globalVariables(c(
   '.', 'ARM', 'ARMCD', 'AVAL', 'AVALC', 'BASE', 'BASE2', 'CHG', 'CHG2', 'CNSR', 'CNSR_P', 'COUNTRY', 'LAMBDA',
-  'PARAMCD', 'SITEID', 'STUDYID', 'SUBJID'
+  'PARAMCD', 'SITEID', 'STUDYID', 'SUBJID',
+  "adae", "adaette", "adcm", "adlb", "adqs", "adrs", "adsl", "adtte", "advs"
 ))
 
 

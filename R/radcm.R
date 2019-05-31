@@ -24,6 +24,7 @@
 #' head(ADCM)
 #'
 radcm <- function(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL) {
+
   if (is.null(lookup)){
     lookup_cm = tribble(
       ~CMCLAS,   ~CMDECOD, ~ATIREL,
