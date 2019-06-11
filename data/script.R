@@ -1,5 +1,4 @@
 # # script to save examples to data/ directory
-# cadsl <- radsl()
 # cadsl <- radsl(seed = 1)
 # cadae <- radae(cadsl, seed = 1)
 # cadaette <- radaette(cadsl, seed = 1)
@@ -8,6 +7,7 @@
 # cadrs <- radrs(cadsl, seed = 1)
 # cadtte <- radtte(cadsl, seed = 1)
 # cadvs <- radvs(cadsl, seed = 1)
+# cadqs <- radqs(cadsl, seed = 1)
 # save(cadsl, file = "data/cadsl.RData", compress = "xz")
 # save(cadsl, file = "data/cadsl.RData", compress = "xz")
 # save(cadae, file = "data/cadae.RData", compress = "xz")
@@ -17,3 +17,4 @@
 # save(cadrs, file = "data/cadrs.RData", compress = "xz")
 # save(cadtte, file = "data/cadtte.RData", compress = "xz")
 # save(cadvs, file = "data/cadvs.RData", compress = "xz")
+# save(cadqs, file = "data/cadqs.RData", compress = "xz")

@@ -59,3 +59,10 @@ test_that("ADVS cached data", {
   expect_identical(r_advs, c_advs)
 })
 
+test_that("ADQS cached data", {
+  r_advs <- radqs(r_adsl, seed = 1)
+  c_advs <- cadqs
+
+  expect_identical(r_advs, c_advs)
+})
+
