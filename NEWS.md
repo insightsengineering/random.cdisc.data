@@ -1,3 +1,6 @@
+# random.cdisc.data 0.2.1
+
+* added cached versions of the datases `c<name>`
 
 # random.cdisc.data 0.2.0
 
