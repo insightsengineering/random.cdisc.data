@@ -14,6 +14,9 @@
 #'
 #' @template ADSL_params
 #' @template lookup_param
+#' @templateVar data adrs
+#' @template param_cached
+#'
 #' @template return_data.frame
 #'
 #' @importFrom tibble tibble
@@ -24,7 +27,10 @@
 #'  ADSL <- radsl(seed = 1)
 #'  ADRS <- radrs(ADSL, seed = 2)
 #'  head(ADRS)
-radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL) {
+radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL, cached = FALSE) {
+
+  stopifnot(is.logical(cached))
+  if (cached) return(get_cached_data("cadrs"))
 
   if(is.null(avalc)){
     param_codes <- setNames(1:5, c("CR", "PR", "SD", "PD", "NE"))

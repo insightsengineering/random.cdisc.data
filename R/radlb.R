@@ -9,8 +9,11 @@
 #'
 #' @template ADSL_params
 #' @template BDS_findings_params
-#' @template return_data.frame
 #' @param paramu As character string. list of parameter unit values.
+#' @templateVar data adlb
+#' @template param_cached
+#'
+#' @template return_data.frame
 #'
 #' @import dplyr
 #' @importFrom yaml yaml.load_file
@@ -34,7 +37,11 @@ radlb <- function(ADSL,
                   visit_format = "WEEK",
                   n_assessments = 5,
                   n_days = 5,
-                  seed = NULL) {
+                  seed = NULL,
+                  cached = FALSE) {
+
+  stopifnot(is.logical(cached))
+  if (cached) return(get_cached_data("cadlb"))
 
   # validate and initialize related variables
   param_init_list <- relvar_init(param, paramcd)

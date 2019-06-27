@@ -4,7 +4,8 @@
 \alias{radae}
 \title{Adverse Event Analysis Dataset (ADAE)}
 \usage{
-radae(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL)
+radae(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL,
+  cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -14,6 +15,9 @@ radae(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL)
 \item{lookup}{Data.frame containing additional parameters.}
 
 \item{seed}{Seed for random number generation.}
+
+\item{cached}{boolean whether the cached ADAE data \code{cadae} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radae} will be ignored.}
 }
 \value{
 data.frame

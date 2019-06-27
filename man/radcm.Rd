@@ -4,7 +4,8 @@
 \alias{radcm}
 \title{Concomitant Medication Analysis Dataset (ADCM)}
 \usage{
-radcm(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL)
+radcm(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL,
+  cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -14,6 +15,9 @@ radcm(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL)
 \item{seed}{Seed for random number generation.}
 
 \item{lookup}{Data.frame containing additional parameters.}
+
+\item{cached}{boolean whether the cached ADCM data \code{cadcm} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radcm} will be ignored.}
 }
 \value{
 data.frame

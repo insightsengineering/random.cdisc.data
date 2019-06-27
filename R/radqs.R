@@ -9,6 +9,9 @@
 #'
 #' @template ADSL_params
 #' @template BDS_findings_params
+#' @templateVar data adqs
+#' @template param_cached
+#'
 #' @template return_data.frame
 #'
 #' @import dplyr
@@ -31,7 +34,11 @@ radqs <- function(ADSL,
                   visit_format = "WEEK",
                   n_assessments = 5,
                   n_days = 5,
-                  seed = NULL) {
+                  seed = NULL,
+                  cached = FALSE) {
+
+  stopifnot(is.logical(cached))
+  if (cached) return(get_cached_data("cadqs"))
 
   # validate and initialize param vectors
   param_init_list <- relvar_init(param, paramcd)
