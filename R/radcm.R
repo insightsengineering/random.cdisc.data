@@ -9,9 +9,12 @@
 #'
 #' @template ADSL_params
 #' @template lookup_param
+#' @param max_n_cms maximum number of concommitant medications per patient.
+#' @templateVar data adcm
+#' @template param_cached
+#'
 #' @template return_data.frame
 #'
-#' @param max_n_cms maximum number of concommitant medications per patient.
 #'
 #' @import dplyr
 #' @importFrom yaml yaml.load_file
@@ -23,7 +26,10 @@
 #' ADCM <- radcm(ADSL, seed = 2)
 #' head(ADCM)
 #'
-radcm <- function(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL) {
+radcm <- function(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL, cached = FALSE) {
+
+  stopifnot(is.logical(cached))
+  if (cached) return(get_cached_data("cadcm"))
 
   if (is.null(lookup)){
     lookup_cm = tribble(

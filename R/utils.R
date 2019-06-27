@@ -7,6 +7,19 @@ utils::globalVariables(c(
 ))
 
 
+#' return data attached to package
+#' @importFrom utils data
+#' @noRd
+get_cached_data <- function(dataname) {
+  stopifnot(length(dataname) == 1)
+  if (!("package:random.cdisc.data" %in% search())) {
+    stop("cached data can only be loaded if the random.cdisc.data package is attached.",
+         "Please run library(random.cdisc.data) before loading cached data.", call. = FALSE)
+  } else {
+    get(dataname, envir = asNamespace("random.cdisc.data"))
+  }
+}
+
 #' Create a factor with random elements of x
 #'
 #' Sample elements from x with replacing and build a factor

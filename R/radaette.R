@@ -7,10 +7,13 @@
 #'
 #' @template ADSL_params
 #' @template lookup_param
-#' @template return_data.frame
-#'
 #' @param event.descr Character vector with description of events.
 #' @param censor.descr Character vector with description of censors.
+#' @templateVar data adaette
+#' @template param_cached
+#'
+#' @template return_data.frame
+#'
 #'
 #' @import dplyr
 #' @importFrom yaml yaml.load_file
@@ -24,7 +27,10 @@
 #' ADAETTE <- radaette(ADSL, seed  = 2)
 #' head(ADAETTE)
 #'
-radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censor.descr = NULL) {
+radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censor.descr = NULL, cached = FALSE) {
+
+  stopifnot(is.logical(cached))
+  if (cached) return(get_cached_data("adaette"))
 
   if (is.null(lookup)){
     lookup_ADAETTE <- tribble(

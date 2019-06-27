@@ -9,9 +9,11 @@
 #'
 #' @template ADSL_params
 #' @template lookup_param
-#' @template return_data.frame
-#'
 #' @param max_n_aes Maximum number of AEs per patient.
+#' @templateVar data adae
+#' @template param_cached
+#'
+#' @template return_data.frame
 #'
 #' @import dplyr
 #' @importFrom yaml yaml.load_file
@@ -23,7 +25,11 @@
 #' ADAE <- radae(ADSL, seed = 2)
 #' head(ADAE)
 #'
-radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL) {
+radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL, cached = FALSE) {
+
+
+  stopifnot(is.logical(cached))
+  if (cached) return(get_cached_data("cadae"))
 
   if(is.null(lookup)){
     lookup_ae = tribble(

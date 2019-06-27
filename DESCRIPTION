@@ -1,15 +1,17 @@
 Package: random.cdisc.data
 Type: Package
 Title: Create Random SDTM and ADAM Datasets
-Version: 0.2.0
+Version: 0.2.0.90002
 Authors@R: c(
-  person("Adrian", "Waddell", email = "adrian.waddell@roche.com", role = c("aut", "cre")),
-  person("Nick", "Paszty", email = "npaszty@gene.com", role = c("aut")),
-  person("Federico", "Martinello", email = "mika.maekinen@roche.com", role = c("aut")),
-  person("Heng", "Wang", email = "wangh107@gene.com", role = c("aut")),
-  person("Mika", "Maekinen", email = "mika.maekinen@roche.com", role = c("aut")),
-  person("Chendi", "Lioa", email = "", role = c("aut")),
-  person("Edgar", "", email = "", role = c("aut"))
+  person("NEST", email = "nestcicd@roche.com", role = c("aut", "cre")),
+  person("Adrian", "Waddell", email = "adrian.waddell@roche.com", role = "aut"),
+  person("Nick", "Paszty", email = "npaszty@gene.com", role = "aut"),
+  person("Federico", "Martinello", email = "mika.maekinen@roche.com", role = "aut"),
+  person("Heng", "Wang", email = "wangh107@gene.com", role = "aut"),
+  person("Mika", "Maekinen", email = "mika.maekinen@roche.com", role = "aut"),
+  person("Chendi", "Lioa", email = "chendi.liao@roche.com", role = "aut"),
+  person("Edgar", "Manukyan", email = "edgar.manukyan@roche.com", role = "aut"),
+  person("Roche", role = c("cph", "fnd"))
   )
 Description: Create random CDISC data.
 Depends:
