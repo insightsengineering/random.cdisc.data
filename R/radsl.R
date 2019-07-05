@@ -33,7 +33,17 @@
 #'
 #' attr(ADSL, "label") # or also tern::label(ADSL)
 #'
-radsl <- function(N = 400, seed = NULL, cached = FALSE) {
+#' ADSL <- radsl(N = 20, random_NA = 0.1, seed = 1)
+#' print(which(is.na(ADSL$SEX)))
+#' print(which(is.na(ADSL$AGE)))
+#'
+#' ADSL <- radsl(N = 20, random_NA = 0.1, NA_vars = list(SEX = 2, AGE = 2), seed = 1)
+#' print(which(is.na(ADSL$SEX)))
+#' print(which(is.na(ADSL$AGE)))
+#'
+radsl <- function(N = 400, seed = NULL, cached = FALSE, random_NA = 0,
+    NA_vars = list("AGE" = NA, "SEX" = NA, "RACE" = NA, "STRATA1" = NA, "STRATA2" = NA,
+        "BMRKR1" = c(seed = 1234, percentage = 0.1), "BMRKR2" = c(1234, 0.1), "BEP01FL" = NA)) {
 
   stopifnot(is.logical(cached))
   stopifnot(is.list(NA_vars))
@@ -79,10 +89,6 @@ radsl <- function(N = 400, seed = NULL, cached = FALSE) {
     mutate(ACTARM = ARM) %>%
     mutate(ACTARMCD = ARMCD) %>%
     mutate(ITTFL = "Y")
-
-  for (NA_var in NA_vars) {
-    ADSL <- ADSL %>% dplyr::mutate(!!NA_var := ADSL[[NA_var]] %>% replace_NA(percentage = random_NA))
-  }
 
   # associate sites with countries
   ADSL <- ADSL %>%

@@ -218,3 +218,94 @@ apply_metadata <- function(df, filename, ..., ADSL = NULL) {
   df
 
 }
+
+#' Replace values in a vector by NA
+#'
+#' @description Randomized replacement of values by NA
+#'
+#' @param v (\code{any}) vector of any type
+#' @param percentage (\code{numeric}) Value between 0 and 1 defining
+#'   how much of the vector shall be replaced by NA. This number
+#'   is randomized by plus minus 5 percent to have full randomization.
+#' @param seed (\code{numeric}) seed to set to make randomization reproducible
+#'
+#' @return The input vector v where a certain number of values
+#'   is replaced by NA
+#'
+#' @export
+replace_NA <- function(v, percentage = 0.05, seed = NULL) {
+
+  stopifnot(is.numeric(percentage))
+  stopifnot(percentage >= 0 && percentage <= 1)
+
+  if (percentage == 0) {
+    return(v)
+  }
+
+  if (!is.null(seed) && !is.na(seed)) {
+    set.seed(seed)
+  }
+
+  # randomize the percentage
+  ind <- sample(seq_along(v), round(length(v) * (percentage + percentage * sample(seq(-0.05, 0.05, 0.01), 1))))
+
+  v[ind] <- NA
+
+  return(v)
+}
+
+#' Replace column values by NAs
+#'
+#' @param ds (\code{data.frame}) Any data set
+#' @param NA_vars (\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+#'  element of this list should be a numeric vector with two elements
+#'  \itemize{
+#'     \item{seed }{The seed to be used for this element - can be left NA}
+#'     \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
+#'     percentage is used}
+#' }
+#' @param percentage (\code{numeric}) default percentage
+#'
+#' @importFrom dplyr mutate is.tbl
+#' @importFrom rlang := !!
+#' @importFrom magrittr %<>%
+mutate_NA <- function(ds, NA_vars = NULL, percentage = 0.05){
+
+  if(!is.tbl(ds)){
+    tbl_df(ds)
+  }
+
+  if(!is.null(NA_vars)) {
+    stopifnot(is.list(NA_vars))
+  } else {
+    NA_vars <- names(ds)
+  }
+
+  stopifnot(is.numeric(percentage))
+
+  for (NA_var in names(NA_vars)) {
+    if(!is.na(NA_var)) {
+      if (!NA_var %in% names(ds)) {
+        warning(paste(NA_var, "not in column names"))
+      } else {
+        message(NA_var)
+
+        ds <- ds %>% ungroup.rowwise_df %>% dplyr::mutate(!!NA_var := ds[[NA_var]] %>%
+                replace_NA(
+                    percentage = ifelse(is.na(NA_vars[[NA_var]][2]), percentage, NA_vars[[NA_var]][2]),
+                    seed = NA_vars[[NA_var]][1]
+                )
+        )
+      }
+    }
+  }
+  return(ds)
+}
+
+ungroup.rowwise_df <- function(x) {
+  class(x) <- c( "tbl", "tbl_df", "data.frame")
+  x
+}
+
+
+
