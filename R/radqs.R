@@ -13,6 +13,8 @@
 #' @template param_cached
 #'
 #' @template return_data.frame
+#' @inheritParams radsl
+#' @inheritParams mutate_NA
 #'
 #' @import dplyr
 #' @importFrom yaml yaml.load_file
@@ -35,7 +37,11 @@ radqs <- function(ADSL,
                   n_assessments = 5,
                   n_days = 5,
                   seed = NULL,
-                  cached = FALSE) {
+                  cached = FALSE,
+                  random_NA = 0,
+                  NA_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL = c(1235, 0.1),
+                    CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1))
+              ){
 
   stopifnot(is.logical(cached))
   if (cached) return(get_cached_data("cadqs"))
@@ -89,6 +95,10 @@ radqs <- function(ADSL,
       STUDYID = attr(ADSL$STUDYID, "label"),
       USUBJID = attr(ADSL$USUBJID, "label")
     )
+
+  if(random_NA > 0 && random_NA <=1 && length(NA_vars) > 0){
+    ADQS %<>% mutate_NA(NA_vars = NA_vars, percentage = random_NA)
+  }
 
   # apply metadata
   ADQS <- apply_metadata(ADQS, "metadata/ADQS.yml", seed = seed, ADSL = ADSL)

@@ -5,7 +5,8 @@
 \title{Tumor Response Analysis Data Set (ADRS)}
 \usage{
 radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL,
-  cached = FALSE)
+  cached = FALSE, random_NA = 0, NA_vars = list(AVISIT = c(NA, 0.1),
+  AVAL = c(1234, 0.1), AVALC = c(1234, 0.1)))
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -18,6 +19,17 @@ radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL,
 
 \item{cached}{boolean whether the cached ADRS data \code{cadrs} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radrs} will be ignored.}
+
+\item{random_NA}{(\code{numeric}) Number between 0 and 1 to define how many
+NA values per data column should be generated. 1 means 100 \%}
+
+\item{NA_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+ element of this list should be a numeric vector with two elements
+ \itemize{
+    \item{seed }{The seed to be used for this element - can be left NA}
+    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
+    percentage is used}
+}}
 }
 \value{
 data.frame

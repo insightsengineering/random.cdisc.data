@@ -11,6 +11,8 @@
 #' Keys: STUDYID USUBJID PARAMCD AVISITN ADT RSSEQ
 #'
 #' @param avalc Vector of analysis value categories.
+#' @inheritParams radsl
+#' @inheritParams mutate_NA
 #'
 #' @template ADSL_params
 #' @template lookup_param
@@ -27,7 +29,8 @@
 #'  ADSL <- radsl(seed = 1)
 #'  ADRS <- radrs(ADSL, seed = 2)
 #'  head(ADRS)
-radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL, cached = FALSE) {
+radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL, cached = FALSE, random_NA = 0,
+    NA_vars = list(AVISIT = c(NA, 0.1), AVAL = c(1234, 0.1), AVALC = c(1234, 0.1))) {
 
   stopifnot(is.logical(cached))
   if (cached) return(get_cached_data("cadrs"))
@@ -94,6 +97,10 @@ radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL, cached = FALSE
       STUDYID = "Study Identifier",
       USUBJID = "Unique Subject Identifier"
     )
+
+  if(length(NA_vars) > 0 && random_NA > 0 && random_NA <= 1) {
+    ADRS %<>% mutate_NA(NA_vars = NA_vars, percentage = random_NA)
+  }
 
   # apply metadata
   ADRS <- apply_metadata(ADRS, "metadata/ADRS.yml", seed = seed, ADSL = ADSL)

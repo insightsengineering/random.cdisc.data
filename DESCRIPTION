@@ -16,13 +16,15 @@ Authors@R: c(
 Description: Create random CDISC data.
 Depends:
     R (>= 3.3),
-Imports: 
-    dplyr, 
-    yaml, 
+Imports:
+    dplyr,
+    magrittr,
+    rlang,
+    yaml,
     tibble
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
-Suggests: 
+Suggests:
     testthat

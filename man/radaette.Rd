@@ -5,7 +5,9 @@
 \title{Time to Adverse Event Analysis Dataset (ADAETTE)}
 \usage{
 radaette(ADSL, seed = NULL, lookup = NULL, event.descr = NULL,
-  censor.descr = NULL, cached = FALSE)
+  censor.descr = NULL, cached = FALSE, random_NA = 0,
+  NA_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234, 0.1), AVALU = c(1234,
+  0.1)))
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -20,6 +22,17 @@ radaette(ADSL, seed = NULL, lookup = NULL, event.descr = NULL,
 
 \item{cached}{boolean whether the cached ADAETTE data \code{cadaette} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radaette} will be ignored.}
+
+\item{random_NA}{(\code{numeric}) Number between 0 and 1 to define how many
+NA values per data column should be generated. 1 means 100 \%}
+
+\item{NA_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+ element of this list should be a numeric vector with two elements
+ \itemize{
+    \item{seed }{The seed to be used for this element - can be left NA}
+    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
+    percentage is used}
+}}
 }
 \value{
 data.frame

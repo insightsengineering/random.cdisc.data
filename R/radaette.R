@@ -9,6 +9,9 @@
 #' @template lookup_param
 #' @param event.descr Character vector with description of events.
 #' @param censor.descr Character vector with description of censors.
+#' @inheritParams radsl
+#' @inheritParams mutate_NA
+#'
 #' @templateVar data adaette
 #' @template param_cached
 #'
@@ -27,7 +30,8 @@
 #' ADAETTE <- radaette(ADSL, seed  = 2)
 #' head(ADAETTE)
 #'
-radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censor.descr = NULL, cached = FALSE) {
+radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censor.descr = NULL, cached = FALSE,
+    random_NA = 0, NA_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234, 0.1), AVALU = c(1234, 0.1))) {
 
   stopifnot(is.logical(cached))
   if (cached) return(get_cached_data("adaette"))
@@ -94,6 +98,9 @@ radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censo
       USUBJID = "Unique Subject Identifier"
     )
 
+  if(random_NA > 0 && random_NA <=1 && length(NA_vars) > 0){
+    ADAETTE %<>% mutate_NA(NA_vars = NA_vars, percentage = random_NA)
+  }
   # apply metadata
   ADAETTE <- apply_metadata(ADAETTE, "metadata/ADAETTE.yml", seed = seed, ADSL = ADSL)
 

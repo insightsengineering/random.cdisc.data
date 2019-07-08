@@ -12,6 +12,8 @@
 #' @param paramu As character string. list of parameter unit values.
 #' @templateVar data adlb
 #' @template param_cached
+#' @inheritParams radsl
+#' @inheritParams mutate_NA
 #'
 #' @template return_data.frame
 #'
@@ -38,7 +40,12 @@ radlb <- function(ADSL,
                   n_assessments = 5,
                   n_days = 5,
                   seed = NULL,
-                  cached = FALSE) {
+                  cached = FALSE,
+                  random_NA = 0,
+                  NA_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL = c(1235, 0.1),
+                      BASE2 = c(NA, 0.1), BASE = c(NA, 0.1),
+                      CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1))
+              ){
 
   stopifnot(is.logical(cached))
   if (cached) return(get_cached_data("cadlb"))
@@ -94,6 +101,10 @@ radlb <- function(ADSL,
       STUDYID = attr(ADSL$STUDYID, "label"),
       USUBJID = attr(ADSL$USUBJID, "label")
     )
+
+  if(random_NA > 0 && random_NA <=1 && length(NA_vars) > 0){
+    ADLB %<>% mutate_NA(NA_vars = NA_vars, percentage = random_NA)
+  }
 
   # apply metadata
   ADLB <- apply_metadata(ADLB, "metadata/ADLB.yml", seed = seed, ADSL = ADSL)
