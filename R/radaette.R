@@ -94,3 +94,4 @@ radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censo
   ADAETTE
 
 }
+

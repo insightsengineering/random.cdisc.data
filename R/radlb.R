@@ -31,7 +31,10 @@ radlb <- function(ADSL,
                   param = c("Alanine Aminotransferase Measurement", "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
                   paramcd = c("ALT", "CRP", "IGA"),
                   paramu = c("U/L", "mg/L", "g/L"),
-                  visit_format = "WEEK", n_assessments = 5, n_days = 5, seed = NULL) {
+                  visit_format = "WEEK",
+                  n_assessments = 5,
+                  n_days = 5,
+                  seed = NULL) {
 
   # validate and initialize related variables
   param_init_list <- relvar_init(param, paramcd)
