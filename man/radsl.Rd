@@ -4,12 +4,15 @@
 \alias{radsl}
 \title{Subject-Level Analysis Dataset (ADSL)}
 \usage{
-radsl(N = 400, seed = NULL)
+radsl(N = 400, seed = NULL, cached = FALSE)
 }
 \arguments{
 \item{N}{Number of patients.}
 
 \item{seed}{Seed for random number generation.}
+
+\item{cached}{boolean whether the cached ADSL data \code{cadsl} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
 }
 \value{
 data.frame

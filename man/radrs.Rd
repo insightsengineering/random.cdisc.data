@@ -4,7 +4,8 @@
 \alias{radrs}
 \title{Tumor Response Analysis Data Set (ADRS)}
 \usage{
-radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL)
+radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL,
+  cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -14,6 +15,9 @@ radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL)
 \item{avalc}{Vector of analysis value categories.}
 
 \item{lookup}{Data.frame containing additional parameters.}
+
+\item{cached}{boolean whether the cached ADRS data \code{cadrs} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radrs} will be ignored.}
 }
 \value{
 data.frame

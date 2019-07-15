@@ -13,6 +13,8 @@
 #'
 #' @param N Number of patients.
 #' @param seed Seed for random number generation.
+#' @templateVar data adsl
+#' @template param_cached
 #'
 #' @template return_data.frame
 #'
@@ -28,7 +30,10 @@
 #'
 #' attr(ADSL, "label") # or also tern::label(ADSL)
 #'
-radsl <- function(N = 400, seed = NULL) {
+radsl <- function(N = 400, seed = NULL, cached = FALSE) {
+
+  stopifnot(is.logical(cached))
+  if (cached) return(get_cached_data("cadsl"))
 
   if (!is.null(seed)) set.seed(seed)
 

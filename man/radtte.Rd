@@ -4,18 +4,20 @@
 \alias{radtte}
 \title{Time-to-Event Analysis Dataset (ATE)}
 \usage{
-radtte(ADSL, lookup = NULL, event.descr = NULL, seed = NULL)
+radtte(ADSL, lookup = NULL, event.descr = NULL, seed = NULL,
+  cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
 \item{lookup}{Data.frame containing additional parameters.}
 
-\item{event.descr}{Character vector with description of events.
-
-Keys: STUDYID USUBJID PARAMCD AVISITN ADT TTESEQ}
+\item{event.descr}{Character vector with description of events.}
 
 \item{seed}{Seed for random number generation.}
+
+\item{cached}{boolean whether the cached ADTTE data \code{cadtte} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radtte} will be ignored.}
 }
 \value{
 data.frame
@@ -23,6 +25,9 @@ data.frame
 \description{
 Function for generating random Time-to-Event Analysis Dataset for a given
 Subject-Level Analysis Dataset
+}
+\details{
+Keys: STUDYID USUBJID PARAMCD AVISITN ADT TTESEQ
 }
 \examples{
 ADSL <- radsl(seed = 1)

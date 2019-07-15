@@ -5,7 +5,7 @@
 \title{Time to Adverse Event Analysis Dataset (ADAETTE)}
 \usage{
 radaette(ADSL, seed = NULL, lookup = NULL, event.descr = NULL,
-  censor.descr = NULL)
+  censor.descr = NULL, cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -17,6 +17,9 @@ radaette(ADSL, seed = NULL, lookup = NULL, event.descr = NULL,
 \item{event.descr}{Character vector with description of events.}
 
 \item{censor.descr}{Character vector with description of censors.}
+
+\item{cached}{boolean whether the cached ADAETTE data \code{cadaette} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radaette} will be ignored.}
 }
 \value{
 data.frame

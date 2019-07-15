@@ -3,13 +3,17 @@
 #' Function for generating random Time-to-Event Analysis Dataset for a given
 #' Subject-Level Analysis Dataset
 #'
+#' @details
+#' Keys: STUDYID USUBJID PARAMCD AVISITN ADT TTESEQ
+#'
 #' @template ADSL_params
 #' @template lookup_param
+#' @param event.descr Character vector with description of events.
+#' @templateVar data adtte
+#' @template param_cached
+#'
 #' @template return_data.frame
 #'
-#' @param event.descr Character vector with description of events.
-#'
-#' Keys: STUDYID USUBJID PARAMCD AVISITN ADT TTESEQ
 #'
 #' @export
 #'
@@ -18,7 +22,10 @@
 #' ADTTE <- radtte(ADSL, seed = 2)
 #' head(ADTTE)
 #'
-radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL) {
+radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL, cached = FALSE) {
+
+  stopifnot(is.logical(cached))
+  if (cached) return(get_cached_data("cadtte"))
 
   if (!is.null(seed)) set.seed(seed)
 
