@@ -247,7 +247,7 @@ replace_NA <- function(v, percentage = 0.05, seed = NULL) {
   }
 
   # randomize the percentage
-  ind <- sample(seq_along(v), round(length(v) * (percentage + percentage * sample(seq(-0.05, 0.05, 0.01), 1))))
+  ind <- sample(seq_along(v), round(length(v) * percentage))
 
   v[ind] <- NA
 
@@ -268,6 +268,7 @@ replace_NA <- function(v, percentage = 0.05, seed = NULL) {
 #'
 #' @importFrom dplyr mutate is.tbl
 #' @importFrom rlang := !!
+#' @import utils.nest
 mutate_NA <- function(ds, NA_vars = NULL, percentage = 0.05){
 
   stopifnot(is.numeric.list(NA_vars))
