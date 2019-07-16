@@ -2,7 +2,6 @@ Package: random.cdisc.data
 Type: Package
 Title: Create Random SDTM and ADAM Datasets
 Version: 0.2.1.9000
-
 Authors@R: c(
   person("NEST", email = "nestcicd@roche.com", role = c("aut", "cre")),
   person("Adrian", "Waddell", email = "adrian.waddell@roche.com", role = "aut"),
