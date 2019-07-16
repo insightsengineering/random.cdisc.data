@@ -270,6 +270,13 @@ replace_NA <- function(v, percentage = 0.05, seed = NULL) {
 #' @importFrom rlang := !!
 mutate_NA <- function(ds, NA_vars = NULL, percentage = 0.05){
 
+  stopifnot(is.numeric.list(NA_vars))
+  stopifnot(all(vapply(NA_vars, length) == 2)) # all elements with exactly two elements
+  stopifnot(length(names(NA_vars)) == length(NA_vars)) # names for all elements
+  all_true(lapply(NA_vars, `[[`, 1), is.numeric.single) # first element of list is single numeric value
+  #  actually it should be integer because you cannot specify seed = 123.456
+  all_true(lapply(NA_vars, `[[`, 2), is.numeric.single)# second element of list is single numeric value
+
   if(!is.tbl(ds)){
     tbl_df(ds)
   }
