@@ -235,7 +235,7 @@ apply_metadata <- function(df, filename, ..., ADSL = NULL) {
 #' @export
 replace_NA <- function(v, percentage = 0.05, seed = NULL) {
 
-  stopifnot(is.numeric(percentage))
+  stopifnot(is.numeric.single(percentage))
   stopifnot(percentage >= 0 && percentage <= 1)
 
   if (percentage == 0) {
