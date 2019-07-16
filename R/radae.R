@@ -67,7 +67,7 @@ radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL, cached = FAL
     )
 
   if(length(NA_vars) > 0 && random_NA > 0 && random_NA <= 1) {
-    ADAE %<>% mutate_NA(NA_vars = NA_vars, percentage = random_NA)
+    ADAE <- mutate_NA(ds = ADAE, NA_vars = NA_vars, percentage = random_NA)
   }
   # apply metadata
   ADAE <- apply_metadata(ADAE, "metadata/ADAE.yml", seed = seed, ADSL = ADSL)

@@ -19,7 +19,6 @@
 #'
 #' @import dplyr
 #' @importFrom yaml yaml.load_file
-#' @importFrom magrittr %<>%
 #'
 #' @export
 #'
@@ -103,7 +102,7 @@ radvs <- function(ADSL,
     )
 
   if(random_NA > 0 && random_NA <=1 && length(NA_vars) > 0){
-    ADVS %<>% mutate_NA(NA_vars = NA_vars, percentage = random_NA)
+    ADVS <- mutate_NA(ds = ADVS, NA_vars = NA_vars, percentage = random_NA)
   }
 
   # apply metadata

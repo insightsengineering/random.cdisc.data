@@ -268,7 +268,6 @@ replace_NA <- function(v, percentage = 0.05, seed = NULL) {
 #'
 #' @importFrom dplyr mutate is.tbl
 #' @importFrom rlang := !!
-#' @importFrom magrittr %<>%
 mutate_NA <- function(ds, NA_vars = NULL, percentage = 0.05){
 
   if(!is.tbl(ds)){

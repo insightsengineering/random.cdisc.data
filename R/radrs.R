@@ -99,7 +99,7 @@ radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL, cached = FALSE
     )
 
   if(length(NA_vars) > 0 && random_NA > 0 && random_NA <= 1) {
-    ADRS %<>% mutate_NA(NA_vars = NA_vars, percentage = random_NA)
+    ADRS <- mutate_NA(ds = ADRS, NA_vars = NA_vars, percentage = random_NA)
   }
 
   # apply metadata

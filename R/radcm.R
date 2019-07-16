@@ -70,7 +70,7 @@ radcm <- function(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL, cached = FAL
     )
 
   if(length(NA_vars) > 0 && random_NA > 0 && random_NA <= 1) {
-    ADCM %<>% mutate_NA(NA_vars = NA_vars, percentage = random_NA)
+    ADCM <- mutate_NA(ds = ADCM, NA_vars = NA_vars, percentage = random_NA)
   }
   # apply metadata
   ADCM <- apply_metadata(ADCM, "metadata/ADCM.yml", seed = seed, ADSL = ADSL)

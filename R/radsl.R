@@ -96,7 +96,7 @@ radsl <- function(N = 400, seed = NULL, cached = FALSE, random_NA = 0,
     mutate(USUBJID = paste(STUDYID, SITEID, SUBJID, sep = "-"))
 
   if(random_NA > 0 && random_NA <= 1){
-    ADSL %<>% mutate_NA(NA_vars = NA_vars, percentage = random_NA)
+    ADSL <- mutate_NA(ds = ADSL, NA_vars = NA_vars, percentage = random_NA)
   }
 
   # apply metadata

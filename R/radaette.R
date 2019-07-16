@@ -99,7 +99,7 @@ radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censo
     )
 
   if(random_NA > 0 && random_NA <=1 && length(NA_vars) > 0){
-    ADAETTE %<>% mutate_NA(NA_vars = NA_vars, percentage = random_NA)
+    ADAETTE <- mutate_NA(ds = ADAETTE, NA_vars = NA_vars, percentage = random_NA)
   }
   # apply metadata
   ADAETTE <- apply_metadata(ADAETTE, "metadata/ADAETTE.yml", seed = seed, ADSL = ADSL)

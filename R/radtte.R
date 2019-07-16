@@ -88,7 +88,7 @@ radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL, cached 
   NA_vars <- NA_vars[setdiff(colnames(ADTTE), colnames(ADSL))]
 
   if(length(NA_vars) > 0 && random_NA > 0 && random_NA <= 1) {
-    ADTTE %<>% mutate_NA(NA_vars = NA_vars, percentage = random_NA)
+    ADTTE <- mutate_NA(ds = ADTTE, NA_vars = NA_vars, percentage = random_NA)
   }
 
   # apply metadata
