@@ -102,7 +102,7 @@ radlb <- function(ADSL,
       USUBJID = attr(ADSL$USUBJID, "label")
     )
 
-  if(random_NA > 0 && random_NA <=1 && length(NA_vars) > 0){
+  if(random_NA > 0 && random_NA <= 1 && length(NA_vars) > 0){
     ADLB <- mutate_NA(ds = ADLB, NA_vars = NA_vars, percentage = random_NA)
   }
 

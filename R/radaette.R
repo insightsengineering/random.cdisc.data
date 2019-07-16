@@ -98,7 +98,7 @@ radaette <- function(ADSL, seed = NULL, lookup = NULL, event.descr = NULL, censo
       USUBJID = "Unique Subject Identifier"
     )
 
-  if(random_NA > 0 && random_NA <=1 && length(NA_vars) > 0){
+  if(random_NA > 0 && random_NA <= 1 && length(NA_vars) > 0){
     ADAETTE <- mutate_NA(ds = ADAETTE, NA_vars = NA_vars, percentage = random_NA)
   }
   # apply metadata

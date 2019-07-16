@@ -96,7 +96,7 @@ radqs <- function(ADSL,
       USUBJID = attr(ADSL$USUBJID, "label")
     )
 
-  if(random_NA > 0 && random_NA <=1 && length(NA_vars) > 0){
+  if(random_NA > 0 && random_NA <= 1 && length(NA_vars) > 0){
     ADQS <- mutate_NA(ds = ADQS, NA_vars = NA_vars, percentage = random_NA)
   }
 

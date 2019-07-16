@@ -101,7 +101,7 @@ radvs <- function(ADSL,
       STUDYID = attr(ADSL$STUDYID, "label")
     )
 
-  if(random_NA > 0 && random_NA <=1 && length(NA_vars) > 0){
+  if(random_NA > 0 && random_NA <= 1 && length(NA_vars) > 0){
     ADVS <- mutate_NA(ds = ADVS, NA_vars = NA_vars, percentage = random_NA)
   }
 

@@ -18,9 +18,9 @@ Depends:
     R (>= 3.3),
 Imports:
     dplyr,
-    magrittr,
     rlang,
     yaml,
+    utils.nest
     tibble
 License: GPL-2
 Encoding: UTF-8
