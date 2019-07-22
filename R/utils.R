@@ -249,7 +249,14 @@ replace_NA <- function(v, percentage = 0.05, seed = NULL) {
   # randomize the percentage
   ind <- sample(seq_along(v), round(length(v) * percentage))
 
-  v[ind] <- NA
+  if (!all(is.na(suppressWarnings(as.numeric(as.character(v)))))) {
+    v[ind] <- NA
+  } else {
+    if (is.factor(v)) {
+      levels(v) <- c(levels(v), "")
+    }
+    v[ind] <- ""
+  }
 
   return(v)
 }
