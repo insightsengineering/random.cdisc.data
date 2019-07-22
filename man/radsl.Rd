@@ -51,11 +51,11 @@ head(ADSL)
 attr(ADSL, "label") # or also tern::label(ADSL)
 
 ADSL <- radsl(N = 20, random_NA = 0.1, seed = 1)
-print(which(is.na(ADSL$SEX)))
+print(which(ADSL$SEX == ""))
 print(which(is.na(ADSL$AGE)))
 
 ADSL <- radsl(N = 20, random_NA = 0.1, NA_vars = list(SEX = 2, AGE = 2), seed = 1)
-print(which(is.na(ADSL$SEX)))
+print(which(ADSL$SEX == ""))
 print(which(is.na(ADSL$AGE)))
 
 }
