@@ -4,7 +4,7 @@
 \alias{mutate_NA}
 \title{Replace column values by NAs}
 \usage{
-mutate_NA(ds, NA_vars = NULL, percentage = 0.05)
+mutate_NA(ds, NA_vars = NULL, NA_percentage = 0.05)
 }
 \arguments{
 \item{ds}{(\code{data.frame}) Any data set}
@@ -14,10 +14,10 @@ mutate_NA(ds, NA_vars = NULL, percentage = 0.05)
  \itemize{
     \item{seed }{The seed to be used for this element - can be left NA}
     \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-    percentage is used}
+    percentage is used. This will overwrite default percentage (percentage argument))}
 }}
 
-\item{percentage}{(\code{numeric}) default percentage}
+\item{NA_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 }
 \description{
 Replace column values by NAs

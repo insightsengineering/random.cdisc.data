@@ -28,7 +28,7 @@
 #' ADAE <- radae(ADSL, seed = 2)
 #' head(ADAE)
 #'
-radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL, cached = FALSE, random_NA = 0,
+radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL, cached = FALSE, NA_percentage = 0,
     NA_vars = list(AEBODSYS = c(NA, 0.1), AEDECOD = c(1234, 0.1), AETOXGR = c(1234, 0.1))) {
 
 
@@ -66,8 +66,8 @@ radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL, cached = FAL
       USUBJID = "Unique Subject Identifier"
     )
 
-  if(length(NA_vars) > 0 && random_NA > 0 && random_NA <= 1) {
-    ADAE <- mutate_NA(ds = ADAE, NA_vars = NA_vars, percentage = random_NA)
+  if(length(NA_vars) > 0 && NA_percentage > 0 && NA_percentage <= 1) {
+    ADAE <- mutate_NA(ds = ADAE, NA_vars = NA_vars, NA_percentage = NA_percentage)
   }
   # apply metadata
   ADAE <- apply_metadata(ADAE, "metadata/ADAE.yml", seed = seed, ADSL = ADSL)

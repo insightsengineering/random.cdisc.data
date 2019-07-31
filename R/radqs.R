@@ -38,7 +38,7 @@ radqs <- function(ADSL,
                   n_days = 5,
                   seed = NULL,
                   cached = FALSE,
-                  random_NA = 0,
+                  NA_percentage = 0,
                   NA_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL = c(1235, 0.1),
                     CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1))
               ){
@@ -96,8 +96,8 @@ radqs <- function(ADSL,
       USUBJID = attr(ADSL$USUBJID, "label")
     )
 
-  if(random_NA > 0 && random_NA <= 1 && length(NA_vars) > 0){
-    ADQS <- mutate_NA(ds = ADQS, NA_vars = NA_vars, percentage = random_NA)
+  if(NA_percentage > 0 && NA_percentage <= 1 && length(NA_vars) > 0){
+    ADQS <- mutate_NA(ds = ADQS, NA_vars = NA_vars, NA_percentage = NA_percentage)
   }
 
   # apply metadata

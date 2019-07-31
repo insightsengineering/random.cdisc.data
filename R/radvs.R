@@ -40,7 +40,7 @@ radvs <- function(ADSL,
                   n_days = 5,
                   seed = NULL,
                   cached = FALSE,
-                  random_NA = 0,
+                  NA_percentage = 0,
                   NA_vars = list(CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1),
                       AVAL = c(123, 0.1), AVALU = c(123, 0.1)
                       )
@@ -101,8 +101,8 @@ radvs <- function(ADSL,
       STUDYID = attr(ADSL$STUDYID, "label")
     )
 
-  if(random_NA > 0 && random_NA <= 1 && length(NA_vars) > 0){
-    ADVS <- mutate_NA(ds = ADVS, NA_vars = NA_vars, percentage = random_NA)
+  if(NA_percentage > 0 && NA_percentage <= 1 && length(NA_vars) > 0){
+    ADVS <- mutate_NA(ds = ADVS, NA_vars = NA_vars, NA_percentage = NA_percentage)
   }
 
   # apply metadata

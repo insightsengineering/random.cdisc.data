@@ -12,9 +12,7 @@
 #' Keys: STUDYID USUBJID
 #'
 #' @param N Number of patients.
-#' @param seed Seed for random number generation.
-#' @param random_NA (\code{numeric}) Number between 0 and 1 to define how many
-#'   NA values per data column should be generated. 1 means 100 \%
+#' @param seed Seed for random number generation.s
 #' @inheritParams mutate_NA
 #' @templateVar data adsl
 #' @template param_cached
@@ -33,22 +31,22 @@
 #'
 #' attr(ADSL, "label") # or also tern::label(ADSL)
 #'
-#' ADSL <- radsl(N = 20, random_NA = 0.1, seed = 1)
+#' ADSL <- radsl(N = 20, NA_percentage = 0.1, seed = 1)
 #' print(which(ADSL$SEX == ""))
 #' print(which(is.na(ADSL$AGE)))
 #'
-#' ADSL <- radsl(N = 20, random_NA = 0.1, NA_vars = list(SEX = 2, AGE = 2), seed = 1)
+#' ADSL <- radsl(N = 20, NA_percentage = 0.1, NA_vars = list(SEX = 2, AGE = 2), seed = 1)
 #' print(which(ADSL$SEX == ""))
 #' print(which(is.na(ADSL$AGE)))
 #'
-radsl <- function(N = 400, seed = NULL, cached = FALSE, random_NA = 0,
+radsl <- function(N = 400, seed = NULL, cached = FALSE, NA_percentage = 0,
     NA_vars = list("AGE" = NA, "SEX" = NA, "RACE" = NA, "STRATA1" = NA, "STRATA2" = NA,
         "BMRKR1" = c(seed = 1234, percentage = 0.1), "BMRKR2" = c(1234, 0.1), "BEP01FL" = NA)) {
 
   stopifnot(is.logical(cached))
   stopifnot(is.list(NA_vars))
-  stopifnot(is.numeric(random_NA))
-  stopifnot(0 <= random_NA && 1 >= random_NA)
+  stopifnot(is.numeric(NA_percentage))
+  stopifnot(0 <= NA_percentage && NA_percentage < 1)
 
   if (cached) return(get_cached_data("cadsl"))
 
@@ -95,8 +93,8 @@ radsl <- function(N = 400, seed = NULL, cached = FALSE, random_NA = 0,
     mutate(SITEID = paste0(COUNTRY, "-", SITEID)) %>%
     mutate(USUBJID = paste(STUDYID, SITEID, SUBJID, sep = "-"))
 
-  if(random_NA > 0 && random_NA <= 1){
-    ADSL <- mutate_NA(ds = ADSL, NA_vars = NA_vars, percentage = random_NA)
+  if(NA_percentage > 0 && NA_percentage <= 1){
+    ADSL <- mutate_NA(ds = ADSL, NA_vars = NA_vars, NA_percentage = NA_percentage)
   }
 
   # apply metadata

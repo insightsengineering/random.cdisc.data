@@ -25,10 +25,10 @@
 #' ADTTE <- radtte(ADSL, seed = 2)
 #' head(ADTTE)
 #'
-#' ADTTE <- radtte(ADSL, seed = 2, random_NA = 0.1)
+#' ADTTE <- radtte(ADSL, seed = 2, NA_percentage = 0.1)
 #' print(which(is.na(ADTTE$AVAL)))
 #'
-radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL, cached = FALSE, random_NA = 0,
+radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL, cached = FALSE, NA_percentage = 0,
     NA_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234, 0.1), AVALU = c(1234, 0.1))
     ) {
 
@@ -87,8 +87,8 @@ radtte <- function(ADSL, lookup = NULL, event.descr = NULL, seed = NULL, cached 
 
   NA_vars <- NA_vars[setdiff(colnames(ADTTE), colnames(ADSL))]
 
-  if(length(NA_vars) > 0 && random_NA > 0 && random_NA <= 1) {
-    ADTTE <- mutate_NA(ds = ADTTE, NA_vars = NA_vars, percentage = random_NA)
+  if(length(NA_vars) > 0 && NA_percentage > 0 && NA_percentage <= 1) {
+    ADTTE <- mutate_NA(ds = ADTTE, NA_vars = NA_vars, NA_percentage = NA_percentage)
   }
 
   # apply metadata

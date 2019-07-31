@@ -29,7 +29,7 @@
 #'  ADSL <- radsl(seed = 1)
 #'  ADRS <- radrs(ADSL, seed = 2)
 #'  head(ADRS)
-radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL, cached = FALSE, random_NA = 0,
+radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL, cached = FALSE, NA_percentage = 0,
     NA_vars = list(AVISIT = c(NA, 0.1), AVAL = c(1234, 0.1), AVALC = c(1234, 0.1))) {
 
   stopifnot(is.logical(cached))
@@ -98,8 +98,8 @@ radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL, cached = FALSE
       USUBJID = "Unique Subject Identifier"
     )
 
-  if(length(NA_vars) > 0 && random_NA > 0 && random_NA <= 1) {
-    ADRS <- mutate_NA(ds = ADRS, NA_vars = NA_vars, percentage = random_NA)
+  if(length(NA_vars) > 0 && NA_percentage > 0 && NA_percentage <= 1) {
+    ADRS <- mutate_NA(ds = ADRS, NA_vars = NA_vars, NA_percentage = NA_percentage)
   }
 
   # apply metadata

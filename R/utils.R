@@ -249,14 +249,7 @@ replace_NA <- function(v, percentage = 0.05, seed = NULL) {
   # randomize the percentage
   ind <- sample(seq_along(v), round(length(v) * percentage))
 
-  if (!all(is.na(suppressWarnings(as.numeric(as.character(v)))))) {
-    v[ind] <- NA
-  } else {
-    if (is.factor(v)) {
-      levels(v) <- c(levels(v), "")
-    }
-    v[ind] <- ""
-  }
+  v[ind] <- NA
 
   return(v)
 }
@@ -269,14 +262,14 @@ replace_NA <- function(v, percentage = 0.05, seed = NULL) {
 #'  \itemize{
 #'     \item{seed }{The seed to be used for this element - can be left NA}
 #'     \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-#'     percentage is used}
+#'     percentage is used. This will overwrite default percentage (percentage argument))}
 #' }
-#' @param percentage (\code{numeric}) default percentage
+#' @param NA_percentage (\code{numeric}) Default percentage of values to be replaced by NA
 #'
 #' @importFrom dplyr mutate is.tbl
 #' @importFrom rlang := !!
 #' @import utils.nest
-mutate_NA <- function(ds, NA_vars = NULL, percentage = 0.05){
+mutate_NA <- function(ds, NA_vars = NULL, NA_percentage = 0.05){
 
   if(!is.tbl(ds)){
     tbl_df(ds)
@@ -289,7 +282,8 @@ mutate_NA <- function(ds, NA_vars = NULL, percentage = 0.05){
     NA_vars <- names(ds)
   }
 
-  stopifnot(is.numeric(percentage))
+  stopifnot(is.numeric(NA_percentage))
+  stopifnot(NA_percentage >= 0 && NA_percentage <1)
 
   for (NA_var in names(NA_vars)) {
     if(!is.na(NA_var)) {
@@ -300,7 +294,7 @@ mutate_NA <- function(ds, NA_vars = NULL, percentage = 0.05){
 
         ds <- ds %>% ungroup.rowwise_df %>% dplyr::mutate(!!NA_var := ds[[NA_var]] %>%
                 replace_NA(
-                    percentage = ifelse(is.na(NA_vars[[NA_var]][2]), percentage, NA_vars[[NA_var]][2]),
+                    percentage = ifelse(is.na(NA_vars[[NA_var]][2]), NA_percentage, NA_vars[[NA_var]][2]),
                     seed = NA_vars[[NA_var]][1]
                 )
         )
