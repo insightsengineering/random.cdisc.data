@@ -32,7 +32,7 @@
 #'
 radlb <- function(ADSL,
                   param = c("Alanine Aminotransferase Measurement", "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
-                  paramcd = c("ALT", "CRP", "IGA"),
+                  paramcd = c("ALBSI", "ALBCV", "ALBLS"),
                   paramu = c("U/L", "mg/L", "g/L"),
                   visit_format = "WEEK",
                   n_assessments = 5,
