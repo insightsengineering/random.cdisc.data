@@ -77,10 +77,10 @@ radrs <- function(ADSL, seed = NULL, avalc = NULL, lookup = NULL, cached = FALSE
       STUDYID = pinfo$STUDYID,
       SITEID = pinfo$SITEID,
       USUBJID = pinfo$USUBJID,
-      PARAMCD = c(rep("OVRINV", 3), "BESRSPI", "INVET"),
-      PARAM = recode(PARAMCD, OVRINV = "Overall Response",
+      PARAMCD = as.factor(c(rep("OVRINV", 3), "BESRSPI", "INVET")),
+      PARAM = as.factor(recode(PARAMCD, OVRINV = "Overall Response",
                      BESRSPI = "Best Overall Response",
-                     INVET = "Investigator End Of Induction Response"),
+                     INVET = "Investigator End Of Induction Response")),
       AVALC = c(rsp_screen, rsp_eoi, rsp_fu,
                 names(param_codes)[best_rsp],
                 rsp_eoi
