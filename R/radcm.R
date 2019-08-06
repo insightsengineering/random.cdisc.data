@@ -9,7 +9,7 @@
 #'
 #' @template ADSL_params
 #' @template lookup_param
-#' @param max_n_cms maximum number of concomitant medications per patient.
+#' @param max_n_cms maximum number of concommitant medications per patient.
 #' @templateVar data adcm
 #' @template param_cached
 #'
@@ -74,8 +74,5 @@ radcm <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier"
     )
 
-  # apply metadata
-  ADCM <- apply_metadata(ADCM, "metadata/ADCM.yml", seed = seed, ADSL = ADSL) # nolint
-
-  ADCM
+  apply_metadata(ADCM, "metadata/ADCM.yml", seed = seed, ADSL = ADSL)
 }

@@ -93,8 +93,5 @@ radtte <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier"
     )
 
-  # apply metadata
-  ADTTE <- apply_metadata(ADTTE, "metadata/ADTTE.yml", seed = seed, ADSL = ADSL) # nolint
-
-  ADTTE
+  apply_metadata(ADTTE, "metadata/ADTTE.yml", seed = seed, ADSL = ADSL)
 }

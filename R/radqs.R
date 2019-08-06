@@ -113,8 +113,5 @@ radqs <- function(ADSL, # nolint
       USUBJID = attr(ADSL$USUBJID, "label")
     )
 
-  # apply metadata
-  ADQS <- apply_metadata(ADQS, "metadata/ADQS.yml", seed = seed, ADSL = ADSL) # nolint
-
-  ADQS
+  apply_metadata(ADQS, "metadata/ADQS.yml", seed = seed, ADSL = ADSL)
 }

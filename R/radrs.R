@@ -104,8 +104,5 @@ radrs <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier"
     )
 
-  # apply metadata
-  ADRS <- apply_metadata(ADRS, "metadata/ADRS.yml", seed = seed, ADSL = ADSL) # nolint
-
-  ADRS
+  apply_metadata(ADRS, "metadata/ADRS.yml", seed = seed, ADSL = ADSL)
 }

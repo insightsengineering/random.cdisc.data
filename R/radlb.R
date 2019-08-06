@@ -121,8 +121,5 @@ radlb <- function(ADSL, # nolint
       USUBJID = attr(ADSL$USUBJID, "label")
     )
 
-  # apply metadata
-  ADLB <- apply_metadata(ADLB, "metadata/ADLB.yml", seed = seed, ADSL = ADSL) # nolint
-
-  ADLB
+  apply_metadata(ADLB, "metadata/ADLB.yml", seed = seed, ADSL = ADSL)
 }

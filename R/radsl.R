@@ -79,8 +79,5 @@ radsl <- function(N = 400, # nolint
     mutate(SITEID = paste0(COUNTRY, "-", SITEID)) %>%
     mutate(USUBJID = paste(STUDYID, SITEID, SUBJID, sep = "-"))
 
-  # apply metadata
-  ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml", seed = seed) # nolint
-
-  ADSL
+  apply_metadata(ADSL, "metadata/ADSL.yml", seed = seed)
 }

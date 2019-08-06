@@ -71,8 +71,5 @@ radae <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier"
     )
 
-  # apply metadata
-  ADAE <- apply_metadata(ADAE, "metadata/ADAE.yml", seed = seed, ADSL = ADSL) # nolint
-
-  ADAE
+  apply_metadata(ADAE, "metadata/ADAE.yml", seed = seed, ADSL = ADSL)
 }
