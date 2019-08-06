@@ -104,8 +104,5 @@ radaette <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier"
     )
 
-  # apply metadata
-  ADAETTE <- apply_metadata(ADAETTE, "metadata/ADAETTE.yml", seed = seed, ADSL = ADSL) # nolint
-
-  ADAETTE
+  apply_metadata(ADAETTE, "metadata/ADAETTE.yml", seed = seed, ADSL = ADSL)
 }

@@ -127,8 +127,5 @@ radvs <- function(ADSL, # nolint
       STUDYID = attr(ADSL$STUDYID, "label")
     )
 
-  # apply metadata
-  ADVS <- apply_metadata(ADVS, "metadata/ADVS.yml", seed = seed, ADSL = ADSL) # nolint
-
-  ADVS
+  apply_metadata(ADVS, "metadata/ADVS.yml", seed = seed, ADSL = ADSL)
 }
