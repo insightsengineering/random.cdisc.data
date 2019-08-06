@@ -1,6 +1,6 @@
 library(test.nest)
 
-if("inst/WORDLIST" %in% list.files(".", recursive = "TRUE")) {
+if (!grepl("Rcheck", getwd())) {
   test_spell()
 }
 
