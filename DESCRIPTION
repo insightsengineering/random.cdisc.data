@@ -17,12 +17,15 @@ Description: Create random CDISC data.
 Depends:
     R (>= 3.3),
 Imports: 
-    dplyr, 
-    yaml, 
-    tibble
+    dplyr,
+    magrittr,
+    utils.nest,
+    tibble,
+    yaml
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
 Suggests: 
+    test.nest,
     testthat

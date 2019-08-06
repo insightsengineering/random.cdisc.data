@@ -4,13 +4,13 @@
 \alias{radcm}
 \title{Concomitant Medication Analysis Dataset (ADCM)}
 \usage{
-radcm(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL,
+radcm(ADSL, max_n_cms = 10L, seed = NULL, lookup = NULL,
   cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
-\item{max_n_cms}{maximum number of concommitant medications per patient.}
+\item{max_n_cms}{maximum number of concomitant medications per patient.}
 
 \item{seed}{Seed for random number generation.}
 
@@ -35,5 +35,4 @@ Keys: STUDYID USUBJID CMSTDTM CMTERM CMSEQ.
 ADSL <- radsl(seed = 1)
 ADCM <- radcm(ADSL, seed = 2)
 head(ADCM)
-
 }

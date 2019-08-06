@@ -4,8 +4,8 @@
 \alias{visit_schedule}
 \title{Create visit schedule}
 \usage{
-visit_schedule(visit_format = "WEEK", n_assessments = 10, n_days = 5,
-  n_timepoints = NULL, times = NULL, n_timepoints_prior_trt = NULL)
+visit_schedule(visit_format = "WEEK", n_assessments = 10L,
+  n_days = 5L)
 }
 \arguments{
 \item{visit_format}{as character string. Valid values: WEEK, CYCLE.}
@@ -13,12 +13,6 @@ visit_schedule(visit_format = "WEEK", n_assessments = 10, n_days = 5,
 \item{n_assessments}{number of assessments. Valid values: integer.}
 
 \item{n_days}{number of days for each cycle: Valid values: integer.}
-
-\item{n_timepoints}{number of timepoints: Valid values: integer. To Be Implemented.}
-
-\item{times}{nominal time point description as character vector. To Be Implemented.}
-
-\item{n_timepoints_prior_trt}{number of timepoints prior to treatment at visit. Valid values: integer. To Be Implemented.}
 }
 \value{
 a factor of length n_assessments
@@ -30,8 +24,6 @@ Create a visit schedule as factor.
 X number of visits or X number of cycles and Y number of days.
 }
 \examples{
-\dontrun{
-AVISIT <- visit_schedule(visit_format = "WEeK", n_assessments = 10)
-AVISIT <- visit_schedule(visit_format = "CyCLE", n_assessments = 5, n_days = 2)
-}
+random.cdisc.data:::visit_schedule(visit_format = "WEeK", n_assessments = 10L)
+random.cdisc.data:::visit_schedule(visit_format = "CyCLE", n_assessments = 5L, n_days = 2L)
 }

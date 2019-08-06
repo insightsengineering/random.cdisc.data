@@ -33,5 +33,4 @@ Keys: STUDYID USUBJID PARAMCD AVISITN ADT TTESEQ
 ADSL <- radsl(seed = 1)
 ADTTE <- radtte(ADSL, seed = 2)
 head(ADTTE)
-
 }

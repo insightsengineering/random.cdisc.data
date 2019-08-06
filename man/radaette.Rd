@@ -35,7 +35,6 @@ Keys: STUDYID USUBJID PARAMCD AVISITN ADT TTESEQ
 ADSL <- radsl(seed = 1)
 ADAETTE <- radaette(ADSL, seed  = 2)
 head(ADAETTE)
-
 }
 \author{
 Xiuting Mi

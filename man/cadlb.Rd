@@ -11,7 +11,4 @@ data(cadlb)
 \description{
 Cached ADLB data generated with \code{seed = 1}
 }
-\examples{
-data(cadlb)
-}
 \keyword{datasets}

@@ -11,7 +11,4 @@ data(cadae)
 \description{
 Cached ADAE data generated with \code{seed = 1}
 }
-\examples{
-data(cadae)
-}
 \keyword{datasets}

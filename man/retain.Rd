@@ -19,7 +19,6 @@ retain(df, value_var, event, outside = NA)
 Retain values within primary keys
 }
 \examples{
-\dontrun{
-ADLB$BASE2 <- retain(ADLB, ADLB$AVAL, ADLB$ABLFL2 == "Y")
-}
+ADLB <- radlb(radsl())
+ADLB$BASE2 <- random.cdisc.data:::retain(ADLB, ADLB$AVAL, ADLB$ABLFL2 == "Y")
 }

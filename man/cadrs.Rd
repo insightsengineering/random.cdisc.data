@@ -11,7 +11,4 @@ data(cadrs)
 \description{
 Cached ADRS data generated with \code{seed = 1}
 }
-\examples{
-data(cadrs)
-}
 \keyword{datasets}

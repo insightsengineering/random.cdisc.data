@@ -9,15 +9,14 @@
 #'
 #' @template ADSL_params
 #' @template lookup_param
-#' @param max_n_cms maximum number of concommitant medications per patient.
+#' @param max_n_cms maximum number of concomitant medications per patient.
 #' @templateVar data adcm
 #' @template param_cached
 #'
 #' @template return_data.frame
 #'
-#'
-#' @import dplyr
-#' @importFrom yaml yaml.load_file
+#' @importFrom magrittr %>%
+#' @importFrom tibble tribble
 #'
 #' @export
 #'
@@ -25,14 +24,24 @@
 #' ADSL <- radsl(seed = 1)
 #' ADCM <- radcm(ADSL, seed = 2)
 #' head(ADCM)
-#'
-radcm <- function(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL, cached = FALSE) {
+radcm <- function(ADSL, # nolint
+                  max_n_cms = 10L,
+                  seed = NULL,
+                  lookup = NULL,
+                  cached = FALSE) {
 
-  stopifnot(is.logical(cached))
-  if (cached) return(get_cached_data("cadcm"))
+  stopifnot(is.logical.single(cached))
+  if (cached) {
+    return(get_cached_data("cadcm"))
+  }
 
-  if (is.null(lookup)){
-    lookup_cm = tribble(
+  stopifnot(is.data.frame(ADSL))
+  stopifnot(is.integer.single(max_n_cms))
+  stopifnot(is.numeric.single(seed))
+
+  lookup_cm <- if_null(
+    lookup,
+    tribble(
       ~CMCLAS,   ~CMDECOD, ~ATIREL,
       "medcl A",   "medname A_1/3",      "PRIOR",
       "medcl A",   "medname A_2/3",      "CONCOMITANT",
@@ -44,13 +53,13 @@ radcm <- function(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL, cached = FAL
       "medcl C",   "medname C_1/2",      "CONCOMITANT",
       "medcl C",   "medname C_2/2",      "CONCOMITANT"
     )
-  } else {
-    lookup_cm <- lookup
+  )
+
+  if (!is.null(seed)) {
+    set.seed(seed)
   }
 
-  if (!is.null(seed)) set.seed(seed)
-
-  ADCM <- Map(function(id, sid) {
+  ADCM <- Map(function(id, sid) { # nolint
     n_cms <- sample(0:max_n_cms, 1)
     i <- sample(1:nrow(lookup_cm), n_cms, TRUE)
     lookup_cm[i, ] %>% mutate(
@@ -59,15 +68,14 @@ radcm <- function(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL, cached = FAL
     )
   }, ADSL$USUBJID, ADSL$STUDYID) %>%
     Reduce(rbind, .) %>%
-    `[`(c(4,5,1,2,3)) %>%
+    `[`(c(4, 5, 1, 2, 3)) %>%
     var_relabel(
       STUDYID = "Study Identifier",
       USUBJID = "Unique Subject Identifier"
     )
 
   # apply metadata
-  ADCM <- apply_metadata(ADCM, "metadata/ADCM.yml", seed = seed, ADSL = ADSL)
+  ADCM <- apply_metadata(ADCM, "metadata/ADCM.yml", seed = seed, ADSL = ADSL) # nolint
 
   ADCM
-
 }
