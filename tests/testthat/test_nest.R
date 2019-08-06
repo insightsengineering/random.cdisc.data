@@ -1,6 +1,6 @@
 library(test.nest)
 
-if (!grepl("Rcheck", getwd())) {
+if (!grepl("Rcheck", getwd()) && !grepl("\\-test", getwd())) {
   test_spell()
 }
 
