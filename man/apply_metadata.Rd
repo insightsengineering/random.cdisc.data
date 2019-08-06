@@ -9,7 +9,7 @@ apply_metadata(df, filename, ..., ADSL = NULL)
 \arguments{
 \item{df}{data frame to which metadata are applied.}
 
-\item{filename}{yaml file containing domain metadata.}
+\item{filename}{\code{yaml} file containing domain metadata.}
 
 \item{...}{ellipsis.}
 
@@ -19,8 +19,9 @@ apply_metadata(df, filename, ..., ADSL = NULL)
 Apply label and variable ordering attributes to domains
 }
 \examples{
-\dontrun{
- ADSL <- apply_metadata(ADSL, "ADSL.yml", seed = seed, ADSL = ADSL)
- ADLB <- apply_metadata(ADLB, "ADLB.yml", seed = seed, ADSL = ADSL)
-}
+seed <- 1
+ADSL <- radsl(seed = seed)
+ADLB <- radlb(ADSL, seed = seed)
+ADSL <- random.cdisc.data:::apply_metadata(ADSL, "ADSL.yml", seed = seed, ADSL = ADSL)
+ADLB <- random.cdisc.data:::apply_metadata(ADLB, "ADLB.yml", seed = seed, ADSL = ADSL)
 }

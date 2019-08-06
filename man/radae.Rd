@@ -35,5 +35,4 @@ Keys: STUDYID USUBJID AESTDTM AETERM AESEQ.
 ADSL <- radsl(seed = 1)
 ADAE <- radae(ADSL, seed = 2)
 head(ADAE)
-
 }

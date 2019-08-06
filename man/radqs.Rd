@@ -8,7 +8,7 @@ radqs(ADSL, param = c("BFI All Questions", "Fatigue Interference",
   "Function/Well-Being (GF1,GF3,GF7)",
   "Treatment Side Effects (GP2,C5,GP5)", "FKSI-19 All Questions"),
   paramcd = c("BFIALL", "FATIGI", "FKSI-FWB", "FKSI-TSE", "FKSIALL"),
-  visit_format = "WEEK", n_assessments = 5, n_days = 5,
+  visit_format = "WEEK", n_assessments = 5L, n_days = 5L,
   seed = NULL, cached = FALSE)
 }
 \arguments{
@@ -33,7 +33,7 @@ should be generated. If set to \code{TRUE} then the other arguments to \code{rad
 data.frame
 }
 \description{
-Function for generating random Questionaires Analysis Dataset for a given
+Function for generating random Questionnaires Analysis Dataset for a given
 Subject-Level Analysis Dataset.
 }
 \details{
@@ -43,10 +43,9 @@ Keys: STUDYID USUBJID PARAMCD AVISITN.
 }
 \examples{
 ADSL <- radsl(seed = 1)
-ADQS <- radqs(ADSL, visit_format = "WEEK", n_assessments = 7, seed = 2)
-ADQS <- radqs(ADSL, visit_format = "CYCLE", n_assessments = 3, seed = 2)
+ADQS <- radqs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+ADQS <- radqs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
 head(ADQS)
-
 }
 \author{
 npaszty

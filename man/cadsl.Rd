@@ -11,7 +11,4 @@ data(cadsl)
 \description{
 Cached ADSL data generated with \code{seed = 1}
 }
-\examples{
-data(cadsl)
-}
 \keyword{datasets}
