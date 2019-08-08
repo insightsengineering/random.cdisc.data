@@ -18,8 +18,9 @@
 #'
 #' @template return_data.frame
 #'
-#' @import dplyr
-#' @importFrom yaml yaml.load_file
+#' @importFrom dplyr mutate
+#' @importFrom magrittr %>%
+#' @importFrom tibble tribble
 #'
 #' @export
 #'
@@ -27,16 +28,25 @@
 #' ADSL <- radsl(seed = 1)
 #' ADAE <- radae(ADSL, seed = 2)
 #' head(ADAE)
-#'
-radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL, cached = FALSE, NA_percentage = 0,
-    NA_vars = list(AEBODSYS = c(NA, 0.1), AEDECOD = c(1234, 0.1), AETOXGR = c(1234, 0.1))) {
+radae <- function(ADSL, # nolint
+                  max_n_aes = 10,
+                  lookup = NULL,
+                  NA_percentage = 0,
+                  seed = NULL,
+                  NA_vars = list(AEBODSYS = c(NA, 0.1), AEDECOD = c(1234, 0.1), AETOXGR = c(1234, 0.1)),
+                  cached = FALSE) {
 
+  stopifnot(is.logical.single(cached))
+  if (cached) {
+    return(get_cached_data("cadae"))
+  }
 
-  stopifnot(is.logical(cached))
-  if (cached) return(get_cached_data("cadae"))
+  stopifnot(is.data.frame(ADSL))
+  stopifnot(is.null(seed) || is.numeric.single(seed))
 
-  if(is.null(lookup)){
-    lookup_ae = tribble(
+  lookup_ae <- if_null(
+    lookup,
+    tribble(
       ~AEBODSYS,   ~AEDECOD, ~AETOXGR,
       "cl A",   "trm A_1/2",        1,
       "cl A",   "trm A_2/2",        2,
@@ -45,13 +55,13 @@ radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL, cached = FAL
       "cl B",   "trm B_3/3",        1,
       "cl C",   "trm C_1/1",        4
     )
-  } else {
-    lookup_ae <- lookup
+  )
+
+  if (!is.null(seed)) {
+    set.seed(seed)
   }
 
-  if (!is.null(seed)) set.seed(seed)
-
-  ADAE <- Map(function(id, sid) {
+  ADAE <- Map(function(id, sid) { # nolint
     n_aes <- sample(0:max_n_aes, 1)
     i <- sample(1:nrow(lookup_ae), n_aes, TRUE)
     lookup_ae[i, ] %>% mutate(
@@ -60,7 +70,7 @@ radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL, cached = FAL
     )
   }, ADSL$USUBJID, ADSL$STUDYID) %>%
     Reduce(rbind, .) %>%
-    `[`(c(4,5,1,2,3)) %>%
+    `[`(c(4, 5, 1, 2, 3)) %>%
     var_relabel(
       STUDYID = "Study Identifier",
       USUBJID = "Unique Subject Identifier"
@@ -69,10 +79,5 @@ radae <- function(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL, cached = FAL
   if(length(NA_vars) > 0 && NA_percentage > 0 && NA_percentage <= 1) {
     ADAE <- mutate_NA(ds = ADAE, NA_vars = NA_vars, NA_percentage = NA_percentage)
   }
-  # apply metadata
-  ADAE <- apply_metadata(ADAE, "metadata/ADAE.yml", seed = seed, ADSL = ADSL)
-
-  ADAE
-
+  apply_metadata(ADAE, "metadata/ADAE.yml", seed = seed, ADSL = ADSL)
 }
-

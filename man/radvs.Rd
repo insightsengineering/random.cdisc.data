@@ -8,7 +8,7 @@ radvs(ADSL, param = c("Diastolic Blood Pressure", "Pulse Rate",
   "Respiratory Rate", "Systolic Blood Pressure", "Temperature", "Weight"),
   paramcd = c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT"),
   paramu = c("Pa", "beats/min", "breaths/min", "Pa", "C", "Kg"),
-  visit_format = "WEEK", n_assessments = 5, n_days = 5,
+  visit_format = "WEEK", n_assessments = 5L, n_days = 5L,
   seed = NULL, cached = FALSE, NA_percentage = 0,
   NA_vars = list(CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234,
   0.1), PCHG = c(1234, 0.1), AVAL = c(123, 0.1), AVALU = c(123, 0.1)))
@@ -57,10 +57,9 @@ Keys: STUDYID USUBJID PARAMCD AVISITN.
 }
 \examples{
 ADSL <- radsl(seed = 1)
-ADVS <- radvs(ADSL, visit_format = "WEEK", n_assessments = 7, seed = 2)
-ADVS <- radvs(ADSL, visit_format = "CYCLE", n_assessments = 3, seed = 2)
+ADVS <- radvs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+ADVS <- radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
 head(ADVS)
-
 }
 \author{
 npaszty

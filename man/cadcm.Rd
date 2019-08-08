@@ -11,7 +11,4 @@ data(cadcm)
 \description{
 Cached ADCM data generated with \code{seed = 1}
 }
-\examples{
-data(cadcm)
-}
 \keyword{datasets}

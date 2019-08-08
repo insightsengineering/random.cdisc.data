@@ -11,7 +11,4 @@ data(cadaette)
 \description{
 Cached ADAETTE data generated with \code{seed = 1}
 }
-\examples{
-data(cadaette)
-}
 \keyword{datasets}

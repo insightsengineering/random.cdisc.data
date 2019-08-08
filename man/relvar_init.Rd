@@ -18,8 +18,6 @@ a vector of n elements
 Verify and initialize related variable values
 }
 \examples{
-\dontrun{
-relvar_init(c("Alanine Aminotransferase Measurement", "ALT")
-relvar_init(c("Alanine Aminotransferase Measurement", "U/L")
-}
+random.cdisc.data:::relvar_init("Alanine Aminotransferase Measurement", "ALT")
+random.cdisc.data:::relvar_init("Alanine Aminotransferase Measurement", "U/L")
 }

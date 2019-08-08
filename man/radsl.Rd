@@ -46,15 +46,4 @@ Keys: STUDYID USUBJID
 \examples{
 ADSL <- radsl(N = 10, seed = 1)
 head(ADSL)
-
-attr(ADSL, "label") # or also tern::label(ADSL)
-
-ADSL <- radsl(N = 20, NA_percentage = 0.1, seed = 1)
-print(which(ADSL$SEX == ""))
-print(which(is.na(ADSL$AGE)))
-
-ADSL <- radsl(N = 20, NA_percentage = 0.1, NA_vars = list(SEX = 2, AGE = 2), seed = 1)
-print(which(ADSL$SEX == ""))
-print(which(is.na(ADSL$AGE)))
-
 }

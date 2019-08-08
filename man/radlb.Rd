@@ -6,8 +6,8 @@
 \usage{
 radlb(ADSL, param = c("Alanine Aminotransferase Measurement",
   "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
-  paramcd = c("ALT", "CRP", "IGA"), paramu = c("U/L", "mg/L", "g/L"),
-  visit_format = "WEEK", n_assessments = 5, n_days = 5,
+  paramcd = c("ALBSI", "ALBCV", "ALBLS"), paramu = c("U/L", "mg/L",
+  "g/L"), visit_format = "WEEK", n_assessments = 5L, n_days = 5L,
   seed = NULL, cached = FALSE, NA_percentage = 0,
   NA_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL =
   c(1235, 0.1), BASE2 = c(NA, 0.1), BASE = c(NA, 0.1), CHG2 = c(1235, 0.1),
@@ -57,12 +57,10 @@ Keys: STUDYID USUBJID PARAMCD AVISITN.
 }
 \examples{
 ADSL <- radsl(N = 10, seed = 1)
-ADLB <- radlb(ADSL, visit_format = "WEEK", n_assessments = 7, seed = 2)
-ADLB <- radlb(ADSL, param = c("Immunoglobulin A Measurement", "Immunoglobulin G Measurement"),
-paramcd = c("IGA", "IGG"), paramu = c("g/L", "g/L"), seed = 2)
-ADLB <- radlb(ADSL, visit_format = "CYCLE", n_assessments = 3, seed = 2)
-head(ADLB)
-
+radlb(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+radlb(ADSL, param = c("Immunoglobulin A Measurement", "Immunoglobulin G Measurement"),
+  paramcd = c("IGA", "IGG"), paramu = c("g/L", "g/L"), seed = 2)
+radlb(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
 }
 \author{
 tomlinsj, npaszty

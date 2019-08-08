@@ -4,9 +4,9 @@
 \alias{radcm}
 \title{Concomitant Medication Analysis Dataset (ADCM)}
 \usage{
-radcm(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL,
-  cached = FALSE, NA_percentage = 0, NA_vars = list(CMCLAS = c(NA,
-  0.1), CMDECOD = c(1234, 0.1), ATIREL = c(1234, 0.1)))
+radcm(ADSL, max_n_cms = 10L, seed = NULL, lookup = NULL,
+  NA_percentage = 0, NA_vars = list(CMCLAS = c(NA, 0.1), CMDECOD =
+  c(1234, 0.1), ATIREL = c(1234, 0.1)), cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -17,9 +17,6 @@ radcm(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL,
 
 \item{lookup}{Data.frame containing additional parameters.}
 
-\item{cached}{boolean whether the cached ADCM data \code{cadcm} should be returned or new data
-should be generated. If set to \code{TRUE} then the other arguments to \code{radcm} will be ignored.}
-
 \item{NA_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
 \item{NA_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
@@ -29,6 +26,9 @@ should be generated. If set to \code{TRUE} then the other arguments to \code{rad
     \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
     percentage is used. This will overwrite default percentage (percentage argument))}
 }}
+
+\item{cached}{boolean whether the cached ADCM data \code{cadcm} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radcm} will be ignored.}
 }
 \value{
 data.frame
@@ -46,5 +46,4 @@ Keys: STUDYID USUBJID CMSTDTM CMTERM CMSEQ.
 ADSL <- radsl(seed = 1)
 ADCM <- radcm(ADSL, seed = 2)
 head(ADCM)
-
 }

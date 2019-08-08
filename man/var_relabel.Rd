@@ -15,7 +15,7 @@ var_relabel(x, ...)
 Apply labels to ADSL primary key variables
 }
 \examples{
-\dontrun{
- var_relabel(STUDYID = "Study Identifier", USUBJID = "Unique Subject Identifier")
-}
+ADSL <- radsl()
+random.cdisc.data:::var_relabel(ADSL, STUDYID = "Study Identifier",
+USUBJID = "Unique Subject Identifier")
 }

@@ -11,7 +11,4 @@ data(cadvs)
 \description{
 Cached ADVS data generated with \code{seed = 1}
 }
-\examples{
-data(cadvs)
-}
 \keyword{datasets}

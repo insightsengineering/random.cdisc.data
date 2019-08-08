@@ -4,21 +4,18 @@
 \alias{radtte}
 \title{Time-to-Event Analysis Dataset (ATE)}
 \usage{
-radtte(ADSL, lookup = NULL, event.descr = NULL, seed = NULL,
-  cached = FALSE, NA_percentage = 0, NA_vars = list(CNSR = c(NA,
-  0.1), AVAL = c(1234, 0.1), AVALU = c(1234, 0.1)))
+radtte(ADSL, lookup = NULL, seed = NULL, event.descr = NULL,
+  NA_percentage = 0, NA_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234,
+  0.1), AVALU = c(1234, 0.1)), cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
 \item{lookup}{Data.frame containing additional parameters.}
 
-\item{event.descr}{Character vector with description of events.}
-
 \item{seed}{Seed for random number generation.}
 
-\item{cached}{boolean whether the cached ADTTE data \code{cadtte} should be returned or new data
-should be generated. If set to \code{TRUE} then the other arguments to \code{radtte} will be ignored.}
+\item{event.descr}{Character vector with description of events.}
 
 \item{NA_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
@@ -29,6 +26,9 @@ should be generated. If set to \code{TRUE} then the other arguments to \code{rad
     \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
     percentage is used. This will overwrite default percentage (percentage argument))}
 }}
+
+\item{cached}{boolean whether the cached ADTTE data \code{cadtte} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radtte} will be ignored.}
 }
 \value{
 data.frame
