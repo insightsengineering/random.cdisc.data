@@ -9,8 +9,8 @@ radvs(ADSL, param = c("Diastolic Blood Pressure", "Pulse Rate",
   paramcd = c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT"),
   paramu = c("Pa", "beats/min", "breaths/min", "Pa", "C", "Kg"),
   visit_format = "WEEK", n_assessments = 5L, n_days = 5L,
-  seed = NULL, cached = FALSE, NA_percentage = 0,
-  NA_vars = list(CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234,
+  seed = NULL, cached = FALSE, na_percentage = 0,
+  na_vars = list(CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234,
   0.1), PCHG = c(1234, 0.1), AVAL = c(123, 0.1), AVALU = c(123, 0.1)))
 }
 \arguments{
@@ -33,9 +33,9 @@ radvs(ADSL, param = c("Diastolic Blood Pressure", "Pulse Rate",
 \item{cached}{boolean whether the cached ADVS data \code{cadvs} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radvs} will be ignored.}
 
-\item{NA_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
-\item{NA_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
  element of this list should be a numeric vector with two elements
  \itemize{
     \item{seed }{The seed to be used for this element - can be left NA}

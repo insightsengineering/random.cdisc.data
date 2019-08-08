@@ -10,7 +10,7 @@
 #' @template lookup_param
 #' @param event.descr Character vector with description of events.
 #' @inheritParams radsl
-#' @inheritParams mutate_NA
+#' @inheritParams mutate_na
 #'
 #' @templateVar data adtte
 #' @template param_cached
@@ -28,15 +28,15 @@
 #' ADTTE <- radtte(ADSL, seed = 2)
 #' head(ADTTE)
 #'
-#' ADTTE <- radtte(ADSL, seed = 2, NA_percentage = 0.1)
+#' ADTTE <- radtte(ADSL, seed = 2, na_percentage = 0.1)
 #' print(which(is.na(ADTTE$AVAL)))
 #'
 radtte <- function(ADSL, # nolint
                    lookup = NULL,
                    seed = NULL,
                    event.descr = NULL, # nolint
-                   NA_percentage = 0,
-    NA_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234, 0.1), AVALU = c(1234, 0.1)),
+                   na_percentage = 0,
+    na_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234, 0.1), AVALU = c(1234, 0.1)),
                    cached = FALSE) {
 
   stopifnot(is.logical.single(cached))
@@ -102,9 +102,9 @@ radtte <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier"
     )
 
-  NA_vars <- NA_vars[setdiff(colnames(ADTTE), colnames(ADSL))]
-  if(length(NA_vars) > 0 && NA_percentage > 0 && NA_percentage <= 1) {
-    ADTTE <- mutate_NA(ds = ADTTE, NA_vars = NA_vars, NA_percentage = NA_percentage)
+  na_vars <- na_vars[setdiff(colnames(ADTTE), colnames(ADSL))]
+  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
+    ADTTE <- mutate_na(ds = ADTTE, na_vars = na_vars, na_percentage = na_percentage) #nolint
   }
   apply_metadata(ADTTE, "metadata/ADTTE.yml", seed = seed, ADSL = ADSL)
 }

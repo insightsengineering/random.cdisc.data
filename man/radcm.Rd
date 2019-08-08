@@ -5,7 +5,7 @@
 \title{Concomitant Medication Analysis Dataset (ADCM)}
 \usage{
 radcm(ADSL, max_n_cms = 10L, seed = NULL, lookup = NULL,
-  NA_percentage = 0, NA_vars = list(CMCLAS = c(NA, 0.1), CMDECOD =
+  na_percentage = 0, na_vars = list(CMCLAS = c(NA, 0.1), CMDECOD =
   c(1234, 0.1), ATIREL = c(1234, 0.1)), cached = FALSE)
 }
 \arguments{
@@ -17,9 +17,9 @@ radcm(ADSL, max_n_cms = 10L, seed = NULL, lookup = NULL,
 
 \item{lookup}{Data.frame containing additional parameters.}
 
-\item{NA_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
-\item{NA_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
  element of this list should be a numeric vector with two elements
  \itemize{
     \item{seed }{The seed to be used for this element - can be left NA}

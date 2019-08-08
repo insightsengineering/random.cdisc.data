@@ -192,7 +192,7 @@ var_relabel <- function(x, ...) {
 #'
 #' @examples
 #' seed <- 1
-#' ADSL <- radsl(seed = seed)
+#' ADSL <- suppressWarnings(radsl(seed = seed))
 #' ADLB <- radlb(ADSL, seed = seed)
 #' ADSL <- random.cdisc.data:::apply_metadata(ADSL, "ADSL.yml", seed = seed, ADSL = ADSL)
 #' ADLB <- random.cdisc.data:::apply_metadata(ADLB, "ADLB.yml", seed = seed, ADSL = ADSL)
@@ -237,7 +237,7 @@ apply_metadata <- function(df, filename, ..., ADSL = NULL) { # nolint
 #'   is replaced by NA
 #'
 #' @export
-replace_NA <- function(v, percentage = 0.05, seed = NULL) {
+replace_na <- function(v, percentage = 0.05, seed = NULL) {
 
   stopifnot(is.numeric.single(percentage))
   stopifnot(percentage >= 0 && percentage <= 1)
@@ -261,45 +261,47 @@ replace_NA <- function(v, percentage = 0.05, seed = NULL) {
 #' Replace column values by NAs
 #'
 #' @param ds (\code{data.frame}) Any data set
-#' @param NA_vars (\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+#' @param na_vars (\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
 #'  element of this list should be a numeric vector with two elements
 #'  \itemize{
 #'     \item{seed }{The seed to be used for this element - can be left NA}
 #'     \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
 #'     percentage is used. This will overwrite default percentage (percentage argument))}
 #' }
-#' @param NA_percentage (\code{numeric}) Default percentage of values to be replaced by NA
+#' @param na_percentage (\code{numeric}) Default percentage of values to be replaced by NA
 #'
 #' @importFrom dplyr mutate is.tbl
 #' @importFrom rlang := !!
 #' @import utils.nest
-mutate_NA <- function(ds, NA_vars = NULL, NA_percentage = 0.05){
+mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {
 
-  if(!is.tbl(ds)){
+  if (!is.tbl(ds)) {
     tbl_df(ds)
   }
 
-  if(!is.null(NA_vars)) {
-    stopifnot(is.list(NA_vars)) # any list is OK; as values can be left NA
-    stopifnot(length(names(NA_vars)) == length(NA_vars)) # names for all elements
+  if (!is.null(na_vars)) {
+    stopifnot(is.list(na_vars)) # any list is OK; as values can be left NA
+    stopifnot(length(names(na_vars)) == length(na_vars)) # names for all elements
   } else {
-    NA_vars <- names(ds)
+    na_vars <- names(ds)
   }
 
-  stopifnot(is.numeric(NA_percentage))
-  stopifnot(NA_percentage >= 0 && NA_percentage <1)
+  stopifnot(is.numeric(na_percentage))
+  stopifnot(na_percentage >= 0 && na_percentage < 1)
 
-  for (NA_var in names(NA_vars)) {
-    if(!is.na(NA_var)) {
-      if (!NA_var %in% names(ds)) {
-        warning(paste(NA_var, "not in column names"))
+  for (na_var in names(na_vars)) {
+    if (!is.na(na_var)) {
+      if (!na_var %in% names(ds)) {
+        warning(paste(na_var, "not in column names"))
       } else {
-        message(NA_var)
+        message(na_var)
 
-        ds <- ds %>% ungroup.rowwise_df %>% dplyr::mutate(!!NA_var := ds[[NA_var]] %>%
-                replace_NA(
-                    percentage = ifelse(is.na(NA_vars[[NA_var]][2]), NA_percentage, NA_vars[[NA_var]][2]),
-                    seed = NA_vars[[NA_var]][1]
+        ds <- ds %>%
+            ungroup_rowwise_df %>%
+            dplyr::mutate(!!na_var := ds[[na_var]] %>%
+                replace_na(
+                    percentage = ifelse(is.na(na_vars[[na_var]][2]), na_percentage, na_vars[[na_var]][2]),
+                    seed = na_vars[[na_var]][1]
                 )
         )
       }
@@ -308,10 +310,7 @@ mutate_NA <- function(ds, NA_vars = NULL, NA_percentage = 0.05){
   return(ds)
 }
 
-ungroup.rowwise_df <- function(x) {
-  class(x) <- c( "tbl", "tbl_df", "data.frame")
+ungroup_rowwise_df <- function(x) {
+  class(x) <- c("tbl", "tbl_df", "data.frame")
   x
 }
-
-
-

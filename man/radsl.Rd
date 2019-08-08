@@ -4,8 +4,8 @@
 \alias{radsl}
 \title{Subject-Level Analysis Dataset (ADSL)}
 \usage{
-radsl(N = 400, seed = NULL, cached = FALSE, NA_percentage = 0,
-  NA_vars = list(AGE = NA, SEX = NA, RACE = NA, STRATA1 = NA, STRATA2 =
+radsl(N = 400, seed = NULL, cached = FALSE, na_percentage = 0,
+  na_vars = list(AGE = NA, SEX = NA, RACE = NA, STRATA1 = NA, STRATA2 =
   NA, BMRKR1 = c(seed = 1234, percentage = 0.1), BMRKR2 = c(1234, 0.1),
   BEP01FL = NA))
 }
@@ -17,9 +17,9 @@ radsl(N = 400, seed = NULL, cached = FALSE, NA_percentage = 0,
 \item{cached}{boolean whether the cached ADSL data \code{cadsl} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
 
-\item{NA_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
-\item{NA_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
  element of this list should be a numeric vector with two elements
  \itemize{
     \item{seed }{The seed to be used for this element - can be left NA}

@@ -5,7 +5,7 @@
 \title{Time to Adverse Event Analysis Dataset (ADAETTE)}
 \usage{
 radaette(ADSL, seed = NULL, lookup = NULL, event.descr = NULL,
-  censor.descr = NULL, NA_percentage = 0, NA_vars = list(CNSR = c(NA,
+  censor.descr = NULL, na_percentage = 0, na_vars = list(CNSR = c(NA,
   0.1), AVAL = c(1234, 0.1), AVALU = c(1234, 0.1)), cached = FALSE)
 }
 \arguments{
@@ -19,9 +19,9 @@ radaette(ADSL, seed = NULL, lookup = NULL, event.descr = NULL,
 
 \item{censor.descr}{Character vector with description of censors.}
 
-\item{NA_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
-\item{NA_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
  element of this list should be a numeric vector with two elements
  \itemize{
     \item{seed }{The seed to be used for this element - can be left NA}

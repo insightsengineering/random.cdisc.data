@@ -4,8 +4,8 @@
 \alias{radae}
 \title{Adverse Event Analysis Dataset (ADAE)}
 \usage{
-radae(ADSL, max_n_aes = 10, lookup = NULL, NA_percentage = 0,
-  seed = NULL, NA_vars = list(AEBODSYS = c(NA, 0.1), AEDECOD = c(1234,
+radae(ADSL, max_n_aes = 10, lookup = NULL, na_percentage = 0,
+  seed = NULL, na_vars = list(AEBODSYS = c(NA, 0.1), AEDECOD = c(1234,
   0.1), AETOXGR = c(1234, 0.1)), cached = FALSE)
 }
 \arguments{
@@ -15,11 +15,11 @@ radae(ADSL, max_n_aes = 10, lookup = NULL, NA_percentage = 0,
 
 \item{lookup}{Data.frame containing additional parameters.}
 
-\item{NA_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
 \item{seed}{Seed for random number generation.}
 
-\item{NA_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
  element of this list should be a numeric vector with two elements
  \itemize{
     \item{seed }{The seed to be used for this element - can be left NA}

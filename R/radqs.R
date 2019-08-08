@@ -14,7 +14,7 @@
 #'
 #' @template return_data.frame
 #' @inheritParams radsl
-#' @inheritParams mutate_NA
+#' @inheritParams mutate_na
 #'
 #' @importFrom dplyr case_when mutate
 #' @importFrom magrittr %>%
@@ -41,10 +41,10 @@ radqs <- function(ADSL, # nolint
                   n_days = 5L,
                   seed = NULL,
                   cached = FALSE,
-                  NA_percentage = 0,
-                  NA_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL = c(1235, 0.1),
+                  na_percentage = 0,
+                  na_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL = c(1235, 0.1),
                     CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1))
-              ){
+              ) {
 
   stopifnot(is.logical.single(cached))
   if (cached) {
@@ -119,8 +119,8 @@ radqs <- function(ADSL, # nolint
       USUBJID = attr(ADSL$USUBJID, "label")
     )
 
-  if(NA_percentage > 0 && NA_percentage <= 1 && length(NA_vars) > 0){
-    ADQS <- mutate_NA(ds = ADQS, NA_vars = NA_vars, NA_percentage = NA_percentage)
+  if (na_percentage > 0 && na_percentage <= 1 && length(na_vars) > 0) {
+    ADQS <- mutate_na(ds = ADQS, na_vars = na_vars, na_percentage = na_percentage) #nolint
   }
   apply_metadata(ADQS, "metadata/ADQS.yml", seed = seed, ADSL = ADSL)
 }

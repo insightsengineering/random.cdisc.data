@@ -11,7 +11,7 @@
 #' @template lookup_param
 #' @param max_n_aes Maximum number of AEs per patient.
 #' @inheritParams radsl
-#' @inheritParams mutate_NA
+#' @inheritParams mutate_na
 #'
 #' @templateVar data adae
 #' @template param_cached
@@ -31,9 +31,9 @@
 radae <- function(ADSL, # nolint
                   max_n_aes = 10,
                   lookup = NULL,
-                  NA_percentage = 0,
+                  na_percentage = 0,
                   seed = NULL,
-                  NA_vars = list(AEBODSYS = c(NA, 0.1), AEDECOD = c(1234, 0.1), AETOXGR = c(1234, 0.1)),
+                  na_vars = list(AEBODSYS = c(NA, 0.1), AEDECOD = c(1234, 0.1), AETOXGR = c(1234, 0.1)),
                   cached = FALSE) {
 
   stopifnot(is.logical.single(cached))
@@ -76,8 +76,8 @@ radae <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier"
     )
 
-  if(length(NA_vars) > 0 && NA_percentage > 0 && NA_percentage <= 1) {
-    ADAE <- mutate_NA(ds = ADAE, NA_vars = NA_vars, NA_percentage = NA_percentage)
+  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
+    ADAE <- mutate_na(ds = ADAE, na_vars = na_vars, na_percentage = na_percentage) #nolint
   }
   apply_metadata(ADAE, "metadata/ADAE.yml", seed = seed, ADSL = ADSL)
 }

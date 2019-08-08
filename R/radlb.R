@@ -13,7 +13,7 @@
 #' @templateVar data adlb
 #' @template param_cached
 #' @inheritParams radsl
-#' @inheritParams mutate_NA
+#' @inheritParams mutate_na
 #'
 #' @template return_data.frame
 #'
@@ -42,11 +42,11 @@ radlb <- function(ADSL, # nolint
                   n_days = 5L,
                   seed = NULL,
                   cached = FALSE,
-                  NA_percentage = 0,
-                  NA_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL = c(1235, 0.1),
+                  na_percentage = 0,
+                  na_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL = c(1235, 0.1),
                       BASE2 = c(NA, 0.1), BASE = c(NA, 0.1),
                       CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1))
-              ){
+              ) {
 
   stopifnot(is.logical.single(cached))
   if (cached) {
@@ -128,8 +128,8 @@ radlb <- function(ADSL, # nolint
       USUBJID = attr(ADSL$USUBJID, "label")
     )
 
-  if(NA_percentage > 0 && NA_percentage <= 1 && length(NA_vars) > 0){
-    ADLB <- mutate_NA(ds = ADLB, NA_vars = NA_vars, NA_percentage = NA_percentage)
+  if (na_percentage > 0 && na_percentage <= 1 && length(na_vars) > 0) {
+    ADLB <- mutate_na(ds = ADLB, na_vars = na_vars, na_percentage = na_percentage) #nolint
   }
   apply_metadata(ADLB, "metadata/ADLB.yml", seed = seed, ADSL = ADSL)
 }

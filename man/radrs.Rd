@@ -5,7 +5,7 @@
 \title{Tumor Response Analysis Data Set (ADRS)}
 \usage{
 radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL,
-  NA_percentage = 0, NA_vars = list(AVISIT = c(NA, 0.1), AVAL = c(1234,
+  na_percentage = 0, na_vars = list(AVISIT = c(NA, 0.1), AVAL = c(1234,
   0.1), AVALC = c(1234, 0.1)), cached = FALSE)
 }
 \arguments{
@@ -17,9 +17,9 @@ radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL,
 
 \item{lookup}{Data.frame containing additional parameters.}
 
-\item{NA_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
-\item{NA_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
  element of this list should be a numeric vector with two elements
  \itemize{
     \item{seed }{The seed to be used for this element - can be left NA}

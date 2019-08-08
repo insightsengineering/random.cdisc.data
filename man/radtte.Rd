@@ -5,7 +5,7 @@
 \title{Time-to-Event Analysis Dataset (ATE)}
 \usage{
 radtte(ADSL, lookup = NULL, seed = NULL, event.descr = NULL,
-  NA_percentage = 0, NA_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234,
+  na_percentage = 0, na_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234,
   0.1), AVALU = c(1234, 0.1)), cached = FALSE)
 }
 \arguments{
@@ -17,9 +17,9 @@ radtte(ADSL, lookup = NULL, seed = NULL, event.descr = NULL,
 
 \item{event.descr}{Character vector with description of events.}
 
-\item{NA_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
-\item{NA_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
  element of this list should be a numeric vector with two elements
  \itemize{
     \item{seed }{The seed to be used for this element - can be left NA}
@@ -45,7 +45,7 @@ ADSL <- radsl(seed = 1)
 ADTTE <- radtte(ADSL, seed = 2)
 head(ADTTE)
 
-ADTTE <- radtte(ADSL, seed = 2, NA_percentage = 0.1)
+ADTTE <- radtte(ADSL, seed = 2, na_percentage = 0.1)
 print(which(is.na(ADTTE$AVAL)))
 
 }
