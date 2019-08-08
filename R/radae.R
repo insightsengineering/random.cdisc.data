@@ -25,7 +25,7 @@
 #' @export
 #'
 #' @examples
-#' ADSL <- radsl(seed = 1)
+#' ADSL <- suppressWarnings(radsl(seed = 1))
 #' ADAE <- radae(ADSL, seed = 2)
 #' head(ADAE)
 radae <- function(ADSL, # nolint

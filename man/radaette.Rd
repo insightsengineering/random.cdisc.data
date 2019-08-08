@@ -43,7 +43,7 @@ given subject-level analysis dataset.
 Keys: STUDYID USUBJID PARAMCD AVISITN ADT TTESEQ
 }
 \examples{
-ADSL <- radsl(seed = 1)
+ADSL <- suppressWarnings(radsl(seed = 1))
 ADAETTE <- radaette(ADSL, seed  = 2)
 head(ADAETTE)
 }
