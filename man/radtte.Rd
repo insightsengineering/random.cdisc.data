@@ -4,17 +4,28 @@
 \alias{radtte}
 \title{Time-to-Event Analysis Dataset (ATE)}
 \usage{
-radtte(ADSL, lookup = NULL, event.descr = NULL, seed = NULL,
-  cached = FALSE)
+radtte(ADSL, lookup = NULL, seed = NULL, event.descr = NULL,
+  na_percentage = 0, na_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234,
+  0.1), AVALU = c(1234, 0.1)), cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
 \item{lookup}{Data.frame containing additional parameters.}
 
+\item{seed}{Seed for random number generation.}
+
 \item{event.descr}{Character vector with description of events.}
 
-\item{seed}{Seed for random number generation.}
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+
+\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+ element of this list should be a numeric vector with two elements
+ \itemize{
+    \item{seed }{The seed to be used for this element - can be left NA}
+    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
+    percentage is used. This will overwrite default percentage (percentage argument))}
+}}
 
 \item{cached}{boolean whether the cached ADTTE data \code{cadtte} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radtte} will be ignored.}
@@ -33,4 +44,8 @@ Keys: STUDYID USUBJID PARAMCD AVISITN ADT TTESEQ
 ADSL <- radsl(seed = 1)
 ADTTE <- radtte(ADSL, seed = 2)
 head(ADTTE)
+
+ADTTE <- radtte(ADSL, seed = 2, na_percentage = 0.1)
+print(which(is.na(ADTTE$AVAL)))
+
 }

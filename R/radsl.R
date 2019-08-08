@@ -12,7 +12,8 @@
 #' Keys: STUDYID USUBJID
 #'
 #' @param N Number of patients.
-#' @param seed Seed for random number generation.
+#' @param seed Seed for random number generation.s
+#' @inheritParams mutate_na
 #' @templateVar data adsl
 #' @template param_cached
 #'
@@ -30,7 +31,10 @@
 #' head(ADSL)
 radsl <- function(N = 400, # nolint
                   seed = NULL,
-                  cached = FALSE) {
+                  cached = FALSE,
+                  na_percentage = 0,
+    na_vars = list("AGE" = NA, "SEX" = NA, "RACE" = NA, "STRATA1" = NA, "STRATA2" = NA,
+        "BMRKR1" = c(seed = 1234, percentage = 0.1), "BMRKR2" = c(1234, 0.1), "BEP01FL" = NA)) {
 
   stopifnot(is.logical.single(cached))
   if (cached) {
@@ -79,5 +83,8 @@ radsl <- function(N = 400, # nolint
     mutate(SITEID = paste0(COUNTRY, "-", SITEID)) %>%
     mutate(USUBJID = paste(STUDYID, SITEID, SUBJID, sep = "-"))
 
+  if (na_percentage > 0 && na_percentage <= 1) {
+    ADSL <- mutate_na(ds = ADSL, na_vars = na_vars, na_percentage = na_percentage) #nolint
+  }
   apply_metadata(ADSL, "metadata/ADSL.yml", seed = seed)
 }

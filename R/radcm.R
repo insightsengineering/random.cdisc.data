@@ -10,6 +10,9 @@
 #' @template ADSL_params
 #' @template lookup_param
 #' @param max_n_cms maximum number of concommitant medications per patient.
+#' @inheritParams radsl
+#' @inheritParams mutate_na
+#'
 #' @templateVar data adcm
 #' @template param_cached
 #'
@@ -28,6 +31,8 @@ radcm <- function(ADSL, # nolint
                   max_n_cms = 10L,
                   seed = NULL,
                   lookup = NULL,
+                  na_percentage = 0,
+    na_vars = list(CMCLAS = c(NA, 0.1), CMDECOD = c(1234, 0.1), ATIREL = c(1234, 0.1)),
                   cached = FALSE) {
 
   stopifnot(is.logical.single(cached))
@@ -74,5 +79,8 @@ radcm <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier"
     )
 
+  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
+    ADCM <- mutate_na(ds = ADCM, na_vars = na_vars, na_percentage = na_percentage) #nolint
+  }
   apply_metadata(ADCM, "metadata/ADCM.yml", seed = seed, ADSL = ADSL)
 }

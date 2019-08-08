@@ -20,7 +20,7 @@ Apply label and variable ordering attributes to domains
 }
 \examples{
 seed <- 1
-ADSL <- radsl(seed = seed)
+ADSL <- suppressWarnings(radsl(seed = seed))
 ADLB <- radlb(ADSL, seed = seed)
 ADSL <- random.cdisc.data:::apply_metadata(ADSL, "ADSL.yml", seed = seed, ADSL = ADSL)
 ADLB <- random.cdisc.data:::apply_metadata(ADLB, "ADLB.yml", seed = seed, ADSL = ADSL)

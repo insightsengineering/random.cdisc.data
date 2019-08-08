@@ -4,15 +4,28 @@
 \alias{radsl}
 \title{Subject-Level Analysis Dataset (ADSL)}
 \usage{
-radsl(N = 400, seed = NULL, cached = FALSE)
+radsl(N = 400, seed = NULL, cached = FALSE, na_percentage = 0,
+  na_vars = list(AGE = NA, SEX = NA, RACE = NA, STRATA1 = NA, STRATA2 =
+  NA, BMRKR1 = c(seed = 1234, percentage = 0.1), BMRKR2 = c(1234, 0.1),
+  BEP01FL = NA))
 }
 \arguments{
 \item{N}{Number of patients.}
 
-\item{seed}{Seed for random number generation.}
+\item{seed}{Seed for random number generation.s}
 
 \item{cached}{boolean whether the cached ADSL data \code{cadsl} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
+
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+
+\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+ element of this list should be a numeric vector with two elements
+ \itemize{
+    \item{seed }{The seed to be used for this element - can be left NA}
+    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
+    percentage is used. This will overwrite default percentage (percentage argument))}
+}}
 }
 \value{
 data.frame

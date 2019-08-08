@@ -8,7 +8,10 @@ radlb(ADSL, param = c("Alanine Aminotransferase Measurement",
   "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
   paramcd = c("ALBSI", "ALBCV", "ALBLS"), paramu = c("U/L", "mg/L",
   "g/L"), visit_format = "WEEK", n_assessments = 5L, n_days = 5L,
-  seed = NULL, cached = FALSE)
+  seed = NULL, cached = FALSE, na_percentage = 0,
+  na_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL =
+  c(1235, 0.1), BASE2 = c(NA, 0.1), BASE = c(NA, 0.1), CHG2 = c(1235, 0.1),
+  PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1)))
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -29,6 +32,16 @@ radlb(ADSL, param = c("Alanine Aminotransferase Measurement",
 
 \item{cached}{boolean whether the cached ADLB data \code{cadlb} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radlb} will be ignored.}
+
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+
+\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+ element of this list should be a numeric vector with two elements
+ \itemize{
+    \item{seed }{The seed to be used for this element - can be left NA}
+    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
+    percentage is used. This will overwrite default percentage (percentage argument))}
+}}
 }
 \value{
 data.frame

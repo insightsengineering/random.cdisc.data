@@ -10,6 +10,8 @@
 #' @template ADSL_params
 #' @template BDS_findings_params
 #' @param paramu As character string. list of parameter unit values.
+#' @inheritParams radsl
+#' @inheritParams mutate_na
 #' @templateVar data advs
 #' @template param_cached
 #'
@@ -40,7 +42,12 @@ radvs <- function(ADSL, # nolint
                   n_assessments = 5L,
                   n_days = 5L,
                   seed = NULL,
-                  cached = FALSE) {
+                  cached = FALSE,
+                  na_percentage = 0,
+                  na_vars = list(CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1),
+                      AVAL = c(123, 0.1), AVALU = c(123, 0.1)
+                      )
+                ) {
 
   stopifnot(is.logical.single(cached))
   if (cached) {
@@ -127,5 +134,8 @@ radvs <- function(ADSL, # nolint
       STUDYID = attr(ADSL$STUDYID, "label")
     )
 
+  if (na_percentage > 0 && na_percentage <= 1 && length(na_vars) > 0) {
+    ADVS <- mutate_na(ds = ADVS, na_vars = na_vars, na_percentage = na_percentage) #nolint
+  }
   apply_metadata(ADVS, "metadata/ADVS.yml", seed = seed, ADSL = ADSL)
 }
