@@ -270,7 +270,7 @@ replace_na <- function(v, percentage = 0.05, seed = NULL) {
 #' }
 #' @param na_percentage (\code{numeric}) Default percentage of values to be replaced by NA
 #'
-#' @importFrom dplyr mutate is.tbl
+#' @importFrom dplyr mutate is.tbl tbl_df
 #' @importFrom rlang := !!
 #' @import utils.nest
 mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {
