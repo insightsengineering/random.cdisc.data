@@ -1,4 +1,4 @@
-# random.cdisc.data 
+# random.cdisc.data
 
 
 The `random.cdisc.data` is a package for creating random CDISC data. 
