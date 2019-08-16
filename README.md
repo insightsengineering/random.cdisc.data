@@ -24,7 +24,6 @@ devtools::install_github(
 )
 ```
 
-
 # TODO
 
 * Use MedDRA data for `adae` (in sysdat, see `aae` in `R/deprecated.R`)
