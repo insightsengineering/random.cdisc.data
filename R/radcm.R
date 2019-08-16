@@ -9,7 +9,7 @@
 #'
 #' @template ADSL_params
 #' @template lookup_param
-#' @param max_n_cms maximum number of concommitant medications per patient.
+#' @param max_n_cms maximum number of concomitant medications per patient.
 #' @inheritParams radsl
 #' @inheritParams mutate_na
 #'
