@@ -18,7 +18,7 @@ The random datasets available to create are:
 
 ```r
 devtools::install_github(
-  repo = "Rpackages/random.cdisc.data",
+  repo = "NEST/random.cdisc.data",
   host = "https://github.roche.com/api/v3",
   upgrade_dependencies = FALSE
 )
