@@ -40,10 +40,12 @@ Function to generate random time to AE dataset for a
 given subject-level analysis dataset.
 }
 \details{
-Keys: STUDYID USUBJID PARAMCD AVISITN ADT TTESEQ
+Keys: STUDYID USUBJID PARAMCD
 }
 \examples{
-ADSL <- suppressWarnings(radsl(seed = 1))
+library(dplyr)
+library(random.cdisc.data)
+ADSL <- suppressWarnings(radsl(N = 10, seed = 1, study_duration = 2))
 ADAETTE <- radaette(ADSL, seed  = 2)
 head(ADAETTE)
 }

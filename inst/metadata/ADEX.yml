@@ -1,0 +1,29 @@
+domain:
+  name: ADEX
+  label: Exposure Analysis Dataset
+
+variables:
+  ASEQ:
+    label: Analysis Sequence Number
+  EXSEQ:
+    label: Analysis Sequence Number
+  PARAM:
+    label: Parameter
+  PARAMCD:
+    label: Parameter Code
+  AVISIT:
+    label: Analysis Visit
+  AVISITN:
+    label: Analysis Visit (N)
+  AVAL:
+    label: Analysis Value
+  AVALC:
+    label: Analysis Value (C)
+  AVALU:
+    label: Analysis Value Unit
+  PARCAT1:
+    label: Parameter Category 1
+  PARCAT2:
+    label: Parameter Category 2
+  ASTDTM:
+    label: Analysis Start Datetime

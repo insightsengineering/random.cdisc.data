@@ -53,10 +53,12 @@ Subject-Level Analysis Dataset.
 \details{
 One record per subject per parameter per analysis visit per analysis date.
 
-Keys: STUDYID USUBJID PARAMCD AVISITN.
+Keys: STUDYID, USUBJID, PARAMCD, BASETYPE, AVISITN, ATPTN, DTYPE, ADTM, VSSEQ, ASPID.
 }
 \examples{
-ADSL <- radsl(seed = 1)
+library(dplyr)
+library(random.cdisc.data)
+ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 ADVS <- radvs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
 ADVS <- radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
 head(ADVS)

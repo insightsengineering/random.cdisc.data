@@ -7,16 +7,16 @@
 #'
 #' Keys: STUDYID USUBJID PARAMCD AVISITN.
 #'
+#' @inheritParams radsl
+#' @inheritParams mutate_na
+#'
 #' @template ADSL_params
 #' @template BDS_findings_params
 #' @templateVar data adqs
 #' @template param_cached
-#'
 #' @template return_data.frame
-#' @inheritParams radsl
-#' @inheritParams mutate_na
 #'
-#' @importFrom dplyr case_when mutate
+#' @importFrom dplyr case_when mutate arrange
 #' @importFrom magrittr %>%
 #' @importFrom stats rnorm
 #'
@@ -25,7 +25,9 @@
 #' @author npaszty
 #'
 #' @examples
-#' ADSL <- radsl(seed = 1)
+#' library(dplyr)
+#' library(random.cdisc.data)
+#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' ADQS <- radqs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
 #' ADQS <- radqs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
 #' head(ADQS)
@@ -58,6 +60,7 @@ radqs <- function(ADSL, # nolint
   stopifnot(is.integer.single(n_assessments))
   stopifnot(is.integer.single(n_days))
   stopifnot(is.null(seed) || is.numeric.single(seed))
+  stopifnot((na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   # validate and initialize param vectors
   param_init_list <- relvar_init(param, paramcd)
@@ -119,8 +122,37 @@ radqs <- function(ADSL, # nolint
       USUBJID = attr(ADSL$USUBJID, "label")
     )
 
-  if (na_percentage > 0 && na_percentage <= 1 && length(na_vars) > 0) {
+  if ((na_percentage > 0 && na_percentage <= 1) || length(na_vars) > 0) {
     ADQS <- mutate_na(ds = ADQS, na_vars = na_vars, na_percentage = na_percentage) #nolint
   }
-  apply_metadata(ADQS, "metadata/ADQS.yml", seed = seed, ADSL = ADSL)
+
+  ADQS <- ADQS %>% # nolint
+    var_relabel(
+      STUDYID = "Study Identifier",
+      USUBJID = "Unique Subject Identifier"
+    )
+
+  # merge ADSL to be able to add QS date and study day variables
+  ADQS <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
+                     ADQS, by = c("STUDYID", "USUBJID")) %>%
+    rowwise() %>%
+    mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
+    mutate(trtedt_int = case_when(
+      !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
+      is.na(.data$TRTEDTM) ~ floor(.data$trtsdt_int + (study_duration_secs) / 86400)
+    )) %>%
+    mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
+    mutate(astdt_int = as.numeric(as.Date(.data$ADTM))) %>%
+    mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
+    ungroup() %>%
+    arrange(STUDYID, .data$USUBJID, .data$ADTM)
+
+  ADQS <- ADQS %>% # nolint
+    group_by(.data$USUBJID) %>%
+    mutate(QSSEQ = 1:n()) %>%
+    mutate(ASEQ = .data$QSSEQ) %>%
+    arrange(STUDYID, .data$USUBJID, .data$PARAMCD, .data$AVISITN, .data$ADTM, .data$QSSEQ)
+
+  # apply metadata
+  return(apply_metadata(ADQS, "metadata/ADQS.yml", seed = seed, ADSL = ADSL))
 }

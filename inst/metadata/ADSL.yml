@@ -39,3 +39,23 @@ variables:
       label: Intent-To-Treat Population Flag
     BEP01FL:
       label: Biomarker Evaluable Population Flag
+    RANDDT:
+      label: Date of Randomization
+    TRTSDTM:
+      label: Datetime of First Exposure to Treatment
+    TRTEDTM:
+      label: Datetime of Last Exposure to Treatment
+    EOSSTT:
+      label: End of Study Status
+    EOSDT:
+      label: End of Study Date
+    EOSDY:
+      label: End of Study Relative Day
+    DCSREAS:
+      label: Reason for Discontinuation from Study
+    DTHDT:
+      label: Date of Death
+    LSTALVDT:
+      label: Date Last Known Alive
+    study_duration_secs:
+      label: NOT A STANDARD BUT NEEDED FOR RCD

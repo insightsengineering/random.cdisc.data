@@ -4,17 +4,21 @@
 \alias{radlb}
 \title{Laboratory Data Analysis Dataset (ADLB)}
 \usage{
-radlb(ADSL, param = c("Alanine Aminotransferase Measurement",
+radlb(ADSL, lbcat = c("CHEMISTRY", "CHEMISTRY", "IMMUNOLOGY"),
+  param = c("Alanine Aminotransferase Measurement",
   "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
-  paramcd = c("ALBSI", "ALBCV", "ALBLS"), paramu = c("U/L", "mg/L",
-  "g/L"), visit_format = "WEEK", n_assessments = 5L, n_days = 5L,
-  seed = NULL, cached = FALSE, na_percentage = 0,
-  na_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL =
-  c(1235, 0.1), BASE2 = c(NA, 0.1), BASE = c(NA, 0.1), CHG2 = c(1235, 0.1),
-  PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1)))
+  paramcd = c("ALT", "CRP", "IGA"), paramu = c("U/L", "mg/L", "g/L"),
+  visit_format = "WEEK", n_assessments = 5L, n_days = 5L,
+  max_n_lbs = 10, seed = NULL, cached = FALSE, lookup = NULL,
+  na_percentage = 0, na_vars = list(LOQFL = c(NA, 0.1), ABLFL2 =
+  c(1234, 0.1), ABLFL = c(1235, 0.1), BASE2 = c(NA, 0.1), BASE = c(NA,
+  0.1), CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG
+  = c(1234, 0.1)))
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+
+\item{lbcat}{As character string. list of lb category values.}
 
 \item{param}{As character string. list of parameter values.}
 
@@ -28,10 +32,14 @@ radlb(ADSL, param = c("Alanine Aminotransferase Measurement",
 
 \item{n_days}{Number of days within cycle.}
 
+\item{max_n_lbs}{As numeric. maximum number of labs.}
+
 \item{seed}{Seed for random number generation.}
 
 \item{cached}{boolean whether the cached ADLB data \code{cadlb} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radlb} will be ignored.}
+
+\item{lookup}{control lookup process.}
 
 \item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
@@ -53,15 +61,16 @@ Subject-Level Analysis Dataset.
 \details{
 One record per subject per parameter per analysis visit per analysis date.
 
-Keys: STUDYID USUBJID PARAMCD AVISITN.
+Keys: STUDYID, USUBJID, PARAMCD, BASETYPE, AVISITN, ATPTN, DTYPE, ADTM, LBSEQ, ASPID.
 }
 \examples{
-ADSL <- radsl(N = 10, seed = 1)
-radlb(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-radlb(ADSL, param = c("Immunoglobulin A Measurement", "Immunoglobulin G Measurement"),
-  paramcd = c("IGA", "IGG"), paramu = c("g/L", "g/L"), seed = 2)
-radlb(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
+library(dplyr)
+library(random.cdisc.data)
+ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+ADLB <- radlb(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+ADLB <- radlb(ADSL, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
+head(ADLB)
 }
 \author{
-tomlinsj, npaszty
+tomlinsj, npaszty, Xuefeng Hou
 }

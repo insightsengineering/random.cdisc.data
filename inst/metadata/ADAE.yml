@@ -3,9 +3,29 @@ domain:
   label: Adverse Events Analysis Dataset
 
 variables:
-  AEBODSYS:
-    label: Body System or Organ Class
+  ASEQ:
+    label: Analysis Sequence Number
+  AESEQ:
+    label: Sponsor-Defined Identifier
+  AETERM:
+    label: Reported Term for the Adverse Event
   AEDECOD:
     label: Dictionary-Derived Term
-  AETOXGR:
-    label: Standard Toxicity Grade
+  AEBODSYS:
+    label: Body System or Organ Class
+  AESOC:
+    label: Primary System Organ Class
+  AESER:
+    label: Serious Event
+  AREL:
+    label: Analysis Causality
+  ASTDTM:
+    label: Analysis Start Datetime
+  AENDTM:
+    label: Analysis End Datetime
+  ASTDY:
+    label: Analysis Start Relative Day
+  AENDY:
+    label: Analysis End Relative Day
+  ATOXGR:
+    label: Analysis Toxicity Grade

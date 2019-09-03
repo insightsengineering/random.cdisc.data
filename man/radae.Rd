@@ -40,10 +40,12 @@ Subject-Level Analysis Dataset.
 \details{
 One record per each record in the corresponding SDTM domain.
 
-Keys: STUDYID USUBJID AESTDTM AETERM AESEQ.
+Keys: STUDYID USUBJID ASTDTM AETERM AESEQ.
 }
 \examples{
-ADSL <- suppressWarnings(radsl(seed = 1))
+library(dplyr)
+library(random.cdisc.data)
+ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
 ADAE <- radae(ADSL, seed = 2)
 head(ADAE)
 }

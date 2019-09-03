@@ -1,0 +1,26 @@
+domain:
+  name: ADTR
+  label: Tumor Result Analysis Dataset
+
+variables:
+  ASEQ:
+    label: Analysis Sequence Number
+  PARAM:
+    label: Parameter
+  PARAMCD:
+    label: Parameter Code
+  AVISIT:
+    label: Analysis Visit
+  BASE:
+    label: Baseline Value
+  PCHG:
+    label: Percent Change from Baseline
+  CHG:
+    label: Change from Baseline
+  AVAL:
+    label: Analysis Value
+  AVALC:
+    label: Analysis Value
+  AVALU:
+    label: Analysis Value Unit
+

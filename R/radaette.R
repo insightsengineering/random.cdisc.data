@@ -3,7 +3,7 @@
 #' Function to generate random time to AE dataset for a
 #' given subject-level analysis dataset.
 #'
-#' Keys: STUDYID USUBJID PARAMCD AVISITN ADT TTESEQ
+#' Keys: STUDYID USUBJID PARAMCD
 #'
 #' @template ADSL_params
 #' @template lookup_param
@@ -17,7 +17,7 @@
 #'
 #' @template return_data.frame
 #'
-#' @importFrom dplyr filter mutate rowwise select
+#' @importFrom dplyr filter mutate rowwise select arrange
 #' @importFrom magrittr %>%
 #' @importFrom tibble tribble
 #'
@@ -26,7 +26,9 @@
 #' @author Xiuting Mi
 #'
 #' @examples
-#' ADSL <- suppressWarnings(radsl(seed = 1))
+#' library(dplyr)
+#' library(random.cdisc.data)
+#' ADSL <- suppressWarnings(radsl(N = 10, seed = 1, study_duration = 2))
 #' ADAETTE <- radaette(ADSL, seed  = 2)
 #' head(ADAETTE)
 radaette <- function(ADSL, # nolint
@@ -45,6 +47,7 @@ radaette <- function(ADSL, # nolint
 
   stopifnot(is.data.frame(ADSL))
   stopifnot(is.null(seed) || is.numeric.single(seed))
+  stopifnot((na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   lookup_ADAETTE <- if_null( # nolint
     lookup,
@@ -109,8 +112,39 @@ radaette <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier"
     )
 
-  if (na_percentage > 0 && na_percentage <= 1 && length(na_vars) > 0) {
+  if ((na_percentage > 0 && na_percentage <= 1) || length(na_vars) >= 1) {
     ADAETTE <- mutate_na(ds = ADAETTE, na_vars = na_vars, na_percentage = na_percentage)  #nolint
   }
-  apply_metadata(ADAETTE, "metadata/ADAETTE.yml", seed = seed, ADSL = ADSL)
+
+  ADAETTE <- ADAETTE %>% # nolint
+    var_relabel(
+      STUDYID = "Study Identifier",
+      USUBJID = "Unique Subject Identifier"
+    )
+
+  # merge ADSL to be able to add AETTE date and study day variables
+  ADAETTE <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
+                     ADAETTE, by = c("STUDYID", "USUBJID")) %>%
+    rowwise() %>%
+    mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
+    mutate(trtedt_int = case_when(
+      !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
+      is.na(.data$TRTEDTM) ~ floor(.data$trtsdt_int + (study_duration_secs) / 86400)
+    )) %>%
+    mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
+    mutate(astdt_int = as.numeric(as.Date(.data$ADTM))) %>%
+    mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
+    ungroup() %>%
+    arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
+
+  ADAETTE <- ADAETTE %>% # nolint
+    group_by(.data$USUBJID) %>%
+    mutate(TTESEQ = 1:n()) %>%
+    mutate(ASEQ = .data$TTESEQ) %>%
+    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$ADTM, .data$TTESEQ)
+
+  # apply metadata
+  return(apply_metadata(ADAETTE, "metadata/ADAETTE.yml", seed = seed, ADSL = ADSL))
+
+
 }

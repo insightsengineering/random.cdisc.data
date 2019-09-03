@@ -4,15 +4,17 @@
 \alias{radsl}
 \title{Subject-Level Analysis Dataset (ADSL)}
 \usage{
-radsl(N = 400, seed = NULL, cached = FALSE, na_percentage = 0,
-  na_vars = list(AGE = NA, SEX = NA, RACE = NA, STRATA1 = NA, STRATA2 =
-  NA, BMRKR1 = c(seed = 1234, percentage = 0.1), BMRKR2 = c(1234, 0.1),
-  BEP01FL = NA))
+radsl(N = 400, seed = NULL, study_duration = 2, cached = FALSE,
+  na_percentage = 0, na_vars = list(AGE = NA, SEX = NA, RACE = NA,
+  STRATA1 = NA, STRATA2 = NA, BMRKR1 = c(seed = 1234, percentage = 0.1),
+  BMRKR2 = c(1234, 0.1), BEP01FL = NA))
 }
 \arguments{
 \item{N}{Number of patients.}
 
-\item{seed}{Seed for random number generation.s}
+\item{seed}{Seed for random number generation.}
+
+\item{study_duration}{Duration of study in years.}
 
 \item{cached}{boolean whether the cached ADSL data \code{cadsl} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
@@ -44,6 +46,14 @@ One record per subject.
 Keys: STUDYID USUBJID
 }
 \examples{
-ADSL <- radsl(N = 10, seed = 1)
+library(dplyr)
+library(random.cdisc.data)
+ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+ADSL <- radsl(N = 10, seed = 1,
+              na_percentage = 0.1,
+              na_vars = list(DTHDT = c(seed = 1234, percentage = 0.1),
+                             LSTALVDT = c(seed = 1234, percentage = 0.1)))
+ADSL <- radsl(N = 10, seed = 1,
+              na_percentage = .1)
 head(ADSL)
 }

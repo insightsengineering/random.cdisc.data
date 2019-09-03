@@ -45,7 +45,9 @@ Otherwise, SDTM variables are left blank.
 Keys: STUDYID USUBJID PARAMCD AVISITN ADT RSSEQ
 }
 \examples{
-ADSL <- radsl(seed = 1)
+library(dplyr)
+library(random.cdisc.data)
+ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 ADRS <- radrs(ADSL, seed = 2)
 head(ADRS)
 }
