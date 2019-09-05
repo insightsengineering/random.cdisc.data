@@ -34,7 +34,14 @@
 #' @usage data(cadlb)
 "cadlb"
 
-#' Cached ADVS data generated with \code{seed = 1}
+#' Cached ADMH data generated with \code{seed = 1}
+#'
+#' @docType data
+#'
+#' @usage data(cadmh)
+"cadmh"
+
+#' Cached ADQS data generated with \code{seed = 1}
 #'
 #' @docType data
 #'

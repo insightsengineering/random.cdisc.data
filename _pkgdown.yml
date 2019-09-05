@@ -22,6 +22,7 @@ reference:
       - radaette
       - radcm
       - radlb
+      - radmh
       - radqs
       - radrs
       - radtte
@@ -36,6 +37,7 @@ reference:
       - cadaette
       - cadcm
       - cadlb
+      - cadmh
       - cadqs
       - cadrs
       - cadtte
@@ -45,8 +47,10 @@ reference:
     desc: These functions are not exported but are documented for developers
     contents:
       - apply_metadata
+      - mutate_na
       - relvar_init
       - rel_var
+      - replace_na
       - retain
       - sample_fct
       - var_relabel

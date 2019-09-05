@@ -3,12 +3,12 @@
 \docType{data}
 \name{cadqs}
 \alias{cadqs}
-\title{Cached ADVS data generated with \code{seed = 1}}
+\title{Cached ADQS data generated with \code{seed = 1}}
 \format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 14000 rows and 45 columns.}
 \usage{
 data(cadqs)
 }
 \description{
-Cached ADVS data generated with \code{seed = 1}
+Cached ADQS data generated with \code{seed = 1}
 }
 \keyword{datasets}
