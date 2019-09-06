@@ -27,15 +27,12 @@
 #' @export
 #'
 #' @examples
-#' library(dplyr)
-#' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' ADRS <- radrs(ADSL, seed = 2)
-#' head(ADRS)
+#' radrs(ADSL, seed = 2)
 radrs <- function(ADSL, # nolint
-                  seed = NULL,
                   avalc = NULL,
                   lookup = NULL,
+                  seed = NULL,
                   na_percentage = 0,
                   na_vars = list(AVISIT = c(NA, 0.1), AVAL = c(1234, 0.1), AVALC = c(1234, 0.1)),
                   cached = FALSE) {
@@ -46,7 +43,7 @@ radrs <- function(ADSL, # nolint
 
   stopifnot(is.data.frame(ADSL))
   stopifnot(is.null(seed) || is.numeric.single(seed))
-  stopifnot((na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   param_codes <- if_null(avalc, setNames(1:5, c("CR", "PR", "SD", "PD", "NE")))
 
@@ -67,9 +64,8 @@ radrs <- function(ADSL, # nolint
     set.seed(seed)
   }
 
-  # nolint start
-  ADRS <- split(ADSL, ADSL$USUBJID) %>%
-    lapply(FUN = function(pinfo) { # nolint
+  ADRS <- split(ADSL, ADSL$USUBJID) %>% # nolint
+    lapply(FUN = function(pinfo) {
 
       probs <- lookup_ARS %>%
         dplyr::filter(ARM == as.character(pinfo$ACTARM))
@@ -118,32 +114,32 @@ radrs <- function(ADSL, # nolint
     ADRS <- mutate_na(ds = ADRS, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
-  ADRS <- ADRS %>%
+  ADRS <- ADRS %>% # nolint
     var_relabel(
       STUDYID = "Study Identifier",
       USUBJID = "Unique Subject Identifier"
     )
 
   # merge ADSL to be able to add RS date and study day variables
-  ADRS <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")],
+  ADRS <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
                      ADRS, by = c("STUDYID", "USUBJID")) %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     rowwise() %>%
     mutate(trtedt_int = case_when(
       !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
-      is.na(.data$TRTEDTM) ~ floor(.data$trtsdt_int + (study_duration_secs)/86400)
+      is.na(.data$TRTEDTM) ~ floor(.data$trtsdt_int + (study_duration_secs) / 86400)
     )) %>%
     rowwise() %>%
-    mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1)*86400), origin = "1970-01-01")) %>%
+    mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
     mutate(astdt_int = as.numeric(as.Date(.data$ADTM))) %>%
     mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
     ungroup() %>%
     arrange(STUDYID, .data$USUBJID, .data$ADTM)
 
-  ADRS[which(ADRS$AVISIT == "END OF INDUCTION"), ]$ADY <- 80
-  ADRS[which(ADRS$AVISIT == "FOLLOW UP"), ]$ADY <- 120
+  ADRS[which(ADRS$AVISIT == "END OF INDUCTION"), ]$ADY <- 80 # nolint
+  ADRS[which(ADRS$AVISIT == "FOLLOW UP"), ]$ADY <- 120 # nolint
 
-  ADRS <- ADRS %>% mutate(AVISITN = case_when(
+  ADRS <- ADRS %>% mutate(AVISITN = case_when( # nolint
     AVISIT == "SCREENING" ~ -1,
     AVISIT == "END OF INDUCTION" ~ 999.1,
     AVISIT == "FOLLOW UP" ~ 999.2,
@@ -151,16 +147,14 @@ radrs <- function(ADSL, # nolint
     TRUE ~ NA_real_
   ))
 
-  ADRS <- ADRS %>%
+  ADRS <- ADRS %>% # nolint
     group_by(.data$USUBJID) %>%
     mutate(RSSEQ = 1:n()) %>%
     mutate(ASEQ = .data$RSSEQ) %>%
     arrange(STUDYID, .data$USUBJID, .data$PARAMCD, .data$AVISITN, .data$ADTM, .data$RSSEQ)
 
   # apply metadata
-  ADRS <- apply_metadata(ADRS, "metadata/ADRS.yml", seed = seed, ADSL = ADSL)
-
-  # nolint end
+  ADRS <- apply_metadata(ADRS, "metadata/ADRS.yml", seed = seed, ADSL = ADSL) # nolint
 
   return(ADRS)
 }

@@ -24,22 +24,15 @@
 #' @export
 #'
 #' @examples
-#' library(dplyr)
-#' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' ADTTE <- radtte(ADSL, seed = 2)
-#' head(ADTTE)
-#'
-#' ADTTE <- radtte(ADSL, seed = 2, na_percentage = 0.1)
-#' print(which(is.na(ADTTE$AVAL)))
-#'
+#' radtte(ADSL, seed = 2)
 radtte <- function(ADSL, # nolint
-                   lookup = NULL,
-                   seed = NULL,
                    event.descr = NULL, # nolint
                    censor.descr = NULL, # nolint
+                   lookup = NULL,
+                   seed = NULL,
                    na_percentage = 0,
-    na_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234, 0.1), AVALU = c(1234, 0.1)),
+                   na_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234, 0.1), AVALU = c(1234, 0.1)),
                    cached = FALSE) {
 
   stopifnot(is.logical.single(cached))
@@ -48,8 +41,10 @@ radtte <- function(ADSL, # nolint
   }
 
   stopifnot(is.data.frame(ADSL))
+  stopifnot(is.null(event.descr) || is.character.vector(event.descr))
+  stopifnot(is.null(censor.descr) || is.character.vector(censor.descr))
   stopifnot(is.null(seed) || is.numeric.single(seed))
-  stopifnot((na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   if (!is.null(seed)) {
     set.seed(seed)

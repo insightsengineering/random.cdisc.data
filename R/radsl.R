@@ -28,32 +28,30 @@
 #' @export
 #
 #' @examples
-#' library(dplyr)
-#' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
-#' ADSL <- radsl(N = 10, seed = 1,
-#'               na_percentage = 0.1,
-#'               na_vars = list(DTHDT = c(seed = 1234, percentage = 0.1),
-#'                              LSTALVDT = c(seed = 1234, percentage = 0.1)))
-#' ADSL <- radsl(N = 10, seed = 1,
-#'               na_percentage = .1)
-#' head(ADSL)
+#' radsl(N = 10, study_duration = 2, seed = 1)
+#' radsl(N = 10, seed = 1,
+#'       na_percentage = 0.1,
+#'       na_vars = list(DTHDT = c(seed = 1234, percentage = 0.1),
+#'                      LSTALVDT = c(seed = 1234, percentage = 0.1)))
+#' radsl(N = 10, seed = 1, na_percentage = .1)
 radsl <- function(N = 400, # nolint
-                  seed = NULL,
                   study_duration = 2,
-                  cached = FALSE,
+                  seed = NULL,
                   na_percentage = 0,
                   na_vars = list(
                     "AGE" = NA, "SEX" = NA, "RACE" = NA, "STRATA1" = NA, "STRATA2" = NA,
-                    "BMRKR1" = c(seed = 1234, percentage = 0.1), "BMRKR2" = c(1234, 0.1), "BEP01FL" = NA)) {
+                    "BMRKR1" = c(seed = 1234, percentage = 0.1), "BMRKR2" = c(1234, 0.1), "BEP01FL" = NA
+                  ),
+                  cached = FALSE) {
   stopifnot(is.logical.single(cached))
   if (cached) {
     return(get_cached_data("cadsl"))
   }
 
   stopifnot(is.numeric.single(N))
+  stopifnot(is.numeric.single(study_duration))
   stopifnot(is.null(seed) || is.numeric.single(seed))
-  stopifnot((na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   if (!is.null(seed)) {
     set.seed(seed)

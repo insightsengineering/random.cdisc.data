@@ -4,9 +4,9 @@
 \alias{radmh}
 \title{Medical History Analysis Dataset (ADMH)}
 \usage{
-radmh(ADSL, max_n_mhs = 10, lookup = NULL, na_percentage = 0,
-  seed = NULL, na_vars = list(MHBODSYS = c(NA, 0.1), MHDECOD = c(1234,
-  0.1)), cached = FALSE)
+radmh(ADSL, max_n_mhs = 10L, lookup = NULL, seed = NULL,
+  na_percentage = 0, na_vars = list(MHBODSYS = c(NA, 0.1), MHDECOD =
+  c(1234, 0.1)), cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -15,9 +15,9 @@ radmh(ADSL, max_n_mhs = 10, lookup = NULL, na_percentage = 0,
 
 \item{lookup}{Data.frame containing additional parameters.}
 
-\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
-
 \item{seed}{Seed for random number generation.}
+
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
 \item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
  element of this list should be a numeric vector with two elements
@@ -43,9 +43,6 @@ One record per each record in the corresponding SDTM domain.
 Keys: STUDYID USUBJID ASTDTM MHSEQ.
 }
 \examples{
-library(dplyr)
-library(random.cdisc.data)
 ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
-ADMH <- radmh(ADSL, seed = 2)
-head(ADMH)
+radmh(ADSL, seed = 2)
 }

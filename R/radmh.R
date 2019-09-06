@@ -26,16 +26,13 @@
 #' @export
 #'
 #' @examples
-#' library(dplyr)
-#' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
-#' ADMH <- radmh(ADSL, seed = 2)
-#' head(ADMH)
+#' radmh(ADSL, seed = 2)
 radmh <- function(ADSL, # nolint
-                  max_n_mhs = 10,
+                  max_n_mhs = 10L,
                   lookup = NULL,
-                  na_percentage = 0,
                   seed = NULL,
+                  na_percentage = 0,
                   na_vars = list(MHBODSYS = c(NA, 0.1), MHDECOD = c(1234, 0.1)),
                   cached = FALSE) {
   stopifnot(is.logical.single(cached))
@@ -44,8 +41,9 @@ radmh <- function(ADSL, # nolint
   }
 
   stopifnot(is.data.frame(ADSL))
+  stopifnot(is.integer.single(max_n_mhs))
   stopifnot(is.null(seed) || is.numeric.single(seed))
-  stopifnot((na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   if (is.null(lookup)) {
     lookup_mh <- tribble(

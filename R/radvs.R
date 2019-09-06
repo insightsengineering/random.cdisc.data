@@ -27,12 +27,9 @@
 #' @author npaszty
 #'
 #' @examples
-#' library(dplyr)
-#' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' ADVS <- radvs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-#' ADVS <- radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
-#' head(ADVS)
+#' radvs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+#' radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
 radvs <- function(ADSL, # nolint
                   param = c("Diastolic Blood Pressure",
                             "Pulse Rate",
@@ -45,12 +42,11 @@ radvs <- function(ADSL, # nolint
                   n_assessments = 5L,
                   n_days = 5L,
                   seed = NULL,
-                  cached = FALSE,
                   na_percentage = 0,
                   na_vars = list(CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1),
-                      AVAL = c(123, 0.1), AVALU = c(123, 0.1)
-                      )
-                ) {
+                    AVAL = c(123, 0.1), AVALU = c(123, 0.1)
+                  ),
+                  cached = FALSE) {
 
   stopifnot(is.logical.single(cached))
   if (cached) {
@@ -64,7 +60,7 @@ radvs <- function(ADSL, # nolint
   stopifnot(is.character.single(visit_format))
   stopifnot(is.integer.single(n_assessments))
   stopifnot(is.integer.single(n_days))
-  stopifnot((na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   # validate and initialize param vectors
   param_init_list <- relvar_init(param, paramcd)

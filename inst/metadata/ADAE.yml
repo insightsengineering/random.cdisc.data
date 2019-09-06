@@ -27,5 +27,5 @@ variables:
     label: Analysis Start Relative Day
   AENDY:
     label: Analysis End Relative Day
-  ATOXGR:
+  AETOXGR:
     label: Analysis Toxicity Grade

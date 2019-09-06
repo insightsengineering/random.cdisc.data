@@ -25,12 +25,9 @@
 #' @author npaszty
 #'
 #' @examples
-#' library(dplyr)
-#' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' ADQS <- radqs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-#' ADQS <- radqs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
-#' head(ADQS)
+#' radqs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+#' radqs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
 radqs <- function(ADSL, # nolint
                   param = c("BFI All Questions",
                             "Fatigue Interference",
@@ -42,11 +39,11 @@ radqs <- function(ADSL, # nolint
                   n_assessments = 5L,
                   n_days = 5L,
                   seed = NULL,
-                  cached = FALSE,
                   na_percentage = 0,
                   na_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL = c(1235, 0.1),
-                    CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1))
-              ) {
+                    CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1)
+                  ),
+                  cached = FALSE) {
 
   stopifnot(is.logical.single(cached))
   if (cached) {
@@ -60,7 +57,7 @@ radqs <- function(ADSL, # nolint
   stopifnot(is.integer.single(n_assessments))
   stopifnot(is.integer.single(n_days))
   stopifnot(is.null(seed) || is.numeric.single(seed))
-  stopifnot((na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   # validate and initialize param vectors
   param_init_list <- relvar_init(param, paramcd)

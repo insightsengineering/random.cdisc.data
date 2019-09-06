@@ -4,18 +4,18 @@
 \alias{radrs}
 \title{Tumor Response Analysis Data Set (ADRS)}
 \usage{
-radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL,
+radrs(ADSL, avalc = NULL, lookup = NULL, seed = NULL,
   na_percentage = 0, na_vars = list(AVISIT = c(NA, 0.1), AVAL = c(1234,
   0.1), AVALC = c(1234, 0.1)), cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
-\item{seed}{Seed for random number generation.}
-
 \item{avalc}{Vector of analysis value categories.}
 
 \item{lookup}{Data.frame containing additional parameters.}
+
+\item{seed}{Seed for random number generation.}
 
 \item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
@@ -45,9 +45,6 @@ Otherwise, SDTM variables are left blank.
 Keys: STUDYID USUBJID PARAMCD AVISITN ADT RSSEQ
 }
 \examples{
-library(dplyr)
-library(random.cdisc.data)
 ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-ADRS <- radrs(ADSL, seed = 2)
-head(ADRS)
+radrs(ADSL, seed = 2)
 }

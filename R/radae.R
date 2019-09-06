@@ -26,16 +26,13 @@
 #' @export
 #'
 #' @examples
-#' library(dplyr)
-#' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
-#' ADAE <- radae(ADSL, seed = 2)
-#' head(ADAE)
+#' radae(ADSL, seed = 2)
 radae <- function(ADSL, # nolint
-                  max_n_aes = 10,
+                  max_n_aes = 10L,
                   lookup = NULL,
-                  na_percentage = 0,
                   seed = NULL,
+                  na_percentage = 0,
                   na_vars = list(AEBODSYS = c(NA, 0.1), AEDECOD = c(1234, 0.1), AETOXGR = c(1234, 0.1)),
                   cached = FALSE) {
   stopifnot(is.logical.single(cached))
@@ -44,8 +41,9 @@ radae <- function(ADSL, # nolint
   }
 
   stopifnot(is.data.frame(ADSL))
+  stopifnot(is.integer.single(max_n_aes))
   stopifnot(is.null(seed) || is.numeric.single(seed))
-  stopifnot((na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   if (is.null(lookup)) {
     lookup_ae <- tribble(

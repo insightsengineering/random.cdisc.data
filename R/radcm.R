@@ -25,15 +25,12 @@
 #' @export
 #'
 #' @examples
-#' library(dplyr)
-#' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' ADCM <- radcm(ADSL, seed = 2)
-#' head(ADCM)
+#' radcm(ADSL, seed = 2)
 radcm <- function(ADSL, # nolint
                   max_n_cms = 10L,
-                  seed = NULL,
                   lookup = NULL,
+                  seed = NULL,
                   na_percentage = 0,
                   na_vars = list(CMCLAS = c(NA, 0.1), CMDECOD = c(1234, 0.1), ATIREL = c(1234, 0.1)),
                   cached = FALSE) {
@@ -45,7 +42,7 @@ radcm <- function(ADSL, # nolint
   stopifnot(is.data.frame(ADSL))
   stopifnot(is.integer.single(max_n_cms))
   stopifnot(is.numeric.single(seed))
-  stopifnot((na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   lookup_cm <- if_null(
     lookup,
