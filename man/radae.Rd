@@ -43,6 +43,7 @@ One record per each record in the corresponding SDTM domain.
 Keys: STUDYID USUBJID ASTDTM AETERM AESEQ.
 }
 \examples{
+library(random.cdisc.data)
 ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
 radae(ADSL, seed = 2)
 }

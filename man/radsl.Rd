@@ -46,6 +46,7 @@ One record per subject.
 Keys: STUDYID USUBJID
 }
 \examples{
+library(random.cdisc.data)
 radsl(N = 10, study_duration = 2, seed = 1)
 radsl(N = 10, seed = 1,
       na_percentage = 0.1,

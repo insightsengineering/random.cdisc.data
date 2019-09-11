@@ -12,8 +12,8 @@
 #' Keys: STUDYID USUBJID
 #'
 #' @param N Number of patients.
-#' @param seed Seed for random number generation.
 #' @param study_duration Duration of study in years.
+#' @param seed Seed for random number generation.
 #' @inheritParams mutate_na
 #' @templateVar data adsl
 #' @template param_cached
@@ -28,6 +28,7 @@
 #' @export
 #
 #' @examples
+#' library(random.cdisc.data)
 #' radsl(N = 10, study_duration = 2, seed = 1)
 #' radsl(N = 10, seed = 1,
 #'       na_percentage = 0.1,
@@ -79,24 +80,21 @@ radsl <- function(N = 400, # nolint
       "MULTIPLE", "NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER", "OTHER", "UNKNOWN"
     ) %>%
       sample_fct(N, prob = c(.55, .23, .16, .05, .004, .003, .002, .002)),
-    # TRTSDTM = sample(seq(from = as.POSIXct(strptime(Sys.time(), "%Y-%m-%d %H:%M:%S"), tz = "GMT"),
-    #                       to = as.POSIXct(strptime(Sys.time() + study_duration_secs, "%Y-%m-%d %H:%M:%S"),
-    #                                       tz = "GMT"), by = 1), size = N),
     TRTSDTM = as.POSIXct(sample(seq(from = sys_dtm,
                                      to = sys_dtm + study_duration_secs, by = 1), size = N), origin = "1970-01-01"),
     RANDDT = as.Date(.data$TRTSDTM) - floor(runif(N, min = 0, max = 5)),
-    # TRTEDTM = TRTSDTM + floor(runif(N, min =  as.numeric(TRTSDTM), max = (31556952*study_duration))),
     st_posixn = as.numeric(.data$TRTSDTM),
     TRTEDTM = as.POSIXct(.data$st_posixn + study_duration_secs, origin = "1970-01-01"),
     STRATA1 = c("A", "B", "C") %>% sample_fct(N),
     STRATA2 = c("S1", "S2") %>% sample_fct(N),
     BMRKR1 = rchisq(N, 6),
     BMRKR2 = sample_fct(c("LOW", "MEDIUM", "HIGH"), N),
+    BMEASIFL = sample_fct(c("Y", "N"), N),
     BEP01FL = sample_fct(c("Y", "N"), N)
   ) %>%
-    mutate(ARM = recode(ARMCD, "ARM A" = "A: Drug X", "ARM B" = "B: Placebo", "ARM C" = "C: Combination")) %>%
-    mutate(ACTARM = ARM) %>%
-    mutate(ACTARMCD = ARMCD) %>%
+    mutate(ARM = recode(.data$ARMCD, "ARM A" = "A: Drug X", "ARM B" = "B: Placebo", "ARM C" = "C: Combination")) %>%
+    mutate(ACTARM = .data$ARM) %>%
+    mutate(ACTARMCD = .data$ARMCD) %>%
     mutate(ITTFL = factor("Y")) %>%
     arrange(.data$st_posixn)
 
@@ -107,24 +105,22 @@ radsl <- function(N = 400, # nolint
     select("st_posixn", "TRTEDTM_discon") %>%
     arrange(.data$st_posixn)
 
-
   ADSL <- left_join(ADSL, ADDS, by = "st_posixn") %>% # nolint
     mutate(TRTEDTM = case_when(
-      !is.na(.data$TRTEDTM_discon) ~ as.POSIXct(.data$TRTEDTM_discon, origin = "1970-01-01"),
-      .data$st_posixn >= quantile(.data$st_posixn)[2] & .data$st_posixn <=
-          quantile(.data$st_posixn)[3] ~ as.POSIXct(NA, origin = "1970-01-01"),
-      TRUE ~ .data$TRTEDTM
+      !is.na(TRTEDTM_discon) ~ as.POSIXct(TRTEDTM_discon, origin = "1970-01-01"),
+      st_posixn >= quantile(st_posixn)[2] & st_posixn <= quantile(st_posixn)[3] ~ as.POSIXct(NA, origin = "1970-01-01"),
+      TRUE ~ TRTEDTM
     )) %>%
     mutate(TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01"))  %>%
-    select(- "TRTEDTM_discon")
+    select(-.data$TRTEDTM_discon)
 
   ADSL <- ADSL %>% # nolint
     mutate(EOSDT = as.Date(.data$TRTEDTM)) %>%
     mutate(EOSDY = as.numeric(ceiling(difftime(.data$TRTEDTM, .data$TRTSDTM, units = "days")))) %>%
     mutate(EOSSTT = case_when(
-      EOSDY == max(.data$EOSDY, na.rm = TRUE) ~ "COMPLETED",
-      EOSDY < max(.data$EOSDY, na.rm = TRUE) ~ "DISCONTINUED",
-    is.na(.data$TRTEDTM) ~ "ONGOING"
+      EOSDY == max(EOSDY, na.rm = TRUE) ~ "COMPLETED",
+      EOSDY < max(EOSDY, na.rm = TRUE) ~ "DISCONTINUED",
+    is.na(TRTEDTM) ~ "ONGOING"
   )) %>%
   mutate(DCSREAS = case_when(
     EOSSTT == "DISCONTINUED" ~
@@ -137,19 +133,21 @@ radsl <- function(N = 400, # nolint
   )) %>%
   mutate(DTHDT = as.Date(.data$TRTEDTM)) %>%
   mutate(LSTALVDT = as.Date(.data$TRTEDTM) + floor(runif(N, min = 10, max = 30))) %>%
-    select(- "st_posixn")
+    select(-.data$st_posixn)
 
   # associate sites with countries
   ADSL <- ADSL %>% # nolint
     mutate(SITEID = paste0(.data$COUNTRY, "-", .data$SITEID)) %>%
+    mutate(INVID = .data$SITEID) %>%
     mutate(USUBJID = paste(.data$STUDYID, .data$SITEID, .data$SUBJID, sep = "-")) %>%
     mutate(study_duration_secs = study_duration_secs)
 
-  if ((na_percentage > 0 && na_percentage <= 1) || length(na_vars) >= 1) {
+  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADSL <- mutate_na(ds = ADSL, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
   # apply metadata
-  return(apply_metadata(ADSL, "metadata/ADSL.yml", seed = seed))
+  ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml") # nolint
 
+  return(ADSL)
 }

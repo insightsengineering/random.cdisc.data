@@ -4,7 +4,7 @@
 \name{cadrs}
 \alias{cadrs}
 \title{Cached ADRS data generated with \code{seed = 1}}
-\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2000 rows and 38 columns.}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2400 rows and 40 columns.}
 \usage{
 data(cadrs)
 }

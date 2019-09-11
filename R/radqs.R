@@ -25,6 +25,7 @@
 #' @author npaszty
 #'
 #' @examples
+#' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' radqs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
 #' radqs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
@@ -41,7 +42,7 @@ radqs <- function(ADSL, # nolint
                   seed = NULL,
                   na_percentage = 0,
                   na_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL = c(1235, 0.1),
-                    CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1)
+                                 CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1)
                   ),
                   cached = FALSE) {
 
@@ -110,24 +111,24 @@ radqs <- function(ADSL, # nolint
   ADQS$BASE <- ifelse(ADQS$ABLFL2 != "Y", retain(ADQS, ADQS$AVAL, ADQS$ABLFL == "Y"), NA) # nolint
 
   ADQS <- ADQS %>% # nolint
-    mutate(CHG2 = AVAL - BASE2) %>%
-    mutate(PCHG2 = 100 * (CHG2 / BASE2)) %>%
-    mutate(CHG = AVAL - BASE) %>%
-    mutate(PCHG = 100 * (CHG / BASE)) %>%
+    mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
+    mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
+    mutate(CHG = .data$AVAL - .data$BASE) %>%
+    mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
     var_relabel(
       STUDYID = attr(ADSL$STUDYID, "label"),
       USUBJID = attr(ADSL$USUBJID, "label")
     )
 
-  if ((na_percentage > 0 && na_percentage <= 1) || length(na_vars) > 0) {
+  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADQS <- mutate_na(ds = ADQS, na_vars = na_vars, na_percentage = na_percentage) #nolint
   }
 
-  ADQS <- ADQS %>% # nolint
-    var_relabel(
-      STUDYID = "Study Identifier",
-      USUBJID = "Unique Subject Identifier"
-    )
+  ADQS <- var_relabel( # nolint
+    ADQS,
+    STUDYID = "Study Identifier",
+    USUBJID = "Unique Subject Identifier"
+  )
 
   # merge ADSL to be able to add QS date and study day variables
   ADQS <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
@@ -135,21 +136,24 @@ radqs <- function(ADSL, # nolint
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
-      !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
-      is.na(.data$TRTEDTM) ~ floor(.data$trtsdt_int + (study_duration_secs) / 86400)
+      !is.na(TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
+      is.na(TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
     )) %>%
     mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
     mutate(astdt_int = as.numeric(as.Date(.data$ADTM))) %>%
     mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
     ungroup() %>%
-    arrange(STUDYID, .data$USUBJID, .data$ADTM)
+    arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
   ADQS <- ADQS %>% # nolint
     group_by(.data$USUBJID) %>%
     mutate(QSSEQ = 1:n()) %>%
     mutate(ASEQ = .data$QSSEQ) %>%
-    arrange(STUDYID, .data$USUBJID, .data$PARAMCD, .data$AVISITN, .data$ADTM, .data$QSSEQ)
+    ungroup() %>%
+    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$AVISITN, .data$ADTM, .data$QSSEQ)
 
   # apply metadata
-  return(apply_metadata(ADQS, "metadata/ADQS.yml", seed = seed, ADSL = ADSL))
+  ADQS <- apply_metadata(ADQS, "metadata/ADQS.yml", ADSL = ADSL) # nolint
+
+  return(ADQS)
 }

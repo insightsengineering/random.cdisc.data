@@ -24,6 +24,7 @@
 #' @export
 #'
 #' @examples
+#' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' radtte(ADSL, seed = 2)
 radtte <- function(ADSL, # nolint
@@ -91,19 +92,19 @@ radtte <- function(ADSL, # nolint
 
     lapply(FUN = function(pinfo) {
       lookup_TTE %>%
-        dplyr::filter(ARM == as.character(pinfo$ACTARMCD)) %>%
+        dplyr::filter(.data$ARM == as.character(pinfo$ACTARMCD)) %>%
         rowwise() %>%
         mutate(
           STUDYID = pinfo$STUDYID,
           SITEID = pinfo$SITEID,
           USUBJID = pinfo$USUBJID,
-          CNSR = sample(c(0, 1), 1, prob = c(1 - CNSR_P, CNSR_P)),
-          AVAL = rexp(1, LAMBDA),
+          CNSR = sample(c(0, 1), 1, prob = c(1 - .data$CNSR_P, .data$CNSR_P)),
+          AVAL = rexp(1, .data$LAMBDA),
           AVALU = "DAYS",
-          EVNTDESC = if (CNSR == 1) sample(evntdescr_sel[-c(1:2)], 1) else sample(evntdescr_sel, 1),
-          CNSDTDSC = if (CNSR == 1) sample(cnsdtdscr_sel, 1) else ""
+          EVNTDESC = if (.data$CNSR == 1) sample(evntdescr_sel[-c(1:2)], 1) else sample(evntdescr_sel, 1),
+          CNSDTDSC = if (.data$CNSR == 1) sample(cnsdtdscr_sel, 1) else ""
         ) %>%
-        select(-LAMBDA, -CNSR_P)
+        select(-.data$LAMBDA, -.data$CNSR_P)
 
     }) %>%
     Reduce(rbind, .) %>%
@@ -112,15 +113,13 @@ radtte <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier"#)
     )
 
-  ADTTE$PARAMCD <- as.factor(ADTTE$PARAMCD) # nolint
-
   na_vars <- na_vars[setdiff(colnames(ADTTE), colnames(ADSL))]
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADTTE <- mutate_na(ds = ADTTE, na_vars = na_vars, na_percentage = na_percentage) #nolint
   }
 
-  ADTTE <- ADTTE %>% # nolint
-    var_relabel(
+  ADTTE <- var_relabel( # nolint
+    ADTTE,
       STUDYID = "Study Identifier",
       USUBJID = "Unique Subject Identifier"
     )
@@ -131,21 +130,26 @@ radtte <- function(ADSL, # nolint
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
-      !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
-      is.na(.data$TRTEDTM) ~ floor(.data$trtsdt_int + (study_duration_secs) / 86400)
+      !is.na(TRTEDTM) ~ as.numeric(as.Date(TRTEDTM)),
+      is.na(TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
     )) %>%
     mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
     mutate(astdt_int = as.numeric(as.Date(.data$ADTM))) %>%
     mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
     ungroup() %>%
-    arrange(STUDYID, .data$USUBJID, .data$ADTM)
+    arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
   ADTTE <- ADTTE %>% # nolint
     group_by(.data$USUBJID) %>%
     mutate(TTESEQ = 1:n()) %>%
     mutate(ASEQ = .data$TTESEQ) %>%
-    arrange(STUDYID, .data$USUBJID, .data$PARAMCD, .data$ADTM, .data$TTESEQ)
+    mutate(PARAM = as.factor(.data$PARAM)) %>%
+    mutate(PARAMCD = as.factor(.data$PARAMCD)) %>%
+    ungroup() %>%
+    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$ADTM, .data$TTESEQ)
 
   # apply metadata
-  return(apply_metadata(ADTTE, "metadata/ADTTE.yml", seed = seed, ADSL = ADSL))
+  ADTTE <- apply_metadata(ADTTE, "metadata/ADTTE.yml", ADSL = ADSL) # nolint
+
+  return(ADTTE)
 }

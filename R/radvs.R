@@ -27,6 +27,7 @@
 #' @author npaszty
 #'
 #' @examples
+#' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' radvs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
 #' radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
@@ -44,7 +45,7 @@ radvs <- function(ADSL, # nolint
                   seed = NULL,
                   na_percentage = 0,
                   na_vars = list(CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1),
-                    AVAL = c(123, 0.1), AVALU = c(123, 0.1)
+                                 AVAL = c(123, 0.1), AVALU = c(123, 0.1)
                   ),
                   cached = FALSE) {
 
@@ -129,10 +130,10 @@ radvs <- function(ADSL, # nolint
   ANRIND_choices <- c("HIGH", "LOW", "NORMAL") # nolint
 
   ADVS <- ADVS %>% # nolint
-    mutate(CHG2 = AVAL - BASE2) %>%
-    mutate(PCHG2 = 100 * (CHG2 / BASE2)) %>%
-    mutate(CHG = AVAL - BASE) %>%
-    mutate(PCHG = 100 * (CHG / BASE)) %>%
+    mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
+    mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
+    mutate(CHG = .data$AVAL - .data$BASE) %>%
+    mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
     mutate(ANRIND = ANRIND_choices %>%
              sample_fct(nrow(ADVS), prob = c(0.1, 0.1, 0.8))) %>%
     mutate(BASETYPE = "LAST") %>%
@@ -143,15 +144,15 @@ radvs <- function(ADSL, # nolint
       STUDYID = attr(ADSL$STUDYID, "label")
     )
 
-  if ((na_percentage > 0 && na_percentage <= 1) || length(na_vars) >= 1) {
+  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADVS <- mutate_na(ds = ADVS, na_vars = na_vars, na_percentage = na_percentage) #nolint
   }
 
-  ADVS <- ADVS %>% # nolint
-    var_relabel(
-      STUDYID = "Study Identifier",
-      USUBJID = "Unique Subject Identifier"
-    )
+  ADVS <- var_relabel( # nolint
+    ADVS,
+    STUDYID = "Study Identifier",
+    USUBJID = "Unique Subject Identifier"
+  )
 
   # merge ADSL to be able to add LB date and study day variables
   ADVS <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
@@ -159,24 +160,26 @@ radvs <- function(ADSL, # nolint
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
-      !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
-      is.na(.data$TRTEDTM) ~ floor(.data$trtsdt_int + (study_duration_secs) / 86400)
+      !is.na(TRTEDTM) ~ as.numeric(as.Date(TRTEDTM)),
+      is.na(TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
     )) %>%
     mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
     mutate(astdt_int = as.numeric(as.Date(.data$ADTM))) %>%
     mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
     ungroup() %>%
-    arrange(STUDYID, .data$USUBJID, .data$ADTM)
+    arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
   ADVS <- ADVS %>% # nolint
     mutate(ASPID = sample(1:n())) %>%
     group_by(.data$USUBJID) %>%
     mutate(VSSEQ = 1:n()) %>%
     mutate(ASEQ = .data$VSSEQ) %>%
-    arrange(STUDYID, .data$USUBJID, PARAMCD,
-        .data$BASETYPE, .data$AVISITN, .data$ATPTN, .data$DTYPE,
-        .data$ADTM, .data$VSSEQ, .data$ASPID)
+    ungroup() %>%
+    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISITN, .data$ATPTN, .data$DTYPE,
+            .data$ADTM, .data$VSSEQ, .data$ASPID)
 
   # apply metadata
-  return(apply_metadata(ADVS, "metadata/ADVS.yml", seed = seed, ADSL = ADSL))
+  ADVS <- apply_metadata(ADVS, "metadata/ADVS.yml", ADSL = ADSL) # nolint
+
+  return(ADVS)
 }

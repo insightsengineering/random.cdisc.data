@@ -26,6 +26,7 @@
 #' @export
 #'
 #' @examples
+#' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
 #' radmh(ADSL, seed = 2)
 radmh <- function(ADSL, # nolint
@@ -83,11 +84,11 @@ radmh <- function(ADSL, # nolint
     ADMH <- mutate_na(ds = ADMH, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
-  ADMH <- ADMH %>% # nolint
-    var_relabel(
-      STUDYID = "Study Identifier",
-      USUBJID = "Unique Subject Identifier"
-    )
+  ADMH <- var_relabel( # nolint
+    ADMH,
+    STUDYID = "Study Identifier",
+    USUBJID = "Unique Subject Identifier"
+  )
 
   # merge ADSL to be able to add MH date and study day variables
   ADMH <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
@@ -96,15 +97,15 @@ radmh <- function(ADSL, # nolint
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
       !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
-      is.na(.data$TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
+      is.na(.data$TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
     )) %>%
     mutate(ASTDTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-             origin = "1970-01-01")) %>%
+                               origin = "1970-01-01")) %>%
     mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
     mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
     mutate(AENDTM = as.POSIXct((sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
-             origin = "1970-01-01")) %>%
+                               origin = "1970-01-01")) %>%
     mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
     ungroup() %>%
     arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHTERM)
@@ -113,10 +114,11 @@ radmh <- function(ADSL, # nolint
     group_by(.data$USUBJID) %>%
     mutate(MHSEQ = 1:n()) %>%
     mutate(ASEQ = .data$MHSEQ) %>%
+    ungroup() %>%
     arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHSEQ)
 
   # apply metadata
-  ADMH <- apply_metadata(ADMH, "metadata/ADMH.yml", seed = seed, ADSL = ADSL) # nolint
+  ADMH <- apply_metadata(ADMH, "metadata/ADMH.yml", ADSL = ADSL) # nolint
 
   return(ADMH)
 }

@@ -44,6 +44,7 @@ given subject-level analysis dataset.
 Keys: STUDYID USUBJID PARAMCD
 }
 \examples{
+library(random.cdisc.data)
 ADSL <- suppressWarnings(radsl(N = 10, seed = 1, study_duration = 2))
 radaette(ADSL, seed  = 2)
 }

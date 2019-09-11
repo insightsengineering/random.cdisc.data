@@ -25,6 +25,7 @@
 #' @export
 #'
 #' @examples
+#' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' radcm(ADSL, seed = 2)
 radcm <- function(ADSL, # nolint
@@ -80,11 +81,11 @@ radcm <- function(ADSL, # nolint
     ADCM <- mutate_na(ds = ADCM, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
-  ADCM <- ADCM %>% # nolint
-    var_relabel(
-      STUDYID = "Study Identifier",
-      USUBJID = "Unique Subject Identifier"
-    )
+  ADCM <- var_relabel( # nolint
+    ADCM,
+    STUDYID = "Study Identifier",
+    USUBJID = "Unique Subject Identifier"
+  )
 
   # merge ADSL to be able to add CM date and study day variables
   ADCM <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
@@ -92,16 +93,16 @@ radcm <- function(ADSL, # nolint
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
-      !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
-      is.na(.data$TRTEDTM) ~ floor(.data$trtsdt_int + (study_duration_secs) / 86400)
+      !is.na(TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
+      is.na(TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
     )) %>%
     mutate(ASTDTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-             origin = "1970-01-01")) %>%
+                               origin = "1970-01-01")) %>%
     mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
     mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
     mutate(AENDTM = as.POSIXct((sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
-             origin = "1970-01-01")) %>%
+                               origin = "1970-01-01")) %>%
     mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
     ungroup() %>%
     arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)
@@ -110,10 +111,11 @@ radcm <- function(ADSL, # nolint
     group_by(.data$USUBJID) %>%
     mutate(CMSEQ = 1:n()) %>%
     mutate(ASEQ = .data$CMSEQ) %>%
-    arrange(STUDYID, .data$USUBJID, .data$ASTDTM, .data$CMSEQ)
+    ungroup() %>%
+    arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$CMSEQ)
 
   # apply metadata
-  ADCM <- apply_metadata(ADCM, "metadata/ADCM.yml", seed = seed, ADSL = ADSL) # nolint
+  ADCM <- apply_metadata(ADCM, "metadata/ADCM.yml", ADSL = ADSL) # nolint
 
   return(ADCM)
 }

@@ -26,6 +26,7 @@
 #' @author Xiuting Mi
 #'
 #' @examples
+#' library(random.cdisc.data)
 #' ADSL <- suppressWarnings(radsl(N = 10, seed = 1, study_duration = 2))
 #' radaette(ADSL, seed  = 2)
 radaette <- function(ADSL, # nolint
@@ -91,19 +92,19 @@ radaette <- function(ADSL, # nolint
   ADAETTE <- split(ADSL, ADSL$USUBJID) %>% # nolint
     lapply(FUN = function(pinfo) {
       lookup_ADAETTE %>%
-        dplyr::filter(ARM == as.character(pinfo$ARMCD)) %>%
+        dplyr::filter(.data$ARM == as.character(pinfo$ARMCD)) %>%
         rowwise() %>%
         mutate(
           STUDYID = pinfo$STUDYID,
           SITEID = pinfo$SITEID,
           USUBJID = pinfo$USUBJID,
-          CNSR = sample(c(0, 1), 1, prob = c(1 - CNSR_P, CNSR_P)),
-          AVAL = rexp(1, LAMBDA) / 365.25,
+          CNSR = sample(c(0, 1), 1, prob = c(1 - .data$CNSR_P, .data$CNSR_P)),
+          AVAL = rexp(1, .data$LAMBDA) / 365.25,
           AVALU = "YEARS",
-          EVNTDESC = if (CNSR == 0) sample(evntdescr_sel, 1) else "",
-          CNSDTDSC = if (CNSR == 1) sample(cnsdtdscr_sel, 1) else ""
+          EVNTDESC = if (.data$CNSR == 0) sample(evntdescr_sel, 1) else "",
+          CNSDTDSC = if (.data$CNSR == 1) sample(cnsdtdscr_sel, 1) else ""
         ) %>%
-        select(-LAMBDA, -CNSR_P)
+        select(-.data$LAMBDA, -.data$CNSR_P)
     }) %>%
     Reduce(rbind, .) %>%
     var_relabel(
@@ -111,24 +112,24 @@ radaette <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier"
     )
 
-  if ((na_percentage > 0 && na_percentage <= 1) || length(na_vars) >= 1) {
-    ADAETTE <- mutate_na(ds = ADAETTE, na_vars = na_vars, na_percentage = na_percentage)  #nolint
+  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
+    ADAETTE <- mutate_na(ds = ADAETTE, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
-  ADAETTE <- ADAETTE %>% # nolint
-    var_relabel(
-      STUDYID = "Study Identifier",
-      USUBJID = "Unique Subject Identifier"
-    )
+  ADAETTE <- var_relabel( # nolint
+    ADAETTE,
+    STUDYID = "Study Identifier",
+    USUBJID = "Unique Subject Identifier"
+  )
 
   # merge ADSL to be able to add AETTE date and study day variables
   ADAETTE <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
-                     ADAETTE, by = c("STUDYID", "USUBJID")) %>%
+                        ADAETTE, by = c("STUDYID", "USUBJID")) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
-      !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
-      is.na(.data$TRTEDTM) ~ floor(.data$trtsdt_int + (study_duration_secs) / 86400)
+      !is.na(TRTEDTM) ~ as.numeric(as.Date(TRTEDTM)),
+      is.na(TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
     )) %>%
     mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
     mutate(astdt_int = as.numeric(as.Date(.data$ADTM))) %>%
@@ -140,10 +141,13 @@ radaette <- function(ADSL, # nolint
     group_by(.data$USUBJID) %>%
     mutate(TTESEQ = 1:n()) %>%
     mutate(ASEQ = .data$TTESEQ) %>%
+    mutate(PARAM = as.factor(.data$PARAM)) %>%
+    mutate(PARAMCD = as.factor(.data$PARAMCD)) %>%
+    ungroup() %>%
     arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$ADTM, .data$TTESEQ)
 
   # apply metadata
-  return(apply_metadata(ADAETTE, "metadata/ADAETTE.yml", seed = seed, ADSL = ADSL))
+  ADAETTE <- apply_metadata(ADAETTE, "metadata/ADAETTE.yml", ADSL = ADSL) # nolint
 
-
+  return(ADAETTE)
 }

@@ -29,13 +29,14 @@
 #' @author tomlinsj, npaszty, Xuefeng Hou
 #'
 #' @examples
+#' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' radlb(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
 #' radlb(ADSL, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
 radlb <- function(ADSL, # nolint
                   lbcat = c("CHEMISTRY", "CHEMISTRY", "IMMUNOLOGY"),
                   param = c("Alanine Aminotransferase Measurement",
-                    "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
+                            "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
                   paramcd = c("ALT", "CRP", "IGA"),
                   paramu = c("U/L", "mg/L", "g/L"),
                   visit_format = "WEEK",
@@ -133,8 +134,8 @@ radlb <- function(ADSL, # nolint
     x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])] # nolint
     x$ABLFL2 <- ifelse(x$AVISIT == "SCREENING", "Y", "") # nolint
     x$ABLFL <- ifelse(toupper(visit_format) == "WEEK" & x$AVISIT == "BASELINE", # nolint
-      "Y",
-      ifelse(toupper(visit_format) == "CYCLE" & x$AVISIT == "CYCLE 1 DAY 1", "Y", "")
+                      "Y",
+                      ifelse(toupper(visit_format) == "CYCLE" & x$AVISIT == "CYCLE 1 DAY 1", "Y", "")
     )
     x$LOQFL <- ifelse(x$AVAL < 32, "Y", "N") # nolint
     x
@@ -146,12 +147,11 @@ radlb <- function(ADSL, # nolint
   ANRIND_choices <- c("HIGH", "LOW", "NORMAL") # nolint
 
   ADLB <- ADLB %>% # nolint
-    mutate(CHG2 = AVAL - BASE2) %>%
-    mutate(PCHG2 = 100 * (CHG2 / BASE2)) %>%
-    mutate(CHG = AVAL - BASE) %>%
-    mutate(PCHG = 100 * (CHG / BASE)) %>%
-    mutate(ANRIND = ANRIND_choices %>%
-             sample_fct(nrow(ADLB), prob = c(0.1, 0.1, 0.8))) %>%
+    mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
+    mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
+    mutate(CHG = .data$AVAL - .data$BASE) %>%
+    mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
+    mutate(ANRIND = sample_fct(ANRIND_choices, nrow(ADLB), prob = c(0.1, 0.1, 0.8))) %>%
     mutate(BASETYPE = "LAST") %>%
     mutate(ATPTN = 1) %>%
     mutate(DTYPE = NA) %>%
@@ -160,15 +160,15 @@ radlb <- function(ADSL, # nolint
       USUBJID = attr(ADSL$USUBJID, "label")
     )
 
-  if ((na_percentage > 0 && na_percentage <= 1) || length(na_vars) > 0) {
+  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADLB <- mutate_na(ds = ADLB, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
-  ADLB <- ADLB %>% # nolint
-    var_relabel(
-      STUDYID = "Study Identifier",
-      USUBJID = "Unique Subject Identifier"
-    )
+  ADLB <- var_relabel( # nolint
+    ADLB,
+    STUDYID = "Study Identifier",
+    USUBJID = "Unique Subject Identifier"
+  )
 
   # merge ADSL to be able to add LB date and study day variables
   ADLB <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
@@ -176,25 +176,26 @@ radlb <- function(ADSL, # nolint
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
-      !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
-      is.na(.data$TRTEDTM) ~ floor(.data$trtsdt_int + (study_duration_secs) / 86400)
+      !is.na(TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
+      is.na(TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
     )) %>%
     mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
     mutate(astdt_int = as.numeric(as.Date(.data$ADTM))) %>%
     mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
     ungroup() %>%
-    arrange(STUDYID, .data$USUBJID, .data$ADTM)
+    arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
   ADLB <- ADLB %>% # nolint
     mutate(ASPID = sample(1:n())) %>%
     group_by(.data$USUBJID) %>%
     mutate(LBSEQ = 1:n()) %>%
     mutate(ASEQ = .data$LBSEQ) %>%
-    arrange(STUDYID, .data$USUBJID, .data$PARAMCD, .data$BASETYPE,
-        .data$AVISITN, .data$ATPTN, .data$DTYPE, .data$ADTM, .data$LBSEQ, .data$ASPID)
+    ungroup() %>%
+    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISITN, .data$ATPTN, .data$DTYPE,
+            .data$ADTM, .data$LBSEQ, .data$ASPID)
 
   # apply metadata
-  ADLB <- apply_metadata(ADLB, "metadata/ADLB.yml", seed = seed, ADSL = ADSL) # nolint
+  ADLB <- apply_metadata(ADLB, "metadata/ADLB.yml", ADSL = ADSL) # nolint
 
   return(ADLB)
 }

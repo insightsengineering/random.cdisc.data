@@ -185,7 +185,6 @@ var_relabel <- function(x, ...) {
 #'
 #' @param df data frame to which metadata are applied.
 #' @param filename \code{yaml} file containing domain metadata.
-#' @param ... ellipsis.
 #' @param ADSL logical to control merging of ADSL data to domain.
 #'
 #' @importFrom dplyr inner_join
@@ -195,9 +194,9 @@ var_relabel <- function(x, ...) {
 #' seed <- 1
 #' ADSL <- suppressWarnings(radsl(seed = seed))
 #' ADLB <- radlb(ADSL, seed = seed)
-#' ADSL <- random.cdisc.data:::apply_metadata(ADSL, "ADSL.yml", seed = seed, ADSL = ADSL)
-#' ADLB <- random.cdisc.data:::apply_metadata(ADLB, "ADLB.yml", seed = seed, ADSL = ADSL)
-apply_metadata <- function(df, filename, ..., ADSL = NULL) { # nolint
+#' ADSL <- random.cdisc.data:::apply_metadata(ADSL, "ADSL.yml", ADSL = ADSL)
+#' ADLB <- random.cdisc.data:::apply_metadata(ADLB, "ADLB.yml", ADSL = ADSL)
+apply_metadata <- function(df, filename, ADSL = NULL) { # nolint
   stopifnot(is.data.frame(df))
   stopifnot(is.character.single(filename))
   stopifnot(is.null(ADSL) || is.data.frame(ADSL))

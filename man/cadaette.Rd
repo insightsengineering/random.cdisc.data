@@ -4,7 +4,7 @@
 \name{cadaette}
 \alias{cadaette}
 \title{Cached ADAETTE data generated with \code{seed = 1}}
-\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1200 rows and 39 columns.}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1200 rows and 41 columns.}
 \usage{
 data(cadaette)
 }

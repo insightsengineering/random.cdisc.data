@@ -43,6 +43,7 @@ Subject-Level Analysis Dataset
 Keys: STUDYID USUBJID PARAMCD
 }
 \examples{
+library(random.cdisc.data)
 ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 radtte(ADSL, seed = 2)
 }
