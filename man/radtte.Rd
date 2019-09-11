@@ -4,18 +4,20 @@
 \alias{radtte}
 \title{Time-to-Event Analysis Dataset (ATE)}
 \usage{
-radtte(ADSL, lookup = NULL, seed = NULL, event.descr = NULL,
-  na_percentage = 0, na_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234,
-  0.1), AVALU = c(1234, 0.1)), cached = FALSE)
+radtte(ADSL, event.descr = NULL, censor.descr = NULL, lookup = NULL,
+  seed = NULL, na_percentage = 0, na_vars = list(CNSR = c(NA, 0.1),
+  AVAL = c(1234, 0.1), AVALU = c(1234, 0.1)), cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
+\item{event.descr}{Character vector with description of events.}
+
+\item{censor.descr}{censor description.}
+
 \item{lookup}{Data.frame containing additional parameters.}
 
 \item{seed}{Seed for random number generation.}
-
-\item{event.descr}{Character vector with description of events.}
 
 \item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
@@ -38,14 +40,10 @@ Function for generating random Time-to-Event Analysis Dataset for a given
 Subject-Level Analysis Dataset
 }
 \details{
-Keys: STUDYID USUBJID PARAMCD AVISITN ADT TTESEQ
+Keys: STUDYID USUBJID PARAMCD
 }
 \examples{
-ADSL <- radsl(seed = 1)
-ADTTE <- radtte(ADSL, seed = 2)
-head(ADTTE)
-
-ADTTE <- radtte(ADSL, seed = 2, na_percentage = 0.1)
-print(which(is.na(ADTTE$AVAL)))
-
+library(random.cdisc.data)
+ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+radtte(ADSL, seed = 2)
 }

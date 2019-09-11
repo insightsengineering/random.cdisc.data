@@ -67,7 +67,7 @@ relvar_init <- function(relvar1, relvar2) {
 #' random.cdisc.data:::rel_var(
 #'   df = ADLB,
 #'   var_name = "PARAMCD",
-#'   var_values = c("ALT", "CRP", "IGA", "IGM"),
+#'   var_values = c("ALT", "CRP", "IGA"),
 #'   related_var = "PARAM"
 #' )
 rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var = NULL) {
@@ -151,8 +151,9 @@ visit_schedule <- function(visit_format = "WEEK",
 #' @param outside value to.
 #'
 #' @examples
-#' ADLB <- radlb(radsl())
-#' ADLB$BASE2 <- random.cdisc.data:::retain(ADLB, ADLB$AVAL, ADLB$ABLFL2 == "Y")
+#' ADLB <- radlb(radsl(N = 10, na_percentage = 0), na_vars = list())
+#' ADLB$BASE2 <- random.cdisc.data:::retain(df = ADLB, value_var = ADLB$AVAL,
+#'   event = ADLB$ABLFL2 == "Y")
 retain <- function(df, value_var, event, outside = NA) {
   indices <- c(1, which(event == TRUE), nrow(df) + 1)
   values <- c(outside, value_var[event == TRUE])
@@ -184,7 +185,6 @@ var_relabel <- function(x, ...) {
 #'
 #' @param df data frame to which metadata are applied.
 #' @param filename \code{yaml} file containing domain metadata.
-#' @param ... ellipsis.
 #' @param ADSL logical to control merging of ADSL data to domain.
 #'
 #' @importFrom dplyr inner_join
@@ -194,9 +194,9 @@ var_relabel <- function(x, ...) {
 #' seed <- 1
 #' ADSL <- suppressWarnings(radsl(seed = seed))
 #' ADLB <- radlb(ADSL, seed = seed)
-#' ADSL <- random.cdisc.data:::apply_metadata(ADSL, "ADSL.yml", seed = seed, ADSL = ADSL)
-#' ADLB <- random.cdisc.data:::apply_metadata(ADLB, "ADLB.yml", seed = seed, ADSL = ADSL)
-apply_metadata <- function(df, filename, ..., ADSL = NULL) { # nolint
+#' ADSL <- random.cdisc.data:::apply_metadata(ADSL, "ADSL.yml", ADSL = ADSL)
+#' ADLB <- random.cdisc.data:::apply_metadata(ADLB, "ADLB.yml", ADSL = ADSL)
+apply_metadata <- function(df, filename, ADSL = NULL) { # nolint
   stopifnot(is.data.frame(df))
   stopifnot(is.character.single(filename))
   stopifnot(is.null(ADSL) || is.data.frame(ADSL))
@@ -212,9 +212,24 @@ apply_metadata <- function(df, filename, ..., ADSL = NULL) { # nolint
   ## reorder data frame columns to expected BDS order
   df <- df[, unique(c("STUDYID", "USUBJID",
                       intersect(names(metadata$variables), names(df))))]
+
+
   if (!is.null(ADSL)) {
+    adsl_labels <- vapply(names(ADSL), function(x) attr(ADSL[[x]], "label"), character(1))
+
+    attr(df$STUDYID, "label") <- attr(ADSL$STUDYID, "label")
+    attr(df$USUBJID, "label") <- attr(ADSL$USUBJID, "label")
     ## add all ADSL variables to domain, BDS is one proc away
     df <- inner_join(ADSL, df, by = c("STUDYID", "USUBJID"))
+
+    for (var in names(adsl_labels)) {
+      if (var %in% names(df)) {
+        attr(df[[var]], "label") <- adsl_labels[var]
+      }
+    }
+  } else {
+    attr(df$STUDYID, "label") <- metadata$variables$STUDYID$label
+    attr(df$USUBJID, "label") <- metadata$variables$USUBJID$label
   }
 
   # assign label to data frame
@@ -294,8 +309,6 @@ mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {
       if (!na_var %in% names(ds)) {
         warning(paste(na_var, "not in column names"))
       } else {
-        message(na_var)
-
         ds <- ds %>%
             ungroup_rowwise_df %>%
             dplyr::mutate(!!na_var := ds[[na_var]] %>%
@@ -312,5 +325,5 @@ mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {
 
 ungroup_rowwise_df <- function(x) {
   class(x) <- c("tbl", "tbl_df", "data.frame")
-  x
+  return(x)
 }

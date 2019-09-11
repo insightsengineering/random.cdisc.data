@@ -3,9 +3,24 @@ domain:
   label: Concomitant Medications Analysis Dataset
 
 variables:
+  ASEQ:
+    label: Analysis Sequence Number
+  CMSEQ:
+    label: Sponsor-Defined Identifier
   CMDECOD:
     label: Standardized Medication Name
+  CMCAT:
+    label: Category for Medication
   CMCLAS:
     label: Medication Class
   ATIREL:
     label: Time Relation of Medication
+  ASTDTM:
+    label: Analysis Start Datetime
+  AENDTM:
+    label: Analysis End Datetime
+  ASTDY:
+    label: Analysis Start Relative Day
+  AENDY:
+    label: Analysis End Relative Day
+

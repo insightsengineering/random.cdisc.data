@@ -1,24 +1,20 @@
 domain:
-  name: ADAE
-  label: Adverse Events Analysis Dataset
+  name: ADMH
+  label: Medical History Analysis Dataset
 
 variables:
   ASEQ:
     label: Analysis Sequence Number
-  AESEQ:
+  MHSEQ:
     label: Sponsor-Defined Identifier
-  AETERM:
-    label: Reported Term for the Adverse Event
-  AEDECOD:
+  MHTERM:
+    label: Reported Term for the Medical History
+  MHDECOD:
     label: Dictionary-Derived Term
-  AEBODSYS:
+  MHBODSYS:
     label: Body System or Organ Class
-  AESOC:
+  MHSOC:
     label: Primary System Organ Class
-  AESER:
-    label: Serious Event
-  AREL:
-    label: Analysis Causality
   ASTDTM:
     label: Analysis Start Datetime
   AENDTM:
@@ -27,5 +23,3 @@ variables:
     label: Analysis Start Relative Day
   AENDY:
     label: Analysis End Relative Day
-  ATOXGR:
-    label: Analysis Toxicity Grade

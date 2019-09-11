@@ -24,7 +24,7 @@ ADLB <- radlb(radsl())
 random.cdisc.data:::rel_var(
   df = ADLB,
   var_name = "PARAMCD",
-  var_values = c("ALT", "CRP", "IGA", "IGM"),
+  var_values = c("ALT", "CRP", "IGA"),
   related_var = "PARAM"
 )
 }

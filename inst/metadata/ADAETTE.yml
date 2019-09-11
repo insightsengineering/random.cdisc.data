@@ -3,6 +3,10 @@ domain:
   label: Time To Adverse Event Analysis Dataset
 
 variables:
+  ASEQ:
+    label: Sequence Number
+  TTESEQ:
+    label: Sequence Number
   PARAM:
     label: Parameter
   PARAMCD:
@@ -11,6 +15,10 @@ variables:
     label: Analysis Value
   AVALU:
     label: Analysis Value Unit
+  ADTM:
+    label: Analysis Datetime
+  ADY:
+   label: Analysis Relative Day
   CNSR:
     label: Censor
   EVNTDESC:

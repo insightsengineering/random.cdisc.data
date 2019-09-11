@@ -9,9 +9,9 @@ radvs(ADSL, param = c("Diastolic Blood Pressure", "Pulse Rate",
   paramcd = c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT"),
   paramu = c("Pa", "beats/min", "breaths/min", "Pa", "C", "Kg"),
   visit_format = "WEEK", n_assessments = 5L, n_days = 5L,
-  seed = NULL, cached = FALSE, na_percentage = 0,
-  na_vars = list(CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234,
-  0.1), PCHG = c(1234, 0.1), AVAL = c(123, 0.1), AVALU = c(123, 0.1)))
+  seed = NULL, na_percentage = 0, na_vars = list(CHG2 = c(1235, 0.1),
+  PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1), AVAL =
+  c(123, 0.1), AVALU = c(123, 0.1)), cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -30,9 +30,6 @@ radvs(ADSL, param = c("Diastolic Blood Pressure", "Pulse Rate",
 
 \item{seed}{Seed for random number generation.}
 
-\item{cached}{boolean whether the cached ADVS data \code{cadvs} should be returned or new data
-should be generated. If set to \code{TRUE} then the other arguments to \code{radvs} will be ignored.}
-
 \item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
 \item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
@@ -42,6 +39,9 @@ should be generated. If set to \code{TRUE} then the other arguments to \code{rad
     \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
     percentage is used. This will overwrite default percentage (percentage argument))}
 }}
+
+\item{cached}{boolean whether the cached ADVS data \code{cadvs} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radvs} will be ignored.}
 }
 \value{
 data.frame
@@ -53,13 +53,13 @@ Subject-Level Analysis Dataset.
 \details{
 One record per subject per parameter per analysis visit per analysis date.
 
-Keys: STUDYID USUBJID PARAMCD AVISITN.
+Keys: STUDYID, USUBJID, PARAMCD, BASETYPE, AVISITN, ATPTN, DTYPE, ADTM, VSSEQ, ASPID.
 }
 \examples{
-ADSL <- radsl(seed = 1)
-ADVS <- radvs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-ADVS <- radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
-head(ADVS)
+library(random.cdisc.data)
+ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+radvs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
 }
 \author{
 npaszty

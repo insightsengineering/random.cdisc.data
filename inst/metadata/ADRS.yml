@@ -3,6 +3,10 @@ domain:
   label: Response Analysis Dataset
 
 variables:
+  ASEQ:
+    label: Analysis Sequence Number
+  RSSEQ:
+    label: Sequence Number
   PARAM:
     label: Parameter
   PARAMCD:
@@ -11,5 +15,12 @@ variables:
     label: Analysis Value
   AVALC:
     label: Analysis Value
+  ADTM:
+    label: Analysis Datetime
+  ADY:
+   label: Analysis Relative Day
   AVISIT:
     label: Analysis Visit
+  AVISITN:
+    label: Analysis Visit (N)
+

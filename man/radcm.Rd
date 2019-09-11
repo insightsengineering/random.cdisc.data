@@ -4,18 +4,18 @@
 \alias{radcm}
 \title{Concomitant Medication Analysis Dataset (ADCM)}
 \usage{
-radcm(ADSL, max_n_cms = 10L, seed = NULL, lookup = NULL,
+radcm(ADSL, max_n_cms = 10L, lookup = NULL, seed = NULL,
   na_percentage = 0, na_vars = list(CMCLAS = c(NA, 0.1), CMDECOD =
   c(1234, 0.1), ATIREL = c(1234, 0.1)), cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
-\item{max_n_cms}{maximum number of concommitant medications per patient.}
-
-\item{seed}{Seed for random number generation.}
+\item{max_n_cms}{maximum number of concomitant medications per patient.}
 
 \item{lookup}{Data.frame containing additional parameters.}
+
+\item{seed}{Seed for random number generation.}
 
 \item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
@@ -40,10 +40,10 @@ Subject-Level Analysis Dataset.
 \details{
 One record per each record in the corresponding SDTM domain.
 
-Keys: STUDYID USUBJID CMSTDTM CMTERM CMSEQ.
+Keys: STUDYID USUBJID ASTDTM CMSEQ.
 }
 \examples{
-ADSL <- radsl(seed = 1)
-ADCM <- radcm(ADSL, seed = 2)
-head(ADCM)
+library(random.cdisc.data)
+ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+radcm(ADSL, seed = 2)
 }

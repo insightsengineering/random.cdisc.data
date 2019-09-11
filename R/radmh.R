@@ -1,19 +1,19 @@
-#' Adverse Event Analysis Dataset (ADAE)
+#' Medical History Analysis Dataset (ADMH)
 #'
-#' Function for generating random Adverse Event Analysis Dataset for a given
+#' Function for generating random Medical History Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per each record in the corresponding SDTM domain.
 #'
-#' Keys: STUDYID USUBJID ASTDTM AETERM AESEQ.
+#' Keys: STUDYID USUBJID ASTDTM MHSEQ.
 #'
 #' @template ADSL_params
 #' @template lookup_param
-#' @param max_n_aes Maximum number of AEs per patient.
+#' @param max_n_mhs Maximum number of MHs per patient.
 #' @inheritParams radsl
 #' @inheritParams mutate_na
 #'
-#' @templateVar data adae
+#' @templateVar data admh
 #' @template param_cached
 #'
 #' @template return_data.frame
@@ -28,76 +28,76 @@
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
-#' radae(ADSL, seed = 2)
-radae <- function(ADSL, # nolint
-                  max_n_aes = 10L,
+#' radmh(ADSL, seed = 2)
+radmh <- function(ADSL, # nolint
+                  max_n_mhs = 10L,
                   lookup = NULL,
                   seed = NULL,
                   na_percentage = 0,
-                  na_vars = list(AEBODSYS = c(NA, 0.1), AEDECOD = c(1234, 0.1), AETOXGR = c(1234, 0.1)),
+                  na_vars = list(MHBODSYS = c(NA, 0.1), MHDECOD = c(1234, 0.1)),
                   cached = FALSE) {
   stopifnot(is.logical.single(cached))
   if (cached) {
-    return(get_cached_data("cadae"))
+    return(get_cached_data("cadmh"))
   }
 
   stopifnot(is.data.frame(ADSL))
-  stopifnot(is.integer.single(max_n_aes))
+  stopifnot(is.integer.single(max_n_mhs))
   stopifnot(is.null(seed) || is.numeric.single(seed))
   stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   if (is.null(lookup)) {
-    lookup_ae <- tribble(
-      ~AEBODSYS, ~AEDECOD, ~AETOXGR, ~AESOC, ~AESER, ~AREL,
-      "cl A", "trm A_1/2", 1, "cl A", "N", "N",
-      "cl A", "trm A_2/2", 2, "cl A", "Y", "N",
-      "cl B", "trm B_1/3", 5, "cl B", "N", "Y",
-      "cl B", "trm B_2/3", 3, "cl B", "N", "N",
-      "cl B", "trm B_3/3", 1, "cl B", "Y", "N",
-      "cl C", "trm C_1/2", 4, "cl C", "N", "Y",
-      "cl C", "trm C_2/2", 2, "cl C", "N", "Y",
-      "cl D", "trm D_1/3", 5, "cl D", "Y", "N",
-      "cl D", "trm D_2/3", 3, "cl D", "N", "N",
-      "cl D", "trm D_3/3", 1, "cl D", "N", "Y"
+    lookup_mh <- tribble(
+      ~MHBODSYS, ~MHDECOD, ~MHSOC,
+      "cl A", "trm A_1/2", "cl A",
+      "cl A", "trm A_2/2", "cl A",
+      "cl B", "trm B_1/3", "cl B",
+      "cl B", "trm B_2/3", "cl B",
+      "cl B", "trm B_3/3", "cl B",
+      "cl C", "trm C_1/2", "cl C",
+      "cl C", "trm C_2/2", "cl C",
+      "cl D", "trm D_1/3", "cl D",
+      "cl D", "trm D_2/3", "cl D",
+      "cl D", "trm D_3/3", "cl D"
     )
   } else {
-    lookup_ae <- lookup
+    lookup_mh <- lookup
   }
 
   if (!is.null(seed)) {
     set.seed(seed)
   }
 
-  ADAE <- Map(function(id, sid) { # nolint
-    n_aes <- sample(0:max_n_aes, 1)
-    i <- sample(1:nrow(lookup_ae), n_aes, TRUE)
-    lookup_ae[i, ] %>% mutate(
+  ADMH <- Map(function(id, sid) { # nolint
+    n_mhs <- sample(0:max_n_mhs, 1)
+    i <- sample(1:nrow(lookup_mh), n_mhs, TRUE)
+    lookup_mh[i, ] %>% mutate(
       USUBJID = id,
       STUDYID = sid
     )
   }, ADSL$USUBJID, ADSL$STUDYID) %>%
     Reduce(rbind, .) %>%
-    `[`(c(7, 8, 1, 2, 3, 4, 5, 6)) %>%
-    mutate(AETERM = .data$AEDECOD)
+    `[`(c(4, 5, 1, 2, 3)) %>%
+    mutate(MHTERM = .data$MHDECOD)
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADAE <- mutate_na(ds = ADAE, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    ADMH <- mutate_na(ds = ADMH, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
-  ADAE <- var_relabel( # nolint
-    ADAE,
+  ADMH <- var_relabel( # nolint
+    ADMH,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
-  # merge ADSL to be able to add AE date and study day variables
-  ADAE <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
-                     ADAE, by = c("STUDYID", "USUBJID")) %>%
+  # merge ADSL to be able to add MH date and study day variables
+  ADMH <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
+                     ADMH, by = c("STUDYID", "USUBJID")) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
       !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
-      is.na(.data$TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
+      is.na(.data$TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
     )) %>%
     mutate(ASTDTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
                                origin = "1970-01-01")) %>%
@@ -108,17 +108,17 @@ radae <- function(ADSL, # nolint
                                origin = "1970-01-01")) %>%
     mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
     ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$AETERM)
+    arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHTERM)
 
-  ADAE <- ADAE %>% # nolint
+  ADMH <- ADMH %>% # nolint
     group_by(.data$USUBJID) %>%
-    mutate(AESEQ = 1:n()) %>%
-    mutate(ASEQ = .data$AESEQ) %>%
+    mutate(MHSEQ = 1:n()) %>%
+    mutate(ASEQ = .data$MHSEQ) %>%
     ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$AETERM, .data$AESEQ)
+    arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHSEQ)
 
   # apply metadata
-  ADAE <- apply_metadata(ADAE, "metadata/ADAE.yml", ADSL = ADSL) # nolint
+  ADMH <- apply_metadata(ADMH, "metadata/ADMH.yml", ADSL = ADSL) # nolint
 
-  return(ADAE)
+  return(ADMH)
 }

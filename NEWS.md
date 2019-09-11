@@ -1,8 +1,13 @@
 # random.cdisc.data next release
 
+* Added Medical History Analysis Dataset (`radmh`)
+* Introduced missing values in random datasets generators (i.e. `r<name>`)
+* Updating list of created columns in multiple datasets
+* Enhanced auto-testing
+
 # random.cdisc.data 0.2.1
 
-* added cached versions of the datasets `c<name>`
+* Added cached versions of the datasets `c<name>`
 
 # random.cdisc.data 0.2.0
 

@@ -5,31 +5,32 @@
 #'
 #' @details One record per subject per parameter per analysis visit per analysis date.
 #'
-#' Keys: STUDYID USUBJID PARAMCD AVISITN.
+#' Keys: STUDYID, USUBJID, PARAMCD, BASETYPE, AVISITN, ATPTN, DTYPE, ADTM, VSSEQ, ASPID.
 #'
 #' @template ADSL_params
 #' @template BDS_findings_params
 #' @param paramu As character string. list of parameter unit values.
 #' @inheritParams radsl
 #' @inheritParams mutate_na
+#'
 #' @templateVar data advs
 #' @template param_cached
-#'
 #' @template return_data.frame
 #'
-#' @importFrom dplyr case_when mutate
+#' @importFrom dplyr case_when mutate arrange group_by n
 #' @importFrom magrittr %>%
 #' @importFrom stats rnorm
+#' @importFrom rlang .data
 #'
 #' @export
 #'
 #' @author npaszty
 #'
 #' @examples
-#' ADSL <- radsl(seed = 1)
-#' ADVS <- radvs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-#' ADVS <- radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
-#' head(ADVS)
+#' library(random.cdisc.data)
+#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' radvs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+#' radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
 radvs <- function(ADSL, # nolint
                   param = c("Diastolic Blood Pressure",
                             "Pulse Rate",
@@ -42,12 +43,11 @@ radvs <- function(ADSL, # nolint
                   n_assessments = 5L,
                   n_days = 5L,
                   seed = NULL,
-                  cached = FALSE,
                   na_percentage = 0,
                   na_vars = list(CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1),
-                      AVAL = c(123, 0.1), AVALU = c(123, 0.1)
-                      )
-                ) {
+                                 AVAL = c(123, 0.1), AVALU = c(123, 0.1)
+                  ),
+                  cached = FALSE) {
 
   stopifnot(is.logical.single(cached))
   if (cached) {
@@ -61,6 +61,7 @@ radvs <- function(ADSL, # nolint
   stopifnot(is.character.single(visit_format))
   stopifnot(is.integer.single(n_assessments))
   stopifnot(is.integer.single(n_days))
+  stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   # validate and initialize param vectors
   param_init_list <- relvar_init(param, paramcd)
@@ -86,6 +87,8 @@ radvs <- function(ADSL, # nolint
       TRUE ~ NA_real_
     ))
 
+  ADVS$VSCAT <- "VITAL SIGNS" # nolint
+
   # assign related variable values: PARAMxPARAMCD are related
   ADVS$PARAMCD <- as.factor(rel_var( # nolint
     df = ADVS,
@@ -101,6 +104,7 @@ radvs <- function(ADSL, # nolint
   ))
 
   ADVS$AVAL <- rnorm(nrow(ADVS), mean = 50, sd = 8) # nolint
+  ADVS$VSSTRESC <- ADVS$AVAL # nolint
 
   # order to prepare for change from screening and baseline values
   ADVS <- ADVS[order(ADVS$STUDYID, ADVS$USUBJID, ADVS$PARAMCD, ADVS$AVISITN), ] # nolint
@@ -123,19 +127,59 @@ radvs <- function(ADSL, # nolint
 
   ADVS$BASE2 <- retain(ADVS, ADVS$AVAL, ADVS$ABLFL2 == "Y") # nolint
   ADVS$BASE <- ifelse(ADVS$ABLFL2 != "Y", retain(ADVS, ADVS$AVAL, ADVS$ABLFL == "Y"), NA) # nolint
+  ANRIND_choices <- c("HIGH", "LOW", "NORMAL") # nolint
 
   ADVS <- ADVS %>% # nolint
-    mutate(CHG2 = AVAL - BASE2) %>%
-    mutate(PCHG2 = 100 * (CHG2 / BASE2)) %>%
-    mutate(CHG = AVAL - BASE) %>%
-    mutate(PCHG = 100 * (CHG / BASE)) %>%
+    mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
+    mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
+    mutate(CHG = .data$AVAL - .data$BASE) %>%
+    mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
+    mutate(ANRIND = ANRIND_choices %>%
+             sample_fct(nrow(ADVS), prob = c(0.1, 0.1, 0.8))) %>%
+    mutate(BASETYPE = "LAST") %>%
+    mutate(ATPTN = 1) %>%
+    mutate(DTYPE = NA) %>%
     var_relabel(
       USUBJID = attr(ADSL$USUBJID, "label"),
       STUDYID = attr(ADSL$STUDYID, "label")
     )
 
-  if (na_percentage > 0 && na_percentage <= 1 && length(na_vars) > 0) {
+  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADVS <- mutate_na(ds = ADVS, na_vars = na_vars, na_percentage = na_percentage) #nolint
   }
-  apply_metadata(ADVS, "metadata/ADVS.yml", seed = seed, ADSL = ADSL)
+
+  ADVS <- var_relabel( # nolint
+    ADVS,
+    STUDYID = "Study Identifier",
+    USUBJID = "Unique Subject Identifier"
+  )
+
+  # merge ADSL to be able to add LB date and study day variables
+  ADVS <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
+                     ADVS, by = c("STUDYID", "USUBJID")) %>%
+    rowwise() %>%
+    mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
+    mutate(trtedt_int = case_when(
+      !is.na(TRTEDTM) ~ as.numeric(as.Date(TRTEDTM)),
+      is.na(TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
+    )) %>%
+    mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
+    mutate(astdt_int = as.numeric(as.Date(.data$ADTM))) %>%
+    mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
+    ungroup() %>%
+    arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
+
+  ADVS <- ADVS %>% # nolint
+    mutate(ASPID = sample(1:n())) %>%
+    group_by(.data$USUBJID) %>%
+    mutate(VSSEQ = 1:n()) %>%
+    mutate(ASEQ = .data$VSSEQ) %>%
+    ungroup() %>%
+    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISITN, .data$ATPTN, .data$DTYPE,
+            .data$ADTM, .data$VSSEQ, .data$ASPID)
+
+  # apply metadata
+  ADVS <- apply_metadata(ADVS, "metadata/ADVS.yml", ADSL = ADSL) # nolint
+
+  return(ADVS)
 }

@@ -4,20 +4,21 @@
 \alias{radaette}
 \title{Time to Adverse Event Analysis Dataset (ADAETTE)}
 \usage{
-radaette(ADSL, seed = NULL, lookup = NULL, event.descr = NULL,
-  censor.descr = NULL, na_percentage = 0, na_vars = list(CNSR = c(NA,
-  0.1), AVAL = c(1234, 0.1), AVALU = c(1234, 0.1)), cached = FALSE)
+radaette(ADSL, event.descr = NULL, censor.descr = NULL,
+  lookup = NULL, seed = NULL, na_percentage = 0,
+  na_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234, 0.1), AVALU = c(1234,
+  0.1)), cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
-\item{seed}{Seed for random number generation.}
-
-\item{lookup}{Data.frame containing additional parameters.}
-
 \item{event.descr}{Character vector with description of events.}
 
 \item{censor.descr}{Character vector with description of censors.}
+
+\item{lookup}{Data.frame containing additional parameters.}
+
+\item{seed}{Seed for random number generation.}
 
 \item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 
@@ -40,12 +41,12 @@ Function to generate random time to AE dataset for a
 given subject-level analysis dataset.
 }
 \details{
-Keys: STUDYID USUBJID PARAMCD AVISITN ADT TTESEQ
+Keys: STUDYID USUBJID PARAMCD
 }
 \examples{
-ADSL <- suppressWarnings(radsl(seed = 1))
-ADAETTE <- radaette(ADSL, seed  = 2)
-head(ADAETTE)
+library(random.cdisc.data)
+ADSL <- suppressWarnings(radsl(N = 10, seed = 1, study_duration = 2))
+radaette(ADSL, seed  = 2)
 }
 \author{
 Xiuting Mi
