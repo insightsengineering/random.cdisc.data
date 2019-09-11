@@ -17,7 +17,7 @@
 #'
 #' @template return_data.frame
 #'
-#' @importFrom dplyr filter mutate rowwise select arrange
+#' @importFrom dplyr arrange case_when filter group_by mutate n rowwise select ungroup
 #' @importFrom magrittr %>%
 #' @importFrom tibble tribble
 #'
@@ -40,7 +40,7 @@ radaette <- function(ADSL, # nolint
 
   stopifnot(is.logical.single(cached))
   if (cached) {
-    return(get_cached_data("adaette"))
+    return(get_cached_data("cadaette"))
   }
 
   stopifnot(is.data.frame(ADSL))
@@ -90,7 +90,7 @@ radaette <- function(ADSL, # nolint
   )
 
   ADAETTE <- split(ADSL, ADSL$USUBJID) %>% # nolint
-    lapply(FUN = function(pinfo) {
+    lapply(function(pinfo) {
       lookup_ADAETTE %>%
         dplyr::filter(.data$ARM == as.character(pinfo$ARMCD)) %>%
         rowwise() %>%
@@ -123,8 +123,9 @@ radaette <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add AETTE date and study day variables
-  ADAETTE <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
-                        ADAETTE, by = c("STUDYID", "USUBJID")) %>%
+  ADAETTE <- inner_join(select(ADSL, -.data$SITEID, -.data$ARM), # nolint
+                        ADAETTE,
+                        by = c("STUDYID", "USUBJID")) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
@@ -132,8 +133,8 @@ radaette <- function(ADSL, # nolint
       is.na(TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
     )) %>%
     mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
-    mutate(astdt_int = as.numeric(as.Date(.data$ADTM))) %>%
     mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
+    select(-.data$trtsdt_int, -.data$trtedt_int) %>%
     ungroup() %>%
     arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
@@ -147,7 +148,7 @@ radaette <- function(ADSL, # nolint
     arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$ADTM, .data$TTESEQ)
 
   # apply metadata
-  ADAETTE <- apply_metadata(ADAETTE, "metadata/ADAETTE.yml", ADSL = ADSL) # nolint
+  ADAETTE <- apply_metadata(ADAETTE, "metadata/ADAETTE.yml") # nolint.
 
   return(ADAETTE)
 }

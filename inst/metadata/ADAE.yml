@@ -5,27 +5,38 @@ domain:
 variables:
   ASEQ:
     label: Analysis Sequence Number
+    type: integer
   AESEQ:
     label: Sponsor-Defined Identifier
+    type: character
   AETERM:
     label: Reported Term for the Adverse Event
+    type: factor
   AEDECOD:
     label: Dictionary-Derived Term
+    type: factor
   AEBODSYS:
     label: Body System or Organ Class
+    type: factor
   AESOC:
     label: Primary System Organ Class
+    type: factor
   AESER:
     label: Serious Event
+    type: factor
   AREL:
     label: Analysis Causality
+    type: factor
   ASTDTM:
     label: Analysis Start Datetime
   AENDTM:
     label: Analysis End Datetime
   ASTDY:
     label: Analysis Start Relative Day
+    type: integer
   AENDY:
     label: Analysis End Relative Day
-  ATOXGR:
+    type: integer
+  AETOXGR:
     label: Analysis Toxicity Grade
+    type: integer

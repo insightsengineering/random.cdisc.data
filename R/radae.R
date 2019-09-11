@@ -18,7 +18,7 @@
 #'
 #' @template return_data.frame
 #'
-#' @importFrom dplyr mutate rowwise arrange ungroup
+#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup
 #' @importFrom magrittr %>%
 #' @importFrom tibble tribble
 #' @importFrom rlang .data
@@ -46,8 +46,9 @@ radae <- function(ADSL, # nolint
   stopifnot(is.null(seed) || is.numeric.single(seed))
   stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
-  if (is.null(lookup)) {
-    lookup_ae <- tribble(
+  lookup_ae <- if_null( # nolint
+    lookup,
+    tribble(
       ~AEBODSYS, ~AEDECOD, ~AETOXGR, ~AESOC, ~AESER, ~AREL,
       "cl A", "trm A_1/2", 1, "cl A", "N", "N",
       "cl A", "trm A_2/2", 2, "cl A", "Y", "N",
@@ -60,22 +61,25 @@ radae <- function(ADSL, # nolint
       "cl D", "trm D_2/3", 3, "cl D", "N", "N",
       "cl D", "trm D_3/3", 1, "cl D", "N", "Y"
     )
-  } else {
-    lookup_ae <- lookup
-  }
+  )
 
   if (!is.null(seed)) {
     set.seed(seed)
   }
 
-  ADAE <- Map(function(id, sid) { # nolint
-    n_aes <- sample(0:max_n_aes, 1)
-    i <- sample(1:nrow(lookup_ae), n_aes, TRUE)
-    lookup_ae[i, ] %>% mutate(
-      USUBJID = id,
-      STUDYID = sid
-    )
-  }, ADSL$USUBJID, ADSL$STUDYID) %>%
+  ADAE <- Map( # nolint
+    function(id, sid) {
+      n_aes <- sample(c(0, seq_len(max_n_aes)), 1)
+      i <- sample(seq_len(nrow(lookup_ae)), n_aes, TRUE)
+      mutate(
+        lookup_ae[i, ],
+        USUBJID = id,
+        STUDYID = sid
+      )
+    },
+    ADSL$USUBJID,
+    ADSL$STUDYID
+  ) %>%
     Reduce(rbind, .) %>%
     `[`(c(7, 8, 1, 2, 3, 4, 5, 6)) %>%
     mutate(AETERM = .data$AEDECOD)
@@ -91,8 +95,9 @@ radae <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add AE date and study day variables
-  ADAE <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
-                     ADAE, by = c("STUDYID", "USUBJID")) %>%
+  ADAE <- inner_join(ADSL, # nolint
+                     ADAE,
+                     by = c("STUDYID", "USUBJID")) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
@@ -107,6 +112,7 @@ radae <- function(ADSL, # nolint
     mutate(AENDTM = as.POSIXct((sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
                                origin = "1970-01-01")) %>%
     mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
+    select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
     ungroup() %>%
     arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$AETERM)
 
@@ -118,7 +124,7 @@ radae <- function(ADSL, # nolint
     arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$AETERM, .data$AESEQ)
 
   # apply metadata
-  ADAE <- apply_metadata(ADAE, "metadata/ADAE.yml", ADSL = ADSL) # nolint
+  ADAE <- apply_metadata(ADAE, "metadata/ADAE.yml") # nolint
 
   return(ADAE)
 }

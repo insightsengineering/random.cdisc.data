@@ -18,7 +18,7 @@
 #'
 #' @template return_data.frame
 #'
-#' @importFrom dplyr mutate rowwise arrange ungroup
+#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup
 #' @importFrom magrittr %>%
 #' @importFrom tibble tribble
 #' @importFrom rlang .data
@@ -46,8 +46,9 @@ radmh <- function(ADSL, # nolint
   stopifnot(is.null(seed) || is.numeric.single(seed))
   stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
-  if (is.null(lookup)) {
-    lookup_mh <- tribble(
+  lookup_mh <- if_null(
+    lookup,
+    tribble(
       ~MHBODSYS, ~MHDECOD, ~MHSOC,
       "cl A", "trm A_1/2", "cl A",
       "cl A", "trm A_2/2", "cl A",
@@ -60,22 +61,25 @@ radmh <- function(ADSL, # nolint
       "cl D", "trm D_2/3", "cl D",
       "cl D", "trm D_3/3", "cl D"
     )
-  } else {
-    lookup_mh <- lookup
-  }
+  )
 
   if (!is.null(seed)) {
     set.seed(seed)
   }
 
-  ADMH <- Map(function(id, sid) { # nolint
-    n_mhs <- sample(0:max_n_mhs, 1)
-    i <- sample(1:nrow(lookup_mh), n_mhs, TRUE)
-    lookup_mh[i, ] %>% mutate(
-      USUBJID = id,
-      STUDYID = sid
-    )
-  }, ADSL$USUBJID, ADSL$STUDYID) %>%
+  ADMH <- Map( # nolint
+    function(id, sid) {
+      n_mhs <- sample(0:max_n_mhs, 1)
+      i <- sample(1:nrow(lookup_mh), n_mhs, TRUE)
+      mutate(
+        lookup_mh[i, ],
+        USUBJID = id,
+        STUDYID = sid
+      )
+    },
+    ADSL$USUBJID,
+    ADSL$STUDYID
+  ) %>%
     Reduce(rbind, .) %>%
     `[`(c(4, 5, 1, 2, 3)) %>%
     mutate(MHTERM = .data$MHDECOD)
@@ -91,8 +95,9 @@ radmh <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add MH date and study day variables
-  ADMH <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
-                     ADMH, by = c("STUDYID", "USUBJID")) %>%
+  ADMH <- inner_join(ADSL, # nolint
+                     ADMH,
+                     by = c("STUDYID", "USUBJID")) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
@@ -107,6 +112,7 @@ radmh <- function(ADSL, # nolint
     mutate(AENDTM = as.POSIXct((sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
                                origin = "1970-01-01")) %>%
     mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
+    select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
     ungroup() %>%
     arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHTERM)
 
@@ -118,7 +124,7 @@ radmh <- function(ADSL, # nolint
     arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHSEQ)
 
   # apply metadata
-  ADMH <- apply_metadata(ADMH, "metadata/ADMH.yml", ADSL = ADSL) # nolint
+  ADMH <- apply_metadata(ADMH, "metadata/ADMH.yml") # nolint
 
   return(ADMH)
 }

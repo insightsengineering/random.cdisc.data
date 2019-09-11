@@ -17,7 +17,7 @@
 #' @template param_cached
 #' @template return_data.frame
 #'
-#' @importFrom dplyr filter mutate rowwise arrange
+#' @importFrom dplyr arrange case_when filter group_by mutate n rowwise select ungroup
 #' @importFrom magrittr %>%
 #' @importFrom tibble tribble
 #'
@@ -120,13 +120,14 @@ radtte <- function(ADSL, # nolint
 
   ADTTE <- var_relabel( # nolint
     ADTTE,
-      STUDYID = "Study Identifier",
-      USUBJID = "Unique Subject Identifier"
-    )
+    STUDYID = "Study Identifier",
+    USUBJID = "Unique Subject Identifier"
+  )
 
   # merge ADSL to be able to add TTE date and study day variables
-  ADTTE <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
-                        ADTTE, by = c("STUDYID", "USUBJID")) %>%
+  ADTTE <- inner_join(select(ADSL, -.data$SITEID, -.data$ARM), # nolint
+                      ADTTE,
+                      by = c("STUDYID", "USUBJID")) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
@@ -134,8 +135,8 @@ radtte <- function(ADSL, # nolint
       is.na(TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
     )) %>%
     mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
-    mutate(astdt_int = as.numeric(as.Date(.data$ADTM))) %>%
     mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
+    select(-.data$trtsdt_int, -.data$trtedt_int) %>%
     ungroup() %>%
     arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
@@ -149,7 +150,7 @@ radtte <- function(ADSL, # nolint
     arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$ADTM, .data$TTESEQ)
 
   # apply metadata
-  ADTTE <- apply_metadata(ADTTE, "metadata/ADTTE.yml", ADSL = ADSL) # nolint
+  ADTTE <- apply_metadata(ADTTE, "metadata/ADTTE.yml") # nolint
 
   return(ADTTE)
 }

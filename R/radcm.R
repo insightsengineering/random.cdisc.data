@@ -18,9 +18,9 @@
 #'
 #' @template return_data.frame
 #'
+#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup
 #' @importFrom magrittr %>%
 #' @importFrom tibble tribble
-#' @importFrom dplyr arrange
 #'
 #' @export
 #'
@@ -42,7 +42,7 @@ radcm <- function(ADSL, # nolint
 
   stopifnot(is.data.frame(ADSL))
   stopifnot(is.integer.single(max_n_cms))
-  stopifnot(is.numeric.single(seed))
+  stopifnot(is.null(seed) || is.numeric.single(seed))
   stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   lookup_cm <- if_null(
@@ -66,9 +66,10 @@ radcm <- function(ADSL, # nolint
   }
 
   ADCM <- Map(function(id, sid) { # nolint
-    n_cms <- sample(0:max_n_cms, 1)
-    i <- sample(1:nrow(lookup_cm), n_cms, TRUE)
-    lookup_cm[i, ] %>% mutate(
+    n_cms <- sample(c(0, seq_len(max_n_cms)), 1)
+    i <- sample(seq_len(nrow(lookup_cm)), n_cms, TRUE)
+    mutate(
+      lookup_cm[i, ],
       USUBJID = id,
       STUDYID = sid
     )
@@ -88,8 +89,9 @@ radcm <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add CM date and study day variables
-  ADCM <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
-                     ADCM, by = c("STUDYID", "USUBJID")) %>%
+  ADCM <- inner_join(ADSL, # nolint
+                     ADCM,
+                     by = c("STUDYID", "USUBJID")) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
@@ -104,6 +106,7 @@ radcm <- function(ADSL, # nolint
     mutate(AENDTM = as.POSIXct((sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
                                origin = "1970-01-01")) %>%
     mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
+    select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
     ungroup() %>%
     arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)
 
@@ -115,7 +118,7 @@ radcm <- function(ADSL, # nolint
     arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$CMSEQ)
 
   # apply metadata
-  ADCM <- apply_metadata(ADCM, "metadata/ADCM.yml", ADSL = ADSL) # nolint
+  ADCM <- apply_metadata(ADCM, "metadata/ADCM.yml") # nolint
 
   return(ADCM)
 }

@@ -1,6 +1,5 @@
 # random.cdisc.data
 
-
 The `random.cdisc.data` is a package for creating random CDISC data. 
 The random datasets available to create are:
 
@@ -14,6 +13,8 @@ The random datasets available to create are:
  - Time-to-Event Dataset (`radtte`)
  - Tumor Response Analysis Dataset (`radrs`)
  - Vital Signs Analysis Dataset (`radvs`)
+ 
+  Please note to update cached data on changes to random data function via data/script.R
 
 # Installation
 

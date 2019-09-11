@@ -16,7 +16,7 @@
 #' @template param_cached
 #' @template return_data.frame
 #'
-#' @importFrom dplyr case_when mutate arrange
+#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup
 #' @importFrom magrittr %>%
 #' @importFrom stats rnorm
 #'
@@ -75,13 +75,15 @@ radqs <- function(ADSL, # nolint
     stringsAsFactors = FALSE
   )
 
-  ADQS <- ADQS %>% # nolint
-    mutate(AVISITN = case_when(
+  ADQS <- mutate( # nolint
+    ADQS,
+    AVISITN = case_when(
       AVISIT == "SCREENING" ~ -1,
       AVISIT == "BASELINE" ~ 0,
       (grepl("^WEEK", AVISIT) | grepl("^CYCLE", AVISIT)) ~ as.numeric(AVISIT) - 2,
       TRUE ~ NA_real_
-    ))
+    )
+  )
 
   # assign related variable values: PARAMxPARAMCD are related
   ADQS$PARAMCD <- rel_var(df = ADQS, var_name = "PARAMCD", var_values = param_init_list$relvar2, related_var = "PARAM") # nolint
@@ -91,21 +93,27 @@ radqs <- function(ADSL, # nolint
   # order to prepare for change from screening and baseline values
   ADQS <- ADQS[order(ADQS$STUDYID, ADQS$USUBJID, ADQS$PARAMCD, ADQS$AVISITN), ] # nolint
 
-  ADQS <- Reduce(rbind, lapply(split(ADQS, ADQS$USUBJID), function(x) { # nolint
-    x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])] # nolint
-    x$ABLFL2 <- ifelse(x$AVISIT == "SCREENING", "Y", "") # nolint
-    x$ABLFL <- ifelse( # nolint
-      toupper(visit_format) == "WEEK" & x$AVISIT == "BASELINE",
-      "Y",
-      ifelse(
-        toupper(visit_format) == "CYCLE" & x$AVISIT == "CYCLE 1 DAY 1",
-        "Y",
-        ""
-      )
+  ADQS <- Reduce( # nolint
+    rbind,
+    lapply(
+      split(ADQS, ADQS$USUBJID),
+      function(x) {
+        x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])] # nolint
+        x$ABLFL2 <- ifelse(x$AVISIT == "SCREENING", "Y", "") # nolint
+        x$ABLFL <- ifelse( # nolint
+          toupper(visit_format) == "WEEK" & x$AVISIT == "BASELINE",
+          "Y",
+          ifelse(
+            toupper(visit_format) == "CYCLE" & x$AVISIT == "CYCLE 1 DAY 1",
+            "Y",
+            ""
+          )
+        )
+        x$LOQFL <- ifelse(x$AVAL < 32, "Y", "N") # nolint
+        x
+      }
     )
-    x$LOQFL <- ifelse(x$AVAL < 32, "Y", "N") # nolint
-    x
-  }))
+  )
 
   ADQS$BASE2 <- retain(ADQS, ADQS$AVAL, ADQS$ABLFL2 == "Y") # nolint
   ADQS$BASE <- ifelse(ADQS$ABLFL2 != "Y", retain(ADQS, ADQS$AVAL, ADQS$ABLFL == "Y"), NA) # nolint
@@ -131,8 +139,9 @@ radqs <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add QS date and study day variables
-  ADQS <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
-                     ADQS, by = c("STUDYID", "USUBJID")) %>%
+  ADQS <- inner_join(ADSL, # nolint
+                     ADQS,
+                     by = c("STUDYID", "USUBJID")) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
@@ -140,8 +149,8 @@ radqs <- function(ADSL, # nolint
       is.na(TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
     )) %>%
     mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
-    mutate(astdt_int = as.numeric(as.Date(.data$ADTM))) %>%
     mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
+    select(-.data$trtsdt_int, -.data$trtedt_int) %>%
     ungroup() %>%
     arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
@@ -153,7 +162,7 @@ radqs <- function(ADSL, # nolint
     arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$AVISITN, .data$ADTM, .data$QSSEQ)
 
   # apply metadata
-  ADQS <- apply_metadata(ADQS, "metadata/ADQS.yml", ADSL = ADSL) # nolint
+  ADQS <- apply_metadata(ADQS, "metadata/ADQS.yml") # nolint
 
   return(ADQS)
 }

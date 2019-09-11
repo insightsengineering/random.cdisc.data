@@ -3,63 +3,86 @@ domain:
   label: Subject Level Analysis Dataset
 
 variables:
-    STUDYID:
-      label: Study Identifier
-    USUBJID:
-      label: Unique Subject Identifier
-    SUBJID:
-      label: Identifier for the Study
-    SITEID:
-      label: Study Site Identifier
-    AGE:
-      label: Age
-    SEX:
-      label: Sex
-    RACE:
-      label: Race
-    COUNTRY:
-      label: Country
-    INVID:
-      label: Investigator Identifier
-    ARM:
-      label: Description of Planned Arm
-    ARMCD:
-      label: Planned Arm Code
-    ACTARM:
-      label: Description of Actual Arm
-    ACTARMCD:
-      label: Actual Arm Code
-    STRATA1:
-      label: Stratification Factor 1
-    STRATA2:
-      label: Stratification Factor 2
-    BMRKR1:
-      label: Continous Level Biomarker 1
-    BMRKR2:
-      label: Categorical Level Biomarker 2
-    ITTFL:
-      label: Intent-To-Treat Population Flag
-    BMEASIFL:
-      label: Response Evaluable Population Flag
-    BEP01FL:
-      label: Biomarker Evaluable Population Flag
-    RANDDT:
-      label: Date of Randomization
-    TRTSDTM:
-      label: Datetime of First Exposure to Treatment
-    TRTEDTM:
-      label: Datetime of Last Exposure to Treatment
-    EOSSTT:
-      label: End of Study Status
-    EOSDT:
-      label: End of Study Date
-    EOSDY:
-      label: End of Study Relative Day
-    DCSREAS:
-      label: Reason for Discontinuation from Study
-    DTHDT:
-      label: Date of Death
-    LSTALVDT:
-      label: Date Last Known Alive
-    study_duration_secs:
-      label: NOT A STANDARD BUT NEEDED FOR RCD
+  STUDYID:
+    label: Study Identifier
+    type: character
+  USUBJID:
+    label: Unique Subject Identifier
+    type: character
+  SUBJID:
+    label: Identifier for the Study
+    type: character
+  SITEID:
+    label: Study Site Identifier
+    type: character
+  AGE:
+    label: Age
+    type: integer
+  SEX:
+    label: Sex
+    type: factor
+  RACE:
+    label: Race
+    type: factor
+  COUNTRY:
+    label: Country
+    type: factor
+  INVID:
+    label: Investigator Identifier
+    type: character
+  ARM:
+    label: Description of Planned Arm
+    type: factor
+  ARMCD:
+    label: Planned Arm Code
+    type: factor
+  ACTARM:
+    label: Description of Actual Arm
+    type: factor
+  ACTARMCD:
+    label: Actual Arm Code
+    type: factor
+  STRATA1:
+    label: Stratification Factor 1
+    type: factor
+  STRATA2:
+    label: Stratification Factor 2
+    type: factor
+  BMRKR1:
+    label: Continous Level Biomarker 1
+    type: numeric
+  BMRKR2:
+    label: Categorical Level Biomarker 2
+    type: factor
+  ITTFL:
+    label: Intent-To-Treat Population Flag
+    type: factor
+  BMEASIFL:
+    label: Response Evaluable Population Flag
+    type: factor
+  BEP01FL:
+    label: Biomarker Evaluable Population Flag
+    type: factor
+  RANDDT:
+    label: Date of Randomization
+  TRTSDTM:
+    label: Datetime of First Exposure to Treatment
+  TRTEDTM:
+    label: Datetime of Last Exposure to Treatment
+  EOSSTT:
+    label: End of Study Status
+    type: factor
+  EOSDT:
+    label: End of Study Date
+  EOSDY:
+    label: End of Study Relative Day
+    type: integer
+  DCSREAS:
+    label: Reason for Discontinuation from Study
+    type: factor
+  DTHDT:
+    label: Date of Death
+  LSTALVDT:
+    label: Date Last Known Alive
+  study_duration_secs:
+    label: NOT A STANDARD BUT NEEDED FOR RCD

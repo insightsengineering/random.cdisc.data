@@ -4,14 +4,17 @@
 \alias{apply_metadata}
 \title{Apply label and variable ordering attributes to domains}
 \usage{
-apply_metadata(df, filename, ADSL = NULL)
+apply_metadata(df, filename, add_adsl = TRUE,
+  adsl_filename = "metadata/ADSL.yml")
 }
 \arguments{
 \item{df}{data frame to which metadata are applied.}
 
 \item{filename}{\code{yaml} file containing domain metadata.}
 
-\item{ADSL}{logical to control merging of ADSL data to domain.}
+\item{add_adsl}{logical to control merging of ADSL data to domain}
+
+\item{adsl_filename}{\code{yaml} file containing ADSL metadata.}
 }
 \description{
 Apply label and variable ordering attributes to domains
@@ -20,6 +23,9 @@ Apply label and variable ordering attributes to domains
 seed <- 1
 ADSL <- suppressWarnings(radsl(seed = seed))
 ADLB <- radlb(ADSL, seed = seed)
-ADSL <- random.cdisc.data:::apply_metadata(ADSL, "ADSL.yml", ADSL = ADSL)
-ADLB <- random.cdisc.data:::apply_metadata(ADLB, "ADLB.yml", ADSL = ADSL)
+\donttest{
+ADSL <- random.cdisc.data:::apply_metadata(ADSL, "../metadata/ADSL.yml", FALSE)
+ADLB <- random.cdisc.data:::apply_metadata(ADLB, "../metadata/ADLB.yml", TRUE,
+  "../metadata/ADSL.yml")
+}
 }

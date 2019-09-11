@@ -20,7 +20,7 @@
 #' @template param_cached
 #' @template return_data.frame
 #'
-#' @importFrom dplyr filter mutate recode arrange
+#' @importFrom dplyr arrange case_when filter group_by mutate n recode rowwise select ungroup
 #' @importFrom magrittr %>%
 #' @importFrom tibble tibble
 #'
@@ -67,10 +67,9 @@ radrs <- function(ADSL, # nolint
   }
 
   ADRS <- split(ADSL, ADSL$USUBJID) %>% # nolint
-    lapply(FUN = function(pinfo) {
+    lapply(function(pinfo) {
 
-      probs <- lookup_ARS %>%
-        dplyr::filter(.data$ARM == as.character(pinfo$ACTARM))
+      probs <- dplyr::filter(lookup_ARS, .data$ARM == as.character(pinfo$ACTARM))
 
       # screening
       rsp_screen <- sample(probs$AVALC, 1, prob = probs$p_scr) %>% as.character()
@@ -127,8 +126,9 @@ radrs <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add RS date and study day variables
-  ADRS <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "BMEASIFL", "study_duration_secs")], # nolint
-                     ADRS, by = c("STUDYID", "USUBJID")) %>%
+  ADRS <- inner_join(select(ADSL, -.data$SITEID), # nolint
+                     ADRS,
+                     by = c("STUDYID", "USUBJID")) %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     rowwise() %>%
     mutate(trtedt_int = case_when(
@@ -137,22 +137,25 @@ radrs <- function(ADSL, # nolint
     )) %>%
     rowwise() %>%
     mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
-    mutate(astdt_int = as.numeric(as.Date(.data$ADTM))) %>%
     mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
+    select(-.data$trtsdt_int, -.data$trtedt_int) %>%
     ungroup() %>%
     arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
   ADRS[which(ADRS$AVISIT == "END OF INDUCTION"), ]$ADY <- 80 # nolint
   ADRS[which(ADRS$AVISIT == "FOLLOW UP"), ]$ADY <- 120 # nolint
 
-  ADRS <- ADRS %>% mutate(AVISITN = case_when( # nolint
-    AVISIT == "SCREENING" ~ -1,
-    AVISIT == "BASELINE" ~ 0,
-    AVISIT == "END OF INDUCTION" ~ 999.1,
-    AVISIT == "FOLLOW UP" ~ 999.2,
-    (grepl("^WEEK", AVISIT) | grepl("^CYCLE", AVISIT)) ~ as.numeric(AVISIT) - 2,
-    TRUE ~ NA_real_
-  )) %>%
+  ADRS <- mutate( # nolint
+    ADRS,
+    AVISITN = case_when(
+      AVISIT == "SCREENING" ~ -1,
+      AVISIT == "BASELINE" ~ 0,
+      AVISIT == "END OF INDUCTION" ~ 999.1,
+      AVISIT == "FOLLOW UP" ~ 999.2,
+      (grepl("^WEEK", AVISIT) | grepl("^CYCLE", AVISIT)) ~ as.numeric(AVISIT) - 2,
+      TRUE ~ NA_real_
+    )
+  ) %>%
     mutate(AVAL = ifelse(.data$BMEASIFL == "N" & .data$AVISIT == "BASELINE", NA, .data$AVAL))
 
   ADRS <- ADRS %>% # nolint
@@ -163,7 +166,7 @@ radrs <- function(ADSL, # nolint
     arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$AVISITN, .data$ADTM, .data$RSSEQ)
 
   # apply metadata
-  ADRS <- apply_metadata(ADRS, "metadata/ADRS.yml", ADSL = ADSL) # nolint
+  ADRS <- apply_metadata(ADRS, "metadata/ADRS.yml") # nolint
 
   return(ADRS)
 }

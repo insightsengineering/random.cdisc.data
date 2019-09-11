@@ -185,7 +185,8 @@ var_relabel <- function(x, ...) {
 #'
 #' @param df data frame to which metadata are applied.
 #' @param filename \code{yaml} file containing domain metadata.
-#' @param ADSL logical to control merging of ADSL data to domain.
+#' @param add_adsl logical to control merging of ADSL data to domain
+#' @param adsl_filename \code{yaml} file containing ADSL metadata.
 #'
 #' @importFrom dplyr inner_join
 #' @importFrom yaml yaml.load_file
@@ -194,43 +195,78 @@ var_relabel <- function(x, ...) {
 #' seed <- 1
 #' ADSL <- suppressWarnings(radsl(seed = seed))
 #' ADLB <- radlb(ADSL, seed = seed)
-#' ADSL <- random.cdisc.data:::apply_metadata(ADSL, "ADSL.yml", ADSL = ADSL)
-#' ADLB <- random.cdisc.data:::apply_metadata(ADLB, "ADLB.yml", ADSL = ADSL)
-apply_metadata <- function(df, filename, ADSL = NULL) { # nolint
+#' \donttest{
+#' ADSL <- random.cdisc.data:::apply_metadata(ADSL, "../metadata/ADSL.yml", FALSE)
+#' ADLB <- random.cdisc.data:::apply_metadata(ADLB, "../metadata/ADLB.yml", TRUE,
+#'   "../metadata/ADSL.yml")
+#' }
+apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metadata/ADSL.yml") { # nolint
   stopifnot(is.data.frame(df))
   stopifnot(is.character.single(filename))
-  stopifnot(is.null(ADSL) || is.data.frame(ADSL))
+  stopifnot(is.logical.single(add_adsl))
+  stopifnot(is.character.single(adsl_filename))
+
+  apply_type <- function(df, var, type) {
+    if (is.null(type)) {
+      return()
+    }
+
+    if (type == "character" && !is.character(df[[var]])) {
+      df[[var]] <<- as.character(df[[var]])
+    } else if (type == "factor" && !is.factor(df[[var]])) {
+      df[[var]] <<- as.factor(df[[var]])
+    } else if  (type == "integer" && !is.integer(df[[var]])) {
+      df[[var]] <<- as.integer(df[[var]])
+    } else if  (type == "numeric" && !is.numeric(df[[var]])) {
+      df[[var]] <<- as.numeric(df[[var]])
+    } else if  (type == "logical" && !is.logical(df[[var]])) {
+      df[[var]] <<- as.logical(df[[var]])
+    }
+  }
+
+  # remove existing attributes
+  for (i in base::setdiff(names(attributes(df)), names(attributes(data.frame())))) {
+    attr(df, i) <- NULL
+  }
 
   # get metadata
   metadata <- yaml.load_file(system.file(filename, package = "random.cdisc.data"))
+  adsl_metadata <- if (add_adsl) {
+    yaml.load_file(system.file(adsl_filename, package = "random.cdisc.data"))
+  } else {
+    NULL
+  }
+  metadata_variables <- append(adsl_metadata$variables, metadata$variables)
+  metadata_varnames <- names(metadata_variables)
+
+  # find variables that does not have labels and are not it metadata
+  missing_vars_map <- vapply(
+    names(df),
+    function(x)
+      !(x %in% c("STUDYID", "USUBJID", metadata_varnames)) && is.null(attr(df[[x]], "label")),
+    logical(1)
+  )
+  missing_vars <- names(df)[missing_vars_map]
+  if (length(missing_vars) > 0) {
+    msg <- paste0("Following variables does not have label or are not found in ", filename, ": ",
+                  paste0(missing_vars, collapse = ", "))
+    warning(msg)
+  }
+
+  if (!all(metadata_varnames %in% names(df))) {
+    missing_vars <- base::setdiff(metadata_varnames, names(df))
+    msg <- paste0("Following variables not found in random table: ", paste0(missing_vars, collapse = ", "))
+    stop(msg)
+  }
 
   ## assign labels to variables
-  for (var in intersect(names(df), names(metadata$variables))) {
-    attr(df[[var]], "label") <- metadata$variables[[var]]$label
+  for (var in metadata_varnames) {
+    apply_type(df, var, metadata_variables[[var]]$type)
+    attr(df[[var]], "label") <- metadata_variables[[var]]$label
   }
 
   ## reorder data frame columns to expected BDS order
-  df <- df[, unique(c("STUDYID", "USUBJID",
-                      intersect(names(metadata$variables), names(df))))]
-
-
-  if (!is.null(ADSL)) {
-    adsl_labels <- vapply(names(ADSL), function(x) attr(ADSL[[x]], "label"), character(1))
-
-    attr(df$STUDYID, "label") <- attr(ADSL$STUDYID, "label")
-    attr(df$USUBJID, "label") <- attr(ADSL$USUBJID, "label")
-    ## add all ADSL variables to domain, BDS is one proc away
-    df <- inner_join(ADSL, df, by = c("STUDYID", "USUBJID"))
-
-    for (var in names(adsl_labels)) {
-      if (var %in% names(df)) {
-        attr(df[[var]], "label") <- adsl_labels[var]
-      }
-    }
-  } else {
-    attr(df$STUDYID, "label") <- metadata$variables$STUDYID$label
-    attr(df$USUBJID, "label") <- metadata$variables$USUBJID$label
-  }
+  df <- df[, unique(c("STUDYID", "USUBJID", metadata_varnames, names(df)))]
 
   # assign label to data frame
   attr(df, "label") <- metadata$domain$label

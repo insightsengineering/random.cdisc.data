@@ -20,7 +20,7 @@
 #'
 #' @template return_data.frame
 #'
-#' @importFrom dplyr mutate arrange left_join
+#' @importFrom dplyr arrange case_when left_join mutate select recode
 #' @importFrom magrittr %>%
 #' @importFrom stats rchisq reorder rexp rnorm runif setNames
 #' @importFrom tibble tibble
@@ -102,7 +102,7 @@ radsl <- function(N = 400, # nolint
     mutate(TRTEDTM_discon = as.POSIXct(sample(seq(from = max(.data$st_posixn),
                                             to = sys_dtm + study_duration_secs, by = 1),
                                               size = discons), origin = "1970-01-01")) %>%
-    select("st_posixn", "TRTEDTM_discon") %>%
+    select(.data$st_posixn, .data$TRTEDTM_discon) %>%
     arrange(.data$st_posixn)
 
   ADSL <- left_join(ADSL, ADDS, by = "st_posixn") %>% # nolint
@@ -147,7 +147,7 @@ radsl <- function(N = 400, # nolint
   }
 
   # apply metadata
-  ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml") # nolint
+  ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml", FALSE) # nolint
 
   return(ADSL)
 }

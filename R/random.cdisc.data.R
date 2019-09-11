@@ -1,6 +1,5 @@
 #' Create Random SDTM and ADAM Datasets
 #'
-# @import dplyr
 #' @import utils.nest
 #' @docType package
 #' @name random.cdisc.data

@@ -20,7 +20,7 @@
 #' @template param_cached
 #' @template return_data.frame
 #'
-#' @importFrom dplyr case_when mutate arrange
+#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup
 #' @importFrom magrittr %>%
 #' @importFrom stats rnorm
 #'
@@ -105,6 +105,10 @@ radlb <- function(ADSL, # nolint
     related_var = "PARAM"
   ))
 
+  ADLB <- ADLB %>% # nolint
+    mutate(LBTESTCD = .data$PARAMCD) %>%
+    mutate(LBTEST = .data$PARAM)
+
   ADLB <- ADLB %>% mutate(AVISITN = case_when( # nolint
     AVISIT == "SCREENING" ~ -1,
     AVISIT == "BASELINE" ~ 0,
@@ -171,8 +175,9 @@ radlb <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add LB date and study day variables
-  ADLB <- inner_join(ADSL[, c("STUDYID", "USUBJID", "TRTSDTM", "TRTEDTM", "study_duration_secs")], # nolint
-                     ADLB, by = c("STUDYID", "USUBJID")) %>%
+  ADLB <- inner_join(ADSL, # nolint
+                     ADLB,
+                     by = c("STUDYID", "USUBJID")) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
@@ -180,8 +185,8 @@ radlb <- function(ADSL, # nolint
       is.na(TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
     )) %>%
     mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
-    mutate(astdt_int = as.numeric(as.Date(.data$ADTM))) %>%
     mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
+    select(-.data$trtsdt_int, -.data$trtedt_int) %>%
     ungroup() %>%
     arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
@@ -195,7 +200,7 @@ radlb <- function(ADSL, # nolint
             .data$ADTM, .data$LBSEQ, .data$ASPID)
 
   # apply metadata
-  ADLB <- apply_metadata(ADLB, "metadata/ADLB.yml", ADSL = ADSL) # nolint
+  ADLB <- apply_metadata(ADLB, "metadata/ADLB.yml") # nolint
 
   return(ADLB)
 }
