@@ -123,8 +123,8 @@ radaette <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add AETTE date and study day variables
-  ADAETTE <- inner_join(select(ADSL, -.data$SITEID, -.data$ARM), # nolint
-                        ADAETTE,
+  ADAETTE <- inner_join(ADSL, # nolint
+                        select(ADAETTE, -.data$SITEID, -.data$ARM),
                         by = c("STUDYID", "USUBJID")) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%

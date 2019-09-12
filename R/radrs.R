@@ -126,8 +126,8 @@ radrs <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add RS date and study day variables
-  ADRS <- inner_join(select(ADSL, -.data$SITEID), # nolint
-                     ADRS,
+  ADRS <- inner_join(ADSL, # nolint
+                     select(ADRS, -.data$SITEID),
                      by = c("STUDYID", "USUBJID")) %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     rowwise() %>%
