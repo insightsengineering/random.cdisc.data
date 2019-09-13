@@ -8,18 +8,30 @@ variables:
     type: integer
   AESEQ:
     label: Sponsor-Defined Identifier
-    type: character
+    type: integer
   AETERM:
     label: Reported Term for the Adverse Event
     type: factor
+  AELLT:
+    label: Lowest Level Term
+    type: factor
   AEDECOD:
     label: Dictionary-Derived Term
+    type: factor
+  AEHLT:
+    label: High Level Term
+    type: factor
+  AEHLGT:
+    label: High Level Group Term
     type: factor
   AEBODSYS:
     label: Body System or Organ Class
     type: factor
   AESOC:
     label: Primary System Organ Class
+    type: factor
+  AESEV:
+    label: Severity/Intensity
     type: factor
   AESER:
     label: Serious Event

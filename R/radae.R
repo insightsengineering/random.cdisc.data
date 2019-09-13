@@ -49,17 +49,17 @@ radae <- function(ADSL, # nolint
   lookup_ae <- if_null( # nolint
     lookup,
     tribble(
-      ~AEBODSYS, ~AEDECOD, ~AETOXGR, ~AESOC, ~AESER, ~AREL,
-      "cl A", "trm A_1/2", 1, "cl A", "N", "N",
-      "cl A", "trm A_2/2", 2, "cl A", "Y", "N",
-      "cl B", "trm B_1/3", 5, "cl B", "N", "Y",
-      "cl B", "trm B_2/3", 3, "cl B", "N", "N",
-      "cl B", "trm B_3/3", 1, "cl B", "Y", "N",
-      "cl C", "trm C_1/2", 4, "cl C", "N", "Y",
-      "cl C", "trm C_2/2", 2, "cl C", "N", "Y",
-      "cl D", "trm D_1/3", 5, "cl D", "Y", "N",
-      "cl D", "trm D_2/3", 3, "cl D", "N", "N",
-      "cl D", "trm D_3/3", 1, "cl D", "N", "Y"
+      ~AEBODSYS, ~AELLT,          ~AEDECOD,        ~AEHLT,        ~AEHLGT,      ~AETOXGR, ~AESOC, ~AESER, ~AREL,
+      "cl A.1",  "llt A.1.1.1.1", "dcd A.1.1.1.1", "hlt A.1.1.1", "hlgt A.1.1", 1,        "cl A", "N",    "N",
+      "cl A.1",  "llt A.1.1.1.2", "dcd A.1.1.1.2", "hlt A.1.1.1", "hlgt A.1.1", 2,        "cl A", "Y",    "N",
+      "cl B.1",  "llt B.1.1.1.1", "dcd B.1.1.1.1", "hlt B.1.1.1", "hlgt B.1.1", 5,        "cl B", "N",    "Y",
+      "cl B.2",  "llt B.2.1.2.1", "dcd B.2.1.2.1", "hlt B.2.1.2", "hlgt B.2.1", 3,        "cl B", "N",    "N",
+      "cl B.2",  "llt B.2.2.3.1", "dcd B.2.2.3.1", "hlt B.2.2.3", "hlgt B.2.2", 1,        "cl B", "Y",    "N",
+      "cl C.1",  "llt C.1.1.1.3", "dcd C.1.1.1.3", "hlt C.1.1.1", "hlgt C.1.1", 4,        "cl C", "N",    "Y",
+      "cl C.2",  "llt C.2.1.2.1", "dcd C.2.1.2.1", "hlt C.2.1.2", "hlgt C.2.1", 2,        "cl C", "N",    "Y",
+      "cl D.1",  "llt D.1.1.1.1", "dcd D.1.1.1.1", "hlt D.1.1.1", "hlgt D.1.1", 5,        "cl D", "Y",    "N",
+      "cl D.1",  "llt D.1.1.4.2", "dcd D.1.1.4.2", "hlt D.1.1.4", "hlgt D.1.1", 3,        "cl D", "N",    "N",
+      "cl D.2",  "llt D.2.1.5.3", "dcd D.2.1.5.3", "hlt D.2.1.5", "hlgt D.2.1", 1,        "cl D", "N",    "Y"
     )
   )
 
@@ -81,8 +81,13 @@ radae <- function(ADSL, # nolint
     ADSL$STUDYID
   ) %>%
     Reduce(rbind, .) %>%
-    `[`(c(7, 8, 1, 2, 3, 4, 5, 6)) %>%
-    mutate(AETERM = .data$AEDECOD)
+    `[`(c(10, 11, 1, 2, 3, 4, 5, 6, 7, 8, 9)) %>%
+    mutate(AETERM = gsub("dcd", "trm", .data$AEDECOD)) %>%
+    mutate(AESEV = case_when(
+      AETOXGR == 1 ~ "MILD",
+      AETOXGR %in% c(2, 3) ~ "MODERATE",
+      AETOXGR %in% c(4, 5) ~ "SEVERE"
+    ))
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADAE <- mutate_na(ds = ADAE, na_vars = na_vars, na_percentage = na_percentage) # nolint
