@@ -9,9 +9,6 @@ navbar:
     - icon: fa-github
       href: https://github.roche.com/NEST/random.cdisc.data
 
-development:
-  mode: release
-
 reference:
 
   - title: CDISC Domain Functions
@@ -22,6 +19,7 @@ reference:
       - radaette
       - radcm
       - radlb
+      - radmh
       - radqs
       - radrs
       - radtte
@@ -29,12 +27,14 @@ reference:
 
   - title: Cached Datasets
     desc: These datasets are attached in order speed up the example sections of the dependent packages.
+          Note you can also use the `cached` option in thre respection `r*` function to retrieve these cached datasets.
     contents:
       - cadsl
       - cadae
       - cadaette
       - cadcm
       - cadlb
+      - cadmh
       - cadqs
       - cadrs
       - cadtte
@@ -44,8 +44,10 @@ reference:
     desc: These functions are not exported but are documented for developers
     contents:
       - apply_metadata
+      - mutate_na
       - relvar_init
       - rel_var
+      - replace_na
       - retain
       - sample_fct
       - var_relabel

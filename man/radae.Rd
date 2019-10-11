@@ -4,7 +4,9 @@
 \alias{radae}
 \title{Adverse Event Analysis Dataset (ADAE)}
 \usage{
-radae(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL)
+radae(ADSL, max_n_aes = 10L, lookup = NULL, seed = NULL,
+  na_percentage = 0, na_vars = list(AEBODSYS = c(NA, 0.1), AEDECOD =
+  c(1234, 0.1), AETOXGR = c(1234, 0.1)), cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
@@ -14,6 +16,19 @@ radae(ADSL, max_n_aes = 10, lookup = NULL, seed = NULL)
 \item{lookup}{Data.frame containing additional parameters.}
 
 \item{seed}{Seed for random number generation.}
+
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+
+\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+ element of this list should be a numeric vector with two elements
+ \itemize{
+    \item{seed }{The seed to be used for this element - can be left NA}
+    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
+    percentage is used. This will overwrite default percentage (percentage argument))}
+}}
+
+\item{cached}{boolean whether the cached ADAE data \code{cadae} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radae} will be ignored.}
 }
 \value{
 data.frame
@@ -25,11 +40,10 @@ Subject-Level Analysis Dataset.
 \details{
 One record per each record in the corresponding SDTM domain.
 
-Keys: STUDYID USUBJID AESTDTM AETERM AESEQ.
+Keys: STUDYID USUBJID ASTDTM AETERM AESEQ.
 }
 \examples{
-ADSL <- radsl(seed = 1)
-ADAE <- radae(ADSL, seed = 2)
-head(ADAE)
-
+library(random.cdisc.data)
+ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+radae(ADSL, seed = 2)
 }

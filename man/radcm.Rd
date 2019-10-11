@@ -4,16 +4,31 @@
 \alias{radcm}
 \title{Concomitant Medication Analysis Dataset (ADCM)}
 \usage{
-radcm(ADSL, max_n_cms = 10, seed = NULL, lookup = NULL)
+radcm(ADSL, max_n_cms = 10L, lookup = NULL, seed = NULL,
+  na_percentage = 0, na_vars = list(CMCLAS = c(NA, 0.1), CMDECOD =
+  c(1234, 0.1), ATIREL = c(1234, 0.1)), cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
-\item{max_n_cms}{maximum number of concommitant medications per patient.}
+\item{max_n_cms}{maximum number of concomitant medications per patient.}
+
+\item{lookup}{Data.frame containing additional parameters.}
 
 \item{seed}{Seed for random number generation.}
 
-\item{lookup}{Data.frame containing additional parameters.}
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+
+\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+ element of this list should be a numeric vector with two elements
+ \itemize{
+    \item{seed }{The seed to be used for this element - can be left NA}
+    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
+    percentage is used. This will overwrite default percentage (percentage argument))}
+}}
+
+\item{cached}{boolean whether the cached ADCM data \code{cadcm} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radcm} will be ignored.}
 }
 \value{
 data.frame
@@ -25,11 +40,10 @@ Subject-Level Analysis Dataset.
 \details{
 One record per each record in the corresponding SDTM domain.
 
-Keys: STUDYID USUBJID CMSTDTM CMTERM CMSEQ.
+Keys: STUDYID USUBJID ASTDTM CMSEQ.
 }
 \examples{
-ADSL <- radsl(seed = 1)
-ADCM <- radcm(ADSL, seed = 2)
-head(ADCM)
-
+library(random.cdisc.data)
+ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+radcm(ADSL, seed = 2)
 }

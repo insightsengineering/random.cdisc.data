@@ -3,17 +3,35 @@ domain:
   label: Time To Adverse Event Analysis Dataset
 
 variables:
+  ASEQ:
+    label: Sequence Number
+    type: integer
+  TTESEQ:
+    label: Sequence Number
+    type: integer
   PARAM:
     label: Parameter
+    type: factor
   PARAMCD:
     label: Parameter Code
+    type: factor
   AVAL:
     label: Analysis Value
+    type: numeric
   AVALU:
     label: Analysis Value Unit
+    type: factor
+  ADTM:
+    label: Analysis Datetime
+  ADY:
+    label: Analysis Relative Day
+    type: integer
   CNSR:
     label: Censor
+    type: integer
   EVNTDESC:
     label: Event or Censoring Description
+    type: character
   CNSDTDSC:
     label: Censor Date Description
+    type: character

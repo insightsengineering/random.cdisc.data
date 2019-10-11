@@ -20,8 +20,11 @@ rel_var(df = NULL, var_name = NULL, var_values = NULL,
 Assign values to a related variable within a domain
 }
 \examples{
-\dontrun{
-rel_var(df = ADLB, var_name = "PARAMCD", var_values = c("ALT", "CRP", "IGA", "IGM"),
-related_var = "PARAM")
-}
+ADLB <- radlb(radsl())
+random.cdisc.data:::rel_var(
+  df = ADLB,
+  var_name = "PARAMCD",
+  var_values = c("ALT", "CRP", "IGA"),
+  related_var = "PARAM"
+)
 }

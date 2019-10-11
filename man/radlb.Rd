@@ -4,20 +4,27 @@
 \alias{radlb}
 \title{Laboratory Data Analysis Dataset (ADLB)}
 \usage{
-radlb(ADSL, param = c("Alanine Aminotransferase Measurement",
+radlb(ADSL, lbcat = c("CHEMISTRY", "CHEMISTRY", "IMMUNOLOGY"),
+  param = c("Alanine Aminotransferase Measurement",
   "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
   paramcd = c("ALT", "CRP", "IGA"), paramu = c("U/L", "mg/L", "g/L"),
-  visit_format = "WEEK", n_assessments = 5, n_days = 5,
-  seed = NULL)
+  visit_format = "WEEK", n_assessments = 5L, n_days = 5L,
+  max_n_lbs = 10L, lookup = NULL, seed = NULL, na_percentage = 0,
+  na_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL =
+  c(1235, 0.1), BASE2 = c(NA, 0.1), BASE = c(NA, 0.1), CHG2 = c(1235, 0.1),
+  PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1)),
+  cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+
+\item{lbcat}{As character vector of lb category values.}
 
 \item{param}{As character string. list of parameter values.}
 
 \item{paramcd}{As character string. list of parameter code values.}
 
-\item{paramu}{As character string. list of parameter unit values.}
+\item{paramu}{As character vector of parameter unit values.}
 
 \item{visit_format}{Type of visit either "WEEK" or "CYCLE".}
 
@@ -25,7 +32,24 @@ radlb(ADSL, param = c("Alanine Aminotransferase Measurement",
 
 \item{n_days}{Number of days within cycle.}
 
+\item{max_n_lbs}{As numeric. maximum number of labs.}
+
+\item{lookup}{control lookup process.}
+
 \item{seed}{Seed for random number generation.}
+
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+
+\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+ element of this list should be a numeric vector with two elements
+ \itemize{
+    \item{seed }{The seed to be used for this element - can be left NA}
+    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
+    percentage is used. This will overwrite default percentage (percentage argument))}
+}}
+
+\item{cached}{boolean whether the cached ADLB data \code{cadlb} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radlb} will be ignored.}
 }
 \value{
 data.frame
@@ -37,17 +61,14 @@ Subject-Level Analysis Dataset.
 \details{
 One record per subject per parameter per analysis visit per analysis date.
 
-Keys: STUDYID USUBJID PARAMCD AVISITN.
+Keys: STUDYID, USUBJID, PARAMCD, BASETYPE, AVISITN, ATPTN, DTYPE, ADTM, LBSEQ, ASPID.
 }
 \examples{
-ADSL <- radsl(N = 10, seed = 1)
-ADLB <- radlb(ADSL, visit_format = "WEEK", n_assessments = 7, seed = 2)
-ADLB <- radlb(ADSL, param = c("Immunoglobulin A Measurement", "Immunoglobulin G Measurement"),
-paramcd = c("IGA", "IGG"), paramu = c("g/L", "g/L"), seed = 2)
-ADLB <- radlb(ADSL, visit_format = "CYCLE", n_assessments = 3, seed = 2)
-head(ADLB)
-
+library(random.cdisc.data)
+ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+radlb(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+radlb(ADSL, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
 }
 \author{
-tomlinsj, npaszty
+tomlinsj, npaszty, Xuefeng Hou
 }

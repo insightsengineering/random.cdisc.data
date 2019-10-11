@@ -3,29 +3,56 @@ domain:
   label: Questionnaires Analysis Dataset
 
 variables:
+  ASEQ:
+    label: Analysis Sequence Number
+    type: integer
+  QSSEQ:
+    label: Sequence Number
+    type: integer
   PARAM:
     label: Parameter
+    type: factor
   PARAMCD:
     label: Parameter Code
-  AVISIT:
-    label: Analysis Visit
-  AVISITN:
-    label: Analysis Visit (N)
+    type: factor
   AVAL:
     label: Analysis Value
+    type: numeric
   BASE2:
     label: Screeening Value
-  ABLFL2:
-    label: Screening Record Flag
-  CHG2:
-    label: Absolute Change from Screening
-  PCHG2:
-    label: Percentage Change from Screening
+    type: numeric
   BASE:
     label: Baseline Value
+    type: numeric
+  ABLFL2:
+    label: Screening Record Flag
+    type: factor
   ABLFL:
     label: Baseline Record Flag
+    type: factor
+  CHG2:
+    label: Absolute Change from Screening
+    type: numeric
+  PCHG2:
+    label: Percentage Change from Screening
+    type: numeric
   CHG:
     label: Absolute Change from Baseline
+    type: numeric
   PCHG:
     label: Percentage Change from Baseline
+    type: numeric
+  ADTM:
+    label: Analysis Datetime
+  ADY:
+    label: Analysis Relative Day
+    type: integer
+  AVISIT:
+    label: Analysis Visit
+    type: factor
+  AVISITN:
+    label: Analysis Visit (N)
+    type: integer
+  LOQFL:
+    label: Limit of Quantification Flag
+    type: factor

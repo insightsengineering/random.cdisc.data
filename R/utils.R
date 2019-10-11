@@ -1,11 +1,15 @@
-
-# to remove R CMD CHECK notes cause by using dplyr and NSE
-utils::globalVariables(c(
-  '.', 'ARM', 'ARMCD', 'AVAL', 'AVALC', 'BASE', 'BASE2', 'CHG', 'CHG2', 'CNSR', 'CNSR_P', 'COUNTRY', 'LAMBDA',
-  'PARAMCD', 'SITEID', 'STUDYID', 'SUBJID',
-  "adae", "adaette", "adcm", "adlb", "adqs", "adrs", "adsl", "adtte", "advs"
-))
-
+#' return data attached to package
+#' @importFrom utils data
+#' @noRd
+get_cached_data <- function(dataname) {
+  stopifnot(is.character.single(dataname))
+  if (!("package:random.cdisc.data" %in% search())) {
+    stop("cached data can only be loaded if the random.cdisc.data package is attached.",
+         "Please run library(random.cdisc.data) before loading cached data.", call. = FALSE)
+  } else {
+    get(dataname, envir = asNamespace("random.cdisc.data"))
+  }
+}
 
 #' Create a factor with random elements of x
 #'
@@ -20,11 +24,11 @@ utils::globalVariables(c(
 #' @return a factor of length N
 #'
 #' @examples
-#' \dontrun{
-#' sample_fct(letters[1:3], 10)
-#' sample_fct(iris$Species, 10)
-#'}
-sample_fct <- function(x, N, ...) {
+#' random.cdisc.data:::sample_fct(letters[1:3], 10)
+#' random.cdisc.data:::sample_fct(iris$Species, 10)
+sample_fct <- function(x, N, ...) { # nolint
+  stopifnot(is.numeric.single(N))
+
   factor(sample(x, N, replace = TRUE, ...), levels = if (is.factor(x)) levels(x) else x)
 }
 
@@ -36,20 +40,19 @@ sample_fct <- function(x, N, ...) {
 #' @return a vector of n elements
 #'
 #' @examples
-#' \dontrun{
-#' relvar_init(c("Alanine Aminotransferase Measurement", "ALT")
-#' relvar_init(c("Alanine Aminotransferase Measurement", "U/L")
-#'}
-relvar_init <- function(relvar1, relvar2){
+#' random.cdisc.data:::relvar_init("Alanine Aminotransferase Measurement", "ALT")
+#' random.cdisc.data:::relvar_init("Alanine Aminotransferase Measurement", "U/L")
+relvar_init <- function(relvar1, relvar2) {
+  stopifnot(is.character.vector(relvar1))
+  stopifnot(is.character.vector(relvar2))
 
-  if(length(relvar1) != length (relvar2)){
-    message(simpleError("The argument value length of relvar1 and relvar2 differ. They must contain the same number of elements."))
+  if (length(relvar1) != length(relvar2)) {
+    message(simpleError(
+      "The argument value length of relvar1 and relvar2 differ. They must contain the same number of elements."
+    ))
     return(NA)
-  } else {
-    relvar1 <- relvar1
-    relvar2 <- relvar2
   }
-  return(relvar_init_list <- list("relvar1" = relvar1, "relvar2" = relvar2))
+  return(list("relvar1" = relvar1, "relvar2" = relvar2))
 }
 
 #' Assign values to a related variable within a domain
@@ -60,26 +63,34 @@ relvar_init <- function(relvar1, relvar2){
 #' @param related_var variable name with existing values to which var_name values must relate.
 #'
 #' @examples
-#' \dontrun{
-#'rel_var(df = ADLB, var_name = "PARAMCD", var_values = c("ALT", "CRP", "IGA", "IGM"),
-#'related_var = "PARAM")
-#'}
-rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var = NULL){
+#' ADLB <- radlb(radsl())
+#' random.cdisc.data:::rel_var(
+#'   df = ADLB,
+#'   var_name = "PARAMCD",
+#'   var_values = c("ALT", "CRP", "IGA"),
+#'   related_var = "PARAM"
+#' )
+rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var = NULL) {
+  stopifnot(is.null(df) || is.data.frame(df))
+  stopifnot(is.null(var_name) || is.character.single(var_name))
+  stopifnot(is.null(var_values) || is.character.vector(var_values))
+  stopifnot(is.null(related_var) || is.character.single(related_var))
+
   if (is.null(df)) {
     message("Missing data frame argument value.")
     return(NA)
   } else{
-    n_relvar1 <- length(unique(df[,related_var]))
+    n_relvar1 <- length(unique(df[, related_var]))
     n_relvar2 <- length(var_values)
-    if (n_relvar1 != n_relvar2){
+    if (n_relvar1 != n_relvar2) {
       message(paste("Unequal vector lengths for", related_var, "and", var_name))
       return(NA)
     } else {
-      relvar1 <- unique(df[,related_var])
-      relvar2_values = rep(NULL,nrow(df))
-      for (r in 1:length(relvar1)) {
-        matched = which(df[,related_var] == relvar1[r])
-        relvar2_values[matched] = var_values[r]
+      relvar1 <- unique(df[, related_var])
+      relvar2_values <- rep(NULL, nrow(df))
+      for (r in seq_len(length(relvar1))) {
+        matched <- which(df[, related_var] == relvar1[r])
+        relvar2_values[matched] <- var_values[r]
       }
       return(relvar2_values)
     }
@@ -95,35 +106,36 @@ rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var =
 #' @param visit_format as character string. Valid values: WEEK, CYCLE.
 #' @param n_assessments number of assessments. Valid values: integer.
 #' @param n_days number of days for each cycle: Valid values: integer.
-#' @param n_timepoints number of timepoints: Valid values: integer. To Be Implemented.
-#' @param times nominal time point description as character vector. To Be Implemented.
-#' @param n_timepoints_prior_trt number of timepoints prior to treatment at visit. Valid values: integer. To Be Implemented.
 #'
 #' @return a factor of length n_assessments
 #'
 #' @examples
-#' \dontrun{
-#'AVISIT <- visit_schedule(visit_format = "WEeK", n_assessments = 10)
-#'AVISIT <- visit_schedule(visit_format = "CyCLE", n_assessments = 5, n_days = 2)
-#'}
-visit_schedule <- function(visit_format = "WEEK", n_assessments = 10, n_days = 5, n_timepoints = NULL, times = NULL, n_timepoints_prior_trt = NULL) {
+#' random.cdisc.data:::visit_schedule(visit_format = "WEeK", n_assessments = 10L)
+#' random.cdisc.data:::visit_schedule(visit_format = "CyCLE", n_assessments = 5L, n_days = 2L)
+visit_schedule <- function(visit_format = "WEEK",
+                           n_assessments = 10L,
+                           n_days = 5L) {
+  stopifnot(is.character.single(visit_format))
+  stopifnot(is.integer.single(n_assessments))
+  stopifnot(is.integer.single(n_days))
+
   # trap invalid assessment format
   if (!(toupper(visit_format) %in% c("WEEK", "CYCLE"))) {
     message("Visit format value must either be: WEEK or CYCLE")
     return(NA)
   }
 
-  if (toupper(visit_format) == "WEEK"){
+  if (toupper(visit_format) == "WEEK") {
     # numeric vector of n assessments/cycles/days
     assessments <- 1:n_assessments
     # numeric vector for ordering including screening (-1) and baseline (0) place holders
     assessments_ord <- -1:n_assessments
     # character vector of nominal visit values
-    visit_values <- c("SCREENING", "BASELINE", paste(toupper(visit_format), assessments, "DAY", (assessments*7) + 1))
-  } else if (toupper(visit_format) == "CYCLE"){
-    cycles <- sort(rep(1:n_assessments, times=1, each=n_days))
-    days <- rep(seq(1:n_days), times=n_assessments, each=1)
-    assessments_ord <- 0:(n_assessments*n_days)
+    visit_values <- c("SCREENING", "BASELINE", paste(toupper(visit_format), assessments, "DAY", (assessments * 7) + 1))
+  } else if (toupper(visit_format) == "CYCLE") {
+    cycles <- sort(rep(1:n_assessments, times = 1, each = n_days))
+    days <- rep(seq(1:n_days), times = n_assessments, each = 1)
+    assessments_ord <- 0:(n_assessments * n_days)
     visit_values <- c("SCREENING", paste(toupper(visit_format), cycles, "DAY", days))
   }
 
@@ -139,29 +151,29 @@ visit_schedule <- function(visit_format = "WEEK", n_assessments = 10, n_days = 5
 #' @param outside value to.
 #'
 #' @examples
-#' \dontrun{
-#' ADLB$BASE2 <- retain(ADLB, ADLB$AVAL, ADLB$ABLFL2 == "Y")
-#'}
-retain <- function(df, value_var, event, outside=NA)
-{
-  indices <- c(1, which(event==TRUE), nrow(df)+1)
-  values <- c(outside, value_var[event==TRUE])
-  retained_val <- rep(values, diff(indices))
+#' ADLB <- radlb(radsl(N = 10, na_percentage = 0), na_vars = list())
+#' ADLB$BASE2 <- random.cdisc.data:::retain(df = ADLB, value_var = ADLB$AVAL,
+#'   event = ADLB$ABLFL2 == "Y")
+retain <- function(df, value_var, event, outside = NA) {
+  indices <- c(1, which(event == TRUE), nrow(df) + 1)
+  values <- c(outside, value_var[event == TRUE])
+  rep(values, diff(indices))
 }
 
 #' Apply labels to ADSL primary key variables
 #'
 #' @param x data frame containing variables to which labels are applied.
 #' @param ... ellipsis.
-#'
 #' @examples
-#' \dontrun{
-#'  var_relabel(STUDYID = "Study Identifier", USUBJID = "Unique Subject Identifier")
-#'}
+#' ADSL <- radsl()
+#' random.cdisc.data:::var_relabel(ADSL, STUDYID = "Study Identifier",
+#' USUBJID = "Unique Subject Identifier")
 var_relabel <- function(x, ...) {
   dots <- list(...)
   varnames <- names(dots)
-  if (is.null(varnames)) stop("missing variable declarations")
+  if (is.null(varnames)) {
+    stop("missing variable declarations")
+  }
   map_varnames <- match(varnames, names(x))
   for (i in seq_along(map_varnames)) {
     attr(x[[map_varnames[[i]]]], "label") <-  dots[[i]]
@@ -172,36 +184,182 @@ var_relabel <- function(x, ...) {
 #' Apply label and variable ordering attributes to domains
 #'
 #' @param df data frame to which metadata are applied.
-#' @param filename yaml file containing domain metadata.
-#' @param ... ellipsis.
-#' @param ADSL logical to control merging of ADSL data to domain.
+#' @param filename \code{yaml} file containing domain metadata.
+#' @param add_adsl logical to control merging of ADSL data to domain
+#' @param adsl_filename \code{yaml} file containing ADSL metadata.
+#'
+#' @importFrom dplyr inner_join
+#' @importFrom yaml yaml.load_file
 #'
 #' @examples
-#' \dontrun{
-#'  ADSL <- apply_metadata(ADSL, "ADSL.yml", seed = seed, ADSL = ADSL)
-#'  ADLB <- apply_metadata(ADLB, "ADLB.yml", seed = seed, ADSL = ADSL)
-#'}
-apply_metadata <- function(df, filename, ..., ADSL = NULL) {
+#' seed <- 1
+#' ADSL <- suppressWarnings(radsl(seed = seed))
+#' ADLB <- radlb(ADSL, seed = seed)
+#' \donttest{
+#' ADSL <- random.cdisc.data:::apply_metadata(ADSL, "../metadata/ADSL.yml", FALSE)
+#' ADLB <- random.cdisc.data:::apply_metadata(ADLB, "../metadata/ADLB.yml", TRUE,
+#'   "../metadata/ADSL.yml")
+#' }
+apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metadata/ADSL.yml") { # nolint
+  stopifnot(is.data.frame(df))
+  stopifnot(is.character.single(filename))
+  stopifnot(is.logical.single(add_adsl))
+  stopifnot(is.character.single(adsl_filename))
+
+  apply_type <- function(df, var, type) {
+    if (is.null(type)) {
+      return()
+    }
+
+    if (type == "character" && !is.character(df[[var]])) {
+      df[[var]] <<- as.character(df[[var]])
+    } else if (type == "factor" && !is.factor(df[[var]])) {
+      df[[var]] <<- as.factor(df[[var]])
+    } else if  (type == "integer" && !is.integer(df[[var]])) {
+      df[[var]] <<- as.integer(df[[var]])
+    } else if  (type == "numeric" && !is.numeric(df[[var]])) {
+      df[[var]] <<- as.numeric(df[[var]])
+    } else if  (type == "logical" && !is.logical(df[[var]])) {
+      df[[var]] <<- as.logical(df[[var]])
+    }
+  }
+
+  # remove existing attributes
+  for (i in base::setdiff(names(attributes(df)), names(attributes(data.frame())))) {
+    attr(df, i) <- NULL
+  }
 
   # get metadata
   metadata <- yaml.load_file(system.file(filename, package = "random.cdisc.data"))
+  adsl_metadata <- if (add_adsl) {
+    yaml.load_file(system.file(adsl_filename, package = "random.cdisc.data"))
+  } else {
+    NULL
+  }
+  metadata_variables <- append(adsl_metadata$variables, metadata$variables)
+  metadata_varnames <- names(metadata_variables)
+
+  # find variables that does not have labels and are not it metadata
+  missing_vars_map <- vapply(
+    names(df),
+    function(x)
+      !(x %in% c("STUDYID", "USUBJID", metadata_varnames)) && is.null(attr(df[[x]], "label")),
+    logical(1)
+  )
+  missing_vars <- names(df)[missing_vars_map]
+  if (length(missing_vars) > 0) {
+    msg <- paste0("Following variables does not have label or are not found in ", filename, ": ",
+                  paste0(missing_vars, collapse = ", "))
+    warning(msg)
+  }
+
+  if (!all(metadata_varnames %in% names(df))) {
+    missing_vars <- base::setdiff(metadata_varnames, names(df))
+    msg <- paste0("Following variables not found in random table: ", paste0(missing_vars, collapse = ", "))
+    stop(msg)
+  }
 
   ## assign labels to variables
-  for(var in intersect(names(df), names(metadata$variables))) {
-    attr(df[[var]], "label") <- metadata$variables[[var]]$label
+  for (var in metadata_varnames) {
+    apply_type(df, var, metadata_variables[[var]]$type)
+    attr(df[[var]], "label") <- metadata_variables[[var]]$label
   }
 
   ## reorder data frame columns to expected BDS order
-  df <- df[, unique(c("STUDYID", "USUBJID",
-                      intersect(names(metadata$variables), names(df))))]
-  if (!is.null(ADSL)) {
-    ## add all ADSL variables to domain, BDS is one proc away
-    df <- inner_join(ADSL, df, by=c("STUDYID", "USUBJID"))
-  }
+  df <- df[, unique(c("STUDYID", "USUBJID", metadata_varnames, names(df)))]
 
   # assign label to data frame
   attr(df, "label") <- metadata$domain$label
 
   df
+}
 
+#' Replace values in a vector by NA
+#'
+#' @description Randomized replacement of values by NA
+#'
+#' @param v (\code{any}) vector of any type
+#' @param percentage (\code{numeric}) Value between 0 and 1 defining
+#'   how much of the vector shall be replaced by NA. This number
+#'   is randomized by plus minus 5 percent to have full randomization.
+#' @param seed (\code{numeric}) seed to set to make randomization reproducible
+#'
+#' @return The input vector v where a certain number of values
+#'   is replaced by NA
+#'
+#' @export
+replace_na <- function(v, percentage = 0.05, seed = NULL) {
+
+  stopifnot(is.numeric.single(percentage))
+  stopifnot(percentage >= 0 && percentage <= 1)
+
+  if (percentage == 0) {
+    return(v)
+  }
+
+  if (!is.null(seed) && !is.na(seed)) {
+    set.seed(seed)
+  }
+
+  # randomize the percentage
+  ind <- sample(seq_along(v), round(length(v) * percentage))
+
+  v[ind] <- NA
+
+  return(v)
+}
+
+#' Replace column values by NAs
+#'
+#' @param ds (\code{data.frame}) Any data set
+#' @param na_vars (\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+#'  element of this list should be a numeric vector with two elements
+#'  \itemize{
+#'     \item{seed }{The seed to be used for this element - can be left NA}
+#'     \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
+#'     percentage is used. This will overwrite default percentage (percentage argument))}
+#' }
+#' @param na_percentage (\code{numeric}) Default percentage of values to be replaced by NA
+#'
+#' @importFrom dplyr mutate is.tbl tbl_df
+#' @importFrom rlang := !!
+#' @import utils.nest
+mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {
+
+  if (!is.tbl(ds)) {
+    tbl_df(ds)
+  }
+
+  if (!is.null(na_vars)) {
+    stopifnot(is.list(na_vars)) # any list is OK; as values can be left NA
+    stopifnot(length(names(na_vars)) == length(na_vars)) # names for all elements
+  } else {
+    na_vars <- names(ds)
+  }
+
+  stopifnot(is.numeric(na_percentage))
+  stopifnot(na_percentage >= 0 && na_percentage < 1)
+
+  for (na_var in names(na_vars)) {
+    if (!is.na(na_var)) {
+      if (!na_var %in% names(ds)) {
+        warning(paste(na_var, "not in column names"))
+      } else {
+        ds <- ds %>%
+            ungroup_rowwise_df %>%
+            dplyr::mutate(!!na_var := ds[[na_var]] %>%
+                replace_na(
+                    percentage = ifelse(is.na(na_vars[[na_var]][2]), na_percentage, na_vars[[na_var]][2]),
+                    seed = na_vars[[na_var]][1]
+                )
+        )
+      }
+    }
+  }
+  return(ds)
+}
+
+ungroup_rowwise_df <- function(x) {
+  class(x) <- c("tbl", "tbl_df", "data.frame")
+  return(x)
 }

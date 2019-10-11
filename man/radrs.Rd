@@ -4,16 +4,31 @@
 \alias{radrs}
 \title{Tumor Response Analysis Data Set (ADRS)}
 \usage{
-radrs(ADSL, seed = NULL, avalc = NULL, lookup = NULL)
+radrs(ADSL, avalc = NULL, lookup = NULL, seed = NULL,
+  na_percentage = 0, na_vars = list(AVISIT = c(NA, 0.1), AVAL = c(1234,
+  0.1), AVALC = c(1234, 0.1)), cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 
-\item{seed}{Seed for random number generation.}
-
 \item{avalc}{Vector of analysis value categories.}
 
 \item{lookup}{Data.frame containing additional parameters.}
+
+\item{seed}{Seed for random number generation.}
+
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+
+\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+ element of this list should be a numeric vector with two elements
+ \itemize{
+    \item{seed }{The seed to be used for this element - can be left NA}
+    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
+    percentage is used. This will overwrite default percentage (percentage argument))}
+}}
+
+\item{cached}{boolean whether the cached ADRS data \code{cadrs} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radrs} will be ignored.}
 }
 \value{
 data.frame
@@ -30,7 +45,7 @@ Otherwise, SDTM variables are left blank.
 Keys: STUDYID USUBJID PARAMCD AVISITN ADT RSSEQ
 }
 \examples{
- ADSL <- radsl(seed = 1)
- ADRS <- radrs(ADSL, seed = 2)
- head(ADRS)
+library(random.cdisc.data)
+ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+radrs(ADSL, seed = 2)
 }

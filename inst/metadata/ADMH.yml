@@ -1,0 +1,33 @@
+domain:
+  name: ADMH
+  label: Medical History Analysis Dataset
+
+variables:
+  ASEQ:
+    label: Analysis Sequence Number
+    type: integer
+  MHSEQ:
+    label: Sponsor-Defined Identifier
+    type: integer
+  MHTERM:
+    label: Reported Term for the Medical History
+    type: factor
+  MHDECOD:
+    label: Dictionary-Derived Term
+    type: factor
+  MHBODSYS:
+    label: Body System or Organ Class
+    type: factor
+  MHSOC:
+    label: Primary System Organ Class
+    type: factor
+  ASTDTM:
+    label: Analysis Start Datetime
+  AENDTM:
+    label: Analysis End Datetime
+  ASTDY:
+    label: Analysis Start Relative Day
+    type: integer
+  AENDY:
+    label: Analysis End Relative Day
+    type: integer
