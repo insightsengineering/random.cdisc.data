@@ -59,7 +59,7 @@ radsl <- function(N = 400, # nolint
   }
 
   study_duration_secs <- (31556952 * study_duration)
-  sys_dtm <- as.numeric(Sys.time())
+  sys_dtm <- as.numeric(strptime("20/2/2019 11:16:16.683", "%d/%m/%Y %H:%M:%OS"))
   discons <- floor((N * .3))
   country_site_prob <- c(.5, .121, .077, .077, .075, .052, .046, .025, .014, .003)
 
@@ -72,7 +72,7 @@ radsl <- function(N = 400, # nolint
     ),
     SITEID = sample_fct(1:20, N, prob = rep(country_site_prob, times = 2)),
     SUBJID = paste("id", seq_len(N), sep = "-"),
-    AGE = sapply(floor(rnorm(N, mean = 20, sd = 20)), max, 0) + 20,
+    AGE = sapply(rchisq(N, df = 5, ncp = 10), max, 0) + 20,
     SEX = c("F", "M", "U", "UNDIFFERENTIATED") %>% sample_fct(N, prob = c(.5, .48, .015, .005)),
     ARMCD = c("ARM A", "ARM B", "ARM C") %>% sample_fct(N),
     RACE = c(
@@ -96,6 +96,7 @@ radsl <- function(N = 400, # nolint
     mutate(ACTARM = .data$ARM) %>%
     mutate(ACTARMCD = .data$ARMCD) %>%
     mutate(ITTFL = factor("Y")) %>%
+    mutate(SAFFL = factor("Y")) %>%
     arrange(.data$st_posixn)
 
   ADDS <- ADSL[sample(nrow(ADSL), discons), ] %>% # nolint

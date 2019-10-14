@@ -88,7 +88,7 @@ rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var =
     } else {
       relvar1 <- unique(df[, related_var])
       relvar2_values <- rep(NULL, nrow(df))
-      for (r in 1:length(relvar1)) {
+      for (r in seq_len(length(relvar1))) {
         matched <- which(df[, related_var] == relvar1[r])
         relvar2_values[matched] <- var_values[r]
       }

@@ -10,7 +10,7 @@ variables:
     label: Unique Subject Identifier
     type: character
   SUBJID:
-    label: Identifier for the Study
+    label: Subject Identifier for the Study
     type: character
   SITEID:
     label: Study Site Identifier
@@ -56,6 +56,9 @@ variables:
     type: factor
   ITTFL:
     label: Intent-To-Treat Population Flag
+    type: factor
+  SAFFL:
+    label: Safety Population Flag
     type: factor
   BMEASIFL:
     label: Response Evaluable Population Flag

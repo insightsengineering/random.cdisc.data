@@ -51,4 +51,4 @@ variables:
     type: integer
   AETOXGR:
     label: Analysis Toxicity Grade
-    type: integer
+    type: factor

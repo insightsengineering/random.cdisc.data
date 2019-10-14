@@ -9,9 +9,6 @@ navbar:
     - icon: fa-github
       href: https://github.roche.com/NEST/random.cdisc.data
 
-development:
-  mode: devel
-
 reference:
 
   - title: CDISC Domain Functions

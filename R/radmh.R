@@ -70,7 +70,7 @@ radmh <- function(ADSL, # nolint
   ADMH <- Map( # nolint
     function(id, sid) {
       n_mhs <- sample(0:max_n_mhs, 1)
-      i <- sample(1:nrow(lookup_mh), n_mhs, TRUE)
+      i <- sample(seq_len(nrow(lookup_mh)), n_mhs, TRUE)
       mutate(
         lookup_mh[i, ],
         USUBJID = id,

@@ -29,3 +29,7 @@ test_that("r<data> with cached = TRUE", {
   expect_silent(radtte(cached = TRUE))
   expect_silent(radvs(cached = TRUE))
 })
+
+test_that("seed works", {
+  expect_true(identical(radsl(seed = 1), radsl(seed = 1)))
+})

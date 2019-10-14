@@ -1,6 +1,8 @@
-# random.cdisc.data next release
+# random.cdisc.data 0.3.0
 
+* Columns classes configuration in `.yml` file
 * Added Medical History Analysis Dataset (`radmh`)
+* Added missing columns based on Roche standards
 * Introduced missing values in random datasets generators (i.e. `r<name>`)
 * Updating list of created columns in multiple datasets
 * Enhanced auto-testing
