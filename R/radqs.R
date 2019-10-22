@@ -46,19 +46,19 @@ radqs <- function(ADSL, # nolint
                   ),
                   cached = FALSE) {
 
-  stopifnot(is.logical.single(cached))
+  stopifnot(is_logical_single(cached))
   if (cached) {
     return(get_cached_data("cadqs"))
   }
 
   stopifnot(is.data.frame(ADSL))
-  stopifnot(is.character.vector(param))
-  stopifnot(is.character.vector(paramcd))
-  stopifnot(is.character.single(visit_format))
-  stopifnot(is.integer.single(n_assessments))
-  stopifnot(is.integer.single(n_days))
-  stopifnot(is.null(seed) || is.numeric.single(seed))
-  stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  stopifnot(is_character_vector(param))
+  stopifnot(is_character_vector(paramcd))
+  stopifnot(is_character_single(visit_format))
+  stopifnot(is_integer_single(n_assessments))
+  stopifnot(is_integer_single(n_days))
+  stopifnot(is.null(seed) || is_numeric_single(seed))
+  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   # validate and initialize param vectors
   param_init_list <- relvar_init(param, paramcd)

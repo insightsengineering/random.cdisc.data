@@ -52,22 +52,22 @@ radlb <- function(ADSL, # nolint
                     CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1)
                   ),
                   cached = FALSE) {
-  stopifnot(is.logical.single(cached))
+  stopifnot(is_logical_single(cached))
   if (cached) {
     return(get_cached_data("cadlb"))
   }
 
   stopifnot(is.data.frame(ADSL))
-  stopifnot(is.character.vector(lbcat))
-  stopifnot(is.character.vector(param))
-  stopifnot(is.character.vector(paramcd))
-  stopifnot(is.character.vector(paramu))
-  stopifnot(is.character.single(visit_format))
-  stopifnot(is.integer.single(n_assessments))
-  stopifnot(is.integer.single(n_days))
-  stopifnot(is.integer.single(max_n_lbs))
-  stopifnot(is.null(seed) || is.numeric.single(seed))
-  stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  stopifnot(is_character_vector(lbcat))
+  stopifnot(is_character_vector(param))
+  stopifnot(is_character_vector(paramcd))
+  stopifnot(is_character_vector(paramu))
+  stopifnot(is_character_single(visit_format))
+  stopifnot(is_integer_single(n_assessments))
+  stopifnot(is_integer_single(n_days))
+  stopifnot(is_integer_single(max_n_lbs))
+  stopifnot(is.null(seed) || is_numeric_single(seed))
+  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   # validate and initialize related variables
   lbcat_init_list <- relvar_init(param, lbcat)

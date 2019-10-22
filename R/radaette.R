@@ -38,16 +38,16 @@ radaette <- function(ADSL, # nolint
                      na_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234, 0.1), AVALU = c(1234, 0.1)),
                      cached = FALSE) {
 
-  stopifnot(is.logical.single(cached))
+  stopifnot(is_logical_single(cached))
   if (cached) {
     return(get_cached_data("cadaette"))
   }
 
   stopifnot(is.data.frame(ADSL))
-  stopifnot(is.null(event.descr) || is.character.vector(event.descr))
-  stopifnot(is.null(censor.descr) || is.character.vector(censor.descr))
-  stopifnot(is.null(seed) || is.numeric.single(seed))
-  stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  stopifnot(is.null(event.descr) || is_character_vector(event.descr))
+  stopifnot(is.null(censor.descr) || is_character_vector(censor.descr))
+  stopifnot(is.null(seed) || is_numeric_single(seed))
+  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   lookup_ADAETTE <- if_null( # nolint
     lookup,
