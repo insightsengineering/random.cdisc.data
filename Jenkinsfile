@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
 
-@Library('nestautomation@refactor_pipelines') _
+@Library('nestautomation') _
 
 rpackagePipeline()
