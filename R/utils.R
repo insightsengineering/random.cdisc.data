@@ -346,13 +346,13 @@ mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {
         warning(paste(na_var, "not in column names"))
       } else {
         ds <- ds %>%
-            ungroup_rowwise_df %>%
-            dplyr::mutate(!!na_var := ds[[na_var]] %>%
-                replace_na(
-                    percentage = ifelse(is.na(na_vars[[na_var]][2]), na_percentage, na_vars[[na_var]][2]),
-                    seed = na_vars[[na_var]][1]
-                )
-        )
+          ungroup_rowwise_df %>%
+          dplyr::mutate(!!na_var := ds[[na_var]] %>%
+                          replace_na(
+                            percentage = ifelse(is.na(na_vars[[na_var]][2]), na_percentage, na_vars[[na_var]][2]),
+                            seed = na_vars[[na_var]][1]
+                          )
+          )
       }
     }
   }

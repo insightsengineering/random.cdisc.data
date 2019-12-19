@@ -10,6 +10,7 @@
 #' cadrs <- radrs(cadsl, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 #' cadtte <- radtte(cadsl, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 #' cadvs <- radvs(cadsl, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
+#' cadex <- radex(cadsl, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 #' save(cadsl, file = "data/cadsl.RData", compress = "xz")
 #' save(cadae, file = "data/cadae.RData", compress = "xz")
 #' save(cadaette, file = "data/cadaette.RData", compress = "xz")
@@ -20,3 +21,4 @@
 #' save(cadrs, file = "data/cadrs.RData", compress = "xz")
 #' save(cadtte, file = "data/cadtte.RData", compress = "xz")
 #' save(cadvs, file = "data/cadvs.RData", compress = "xz")
+#' save(cadex, file = "data/cadex.RData", compress = "xz")

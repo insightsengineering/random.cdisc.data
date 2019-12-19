@@ -39,6 +39,7 @@ reference:
       - cadrs
       - cadtte
       - cadvs
+      - cadex
 
   - title: Utility Functions
     desc: These functions are not exported but are documented for developers
