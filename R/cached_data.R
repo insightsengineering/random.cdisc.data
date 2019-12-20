@@ -68,3 +68,10 @@
 #'
 #' @usage data(cadvs)
 "cadvs"
+
+#' Cached ADEX data generated with \code{seed = 1}
+#'
+#' @docType data
+#'
+#' @usage data(cadex)
+"cadex"

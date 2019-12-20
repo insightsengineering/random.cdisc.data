@@ -3,6 +3,7 @@
 export(radae)
 export(radaette)
 export(radcm)
+export(radex)
 export(radlb)
 export(radmh)
 export(radqs)

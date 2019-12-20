@@ -35,15 +35,15 @@ radcm <- function(ADSL, # nolint
                   na_percentage = 0,
                   na_vars = list(CMCLAS = c(NA, 0.1), CMDECOD = c(1234, 0.1), ATIREL = c(1234, 0.1)),
                   cached = FALSE) {
-  stopifnot(is.logical.single(cached))
+  stopifnot(is_logical_single(cached))
   if (cached) {
     return(get_cached_data("cadcm"))
   }
 
   stopifnot(is.data.frame(ADSL))
-  stopifnot(is.integer.single(max_n_cms))
-  stopifnot(is.null(seed) || is.numeric.single(seed))
-  stopifnot((is.numeric.single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  stopifnot(is_integer_single(max_n_cms))
+  stopifnot(is.null(seed) || is_numeric_single(seed))
+  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
   lookup_cm <- if_null(
     lookup,

@@ -2,7 +2,7 @@
 #' @importFrom utils data
 #' @noRd
 get_cached_data <- function(dataname) {
-  stopifnot(is.character.single(dataname))
+  stopifnot(is_character_single(dataname))
   if (!("package:random.cdisc.data" %in% search())) {
     stop("cached data can only be loaded if the random.cdisc.data package is attached.",
          "Please run library(random.cdisc.data) before loading cached data.", call. = FALSE)
@@ -27,7 +27,7 @@ get_cached_data <- function(dataname) {
 #' random.cdisc.data:::sample_fct(letters[1:3], 10)
 #' random.cdisc.data:::sample_fct(iris$Species, 10)
 sample_fct <- function(x, N, ...) { # nolint
-  stopifnot(is.numeric.single(N))
+  stopifnot(is_numeric_single(N))
 
   factor(sample(x, N, replace = TRUE, ...), levels = if (is.factor(x)) levels(x) else x)
 }
@@ -43,8 +43,8 @@ sample_fct <- function(x, N, ...) { # nolint
 #' random.cdisc.data:::relvar_init("Alanine Aminotransferase Measurement", "ALT")
 #' random.cdisc.data:::relvar_init("Alanine Aminotransferase Measurement", "U/L")
 relvar_init <- function(relvar1, relvar2) {
-  stopifnot(is.character.vector(relvar1))
-  stopifnot(is.character.vector(relvar2))
+  stopifnot(is_character_vector(relvar1))
+  stopifnot(is_character_vector(relvar2))
 
   if (length(relvar1) != length(relvar2)) {
     message(simpleError(
@@ -72,9 +72,9 @@ relvar_init <- function(relvar1, relvar2) {
 #' )
 rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var = NULL) {
   stopifnot(is.null(df) || is.data.frame(df))
-  stopifnot(is.null(var_name) || is.character.single(var_name))
-  stopifnot(is.null(var_values) || is.character.vector(var_values))
-  stopifnot(is.null(related_var) || is.character.single(related_var))
+  stopifnot(is.null(var_name) || is_character_single(var_name))
+  stopifnot(is.null(var_values) || is_character_vector(var_values))
+  stopifnot(is.null(related_var) || is_character_single(related_var))
 
   if (is.null(df)) {
     message("Missing data frame argument value.")
@@ -115,9 +115,9 @@ rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var =
 visit_schedule <- function(visit_format = "WEEK",
                            n_assessments = 10L,
                            n_days = 5L) {
-  stopifnot(is.character.single(visit_format))
-  stopifnot(is.integer.single(n_assessments))
-  stopifnot(is.integer.single(n_days))
+  stopifnot(is_character_single(visit_format))
+  stopifnot(is_integer_single(n_assessments))
+  stopifnot(is_integer_single(n_days))
 
   # trap invalid assessment format
   if (!(toupper(visit_format) %in% c("WEEK", "CYCLE"))) {
@@ -202,9 +202,9 @@ var_relabel <- function(x, ...) {
 #' }
 apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metadata/ADSL.yml") { # nolint
   stopifnot(is.data.frame(df))
-  stopifnot(is.character.single(filename))
-  stopifnot(is.logical.single(add_adsl))
-  stopifnot(is.character.single(adsl_filename))
+  stopifnot(is_character_single(filename))
+  stopifnot(is_logical_single(add_adsl))
+  stopifnot(is_character_single(adsl_filename))
 
   apply_type <- function(df, var, type) {
     if (is.null(type)) {
@@ -290,7 +290,7 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
 #' @export
 replace_na <- function(v, percentage = 0.05, seed = NULL) {
 
-  stopifnot(is.numeric.single(percentage))
+  stopifnot(is_numeric_single(percentage))
   stopifnot(percentage >= 0 && percentage <= 1)
 
   if (percentage == 0) {
@@ -346,13 +346,13 @@ mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {
         warning(paste(na_var, "not in column names"))
       } else {
         ds <- ds %>%
-            ungroup_rowwise_df %>%
-            dplyr::mutate(!!na_var := ds[[na_var]] %>%
-                replace_na(
-                    percentage = ifelse(is.na(na_vars[[na_var]][2]), na_percentage, na_vars[[na_var]][2]),
-                    seed = na_vars[[na_var]][1]
-                )
-        )
+          ungroup_rowwise_df %>%
+          dplyr::mutate(!!na_var := ds[[na_var]] %>%
+                          replace_na(
+                            percentage = ifelse(is.na(na_vars[[na_var]][2]), na_percentage, na_vars[[na_var]][2]),
+                            seed = na_vars[[na_var]][1]
+                          )
+          )
       }
     }
   }
