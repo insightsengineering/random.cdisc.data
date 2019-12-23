@@ -1,3 +1,10 @@
+# random.cdisc.data 0.3.1.9000
+
+# random.cdisc.data 0.3.1
+
+* Refactored after renaming functions in `utils.nest`
+* Added ADEX dataset
+
 # random.cdisc.data 0.3.0
 
 * Columns classes configuration in `.yml` file
