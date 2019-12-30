@@ -4,14 +4,21 @@
 \alias{radqs}
 \title{Questionnaires Analysis Dataset (ADQS)}
 \usage{
-radqs(ADSL, param = c("BFI All Questions", "Fatigue Interference",
-  "Function/Well-Being (GF1,GF3,GF7)",
-  "Treatment Side Effects (GP2,C5,GP5)", "FKSI-19 All Questions"),
+radqs(
+  ADSL,
+  param = c("BFI All Questions", "Fatigue Interference",
+    "Function/Well-Being (GF1,GF3,GF7)", "Treatment Side Effects (GP2,C5,GP5)",
+    "FKSI-19 All Questions"),
   paramcd = c("BFIALL", "FATIGI", "FKSI-FWB", "FKSI-TSE", "FKSIALL"),
-  visit_format = "WEEK", n_assessments = 5L, n_days = 5L,
-  seed = NULL, na_percentage = 0, na_vars = list(LOQFL = c(NA, 0.1),
-  ABLFL2 = c(1234, 0.1), ABLFL = c(1235, 0.1), CHG2 = c(1235, 0.1), PCHG2 =
-  c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1)), cached = FALSE)
+  visit_format = "WEEK",
+  n_assessments = 5L,
+  n_days = 5L,
+  seed = NULL,
+  na_percentage = 0,
+  na_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL = c(1235, 0.1), CHG2 =
+    c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1)),
+  cached = FALSE
+)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}

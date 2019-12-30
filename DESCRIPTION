@@ -1,7 +1,7 @@
 Package: random.cdisc.data
 Type: Package
 Title: Create Random SDTM and ADAM Datasets
-Date: 2019-12-20
+Date: 2019-12-30
 Version: 0.3.1
 Authors@R: c(
   person("NEST", email = "nestcicd@roche.com", role = c("aut", "cre")),
@@ -27,7 +27,7 @@ Imports:
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Suggests:
     test.nest (>= 0.2.1),
     testthat

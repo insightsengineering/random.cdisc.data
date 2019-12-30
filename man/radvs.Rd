@@ -4,14 +4,21 @@
 \alias{radvs}
 \title{Vital Signs Analysis Dataset (ADVS)}
 \usage{
-radvs(ADSL, param = c("Diastolic Blood Pressure", "Pulse Rate",
-  "Respiratory Rate", "Systolic Blood Pressure", "Temperature", "Weight"),
+radvs(
+  ADSL,
+  param = c("Diastolic Blood Pressure", "Pulse Rate", "Respiratory Rate",
+    "Systolic Blood Pressure", "Temperature", "Weight"),
   paramcd = c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT"),
   paramu = c("Pa", "beats/min", "breaths/min", "Pa", "C", "Kg"),
-  visit_format = "WEEK", n_assessments = 5L, n_days = 5L,
-  seed = NULL, na_percentage = 0, na_vars = list(CHG2 = c(1235, 0.1),
-  PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1), AVAL =
-  c(123, 0.1), AVALU = c(123, 0.1)), cached = FALSE)
+  visit_format = "WEEK",
+  n_assessments = 5L,
+  n_days = 5L,
+  seed = NULL,
+  na_percentage = 0,
+  na_vars = list(CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG =
+    c(1234, 0.1), AVAL = c(123, 0.1), AVALU = c(123, 0.1)),
+  cached = FALSE
+)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}

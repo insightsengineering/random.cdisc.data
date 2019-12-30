@@ -4,10 +4,15 @@
 \alias{radsl}
 \title{Subject-Level Analysis Dataset (ADSL)}
 \usage{
-radsl(N = 400, study_duration = 2, seed = NULL, na_percentage = 0,
-  na_vars = list(AGE = NA, SEX = NA, RACE = NA, STRATA1 = NA, STRATA2 =
-  NA, BMRKR1 = c(seed = 1234, percentage = 0.1), BMRKR2 = c(1234, 0.1),
-  BEP01FL = NA), cached = FALSE)
+radsl(
+  N = 400,
+  study_duration = 2,
+  seed = NULL,
+  na_percentage = 0,
+  na_vars = list(AGE = NA, SEX = NA, RACE = NA, STRATA1 = NA, STRATA2 = NA, BMRKR1 =
+    c(seed = 1234, percentage = 0.1), BMRKR2 = c(1234, 0.1), BEP01FL = NA),
+  cached = FALSE
+)
 }
 \arguments{
 \item{N}{Number of patients.}

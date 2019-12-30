@@ -7,3 +7,4 @@ README.md
 ^_pkgdown.yml$
 ^docs/*
 ^Jenkinsfile$
+data/script.R

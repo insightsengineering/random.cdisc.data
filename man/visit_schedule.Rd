@@ -4,8 +4,7 @@
 \alias{visit_schedule}
 \title{Create visit schedule}
 \usage{
-visit_schedule(visit_format = "WEEK", n_assessments = 10L,
-  n_days = 5L)
+visit_schedule(visit_format = "WEEK", n_assessments = 10L, n_days = 5L)
 }
 \arguments{
 \item{visit_format}{as character string. Valid values: WEEK, CYCLE.}

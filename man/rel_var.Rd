@@ -4,8 +4,7 @@
 \alias{rel_var}
 \title{Assign values to a related variable within a domain}
 \usage{
-rel_var(df = NULL, var_name = NULL, var_values = NULL,
-  related_var = NULL)
+rel_var(df = NULL, var_name = NULL, var_values = NULL, related_var = NULL)
 }
 \arguments{
 \item{df}{data frame containing the related variables.}
