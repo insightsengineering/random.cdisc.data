@@ -4,8 +4,12 @@
 \alias{apply_metadata}
 \title{Apply label and variable ordering attributes to domains}
 \usage{
-apply_metadata(df, filename, add_adsl = TRUE,
-  adsl_filename = "metadata/ADSL.yml")
+apply_metadata(
+  df,
+  filename,
+  add_adsl = TRUE,
+  adsl_filename = "metadata/ADSL.yml"
+)
 }
 \arguments{
 \item{df}{data frame to which metadata are applied.}

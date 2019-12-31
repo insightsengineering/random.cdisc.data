@@ -4,9 +4,15 @@
 \alias{radcm}
 \title{Concomitant Medication Analysis Dataset (ADCM)}
 \usage{
-radcm(ADSL, max_n_cms = 10L, lookup = NULL, seed = NULL,
-  na_percentage = 0, na_vars = list(CMCLAS = c(NA, 0.1), CMDECOD =
-  c(1234, 0.1), ATIREL = c(1234, 0.1)), cached = FALSE)
+radcm(
+  ADSL,
+  max_n_cms = 10L,
+  lookup = NULL,
+  seed = NULL,
+  na_percentage = 0,
+  na_vars = list(CMCLAS = c(NA, 0.1), CMDECOD = c(1234, 0.1), ATIREL = c(1234, 0.1)),
+  cached = FALSE
+)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}

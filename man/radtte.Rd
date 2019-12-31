@@ -4,9 +4,16 @@
 \alias{radtte}
 \title{Time-to-Event Analysis Dataset (ATE)}
 \usage{
-radtte(ADSL, event.descr = NULL, censor.descr = NULL, lookup = NULL,
-  seed = NULL, na_percentage = 0, na_vars = list(CNSR = c(NA, 0.1),
-  AVAL = c(1234, 0.1), AVALU = c(1234, 0.1)), cached = FALSE)
+radtte(
+  ADSL,
+  event.descr = NULL,
+  censor.descr = NULL,
+  lookup = NULL,
+  seed = NULL,
+  na_percentage = 0,
+  na_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234, 0.1), AVALU = c(1234, 0.1)),
+  cached = FALSE
+)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}

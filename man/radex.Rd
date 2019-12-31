@@ -4,16 +4,25 @@
 \alias{radex}
 \title{Exposure Analysis Dataset (ADEX)}
 \usage{
-radex(ADSL,
+radex(
+  ADSL,
   param = c("Dose administered during constant dosing interval",
-  "Number of doses administered during constant dosing interval",
-  "Total dose administered", "Total number of doses administered"),
-  paramcd = c("DOSE", "NDOSE", "TDOSE", "TNDOSE"), paramu = c("mg",
-  " ", "mg", " "), parcat1 = c("INDIVIDUAL", "OVERALL"),
-  parcat2 = c("Drug A", "Drug B"), visit_format = "WEEK",
-  n_assessments = 5L, n_days = 5L, max_n_exs = 6L, lookup = NULL,
-  seed = NULL, na_percentage = 0, na_vars = list(AVAL = c(NA, 0.1),
-  AVALU = c(NA), 0.1), cached = FALSE)
+    "Number of doses administered during constant dosing interval",
+    "Total dose administered", "Total number of doses administered"),
+  paramcd = c("DOSE", "NDOSE", "TDOSE", "TNDOSE"),
+  paramu = c("mg", " ", "mg", " "),
+  parcat1 = c("INDIVIDUAL", "OVERALL"),
+  parcat2 = c("Drug A", "Drug B"),
+  visit_format = "WEEK",
+  n_assessments = 5L,
+  n_days = 5L,
+  max_n_exs = 6L,
+  lookup = NULL,
+  seed = NULL,
+  na_percentage = 0,
+  na_vars = list(AVAL = c(NA, 0.1), AVALU = c(NA), 0.1),
+  cached = FALSE
+)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}

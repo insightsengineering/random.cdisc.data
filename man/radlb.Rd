@@ -4,16 +4,25 @@
 \alias{radlb}
 \title{Laboratory Data Analysis Dataset (ADLB)}
 \usage{
-radlb(ADSL, lbcat = c("CHEMISTRY", "CHEMISTRY", "IMMUNOLOGY"),
-  param = c("Alanine Aminotransferase Measurement",
-  "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
-  paramcd = c("ALT", "CRP", "IGA"), paramu = c("U/L", "mg/L", "g/L"),
-  visit_format = "WEEK", n_assessments = 5L, n_days = 5L,
-  max_n_lbs = 10L, lookup = NULL, seed = NULL, na_percentage = 0,
-  na_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL =
-  c(1235, 0.1), BASE2 = c(NA, 0.1), BASE = c(NA, 0.1), CHG2 = c(1235, 0.1),
-  PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1)),
-  cached = FALSE)
+radlb(
+  ADSL,
+  lbcat = c("CHEMISTRY", "CHEMISTRY", "IMMUNOLOGY"),
+  param = c("Alanine Aminotransferase Measurement", "C-Reactive Protein Measurement",
+    "Immunoglobulin A Measurement"),
+  paramcd = c("ALT", "CRP", "IGA"),
+  paramu = c("U/L", "mg/L", "g/L"),
+  visit_format = "WEEK",
+  n_assessments = 5L,
+  n_days = 5L,
+  max_n_lbs = 10L,
+  lookup = NULL,
+  seed = NULL,
+  na_percentage = 0,
+  na_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL = c(1235, 0.1), BASE2
+    = c(NA, 0.1), BASE = c(NA, 0.1), CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG =
+    c(1234, 0.1), PCHG = c(1234, 0.1)),
+  cached = FALSE
+)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}

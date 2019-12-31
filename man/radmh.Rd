@@ -4,9 +4,15 @@
 \alias{radmh}
 \title{Medical History Analysis Dataset (ADMH)}
 \usage{
-radmh(ADSL, max_n_mhs = 10L, lookup = NULL, seed = NULL,
-  na_percentage = 0, na_vars = list(MHBODSYS = c(NA, 0.1), MHDECOD =
-  c(1234, 0.1)), cached = FALSE)
+radmh(
+  ADSL,
+  max_n_mhs = 10L,
+  lookup = NULL,
+  seed = NULL,
+  na_percentage = 0,
+  na_vars = list(MHBODSYS = c(NA, 0.1), MHDECOD = c(1234, 0.1)),
+  cached = FALSE
+)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}

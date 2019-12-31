@@ -4,9 +4,15 @@
 \alias{radrs}
 \title{Tumor Response Analysis Data Set (ADRS)}
 \usage{
-radrs(ADSL, avalc = NULL, lookup = NULL, seed = NULL,
-  na_percentage = 0, na_vars = list(AVISIT = c(NA, 0.1), AVAL = c(1234,
-  0.1), AVALC = c(1234, 0.1)), cached = FALSE)
+radrs(
+  ADSL,
+  avalc = NULL,
+  lookup = NULL,
+  seed = NULL,
+  na_percentage = 0,
+  na_vars = list(AVISIT = c(NA, 0.1), AVAL = c(1234, 0.1), AVALC = c(1234, 0.1)),
+  cached = FALSE
+)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}

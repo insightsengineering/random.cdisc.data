@@ -3,7 +3,6 @@
 \docType{package}
 \name{random.cdisc.data}
 \alias{random.cdisc.data}
-\alias{random.cdisc.data-package}
 \title{Create Random SDTM and ADAM Datasets}
 \description{
 Create Random SDTM and ADAM Datasets

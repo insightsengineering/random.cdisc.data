@@ -4,9 +4,15 @@
 \alias{radae}
 \title{Adverse Event Analysis Dataset (ADAE)}
 \usage{
-radae(ADSL, max_n_aes = 10L, lookup = NULL, seed = NULL,
-  na_percentage = 0, na_vars = list(AEBODSYS = c(NA, 0.1), AEDECOD =
-  c(1234, 0.1), AETOXGR = c(1234, 0.1)), cached = FALSE)
+radae(
+  ADSL,
+  max_n_aes = 10L,
+  lookup = NULL,
+  seed = NULL,
+  na_percentage = 0,
+  na_vars = list(AEBODSYS = c(NA, 0.1), AEDECOD = c(1234, 0.1), AETOXGR = c(1234, 0.1)),
+  cached = FALSE
+)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
