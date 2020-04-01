@@ -1,3 +1,7 @@
+# random.cdisc.data 0.3.2
+
+* Added ADMH dataset
+
 # random.cdisc.data 0.3.1
 
 * Refactored after renaming functions in `utils.nest`

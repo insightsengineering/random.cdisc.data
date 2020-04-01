@@ -36,7 +36,7 @@ variables:
   AESER:
     label: Serious Event
     type: factor
-  AREL:
+  AEREL:
     label: Analysis Causality
     type: factor
   ASTDTM:
