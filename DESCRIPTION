@@ -30,4 +30,4 @@ LazyData: true
 RoxygenNote: 7.0.2
 Suggests:
     test.nest (>= 0.2.2),
-    testthat
+    testthat (>= 0.2)
