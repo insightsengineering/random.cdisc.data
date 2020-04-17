@@ -1,4 +1,9 @@
-# random.cdisc.data 0.3.1.9000
+# random.cdisc.data 0.3.2.9000
+
+# random.cdisc.data 0.3.2
+
+* Added ADMH dataset
+* Renamed AREL column in ADAE to AEREL
 
 # random.cdisc.data 0.3.1
 
