@@ -1,8 +1,8 @@
 Package: random.cdisc.data
 Type: Package
 Title: Create Random SDTM and ADAM Datasets
-Date: 2020-03-31
-Version: 0.3.2
+Date: 2020-04-21
+Version: 0.3.3
 Authors@R: c(
   person("NEST", email = "nestcicd@roche.com", role = c("aut", "cre")),
   person("Adrian", "Waddell", email = "adrian.waddell@roche.com", role = "aut"),
@@ -16,7 +16,7 @@ Authors@R: c(
   )
 Description: Create random CDISC data.
 Depends:
-    R (>= 3.3),
+    R (>= 3.5.0),
 Imports:
     dplyr,
     magrittr,
@@ -29,5 +29,4 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2
 Suggests:
-    test.nest (>= 0.2.2),
     testthat (>= 0.2)
