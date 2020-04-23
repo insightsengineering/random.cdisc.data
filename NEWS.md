@@ -1,4 +1,8 @@
-# random.cdisc.data 0.3.2.9000
+# random.cdisc.data 0.3.3.9000
+
+# random.cdisc.data 0.3.3
+
+* Remove `test.nest` dependency
 
 # random.cdisc.data 0.3.2
 
