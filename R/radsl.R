@@ -136,10 +136,20 @@ radsl <- function(N = 400, # nolint
   mutate(LSTALVDT = as.Date(.data$TRTEDTM) + floor(runif(N, min = 10, max = 30))) %>%
     select(-.data$st_posixn)
 
-  # associate sites with countries
+  # associate sites with countries and regions
   ADSL <- ADSL %>% # nolint
     mutate(SITEID = paste0(.data$COUNTRY, "-", .data$SITEID)) %>%
-    mutate(INVID = .data$SITEID) %>%
+    mutate(REGION1 = case_when(
+      COUNTRY %in% c("NGA") ~ "Africa",
+      COUNTRY %in% c("CHN", "JPN", "PAK") ~ "Asia",
+      COUNTRY %in% c("RUS") ~ "Eurasia",
+      COUNTRY %in% c("GBR") ~ "Europe",
+      COUNTRY %in% c("CAN", "USA") ~ "North America",
+      COUNTRY %in% c("BRA") ~ "South America",
+      TRUE ~ as.character(NA)
+    )) %>%
+    mutate(INVID = paste("INV ID", .data$SITEID)) %>%
+    mutate(INVNAM = paste("Dr.", .data$SITEID, "Doe")) %>%
     mutate(USUBJID = paste(.data$STUDYID, .data$SITEID, .data$SUBJID, sep = "-")) %>%
     mutate(study_duration_secs = study_duration_secs)
 

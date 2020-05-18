@@ -1,4 +1,4 @@
-# script to save examples to data/ directory
+# script to create and save cached data to data/ directory
 #' @examples
 #' cadsl <- radsl(seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 #' cadae <- radae(cadsl, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
