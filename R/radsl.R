@@ -73,7 +73,7 @@ radsl <- function(N = 400, # nolint
     SITEID = sample_fct(1:20, N, prob = rep(country_site_prob, times = 2)),
     SUBJID = paste("id", seq_len(N), sep = "-"),
     AGE = sapply(rchisq(N, df = 5, ncp = 10), max, 0) + 20,
-    SEX = c("F", "M", "U", "UNDIFFERENTIATED") %>% sample_fct(N, prob = c(.5, .48, .015, .005)),
+    SEX = c("F", "M") %>% sample_fct(N, prob = c(.52, .48)),
     ARMCD = c("ARM A", "ARM B", "ARM C") %>% sample_fct(N),
     RACE = c(
       "ASIAN", "BLACK OR AFRICAN AMERICAN", "WHITE", "AMERICAN INDIAN OR ALASKA NATIVE",
