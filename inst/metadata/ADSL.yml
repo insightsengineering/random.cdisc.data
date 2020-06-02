@@ -30,6 +30,9 @@ variables:
   INVID:
     label: Investigator Identifier
     type: character
+  INVNAM:
+    label: Investigator Name
+    type: character
   ARM:
     label: Description of Planned Arm
     type: factor
@@ -41,6 +44,9 @@ variables:
     type: factor
   ACTARMCD:
     label: Actual Arm Code
+    type: factor
+  REGION1:
+    label: Geographic Region 1
     type: factor
   STRATA1:
     label: Stratification Factor 1

@@ -4,7 +4,7 @@
 \name{cadqs}
 \alias{cadqs}
 \title{Cached ADQS data generated with \code{seed = 1}}
-\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 14000 rows and 49 columns.}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 14000 rows and 51 columns.}
 \usage{
 data(cadqs)
 }

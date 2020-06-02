@@ -1,3 +1,7 @@
+# random.cdisc.data 0.3.4
+
+* Simple refactor or examples
+
 # random.cdisc.data 0.3.3
 
 * Remove `test.nest` dependency

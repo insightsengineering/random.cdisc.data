@@ -73,7 +73,7 @@ radsl <- function(N = 400, # nolint
     SITEID = sample_fct(1:20, N, prob = rep(country_site_prob, times = 2)),
     SUBJID = paste("id", seq_len(N), sep = "-"),
     AGE = sapply(rchisq(N, df = 5, ncp = 10), max, 0) + 20,
-    SEX = c("F", "M", "U", "UNDIFFERENTIATED") %>% sample_fct(N, prob = c(.5, .48, .015, .005)),
+    SEX = c("F", "M") %>% sample_fct(N, prob = c(.52, .48)),
     ARMCD = c("ARM A", "ARM B", "ARM C") %>% sample_fct(N),
     RACE = c(
       "ASIAN", "BLACK OR AFRICAN AMERICAN", "WHITE", "AMERICAN INDIAN OR ALASKA NATIVE",
@@ -136,10 +136,20 @@ radsl <- function(N = 400, # nolint
   mutate(LSTALVDT = as.Date(.data$TRTEDTM) + floor(runif(N, min = 10, max = 30))) %>%
     select(-.data$st_posixn)
 
-  # associate sites with countries
+  # associate sites with countries and regions
   ADSL <- ADSL %>% # nolint
     mutate(SITEID = paste0(.data$COUNTRY, "-", .data$SITEID)) %>%
-    mutate(INVID = .data$SITEID) %>%
+    mutate(REGION1 = case_when(
+      COUNTRY %in% c("NGA") ~ "Africa",
+      COUNTRY %in% c("CHN", "JPN", "PAK") ~ "Asia",
+      COUNTRY %in% c("RUS") ~ "Eurasia",
+      COUNTRY %in% c("GBR") ~ "Europe",
+      COUNTRY %in% c("CAN", "USA") ~ "North America",
+      COUNTRY %in% c("BRA") ~ "South America",
+      TRUE ~ as.character(NA)
+    )) %>%
+    mutate(INVID = paste("INV ID", .data$SITEID)) %>%
+    mutate(INVNAM = paste("Dr.", .data$SITEID, "Doe")) %>%
     mutate(USUBJID = paste(.data$STUDYID, .data$SITEID, .data$SUBJID, sep = "-")) %>%
     mutate(study_duration_secs = study_duration_secs)
 
