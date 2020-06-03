@@ -88,7 +88,7 @@ radqs <- function(ADSL, # nolint
   # assign related variable values: PARAMxPARAMCD are related
   ADQS$PARAMCD <- rel_var(df = ADQS, var_name = "PARAMCD", var_values = param_init_list$relvar2, related_var = "PARAM") # nolint
 
-  ADQS$AVAL <- rnorm(nrow(ADQS), mean = 50, sd = 8) # nolint
+  ADQS$AVAL <- rnorm(nrow(ADQS), mean = 50, sd = 8) + ADQS$AVISITN * rnorm(nrow(ADQS), mean = 5, sd = 2) # nolint
 
   # order to prepare for change from screening and baseline values
   ADQS <- ADQS[order(ADQS$STUDYID, ADQS$USUBJID, ADQS$PARAMCD, ADQS$AVISITN), ] # nolint
