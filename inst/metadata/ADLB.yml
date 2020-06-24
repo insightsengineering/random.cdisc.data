@@ -69,6 +69,18 @@ variables:
   ANRIND:
     label: Analysis Reference Range Indicator
     type: factor
+  BNRIND:
+    label: Baseline Reference Range Indicator
+    type: factor
+  SHIFT1:
+    label: Shift from Baseline to Analysis Value
+    type: factor
+  ATOXGR:
+    label: Analysis Toxicity Grade
+    type: factor
+  BTOXGR:
+    label: Baseline Toxicity Grade
+    type: factor
   ADTM:
     label: Analysis Datetime
   ADY:
@@ -85,4 +97,25 @@ variables:
     type: integer
   LOQFL:
     label: Limit of Quantification Flag
+    type: factor
+  ONTRTFL:
+    label: On Treatment Record Flag
+    type: factor
+  WORS01FL:
+    label: Worst Observation in Window Flag 01
+    type: factor
+  WGRHIFL:
+    label: Worst High Grade per Patient
+    type: factor
+  WGRLOFL:
+    label: Worst Low Grade per Patient
+    type: factor
+  WGRHIVFL:
+    label: Worst High Grade per Patient per Visit
+    type: factor
+  WGRLOVFL:
+    label: Worst Low Grade per Patient per Visit
+    type: factor
+  ANL01FL:
+    label: Analysis Flag 01 Baseline Post-Baseline
     type: factor

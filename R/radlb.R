@@ -6,7 +6,7 @@
 #' @details One record per subject per parameter per analysis visit per analysis date.
 #'
 #' Keys: STUDYID, USUBJID, PARAMCD, BASETYPE, AVISITN, ATPTN, DTYPE, ADTM, LBSEQ, ASPID.
-#'
+#
 #' @template ADSL_params
 #' @template BDS_findings_params
 #' @param lbcat As character vector of lb category values.
@@ -20,7 +20,7 @@
 #' @template param_cached
 #' @template return_data.frame
 #'
-#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup
+#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup slice rename
 #' @importFrom magrittr %>%
 #' @importFrom stats rnorm
 #'
@@ -35,8 +35,11 @@
 #' radlb(ADSL, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
 radlb <- function(ADSL, # nolint
                   lbcat = c("CHEMISTRY", "CHEMISTRY", "IMMUNOLOGY"),
-                  param = c("Alanine Aminotransferase Measurement",
-                            "C-Reactive Protein Measurement", "Immunoglobulin A Measurement"),
+                  param = c(
+                    "Alanine Aminotransferase Measurement",
+                    "C-Reactive Protein Measurement",
+                    "Immunoglobulin A Measurement"
+                    ),
                   paramcd = c("ALT", "CRP", "IGA"),
                   paramu = c("U/L", "mg/L", "g/L"),
                   visit_format = "WEEK",
@@ -51,7 +54,8 @@ radlb <- function(ADSL, # nolint
                     BASE2 = c(NA, 0.1), BASE = c(NA, 0.1),
                     CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1)
                   ),
-                  cached = FALSE) {
+                  cached = FALSE) { # nolint
+
   stopifnot(is_logical_single(cached))
   if (cached) {
     return(get_cached_data("cadlb"))
@@ -155,8 +159,31 @@ radlb <- function(ADSL, # nolint
     mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
     mutate(CHG = .data$AVAL - .data$BASE) %>%
     mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
-    mutate(ANRIND = sample_fct(ANRIND_choices, nrow(ADLB), prob = c(0.1, 0.1, 0.8))) %>%
     mutate(BASETYPE = "LAST") %>%
+    mutate(ANRIND = sample_fct(ANRIND_choices, nrow(ADLB), prob = c(0.1, 0.1, 0.8))) %>%
+    group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
+    mutate(BNRIND = .data$ANRIND[.data$ABLFL == "Y"]) %>%
+    ungroup() %>%
+    mutate(SHIFT1 = factor(ifelse(
+      .data$AVISITN > 0,
+      paste(retain(ADLB, as.character(.data$BNRIND), .data$AVISITN == 0), .data$ANRIND, sep = " to "),
+      ""))) %>%
+    mutate(ATOXGR = factor(case_when(
+      .data$ANRIND == "LOW" ~ sample(
+        c("-1", "-2", "-3", "-4", "-5"),
+        nrow(ADLB),
+        replace = TRUE,
+        prob = c(0.30, 0.25, 0.20, 0.15, 0.1)),
+      .data$ANRIND == "HIGH" ~ sample(
+        c("1", "2", "3", "4", "5"),
+        nrow(ADLB),
+        replace = TRUE,
+        prob = c(0.30, 0.25, 0.20, 0.15, 0.1)),
+      .data$ANRIND == "NORMAL" ~ "0"
+      ))) %>%
+    group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
+    mutate(BTOXGR = .data$ATOXGR[.data$ABLFL == "Y"]) %>%
+    ungroup() %>%
     mutate(ATPTN = 1) %>%
     mutate(DTYPE = NA) %>%
     var_relabel(
@@ -175,9 +202,11 @@ radlb <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add LB date and study day variables
-  ADLB <- inner_join(ADSL, # nolint
-                     ADLB,
-                     by = c("STUDYID", "USUBJID")) %>%
+  ADLB <- inner_join( # nolint
+    ADSL,
+    ADLB,
+    by = c("STUDYID", "USUBJID")
+    ) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
@@ -196,10 +225,79 @@ radlb <- function(ADSL, # nolint
     mutate(LBSEQ = 1:n()) %>%
     mutate(ASEQ = .data$LBSEQ) %>%
     ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISITN, .data$ATPTN, .data$DTYPE,
-            .data$ADTM, .data$LBSEQ, .data$ASPID)
+    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISITN, .data$ATPTN, .data$DTYPE, .data$ADTM, .data$LBSEQ, .data$ASPID) # nolint
+
+  ADLB <- ADLB %>% mutate(ONTRTFL =  factor(case_when( # nolint
+    is.na(.data$TRTSDTM) ~ "",
+    is.na(.data$ADTM) ~ "Y",
+    (.data$ADTM < .data$TRTSDTM) ~ "",
+    (.data$ADTM > .data$TRTEDTM) ~ "",
+    TRUE ~ "Y"
+    )))
+
+  flag_variables <- function(data,
+                             apply_grouping,
+                             apply_filter,
+                             apply_mutate) {
+
+    data_compare <- data %>%
+      mutate(row_check = seq_len(nrow(data)))
+
+    data <- data_compare %>%
+      {if (apply_grouping == TRUE) group_by(., .data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISIT) # nolint
+        else group_by(., .data$USUBJID, .data$PARAMCD, .data$BASETYPE)
+        } %>%
+
+      arrange(.data$ADTM, .data$ASPID, .data$LBSEQ) %>%
+      {if (apply_filter == TRUE) filter( # nolint
+        .,
+        (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") & # nolint
+          (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
+        ) %>%
+          filter(.data$ATOXGR == max(as.numeric(as.character(.data$ATOXGR))))
+        else if (apply_filter == FALSE) filter(
+          .,
+          (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") &
+            (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
+          ) %>%
+          filter(.data$ATOXGR == min(as.numeric(as.character(.data$ATOXGR))))
+        else filter(
+          .,
+          .data$AVAL == min(.data$AVAL) & (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") &
+            (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
+          )
+        } %>%
+
+      slice(1) %>%
+      {if (apply_mutate == TRUE) mutate(., new_var = ifelse(is.na(.data$DTYPE), "Y", "")) # nolint
+        else mutate(., new_var = ifelse(is.na(.data$AVAL) == FALSE & is.na(.data$DTYPE), "Y", ""))
+        } %>%
+
+      ungroup()
+
+    data_compare$new_var <- ifelse(data_compare$row_check %in% data$row_check, "Y", "")
+
+    data_compare <- data_compare[, -which(names(data_compare) %in% c("row_check"))]
+
+    return(data_compare)
+
+  }
+
+  ADLB <- flag_variables(ADLB, TRUE, "ELSE", FALSE) %>% rename(WORS01FL = .data$new_var) # nolint
+  ADLB <- flag_variables(ADLB, FALSE, TRUE, TRUE) %>% rename(WGRHIFL = .data$new_var) # nolint
+  ADLB <- flag_variables(ADLB, FALSE, FALSE, TRUE) %>% rename(WGRLOFL = .data$new_var) # nolint
+  ADLB <- flag_variables(ADLB, TRUE, TRUE, TRUE) %>% rename(WGRHIVFL = .data$new_var) # nolint
+  ADLB <- flag_variables(ADLB, TRUE, FALSE, TRUE) %>% rename(WGRLOVFL = .data$new_var) # nolint
+
+  ADLB <- ADLB %>% mutate(ANL01FL = ifelse( # nolint
+    (.data$ABLFL == "Y" | (.data$WORS01FL == "Y" & is.na(.data$DTYPE)))
+    & (.data$AVISIT != "SCREENING"),
+    "Y",
+    ""
+    ))
 
   # apply metadata
+
   ADLB <- apply_metadata(ADLB, "metadata/ADLB.yml") # nolint
 
   return(ADLB)
