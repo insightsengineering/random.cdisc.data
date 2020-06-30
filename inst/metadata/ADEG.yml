@@ -1,0 +1,101 @@
+domain:
+  name: ADEG
+  label: ECG Analysis Dataset
+
+variables:
+  ASEQ:
+    label: Sequence Number
+    type: integer
+  EGSEQ:
+    label: Sequence Number
+    type: integer
+  EGTESTCD:
+    label: ECG Test or Examination Short Name
+    type: factor
+  EGTEST:
+    label: ECG Test or Examination Name
+    type: factor
+  EGCAT:
+    label: Category for ECG Test
+    type: factor
+  ASPID:
+    label: Analysis Sponsor Identifier
+    type: integer
+  PARAM:
+    label: Parameter
+    type: factor
+  PARAMCD:
+    label: Parameter Code
+    type: factor
+  AVAL:
+    label: Analysis Value
+    type: numeric
+  AVALC:
+    label: Character Result/Finding
+    type: character
+  AVALU:
+    label: Analysis Value Unit
+    type: factor
+  BASE:
+    label: Baseline Value
+    type: numeric
+  BASEC:
+    label: Baseline Character Value
+    type: character
+  BASETYPE:
+    label: Baseline Type
+    type: factor
+  ABLFL:
+    label: Baseline Record Flag
+    type: factor
+  CHG:
+    label: Absolute Change from Baseline
+    type: numeric
+  PCHG:
+    label: Percentage Change from Baseline
+    type: numeric
+  DTYPE:
+    label: Derivation Type
+    type: factor
+  ANRLO:
+    label: Analysis Normal Range Lower Limit
+    type: numeric
+  ANRHI:
+    label: Analysis Normal Range Upper Limit
+    type: numeric
+  ANRIND:
+    label: Analysis Reference Range Indicator
+    type: factor
+  BNRIND:
+    label: Baseline Reference Range Indicator
+    type: factor
+  ADTM:
+    label: Analysis Datetime
+  ADY:
+    label: Analysis Relative Day
+    type: integer
+  ATPTN:
+    label: Analysis Timepoint (N)
+    type: integer
+  AVISIT:
+    label: Analysis Visit
+    type: factor
+  AVISITN:
+    label: Analysis Visit (N)
+    type: integer
+  ONTRTFL:
+    label: On Treatment Record Flag
+    type: factor
+  WORS01FL:
+    label: Worst Observation in Window Flag 01
+    type: factor
+  ANL01FL:
+    label: Analysis Flag 01 Baseline Post-Baseline
+    type: factor
+  ANL03FL:
+    label: Analysis Flag 03 Min Obs Within BType
+    type: factor
+  ANL04FL:
+    label: Analysis Flag 04 Max Obs Within BType
+    type: factor
+

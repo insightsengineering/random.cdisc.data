@@ -1,5 +1,6 @@
 # random.cdisc.data 0.3.4.9000
 
+* Added ADEG dataset.
 * Added 11 variables to ADLB dataset: BNRIND, SHIFT1, ATOXGR, BTOXGR, WOS01FL, ANL01FL, WGRHIFL, WGRLOFL, WGRHIVFL, WGRLOVFL, ONTRTFL.
 
 # random.cdisc.data 0.3.4

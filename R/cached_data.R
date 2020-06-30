@@ -75,3 +75,10 @@
 #'
 #' @usage data(cadex)
 "cadex"
+
+#' Cached ADEG data generated with \code{seed = 1}
+#'
+#' @docType data
+#'
+#' @usage data(cadeg)
+"cadeg"
