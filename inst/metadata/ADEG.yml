@@ -89,6 +89,9 @@ variables:
   WORS01FL:
     label: Worst Observation in Window Flag 01
     type: factor
+  WORS02FL:
+    label: Worst Post-Baseline Observation
+    type: factor
   ANL01FL:
     label: Analysis Flag 01 Baseline Post-Baseline
     type: factor

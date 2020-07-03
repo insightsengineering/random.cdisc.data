@@ -40,7 +40,7 @@ radeg <- function(ADSL, # nolint
                     "RR Duration",
                     "Heart Rate",
                     "ECG Interpretation"
-                    ),
+                  ),
                   paramcd = c("QT", "RR", "HR", "ECGINTP"),
                   paramu = c("msec", "msec", "beats/min", ""),
                   visit_format = "WEEK",
@@ -110,7 +110,7 @@ radeg <- function(ADSL, # nolint
     .data$PARAMCD == "RR" ~ rnorm(nrow(ADEG), mean = 1050, sd = 300),
     .data$PARAMCD == "HR" ~ rnorm(nrow(ADEG), mean = 70, sd = 20),
     .data$PARAMCD == "ECGINTP" ~ NA_real_
-    ))
+  ))
 
   ADEG <- ADEG %>% # nolint
     mutate(EGTESTCD = .data$PARAMCD) %>%
@@ -121,14 +121,14 @@ radeg <- function(ADSL, # nolint
     AVISIT == "BASELINE" ~ 0,
     (grepl("^WEEK", AVISIT) | grepl("^CYCLE", AVISIT)) ~ as.numeric(AVISIT) - 2,
     TRUE ~ NA_real_
-    ))
+  ))
 
   ADEG$AVALU <- as.factor(rel_var( # nolint
     df = ADEG,
     var_name = "AVALU",
     var_values = unit_init_list$relvar2,
     related_var = "PARAM"
-    ))
+  ))
 
   # order to prepare for change from screening and baseline values
   ADEG <- ADEG[order(ADEG$STUDYID, ADEG$USUBJID, ADEG$PARAMCD, ADEG$AVISITN), ] # nolint
@@ -149,20 +149,20 @@ radeg <- function(ADSL, # nolint
     .data$PARAMCD == "RR" ~ 600,
     .data$PARAMCD == "HR" ~ 40,
     .data$PARAMCD == "ECGINTP" ~ NA_real_
-    ))
+  ))
 
   ADEG <- ADEG %>% mutate(ANRHI = case_when( # nolint
     .data$PARAMCD == "QT" ~ 500,
     .data$PARAMCD == "RR" ~ 1500,
     .data$PARAMCD == "HR" ~ 100,
     .data$PARAMCD == "ECGINTP" ~ NA_real_
-    ))
+  ))
 
   ADEG <- ADEG %>% mutate(ANRIND = factor(case_when( # nolint
     .data$AVAL < .data$ANRLO ~ "LOW",
     .data$AVAL >= .data$ANRLO & .data$AVAL <= .data$ANRHI ~ "NORMAL",
     .data$AVAL > .data$ANRHI ~ "HIGH")
-    ))
+  ))
 
   ADEG <- ADEG %>% # nolint
     mutate(CHG = ifelse(.data$AVISITN > 0, .data$AVAL - .data$BASE, NA)) %>%
@@ -193,7 +193,7 @@ radeg <- function(ADSL, # nolint
     ADSL, # nolint
     ADEG,
     by = c("STUDYID", "USUBJID")
-    ) %>%
+  ) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
@@ -220,46 +220,13 @@ radeg <- function(ADSL, # nolint
     (.data$ADTM < .data$TRTSDTM) ~ "",
     (.data$ADTM > .data$TRTEDTM) ~ "",
     TRUE ~ "Y")
-    ))
+  ))
 
   ADEG <- ADEG %>% mutate(AVALC = ifelse( # nolint
     .data$PARAMCD == "ECGINTP",
     as.character(sample_fct(c("ABNORMAL", "NORMAL"), nrow(ADEG), prob = c(0.25, 0.75))),
     as.character(.data$AVAL)
   ))
-
-  #Created function to easily match rows which comply to ONTRTFL derivation
-  flag_variables <- function(data) {
-
-    data_compare <- data %>% # nolint
-      mutate(row_check = seq_len(nrow(data)))
-
-    data <- data_compare %>%
-    group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISIT) %>%
-    arrange(.data$ADTM, .data$ASPID, .data$EGSEQ) %>%
-    filter(ifelse(
-      .data$PARAMCD == "ECGINTP",
-      sort(as.factor(.data$AVALC), decreasing = T),
-      .data$AVAL == min(.data$AVAL)
-      )
-      & .data$AVISITN > 0
-      & (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)) %>%
-    slice(1) %>%
-    mutate(new_var = case_when(
-      .data$AVALC == "ABNORMAL" | .data$AVALC == "NORMAL" ~ "Y",
-      (is.na(.data$AVAL) == FALSE & is.na(.data$DTYPE)) ~ "Y",
-      TRUE ~ ""
-      )) %>%
-    ungroup()
-
-    data_compare$new_var <- ifelse(data_compare$row_check %in% data$row_check, "Y", "")
-    data_compare <- data_compare[, -which(names(data_compare) %in% c("row_check"))]
-
-    return(data_compare)
-
-  }
-
-  ADEG <- flag_variables(ADEG) %>% rename(WORS01FL = .data$new_var) # nolint
 
   # Temporarily creating a row_check column to easily match newly created
   # observations with their row correct arrangement.
@@ -276,13 +243,13 @@ radeg <- function(ADSL, # nolint
       filter(
         (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING")
         & (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
-        ) %>%
+      ) %>%
       { # nolint
         if (minimum == TRUE) filter(., .data$AVAL == min(.data$AVAL)) %>%
           mutate(., DTYPE = "MINIMUM", AVISIT = "POST-BASELINE MINIMUM")
         else filter(., .data$AVAL == max(.data$AVAL)) %>%
           mutate(., DTYPE = "MAXIMUM", AVISIT = "POST-BASELINE MAXIMUM")
-        } %>%
+      } %>%
       slice(1) %>%
       ungroup()
 
@@ -300,12 +267,62 @@ radeg <- function(ADSL, # nolint
   #Dropping the "row_check" column created above.
   ADEG <- ADEG[, -which(names(ADEG) %in% c("row_check"))] # nolint
 
+  #Created function to easily match rows which comply to ONTRTFL derivation
+  flag_variables <- function(data, worst_obs) {
+
+    data_compare <- data %>% # nolint
+      mutate(row_check = seq_len(nrow(data)))
+
+    data <- data_compare %>%
+      { # nolint
+        if (worst_obs == FALSE) group_by(., .data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISIT) %>%
+          arrange(., .data$ADTM, .data$ASPID, .data$EGSEQ)
+        else group_by(., .data$USUBJID, .data$PARAMCD, .data$BASETYPE)
+      } %>%
+      filter(.data$AVISITN > 0 & (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM) & is.na(.data$DTYPE)) %>%
+      { # nolint
+        if (worst_obs == TRUE) filter(., ifelse(
+          .data$PARAMCD == "ECGINTP",
+          .data$AVALC == "ABNORMAL",
+          .data$AVAL == min(.data$AVAL)))
+        else filter(., ifelse(
+          .data$PARAMCD == "ECGINTP",
+          .data$AVALC == "ABNORMAL" | .data$AVALC == "NORMAL",
+          .data$AVAL == min(.data$AVAL)))
+        } %>%
+      slice(1) %>%
+      { # nolint
+        if (worst_obs == TRUE)
+          mutate(., new_var = case_when(
+            .data$AVALC == "ABNORMAL" ~ "Y",
+            (!is.na(.data$AVAL) & is.na(.data$DTYPE)) ~ "Y",
+            TRUE ~ ""
+          ))
+        else
+          mutate(., new_var = case_when(
+            (.data$AVALC == "ABNORMAL" | .data$AVALC == "NORMAL") ~ "Y",
+            (!is.na(.data$AVAL) & is.na(.data$DTYPE)) ~ "Y",
+            TRUE ~ ""
+          ))
+        } %>%
+      ungroup()
+
+    data_compare$new_var <- ifelse(data_compare$row_check %in% data$row_check, "Y", "")
+    data_compare <- data_compare[, -which(names(data_compare) %in% c("row_check"))]
+
+    return(data_compare)
+
+  }
+
+  ADEG <- flag_variables(ADEG, FALSE) %>% rename(WORS01FL = .data$new_var) # nolint
+  ADEG <- flag_variables(ADEG, TRUE) %>% rename(WORS02FL = .data$new_var) # nolint
+
   ADEG <- ADEG %>% mutate(ANL01FL = factor(ifelse( # nolint
     (.data$ABLFL == "Y" |  (is.na(.data$DTYPE) & .data$WORS01FL == "Y"))
     & (.data$AVISIT != "SCREENING"),
     "Y",
     ""
-    )))
+  )))
 
   ADEG <- ADEG %>% # nolint
     group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
@@ -313,19 +330,18 @@ radeg <- function(ADSL, # nolint
       .data$PARAMCD == "ECGINTP",
       .data$AVALC[.data$AVISIT == "BASELINE"],
       as.character(.data$BASE)
-      )) %>%
+    )) %>%
     mutate(ANL03FL = case_when(
       .data$DTYPE == "MINIMUM" ~ "Y",
       .data$ABLFL == "Y" & .data$PARAMCD != "ECGINTP" ~ "Y",
       TRUE ~ ""
-      )) %>%
+    )) %>%
     mutate(ANL04FL = case_when(
       .data$DTYPE == "MAXIMUM" ~ "Y",
       .data$ABLFL == "Y" & .data$PARAMCD != "ECGINTP" ~ "Y",
       TRUE ~ ""
-      )) %>%
+    )) %>%
     ungroup()
-
 
   # apply metadata
   ADEG <- apply_metadata(ADEG, "metadata/ADEG.yml") # nolint
