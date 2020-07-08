@@ -178,6 +178,9 @@ radeg <- function(ADSL, # nolint
       USUBJID = attr(ADEG$USUBJID, "label")
     )
 
+  ADEG$ANRIND <- factor(ADEG$ANRIND, levels = c("LOW", "NORMAL", "HIGH"))
+  ADEG$BNRIND <- factor(ADEG$BNRIND, levels = c("LOW", "NORMAL", "HIGH"))
+
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADEG <- mutate_na(ds = ADEG, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
@@ -281,20 +284,20 @@ radeg <- function(ADSL, # nolint
       } %>%
       filter(.data$AVISITN > 0 & (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM) & is.na(.data$DTYPE)) %>%
       { # nolint
-        if (worst_obs == TRUE) filter(., ifelse(
+        if (worst_obs == TRUE) arrange(., .data$AVALC) %>% filter(., ifelse(
           .data$PARAMCD == "ECGINTP",
-          .data$AVALC == "ABNORMAL",
+          ifelse(.data$AVALC == "ABNORMAL", .data$AVALC == "ABNORMAL", .data$AVALC == "NORMAL"),
           .data$AVAL == min(.data$AVAL)))
         else filter(., ifelse(
           .data$PARAMCD == "ECGINTP",
           .data$AVALC == "ABNORMAL" | .data$AVALC == "NORMAL",
           .data$AVAL == min(.data$AVAL)))
-        } %>%
+      } %>%
       slice(1) %>%
       { # nolint
         if (worst_obs == TRUE)
           mutate(., new_var = case_when(
-            .data$AVALC == "ABNORMAL" ~ "Y",
+            (.data$AVALC == "ABNORMAL" | .data$AVALC == "NORMAL") ~ "Y" ,
             (!is.na(.data$AVAL) & is.na(.data$DTYPE)) ~ "Y",
             TRUE ~ ""
           ))
@@ -304,7 +307,7 @@ radeg <- function(ADSL, # nolint
             (!is.na(.data$AVAL) & is.na(.data$DTYPE)) ~ "Y",
             TRUE ~ ""
           ))
-        } %>%
+      } %>%
       ungroup()
 
     data_compare$new_var <- ifelse(data_compare$row_check %in% data$row_check, "Y", "")
