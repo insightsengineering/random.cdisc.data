@@ -8,6 +8,7 @@ radae(
   ADSL,
   max_n_aes = 10L,
   lookup = NULL,
+  lookup_aag = NULL,
   seed = NULL,
   na_percentage = 0,
   na_vars = list(AEBODSYS = c(NA, 0.1), AEDECOD = c(1234, 0.1), AETOXGR = c(1234, 0.1)),
@@ -20,6 +21,8 @@ radae(
 \item{max_n_aes}{Maximum number of AEs per patient.}
 
 \item{lookup}{Data.frame containing additional parameters.}
+
+\item{lookup_aag}{Data.frame containing additional metadata parameters.}
 
 \item{seed}{Seed for random number generation.}
 

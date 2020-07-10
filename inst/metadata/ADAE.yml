@@ -36,8 +36,20 @@ variables:
   AESER:
     label: Serious Event
     type: factor
+  AEACN:
+    label: Action Taken With Study Treatment
+    type: character
   AEREL:
     label: Analysis Causality
+    type: factor
+  AEOUT:
+    label: Outcome of Adverse Event
+    type: character
+  AESDTH:
+    label: Results in Death
+    type: factor
+  TRTEMFL:
+    label: Treatment Emergent Analysis Flag
     type: factor
   ASTDTM:
     label: Analysis Start Datetime
@@ -51,4 +63,22 @@ variables:
     type: integer
   AETOXGR:
     label: Analysis Toxicity Grade
+    type: factor
+  SMQ01NAM:
+    label: SMQ 01 Reference Name
+    type: character
+  SMQ02NAM:
+    label: SMQ 02 Reference Name
+    type: character
+  SMQ01SC:
+    label: SMQ 01 Scope
+    type: character
+  SMQ02SC:
+    label: SMQ 02 Scope
+    type: character
+  CQ01NAM:
+    label: CQ 01 Reference Name
+    type: character
+  ANL01FL:
+    label: Analysis Flag 01
     type: factor

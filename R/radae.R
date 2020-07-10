@@ -9,6 +9,7 @@
 #'
 #' @template ADSL_params
 #' @template lookup_param
+#' @template lookup_aag_param
 #' @param max_n_aes Maximum number of AEs per patient.
 #' @inheritParams radsl
 #' @inheritParams mutate_na
@@ -18,7 +19,7 @@
 #'
 #' @template return_data.frame
 #'
-#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup
+#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup rename bind_cols left_join setdiff
 #' @importFrom magrittr %>%
 #' @importFrom tibble tribble
 #' @importFrom rlang .data
@@ -32,6 +33,7 @@
 radae <- function(ADSL, # nolint
                   max_n_aes = 10L,
                   lookup = NULL,
+                  lookup_aag = NULL,
                   seed = NULL,
                   na_percentage = 0,
                   na_vars = list(AEBODSYS = c(NA, 0.1), AEDECOD = c(1234, 0.1), AETOXGR = c(1234, 0.1)),
@@ -60,6 +62,19 @@ radae <- function(ADSL, # nolint
       "cl D.1",  "llt D.1.1.1.1", "dcd D.1.1.1.1", "hlt D.1.1.1", "hlgt D.1.1", "5",        "cl D", "Y",    "Y",
       "cl D.1",  "llt D.1.1.4.2", "dcd D.1.1.4.2", "hlt D.1.1.4", "hlgt D.1.1", "3",        "cl D", "N",    "N",
       "cl D.2",  "llt D.2.1.5.3", "dcd D.2.1.5.3", "hlt D.2.1.5", "hlgt D.2.1", "1",        "cl D", "N",    "Y"
+    )
+  )
+
+  AAG <- if_null( # nolint
+    lookup_aag,
+    tribble(
+      ~NAMVAR,    ~SRCVAR,    ~GRPTYPE,  ~REFNAME,                   ~REFTERM,        ~SCOPE,
+      "CQ01NAM",  "AEDECOD",  "CUSTOM",  "D.2.1.5.3/A.1.1.1.1 AESI", "dcd D.2.1.5.3", "",
+      "CQ01NAM",  "AEDECOD",  "CUSTOM",  "D.2.1.5.3/A.1.1.1.1 AESI", "dcd A.1.1.1.1", "",
+      "SMQ01NAM", "AEDECOD",  "SMQ",     "C.1.1.1.3/B.2.2.3.1 AESI", "dcd C.1.1.1.3", "BROAD",
+      "SMQ01NAM", "AEDECOD",  "SMQ",     "C.1.1.1.3/B.2.2.3.1 AESI", "dcd B.2.2.3.1", "BROAD",
+      "SMQ02NAM", "AEDECOD",  "SMQ",     "Y.9.9.9.9/Z.9.9.9.9 AESI", "dcd Y.9.9.9.9", "NARROW",
+      "SMQ02NAM", "AEDECOD",  "SMQ",     "Y.9.9.9.9/Z.9.9.9.9 AESI", "dcd Z.9.9.9.9", "NARROW",
     )
   )
 
@@ -100,22 +115,22 @@ radae <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add AE date and study day variables
-  ADAE <- inner_join(ADSL, # nolint
-                     ADAE,
-                     by = c("STUDYID", "USUBJID")) %>%
+  ADAE <- inner_join(ADSL, ADAE,by = c("STUDYID", "USUBJID")) %>% # nolint
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
       !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
       is.na(.data$TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
     )) %>%
-    mutate(ASTDTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-                               origin = "1970-01-01")) %>%
+    mutate(ASTDTM = as.POSIXct(
+      (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
+      origin = "1970-01-01")) %>%
     mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
     mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
-    mutate(AENDTM = as.POSIXct((sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
-                               origin = "1970-01-01")) %>%
+    mutate(AENDTM = as.POSIXct(
+      (sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
+      origin = "1970-01-01")) %>%
     mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
     select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
     ungroup() %>%
@@ -127,6 +142,70 @@ radae <- function(ADSL, # nolint
     mutate(ASEQ = .data$AESEQ) %>%
     ungroup() %>%
     arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$AETERM, .data$AESEQ)
+
+  outcomes <- c(
+    "UNKNOWN",
+    "NOT RECOVERED/NOT RESOLVED",
+    "RECOVERED/RESOLVED WITH SEQUELAE",
+    "RECOVERING/RESOLVING",
+    "RECOVERED/RESOLVED"
+    )
+
+  actions <- c(
+    "DOSE RATE REDUCED",
+    "UNKNOWN",
+    "NOT APPLICABLE",
+    "DRUG INTERRUPTED",
+    "DRUG WITHDRAWN",
+    "DOSE INCREASED",
+    "DOSE NOT CHANGED",
+    "DOSE REDUCED",
+    "NOT EVALUABLE"
+    )
+
+  ADAE <- ADAE %>% # nolint
+    mutate(AEOUT = factor(ifelse(
+      .data$AETOXGR == "5",
+      "FATAL",
+      as.character(sample_fct(outcomes, nrow(ADAE), prob = c(0.1, 0.2, 0.1, 0.3, 0.3)))
+      ))) %>%
+    mutate(AEACN = factor(ifelse(
+      .data$AETOXGR == "5",
+      "NOT EVALUABLE",
+      as.character(sample_fct(actions, nrow(ADAE), prob = c(0.05, 0.05, 0.05, 0.01, 0.05, 0.1, 0.45, 0.1, 0.05)))
+      ))) %>%
+    mutate(AESDTH = case_when(
+      .data$AEOUT == "FATAL" ~ "Y",
+      TRUE ~ "N"
+    )) %>%
+    mutate(TRTEMFL = ifelse(.data$ASTDTM >= .data$TRTSDTM, "Y", "")) %>%
+    mutate(ANL01FL = ifelse(.data$TRTEMFL == "Y" & .data$ASTDTM <= .data$TRTEDTM + 2592000, "Y", ""))
+
+  # Split metadata for AEs of special interest (AESI)
+  l_AAG <- split(AAG, interaction(AAG$NAMVAR, AAG$SRCVAR, AAG$GRPTYPE, drop = TRUE)) # nolint
+
+  # Create AESI flags
+  l_AESI <- lapply(l_AAG, function(d_adag, d_adae) { # nolint
+
+    names(d_adag)[names(d_adag) == "REFTERM"] <- d_adag$SRCVAR[1] # nolint
+    names(d_adag)[names(d_adag) == "REFNAME"] <- d_adag$NAMVAR[1] # nolint
+
+    if (d_adag$GRPTYPE[1] == "CUSTOM") { # nolint
+
+      d_adag <- subset(d_adag, select = -SCOPE) # nolint
+
+    } else if (d_adag$GRPTYPE[1] == "SMQ") { # nolint
+
+      names(d_adag)[names(d_adag) == "SCOPE"] <- paste0(substr(d_adag$NAMVAR[1], 1, 5), "SC") # nolint
+    }
+
+    d_adag <- subset(d_adag, select = -c(NAMVAR, SRCVAR, GRPTYPE)) # nolint
+    d_new <- left_join(x = d_adae, y = d_adag, by = intersect(names(d_adae), names(d_adag)))
+    d_new[, setdiff(names(d_new), names(d_adae)), drop = FALSE]
+
+  }, ADAE)
+
+  ADAE <- bind_cols(ADAE, l_AESI) # nolint
 
   # apply metadata
   ADAE <- apply_metadata(ADAE, "metadata/ADAE.yml") # nolint
