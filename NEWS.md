@@ -1,4 +1,4 @@
-# random.cdisc.data 0.3.4.9000
+# random.cdisc.data 0.3.5
 
 * Added 10 variables to ADAE dataset: AEOUT, AEACN, AESDTH, TRTEMFL, ANL01FL, SMQ01NAM,
 SMQ02NAM, SMQ01SC, SMQ02SC, CQ01NAM.
