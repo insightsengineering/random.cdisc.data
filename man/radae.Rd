@@ -55,4 +55,30 @@ Keys: STUDYID USUBJID ASTDTM AETERM AESEQ.
 library(random.cdisc.data)
 ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
 radae(ADSL, seed = 2)
+
+# Add metadata.
+aag <- read.table(
+sep = ',', header = TRUE,
+text = paste(
+  "NAMVAR,SRCVAR,GRPTYPE,REFNAME,REFTERM,SCOPE",
+  "CQ01NAM,AEDECOD,CUSTOM,D.2.1.5.3/A.1.1.1.1 AESI,dcd D.2.1.5.3,",
+  "CQ01NAM,AEDECOD,CUSTOM,D.2.1.5.3/A.1.1.1.1 AESI,dcd A.1.1.1.1,",
+  "SMQ01NAM,AEDECOD,SMQ,C.1.1.1.3/B.2.2.3.1 AESI,dcd C.1.1.1.3,BROAD",
+  "SMQ01NAM,AEDECOD,SMQ,C.1.1.1.3/B.2.2.3.1 AESI,dcd B.2.2.3.1,BROAD",
+  "SMQ02NAM,AEDECOD,SMQ,Y.9.9.9.9/Z.9.9.9.9 AESI,dcd Y.9.9.9.9,NARROW",
+  "SMQ02NAM,AEDECOD,SMQ,Y.9.9.9.9/Z.9.9.9.9 AESI,dcd Z.9.9.9.9,NARROW",
+  sep = '\n'
+), stringsAsFactors = FALSE
+)
+
+adsl <- radsl(cached = TRUE)
+adae <- radae(adsl, lookup_aag = aag)
+
+with(
+  adae,
+  cbind(
+    table(AEDECOD, SMQ01NAM),
+    table(AEDECOD, CQ01NAM)
+  )
+)
 }

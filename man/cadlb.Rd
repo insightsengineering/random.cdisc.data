@@ -4,9 +4,7 @@
 \name{cadlb}
 \alias{cadlb}
 \title{Cached ADLB data generated with \code{seed = 1}}
-\format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 8400 rows and 72 columns.
-}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 8400 rows and 72 columns.}
 \usage{
 data(cadlb)
 }

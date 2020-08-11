@@ -23,6 +23,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom tibble tribble
 #' @importFrom rlang .data
+#' @importFrom utils read.table
 #'
 #' @export
 #'
@@ -30,23 +31,57 @@
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
 #' radae(ADSL, seed = 2)
+#'
+#' # Add metadata.
+#' aag <- read.table(
+#' sep = ',', header = TRUE,
+#' text = paste(
+#'   "NAMVAR,SRCVAR,GRPTYPE,REFNAME,REFTERM,SCOPE",
+#'   "CQ01NAM,AEDECOD,CUSTOM,D.2.1.5.3/A.1.1.1.1 AESI,dcd D.2.1.5.3,",
+#'   "CQ01NAM,AEDECOD,CUSTOM,D.2.1.5.3/A.1.1.1.1 AESI,dcd A.1.1.1.1,",
+#'   "SMQ01NAM,AEDECOD,SMQ,C.1.1.1.3/B.2.2.3.1 AESI,dcd C.1.1.1.3,BROAD",
+#'   "SMQ01NAM,AEDECOD,SMQ,C.1.1.1.3/B.2.2.3.1 AESI,dcd B.2.2.3.1,BROAD",
+#'   "SMQ02NAM,AEDECOD,SMQ,Y.9.9.9.9/Z.9.9.9.9 AESI,dcd Y.9.9.9.9,NARROW",
+#'   "SMQ02NAM,AEDECOD,SMQ,Y.9.9.9.9/Z.9.9.9.9 AESI,dcd Z.9.9.9.9,NARROW",
+#'   sep = '\n'
+#' ), stringsAsFactors = FALSE
+#' )
+#'
+#' adsl <- radsl(cached = TRUE)
+#' adae <- radae(adsl, lookup_aag = aag)
+#'
+#' with(
+#'   adae,
+#'   cbind(
+#'     table(AEDECOD, SMQ01NAM),
+#'     table(AEDECOD, CQ01NAM)
+#'   )
+#' )
 radae <- function(ADSL, # nolint
                   max_n_aes = 10L,
                   lookup = NULL,
                   lookup_aag = NULL,
                   seed = NULL,
                   na_percentage = 0,
-                  na_vars = list(AEBODSYS = c(NA, 0.1), AEDECOD = c(1234, 0.1), AETOXGR = c(1234, 0.1)),
+                  na_vars = list(
+                    AEBODSYS = c(NA, 0.1),
+                    AEDECOD = c(1234, 0.1),
+                    AETOXGR = c(1234, 0.1)
+                    ),
                   cached = FALSE) {
+
   stopifnot(is_logical_single(cached))
-  if (cached) {
-    return(get_cached_data("cadae"))
-  }
+  if (cached) return(get_cached_data("cadae"))
 
   stopifnot(is.data.frame(ADSL))
   stopifnot(is_integer_single(max_n_aes))
   stopifnot(is.null(seed) || is_numeric_single(seed))
-  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  stopifnot(
+    (
+      is_numeric_single(na_percentage) &&
+        na_percentage >= 0 && na_percentage < 1
+      ) || is.na(na_percentage)
+    )
 
   lookup_ae <- if_null( # nolint
     lookup,
@@ -65,22 +100,25 @@ radae <- function(ADSL, # nolint
     )
   )
 
-  AAG <- if_null( # nolint
-    lookup_aag,
-    tribble(
-      ~NAMVAR,    ~SRCVAR,    ~GRPTYPE,  ~REFNAME,                   ~REFTERM,        ~SCOPE,
-      "CQ01NAM",  "AEDECOD",  "CUSTOM",  "D.2.1.5.3/A.1.1.1.1 AESI", "dcd D.2.1.5.3", "",
-      "CQ01NAM",  "AEDECOD",  "CUSTOM",  "D.2.1.5.3/A.1.1.1.1 AESI", "dcd A.1.1.1.1", "",
-      "SMQ01NAM", "AEDECOD",  "SMQ",     "C.1.1.1.3/B.2.2.3.1 AESI", "dcd C.1.1.1.3", "BROAD",
-      "SMQ01NAM", "AEDECOD",  "SMQ",     "C.1.1.1.3/B.2.2.3.1 AESI", "dcd B.2.2.3.1", "BROAD",
-      "SMQ02NAM", "AEDECOD",  "SMQ",     "Y.9.9.9.9/Z.9.9.9.9 AESI", "dcd Y.9.9.9.9", "NARROW",
-      "SMQ02NAM", "AEDECOD",  "SMQ",     "Y.9.9.9.9/Z.9.9.9.9 AESI", "dcd Z.9.9.9.9", "NARROW",
+  AAG <- if (is.null(lookup_aag)) { # nolint
+    read.table(
+      sep = ",", header = TRUE,
+      text = paste(
+        "NAMVAR,SRCVAR,GRPTYPE,REFNAME,REFTERM,SCOPE",
+        "CQ01NAM,AEDECOD,CUSTOM,D.2.1.5.3/A.1.1.1.1 AESI,dcd D.2.1.5.3,",
+        "CQ01NAM,AEDECOD,CUSTOM,D.2.1.5.3/A.1.1.1.1 AESI,dcd A.1.1.1.1,",
+        "SMQ01NAM,AEDECOD,SMQ,C.1.1.1.3/B.2.2.3.1 AESI,dcd C.1.1.1.3,BROAD",
+        "SMQ01NAM,AEDECOD,SMQ,C.1.1.1.3/B.2.2.3.1 AESI,dcd B.2.2.3.1,BROAD",
+        "SMQ02NAM,AEDECOD,SMQ,Y.9.9.9.9/Z.9.9.9.9 AESI,dcd Y.9.9.9.9,NARROW",
+        "SMQ02NAM,AEDECOD,SMQ,Y.9.9.9.9/Z.9.9.9.9 AESI,dcd Z.9.9.9.9,NARROW",
+        sep = "\n"
+      ), stringsAsFactors = FALSE
     )
-  )
-
-  if (!is.null(seed)) {
-    set.seed(seed)
+  } else{
+    lookup_aag
   }
+
+  if (!is.null(seed)) set.seed(seed)
 
   ADAE <- Map( # nolint
     function(id, sid) {
@@ -149,7 +187,7 @@ radae <- function(ADSL, # nolint
     "RECOVERED/RESOLVED WITH SEQUELAE",
     "RECOVERING/RESOLVING",
     "RECOVERED/RESOLVED"
-    )
+  )
 
   actions <- c(
     "DOSE RATE REDUCED",
@@ -161,19 +199,19 @@ radae <- function(ADSL, # nolint
     "DOSE NOT CHANGED",
     "DOSE REDUCED",
     "NOT EVALUABLE"
-    )
+  )
 
   ADAE <- ADAE %>% # nolint
     mutate(AEOUT = factor(ifelse(
       .data$AETOXGR == "5",
       "FATAL",
       as.character(sample_fct(outcomes, nrow(ADAE), prob = c(0.1, 0.2, 0.1, 0.3, 0.3)))
-      ))) %>%
+    ))) %>%
     mutate(AEACN = factor(ifelse(
       .data$AETOXGR == "5",
       "NOT EVALUABLE",
       as.character(sample_fct(actions, nrow(ADAE), prob = c(0.05, 0.05, 0.05, 0.01, 0.05, 0.1, 0.45, 0.1, 0.05)))
-      ))) %>%
+    ))) %>%
     mutate(AESDTH = case_when(
       .data$AEOUT == "FATAL" ~ "Y",
       TRUE ~ "N"
@@ -192,14 +230,14 @@ radae <- function(ADSL, # nolint
 
     if (d_adag$GRPTYPE[1] == "CUSTOM") { # nolint
 
-      d_adag <- subset(d_adag, select = -SCOPE) # nolint
+      d_adag <- d_adag[-which(names(d_adag) == "SCOPE")] # nolint
 
     } else if (d_adag$GRPTYPE[1] == "SMQ") { # nolint
 
       names(d_adag)[names(d_adag) == "SCOPE"] <- paste0(substr(d_adag$NAMVAR[1], 1, 5), "SC") # nolint
     }
 
-    d_adag <- subset(d_adag, select = -c(NAMVAR, SRCVAR, GRPTYPE)) # nolint
+    d_adag <- d_adag[-which(names(d_adag) %in% c("NAMVAR", "SRCVAR", "GRPTYPE"))] # nolint
     d_new <- left_join(x = d_adae, y = d_adag, by = intersect(names(d_adae), names(d_adag)))
     d_new[, setdiff(names(d_new), names(d_adae)), drop = FALSE]
 
