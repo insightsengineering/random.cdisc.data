@@ -1,5 +1,8 @@
 #' Create Random SDTM and ADAM Datasets
 #'
+#' @description Create Random SDTM and ADAM Datasets
+#'
+#'
 #' @import utils.nest
 #' @docType package
 #' @name random.cdisc.data
