@@ -4,7 +4,9 @@
 \name{cadae}
 \alias{cadae}
 \title{Cached ADAE data generated with \code{seed = 1}}
-\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1934 rows and 60 columns.}
+\format{
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1934 rows and 60 columns.
+}
 \usage{
 data(cadae)
 }

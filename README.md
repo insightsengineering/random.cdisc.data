@@ -14,6 +14,7 @@ The random datasets available to create are:
  - Tumor Response Analysis Dataset (`radrs`)
  - Vital Signs Analysis Dataset (`radvs`)
  - ECG Analysis Dataset (`radeg`)
+ - Tumor Response Analysis Dataset (`radtr`)
  
   Please note to update cached data on changes to random data function via data/script.R
 

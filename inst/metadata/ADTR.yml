@@ -1,0 +1,74 @@
+domain:
+  name: ADTR
+  label: Tumor Response Analysis Dataset
+
+variables:
+  AGEGR1:
+    label: Pooled Age Group 1
+    type: character
+  TRTDURD:
+    label: Total Treatment Duration (Days)
+    type: Integer
+  DTHFL:
+    label: Subject Death Flag
+    type: factor
+  DCSREAS_GRP:
+    label: Grouped Reason for Disc. from Study
+    type: character
+  AEWITHFL:
+    label: AE Leading to Drug Withdrawal Flag
+    type: factor
+  PARAM:
+    label: Parameter
+    type: factor
+  PARAMCD:
+    label: Parameter Code
+    type: factor
+  AVISIT:
+    label: Analysis Visit
+    type: factor
+  AVISITN:
+    label: Analysis Visit (N)
+    type: integer
+  ADTM:
+    label: Analysis Datetime
+  ADY:
+    label: Analysis Relative Day
+    type: integer
+  DTYPE:
+    label: Derivation Type
+    type: factor
+  AVAL:
+    label: Analysis Value
+    type: numeric
+  AVALC:
+    label: Character Result/Finding
+    type: character
+  AVALU:
+    label: Analysis Value Unit
+    type: factor
+  BASE:
+    label: Baseline Value
+    type: numeric
+  ABLFL:
+    label: Baseline Record Flag
+    type: factor
+  CHG:
+    label: Absolute Change from Baseline
+    type: numeric
+  PCHG:
+    label: Percentage Change from Baseline
+    type: numeric
+  ONTRTFL:
+    label: On Treatment Record Flag
+    type: factor
+  ANL01FL:
+    label: Analysis Flag 01 Baseline Post-Baseline
+    type: factor
+  ANL02FL:
+    label: Analysis Flag 02 Last Obs Within BType
+    type: factor
+  ANL03FL:
+    label: Analysis Flag 03 Min Obs Within BType
+    type: factor
+

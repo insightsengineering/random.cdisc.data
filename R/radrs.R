@@ -158,6 +158,32 @@ radrs <- function(ADSL, # nolint
   ) %>%
     mutate(AVAL = ifelse(.data$BMEASIFL == "N" & .data$AVISIT == "BASELINE", NA, .data$AVAL))
 
+  ADRS1 <- ADRS %>%
+    group_by(.data$USUBJID) %>%
+    filter(.data$PARAMCD == "OVRINV") %>%
+    arrange(.data$ADY, .by_group = TRUE)
+  ADRS2 <- ADRS %>%
+    group_by(.data$USUBJID) %>%
+    filter(.data$PARAMCD != "OVRINV")
+  ADRS1$AVISIT <- rep(c("Screening", "Cycle 6 Day 1", "Cycle 12 Day 1", "End of Treatment"), times = nrow(ADRS1)/4)
+  ADRS1$AVISITN <- rep(c(1,2,3,4), times = nrow(ADRS1)/4)
+  ADRS2$AVISIT <- ifelse(ADRS2$PARAMCD == "INVET", "End of Treatment", sample(c("Cycle 6 Day 1", "Cycle 12 Day 1"), prob = c(0.5,0.5)))
+  ADRS2$AVISITN <- ifelse(ADRS2$PARAMCD == "INVET", 4, ifelse(ADRS2$AVISIT == "Cycle 6 Day 1", 2, 3))
+
+  for (i in 1:nrow(ADRS2)) { # nolint
+    ADRS2$ADTM[i] <- ADRS1$ADTM[ADRS1$AVISITN == ADRS2$AVISITN[i] & ADRS1$USUBJID == ADRS2$USUBJID[i]]
+    ADRS2$ADY[i] <- ADRS1$ADY[ADRS1$AVISITN == ADRS2$AVISITN[i] & ADRS1$USUBJID == ADRS2$USUBJID[i]]
+  }
+
+  ADRS <- dplyr::bind_rows(ADRS1, ADRS2) %>%
+    arrange(.data$USUBJID)
+
+  # Making sure no value of ADRS$AVAL is NA
+
+  ADRS <- ADRS %>%
+    group_by(.data$USUBJID) %>%
+    mutate(AVAL = ifelse(is.na(.data$AVAL), param_codes[.data$AVALC], .data$AVALC))
+
   ADRS <- ADRS %>% # nolint
     group_by(.data$USUBJID) %>%
     mutate(RSSEQ = 1:n()) %>%

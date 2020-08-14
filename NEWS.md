@@ -1,5 +1,6 @@
 # random.cdisc.data 0.3.5
 
+* Added ADTR dataset from osprey.
 * Added 10 variables to ADAE dataset: AEOUT, AEACN, AESDTH, TRTEMFL, ANL01FL, SMQ01NAM,
 SMQ02NAM, SMQ01SC, SMQ02SC, CQ01NAM.
 * Added WORS02FL (Worst Post-Baseline Observation) to ADEG dataset.

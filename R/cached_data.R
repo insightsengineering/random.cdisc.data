@@ -82,3 +82,10 @@
 #'
 #' @usage data(cadeg)
 "cadeg"
+
+#' Cached ADTR data generated with \code{seed = 1}
+#'
+#' @docType data
+#'
+#' @usage data(cadtr)
+"cadtr"

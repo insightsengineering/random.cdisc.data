@@ -25,6 +25,7 @@ reference:
       - radtte
       - radvs
       - radeg
+      - radtr
 
   - title: Cached Datasets
     desc: These datasets are attached in order speed up the example sections of the dependent packages.
@@ -42,6 +43,7 @@ reference:
       - cadvs
       - cadex
       - cadeg
+      - cadtr
 
   - title: Utility Functions
     desc: These functions are not exported but are documented for developers
