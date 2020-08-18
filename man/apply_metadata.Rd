@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{apply_metadata}
 \alias{apply_metadata}
-\title{Apply label and variable ordering attributes to domains}
+\title{Metadata}
 \usage{
 apply_metadata(
   df,

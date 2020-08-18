@@ -3,7 +3,7 @@
 \docType{data}
 \name{cadrs}
 \alias{cadrs}
-\title{Cached ADRS data generated with \code{seed = 1}}
+\title{Cached ADRS}
 \format{
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3200 rows and 43 columns.
 }

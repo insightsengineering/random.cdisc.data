@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{var_relabel}
 \alias{var_relabel}
-\title{Apply labels to ADSL primary key variables}
+\title{Primary keys: labels}
 \usage{
 var_relabel(x, ...)
 }

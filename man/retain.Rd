@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{retain}
 \alias{retain}
-\title{Retain values within primary keys}
+\title{Primary keys: retain values}
 \usage{
 retain(df, value_var, event, outside = NA)
 }

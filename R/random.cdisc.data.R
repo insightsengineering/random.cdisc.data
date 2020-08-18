@@ -1,6 +1,6 @@
 #' Create Random SDTM and ADAM Datasets
 #'
-#' @description Create Random SDTM and ADAM Datasets
+#' This file facilitates package build
 #'
 #'
 #' @import utils.nest

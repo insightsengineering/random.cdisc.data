@@ -3,7 +3,7 @@
 \docType{data}
 \name{cadvs}
 \alias{cadvs}
-\title{Cached ADVS data generated with \code{seed = 1}}
+\title{Cached ADVS}
 \format{
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 16800 rows and 61 columns.
 }

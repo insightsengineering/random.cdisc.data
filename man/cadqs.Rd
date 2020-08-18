@@ -3,7 +3,7 @@
 \docType{data}
 \name{cadqs}
 \alias{cadqs}
-\title{Cached ADQS data generated with \code{seed = 1}}
+\title{Cached ADQS}
 \format{
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 14000 rows and 51 columns.
 }

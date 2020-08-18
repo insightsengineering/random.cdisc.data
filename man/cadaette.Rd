@@ -3,7 +3,7 @@
 \docType{data}
 \name{cadaette}
 \alias{cadaette}
-\title{Cached ADAETTE data generated with \code{seed = 1}}
+\title{Cached ADAETTE}
 \format{
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1200 rows and 44 columns.
 }

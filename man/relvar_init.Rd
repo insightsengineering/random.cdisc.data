@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{relvar_init}
 \alias{relvar_init}
-\title{Verify and initialize related variable values}
+\title{Related variables: initialize}
 \usage{
 relvar_init(relvar1, relvar2)
 }

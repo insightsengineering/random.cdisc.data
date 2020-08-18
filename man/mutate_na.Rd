@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{mutate_na}
 \alias{mutate_na}
-\title{Replace column values by NAs}
+\title{NA: replace values}
 \usage{
 mutate_na(ds, na_vars = NULL, na_percentage = 0.05)
 }
@@ -20,5 +20,5 @@ mutate_na(ds, na_vars = NULL, na_percentage = 0.05)
 \item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
 }
 \description{
-Replace column values by NAs
+Replace column values with NAs
 }

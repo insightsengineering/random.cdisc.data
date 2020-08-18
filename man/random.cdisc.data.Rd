@@ -5,5 +5,5 @@
 \alias{random.cdisc.data}
 \title{Create Random SDTM and ADAM Datasets}
 \description{
-Create Random SDTM and ADAM Datasets
+This file facilitates package build
 }

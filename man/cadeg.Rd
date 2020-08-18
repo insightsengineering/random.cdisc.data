@@ -3,7 +3,7 @@
 \docType{data}
 \name{cadeg}
 \alias{cadeg}
-\title{Cached ADEG data generated with \code{seed = 1}}
+\title{Cached ADEG}
 \format{
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 13600 rows and 66 columns.
 }

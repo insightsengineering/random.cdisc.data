@@ -24,9 +24,11 @@ Imports:
     utils.nest (>= 0.2.4),
     tibble,
     yaml
+Suggests:
+    knitr,
+    testthat (>= 0.2)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
+VignetteBuilder: knitr
 RoxygenNote: 7.1.1
-Suggests:
-    testthat (>= 0.2)

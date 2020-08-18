@@ -18,14 +18,15 @@ reference:
       - radae
       - radaette
       - radcm
+      - radeg
+      - radex
       - radlb
       - radmh
       - radqs
       - radrs
+      - radtr
       - radtte
       - radvs
-      - radeg
-      - radtr
 
   - title: Cached Datasets
     desc: These datasets are attached in order speed up the example sections of the dependent packages.
@@ -35,27 +36,30 @@ reference:
       - cadae
       - cadaette
       - cadcm
+      - cadeg
+      - cadex
       - cadlb
       - cadmh
       - cadqs
       - cadrs
+      - cadtr
       - cadtte
       - cadvs
-      - cadex
-      - cadeg
-      - cadtr
 
   - title: Utility Functions
     desc: These functions are not exported but are documented for developers
     contents:
       - apply_metadata
       - mutate_na
-      - relvar_init
       - rel_var
+      - relvar_init
       - replace_na
       - retain
       - sample_fct
       - var_relabel
       - visit_schedule
 
-
+  - title: Package Build Related
+    desc: These files facilitate package build
+    contents:
+      - random.cdisc.data

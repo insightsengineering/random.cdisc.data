@@ -1,4 +1,7 @@
-#' return data attached to package
+#' Load cached data
+#'
+#' Return data attached to package
+#'
 #' @importFrom utils data
 #' @noRd
 get_cached_data <- function(dataname) {
@@ -32,6 +35,8 @@ sample_fct <- function(x, N, ...) { # nolint
   factor(sample(x, N, replace = TRUE, ...), levels = if (is.factor(x)) levels(x) else x)
 }
 
+#' Related variables: initialize
+#'
 #' Verify and initialize related variable values
 #'
 #' @param relvar1 as character string. list of n elements.
@@ -55,6 +60,8 @@ relvar_init <- function(relvar1, relvar2) {
   return(list("relvar1" = relvar1, "relvar2" = relvar2))
 }
 
+#' Related variables: assign
+#'
 #' Assign values to a related variable within a domain
 #'
 #' @param df data frame containing the related variables.
@@ -143,6 +150,8 @@ visit_schedule <- function(visit_format = "WEEK",
   visit_values <- reorder(factor(visit_values), assessments_ord)
 }
 
+#' Primary keys: retain values
+#'
 #' Retain values within primary keys
 #'
 #' @param df data frame in which to apply the retain.
@@ -160,6 +169,8 @@ retain <- function(df, value_var, event, outside = NA) {
   rep(values, diff(indices))
 }
 
+#' Primary keys: labels
+#'
 #' Apply labels to ADSL primary key variables
 #'
 #' @param x data frame containing variables to which labels are applied.
@@ -181,6 +192,8 @@ var_relabel <- function(x, ...) {
   x
 }
 
+#' Metadata
+#'
 #' Apply label and variable ordering attributes to domains
 #'
 #' @param df data frame to which metadata are applied.
@@ -262,13 +275,13 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
     stop(msg)
   }
 
-  ## assign labels to variables
+  # assign labels to variables
   for (var in metadata_varnames) {
     apply_type(df, var, metadata_variables[[var]]$type)
     attr(df[[var]], "label") <- metadata_variables[[var]]$label
   }
 
-  ## reorder data frame columns to expected BDS order
+  # reorder data frame columns to expected BDS order
   df <- df[, unique(c("STUDYID", "USUBJID", metadata_varnames, names(df)))]
 
   # assign label to data frame
@@ -279,7 +292,7 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
 
 #' Replace values in a vector by NA
 #'
-#' @description Randomized replacement of values by NA
+#' Randomized replacement of values by NA
 #'
 #' @param v (\code{any}) vector of any type
 #' @param percentage (\code{numeric}) Value between 0 and 1 defining
@@ -312,7 +325,9 @@ replace_na <- function(v, percentage = 0.05, seed = NULL) {
   return(v)
 }
 
-#' Replace column values by NAs
+#' NA: replace values
+#'
+#' Replace column values with NAs
 #'
 #' @param ds (\code{data.frame}) Any data set
 #' @param na_vars (\code{list}) A named list where the name of each element is a column name of \code{ds}. Each

@@ -7,16 +7,17 @@ The random datasets available to create are:
  - Adverse Event Analysis Dataset (`radae`)
  - Time to Adverse Event Analysis Dataset (`radaette`)
  - Previous and Concomitant Medications Analysis Dataset (`radcm`)
+ - ECG Analysis Dataset (`radeg`)
+ - Exposure Analysis Dataset (`radex`)
  - Laboratory Data Analysis Dataset (`radlb`)
  - Medical History Analysis Dataset (`radmh`)
  - Questionnaires Analysis Dataset (`radqs`)
- - Time-to-Event Dataset (`radtte`)
- - Tumor Response Analysis Dataset (`radrs`)
- - Vital Signs Analysis Dataset (`radvs`)
- - ECG Analysis Dataset (`radeg`)
+ - Response Analysis Dataset (`radrs`)
  - Tumor Response Analysis Dataset (`radtr`)
+ - Time-to-Event Dataset (`radtte`)
+ - Vital Signs Analysis Dataset (`radvs`)
  
-  Please note to update cached data on changes to random data function via data/script.R
+  Please note that changes to random data functions requires rebuild of cached data. Please read the "Rebuilding Random CDISC Cached Data" article.
 
 # Installation
 
