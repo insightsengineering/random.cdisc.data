@@ -8,16 +8,9 @@ radtr(
   ADSL,
   param = c("Sum of Longest Diameter by Investigator"),
   paramcd = c("SLDINV"),
-  visit_format = "Cycle",
-  cycle_interval = 6L,
-  n_assessments = 4L,
-  n_days = 1L,
-  max_n_tr = 10L,
-  lookup = NULL,
   seed = NULL,
   cached = FALSE,
-  na_percentage = 0,
-  na_vars = list()
+  ...
 )
 }
 \arguments{
@@ -27,32 +20,12 @@ radtr(
 
 \item{paramcd}{As character string. list of parameter code values.}
 
-\item{visit_format}{Type of visit either "WEEK" or "CYCLE".}
-
-\item{cycle_interval}{number of cycles between each visit.}
-
-\item{n_assessments}{Number of weeks or cycles.}
-
-\item{n_days}{Number of days within cycle.}
-
-\item{max_n_tr}{As numeric. maximum number of eg results.}
-
-\item{lookup}{control lookup process.}
-
 \item{seed}{Seed for random number generation.}
 
 \item{cached}{boolean whether the cached ADTR data \code{cadtr} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radtr} will be ignored.}
 
-\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
-
-\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
- element of this list should be a numeric vector with two elements
- \itemize{
-    \item{seed }{The seed to be used for this element - can be left NA}
-    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-    percentage is used. This will overwrite default percentage (percentage argument))}
-}}
+\item{...}{parameters from \code{\link{radrs}}}
 }
 \value{
 data.frame

@@ -57,6 +57,7 @@ radrs <- function(ADSL, # nolint
       AVAL = param_codes[.data$AVALC],
       p_scr = c(rep(0, 3), rep(0, 3), c(1, 1, 1), c(0, 0, 0), c(0, 0, 0)),
       p_bsl = c(rep(0, 3), rep(0, 3), c(1, 1, 1), c(0, 0, 0), c(0, 0, 0)),
+      p_cycle = c(c(.4, .3, .5), c(.35, .25, .25), c(.1, .2, .08), c(.14, 0.15, 0.15), c(.01, 0.1, 0.02)),
       p_eoi = c(c(.4, .3, .5), c(.35, .25, .25), c(.1, .2, .08), c(.14, 0.15, 0.15), c(.01, 0.1, 0.02)),
       p_fu = c(c(.3, .2, .4), c(.2, .1, .3), c(.2, .2, .2), c(.3, .5, 0.1), rep(0, 3))
     )
@@ -77,22 +78,38 @@ radrs <- function(ADSL, # nolint
       # baseline
       rsp_bsl <- sample(probs$AVALC, 1, prob = probs$p_bsl) %>% as.character()
 
+      # cycle
+      rsp_c2d1 <- sample(probs$AVALC, 1, prob = probs$p_cycle) %>% as.character()
+      rsp_c4d1 <- sample(probs$AVALC, 1, prob = probs$p_cycle) %>% as.character()
+
       # end of induction
       rsp_eoi <- sample(probs$AVALC, 1, prob = probs$p_eoi) %>% as.character()
 
       # follow up
       rsp_fu <- sample(probs$AVALC, 1, prob = probs$p_fu) %>% as.character()
 
-      best_rsp <- min(param_codes[c(rsp_screen, rsp_bsl, rsp_eoi, rsp_fu)])
-      best_rsp_i <- which.min(param_codes[c(rsp_screen, rsp_bsl, rsp_eoi, rsp_fu)])
+      best_rsp <- min(param_codes[c(rsp_screen, rsp_bsl, rsp_eoi, rsp_fu, rsp_c2d1, rsp_c4d1)])
+      best_rsp_i <- which.min(param_codes[c(rsp_screen, rsp_bsl, rsp_eoi, rsp_fu, rsp_c2d1, rsp_c4d1)])
 
-      avisit <- c("SCREENING", "BASELINE", "END OF INDUCTION", "FOLLOW UP")
+      avisit <- c("SCREENING", "BASELINE", "CYCLE 2 DAY 1", "CYCLE 4 DAY 1", "END OF INDUCTION", "FOLLOW UP")
+
+
+      # meaningful date information
+      trtsdt_int <- as.numeric(as.Date(pinfo$TRTSDTM))
+      trtedt_int <- ifelse(!is.na(pinfo$TRTEDTM),  as.numeric(as.Date(pinfo$TRTEDTM)),
+                           floor(trtsdt_int + (pinfo$study_duration_secs) / 86400))
+      scr_date <- as.POSIXct(((trtsdt_int - 100) * 86400), origin = "1970-01-01")
+      bs_date <- pinfo$TRTSDTM
+      flu_date <- as.POSIXct((sample(trtsdt_int:trtedt_int, size = 1) * 86400), origin = "1970-01-01")
+      eoi_date <- as.POSIXct((sample(trtsdt_int:trtedt_int, size = 1) * 86400), origin = "1970-01-01")
+      c2d1_date <- as.POSIXct((sample(trtsdt_int:trtedt_int, size = 1) * 86400), origin = "1970-01-01")
+      c4d1_date <- min(c2d1_date + 60*86400, pinfo$TRTEDTM)
 
       tibble(
         STUDYID = pinfo$STUDYID,
         SITEID = pinfo$SITEID,
         USUBJID = pinfo$USUBJID,
-        PARAMCD = as.factor(c(rep("OVRINV", 4), "BESRSPI", "INVET")),
+        PARAMCD = as.factor(c(rep("OVRINV", 6), "BESRSPI", "INVET")),
         PARAM = as.factor(recode(.data$PARAMCD,
                                  OVRINV = "Overall Response by Investigator - by visit",
                                  OVRSPI = "Best Overall Response by Investigator (no confirmation required)",
@@ -100,13 +117,26 @@ radrs <- function(ADSL, # nolint
                                  INVET = "Investigator End Of Induction Response"
         )),
         AVALC = c(
-          rsp_screen, rsp_bsl, rsp_eoi, rsp_fu,
+          rsp_screen, rsp_bsl, rsp_c2d1, rsp_c4d1, rsp_eoi, rsp_fu,
           names(param_codes)[best_rsp],
           rsp_eoi
         ),
         AVAL = param_codes[.data$AVALC],
-        AVISIT = factor(c(avisit, avisit[best_rsp_i], avisit[2]), levels = avisit)
-      )
+        AVISIT = factor(c(avisit, avisit[best_rsp_i], avisit[5]), levels = avisit)
+      ) %>%
+        merge(
+          tibble(
+            AVISIT = avisit,
+            ADTM = c(scr_date, bs_date, c2d1_date, c4d1_date, eoi_date, flu_date),
+            AVISITN = c(-1, 0, 2, 4, 999, 999),
+            TRTSDTM = pinfo$TRTSDTM
+          ) %>%
+            dplyr::mutate(
+              ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))
+            ) %>%
+            dplyr::select(-.data$TRTSDTM),
+          by = "AVISIT"
+        )
     }) %>%
     Reduce(rbind, .) %>%
     mutate(AVALC = factor(.data$AVALC, levels = names(param_codes))) %>%
@@ -126,65 +156,13 @@ radrs <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add RS date and study day variables
+
+
   ADRS <- inner_join(ADSL, # nolint
                      select(ADRS, -.data$SITEID),
-                     by = c("STUDYID", "USUBJID")) %>%
-    mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-    rowwise() %>%
-    mutate(trtedt_int = case_when(
-      !is.na(TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
-      is.na(TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
-    )) %>%
-    rowwise() %>%
-    mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
-    mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
-    select(-.data$trtsdt_int, -.data$trtedt_int) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
+                     by = c("STUDYID", "USUBJID"))
 
-  ADRS[which(ADRS$AVISIT == "END OF INDUCTION"), ]$ADY <- 80 # nolint
-  ADRS[which(ADRS$AVISIT == "FOLLOW UP"), ]$ADY <- 120 # nolint
-
-  ADRS <- mutate( # nolint
-    ADRS,
-    AVISITN = case_when(
-      AVISIT == "SCREENING" ~ -1,
-      AVISIT == "BASELINE" ~ 0,
-      AVISIT == "END OF INDUCTION" ~ 999.1,
-      AVISIT == "FOLLOW UP" ~ 999.2,
-      (grepl("^WEEK", AVISIT) | grepl("^CYCLE", AVISIT)) ~ as.numeric(AVISIT) - 2,
-      TRUE ~ NA_real_
-    )
-  ) %>%
-    mutate(AVAL = ifelse(.data$BMEASIFL == "N" & .data$AVISIT == "BASELINE", NA, .data$AVAL))
-
-  ADRS1 <- ADRS %>%
-    group_by(.data$USUBJID) %>%
-    filter(.data$PARAMCD == "OVRINV") %>%
-    arrange(.data$ADY, .by_group = TRUE)
-  ADRS2 <- ADRS %>%
-    group_by(.data$USUBJID) %>%
-    filter(.data$PARAMCD != "OVRINV")
-  ADRS1$AVISIT <- rep(c("Screening", "Cycle 6 Day 1", "Cycle 12 Day 1", "End of Treatment"), times = nrow(ADRS1)/4)
-  ADRS1$AVISITN <- rep(c(1,2,3,4), times = nrow(ADRS1)/4)
-  ADRS2$AVISIT <- ifelse(ADRS2$PARAMCD == "INVET", "End of Treatment", sample(c("Cycle 6 Day 1", "Cycle 12 Day 1"), prob = c(0.5,0.5)))
-  ADRS2$AVISITN <- ifelse(ADRS2$PARAMCD == "INVET", 4, ifelse(ADRS2$AVISIT == "Cycle 6 Day 1", 2, 3))
-
-  for (i in 1:nrow(ADRS2)) { # nolint
-    ADRS2$ADTM[i] <- ADRS1$ADTM[ADRS1$AVISITN == ADRS2$AVISITN[i] & ADRS1$USUBJID == ADRS2$USUBJID[i]]
-    ADRS2$ADY[i] <- ADRS1$ADY[ADRS1$AVISITN == ADRS2$AVISITN[i] & ADRS1$USUBJID == ADRS2$USUBJID[i]]
-  }
-
-  ADRS <- dplyr::bind_rows(ADRS1, ADRS2) %>%
-    arrange(.data$USUBJID)
-
-  # Making sure no value of ADRS$AVAL is NA
-
-  ADRS <- ADRS %>%
-    group_by(.data$USUBJID) %>%
-    mutate(AVAL = ifelse(is.na(.data$AVAL), param_codes[.data$AVALC], .data$AVALC))
-
-  ADRS <- ADRS %>% # nolint
+   ADRS <- ADRS %>% # nolint
     group_by(.data$USUBJID) %>%
     mutate(RSSEQ = 1:n()) %>%
     mutate(ASEQ = .data$RSSEQ) %>%
