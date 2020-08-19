@@ -21,7 +21,7 @@ Imports:
     dplyr,
     magrittr,
     rlang,
-    utils.nest (>= 0.2.4),
+    utils.nest (>= 0.2.5),
     tibble,
     yaml
 Suggests:
