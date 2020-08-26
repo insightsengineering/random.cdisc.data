@@ -21,6 +21,10 @@ The random datasets available to create are:
 
 # Installation
 
+Please refer to the quick start section in agile-R [here](https://pages.github.roche.com/NEST/docs/hugo/NEST/agile-R/master/quick_start/install-nest-environment/)
+
+The latest version of `random.cdisc.data` can be installed locally with:
+
 ```r
 devtools::install_github(
   repo = "NEST/random.cdisc.data",
