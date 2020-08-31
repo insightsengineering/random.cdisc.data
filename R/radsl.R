@@ -60,7 +60,7 @@ radsl <- function(N = 400, # nolint
 
   study_duration_secs <- (31556952 * study_duration)
   sys_dtm <- as.numeric(strptime("20/2/2019 11:16:16.683", "%d/%m/%Y %H:%M:%OS"))
-  discons <- floor((N * .3))
+  discons <- max(1, floor((N * .3)))
   country_site_prob <- c(.5, .121, .077, .077, .075, .052, .046, .025, .014, .003)
 
   ADSL <- tibble( # nolint
