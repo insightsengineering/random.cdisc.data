@@ -178,8 +178,8 @@ radeg <- function(ADSL, # nolint
       USUBJID = attr(ADEG$USUBJID, "label")
     )
 
-  ADEG$ANRIND <- factor(ADEG$ANRIND, levels = c("LOW", "NORMAL", "HIGH"))
-  ADEG$BNRIND <- factor(ADEG$BNRIND, levels = c("LOW", "NORMAL", "HIGH"))
+  ADEG$ANRIND <- factor(ADEG$ANRIND, levels = c("LOW", "NORMAL", "HIGH")) # nolint
+  ADEG$BNRIND <- factor(ADEG$BNRIND, levels = c("LOW", "NORMAL", "HIGH")) # nolint
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADEG <- mutate_na(ds = ADEG, na_vars = na_vars, na_percentage = na_percentage) # nolint
@@ -297,7 +297,7 @@ radeg <- function(ADSL, # nolint
       { # nolint
         if (worst_obs == TRUE)
           mutate(., new_var = case_when(
-            (.data$AVALC == "ABNORMAL" | .data$AVALC == "NORMAL") ~ "Y" ,
+            (.data$AVALC == "ABNORMAL" | .data$AVALC == "NORMAL") ~ "Y",
             (!is.na(.data$AVAL) & is.na(.data$DTYPE)) ~ "Y",
             TRUE ~ ""
           ))

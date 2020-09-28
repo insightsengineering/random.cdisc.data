@@ -95,22 +95,25 @@ radmh <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add MH date and study day variables
-  ADMH <- inner_join(ADSL, # nolint
-                     ADMH,
-                     by = c("STUDYID", "USUBJID")) %>%
+  ADMH <- inner_join( # nolint
+    ADSL, # nolint
+    ADMH,
+    by = c("STUDYID", "USUBJID")) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
       !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
       is.na(.data$TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
     )) %>%
-    mutate(ASTDTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-                               origin = "1970-01-01")) %>%
+    mutate(ASTDTM = as.POSIXct(
+      (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
+      origin = "1970-01-01")) %>%
     mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
     mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
-    mutate(AENDTM = as.POSIXct((sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
-                               origin = "1970-01-01")) %>%
+    mutate(AENDTM = as.POSIXct(
+      (sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
+      origin = "1970-01-01")) %>%
     mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
     select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
     ungroup() %>%

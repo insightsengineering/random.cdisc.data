@@ -40,10 +40,11 @@
 #' ADEX <- radex(cached = TRUE)
 #'
 radex <- function(ADSL, # nolint
-                  param = c("Dose administered during constant dosing interval",
-                            "Number of doses administered during constant dosing interval",
-                            "Total dose administered",
-                            "Total number of doses administered"),
+                  param = c(
+                    "Dose administered during constant dosing interval",
+                    "Number of doses administered during constant dosing interval",
+                    "Total dose administered",
+                    "Total number of doses administered"),
                   paramcd = c("DOSE", "NDOSE", "TDOSE", "TNDOSE"),
                   paramu = c("mg", " ", "mg", " "),
                   parcat1 = c("INDIVIDUAL", "OVERALL"),
@@ -86,15 +87,13 @@ radex <- function(ADSL, # nolint
   adex <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
-    PARAM = c(rep(param_init_list$relvar1[1],
-                  length(levels(visit_schedule(visit_format = visit_format,
-                                               n_assessments = n_assessments,
-                                               n_days = n_days)))),
-              rep(param_init_list$relvar1[2],
-                  length(levels(visit_schedule(visit_format = visit_format,
-                                               n_assessments = n_assessments,
-                                               n_days = n_days)))),
-             param_init_list$relvar1[3:4]),
+    PARAM = c(rep(
+      param_init_list$relvar1[1],
+      length(levels(visit_schedule(visit_format = visit_format, n_assessments = n_assessments, n_days = n_days)))),
+      rep(
+        param_init_list$relvar1[2],
+        length(levels(visit_schedule(visit_format = visit_format, n_assessments = n_assessments, n_days = n_days)))),
+      param_init_list$relvar1[3:4]),
     stringsAsFactors = FALSE
   )
 
@@ -121,23 +120,23 @@ radex <- function(ADSL, # nolint
     select(-.data$PARCAT_ind)
 
   # Add in PARCAT1
-  adex <- adex %>% mutate(PARCAT1 = case_when((.data$PARAMCD == "TNDOSE" | .data$PARAMCD == "TDOSE") ~ "OVERALL",
-                                              .data$PARAMCD == "DOSE" | .data$PARAMCD == "NDOSE" ~ "INDIVIDUAL"))
+  adex <- adex %>% mutate(PARCAT1 = case_when(
+    (.data$PARAMCD == "TNDOSE" | .data$PARAMCD == "TDOSE") ~ "OVERALL",
+    .data$PARAMCD == "DOSE" | .data$PARAMCD == "NDOSE" ~ "INDIVIDUAL"))
 
   adex_visit <- adex %>%
     dplyr::filter(.data$PARAMCD == "DOSE" | .data$PARAMCD == "NDOSE") %>%
     mutate(AVISIT = rep(visit_schedule(visit_format = visit_format, n_assessments = n_assessments, n_days = n_days), 2))
 
-  adex <- left_join(adex %>%
-                      group_by(.data$USUBJID, .data$STUDYID, .data$PARAM,
-                               .data$PARAMCD, .data$AVALU, .data$PARCAT1, .data$PARCAT2) %>%
-                      mutate(id = dplyr::row_number()),
-                    adex_visit %>%
-                      group_by(.data$USUBJID, .data$STUDYID, .data$PARAM,
-                               .data$PARAMCD, .data$AVALU, .data$PARCAT1, .data$PARCAT2) %>%
-                      mutate(id = dplyr::row_number()),
-                     by = c("USUBJID", "STUDYID", "PARCAT1", "PARCAT2", "id", "PARAMCD", "PARAM", "AVALU")) %>%
-    select(-.data$id)
+  adex <- left_join(
+    adex %>%
+    group_by(.data$USUBJID, .data$STUDYID, .data$PARAM, .data$PARAMCD, .data$AVALU, .data$PARCAT1, .data$PARCAT2) %>%
+      mutate(id = dplyr::row_number()),
+    adex_visit %>%
+    group_by(.data$USUBJID, .data$STUDYID, .data$PARAM, .data$PARAMCD, .data$AVALU, .data$PARCAT1, .data$PARCAT2) %>%
+      mutate(id = dplyr::row_number()),
+    by = c("USUBJID", "STUDYID", "PARCAT1", "PARCAT2", "id", "PARAMCD", "PARAM", "AVALU")) %>%
+  select(-.data$id)
 
   #Visit numbers
   adex <- adex %>% mutate(AVISITN = case_when(
@@ -153,25 +152,30 @@ radex <- function(ADSL, # nolint
       pinfo %>%
         dplyr::filter(.data$PARAMCD == "DOSE") %>%
         group_by(.data$USUBJID, .data$PARCAT2, .data$AVISIT) %>%
-        mutate(changeind = case_when(.data$AVISIT == "SCREENING" ~ 0,
-                                     .data$AVISIT != "SCREENING" ~ sample(c(-1, 0, 1),
-                                                                  size = 1,
-                                                                  prob = c(0.25, 0.5, 0.25),
-                                                                  replace = TRUE))) %>%
+        mutate(changeind = case_when(
+          .data$AVISIT == "SCREENING" ~ 0,
+          .data$AVISIT != "SCREENING" ~ sample(c(-1, 0, 1),
+          size = 1,
+          prob = c(0.25, 0.5, 0.25),
+          replace = TRUE))) %>%
         ungroup() %>%
         group_by(.data$USUBJID, .data$PARCAT2) %>%
-        mutate(csum = cumsum(.data$changeind),
-               changeind = case_when(.data$csum <= -3 ~ sample(c(0, 1), size = 1, prob = c(0.5, 0.5)),
-                                     .data$csum >= 3 ~ sample(c(0, -1), size = 1, prob = c(0.5, 0.5)),
-                                     TRUE ~ .data$changeind)) %>%
+        mutate(
+          csum = cumsum(.data$changeind),
+          changeind = case_when(
+            .data$csum <= -3 ~ sample(c(0, 1), size = 1, prob = c(0.5, 0.5)),
+            .data$csum >= 3 ~ sample(c(0, -1), size = 1, prob = c(0.5, 0.5)),
+            TRUE ~ .data$changeind)
+          ) %>%
         mutate(csum = cumsum(.data$changeind)) %>%
         ungroup() %>%
         group_by(.data$USUBJID, .data$PARCAT2, .data$AVISIT) %>%
-        mutate(AVAL = case_when(.data$csum == -2 ~ 480,
-                                .data$csum == -1 ~ 720,
-                                .data$csum == 0 ~ 960,
-                                .data$csum == 1 ~ 1200,
-                                .data$csum == 2 ~ 1440)) %>%
+        mutate(AVAL = case_when(
+          .data$csum == -2 ~ 480,
+          .data$csum == -1 ~ 720,
+          .data$csum == 0 ~ 960,
+          .data$csum == 1 ~ 1200,
+          .data$csum == 2 ~ 1440)) %>%
         select(-c(.data$csum, .data$changeind)) %>%
         ungroup()
     })  %>%
@@ -198,21 +202,21 @@ radex <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add adex date and study day variables
-  adex <- inner_join(ADSL,
-                     adex,
-                     by = c("STUDYID", "USUBJID")) %>%
+  adex <- inner_join(ADSL, adex, by = c("STUDYID", "USUBJID")) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
       !is.na(TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
       is.na(TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
     )) %>%
-    mutate(ASTDTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-                               origin = "1970-01-01")) %>%
+    mutate(ASTDTM = as.POSIXct(
+      (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
+      origin = "1970-01-01")) %>%
     mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
-    mutate(AENDTM = as.POSIXct((sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
-                               origin = "1970-01-01")) %>%
+    mutate(AENDTM = as.POSIXct(
+      (sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
+      origin = "1970-01-01")) %>%
     select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
     ungroup() %>%
     arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)

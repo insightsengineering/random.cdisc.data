@@ -264,8 +264,11 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
   )
   missing_vars <- names(df)[missing_vars_map]
   if (length(missing_vars) > 0) {
-    msg <- paste0("Following variables does not have label or are not found in ", filename, ": ",
-                  paste0(missing_vars, collapse = ", "))
+    msg <- paste0(
+      "Following variables does not have label or are not found in ",
+      filename,
+      ": ",
+      paste0(missing_vars, collapse = ", "))
     warning(msg)
   }
 
@@ -365,11 +368,12 @@ mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {
       } else {
         ds <- ds %>%
           ungroup_rowwise_df %>%
-          dplyr::mutate(!!na_var := ds[[na_var]] %>%
-                          replace_na(
-                            percentage = ifelse(is.na(na_vars[[na_var]][2]), na_percentage, na_vars[[na_var]][2]),
-                            seed = na_vars[[na_var]][1]
-                          )
+          dplyr::mutate(
+            !!na_var := ds[[na_var]] %>%
+              replace_na(
+                percentage = ifelse(is.na(na_vars[[na_var]][2]), na_percentage, na_vars[[na_var]][2]),
+                seed = na_vars[[na_var]][1]
+              )
           )
       }
     }

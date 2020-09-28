@@ -80,8 +80,9 @@ radsl <- function(N = 400, # nolint
       "MULTIPLE", "NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER", "OTHER", "UNKNOWN"
     ) %>%
       sample_fct(N, prob = c(.55, .23, .16, .05, .004, .003, .002, .002)),
-    TRTSDTM = as.POSIXct(sample(seq(from = sys_dtm,
-                                     to = sys_dtm + study_duration_secs, by = 1), size = N), origin = "1970-01-01"),
+    TRTSDTM = as.POSIXct(sample(seq(
+      from = sys_dtm,
+      to = sys_dtm + study_duration_secs, by = 1), size = N), origin = "1970-01-01"),
     RANDDT = as.Date(.data$TRTSDTM) - floor(runif(N, min = 0, max = 5)),
     st_posixn = as.numeric(.data$TRTSDTM),
     TRTEDTM = as.POSIXct(.data$st_posixn + study_duration_secs, origin = "1970-01-01"),
@@ -100,9 +101,9 @@ radsl <- function(N = 400, # nolint
     arrange(.data$st_posixn)
 
   ADDS <- ADSL[sample(nrow(ADSL), discons), ] %>% # nolint
-    mutate(TRTEDTM_discon = as.POSIXct(sample(seq(from = max(.data$st_posixn),
-                                            to = sys_dtm + study_duration_secs, by = 1),
-                                              size = discons), origin = "1970-01-01")) %>%
+    mutate(TRTEDTM_discon = as.POSIXct(
+      sample(seq(from = max(.data$st_posixn), to = sys_dtm + study_duration_secs, by = 1), size = discons),
+      origin = "1970-01-01")) %>%
     select(.data$st_posixn, .data$TRTEDTM_discon) %>%
     arrange(.data$st_posixn)
 

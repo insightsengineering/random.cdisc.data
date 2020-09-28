@@ -96,14 +96,15 @@ radrs <- function(ADSL, # nolint
 
       # meaningful date information
       trtsdt_int <- as.numeric(as.Date(pinfo$TRTSDTM))
-      trtedt_int <- ifelse(!is.na(pinfo$TRTEDTM),  as.numeric(as.Date(pinfo$TRTEDTM)),
-                           floor(trtsdt_int + (pinfo$study_duration_secs) / 86400))
+      trtedt_int <- ifelse(
+        !is.na(pinfo$TRTEDTM),  as.numeric(as.Date(pinfo$TRTEDTM)),
+        floor(trtsdt_int + (pinfo$study_duration_secs) / 86400))
       scr_date <- as.POSIXct(((trtsdt_int - 100) * 86400), origin = "1970-01-01")
       bs_date <- pinfo$TRTSDTM
       flu_date <- as.POSIXct((sample(trtsdt_int:trtedt_int, size = 1) * 86400), origin = "1970-01-01")
       eoi_date <- as.POSIXct((sample(trtsdt_int:trtedt_int, size = 1) * 86400), origin = "1970-01-01")
       c2d1_date <- as.POSIXct((sample(trtsdt_int:trtedt_int, size = 1) * 86400), origin = "1970-01-01")
-      c4d1_date <- min(c2d1_date + 60*86400, pinfo$TRTEDTM)
+      c4d1_date <- min(c2d1_date + 60 * 86400, pinfo$TRTEDTM)
 
       tibble(
         STUDYID = pinfo$STUDYID,
@@ -158,11 +159,12 @@ radrs <- function(ADSL, # nolint
   # merge ADSL to be able to add RS date and study day variables
 
 
-  ADRS <- inner_join(ADSL, # nolint
-                     select(ADRS, -.data$SITEID),
-                     by = c("STUDYID", "USUBJID"))
+  ADRS <- inner_join( # nolint
+    ADSL, # nolint
+    select(ADRS, -.data$SITEID),
+    by = c("STUDYID", "USUBJID"))
 
-   ADRS <- ADRS %>% # nolint
+  ADRS <- ADRS %>% # nolint
     group_by(.data$USUBJID) %>%
     mutate(RSSEQ = 1:n()) %>%
     mutate(ASEQ = .data$RSSEQ) %>%

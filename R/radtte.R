@@ -125,9 +125,10 @@ radtte <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add TTE date and study day variables
-  ADTTE <- inner_join(ADSL, # nolint
-                      select(ADTTE, -.data$SITEID, -.data$ARM),
-                      by = c("STUDYID", "USUBJID")) %>%
+  ADTTE <- inner_join( # nolint
+    ADSL, # nolint
+    select(ADTTE, -.data$SITEID, -.data$ARM),
+    by = c("STUDYID", "USUBJID")) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(

@@ -123,20 +123,21 @@ radaette <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add AETTE date and study day variables
-  ADAETTE <- inner_join(ADSL, # nolint
-                        select(ADAETTE, -.data$SITEID, -.data$ARM),
-                        by = c("STUDYID", "USUBJID")) %>%
-    rowwise() %>%
-    mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-    mutate(trtedt_int = case_when(
-      !is.na(TRTEDTM) ~ as.numeric(as.Date(TRTEDTM)),
-      is.na(TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
-    )) %>%
-    mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
-    mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
-    select(-.data$trtsdt_int, -.data$trtedt_int) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
+  ADAETTE <- inner_join( # nolint
+    ADSL, # nolint
+    select(ADAETTE, -.data$SITEID, -.data$ARM),
+    by = c("STUDYID", "USUBJID")) %>%
+  rowwise() %>%
+  mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
+  mutate(trtedt_int = case_when(
+    !is.na(TRTEDTM) ~ as.numeric(as.Date(TRTEDTM)),
+    is.na(TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
+  )) %>%
+  mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
+  mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
+  select(-.data$trtsdt_int, -.data$trtedt_int) %>%
+  ungroup() %>%
+  arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
   ADAETTE <- ADAETTE %>% # nolint
     group_by(.data$USUBJID) %>%

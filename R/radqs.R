@@ -30,19 +30,21 @@
 #' radqs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
 #' radqs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
 radqs <- function(ADSL, # nolint
-                  param = c("BFI All Questions",
-                            "Fatigue Interference",
-                            "Function/Well-Being (GF1,GF3,GF7)",
-                            "Treatment Side Effects (GP2,C5,GP5)",
-                            "FKSI-19 All Questions"),
+                  param = c(
+                    "BFI All Questions",
+                    "Fatigue Interference",
+                    "Function/Well-Being (GF1,GF3,GF7)",
+                    "Treatment Side Effects (GP2,C5,GP5)",
+                    "FKSI-19 All Questions"),
                   paramcd = c("BFIALL", "FATIGI", "FKSI-FWB", "FKSI-TSE", "FKSIALL"),
                   visit_format = "WEEK",
                   n_assessments = 5L,
                   n_days = 5L,
                   seed = NULL,
                   na_percentage = 0,
-                  na_vars = list(LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL = c(1235, 0.1),
-                                 CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1)
+                  na_vars = list(
+                    LOQFL = c(NA, 0.1), ABLFL2 = c(1234, 0.1), ABLFL = c(1235, 0.1),
+                    CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1)
                   ),
                   cached = FALSE) {
 
@@ -139,9 +141,10 @@ radqs <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add QS date and study day variables
-  ADQS <- inner_join(ADSL, # nolint
-                     ADQS,
-                     by = c("STUDYID", "USUBJID")) %>%
+  ADQS <- inner_join( # nolint
+    ADSL, # nolint
+    ADQS,
+    by = c("STUDYID", "USUBJID")) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(

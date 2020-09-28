@@ -32,11 +32,12 @@
 #' radvs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
 #' radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
 radvs <- function(ADSL, # nolint
-                  param = c("Diastolic Blood Pressure",
-                            "Pulse Rate",
-                            "Respiratory Rate",
-                            "Systolic Blood Pressure",
-                            "Temperature", "Weight"),
+                  param = c(
+                    "Diastolic Blood Pressure",
+                    "Pulse Rate",
+                    "Respiratory Rate",
+                    "Systolic Blood Pressure",
+                    "Temperature", "Weight"),
                   paramcd = c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT"),
                   paramu = c("Pa", "beats/min", "breaths/min", "Pa", "C", "Kg"),
                   visit_format = "WEEK",
@@ -44,8 +45,9 @@ radvs <- function(ADSL, # nolint
                   n_days = 5L,
                   seed = NULL,
                   na_percentage = 0,
-                  na_vars = list(CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1),
-                                 AVAL = c(123, 0.1), AVALU = c(123, 0.1)
+                  na_vars = list(
+                    CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1),
+                    AVAL = c(123, 0.1), AVALU = c(123, 0.1)
                   ),
                   cached = FALSE) {
 
@@ -139,8 +141,9 @@ radvs <- function(ADSL, # nolint
     mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
     mutate(CHG = .data$AVAL - .data$BASE) %>%
     mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
-    mutate(ANRIND = ANRIND_choices %>%
-             sample_fct(nrow(ADVS), prob = c(0.1, 0.1, 0.8))) %>%
+    mutate(
+      ANRIND = ANRIND_choices %>%
+      sample_fct(nrow(ADVS), prob = c(0.1, 0.1, 0.8))) %>%
     mutate(BASETYPE = "LAST") %>%
     mutate(ATPTN = 1) %>%
     mutate(DTYPE = NA) %>%
@@ -160,9 +163,10 @@ radvs <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add LB date and study day variables
-  ADVS <- inner_join(ADSL, # nolint
-                     ADVS,
-                     by = c("STUDYID", "USUBJID")) %>%
+  ADVS <- inner_join( # nolint
+    ADSL, # nolint
+    ADVS,
+    by = c("STUDYID", "USUBJID")) %>%
     rowwise() %>%
     mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     mutate(trtedt_int = case_when(
@@ -181,8 +185,10 @@ radvs <- function(ADSL, # nolint
     mutate(VSSEQ = 1:n()) %>%
     mutate(ASEQ = .data$VSSEQ) %>%
     ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISITN, .data$ATPTN, .data$DTYPE,
-            .data$ADTM, .data$VSSEQ, .data$ASPID)
+    arrange(
+      .data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISITN, .data$ATPTN, .data$DTYPE,
+      .data$ADTM, .data$VSSEQ, .data$ASPID
+    )
 
   # apply metadata
   ADVS <- apply_metadata(ADVS, "metadata/ADVS.yml") # nolint
