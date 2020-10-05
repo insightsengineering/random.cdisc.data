@@ -1,7 +1,6 @@
-# random.cdisc.data 0.3.5.9000
+# random.cdisc.data 0.3.6
 
-* Fixed `radsl` where `N < 4`. 
-* issues with no news: 
+* Fixed `radsl` where `N < 4`.
 
 # random.cdisc.data 0.3.5
 

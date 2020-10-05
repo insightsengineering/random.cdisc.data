@@ -1,8 +1,8 @@
 Package: random.cdisc.data
 Type: Package
 Title: Create Random SDTM and ADAM Datasets
-Date: 2020-08-17
-Version: 0.3.5.9000
+Date: 2020-10-20
+Version: 0.3.6
 Authors@R: c(
   person("NEST", email = "nestcicd@roche.com", role = c("aut", "cre")),
   person("Adrian", "Waddell", email = "adrian.waddell@roche.com", role = "aut"),
@@ -21,7 +21,7 @@ Imports:
     dplyr,
     magrittr,
     rlang,
-    utils.nest (>= 0.2.5),
+    utils.nest (>= 0.2.6),
     tibble,
     yaml
 Suggests:
