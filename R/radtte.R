@@ -55,15 +55,18 @@ radtte <- function(ADSL, # nolint
     lookup,
     tribble(
       ~ARM,  ~PARAMCD, ~PARAM, ~LAMBDA, ~CNSR_P,
-      "ARM A", "OS",  "Overall Survival",          1 / 80,  0.4,
-      "ARM B", "OS",  "Overall Survival",          1 / 100, 0.2,
-      "ARM C", "OS",  "Overall Survival",          1 / 60,  0.42,
-      "ARM A", "PFS", "Progression Free Survival", 1 / 100, 0.3,
-      "ARM B", "PFS", "Progression Free Survival", 1 / 150, 0.1,
-      "ARM C", "PFS", "Progression Free Survival", 1 / 80,  0.32,
-      "ARM A", "EFS", "Event Free Survival",       1 / 80,  0.2,
-      "ARM B", "EFS", "Event Free Survival",       1 / 100, 0.08,
-      "ARM C", "EFS", "Event Free Survival",       1 / 60,  0.23
+      "ARM A", "OS",  "Overall Survival",                 log(2) / 610, 0.4,
+      "ARM B", "OS",  "Overall Survival",                 log(2) / 490, 0.3,
+      "ARM C", "OS",  "Overall Survival",                 log(2) / 365, 0.2,
+      "ARM A", "PFS", "Progression Free Survival",        log(2) / 365, 0.4,
+      "ARM B", "PFS", "Progression Free Survival",        log(2) / 305, 0.3,
+      "ARM C", "PFS", "Progression Free Survival",        log(2) / 243, 0.2,
+      "ARM A", "EFS", "Event Free Survival",              log(2) / 365, 0.4,
+      "ARM B", "EFS", "Event Free Survival",              log(2) / 305, 0.3,
+      "ARM C", "EFS", "Event Free Survival",              log(2) / 243, 0.2,
+      "ARM A", "CRSD", "Duration of Confirmed Response",  log(2) / 305, 0.4,
+      "ARM B", "CRSD", "Duration of Confirmed Response",  log(2) / 243, 0.3,
+      "ARM C", "CRSD", "Duration of Confirmed Response",  log(2) / 182, 0.2,
     )
   )
 
