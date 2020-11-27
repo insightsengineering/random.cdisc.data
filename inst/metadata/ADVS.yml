@@ -69,6 +69,9 @@ variables:
   ANRIND:
     label: Analysis Reference Range Indicator
     type: factor
+  BNRIND:
+    label: Baseline Reference Range Indicator
+    type: factor
   ADTM:
     label: Analysis Datetime
   ADY:
@@ -86,3 +89,7 @@ variables:
   LOQFL:
     label: Limit of Quantification Flag
     type: factor
+  ONTRTFL:
+    label: On Treatment Record Flag
+    type: factor
+

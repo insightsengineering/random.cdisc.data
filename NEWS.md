@@ -1,5 +1,6 @@
 # random.cdisc.data 0.3.6.9000
 
+* ADVS was updated. Two additional parameters were included: BNRIND and ONTRTFL.
 * ADTTE was updated. There is a new parameter in this data set: "PARAM == Duration of Confirmed Response".
 
 # random.cdisc.data 0.3.6

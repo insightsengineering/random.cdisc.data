@@ -145,6 +145,9 @@ radvs <- function(ADSL, # nolint
       ANRIND = ANRIND_choices %>%
       sample_fct(nrow(ADVS), prob = c(0.1, 0.1, 0.8))) %>%
     mutate(BASETYPE = "LAST") %>%
+    group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
+    mutate(BNRIND = .data$ANRIND[.data$ABLFL == "Y"]) %>%
+    ungroup() %>%
     mutate(ATPTN = 1) %>%
     mutate(DTYPE = NA) %>%
     var_relabel(
@@ -178,6 +181,14 @@ radvs <- function(ADSL, # nolint
     select(-.data$trtsdt_int, -.data$trtedt_int) %>%
     ungroup() %>%
     arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
+
+  ADVS <- ADVS %>% mutate(ONTRTFL =  factor(case_when( # nolint
+    is.na(.data$TRTSDTM) ~ "",
+    is.na(.data$ADTM) ~ "Y",
+    (.data$ADTM < .data$TRTSDTM) ~ "",
+    (.data$ADTM > .data$TRTEDTM) ~ "",
+    TRUE ~ "Y"
+  )))
 
   ADVS <- ADVS %>% # nolint
     mutate(ASPID = sample(1:n())) %>%
