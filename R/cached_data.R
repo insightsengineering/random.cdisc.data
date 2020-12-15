@@ -88,6 +88,8 @@
 #' @usage data(cadrs)
 "cadrs"
 
+#' Cached ADTTE
+#'
 #' Cached ADTR data generated with \code{seed = 1}
 #'
 #' @docType data
