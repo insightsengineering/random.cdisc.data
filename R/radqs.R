@@ -131,7 +131,7 @@ radqs <- function(ADSL, # nolint
     )
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADQS <- mutate_na(ds = ADQS, na_vars = na_vars, na_percentage = na_percentage) #nolint
+    ADQS <- mutate_na(ds = ADQS, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
   ADQS <- var_relabel( # nolint

@@ -118,7 +118,7 @@ radtte <- function(ADSL, # nolint
 
   na_vars <- na_vars[setdiff(colnames(ADTTE), colnames(ADSL))]
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADTTE <- mutate_na(ds = ADTTE, na_vars = na_vars, na_percentage = na_percentage) #nolint
+    ADTTE <- mutate_na(ds = ADTTE, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
   ADTTE <- var_relabel( # nolint

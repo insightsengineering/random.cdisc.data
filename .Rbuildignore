@@ -2,9 +2,10 @@
 ^\.drone\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-README.md
+README\.md
 ^man-roxygen/*
 ^_pkgdown.yml$
 ^docs/*
 ^Jenkinsfile$
-data/script.R
+data/script\.R
+^\.lintr$

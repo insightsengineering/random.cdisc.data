@@ -156,7 +156,7 @@ radvs <- function(ADSL, # nolint
     )
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADVS <- mutate_na(ds = ADVS, na_vars = na_vars, na_percentage = na_percentage) #nolint
+    ADVS <- mutate_na(ds = ADVS, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
   ADVS <- var_relabel( # nolint
