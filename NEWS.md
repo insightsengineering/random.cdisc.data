@@ -1,5 +1,7 @@
 # random.cdisc.data 0.3.7.9000
 
+* Updated examples to not use `cached = TRUE`. 
+
 # random.cdisc.data 0.3.7
 
 * ADVS data set was updated. Two additional parameters were included: BNRIND and ONTRTFL.

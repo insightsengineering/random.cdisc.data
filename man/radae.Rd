@@ -71,8 +71,7 @@ text = paste(
 ), stringsAsFactors = FALSE
 )
 
-adsl <- radsl(cached = TRUE)
-adae <- radae(adsl, lookup_aag = aag)
+adae <- radae(ADSL, lookup_aag = aag)
 
 with(
   adae,

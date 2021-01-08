@@ -36,8 +36,8 @@
 #' library(utils.nest)
 #' library(dplyr)
 #'
-#' ADSL <- radsl(cached = TRUE)
-#' ADEX <- radex(cached = TRUE)
+#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+#' ADEX <- radex(ADSL, seed = 2)
 #'
 radex <- function(ADSL, # nolint
                   param = c(
