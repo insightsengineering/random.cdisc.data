@@ -122,19 +122,65 @@ radsl <- function(N = 400, # nolint
     mutate(EOSSTT = case_when(
       EOSDY == max(EOSDY, na.rm = TRUE) ~ "COMPLETED",
       EOSDY < max(EOSDY, na.rm = TRUE) ~ "DISCONTINUED",
-    is.na(TRTEDTM) ~ "ONGOING"
-  )) %>%
-  mutate(DCSREAS = case_when(
-    EOSSTT == "DISCONTINUED" ~
-      c("ADVERSE EVENT",
-        "LACK OF EFFICACY",
-        "PHYSICIAN DECISION",
-        "PROTOCOL VIOLATION",
-        "WITHDRAWAL BY PARENT/GUARDIAN",
-        "WITHDRAWAL BY SUBJECT") %>% sample_fct(N)
-  )) %>%
-  mutate(DTHDT = as.Date(.data$TRTEDTM)) %>%
-  mutate(LSTALVDT = as.Date(.data$TRTEDTM) + floor(runif(N, min = 10, max = 30))) %>%
+      is.na(TRTEDTM) ~ "ONGOING"
+  ))
+
+  # disposition related variables
+  # using probability of 1 for the "DEATH" level to ensure at least one death record exists
+  l_dcsreas <- list(
+    choices = c(
+      "ADVERSE EVENT", "DEATH", "LACK OF EFFICACY", "PHYSICIAN DECISION",
+      "PROTOCOL VIOLATION", "WITHDRAWAL BY PARENT/GUARDIAN", "WITHDRAWAL BY SUBJECT"
+    ),
+    prob = c(.2, 1, .1, .1, .2, .1, .1)
+  )
+  l_dthcat_other <- list(
+    choices = c(
+      "Post-study reporting of death", "LOST TO FOLLOW UP", "MISSING", "SUICIDE", "UNKNOWN"
+    ),
+    prob = c(.1, .3, .3, .2, .1)
+  )
+
+  ADSL <- ADSL %>% # nolint
+    mutate(
+      DCSREAS = ifelse(
+        .data$EOSSTT == "DISCONTINUED",
+        sample(x = l_dcsreas$choices, size = N, replace = TRUE, prob = l_dcsreas$prob),
+        as.character(NA)
+      )
+    ) %>%
+    mutate(DTHFL = case_when(
+      DCSREAS == "DEATH" ~ "Y",
+      TRUE ~ "N"
+    )) %>%
+    mutate(
+      DTHCAT = ifelse(
+        .data$DCSREAS == "DEATH",
+        sample(x = c("ADVERSE EVENT", "PROGRESSIVE DISEASE", "OTHER"), size = N, replace = TRUE),
+        as.character(NA)
+      )
+    ) %>%
+    mutate(DTHCAUS = case_when(
+      DTHCAT == "ADVERSE EVENT" ~ "ADVERSE EVENT",
+      DTHCAT == "PROGRESSIVE DISEASE" ~ "DISEASE PROGRESSION",
+      DTHCAT == "OTHER" ~ sample(x = l_dthcat_other$choices, size = N, replace = TRUE, prob = l_dthcat_other$prob),
+      TRUE ~ as.character(NA)
+    )) %>%
+    # adding some random number of days post last treatment date so that death days from last trt admin
+    # supports the LDDTHGR1 derivation below
+    mutate(DTHDT = case_when(
+      DCSREAS == "DEATH" ~ as.Date(.data$TRTEDTM) + sample(0:50, size = N, replace = TRUE)
+    )) %>%
+    mutate(LDDTHELD = as.numeric(.data$DTHDT - as.Date(.data$TRTEDTM))) %>%
+    mutate(LDDTHGR1 = case_when(
+      LDDTHELD <= 30 ~ "<=30",
+      LDDTHELD > 30 ~ ">30",
+      TRUE ~ as.character(NA)
+    )) %>%
+    mutate(LSTALVDT = case_when(
+    DCSREAS == "DEATH" ~ DTHDT,
+    TRUE ~ as.Date(.data$TRTEDTM) + floor(runif(N, min = 10, max = 30))
+    )) %>%
     select(-.data$st_posixn)
 
   # associate sites with countries and regions

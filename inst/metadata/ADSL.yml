@@ -27,6 +27,9 @@ variables:
   COUNTRY:
     label: Country
     type: factor
+  DTHFL:
+    label: Subject Death Flag
+    type: factor
   INVID:
     label: Investigator Identifier
     type: character
@@ -91,6 +94,18 @@ variables:
     type: factor
   DTHDT:
     label: Date of Death
+  DTHCAUS:
+    label: Cause of Death
+    type: factor
+  DTHCAT:
+    label: Cause of Death Category
+    type: factor
+  LDDTHELD:
+    label: Elapsed Days from Last Dose to Death
+    type: integer
+  LDDTHGR1:
+    label: Last Dose to Death - Days Elapsed Grp 1
+    type: factor
   LSTALVDT:
     label: Date Last Known Alive
   study_duration_secs:
