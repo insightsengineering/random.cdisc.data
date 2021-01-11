@@ -1,5 +1,17 @@
 # random.cdisc.data 0.3.7.9000
 
+* ADAETTE data set generation via `radaette()` has been enhanced:
+  - `lookup` argument now takes the parameters `CATCD` and `CAT` instead of `PARAMCD` and `PARAM`. 
+    `CATCD` specifies the code to be used for study specific treatment emergent adverse events (e.g. "1")
+    and `CAT` specifies the corresponding text (e.g. "any adverse event").
+  - The resulting data set contains now the number of total occurrences per patient of each specific
+    AE category (`PARAMCD` starting with `AETOT` and ending with `CATCD`), in addition to the already
+    available time to first occurrence (`PARAMCD` starting with `AETTE` and ending with `CATCD`).
+  - An additional parameter included is `AEREPTTE`, the time to end of the AE reporting period.
+  - Generation of the time to and number of adverse events now is conditional on the censoring information,
+    i.e. it is no longer possible to have a situation where the patient is censored but the time to first AE
+    is larger than the AE reporting period.
+
 * Updated examples to not use `cached = TRUE`. 
 
 # random.cdisc.data 0.3.7

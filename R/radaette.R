@@ -28,7 +28,7 @@
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- suppressWarnings(radsl(N = 10, seed = 1, study_duration = 2))
-#' radaette(ADSL, seed  = 2)
+#' radaette(ADSL, seed = 2)
 radaette <- function(ADSL, # nolint
                      event.descr = NULL, # nolint
                      censor.descr = NULL, # nolint
@@ -47,21 +47,24 @@ radaette <- function(ADSL, # nolint
   stopifnot(is.null(event.descr) || is_character_vector(event.descr))
   stopifnot(is.null(censor.descr) || is_character_vector(censor.descr))
   stopifnot(is.null(seed) || is_numeric_single(seed))
-  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  stopifnot(
+    (is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) ||
+      is.na(na_percentage)
+  )
 
   lookup_ADAETTE <- if_null( # nolint
     lookup,
     tribble(
-      ~ARM,  ~PARAMCD, ~PARAM, ~LAMBDA, ~CNSR_P,
-      "ARM A", "AETTE1",   "Time to first occurrence of any adverse event",  1 / 80,     0.4,
-      "ARM B", "AETTE1",   "Time to first occurrence of any adverse event", 1 / 100,     0.2,
-      "ARM C", "AETTE1",   "Time to first occurrence of any adverse event",  1 / 60,     0.42,
-      "ARM A", "AETTE2",   "Time to first occurrence of any serious adverse event",  1 / 100,     0.3,
-      "ARM B", "AETTE2",   "Time to first occurrence of any serious adverse event", 1 / 150,     0.1,
-      "ARM C", "AETTE2",   "Time to first occurrence of any serious adverse event",  1 / 80,     0.32,
-      "ARM A", "AETTE3",   "Time to first occurrence of a grade 3-5 adverse event",  1 / 80,     0.2,
-      "ARM B", "AETTE3",   "Time to first occurrence of a grade 3-5 adverse event", 1 / 100,     0.08,
-      "ARM C", "AETTE3",   "Time to first occurrence of a grade 3-5 adverse event",  1 / 60,     0.23
+      ~ARM, ~CATCD, ~CAT, ~LAMBDA, ~CNSR_P,
+      "ARM A", "1", "any adverse event", 1 / 80, 0.4,
+      "ARM B", "1", "any adverse event", 1 / 100, 0.2,
+      "ARM C", "1", "any adverse event", 1 / 60, 0.42,
+      "ARM A", "2", "any serious adverse event", 1 / 100, 0.3,
+      "ARM B", "2", "any serious adverse event", 1 / 150, 0.1,
+      "ARM C", "2", "any serious adverse event", 1 / 80, 0.32,
+      "ARM A", "3", "a grade 3-5 adverse event", 1 / 80, 0.2,
+      "ARM B", "3", "a grade 3-5 adverse event", 1 / 100, 0.08,
+      "ARM C", "3", "a grade 3-5 adverse event", 1 / 60, 0.23
     )
   )
 
@@ -72,39 +75,109 @@ radaette <- function(ADSL, # nolint
   evntdescr_sel <- if_null(
     event.descr,
     c(
-      "Preferred Term",
-      "Clinical Cut Off",
-      "Completion or Discontinuation",
-      "End of AE Reporting Period"
+      "Preferred Term"
     )
   )
 
   cnsdtdscr_sel <- if_null(
     censor.descr,
     c(
-      "Preferred Term",
       "Clinical Cut Off",
       "Completion or Discontinuation",
       "End of AE Reporting Period"
     )
   )
 
+  random_patient_data <- function(patient_info) {
+    trtsdt_int <- as.numeric(as.Date(patient_info$TRTSDTM))
+    trtedt_int <- ifelse(
+      !is.na(patient_info$TRTEDTM),
+      as.numeric(as.Date(patient_info$TRTEDTM)),
+      floor(trtsdt_int + patient_info$study_duration_secs / 86400)
+    )
+    startdt <- as.Date(patient_info$TRTSDTM)
+    trtedtm <- as.POSIXct(trtedt_int * 86400, origin = "1970-01-01")
+    enddts <- c(as.Date(patient_info$EOSDT), as.Date(trtedtm))
+    enddts_min_index <- which.min(enddts)
+    adt <- enddts[enddts_min_index]
+    adtm <- as.POSIXct(adt)
+    ady <- as.numeric(adt - startdt + 1)
+    data.frame(
+      ARM = patient_info$ARM,
+      STUDYID = patient_info$STUDYID,
+      SITEID = patient_info$SITEID,
+      USUBJID = patient_info$USUBJID,
+      PARAMCD = "AEREPTTE",
+      PARAM = "Time to end of AE reporting period",
+      CNSR = 0,
+      AVAL = ady / 365.25,
+      AVALU = "YEARS",
+      EVNTDESC = ifelse(enddts_min_index == 1, "Completion or Discontinuation", "End of AE Reporting Period"),
+      CNSDTDSC = NA,
+      ADTM = adtm,
+      ADY = ady
+    )
+  }
+
+  random_ae_data <- function(lookup_info, patient_info, patient_data) {
+    cnsr <- sample(c(0, 1), 1, prob = c(1 - lookup_info$CNSR_P, lookup_info$CNSR_P))
+    ae_rep_tte <- patient_data$AVAL[patient_data$PARAMCD == "AEREPTTE"]
+    data.frame(
+      ARM = patient_data$ARM,
+      STUDYID = patient_data$STUDYID,
+      SITEID = patient_data$SITEID,
+      USUBJID = patient_data$USUBJID,
+      PARAMCD = c(
+        paste0("AETTE", lookup_info$CATCD),
+        paste0("AETOT", lookup_info$CATCD)
+      ),
+      PARAM = c(
+        paste("Time to first occurrence of", lookup_info$CAT),
+        paste("Number of occurrences of", lookup_info$CAT)
+      ),
+      CNSR = c(
+        cnsr,
+        NA
+      ),
+      AVAL = c(
+        # We generate these values conditional on the censoring information.
+        # If this time to event is censored, then there were no AEs reported and the time is set
+        # to the AE reporting period time. Otherwise we draw from truncated distributions to make
+        # sure that we are within the AE reporting time and above 0 AEs.
+        ifelse(cnsr == 1, ae_rep_tte, rtexp(1, lookup_info$LAMBDA * 365.25, r = ae_rep_tte)),
+        ifelse(cnsr == 1, 0, rtpois(1, lookup_info$LAMBDA * 365.25))
+      ),
+      AVALU = c(
+        "YEARS",
+        NA
+      ),
+      EVNTDESC = c(
+        ifelse(cnsr == 0, sample(evntdescr_sel, 1), ""),
+        NA
+      ),
+      CNSDTDSC = c(
+        ifelse(cnsr == 1, sample(cnsdtdscr_sel, 1), ""),
+        NA
+      )
+    ) %>% mutate(
+      ADY = dplyr::if_else(is.na(.data$AVALU), NA_real_, ceiling(.data$AVAL * 365.25)),
+      ADTM = dplyr::if_else(
+        is.na(.data$AVALU),
+        as.POSIXct(NA),
+        as.POSIXct(patient_info$TRTSDTM) + as.difftime(.data$ADY, units = "days")
+      )
+    )
+  }
+
   ADAETTE <- split(ADSL, ADSL$USUBJID) %>% # nolint
-    lapply(function(pinfo) {
-      lookup_ADAETTE %>%
-        dplyr::filter(.data$ARM == as.character(pinfo$ARMCD)) %>%
-        rowwise() %>%
-        mutate(
-          STUDYID = pinfo$STUDYID,
-          SITEID = pinfo$SITEID,
-          USUBJID = pinfo$USUBJID,
-          CNSR = sample(c(0, 1), 1, prob = c(1 - .data$CNSR_P, .data$CNSR_P)),
-          AVAL = rexp(1, .data$LAMBDA) / 365.25,
-          AVALU = "YEARS",
-          EVNTDESC = if (.data$CNSR == 0) sample(evntdescr_sel, 1) else "",
-          CNSDTDSC = if (.data$CNSR == 1) sample(cnsdtdscr_sel, 1) else ""
-        ) %>%
-        select(-.data$LAMBDA, -.data$CNSR_P)
+    lapply(function(patient_info) {
+      patient_data <- random_patient_data(patient_info)
+      lookup_arm <- lookup_ADAETTE %>%
+        dplyr::filter(.data$ARM == as.character(patient_info$ARMCD))
+      ae_data <- split(lookup_arm, lookup_arm$CATCD) %>%
+        lapply(random_ae_data, patient_data = patient_data, patient_info = patient_info) %>%
+        Reduce(rbind, .)
+      dplyr::bind_rows(patient_data, ae_data)
     }) %>%
     Reduce(rbind, .) %>%
     var_relabel(
@@ -122,25 +195,13 @@ radaette <- function(ADSL, # nolint
     USUBJID = "Unique Subject Identifier"
   )
 
-  # merge ADSL to be able to add AETTE date and study day variables
-  ADAETTE <- inner_join( # nolint
-    ADSL, # nolint
-    select(ADAETTE, -.data$SITEID, -.data$ARM),
-    by = c("STUDYID", "USUBJID")) %>%
-  rowwise() %>%
-  mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-  mutate(trtedt_int = case_when(
-    !is.na(TRTEDTM) ~ as.numeric(as.Date(TRTEDTM)),
-    is.na(TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
-  )) %>%
-  mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
-  mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
-  select(-.data$trtsdt_int, -.data$trtedt_int) %>%
-  ungroup() %>%
-  arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
-
-  ADAETTE <- ADAETTE %>% # nolint
+  ADAETTE <- ADSL %>%  #nolint
+    inner_join(
+      select(ADAETTE, -.data$SITEID, -.data$ARM),
+      by = c("STUDYID", "USUBJID")
+    ) %>%
     group_by(.data$USUBJID) %>%
+    arrange(.data$ADTM) %>%
     mutate(TTESEQ = 1:n()) %>%
     mutate(ASEQ = .data$TTESEQ) %>%
     mutate(PARAM = as.factor(.data$PARAM)) %>%

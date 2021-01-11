@@ -385,3 +385,69 @@ ungroup_rowwise_df <- function(x) {
   class(x) <- c("tbl", "tbl_df", "data.frame")
   return(x)
 }
+
+
+#' Zero-truncated Poisson Distribution
+#'
+#' This generates random numbers from a zero-truncated Poisson distribution,
+#' i.e. from `X | X > 0` when `X ~ Poisson(lambda)`. The advantage here is that
+#' we guarantee to return exactly `n` numbers and without using a loop internally.
+#' This solution was provided in a post by
+#' [Peter Dalgaard](https://stat.ethz.ch/pipermail/r-help/2005-May/070680.html).
+#'
+#' @param n number of random numbers.
+#' @param lambda non-negative mean(s).
+#'
+#' @return The random numbers.
+#' @importFrom stats dpois qpois
+#' @export
+#'
+#' @examples
+#' x <- rpois(1e6, lambda = 5)
+#' x <- x[x > 0]
+#' hist(x)
+#'
+#' y <- rtpois(1e6, lambda = 5)
+#' hist(y)
+#'
+rtpois <- function(n, lambda) {
+  qpois(runif(n, dpois(0, lambda), 1), lambda)
+}
+
+#' Truncated Exponential Distribution
+#'
+#' This generates random numbers from a truncated Exponential distribution,
+#' i.e. from `X | X > l` or `X | X < r` when `X ~ Exp(rate)`. The advantage here is that
+#' we guarantee to return exactly `n` numbers and without using a loop internally.
+#' This can be derived from the quantile functions of the left- and right-truncated
+#' Exponential distributions.
+#'
+#' @param n number of random numbers.
+#' @param rate non-negative rate.
+#' @param l positive left-hand truncation parameter.
+#' @param r positive right-hand truncation parameter.
+#'
+#' @return The random numbers. If neither `l` nor `r` are provided then the usual Exponential
+#'  distribution is used.
+#' @export
+#'
+#' @examples
+#' x <- rexp(1e6, rate = 5)
+#' x <- x[x > 0.5]
+#' hist(x)
+#'
+#' y <- rtexp(1e6, rate = 5, l = 0.5)
+#' hist(y)
+#'
+#' z <- rtexp(1e6, rate = 5, r = 0.5)
+#' hist(z)
+#'
+rtexp <- function(n, rate, l = NULL, r = NULL) {
+  if (!is.null(l)) {
+    l - log(1 - runif(n)) / rate
+  } else if (!is.null(r)) {
+    - log(1 - runif(n) * (1 - exp(- r * rate))) / rate
+  } else {
+    rexp(n, rate)
+  }
+}

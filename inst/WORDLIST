@@ -45,6 +45,7 @@ CMSTDTM
 CMTERM
 covr
 CQ
+Dalgaard
 dataname
 datanames
 dipietrc
@@ -52,6 +53,7 @@ DTYPE
 DYTYPE
 eg
 EGSEQ
+ethz
 EXSEQ
 funder
 Gabe
@@ -71,13 +73,18 @@ lintr
 MedDRA
 MHs
 MHSEQ
+multisessions
+multithreaded
 NEST
 npaszty
 ONTRTFL
 PARAM
 PARAMCD
 PARCAT
+pipermail
+PR
 pre
+PRs
 rcode
 recurse
 reproducibility
