@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="NEST team" />
+
+
+<title>Rebuilding Random CDISC Cached Data</title>
+
+<style type="text/css">
+a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
+a.anchor-section::before {content: '#';}
+.hasAnchor:hover a.anchor-section {visibility: visible;}
+</style>
+<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
+document.addEventListener('DOMContentLoaded', function() {
+  // Do nothing if AnchorJS is used
+  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
+    return;
+  }
+
+  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+  // Do nothing if sections are already anchored
+  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
+    return null;
+  }
+
+  // Use section id when pandoc runs with --section-divs
+  const section_id = function(x) {
+    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
+            ? x.id : '');
+  };
+
+  // Add anchors
+  h.forEach(function(x) {
+    const id = x.id || section_id(x.parentElement);
+    if (id === '') {
+      return null;
+    }
+    let anchor = document.createElement('a');
+    anchor.href = '#' + id;
+    anchor.classList = ['anchor-section'];
+    x.classList.add('hasAnchor');
+    x.appendChild(anchor);
+  });
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Rebuilding Random CDISC Cached Data</h1>
+<h4 class="author">NEST team</h4>
+<h4 class="date">8/17/2020</h4>
+
+
+
+<div id="getting-started" class="section level1">
+<h1>Getting Started</h1>
+<p>The following script is used to create, compare and save cached data to <code>data/</code> directory.</p>
+<p>Starting in <code>R 3.6.0</code> the default kind of under-the-hood random-number generator was changed. Now, in order to get the results from <code>set.seed()</code> to match, you have to first call the function <code>RNGkind(sample.kind = &quot;Rounding&quot;)</code>.</p>
+<p>It does throw an expected warning</p>
+<pre><code>Warning message:
+In RNGkind(sample.kind = &quot;Rounding&quot;) : non-uniform 'Rounding' sampler used</code></pre>
+</div>
+<div id="code-maintenance" class="section level1">
+<h1>Code maintenance</h1>
+<p>Currently, when a new random.cdisc.data function is created then this script needs to be manually updated to include the new cached data set in the rebuild process. If an existing function is modified then the cached data also need to be updated by running through the rebuild process.</p>
+</div>
+<div id="code-to-run-interactively" class="section level1">
+<h1>Code to run interactively</h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(random.cdisc.data)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co"># call function to be able to match randome number generation from previous R versions</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">RNGkind</span>(<span class="dt">sample.kind =</span> <span class="st">&quot;Rounding&quot;</span>)</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co"># create the new cached data sets</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">cadsl_new &lt;-<span class="st"> </span><span class="kw">radsl</span>(<span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">na_vars =</span> <span class="kw">list</span>()) <span class="op">%&gt;%</span><span class="st"> `</span><span class="dt">attr&lt;-</span><span class="st">`</span>(<span class="st">&quot;creation date&quot;</span>, <span class="kw">Sys.Date</span>())</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">cadae_new &lt;-<span class="st"> </span><span class="kw">radae</span>(cadsl_new, <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">na_vars =</span> <span class="kw">list</span>()) <span class="op">%&gt;%</span><span class="st"> `</span><span class="dt">attr&lt;-</span><span class="st">`</span>(<span class="st">&quot;creation date&quot;</span>, <span class="kw">Sys.Date</span>())</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">cadaette_new &lt;-<span class="st"> </span><span class="kw">radaette</span>(cadsl_new, <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">na_vars =</span> <span class="kw">list</span>()) <span class="op">%&gt;%</span><span class="st"> `</span><span class="dt">attr&lt;-</span><span class="st">`</span>(<span class="st">&quot;creation date&quot;</span>, <span class="kw">Sys.Date</span>())</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">cadcm_new &lt;-<span class="st"> </span><span class="kw">radcm</span>(cadsl_new, <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">na_vars =</span> <span class="kw">list</span>()) <span class="op">%&gt;%</span><span class="st"> `</span><span class="dt">attr&lt;-</span><span class="st">`</span>(<span class="st">&quot;creation date&quot;</span>, <span class="kw">Sys.Date</span>())</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">cadex_new &lt;-<span class="st"> </span><span class="kw">radex</span>(cadsl_new, <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">na_vars =</span> <span class="kw">list</span>()) <span class="op">%&gt;%</span><span class="st"> `</span><span class="dt">attr&lt;-</span><span class="st">`</span>(<span class="st">&quot;creation date&quot;</span>, <span class="kw">Sys.Date</span>())</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">cadlb_new &lt;-<span class="st"> </span><span class="kw">radlb</span>(cadsl_new, <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">na_vars =</span> <span class="kw">list</span>()) <span class="op">%&gt;%</span><span class="st"> `</span><span class="dt">attr&lt;-</span><span class="st">`</span>(<span class="st">&quot;creation date&quot;</span>, <span class="kw">Sys.Date</span>())</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">cadmh_new &lt;-<span class="st"> </span><span class="kw">radmh</span>(cadsl_new, <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">na_vars =</span> <span class="kw">list</span>()) <span class="op">%&gt;%</span><span class="st"> `</span><span class="dt">attr&lt;-</span><span class="st">`</span>(<span class="st">&quot;creation date&quot;</span>, <span class="kw">Sys.Date</span>())</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">cadqs_new &lt;-<span class="st"> </span><span class="kw">radqs</span>(cadsl_new, <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">na_vars =</span> <span class="kw">list</span>()) <span class="op">%&gt;%</span><span class="st"> `</span><span class="dt">attr&lt;-</span><span class="st">`</span>(<span class="st">&quot;creation date&quot;</span>, <span class="kw">Sys.Date</span>())</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">cadrs_new &lt;-<span class="st"> </span><span class="kw">radrs</span>(cadsl_new, <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">na_vars =</span> <span class="kw">list</span>()) <span class="op">%&gt;%</span><span class="st"> `</span><span class="dt">attr&lt;-</span><span class="st">`</span>(<span class="st">&quot;creation date&quot;</span>, <span class="kw">Sys.Date</span>())</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">cadtte_new &lt;-<span class="st"> </span><span class="kw">radtte</span>(cadsl_new, <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">na_vars =</span> <span class="kw">list</span>()) <span class="op">%&gt;%</span><span class="st"> `</span><span class="dt">attr&lt;-</span><span class="st">`</span>(<span class="st">&quot;creation date&quot;</span>, <span class="kw">Sys.Date</span>())</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">cadvs_new &lt;-<span class="st"> </span><span class="kw">radvs</span>(cadsl_new, <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">na_vars =</span> <span class="kw">list</span>()) <span class="op">%&gt;%</span><span class="st"> `</span><span class="dt">attr&lt;-</span><span class="st">`</span>(<span class="st">&quot;creation date&quot;</span>, <span class="kw">Sys.Date</span>())</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">cadeg_new &lt;-<span class="st"> </span><span class="kw">radeg</span>(cadsl_new, <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">na_vars =</span> <span class="kw">list</span>()) <span class="op">%&gt;%</span><span class="st"> `</span><span class="dt">attr&lt;-</span><span class="st">`</span>(<span class="st">&quot;creation date&quot;</span>, <span class="kw">Sys.Date</span>())</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">cadtr_new &lt;-<span class="st"> </span><span class="kw">radtr</span>(cadsl_new, <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">na_vars =</span> <span class="kw">list</span>()) <span class="op">%&gt;%</span><span class="st"> `</span><span class="dt">attr&lt;-</span><span class="st">`</span>(<span class="st">&quot;creation date&quot;</span>, <span class="kw">Sys.Date</span>())</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">caddv_new &lt;-<span class="st"> </span><span class="kw">raddv</span>(cadsl_new, <span class="dt">seed =</span> <span class="dv">1</span>, <span class="dt">na_vars =</span> <span class="kw">list</span>()) <span class="op">%&gt;%</span><span class="st"> `</span><span class="dt">attr&lt;-</span><span class="st">`</span>(<span class="st">&quot;creation date&quot;</span>, <span class="kw">Sys.Date</span>())</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co"># use diffdf package: diffdf() to compare cached vs new and review/verify differences</span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="kw">diffdf</span>(cadsl, cadsl_new)</a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co"># when diff reflects changes accurately then create environment objects to save out to cache</span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27">cadsl &lt;-<span class="st"> </span>cadsl_new</a>
+<a class="sourceLine" id="cb2-28" data-line-number="28">cadae &lt;-<span class="st"> </span>cadae_new</a>
+<a class="sourceLine" id="cb2-29" data-line-number="29">cadaette &lt;-<span class="st"> </span>cadaette_new</a>
+<a class="sourceLine" id="cb2-30" data-line-number="30">cadcm &lt;-<span class="st"> </span>cadcm_new</a>
+<a class="sourceLine" id="cb2-31" data-line-number="31">cadeg &lt;-<span class="st"> </span>cadeg_new</a>
+<a class="sourceLine" id="cb2-32" data-line-number="32">cadex &lt;-<span class="st"> </span>cadex_new</a>
+<a class="sourceLine" id="cb2-33" data-line-number="33">cadlb &lt;-<span class="st"> </span>cadlb_new</a>
+<a class="sourceLine" id="cb2-34" data-line-number="34">cadmh &lt;-<span class="st"> </span>cadmh_new</a>
+<a class="sourceLine" id="cb2-35" data-line-number="35">cadqs &lt;-<span class="st"> </span>cadqs_new</a>
+<a class="sourceLine" id="cb2-36" data-line-number="36">cadrs &lt;-<span class="st"> </span>cadrs_new</a>
+<a class="sourceLine" id="cb2-37" data-line-number="37">cadtr &lt;-<span class="st"> </span>cadtr_new</a>
+<a class="sourceLine" id="cb2-38" data-line-number="38">cadtte &lt;-<span class="st"> </span>cadtte_new</a>
+<a class="sourceLine" id="cb2-39" data-line-number="39">cadvs &lt;-<span class="st"> </span>cadvs_new</a>
+<a class="sourceLine" id="cb2-40" data-line-number="40">caddv &lt;-<span class="st"> </span>caddv_new</a>
+<a class="sourceLine" id="cb2-41" data-line-number="41"></a>
+<a class="sourceLine" id="cb2-42" data-line-number="42"><span class="co"># update cache</span></a>
+<a class="sourceLine" id="cb2-43" data-line-number="43"><span class="kw">save</span>(cadsl, <span class="dt">file =</span> <span class="st">&quot;data/cadsl.RData&quot;</span>, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a>
+<a class="sourceLine" id="cb2-44" data-line-number="44"><span class="kw">save</span>(cadae, <span class="dt">file =</span> <span class="st">&quot;data/cadae.RData&quot;</span>, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a>
+<a class="sourceLine" id="cb2-45" data-line-number="45"><span class="kw">save</span>(cadaette, <span class="dt">file =</span> <span class="st">&quot;data/cadaette.RData&quot;</span>, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a>
+<a class="sourceLine" id="cb2-46" data-line-number="46"><span class="kw">save</span>(cadcm, <span class="dt">file =</span> <span class="st">&quot;data/cadcm.RData&quot;</span>, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a>
+<a class="sourceLine" id="cb2-47" data-line-number="47"><span class="kw">save</span>(cadeg, <span class="dt">file =</span> <span class="st">&quot;data/cadeg.RData&quot;</span>, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a>
+<a class="sourceLine" id="cb2-48" data-line-number="48"><span class="kw">save</span>(cadex, <span class="dt">file =</span> <span class="st">&quot;data/cadex.RData&quot;</span>, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a>
+<a class="sourceLine" id="cb2-49" data-line-number="49"><span class="kw">save</span>(cadlb, <span class="dt">file =</span> <span class="st">&quot;data/cadlb.RData&quot;</span>, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a>
+<a class="sourceLine" id="cb2-50" data-line-number="50"><span class="kw">save</span>(cadmh, <span class="dt">file =</span> <span class="st">&quot;data/cadmh.RData&quot;</span>, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a>
+<a class="sourceLine" id="cb2-51" data-line-number="51"><span class="kw">save</span>(cadqs, <span class="dt">file =</span> <span class="st">&quot;data/cadqs.RData&quot;</span>, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a>
+<a class="sourceLine" id="cb2-52" data-line-number="52"><span class="kw">save</span>(cadrs, <span class="dt">file =</span> <span class="st">&quot;data/cadrs.RData&quot;</span>, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a>
+<a class="sourceLine" id="cb2-53" data-line-number="53"><span class="kw">save</span>(cadtr, <span class="dt">file =</span> <span class="st">&quot;data/cadtr.RData&quot;</span>, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a>
+<a class="sourceLine" id="cb2-54" data-line-number="54"><span class="kw">save</span>(cadtte, <span class="dt">file =</span> <span class="st">&quot;data/cadtte.RData&quot;</span>, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a>
+<a class="sourceLine" id="cb2-55" data-line-number="55"><span class="kw">save</span>(cadvs, <span class="dt">file =</span> <span class="st">&quot;data/cadvs.RData&quot;</span>, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a>
+<a class="sourceLine" id="cb2-56" data-line-number="56"><span class="kw">save</span>(caddv, <span class="dt">file =</span> <span class="st">&quot;data/caddv.RData&quot;</span>, <span class="dt">compress =</span> <span class="st">&quot;xz&quot;</span>)</a></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -51,6 +51,7 @@ cadtte_new <- radtte(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creati
 cadvs_new <- radvs(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadeg_new <- radeg(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadtr_new <- radtr(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
+caddv_new <- raddv(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 
 # use diffdf package: diffdf() to compare cached vs new and review/verify differences
 diffdf(cadsl, cadsl_new)
@@ -69,6 +70,7 @@ cadrs <- cadrs_new
 cadtr <- cadtr_new
 cadtte <- cadtte_new
 cadvs <- cadvs_new
+caddv <- caddv_new
 
 # update cache
 save(cadsl, file = "data/cadsl.RData", compress = "xz")
@@ -84,4 +86,5 @@ save(cadrs, file = "data/cadrs.RData", compress = "xz")
 save(cadtr, file = "data/cadtr.RData", compress = "xz")
 save(cadtte, file = "data/cadtte.RData", compress = "xz")
 save(cadvs, file = "data/cadvs.RData", compress = "xz")
+save(caddv, file = "data/caddv.RData", compress = "xz")
 ```

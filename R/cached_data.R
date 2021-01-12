@@ -34,6 +34,15 @@
 #' @usage data(cadcm)
 "cadcm"
 
+#' Cached ADDV
+#'
+#' Cached ADDV data generated with \code{seed = 1}
+#'
+#' @docType data
+#'
+#' @usage data(caddv)
+"caddv"
+
 #' Cached ADEG
 #'
 #' Cached ADEG data generated with \code{seed = 1}
@@ -88,7 +97,7 @@
 #' @usage data(cadrs)
 "cadrs"
 
-#' Cached ADTTE
+#' Cached ADTR
 #'
 #' Cached ADTR data generated with \code{seed = 1}
 #'

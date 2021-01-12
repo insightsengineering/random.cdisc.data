@@ -3,6 +3,7 @@ ADAE
 ADAETTE
 ADaM
 ADCM
+ADDV
 ADEG
 ADEX
 ADLB
@@ -30,6 +31,7 @@ anl
 AREL
 ASPID
 ASTDTM
+ASTDT
 ATOXGR
 ATPTN
 AVISITN
@@ -49,6 +51,8 @@ Dalgaard
 dataname
 datanames
 dipietrc
+DVSEQ
+DVTERM
 DTYPE
 DYTYPE
 eg

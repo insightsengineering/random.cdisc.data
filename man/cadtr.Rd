@@ -3,7 +3,7 @@
 \docType{data}
 \name{cadtr}
 \alias{cadtr}
-\title{Cached ADTTE}
+\title{Cached ADTR}
 \format{
 An object of class \code{data.frame} with 2800 rows and 56 columns.
 }

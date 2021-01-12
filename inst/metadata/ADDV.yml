@@ -1,0 +1,39 @@
+domain:
+  name: ADDV
+  label: Protocol Deviations Analysis Dataset
+
+variables:
+  DOMAIN:
+    label: Domain Abbreviation
+    type: character
+  DVSEQ:
+    label: Sequence Number
+    type: factor
+  DVTERM:
+    label: Protocol Deviation Term
+    type: factor
+  DVDECOD:
+    label: Protocol Deviation Coded Term
+    type: factor
+  DVCAT:
+    label: Category for Protocol Deviation
+    type: factor
+  DVSCAT:
+    label: Subcategory for Protocol Deviation
+    type: factor
+  DVREAS:
+    label: Reason for Deviation
+    type: factor
+  DVEPRELI:
+    label: Epi/Pandemic Related Indicator
+    type: factor
+  ASTDT:
+    label: Analysis Start Date
+    type: Date
+  ASTDY:
+    label: Analysis Start Relative Day
+    type: integer
+  AEPRELFL:
+    label: Analysis Epi/Pandemic Related Flag
+    type: factor
+
