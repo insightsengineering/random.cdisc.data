@@ -9,9 +9,6 @@ variables:
   TRTDURD:
     label: Total Treatment Duration (Days)
     type: Integer
-  DTHFL:
-    label: Subject Death Flag
-    type: factor
   DCSREAS_GRP:
     label: Grouped Reason for Disc. from Study
     type: character

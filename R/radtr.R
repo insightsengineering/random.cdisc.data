@@ -155,7 +155,6 @@ radtr <- function(ADSL, # nolint
   ADTR <- ADTR %>% # nolint
     dplyr::mutate(
       AEWITHFL = ifelse(.data$DCSREAS == "ADVERSE EVENT", "Y", "N"),
-      DTHFL = ifelse(!is.na(.data$DTHDT), "Y", ""),
       DCSREAS_GRP = ifelse(.data$DCSREAS == "ADVERSE EVENT", "Safety", "Non-Safety"),
       TRTDURD = ifelse(is.na(.data$TRTSDTM) | is.na(.data$TRTEDTM), NA, .data$TRTEDTM - (.data$TRTSDTM + 1)),
       AGEGR1 = ifelse(.data$AGE < 65, "<65", ">=65")

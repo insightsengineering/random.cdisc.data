@@ -273,9 +273,7 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
   }
 
   if (!all(metadata_varnames %in% names(df))) {
-    missing_vars <- base::setdiff(metadata_varnames, names(df))
-    msg <- paste0("Following variables not found in random table: ", paste0(missing_vars, collapse = ", "))
-    stop(msg)
+    metadata_varnames <- metadata_varnames[metadata_varnames %in% names(df)]
   }
 
   # assign labels to variables
