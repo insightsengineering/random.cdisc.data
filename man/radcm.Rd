@@ -11,6 +11,7 @@ radcm(
   seed = NULL,
   na_percentage = 0,
   na_vars = list(CMCLAS = c(NA, 0.1), CMDECOD = c(1234, 0.1), ATIREL = c(1234, 0.1)),
+  who_coding = FALSE,
   cached = FALSE
 )
 }
@@ -33,6 +34,8 @@ radcm(
     percentage is used. This will overwrite default percentage (percentage argument))}
 }}
 
+\item{who_coding}{(`flag`)\cr whether to use WHO coding (with multiple paths per medication) or not.}
+
 \item{cached}{boolean whether the cached ADCM data \code{cadcm} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radcm} will be ignored.}
 }
@@ -52,4 +55,5 @@ Keys: STUDYID USUBJID ASTDTM CMSEQ.
 library(random.cdisc.data)
 ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 radcm(ADSL, seed = 2)
+radcm(ADSL, seed = 2, who_coding = TRUE)
 }

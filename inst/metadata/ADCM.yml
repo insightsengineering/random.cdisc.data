@@ -18,6 +18,18 @@ variables:
   CMCLAS:
     label: Medication Class
     type: factor
+  ATC1:
+    label: ATC Level 1 Text
+    type: factor
+  ATC2:
+    label: ATC Level 2 Text
+    type: factor
+  ATC3:
+    label: ATC Level 3 Text
+    type: factor
+  ATC4:
+    label: ATC Level 4 Text
+    type: factor
   ATIREL:
     label: Time Relation of Medication
     type: factor
