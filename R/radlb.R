@@ -173,12 +173,12 @@ radlb <- function(ADSL, # nolint
         c("-1", "-2", "-3", "-4", "-5"),
         nrow(ADLB),
         replace = TRUE,
-        prob = c(0.30, 0.25, 0.20, 0.15, 0.1)),
+        prob = c(0.30, 0.25, 0.20, 0.15, 0)),
       .data$ANRIND == "HIGH" ~ sample(
         c("1", "2", "3", "4", "5"),
         nrow(ADLB),
         replace = TRUE,
-        prob = c(0.30, 0.25, 0.20, 0.15, 0.1)),
+        prob = c(0.30, 0.25, 0.20, 0.15, 0)),
       .data$ANRIND == "NORMAL" ~ "0"
       ))) %>%
     group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
