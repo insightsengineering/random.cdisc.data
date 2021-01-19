@@ -1,0 +1,20 @@
+#' Time to Safety Event Analysis Dataset (ADSAFTTE)
+#'
+#' Function to generate random time to safety event dataset for a
+#' given subject-level analysis dataset.
+#'
+#' @inheritParams radaette
+#'
+#' @export
+#'
+#' @examples
+#'
+#' ADSL <- suppressWarnings(radsl(N = 10, seed = 1, study_duration = 2))
+#' radsaftte(ADSL, seed = 2)
+#'
+radsaftte <- function(ADSL, # nolint
+                      ...) {
+
+  radaette(ADSL = ADSL, ...)
+
+}
