@@ -1,5 +1,3 @@
-context("random data generators")
-
 test_that("r<data> functions work", {
   n <- 10
 
