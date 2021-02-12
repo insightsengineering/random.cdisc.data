@@ -97,6 +97,15 @@
 #' @usage data(cadrs)
 "cadrs"
 
+#' Cached ADSUB
+#'
+#' Cached ADSUB data generated with \code{seed = 1}
+#'
+#' @docType data
+#'
+#' @usage data(cadsub)
+"cadsub"
+
 #' Cached ADTR
 #'
 #' Cached ADTR data generated with \code{seed = 1}

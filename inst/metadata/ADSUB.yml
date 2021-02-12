@@ -1,0 +1,34 @@
+domain:
+  name: ADSUB
+  label: Subcategory Analysis Dataset
+
+variables:
+  PARAM:
+    label: Parameter
+    type: factor
+  PARAMCD:
+    label: Parameter Code
+    type: factor
+  AVAL:
+    label: Analysis Value
+    type: numeric
+  AVALC:
+    label: Character Result/Finding
+    type: character
+  AVALU:
+    label: Analysis Value Unit
+    type: factor
+  AVALCAT1:
+    label: Analysis Value Category 1
+    type: character
+  ADTM:
+    label: Analysis Datetime
+  AVISIT:
+    label: Analysis Visit
+    type: factor
+  AVISITN:
+    label: Analysis Visit (N)
+    type: integer
+  SRCSEQ:
+    label: Source Sequence Number
+    type: integer

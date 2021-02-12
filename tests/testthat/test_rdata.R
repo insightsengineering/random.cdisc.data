@@ -17,6 +17,8 @@ test_that("r<data> functions work", {
   expect_silent(radtr(adsl))
   expect_silent(radtte(adsl))
   expect_silent(radvs(adsl))
+  expect_silent(radeg(adsl))
+  expect_silent(radsub(adsl))
 })
 
 test_that("r<data> with cached = TRUE", {
@@ -32,6 +34,8 @@ test_that("r<data> with cached = TRUE", {
   expect_silent(radtr(cached = TRUE))
   expect_silent(radtte(cached = TRUE))
   expect_silent(radvs(cached = TRUE))
+  expect_silent(radeg(cached = TRUE))
+  expect_silent(radsub(cached = TRUE))
 })
 
 test_that("seed works", {
@@ -199,6 +203,18 @@ test_that("metadata matches radvs", {
 
   rdf_label <- vapply(df, function(x) attributes(x)[["label"]], character(1))
   meta_info <- get_meta_info("ADVS")
+
+  expect_identical(meta_info, rdf_label)
+})
+
+
+test_that("metadata matches radsub", {
+  n <- 10
+  adsl <- radsl(n, seed = 1)
+  df <- radsub(adsl, seed = 1)
+
+  rdf_label <- vapply(df, function(x) attributes(x)[["label"]], character(1))
+  meta_info <- get_meta_info("ADSUB")
 
   expect_identical(meta_info, rdf_label)
 })

@@ -5,3 +5,5 @@
 .DS_Store
 random.cdisc.data.Rproj
 docs
+
+*.html

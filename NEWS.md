@@ -14,6 +14,8 @@
 
 * Updated examples to not use `cached = TRUE`. 
 
+* Added ADSUB dataset.
+
 # random.cdisc.data 0.3.7
 
 * ADVS data set was updated. Two additional parameters were included: BNRIND and ONTRTFL.
