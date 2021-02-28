@@ -1,4 +1,4 @@
-# random.cdisc.data 0.3.7.9000
+# random.cdisc.data 0.3.8
 
 * ADAETTE data set generation via `radaette()` has been enhanced:
   - `lookup` argument now takes the parameters `CATCD` and `CAT` instead of `PARAMCD` and `PARAM`. 
@@ -11,9 +11,7 @@
   - Generation of the time to and number of adverse events now is conditional on the censoring information,
     i.e. it is no longer possible to have a situation where the patient is censored but the time to first AE
     is larger than the AE reporting period.
-
-* Updated examples to not use `cached = TRUE`. 
-
+* Updated examples to not use `cached = TRUE`.
 * Added ADSUB dataset.
 
 # random.cdisc.data 0.3.7
