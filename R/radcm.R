@@ -159,6 +159,14 @@ radcm <- function(ADSL, # nolint
     )
   }
 
+  ADCM <- ADCM %>% # nolint
+    dplyr::mutate(
+      ATC1CD = ATC1,
+      ATC2CD = ATC2,
+      ATC3CD = ATC3,
+      ATC4CD = ATC4
+    )
+
   # apply metadata
   ADCM <- apply_metadata(ADCM, "metadata/ADCM.yml") # nolint
 

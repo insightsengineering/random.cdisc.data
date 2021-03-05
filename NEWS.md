@@ -1,5 +1,5 @@
 # random.cdisc.data 0.3.8
-
+* Four variables `ATC1CD`, `ATC2CD`, `ATC3CD`, `ATC4CD` have been added to ADCM data.
 * ADAETTE data set generation via `radaette()` has been enhanced:
   - `lookup` argument now takes the parameters `CATCD` and `CAT` instead of `PARAMCD` and `PARAM`. 
     `CATCD` specifies the code to be used for study specific treatment emergent adverse events (e.g. "1")

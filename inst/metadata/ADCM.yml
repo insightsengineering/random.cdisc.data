@@ -30,6 +30,18 @@ variables:
   ATC4:
     label: ATC Level 4 Text
     type: factor
+  ATC1CD:
+    label: ATC Level 1 Code
+    type: factor
+  ATC2CD:
+    label: ATC Level 2 Code
+    type: factor
+  ATC3CD:
+    label: ATC Level 3 Code
+    type: factor
+  ATC4CD:
+    label: ATC Level 4 Code
+    type: factor
   ATIREL:
     label: Time Relation of Medication
     type: factor
