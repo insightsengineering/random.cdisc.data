@@ -4,6 +4,7 @@
 #' given subject-level analysis dataset.
 #'
 #' @inheritParams radaette
+#' @param ... Additional argument to be passed to \code{radaette}
 #'
 #' @export
 #'

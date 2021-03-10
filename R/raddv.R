@@ -24,6 +24,7 @@
 #' @importFrom tibble tribble
 #' @importFrom rlang .data
 #' @importFrom utils read.table
+#' @importFrom stats rbinom
 #'
 #' @export
 #'
@@ -127,7 +128,7 @@ raddv <- function(ADSL, # nolint
     arrange(.data$STUDYID, .data$USUBJID, .data$ASTDT, .data$DVTERM, .data$DVSEQ)
 
   ADDV <- ADDV %>% # nolint
-    mutate(AEPRELFL = ifelse(DVEPRELI == "Y", DVEPRELI, ""))
+    mutate(AEPRELFL = ifelse(.data$DVEPRELI == "Y", .data$DVEPRELI, ""))
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADDV <- mutate_na(ds = ADDV, na_vars = na_vars, na_percentage = na_percentage) # nolint

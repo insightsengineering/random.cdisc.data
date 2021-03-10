@@ -69,7 +69,7 @@ h_anthropometrics_by_sex <- function(df,
       )
     ) %>%
     mutate(
-      BMI = WEIGHT / ((HEIGHT)^2)
+      BMI = .data$WEIGHT / ((.data$HEIGHT)^2)
     )
 
   return(df_with_measurements)

@@ -8,6 +8,8 @@ radsaftte(ADSL, ...)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+
+\item{...}{Additional argument to be passed to \code{radaette}}
 }
 \description{
 Function to generate random time to safety event dataset for a
