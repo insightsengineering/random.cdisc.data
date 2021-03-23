@@ -115,7 +115,8 @@ radaette <- function(ADSL, # nolint
       EVNTDESC = ifelse(enddts_min_index == 1, "Completion or Discontinuation", "End of AE Reporting Period"),
       CNSDTDSC = NA,
       ADTM = adtm,
-      ADY = ady
+      ADY = ady,
+      stringsAsFactors = FALSE
     )
   }
 
@@ -123,10 +124,10 @@ radaette <- function(ADSL, # nolint
     cnsr <- sample(c(0, 1), 1, prob = c(1 - lookup_info$CNSR_P, lookup_info$CNSR_P))
     ae_rep_tte <- patient_data$AVAL[patient_data$PARAMCD == "AEREPTTE"]
     data.frame(
-      ARM = patient_data$ARM,
-      STUDYID = patient_data$STUDYID,
-      SITEID = patient_data$SITEID,
-      USUBJID = patient_data$USUBJID,
+      ARM = rep(patient_data$ARM, 2),
+      STUDYID = rep(patient_data$STUDYID, 2),
+      SITEID = rep(patient_data$SITEID, 2),
+      USUBJID = rep(patient_data$USUBJID, 2),
       PARAMCD = c(
         paste0("AETTE", lookup_info$CATCD),
         paste0("AETOT", lookup_info$CATCD)
@@ -158,7 +159,8 @@ radaette <- function(ADSL, # nolint
       CNSDTDSC = c(
         ifelse(cnsr == 1, sample(cnsdtdscr_sel, 1), ""),
         NA
-      )
+      ),
+      stringsAsFactors = FALSE
     ) %>% mutate(
       ADY = dplyr::if_else(is.na(.data$AVALU), NA_real_, ceiling(.data$AVAL * 365.25)),
       ADTM = dplyr::if_else(

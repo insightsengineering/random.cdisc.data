@@ -104,6 +104,12 @@ raddv <- function(ADSL, # nolint
     Reduce(rbind, .) %>%
     mutate(DVTERM = .data$DVDECOD)
 
+  ADDV <- var_relabel( # nolint
+    ADDV,
+    STUDYID = "Study Identifier",
+    USUBJID = "Unique Subject Identifier"
+  )
+
   # merge ADSL to be able to add deviation date and study day variables
   ADDV <- inner_join(ADSL, ADDV,by = c("STUDYID", "USUBJID")) %>% # nolint
     rowwise() %>%

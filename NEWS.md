@@ -1,5 +1,8 @@
-# random.cdisc.data 0.3.8.9000
+# random.cdisc.data 0.3.9.9000
 Issues with no news:
+
+# random.cdisc.data 0.3.9
+* Fix warnings of binding factors to characters.
 
 # random.cdisc.data 0.3.8
 * Four variables `ATC1CD`, `ATC2CD`, `ATC3CD`, `ATC4CD` have been added to ADCM data.
