@@ -19,11 +19,35 @@ rel_var(df = NULL, var_name = NULL, var_values = NULL, related_var = NULL)
 Assign values to a related variable within a domain
 }
 \examples{
-ADLB <- radlb(radsl())
+# Example with data.frame.
+params <- c("Level A", "Level B", "Level C")
+ADLB_df <- data.frame(
+  ID = 1:9,
+  PARAM = factor(
+    rep(c("Level A", "Level B", "Level C"), 3),
+    levels = params
+   )
+)
 random.cdisc.data:::rel_var(
-  df = ADLB,
+  df = ADLB_df,
   var_name = "PARAMCD",
-  var_values = c("ALT", "CRP", "IGA"),
+  var_values = c("A", "B", "C"),
   related_var = "PARAM"
 )
+
+# Example with tibble.
+ADLB_tbl <- tibble::tibble(
+  ID = 1:9,
+  PARAM = factor(
+    rep(c("Level A", "Level B", "Level C"), 3),
+    levels = params
+   )
+)
+random.cdisc.data:::rel_var(
+  df = ADLB_tbl,
+  var_name = "PARAMCD",
+  var_values = c("A", "B", "C"),
+  related_var = "PARAM"
+)
+
 }

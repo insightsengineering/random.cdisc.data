@@ -1,5 +1,5 @@
 # random.cdisc.data 0.3.9.9000
-Issues with no news:
+* Fix bug to make internal helper `rel_var` work with `tibbles`.
 
 # random.cdisc.data 0.3.9
 * Fix warnings of binding factors to characters.

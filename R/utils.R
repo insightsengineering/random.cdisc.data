@@ -70,13 +70,37 @@ relvar_init <- function(relvar1, relvar2) {
 #' @param related_var variable name with existing values to which var_name values must relate.
 #'
 #' @examples
-#' ADLB <- radlb(radsl())
+#' # Example with data.frame.
+#' params <- c("Level A", "Level B", "Level C")
+#' ADLB_df <- data.frame(
+#'   ID = 1:9,
+#'   PARAM = factor(
+#'     rep(c("Level A", "Level B", "Level C"), 3),
+#'     levels = params
+#'    )
+#' )
 #' random.cdisc.data:::rel_var(
-#'   df = ADLB,
+#'   df = ADLB_df,
 #'   var_name = "PARAMCD",
-#'   var_values = c("ALT", "CRP", "IGA"),
+#'   var_values = c("A", "B", "C"),
 #'   related_var = "PARAM"
 #' )
+#'
+#' # Example with tibble.
+#' ADLB_tbl <- tibble::tibble(
+#'   ID = 1:9,
+#'   PARAM = factor(
+#'     rep(c("Level A", "Level B", "Level C"), 3),
+#'     levels = params
+#'    )
+#' )
+#' random.cdisc.data:::rel_var(
+#'   df = ADLB_tbl,
+#'   var_name = "PARAMCD",
+#'   var_values = c("A", "B", "C"),
+#'   related_var = "PARAM"
+#' )
+#'
 rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var = NULL) {
   stopifnot(is.null(df) || is.data.frame(df))
   stopifnot(is.null(var_name) || is_character_single(var_name))
@@ -87,16 +111,16 @@ rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var =
     message("Missing data frame argument value.")
     return(NA)
   } else{
-    n_relvar1 <- length(unique(df[, related_var]))
+    n_relvar1 <- length(unique(df[, related_var, drop = TRUE]))
     n_relvar2 <- length(var_values)
     if (n_relvar1 != n_relvar2) {
       message(paste("Unequal vector lengths for", related_var, "and", var_name))
       return(NA)
     } else {
-      relvar1 <- unique(df[, related_var])
-      relvar2_values <- rep(NULL, nrow(df))
+      relvar1 <- unique(df[, related_var, drop = TRUE])
+      relvar2_values <- rep(NA, nrow(df))
       for (r in seq_len(length(relvar1))) {
-        matched <- which(df[, related_var] == relvar1[r])
+        matched <- which(df[, related_var, drop = TRUE] == relvar1[r])
         relvar2_values[matched] <- var_values[r]
       }
       return(relvar2_values)
