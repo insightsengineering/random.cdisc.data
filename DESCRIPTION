@@ -12,6 +12,7 @@ Authors@R: c(
   person("Mika", "Maekinen", email = "mika.maekinen@roche.com", role = "aut"),
   person("Chendi", "Lioa", email = "chendi.liao@roche.com", role = "aut"),
   person("Edgar", "Manukyan", email = "edgar.manukyan@roche.com", role = "aut"),
+  person("Wojciech", "Wojciak", email = "wojciech.wojciak@contractors.roche.com", role = "aut"),
   person("Roche", role = c("cph", "fnd"))
   )
 Description: Create random CDISC data.

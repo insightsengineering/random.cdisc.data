@@ -1,5 +1,6 @@
 # random.cdisc.data 0.3.9.9000
 * Fix bug to make internal helper `rel_var` work with `tibbles`.
+* Added new random dataset generator: Hys Law Analysis Dataset (`radhy`) .
 
 # random.cdisc.data 0.3.9
 * Fix warnings of binding factors to characters.

@@ -5,6 +5,7 @@ ADCM
 ADDV
 ADEG
 ADEX
+ADHY
 ADLB
 ADMH
 ADQS
@@ -33,8 +34,10 @@ ASTDT
 ASTDTM
 ATOXGR
 ATPTN
+AVALC
 AVISITN
 Anthropometric
+BASEC
 BASETYPE
 BCE
 BNRIND
@@ -55,6 +58,7 @@ EXSEQ
 Gabe
 Genetech
 Hou
+Hys
 Kaplan
 LBSEQ
 MHSEQ
@@ -134,3 +138,4 @@ tm
 tomlinsj
 ui
 waddella
+wojciakw

@@ -218,3 +218,14 @@ test_that("metadata matches radsub", {
 
   expect_identical(meta_info, rdf_label)
 })
+
+test_that("metadata matches radhy", {
+  n <- 10
+  adsl <- radsl(n, seed = 1)
+  df <- radhy(adsl, seed = 1)
+
+  rdf_label <- vapply(df, function(x) attributes(x)[["label"]], character(1))
+  meta_info <- get_meta_info("ADHY")
+
+  expect_identical(meta_info, rdf_label)
+})

@@ -1,0 +1,46 @@
+domain:
+  name: ADHY
+  label: Hys Law Analysis Dataset
+
+variables:
+  PARAM:
+    label: Parameter
+    type: factor
+  PARAMCD:
+    label: Parameter Code
+    type: factor
+  AVAL:
+    label: Analysis Value
+    type: numeric
+  AVALC:
+    label: Analysis Value (C)
+    type: factor
+  BASE:
+    label: Baseline Value
+    type: numeric
+  BASEC:
+    label: Baseline Value (C)
+    type: factor
+  ABLFL:
+    label: Baseline Record Flag
+    type: factor
+  ADTM:
+    label: Analysis Datetime
+  ADY:
+    label: Analysis Relative Day
+    type: integer
+  AVISIT:
+    label: Analysis Visit
+    type: factor
+  AVISITN:
+    label: Analysis Visit (N)
+    type: integer
+  ONTRTFL:
+    label: On Treatment Record Flag
+    type: factor
+  SRCSEQ:
+    label: Source Sequence Number
+    type: integer
+  ANL01FL:
+    label: Analysis Flag 01 Baseline Post-Baseline
+    type: factor

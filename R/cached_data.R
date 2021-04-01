@@ -61,6 +61,15 @@
 #' @usage data(cadex)
 "cadex"
 
+#' Cached ADHY
+#'
+#' Cached ADHY data generated with \code{seed = 1}
+#'
+#' @docType data
+#'
+#' @usage data(cadhy)
+"cadhy"
+
 #' Cached ADLB
 #'
 #' Cached ADLB data generated with \code{seed = 1}
