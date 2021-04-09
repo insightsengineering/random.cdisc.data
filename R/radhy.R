@@ -33,8 +33,13 @@ radhy <- function(ADSL, # nolint
                     "TBILI <= 2 times ULN and ALT value category",
                     "TBILI > 2 times ULN and AST value category",
                     "TBILI > 2 times ULN and ALT value category",
-                    "TBILI <= 2 times ULN and AST value category"),
-                  paramcd = c("BLAL", "BGAS", "BGAL", "BLAS"),
+                    "TBILI <= 2 times ULN and AST value category",
+                    "TBILI > 2 times ULN and ALKPH <= 2 times ULN and ALT value category",
+                    "TBILI > 2 times ULN and ALKPH <= 2 times ULN and AST value category",
+                    "TBILI > 2 times ULN and ALKPH <= 5 times ULN and ALT value category",
+                    "TBILI > 2 times ULN and ALKPH <= 5 times ULN and AST value category"
+                  ),
+                  paramcd = c("BLAL", "BGAS", "BGAL", "BLAS", "BA2AL", "BA2AS", "BA5AL", "BA5AS"),
                   aval_base = c("Criteria not met", ">3-5ULN", ">5-10ULN", ">10-20ULN", ">20ULN"),
                   seed = NULL,
                   cached = FALSE) {

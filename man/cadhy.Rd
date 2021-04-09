@@ -5,7 +5,7 @@
 \alias{cadhy}
 \title{Cached ADHY}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3200 rows and 52 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 6400 rows and 52 columns.
 }
 \usage{
 data(cadhy)
