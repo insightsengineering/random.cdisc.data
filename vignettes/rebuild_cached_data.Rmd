@@ -33,6 +33,7 @@ Currently, when a new random.cdisc.data function is created then this script nee
 ```{r, eval=FALSE}
 library(dplyr)
 library(random.cdisc.data)
+library(diffdf)
 
 # call function to be able to match randome number generation from previous R versions
 RNGkind(sample.kind = "Rounding")
@@ -57,6 +58,21 @@ cadhy_new <- radhy(cadsl_new, seed = 1) %>% `attr<-`("creation date", Sys.Date()
 
 # use diffdf package: diffdf() to compare cached vs new and review/verify differences
 diffdf(cadsl, cadsl_new)
+diffdf(cadae, cadae_new)
+diffdf(cadaette, cadaette_new)
+diffdf(cadcm, cadcm_new)
+diffdf(cadex, cadex_new)
+diffdf(cadlb, cadlb_new)
+diffdf(cadmh, cadmh_new)
+diffdf(cadqs, cadqs_new)
+diffdf(cadrs, cadrs_new)
+diffdf(cadtte, cadtte_new)
+diffdf(cadvs, cadvs_new)
+diffdf(cadeg, cadeg_new)
+diffdf(cadtr, cadtr_new)
+diffdf(caddv, caddv_new)
+diffdf(cadsub, cadsub_new)
+diffdf(cadhy, cadhy_new)
 
 # when diff reflects changes accurately then create environment objects to save out to cache
 cadsl <- cadsl_new
