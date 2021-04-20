@@ -10,15 +10,15 @@
 #' @template ADSL_params
 #' @param param As character string. list of parameter values.
 #' @param paramcd As character string. list of parameter code values.
-#' @param aval_base As character vector of levels for AVALC and BASEC variables.
 #'
 #' @templateVar data adhy
 #' @template param_cached
 #' @template return_data.frame
 #'
 #' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup
-#' cur_group cur_group_id cur_data transmute if_else relocate
+#' cur_group cur_data transmute if_else relocate
 #' @importFrom magrittr %>%
+#' @importFrom rlang .data
 #'
 #' @export
 #'
@@ -37,10 +37,34 @@ radhy <- function(ADSL, # nolint
                     "TBILI > 2 times ULN and ALKPH <= 2 times ULN and ALT value category",
                     "TBILI > 2 times ULN and ALKPH <= 2 times ULN and AST value category",
                     "TBILI > 2 times ULN and ALKPH <= 5 times ULN and ALT value category",
-                    "TBILI > 2 times ULN and ALKPH <= 5 times ULN and AST value category"
+                    "TBILI > 2 times ULN and ALKPH <= 5 times ULN and AST value category",
+                    "TBILI <= 2 times ULN and two consecutive elevations of ALT in relation to ULN",
+                    "TBILI > 2 times ULN and two consecutive elevations of AST in relation to ULN",
+                    "TBILI <= 2 times ULN and two consecutive elevations of AST in relation to ULN",
+                    "TBILI > 2 times ULN and two consecutive elevations of ALT in relation to ULN",
+                    "TBILI > 2 times ULN and two consecutive elevations of ALT in relation to Baseline",
+                    "TBILI <= 2 times ULN and two consecutive elevations of ALT in relation to Baseline",
+                    "TBILI > 2 times ULN and two consecutive elevations of AST in relation to Baseline",
+                    "TBILI <= 2 times ULN and two consecutive elevations of AST in relation to Baseline"
                   ),
-                  paramcd = c("BLAL", "BGAS", "BGAL", "BLAS", "BA2AL", "BA2AS", "BA5AL", "BA5AS"),
-                  aval_base = c("Criteria not met", ">3-5ULN", ">5-10ULN", ">10-20ULN", ">20ULN"),
+                  paramcd = c(
+                    "BLAL",
+                    "BGAS",
+                    "BGAL",
+                    "BLAS",
+                    "BA2AL",
+                    "BA2AS",
+                    "BA5AL",
+                    "BA5AS",
+                    "BL2AL2CU",
+                    "BG2AS2CU",
+                    "BL2AS2CU",
+                    "BG2AL2CU",
+                    "BG2AL2CB",
+                    "BL2AL2CB",
+                    "BG2AS2CB",
+                    "BL2AS2CB"
+                  ),
                   seed = NULL,
                   cached = FALSE) {
 
@@ -68,74 +92,97 @@ radhy <- function(ADSL, # nolint
     AVISIT = as.factor(c("BASELINE", "POST-BASELINE")),
     stringsAsFactors = FALSE)
 
-  # for computational efficiency, a sample of final total size for BASE/BASEC
-  # is taken once, rather than many samples of size 1 within mutate, further below
-  base_sample <- sample_fct(x = aval_base, N = nrow(unique(ADHY[, c("STUDYID", "USUBJID", "PARAM")])))
+  # define parameters that will be assigned values "Y" or "N"
+  paramcd_yn <- c("BL2AL2CU", "BG2AS2CU", "BL2AS2CU", "BG2AL2CU", "BG2AL2CB", "BL2AL2CB", "BG2AS2CB", "BL2AS2CB") #nolint
 
-  # note: for AVALC line below, in fact a subset (subsample) of size = no of rows with AVISIT != "BASELINE" <= n()
-  # is taken from a full sample (drawn with sample_fct) of size n().
-  # since the subset selection mechanism does not depend on full sample values,
-  # such approach does not invalidate the statistical properties of the subsample, that is, it still comes
-  # from a uniform distribution.
-  ADHY <- ADHY %>% # nolint
-    group_by(STUDYID, USUBJID, PARAM) %>%
-    mutate(BASEC = base_sample[cur_group_id()]) %>%
-    ungroup() %>%
-    mutate(BASE = as.integer(BASEC) - 1,
-           AVALC = if_else(AVISIT == "BASELINE", BASEC, sample_fct(x = aval_base, N = n())),
-           AVAL = as.integer(AVALC) - 1,
-           PARAMCD = factor(rel_var(
-             df = as.data.frame(ADHY),
-             var_values = param_init_list$relvar2,
-             related_var = "PARAM")),
-           AVISITN = case_when(
-             AVISIT == "BASELINE" ~ 0,
-             AVISIT == "POST-BASELINE" ~ 9995,
-             TRUE ~ NA_real_),
-           ABLFL = if_else(AVISIT == "BASELINE", "Y", NA_character_),
-           ONTRTFL = if_else(AVISIT == "POST-BASELINE", "Y", NA_character_),
-           ANL01FL = "Y",
-           SRCSEQ = NA_integer_
+  # Add other variables to ADHY
+  ADHY <- ADHY %>% #nolint
+    mutate(
+      PARAMCD = factor(rel_var(
+        df = as.data.frame(ADHY),
+        var_values = param_init_list$relvar2,
+        related_var = "PARAM")),
+      AVISITN = case_when(
+        .data$AVISIT == "BASELINE" ~ 0,
+        .data$AVISIT == "POST-BASELINE" ~ 9995,
+        TRUE ~ NA_real_),
+      ABLFL = if_else(.data$AVISIT == "BASELINE", "Y", NA_character_),
+      ONTRTFL = if_else(.data$AVISIT == "POST-BASELINE", "Y", NA_character_),
+      ANL01FL = "Y",
+      SRCSEQ = NA_integer_
+      ) %>%
+    mutate(
+      AVALC = case_when(
+        .data$PARAMCD %in% paramcd_yn ~ sample(
+          c("Y", "N"), prob = c(0.1, 0.9), size = n(), replace = TRUE),
+        !(.data$PARAMCD %in% paramcd_yn) ~ sample(
+          c("Criteria not met", ">3-5ULN", ">5-10ULN", ">10-20ULN", ">20ULN"), size = n(), replace = TRUE)
+      )
+    ) %>%
+    mutate(
+      AVAL = case_when(
+        .data$AVALC == "Y" ~ 1,
+        .data$AVALC == "N" ~ 0,
+        .data$AVALC == "Criteria not met" ~ 0,
+        .data$AVALC == ">3-5ULN" ~ 1,
+        .data$AVALC == ">5-10ULN" ~ 2,
+        .data$AVALC == ">10-20ULN" ~ 3,
+        .data$AVALC == ">20ULN" ~ 4
+        )
     )
+
+  # Add baseline variables
+  ADHY <- ADHY %>% #nolint
+    group_by(.data$USUBJID, .data$PARAMCD) %>%
+    mutate(
+      BASEC = .data$AVALC[.data$AVISIT == "BASELINE"],
+      BASE = .data$AVAL[.data$AVISIT == "BASELINE"]) %>%
+    ungroup()
 
   # merge ADSL to be able to add analysis datetime and analysis relative day variables
   ADHY <- inner_join(ADSL, ADHY, by = c("STUDYID", "USUBJID")) # nolint
 
   ADHY <- ADHY %>% # nolint
-    group_by(AVISIT, .add = FALSE) %>%
-    mutate(ADY = if (cur_group() == "BASELINE")
-      sample(x = -(1:14), size = n(), replace = TRUE) # nolint
+    group_by(.data$AVISIT, .add = FALSE) %>%
+    mutate(
+      ADY = if (cur_group() == "BASELINE")
+        sample(x = -(1:14), size = n(), replace = TRUE) # nolint
       else
         unlist(transmute(
           rowwise(cur_data()),
           sample(
-            x = ifelse(!is.na(TRTEDTM), difftime(TRTEDTM, TRTSDTM), study_duration_secs / 86400),
+            x = ifelse(
+              !is.na(.data$TRTEDTM),
+              difftime(.data$TRTEDTM, .data$TRTSDTM),
+              (.data$study_duration_secs) / 86400
+              ),
             size = 1,
-            replace = TRUE)),
+            replace = TRUE)
+          ),
           use.names = FALSE)
     ) %>%
     ungroup() %>%
-    mutate(ADTM = TRTSDTM + ADY)
+    mutate(ADTM = .data$TRTSDTM + .data$ADY)
 
   # order columns and arrange rows, column order follows ADaM_1.1 specification
   ADHY <- ADHY %>% # nolint
     relocate(
       colnames(ADSL),
-      PARAM,
-      PARAMCD,
-      AVAL,
-      AVALC,
-      BASE,
-      BASEC,
-      ABLFL,
-      ADTM,
-      ADY,
-      AVISIT,
-      AVISITN,
-      ONTRTFL,
-      SRCSEQ,
-      ANL01FL) %>%
-    arrange(STUDYID, USUBJID, PARAMCD, AVISITN, ADTM, SRCSEQ)
+      .data$PARAM,
+      .data$PARAMCD,
+      .data$AVAL,
+      .data$AVALC,
+      .data$BASE,
+      .data$BASEC,
+      .data$ABLFL,
+      .data$ADTM,
+      .data$ADY,
+      .data$AVISIT,
+      .data$AVISITN,
+      .data$ONTRTFL,
+      .data$SRCSEQ,
+      .data$ANL01FL) %>%
+    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$AVISITN, .data$ADTM, .data$SRCSEQ)
 
   # apply metadata
   ADHY <- apply_metadata(ADHY, "metadata/ADHY.yml") # nolint

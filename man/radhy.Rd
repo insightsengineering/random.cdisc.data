@@ -13,9 +13,19 @@ radhy(
     "TBILI > 2 times ULN and ALKPH <= 2 times ULN and ALT value category",
     "TBILI > 2 times ULN and ALKPH <= 2 times ULN and AST value category",
     "TBILI > 2 times ULN and ALKPH <= 5 times ULN and ALT value category",
-    "TBILI > 2 times ULN and ALKPH <= 5 times ULN and AST value category"),
-  paramcd = c("BLAL", "BGAS", "BGAL", "BLAS", "BA2AL", "BA2AS", "BA5AL", "BA5AS"),
-  aval_base = c("Criteria not met", ">3-5ULN", ">5-10ULN", ">10-20ULN", ">20ULN"),
+    "TBILI > 2 times ULN and ALKPH <= 5 times ULN and AST value category",
+    "TBILI <= 2 times ULN and two consecutive elevations of ALT in relation to ULN",     
+    "TBILI > 2 times ULN and two consecutive elevations of AST in relation to ULN",
+    "TBILI <= 2 times ULN and two consecutive elevations of AST in relation to ULN",
+    "TBILI > 2 times ULN and two consecutive elevations of ALT in relation to ULN",
+    "TBILI > 2 times ULN and two consecutive elevations of ALT in relation to Baseline",
+    "TBILI <= 2 times ULN and two consecutive elevations of ALT in relation to Baseline",
+    "TBILI > 2 times ULN and two consecutive elevations of AST in relation to Baseline", 
+       
+    "TBILI <= 2 times ULN and two consecutive elevations of AST in relation to Baseline"),
+  paramcd = c("BLAL", "BGAS", "BGAL", "BLAS", "BA2AL", "BA2AS", "BA5AL", "BA5AS",
+    "BL2AL2CU", "BG2AS2CU", "BL2AS2CU", "BG2AL2CU", "BG2AL2CB", "BL2AL2CB", "BG2AS2CB",
+    "BL2AS2CB"),
   seed = NULL,
   cached = FALSE
 )
@@ -26,8 +36,6 @@ radhy(
 \item{param}{As character string. list of parameter values.}
 
 \item{paramcd}{As character string. list of parameter code values.}
-
-\item{aval_base}{As character vector of levels for AVALC and BASEC variables.}
 
 \item{seed}{Seed for random number generation.}
 
