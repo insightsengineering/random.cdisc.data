@@ -1,4 +1,4 @@
-# random.cdisc.data 0.3.9.9000
+# random.cdisc.data 0.3.10
 * Added additional parameters to ADHY data. 
 * Fix bug to make internal helper `rel_var` work with `tibbles`.
 * Added new random dataset generator: Hys Law Analysis Dataset (`radhy`) .
