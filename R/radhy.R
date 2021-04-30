@@ -15,8 +15,7 @@
 #' @template param_cached
 #' @template return_data.frame
 #'
-#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup
-#' cur_group cur_data transmute if_else relocate
+#' @importFrom dplyr mutate if_else case_when relocate arrange rowwise group_by group_modify n ungroup
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
 #'
@@ -142,25 +141,34 @@ radhy <- function(ADSL, # nolint
   # merge ADSL to be able to add analysis datetime and analysis relative day variables
   ADHY <- inner_join(ADSL, ADHY, by = c("STUDYID", "USUBJID")) # nolint
 
+  # a simple helper function to create ADY variable
+  add_ady <- function(x, avisit) {
+
+    if (avisit == "BASELINE") {
+      mutate(x,
+             ADY = sample(x = -(1:14), # nolint
+                          size = n(),
+                          replace = TRUE))
+
+    } else if (avisit == "POST-BASELINE") {
+      rowwise(x) %>%
+        mutate(ADY = sample(
+          x = ifelse(
+            !is.na(.data$TRTEDTM),
+            difftime(.data$TRTEDTM, .data$TRTSDTM, units = "days"),
+            (.data$study_duration_secs) / 86400),
+          size = 1,
+          replace = TRUE))
+
+    } else {
+      mutate(x, ADY = NA_integer_)
+    }
+
+  }
+
   ADHY <- ADHY %>% # nolint
     group_by(.data$AVISIT, .add = FALSE) %>%
-    mutate(
-      ADY = if (cur_group() == "BASELINE")
-        sample(x = -(1:14), size = n(), replace = TRUE) # nolint
-      else
-        unlist(transmute(
-          rowwise(cur_data()),
-          sample(
-            x = ifelse(
-              !is.na(.data$TRTEDTM),
-              difftime(.data$TRTEDTM, .data$TRTSDTM),
-              (.data$study_duration_secs) / 86400
-              ),
-            size = 1,
-            replace = TRUE)
-          ),
-          use.names = FALSE)
-    ) %>%
+    group_modify(~ add_ady(.x, .y$AVISIT)) %>%
     ungroup() %>%
     mutate(ADTM = .data$TRTSDTM + .data$ADY)
 
