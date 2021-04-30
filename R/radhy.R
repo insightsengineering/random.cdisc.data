@@ -109,7 +109,7 @@ radhy <- function(ADSL, # nolint
       ONTRTFL = if_else(.data$AVISIT == "POST-BASELINE", "Y", NA_character_),
       ANL01FL = "Y",
       SRCSEQ = NA_integer_
-      ) %>%
+    ) %>%
     mutate(
       AVALC = case_when(
         .data$PARAMCD %in% paramcd_yn ~ sample(
@@ -127,7 +127,7 @@ radhy <- function(ADSL, # nolint
         .data$AVALC == ">5-10ULN" ~ 2,
         .data$AVALC == ">10-20ULN" ~ 3,
         .data$AVALC == ">20ULN" ~ 4
-        )
+      )
     )
 
   # add baseline variables
@@ -137,6 +137,12 @@ radhy <- function(ADSL, # nolint
       BASEC = .data$AVALC[.data$AVISIT == "BASELINE"],
       BASE = .data$AVAL[.data$AVISIT == "BASELINE"]) %>%
     ungroup()
+
+  ADHY <- ADHY %>% # nolint
+    var_relabel(
+      STUDYID = attr(ADSL$STUDYID, "label"),
+      USUBJID = attr(ADSL$USUBJID, "label")
+    )
 
   # merge ADSL to be able to add analysis datetime and analysis relative day variables
   ADHY <- inner_join(ADSL, ADHY, by = c("STUDYID", "USUBJID")) # nolint
@@ -152,16 +158,17 @@ radhy <- function(ADSL, # nolint
 
     } else if (avisit == "POST-BASELINE") {
       rowwise(x) %>%
-        mutate(ADY = sample(
+        mutate(ADY = as.integer(sample(
           x = ifelse(
             !is.na(.data$TRTEDTM),
             difftime(.data$TRTEDTM, .data$TRTSDTM, units = "days"),
             (.data$study_duration_secs) / 86400),
           size = 1,
-          replace = TRUE))
+          replace = TRUE)))
 
     } else {
       mutate(x, ADY = NA_integer_)
+
     }
 
   }
@@ -172,6 +179,9 @@ radhy <- function(ADSL, # nolint
     group_modify(~ add_ady(.x, .y$AVISIT)) %>%
     ungroup() %>%
     mutate(ADTM = .data$TRTSDTM + .data$ADY)
+
+  # + operation causes that tzone attribute is lost for POSIXct objects
+  attributes(ADHY$ADTM) <- attributes(ADSL$TRTSDTM)
 
   # order columns and arrange rows; column order follows ADaM_1.1 specification
   ADHY <- # nolint
