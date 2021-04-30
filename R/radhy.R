@@ -15,7 +15,7 @@
 #' @template param_cached
 #' @template return_data.frame
 #'
-#' @importFrom dplyr mutate if_else case_when relocate arrange rowwise group_by group_modify n ungroup
+#' @importFrom dplyr mutate if_else case_when arrange rowwise group_by group_modify n ungroup
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
 #'
@@ -92,10 +92,10 @@ radhy <- function(ADSL, # nolint
     stringsAsFactors = FALSE)
 
   # define parameters that will be assigned values "Y" or "N"
-  paramcd_yn <- c("BL2AL2CU", "BG2AS2CU", "BL2AS2CU", "BG2AL2CU", "BG2AL2CB", "BL2AL2CB", "BG2AS2CB", "BL2AS2CB") #nolint
+  paramcd_yn <- c("BL2AL2CU", "BG2AS2CU", "BL2AS2CU", "BG2AL2CU", "BG2AL2CB", "BL2AL2CB", "BG2AS2CB", "BL2AS2CB") # nolint
 
   # Add other variables to ADHY
-  ADHY <- ADHY %>% #nolint
+  ADHY <- ADHY %>% # nolint
     mutate(
       PARAMCD = factor(rel_var(
         df = as.data.frame(ADHY),
@@ -130,8 +130,8 @@ radhy <- function(ADSL, # nolint
         )
     )
 
-  # Add baseline variables
-  ADHY <- ADHY %>% #nolint
+  # add baseline variables
+  ADHY <- ADHY %>% # nolint
     group_by(.data$USUBJID, .data$PARAMCD) %>%
     mutate(
       BASEC = .data$AVALC[.data$AVISIT == "BASELINE"],
@@ -141,7 +141,7 @@ radhy <- function(ADSL, # nolint
   # merge ADSL to be able to add analysis datetime and analysis relative day variables
   ADHY <- inner_join(ADSL, ADHY, by = c("STUDYID", "USUBJID")) # nolint
 
-  # a simple helper function to create ADY variable
+  # define a simple helper function to create ADY variable
   add_ady <- function(x, avisit) {
 
     if (avisit == "BASELINE") {
@@ -166,30 +166,34 @@ radhy <- function(ADSL, # nolint
 
   }
 
+  # add ADY and ADTM variables
   ADHY <- ADHY %>% # nolint
     group_by(.data$AVISIT, .add = FALSE) %>%
     group_modify(~ add_ady(.x, .y$AVISIT)) %>%
     ungroup() %>%
     mutate(ADTM = .data$TRTSDTM + .data$ADY)
 
-  # order columns and arrange rows, column order follows ADaM_1.1 specification
-  ADHY <- ADHY %>% # nolint
-    relocate(
+  # order columns and arrange rows; column order follows ADaM_1.1 specification
+  ADHY <- # nolint
+    ADHY[, c(
       colnames(ADSL),
-      .data$PARAM,
-      .data$PARAMCD,
-      .data$AVAL,
-      .data$AVALC,
-      .data$BASE,
-      .data$BASEC,
-      .data$ABLFL,
-      .data$ADTM,
-      .data$ADY,
-      .data$AVISIT,
-      .data$AVISITN,
-      .data$ONTRTFL,
-      .data$SRCSEQ,
-      .data$ANL01FL) %>%
+      "PARAM",
+      "PARAMCD",
+      "AVAL",
+      "AVALC",
+      "BASE",
+      "BASEC",
+      "ABLFL",
+      "ADTM",
+      "ADY",
+      "AVISIT",
+      "AVISITN",
+      "ONTRTFL",
+      "SRCSEQ",
+      "ANL01FL"
+    )]
+
+  ADHY <- ADHY %>% # nolint
     arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$AVISITN, .data$ADTM, .data$SRCSEQ)
 
   # apply metadata
