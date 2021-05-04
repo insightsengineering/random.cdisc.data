@@ -14,52 +14,57 @@ reference:
   - title: CDISC Domain Functions
     desc: These functions generate CDISC domains containing randomly assigned data
     contents:
-      - radsl
       - radae
       - radaette
       - radcm
+      - raddv
       - radeg
       - radex
+      - radhy
       - radlb
       - radmh
       - radqs
       - radrs
+      - radsaftte
+      - radsl
+      - radsub
       - radtr
       - radtte
       - radvs
-      - radeg
-      - radsub
 
   - title: Cached Datasets
     desc: These datasets are attached in order speed up the example sections of the dependent packages.
           Note you can also use the `cached` option in thre respection `r*` function to retrieve these cached datasets.
     contents:
-      - cadsl
       - cadae
       - cadaette
       - cadcm
+      - caddv
       - cadeg
       - cadex
+      - cadhy
       - cadlb
       - cadmh
       - cadqs
       - cadrs
+      - cadsl
+      - cadsub
       - cadtr
       - cadtte
       - cadvs
-      - cadex
-      - cadeg
-      - cadsub
 
   - title: Utility Functions
     desc: These functions are not exported but are documented for developers
     contents:
       - apply_metadata
+      - h_anthropometrics_by_sex
       - mutate_na
       - rel_var
       - relvar_init
       - replace_na
       - retain
+      - rtexp
+      - rtpois
       - sample_fct
       - var_relabel
       - visit_schedule
