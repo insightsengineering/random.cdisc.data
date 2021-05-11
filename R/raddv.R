@@ -19,12 +19,6 @@
 #'
 #' @template return_data.frame
 #'
-#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup rename bind_cols left_join setdiff
-#' @importFrom magrittr %>%
-#' @importFrom tibble tribble
-#' @importFrom rlang .data
-#' @importFrom utils read.table
-#' @importFrom stats rbinom
 #'
 #' @export
 #'
@@ -56,7 +50,7 @@ raddv <- function(ADSL, # nolint
 
   lookup_dv <- if_null( # nolint
     lookup,
-    tribble(
+    tibble::tribble(
       ~DOMAIN, ~DVCAT, ~DVSCAT, ~DVDECOD, ~DVREAS, ~DVEPRELI,
       "DV", "MAJOR", "EXCLUSION CRITERIA", "Received prior prohibited therapy or medication", "", "N",
       "DV", "MAJOR", "EXCLUSION CRITERIA", "Active or untreated or other excluded cns metastases", "", "N",
@@ -90,9 +84,9 @@ raddv <- function(ADSL, # nolint
 
   ADDV <- Map( # nolint
     function(id, sid) {
-      n_dv <- rbinom(1, 1, p_dv) * sample(c(0, seq_len(max_n_dv)), 1)
+      n_dv <- stats::rbinom(1, 1, p_dv) * sample(c(0, seq_len(max_n_dv)), 1)
       i <- sample(seq_len(nrow(lookup_dv)), n_dv, TRUE)
-      mutate(
+      dplyr::mutate(
         lookup_dv[i, ],
         USUBJID = id,
         STUDYID = sid
@@ -102,7 +96,7 @@ raddv <- function(ADSL, # nolint
     ADSL$STUDYID
   ) %>%
     Reduce(rbind, .) %>%
-    mutate(DVTERM = .data$DVDECOD)
+    dplyr::mutate(DVTERM = .data$DVDECOD)
 
   ADDV <- var_relabel( # nolint
     ADDV,
@@ -111,30 +105,30 @@ raddv <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add deviation date and study day variables
-  ADDV <- inner_join(ADSL, ADDV,by = c("STUDYID", "USUBJID")) %>% # nolint
-    rowwise() %>%
-    mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-    mutate(trtedt_int = case_when(
+  ADDV <- dplyr::inner_join(ADSL, ADDV,by = c("STUDYID", "USUBJID")) %>% # nolint
+    dplyr::rowwise() %>%
+    dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
+    dplyr::mutate(trtedt_int = dplyr::case_when(
       !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
       is.na(.data$TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
     )) %>%
-    mutate(ASTDTM = as.POSIXct(
+    dplyr::mutate(ASTDTM = as.POSIXct(
       (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
       origin = "1970-01-01")) %>%
-    mutate(ASTDT = as.Date(.data$ASTDTM)) %>%
-    mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
-    select(-.data$trtsdt_int, -.data$trtedt_int, -.data$ASTDTM) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$ASTDT, .data$DVTERM)
+    dplyr::mutate(ASTDT = as.Date(.data$ASTDTM)) %>%
+    dplyr::mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
+    dplyr::select(-.data$trtsdt_int, -.data$trtedt_int, -.data$ASTDTM) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDT, .data$DVTERM)
 
   ADDV <- ADDV %>% # nolint
-    group_by(.data$USUBJID) %>%
-    mutate(DVSEQ = 1:n()) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$ASTDT, .data$DVTERM, .data$DVSEQ)
+    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::mutate(DVSEQ = seq_len(dplyr::n())) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDT, .data$DVTERM, .data$DVSEQ)
 
   ADDV <- ADDV %>% # nolint
-    mutate(AEPRELFL = ifelse(.data$DVEPRELI == "Y", .data$DVEPRELI, ""))
+    dplyr::mutate(AEPRELFL = ifelse(.data$DVEPRELI == "Y", .data$DVEPRELI, ""))
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADDV <- mutate_na(ds = ADDV, na_vars = na_vars, na_percentage = na_percentage) # nolint

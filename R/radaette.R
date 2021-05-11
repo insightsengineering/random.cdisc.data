@@ -17,9 +17,6 @@
 #'
 #' @template return_data.frame
 #'
-#' @importFrom dplyr arrange case_when filter group_by mutate n rowwise select ungroup
-#' @importFrom magrittr %>%
-#' @importFrom tibble tribble
 #'
 #' @export
 #'
@@ -54,7 +51,7 @@ radaette <- function(ADSL, # nolint
 
   lookup_ADAETTE <- if_null( # nolint
     lookup,
-    tribble(
+    tibble::tribble(
       ~ARM, ~CATCD, ~CAT, ~LAMBDA, ~CNSR_P,
       "ARM A", "1", "any adverse event", 1 / 80, 0.4,
       "ARM B", "1", "any adverse event", 1 / 100, 0.2,
@@ -161,7 +158,7 @@ radaette <- function(ADSL, # nolint
         NA
       ),
       stringsAsFactors = FALSE
-    ) %>% mutate(
+    ) %>% dplyr::mutate(
       ADY = dplyr::if_else(is.na(.data$AVALU), NA_real_, ceiling(.data$AVAL * 365.25)),
       ADTM = dplyr::if_else(
         is.na(.data$AVALU),
@@ -198,18 +195,24 @@ radaette <- function(ADSL, # nolint
   )
 
   ADAETTE <- ADSL %>%  #nolint
-    inner_join(
-      select(ADAETTE, -.data$SITEID, -.data$ARM),
+    dplyr::inner_join(
+      dplyr::select(ADAETTE, -.data$SITEID, -.data$ARM),
       by = c("STUDYID", "USUBJID")
     ) %>%
-    group_by(.data$USUBJID) %>%
-    arrange(.data$ADTM) %>%
-    mutate(TTESEQ = 1:n()) %>%
-    mutate(ASEQ = .data$TTESEQ) %>%
-    mutate(PARAM = as.factor(.data$PARAM)) %>%
-    mutate(PARAMCD = as.factor(.data$PARAMCD)) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$ADTM, .data$TTESEQ)
+    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::arrange(.data$ADTM) %>%
+    dplyr::mutate(TTESEQ = seq_len(dplyr::n())) %>%
+    dplyr::mutate(ASEQ = .data$TTESEQ) %>%
+    dplyr::mutate(PARAM = as.factor(.data$PARAM)) %>%
+    dplyr::mutate(PARAMCD = as.factor(.data$PARAMCD)) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(
+      .data$STUDYID,
+      .data$USUBJID,
+      .data$PARAMCD,
+      .data$ADTM,
+      .data$TTESEQ
+    )
 
   # apply metadata
   ADAETTE <- apply_metadata(ADAETTE, "metadata/ADAETTE.yml") # nolint.

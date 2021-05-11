@@ -19,11 +19,8 @@
 #'
 #' @template return_data.frame
 #'
-#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup rename bind_cols left_join setdiff
-#' @importFrom magrittr %>%
-#' @importFrom tibble tribble
 #' @importFrom rlang .data
-#' @importFrom utils read.table
+#'
 #'
 #' @export
 #'
@@ -33,7 +30,7 @@
 #' radae(ADSL, seed = 2)
 #'
 #' # Add metadata.
-#' aag <- read.table(
+#' aag <- utils::read.table(
 #' sep = ',', header = TRUE,
 #' text = paste(
 #'   "NAMVAR,SRCVAR,GRPTYPE,REFNAME,REFTERM,SCOPE",
@@ -84,7 +81,7 @@ radae <- function(ADSL, # nolint
 
   lookup_ae <- if_null( # nolint
     lookup,
-    tribble(
+    tibble::tribble(
       ~AEBODSYS, ~AELLT,          ~AEDECOD,        ~AEHLT,        ~AEHLGT,      ~AETOXGR, ~AESOC, ~AESER, ~AEREL,
       "cl A.1",  "llt A.1.1.1.1", "dcd A.1.1.1.1", "hlt A.1.1.1", "hlgt A.1.1", "1",        "cl A", "N",    "N",
       "cl A.1",  "llt A.1.1.1.2", "dcd A.1.1.1.2", "hlt A.1.1.1", "hlgt A.1.1", "2",        "cl A", "Y",    "N",
@@ -100,7 +97,7 @@ radae <- function(ADSL, # nolint
   )
 
   AAG <- if (is.null(lookup_aag)) { # nolint
-    read.table(
+    utils::read.table(
       sep = ",", header = TRUE,
       text = paste(
         "NAMVAR,SRCVAR,GRPTYPE,REFNAME,REFTERM,SCOPE",
@@ -123,7 +120,7 @@ radae <- function(ADSL, # nolint
     function(id, sid) {
       n_aes <- sample(c(0, seq_len(max_n_aes)), 1)
       i <- sample(seq_len(nrow(lookup_ae)), n_aes, TRUE)
-      mutate(
+      dplyr::mutate(
         lookup_ae[i, ],
         USUBJID = id,
         STUDYID = sid
@@ -134,8 +131,8 @@ radae <- function(ADSL, # nolint
   ) %>%
     Reduce(rbind, .) %>%
     `[`(c(10, 11, 1, 2, 3, 4, 5, 6, 7, 8, 9)) %>%
-    mutate(AETERM = gsub("dcd", "trm", .data$AEDECOD)) %>%
-    mutate(AESEV = case_when(
+    dplyr::mutate(AETERM = gsub("dcd", "trm", .data$AEDECOD)) %>%
+    dplyr::mutate(AESEV = dplyr::case_when(
       AETOXGR == 1 ~ "MILD",
       AETOXGR %in% c(2, 3) ~ "MODERATE",
       AETOXGR %in% c(4, 5) ~ "SEVERE"
@@ -152,33 +149,39 @@ radae <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add AE date and study day variables
-  ADAE <- inner_join(ADSL, ADAE,by = c("STUDYID", "USUBJID")) %>% # nolint
-    rowwise() %>%
-    mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-    mutate(trtedt_int = case_when(
+  ADAE <- dplyr::inner_join(ADSL, ADAE,by = c("STUDYID", "USUBJID")) %>% # nolint
+    dplyr::rowwise() %>%
+    dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
+    dplyr::mutate(trtedt_int = dplyr::case_when(
       !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
       is.na(.data$TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
     )) %>%
-    mutate(ASTDTM = as.POSIXct(
+    dplyr::mutate(ASTDTM = as.POSIXct(
       (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
       origin = "1970-01-01")) %>%
-    mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
-    mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
+    dplyr::mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
+    dplyr::mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
-    mutate(AENDTM = as.POSIXct(
+    dplyr::mutate(AENDTM = as.POSIXct(
       (sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
       origin = "1970-01-01")) %>%
-    mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
-    select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$AETERM)
+    dplyr::mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
+    dplyr::select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$AETERM)
 
   ADAE <- ADAE %>% # nolint
-    group_by(.data$USUBJID) %>%
-    mutate(AESEQ = 1:n()) %>%
-    mutate(ASEQ = .data$AESEQ) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$AETERM, .data$AESEQ)
+    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::mutate(AESEQ = seq_len(dplyr::n())) %>%
+    dplyr::mutate(ASEQ = .data$AESEQ) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(
+      .data$STUDYID,
+      .data$USUBJID,
+      .data$ASTDTM,
+      .data$AETERM,
+      .data$AESEQ
+    )
 
   outcomes <- c(
     "UNKNOWN",
@@ -201,22 +204,24 @@ radae <- function(ADSL, # nolint
   )
 
   ADAE <- ADAE %>% # nolint
-    mutate(AEOUT = factor(ifelse(
+    dplyr::mutate(AEOUT = factor(ifelse(
       .data$AETOXGR == "5",
       "FATAL",
       as.character(sample_fct(outcomes, nrow(ADAE), prob = c(0.1, 0.2, 0.1, 0.3, 0.3)))
     ))) %>%
-    mutate(AEACN = factor(ifelse(
+    dplyr::mutate(AEACN = factor(ifelse(
       .data$AETOXGR == "5",
       "NOT EVALUABLE",
       as.character(sample_fct(actions, nrow(ADAE), prob = c(0.05, 0.05, 0.05, 0.01, 0.05, 0.1, 0.45, 0.1, 0.05)))
     ))) %>%
-    mutate(AESDTH = case_when(
+    dplyr::mutate(AESDTH = dplyr::case_when(
       .data$AEOUT == "FATAL" ~ "Y",
       TRUE ~ "N"
     )) %>%
-    mutate(TRTEMFL = ifelse(.data$ASTDTM >= .data$TRTSDTM, "Y", "")) %>%
-    mutate(ANL01FL = ifelse(.data$TRTEMFL == "Y" & .data$ASTDTM <= .data$TRTEDTM + 2592000, "Y", ""))
+    dplyr::mutate(TRTEMFL = ifelse(.data$ASTDTM >= .data$TRTSDTM, "Y", "")) %>%
+    dplyr::mutate(
+      ANL01FL = ifelse(.data$TRTEMFL == "Y" & .data$ASTDTM <= .data$TRTEDTM + 2592000, "Y", "")
+    )
 
   # Split metadata for AEs of special interest (AESI)
   l_AAG <- split(AAG, interaction(AAG$NAMVAR, AAG$SRCVAR, AAG$GRPTYPE, drop = TRUE)) # nolint
@@ -237,12 +242,12 @@ radae <- function(ADSL, # nolint
     }
 
     d_adag <- d_adag[-which(names(d_adag) %in% c("NAMVAR", "SRCVAR", "GRPTYPE"))] # nolint
-    d_new <- left_join(x = d_adae, y = d_adag, by = intersect(names(d_adae), names(d_adag)))
-    d_new[, setdiff(names(d_new), names(d_adae)), drop = FALSE]
+    d_new <- dplyr::left_join(x = d_adae, y = d_adag, by = intersect(names(d_adae), names(d_adag)))
+    d_new[, dplyr::setdiff(names(d_new), names(d_adae)), drop = FALSE]
 
   }, ADAE)
 
-  ADAE <- bind_cols(ADAE, l_AESI) # nolint
+  ADAE <- dplyr::bind_cols(ADAE, l_AESI) # nolint
 
   # apply metadata
   ADAE <- apply_metadata(ADAE, "metadata/ADAE.yml") # nolint

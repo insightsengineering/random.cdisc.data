@@ -17,11 +17,6 @@
 #' @template param_cached
 #' @template return_data.frame
 #'
-#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup
-#' @importFrom magrittr %>%
-#' @importFrom stats rnorm
-#' @importFrom rlang .data
-#'
 #' @export
 #'
 #' @author npaszty
@@ -81,9 +76,9 @@ radvs <- function(ADSL, # nolint
     stringsAsFactors = FALSE
   )
 
-  ADVS <- mutate( # nolint
+  ADVS <- dplyr::mutate( # nolint
     ADVS,
-    AVISITN = case_when(
+    AVISITN = dplyr::case_when(
       AVISIT == "SCREENING" ~ -1,
       AVISIT == "BASELINE" ~ 0,
       (grepl("^WEEK", AVISIT) | grepl("^CYCLE", AVISIT)) ~ as.numeric(AVISIT) - 2,
@@ -101,8 +96,8 @@ radvs <- function(ADSL, # nolint
     related_var = "PARAM"
   ))
   ADVS <- ADVS %>% # nolint
-    mutate(VSTESTCD = .data$PARAMCD) %>%
-    mutate(VSTEST = .data$PARAM)
+    dplyr::mutate(VSTESTCD = .data$PARAMCD) %>%
+    dplyr::mutate(VSTEST = .data$PARAM)
   ADVS$AVALU <- as.factor(rel_var( # nolint
     df = ADVS,
     var_name = "AVALU",
@@ -110,7 +105,7 @@ radvs <- function(ADSL, # nolint
     related_var = "PARAM"
   ))
 
-  ADVS$AVAL <- rnorm(nrow(ADVS), mean = 50, sd = 8) # nolint
+  ADVS$AVAL <- stats::rnorm(nrow(ADVS), mean = 50, sd = 8) # nolint
   ADVS$VSSTRESC <- ADVS$AVAL # nolint
 
   # order to prepare for change from screening and baseline values
@@ -137,19 +132,19 @@ radvs <- function(ADSL, # nolint
   ANRIND_choices <- c("HIGH", "LOW", "NORMAL") # nolint
 
   ADVS <- ADVS %>% # nolint
-    mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
-    mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
-    mutate(CHG = .data$AVAL - .data$BASE) %>%
-    mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
-    mutate(
+    dplyr::mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
+    dplyr::mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
+    dplyr::mutate(CHG = .data$AVAL - .data$BASE) %>%
+    dplyr::mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
+    dplyr::mutate(
       ANRIND = ANRIND_choices %>%
       sample_fct(nrow(ADVS), prob = c(0.1, 0.1, 0.8))) %>%
-    mutate(BASETYPE = "LAST") %>%
-    group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
-    mutate(BNRIND = .data$ANRIND[.data$ABLFL == "Y"]) %>%
-    ungroup() %>%
-    mutate(ATPTN = 1) %>%
-    mutate(DTYPE = NA) %>%
+    dplyr::mutate(BASETYPE = "LAST") %>%
+    dplyr::group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
+    dplyr::mutate(BNRIND = .data$ANRIND[.data$ABLFL == "Y"]) %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(ATPTN = 1) %>%
+    dplyr::mutate(DTYPE = NA) %>%
     var_relabel(
       USUBJID = attr(ADSL$USUBJID, "label"),
       STUDYID = attr(ADSL$STUDYID, "label")
@@ -166,23 +161,27 @@ radvs <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add LB date and study day variables
-  ADVS <- inner_join( # nolint
+  ADVS <- dplyr::inner_join( # nolint
     ADSL, # nolint
     ADVS,
     by = c("STUDYID", "USUBJID")) %>%
-    rowwise() %>%
-    mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-    mutate(trtedt_int = case_when(
+    dplyr::rowwise() %>%
+    dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
+    dplyr::mutate(trtedt_int = dplyr::case_when(
       !is.na(TRTEDTM) ~ as.numeric(as.Date(TRTEDTM)),
       is.na(TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
     )) %>%
-    mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
-    mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
-    select(-.data$trtsdt_int, -.data$trtedt_int) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
+    dplyr::mutate(
+      ADTM = as.POSIXct(
+        (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
+        origin = "1970-01-01")
+      ) %>%
+    dplyr::mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
+    dplyr::select(-.data$trtsdt_int, -.data$trtedt_int) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
-  ADVS <- ADVS %>% mutate(ONTRTFL =  factor(case_when( # nolint
+  ADVS <- ADVS %>% dplyr::mutate(ONTRTFL =  factor(dplyr::case_when( # nolint
     is.na(.data$TRTSDTM) ~ "",
     is.na(.data$ADTM) ~ "Y",
     (.data$ADTM < .data$TRTSDTM) ~ "",
@@ -191,14 +190,22 @@ radvs <- function(ADSL, # nolint
   )))
 
   ADVS <- ADVS %>% # nolint
-    mutate(ASPID = sample(1:n())) %>%
-    group_by(.data$USUBJID) %>%
-    mutate(VSSEQ = 1:n()) %>%
-    mutate(ASEQ = .data$VSSEQ) %>%
-    ungroup() %>%
-    arrange(
-      .data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISITN, .data$ATPTN, .data$DTYPE,
-      .data$ADTM, .data$VSSEQ, .data$ASPID
+    dplyr::mutate(ASPID = sample(seq_len(dplyr::n()))) %>%
+    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::mutate(VSSEQ = seq_len(dplyr::n())) %>%
+    dplyr::mutate(ASEQ = .data$VSSEQ) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(
+      .data$STUDYID,
+      .data$USUBJID,
+      .data$PARAMCD,
+      .data$BASETYPE,
+      .data$AVISITN,
+      .data$ATPTN,
+      .data$DTYPE,
+      .data$ADTM,
+      .data$VSSEQ,
+      .data$ASPID
     )
 
   # apply metadata

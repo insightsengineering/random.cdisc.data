@@ -54,21 +54,21 @@ h_anthropometrics_by_sex <- function(df,
   df_by_sex <- unique(subset(df, select = c(id_var, sex_var)))
 
   df_with_measurements <- df_by_sex %>%
-    mutate(
+    dplyr::mutate(
       WEIGHT = ifelse(
         .data[[sex_var]] == sex_var_level_male,
-        rnorm(n = n, mean = male_weight_in_kg$mean, sd = male_weight_in_kg$sd),
-        rnorm(n = n, mean = female_weight_in_kg$mean, sd = female_weight_in_kg$sd)
+        stats::rnorm(n = n, mean = male_weight_in_kg$mean, sd = male_weight_in_kg$sd),
+        stats::rnorm(n = n, mean = female_weight_in_kg$mean, sd = female_weight_in_kg$sd)
       )
     ) %>%
-    mutate(
+    dplyr::mutate(
       HEIGHT = ifelse(
         .data[[sex_var]] == sex_var_level_male,
-        rnorm(n = n, mean = male_height_in_m$mean, sd = male_height_in_m$sd),
-        rnorm(n = n, mean = female_height_in_m$mean, sd = female_height_in_m$sd)
+        stats::rnorm(n = n, mean = male_height_in_m$mean, sd = male_height_in_m$sd),
+        stats::rnorm(n = n, mean = female_height_in_m$mean, sd = female_height_in_m$sd)
       )
     ) %>%
-    mutate(
+    dplyr::mutate(
       BMI = .data$WEIGHT / ((.data$HEIGHT)^2)
     )
 
@@ -94,10 +94,6 @@ h_anthropometrics_by_sex <- function(df,
 #' @templateVar data adsub
 #' @template param_cached
 #' @template return_data.frame
-#'
-#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup
-#' @importFrom magrittr %>%
-#' @importFrom stats rnorm
 #'
 #' @export
 #'
@@ -148,7 +144,7 @@ radsub <- function(ADSL, # nolint
 
   # Assign related variable values: PARAM and PARAMCD are related.
   ADSUB <- ADSUB %>% # nolint
-    mutate(PARAMCD = as.factor(as.character(rel_var( # nolint
+    dplyr::mutate(PARAMCD = as.factor(as.character(rel_var( # nolint
       df = ADSUB,
       var_name = "PARAMCD",
       var_values = param_init_list$relvar2,
@@ -169,15 +165,17 @@ radsub <- function(ADSL, # nolint
 
   # Merge ADSL to be able to add EG date and study day variables.
   # Sample ADTM to be a few days before TRTSDTM.
-  ADSUB <- inner_join( # nolint
+  ADSUB <- dplyr::inner_join( # nolint
     ADSL, # nolint
     ADSUB,
     by = c("STUDYID", "USUBJID")
   ) %>%
-    rowwise() %>%
-    mutate(ADTM = as.POSIXct((as.Date(.data$TRTSDTM) - sample(1:10, size = 1)), origin = "1970-01-01")) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
+    dplyr::rowwise() %>%
+    dplyr::mutate(ADTM = as.POSIXct(
+      (as.Date(.data$TRTSDTM) - sample(1:10, size = 1)),
+      origin = "1970-01-01")) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
   # Generate a dataset with height, weight and BMI measurements for each subject.
   if (!is.null(seed)) {
@@ -188,45 +186,48 @@ radsub <- function(ADSL, # nolint
 
   # Add this to ADSUB and create other measurements.
   ADSUB <- ADSUB %>% # nolint
-    group_by(.data$USUBJID) %>%
-    mutate(
-      AVAL = case_when(
-        .data$PARAMCD == "BWGHTSI" ~ df_with_measurements$WEIGHT[df_with_measurements$USUBJID == .data$USUBJID],
-        .data$PARAMCD == "BHGHTSI" ~ df_with_measurements$HEIGHT[df_with_measurements$USUBJID == .data$USUBJID],
-        .data$PARAMCD == "BBMISI" ~ df_with_measurements$BMI[df_with_measurements$USUBJID == .data$USUBJID],
+    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::mutate(
+      AVAL = dplyr::case_when(
+        .data$PARAMCD ==
+          "BWGHTSI" ~ df_with_measurements$WEIGHT[df_with_measurements$USUBJID == .data$USUBJID],
+        .data$PARAMCD ==
+          "BHGHTSI" ~ df_with_measurements$HEIGHT[df_with_measurements$USUBJID == .data$USUBJID],
+        .data$PARAMCD ==
+          "BBMISI" ~ df_with_measurements$BMI[df_with_measurements$USUBJID == .data$USUBJID],
         .data$PARAMCD == "BECOG" ~ sample(c(0, 1, 2, 3, 4, 5), 1),
         .data$PARAMCD == "BBMRKR1" ~ sample(c(1, 2), prob = c(0.5, 0.5), 1)
       )) %>%
-    arrange(.data$PARAMCD) %>%
-    ungroup() %>%
-    mutate(AVAL = case_when(
+    dplyr::arrange(.data$PARAMCD) %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(AVAL = dplyr::case_when(
       .data$PARAMCD != "BBMRKR1" | .data$PARAMCD != "BECOG" ~ round(.data$AVAL, 1),
       TRUE ~ round(.data$AVAL)
     ))
 
   ADSUB <- ADSUB %>% #nolint
-    mutate(
-      AVALC = case_when(
-        .data$PARAMCD == "BBMRKR1" ~ case_when(
+    dplyr::mutate(
+      AVALC = dplyr::case_when(
+        .data$PARAMCD == "BBMRKR1" ~ dplyr::case_when(
           .data$AVAL == "1" ~ "WILD TYPE",
           .data$AVAL == "2" ~ "MUTANT",
           TRUE ~ ""),
         TRUE ~ as.character(.data$AVAL)
       ),
-      AVALU = case_when(
+      AVALU = dplyr::case_when(
         .data$PARAMCD == "BWGHTSI" ~ "kg",
         .data$PARAMCD == "BHGHTSI" ~ "m",
         .data$PARAMCD == "BBMISI" ~ "kg/m2",
         TRUE ~ ""
       ),
-      AVALCAT1 = case_when(
-        .data$PARAMCD == "BBMISI" ~ case_when(
+      AVALCAT1 = dplyr::case_when(
+        .data$PARAMCD == "BBMISI" ~ dplyr::case_when(
           .data$AVAL < 18.5 ~ "<18.5",
           .data$AVAL >= 18.5 & .data$AVAL < 25 ~ "18.5 - 24.9",
           .data$AVAL >= 25 & .data$AVAL < 30 ~ "25 - 29.9",
           TRUE ~ ">30"
         ),
-        .data$PARAMCD == "BECOG" ~ case_when(
+        .data$PARAMCD == "BECOG" ~ dplyr::case_when(
           .data$AVAL <= 1 ~ "0-1",
           .data$AVAL > 1 & .data$AVAL <= 3 ~ "2-3",
           TRUE ~ "4-5"
@@ -236,7 +237,10 @@ radsub <- function(ADSL, # nolint
       AVISITN = "0",
       SRCSEQ = "1"
       ) %>%
-    arrange(.data$USUBJID, factor(.data$PARAMCD, levels = c("BWGHTSI", "BHGHTSI", "BBMISI", "BECOG", "BBMRKR1")))
+    dplyr::arrange(
+      .data$USUBJID,
+      factor(.data$PARAMCD, levels = c("BWGHTSI", "BHGHTSI", "BBMISI", "BECOG", "BBMRKR1"))
+    )
 
   # Apply metadata.
   ADSUB <- apply_metadata(ADSUB, "metadata/ADSUB.yml") # nolint

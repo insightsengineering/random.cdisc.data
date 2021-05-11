@@ -20,11 +20,6 @@
 #'
 #' @template return_data.frame
 #'
-#' @importFrom dplyr arrange case_when left_join mutate select recode
-#' @importFrom magrittr %>%
-#' @importFrom stats rchisq reorder rexp rnorm runif setNames
-#' @importFrom tibble tibble
-#'
 #' @export
 #
 #' @examples
@@ -63,7 +58,7 @@ radsl <- function(N = 400, # nolint
   discons <- max(1, floor((N * .3)))
   country_site_prob <- c(.5, .121, .077, .077, .075, .052, .046, .025, .014, .003)
 
-  ADSL <- tibble( # nolint
+  ADSL <- tibble::tibble( # nolint
     STUDYID = rep("AB12345", N),
     COUNTRY = sample_fct(
       c("CHN", "USA", "BRA", "PAK", "NGA", "RUS", "JPN", "GBR", "CAN", "CHE"),
@@ -72,7 +67,7 @@ radsl <- function(N = 400, # nolint
     ),
     SITEID = sample_fct(1:20, N, prob = rep(country_site_prob, times = 2)),
     SUBJID = paste("id", seq_len(N), sep = "-"),
-    AGE = sapply(rchisq(N, df = 5, ncp = 10), max, 0) + 20,
+    AGE = sapply(stats::rchisq(N, df = 5, ncp = 10), max, 0) + 20,
     SEX = c("F", "M") %>% sample_fct(N, prob = c(.52, .48)),
     ARMCD = c("ARM A", "ARM B", "ARM C") %>% sample_fct(N),
     RACE = c(
@@ -83,43 +78,44 @@ radsl <- function(N = 400, # nolint
     TRTSDTM =  as.POSIXct(
       sys_dtm + sample(seq(0, study_duration_secs), size = N, replace = TRUE), origin = "1970-01-01"
       ),
-    RANDDT = as.Date(.data$TRTSDTM) - floor(runif(N, min = 0, max = 5)),
+    RANDDT = as.Date(.data$TRTSDTM) - floor(stats::runif(N, min = 0, max = 5)),
     st_posixn = as.numeric(.data$TRTSDTM),
     TRTEDTM = as.POSIXct(.data$st_posixn + study_duration_secs, origin = "1970-01-01"),
     STRATA1 = c("A", "B", "C") %>% sample_fct(N),
     STRATA2 = c("S1", "S2") %>% sample_fct(N),
-    BMRKR1 = rchisq(N, 6),
+    BMRKR1 = stats::rchisq(N, 6),
     BMRKR2 = sample_fct(c("LOW", "MEDIUM", "HIGH"), N),
     BMEASIFL = sample_fct(c("Y", "N"), N),
     BEP01FL = sample_fct(c("Y", "N"), N)
   ) %>%
-    mutate(ARM = recode(.data$ARMCD, "ARM A" = "A: Drug X", "ARM B" = "B: Placebo", "ARM C" = "C: Combination")) %>%
-    mutate(ACTARM = .data$ARM) %>%
-    mutate(ACTARMCD = .data$ARMCD) %>%
-    mutate(ITTFL = factor("Y")) %>%
-    mutate(SAFFL = factor("Y")) %>%
-    arrange(.data$st_posixn)
+    dplyr::mutate(ARM = dplyr::recode(
+      .data$ARMCD, "ARM A" = "A: Drug X", "ARM B" = "B: Placebo", "ARM C" = "C: Combination")) %>%
+    dplyr::mutate(ACTARM = .data$ARM) %>%
+    dplyr::mutate(ACTARMCD = .data$ARMCD) %>%
+    dplyr::mutate(ITTFL = factor("Y")) %>%
+    dplyr::mutate(SAFFL = factor("Y")) %>%
+    dplyr::arrange(.data$st_posixn)
 
   ADDS <- ADSL[sample(nrow(ADSL), discons), ] %>% # nolint
-    mutate(TRTEDTM_discon = as.POSIXct(
+    dplyr::mutate(TRTEDTM_discon = as.POSIXct(
       sample(seq(from = max(.data$st_posixn), to = sys_dtm + study_duration_secs, by = 1), size = discons),
       origin = "1970-01-01")) %>%
-    select(.data$st_posixn, .data$TRTEDTM_discon) %>%
-    arrange(.data$st_posixn)
+    dplyr::select(.data$st_posixn, .data$TRTEDTM_discon) %>%
+    dplyr::arrange(.data$st_posixn)
 
-  ADSL <- left_join(ADSL, ADDS, by = "st_posixn") %>% # nolint
-    mutate(TRTEDTM = case_when(
+  ADSL <- dplyr::left_join(ADSL, ADDS, by = "st_posixn") %>% # nolint
+    dplyr::mutate(TRTEDTM = dplyr::case_when(
       !is.na(TRTEDTM_discon) ~ as.POSIXct(TRTEDTM_discon, origin = "1970-01-01"),
       st_posixn >= quantile(st_posixn)[2] & st_posixn <= quantile(st_posixn)[3] ~ as.POSIXct(NA, origin = "1970-01-01"),
       TRUE ~ TRTEDTM
     )) %>%
-    mutate(TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01"))  %>%
-    select(-.data$TRTEDTM_discon)
+    dplyr::mutate(TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01"))  %>%
+    dplyr::select(-.data$TRTEDTM_discon)
 
   ADSL <- ADSL %>% # nolint
-    mutate(EOSDT = as.Date(.data$TRTEDTM)) %>%
-    mutate(EOSDY = as.numeric(ceiling(difftime(.data$TRTEDTM, .data$TRTSDTM, units = "days")))) %>%
-    mutate(EOSSTT = case_when(
+    dplyr::mutate(EOSDT = as.Date(.data$TRTEDTM)) %>%
+    dplyr::mutate(EOSDY = as.numeric(ceiling(difftime(.data$TRTEDTM, .data$TRTSDTM, units = "days")))) %>%
+    dplyr::mutate(EOSSTT = dplyr::case_when(
       EOSDY == max(EOSDY, na.rm = TRUE) ~ "COMPLETED",
       EOSDY < max(EOSDY, na.rm = TRUE) ~ "DISCONTINUED",
       is.na(TRTEDTM) ~ "ONGOING"
@@ -142,25 +138,25 @@ radsl <- function(N = 400, # nolint
   )
 
   ADSL <- ADSL %>% # nolint
-    mutate(
+    dplyr::mutate(
       DCSREAS = ifelse(
         .data$EOSSTT == "DISCONTINUED",
         sample(x = l_dcsreas$choices, size = N, replace = TRUE, prob = l_dcsreas$prob),
         as.character(NA)
       )
     ) %>%
-    mutate(DTHFL = case_when(
+    dplyr::mutate(DTHFL = dplyr::case_when(
       DCSREAS == "DEATH" ~ "Y",
       TRUE ~ "N"
     )) %>%
-    mutate(
+    dplyr::mutate(
       DTHCAT = ifelse(
         .data$DCSREAS == "DEATH",
         sample(x = c("ADVERSE EVENT", "PROGRESSIVE DISEASE", "OTHER"), size = N, replace = TRUE),
         as.character(NA)
       )
     ) %>%
-    mutate(DTHCAUS = case_when(
+    dplyr::mutate(DTHCAUS = dplyr::case_when(
       DTHCAT == "ADVERSE EVENT" ~ "ADVERSE EVENT",
       DTHCAT == "PROGRESSIVE DISEASE" ~ "DISEASE PROGRESSION",
       DTHCAT == "OTHER" ~ sample(x = l_dthcat_other$choices, size = N, replace = TRUE, prob = l_dthcat_other$prob),
@@ -168,25 +164,25 @@ radsl <- function(N = 400, # nolint
     )) %>%
     # adding some random number of days post last treatment date so that death days from last trt admin
     # supports the LDDTHGR1 derivation below
-    mutate(DTHDT = case_when(
+    dplyr::mutate(DTHDT = dplyr::case_when(
       DCSREAS == "DEATH" ~ as.Date(.data$TRTEDTM) + sample(0:50, size = N, replace = TRUE)
     )) %>%
-    mutate(LDDTHELD = as.numeric(.data$DTHDT - as.Date(.data$TRTEDTM))) %>%
-    mutate(LDDTHGR1 = case_when(
+    dplyr::mutate(LDDTHELD = as.numeric(.data$DTHDT - as.Date(.data$TRTEDTM))) %>%
+    dplyr::mutate(LDDTHGR1 = dplyr::case_when(
       LDDTHELD <= 30 ~ "<=30",
       LDDTHELD > 30 ~ ">30",
       TRUE ~ as.character(NA)
     )) %>%
-    mutate(LSTALVDT = case_when(
+    dplyr::mutate(LSTALVDT = dplyr::case_when(
     DCSREAS == "DEATH" ~ DTHDT,
-    TRUE ~ as.Date(.data$TRTEDTM) + floor(runif(N, min = 10, max = 30))
+    TRUE ~ as.Date(.data$TRTEDTM) + floor(stats::runif(N, min = 10, max = 30))
     )) %>%
-    select(-.data$st_posixn)
+    dplyr::select(-.data$st_posixn)
 
   # associate sites with countries and regions
   ADSL <- ADSL %>% # nolint
-    mutate(SITEID = paste0(.data$COUNTRY, "-", .data$SITEID)) %>%
-    mutate(REGION1 = case_when(
+    dplyr::mutate(SITEID = paste0(.data$COUNTRY, "-", .data$SITEID)) %>%
+    dplyr::mutate(REGION1 = dplyr::case_when(
       COUNTRY %in% c("NGA") ~ "Africa",
       COUNTRY %in% c("CHN", "JPN", "PAK") ~ "Asia",
       COUNTRY %in% c("RUS") ~ "Eurasia",
@@ -195,10 +191,10 @@ radsl <- function(N = 400, # nolint
       COUNTRY %in% c("BRA") ~ "South America",
       TRUE ~ as.character(NA)
     )) %>%
-    mutate(INVID = paste("INV ID", .data$SITEID)) %>%
-    mutate(INVNAM = paste("Dr.", .data$SITEID, "Doe")) %>%
-    mutate(USUBJID = paste(.data$STUDYID, .data$SITEID, .data$SUBJID, sep = "-")) %>%
-    mutate(study_duration_secs = study_duration_secs)
+    dplyr::mutate(INVID = paste("INV ID", .data$SITEID)) %>%
+    dplyr::mutate(INVNAM = paste("Dr.", .data$SITEID, "Doe")) %>%
+    dplyr::mutate(USUBJID = paste(.data$STUDYID, .data$SITEID, .data$SUBJID, sep = "-")) %>%
+    dplyr::mutate(study_duration_secs = study_duration_secs)
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADSL <- mutate_na(ds = ADSL, na_vars = na_vars, na_percentage = na_percentage) # nolint

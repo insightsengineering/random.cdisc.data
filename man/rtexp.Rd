@@ -27,7 +27,7 @@ This can be derived from the quantile functions of the left- and right-truncated
 Exponential distributions.
 }
 \examples{
-x <- rexp(1e6, rate = 5)
+x <- stats::rexp(1e6, rate = 5)
 x <- x[x > 0.5]
 hist(x)
 

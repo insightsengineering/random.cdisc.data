@@ -17,10 +17,6 @@
 #' @template param_cached
 #' @template return_data.frame
 #'
-#' @importFrom dplyr arrange case_when filter group_by mutate n rowwise select ungroup
-#' @importFrom magrittr %>%
-#' @importFrom tibble tribble
-#'
 #' @export
 #'
 #' @examples
@@ -53,7 +49,7 @@ radtte <- function(ADSL, # nolint
 
   lookup_TTE <- if_null( # nolint
     lookup,
-    tribble(
+    tibble::tribble(
       ~ARM,  ~PARAMCD, ~PARAM, ~LAMBDA, ~CNSR_P,
       "ARM A", "OS",  "Overall Survival",                 log(2) / 610, 0.4,
       "ARM B", "OS",  "Overall Survival",                 log(2) / 490, 0.3,
@@ -96,18 +92,18 @@ radtte <- function(ADSL, # nolint
     lapply(FUN = function(pinfo) {
       lookup_TTE %>%
         dplyr::filter(.data$ARM == as.character(pinfo$ACTARMCD)) %>%
-        rowwise() %>%
-        mutate(
+        dplyr::rowwise() %>%
+        dplyr::mutate(
           STUDYID = pinfo$STUDYID,
           SITEID = pinfo$SITEID,
           USUBJID = pinfo$USUBJID,
           CNSR = sample(c(0, 1), 1, prob = c(1 - .data$CNSR_P, .data$CNSR_P)),
-          AVAL = rexp(1, .data$LAMBDA),
+          AVAL = stats::rexp(1, .data$LAMBDA),
           AVALU = "DAYS",
           EVNTDESC = if (.data$CNSR == 1) sample(evntdescr_sel[-c(1:2)], 1) else sample(evntdescr_sel, 1),
           CNSDTDSC = if (.data$CNSR == 1) sample(cnsdtdscr_sel, 1) else ""
         ) %>%
-        select(-.data$LAMBDA, -.data$CNSR_P)
+        dplyr::select(-.data$LAMBDA, -.data$CNSR_P)
 
     }) %>%
     Reduce(rbind, .) %>%
@@ -128,30 +124,39 @@ radtte <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add TTE date and study day variables
-  ADTTE <- inner_join( # nolint
+  ADTTE <- dplyr::inner_join( # nolint
     ADSL, # nolint
-    select(ADTTE, -.data$SITEID, -.data$ARM),
+    dplyr::select(ADTTE, -.data$SITEID, -.data$ARM),
     by = c("STUDYID", "USUBJID")) %>%
-    rowwise() %>%
-    mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-    mutate(trtedt_int = case_when(
+    dplyr::rowwise() %>%
+    dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
+    dplyr::mutate(trtedt_int = dplyr::case_when(
       !is.na(TRTEDTM) ~ as.numeric(as.Date(TRTEDTM)),
       is.na(TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
     )) %>%
-    mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
-    mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
-    select(-.data$trtsdt_int, -.data$trtedt_int) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
+    dplyr::mutate(ADTM = as.POSIXct(
+      (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
+      origin = "1970-01-01")
+    ) %>%
+    dplyr::mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
+    dplyr::select(-.data$trtsdt_int, -.data$trtedt_int) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
   ADTTE <- ADTTE %>% # nolint
-    group_by(.data$USUBJID) %>%
-    mutate(TTESEQ = 1:n()) %>%
-    mutate(ASEQ = .data$TTESEQ) %>%
-    mutate(PARAM = as.factor(.data$PARAM)) %>%
-    mutate(PARAMCD = as.factor(.data$PARAMCD)) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$ADTM, .data$TTESEQ)
+    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::mutate(TTESEQ = seq_len(dplyr::n())) %>%
+    dplyr::mutate(ASEQ = .data$TTESEQ) %>%
+    dplyr::mutate(PARAM = as.factor(.data$PARAM)) %>%
+    dplyr::mutate(PARAMCD = as.factor(.data$PARAMCD)) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(
+      .data$STUDYID,
+      .data$USUBJID,
+      .data$PARAMCD,
+      .data$ADTM,
+      .data$TTESEQ
+    )
 
   # apply metadata
   ADTTE <- apply_metadata(ADTTE, "metadata/ADTTE.yml") # nolint

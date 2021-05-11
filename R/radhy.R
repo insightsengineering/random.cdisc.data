@@ -15,10 +15,6 @@
 #' @template param_cached
 #' @template return_data.frame
 #'
-#' @importFrom dplyr mutate if_else case_when arrange rowwise group_by group_modify n ungroup
-#' @importFrom magrittr %>%
-#' @importFrom rlang .data
-#'
 #' @export
 #'
 #' @author wojciakw
@@ -96,30 +92,30 @@ radhy <- function(ADSL, # nolint
 
   # Add other variables to ADHY
   ADHY <- ADHY %>% # nolint
-    mutate(
+    dplyr::mutate(
       PARAMCD = factor(rel_var(
         df = as.data.frame(ADHY),
         var_values = param_init_list$relvar2,
         related_var = "PARAM")),
-      AVISITN = case_when(
+      AVISITN = dplyr::case_when(
         .data$AVISIT == "BASELINE" ~ 0,
         .data$AVISIT == "POST-BASELINE" ~ 9995,
         TRUE ~ NA_real_),
-      ABLFL = if_else(.data$AVISIT == "BASELINE", "Y", NA_character_),
-      ONTRTFL = if_else(.data$AVISIT == "POST-BASELINE", "Y", NA_character_),
+      ABLFL = dplyr::if_else(.data$AVISIT == "BASELINE", "Y", NA_character_),
+      ONTRTFL = dplyr::if_else(.data$AVISIT == "POST-BASELINE", "Y", NA_character_),
       ANL01FL = "Y",
       SRCSEQ = NA_integer_
     ) %>%
-    mutate(
-      AVALC = case_when(
+    dplyr::mutate(
+      AVALC = dplyr::case_when(
         .data$PARAMCD %in% paramcd_yn ~ sample(
-          c("Y", "N"), prob = c(0.1, 0.9), size = n(), replace = TRUE),
+          c("Y", "N"), prob = c(0.1, 0.9), size = dplyr::n(), replace = TRUE),
         !(.data$PARAMCD %in% paramcd_yn) ~ sample(
-          c("Criteria not met", ">3-5ULN", ">5-10ULN", ">10-20ULN", ">20ULN"), size = n(), replace = TRUE)
+          c("Criteria not met", ">3-5ULN", ">5-10ULN", ">10-20ULN", ">20ULN"), size = dplyr::n(), replace = TRUE)
       )
     ) %>%
-    mutate(
-      AVAL = case_when(
+    dplyr::mutate(
+      AVAL = dplyr::case_when(
         .data$AVALC == "Y" ~ 1,
         .data$AVALC == "N" ~ 0,
         .data$AVALC == "Criteria not met" ~ 0,
@@ -132,11 +128,11 @@ radhy <- function(ADSL, # nolint
 
   # add baseline variables
   ADHY <- ADHY %>% # nolint
-    group_by(.data$USUBJID, .data$PARAMCD) %>%
-    mutate(
+    dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
+    dplyr::mutate(
       BASEC = .data$AVALC[.data$AVISIT == "BASELINE"],
       BASE = .data$AVAL[.data$AVISIT == "BASELINE"]) %>%
-    ungroup()
+    dplyr::ungroup()
 
   ADHY <- ADHY %>% # nolint
     var_relabel(
@@ -145,20 +141,19 @@ radhy <- function(ADSL, # nolint
     )
 
   # merge ADSL to be able to add analysis datetime and analysis relative day variables
-  ADHY <- inner_join(ADSL, ADHY, by = c("STUDYID", "USUBJID")) # nolint
+  ADHY <- dplyr::inner_join(ADSL, ADHY, by = c("STUDYID", "USUBJID")) # nolint
 
   # define a simple helper function to create ADY variable
   add_ady <- function(x, avisit) {
 
     if (avisit == "BASELINE") {
-      mutate(x,
-             ADY = sample(x = -(1:14), # nolint
-                          size = n(),
-                          replace = TRUE))
-
+      dplyr::mutate(
+        x,
+        ADY = sample(x = -(1:14), size = dplyr::n(), replace = TRUE) # nolint
+      )
     } else if (avisit == "POST-BASELINE") {
-      rowwise(x) %>%
-        mutate(ADY = as.integer(sample(
+      dplyr::rowwise(x) %>%
+        dplyr::mutate(ADY = as.integer(sample(
           x = ifelse(
             !is.na(.data$TRTEDTM),
             difftime(.data$TRTEDTM, .data$TRTSDTM, units = "days"),
@@ -167,7 +162,7 @@ radhy <- function(ADSL, # nolint
           replace = TRUE)))
 
     } else {
-      mutate(x, ADY = NA_integer_)
+      dplyr::mutate(x, ADY = NA_integer_)
 
     }
 
@@ -175,10 +170,10 @@ radhy <- function(ADSL, # nolint
 
   # add ADY and ADTM variables
   ADHY <- ADHY %>% # nolint
-    group_by(.data$AVISIT, .add = FALSE) %>%
-    group_modify(~ add_ady(.x, .y$AVISIT)) %>%
-    ungroup() %>%
-    mutate(ADTM = .data$TRTSDTM + .data$ADY)
+    dplyr::group_by(.data$AVISIT, .add = FALSE) %>%
+    dplyr::group_modify(~ add_ady(.x, .y$AVISIT)) %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(ADTM = .data$TRTSDTM + .data$ADY)
 
   # + operation causes that tzone attribute is lost for POSIXct objects
   attributes(ADHY$ADTM) <- attributes(ADSL$TRTSDTM)
@@ -204,7 +199,14 @@ radhy <- function(ADSL, # nolint
     )]
 
   ADHY <- ADHY %>% # nolint
-    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$AVISITN, .data$ADTM, .data$SRCSEQ)
+    dplyr::arrange(
+      .data$STUDYID,
+      .data$USUBJID,
+      .data$PARAMCD,
+      .data$AVISITN,
+      .data$ADTM,
+      .data$SRCSEQ
+    )
 
   # apply metadata
   ADHY <- apply_metadata(ADHY, "metadata/ADHY.yml") # nolint

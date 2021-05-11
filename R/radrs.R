@@ -20,10 +20,6 @@
 #' @template param_cached
 #' @template return_data.frame
 #'
-#' @importFrom dplyr arrange case_when filter group_by mutate n recode rowwise select ungroup
-#' @importFrom magrittr %>%
-#' @importFrom tibble tibble
-#'
 #' @export
 #'
 #' @examples
@@ -46,14 +42,14 @@ radrs <- function(ADSL, # nolint
   stopifnot(is.null(seed) || is_numeric_single(seed))
   stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
 
-  param_codes <- if_null(avalc, setNames(1:5, c("CR", "PR", "SD", "PD", "NE")))
+  param_codes <- if_null(avalc, stats::setNames(1:5, c("CR", "PR", "SD", "PD", "NE")))
 
   lookup_ARS <- if_null( # nolint
     lookup,
     expand.grid(
       ARM = c("A: Drug X", "B: Placebo", "C: Combination"),
       AVALC = names(param_codes)
-    ) %>% mutate(
+    ) %>% dplyr::mutate(
       AVAL = param_codes[.data$AVALC],
       p_scr = c(rep(0, 3), rep(0, 3), c(1, 1, 1), c(0, 0, 0), c(0, 0, 0)),
       p_bsl = c(rep(0, 3), rep(0, 3), c(1, 1, 1), c(0, 0, 0), c(0, 0, 0)),
@@ -106,16 +102,17 @@ radrs <- function(ADSL, # nolint
       c2d1_date <- as.POSIXct((sample(trtsdt_int:trtedt_int, size = 1) * 86400), origin = "1970-01-01")
       c4d1_date <- min(c2d1_date + 60 * 86400, pinfo$TRTEDTM)
 
-      tibble(
+      tibble::tibble(
         STUDYID = pinfo$STUDYID,
         SITEID = pinfo$SITEID,
         USUBJID = pinfo$USUBJID,
         PARAMCD = as.factor(c(rep("OVRINV", 6), "BESRSPI", "INVET")),
-        PARAM = as.factor(recode(.data$PARAMCD,
-                                 OVRINV = "Overall Response by Investigator - by visit",
-                                 OVRSPI = "Best Overall Response by Investigator (no confirmation required)",
-                                 BESRSPI = "Best Confirmed Overall Response by Investigator",
-                                 INVET = "Investigator End Of Induction Response"
+        PARAM = as.factor(dplyr::recode(
+          .data$PARAMCD,
+          OVRINV = "Overall Response by Investigator - by visit",
+          OVRSPI = "Best Overall Response by Investigator (no confirmation required)",
+          BESRSPI = "Best Confirmed Overall Response by Investigator",
+          INVET = "Investigator End Of Induction Response"
         )),
         AVALC = c(
           rsp_screen, rsp_bsl, rsp_c2d1, rsp_c4d1, rsp_eoi, rsp_fu,
@@ -126,7 +123,7 @@ radrs <- function(ADSL, # nolint
         AVISIT = factor(c(avisit, avisit[best_rsp_i], avisit[5]), levels = avisit)
       ) %>%
         merge(
-          tibble(
+          tibble::tibble(
             AVISIT = avisit,
             ADTM = c(scr_date, bs_date, c2d1_date, c4d1_date, eoi_date, flu_date),
             AVISITN = c(-1, 0, 2, 4, 999, 999),
@@ -140,7 +137,7 @@ radrs <- function(ADSL, # nolint
         )
     }) %>%
     Reduce(rbind, .) %>%
-    mutate(AVALC = factor(.data$AVALC, levels = names(param_codes))) %>%
+    dplyr::mutate(AVALC = factor(.data$AVALC, levels = names(param_codes))) %>%
     var_relabel(
       STUDYID = "Study Identifier",
       USUBJID = "Unique Subject Identifier"
@@ -159,17 +156,24 @@ radrs <- function(ADSL, # nolint
   # merge ADSL to be able to add RS date and study day variables
 
 
-  ADRS <- inner_join( # nolint
+  ADRS <- dplyr::inner_join( # nolint
     ADSL, # nolint
-    select(ADRS, -.data$SITEID),
+    dplyr::select(ADRS, -.data$SITEID),
     by = c("STUDYID", "USUBJID"))
 
   ADRS <- ADRS %>% # nolint
-    group_by(.data$USUBJID) %>%
-    mutate(RSSEQ = 1:n()) %>%
-    mutate(ASEQ = .data$RSSEQ) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$AVISITN, .data$ADTM, .data$RSSEQ)
+    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::mutate(RSSEQ = seq_len(dplyr::n())) %>%
+    dplyr::mutate(ASEQ = .data$RSSEQ) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(
+      .data$STUDYID,
+      .data$USUBJID,
+      .data$PARAMCD,
+      .data$AVISITN,
+      .data$ADTM,
+      .data$RSSEQ
+    )
 
   # apply metadata
   ADRS <- apply_metadata(ADRS, "metadata/ADRS.yml") # nolint

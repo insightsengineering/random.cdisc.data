@@ -16,10 +16,6 @@
 #' @template param_cached
 #' @template return_data.frame
 #'
-#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup
-#' @importFrom magrittr %>%
-#' @importFrom stats rnorm
-#'
 #' @export
 #'
 #' @author npaszty
@@ -77,9 +73,9 @@ radqs <- function(ADSL, # nolint
     stringsAsFactors = FALSE
   )
 
-  ADQS <- mutate( # nolint
+  ADQS <- dplyr::mutate( # nolint
     ADQS,
-    AVISITN = case_when(
+    AVISITN = dplyr::case_when(
       AVISIT == "SCREENING" ~ -1,
       AVISIT == "BASELINE" ~ 0,
       (grepl("^WEEK", AVISIT) | grepl("^CYCLE", AVISIT)) ~ as.numeric(AVISIT) - 2,
@@ -90,7 +86,7 @@ radqs <- function(ADSL, # nolint
   # assign related variable values: PARAMxPARAMCD are related
   ADQS$PARAMCD <- rel_var(df = ADQS, var_name = "PARAMCD", var_values = param_init_list$relvar2, related_var = "PARAM") # nolint
 
-  ADQS$AVAL <- rnorm(nrow(ADQS), mean = 50, sd = 8) + ADQS$AVISITN * rnorm(nrow(ADQS), mean = 5, sd = 2) # nolint
+  ADQS$AVAL <- stats::rnorm(nrow(ADQS), mean = 50, sd = 8) + ADQS$AVISITN * stats::rnorm(nrow(ADQS), mean = 5, sd = 2) # nolint
 
   # order to prepare for change from screening and baseline values
   ADQS <- ADQS[order(ADQS$STUDYID, ADQS$USUBJID, ADQS$PARAMCD, ADQS$AVISITN), ] # nolint
@@ -121,10 +117,10 @@ radqs <- function(ADSL, # nolint
   ADQS$BASE <- ifelse(ADQS$ABLFL2 != "Y", retain(ADQS, ADQS$AVAL, ADQS$ABLFL == "Y"), NA) # nolint
 
   ADQS <- ADQS %>% # nolint
-    mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
-    mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
-    mutate(CHG = .data$AVAL - .data$BASE) %>%
-    mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
+    dplyr::mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
+    dplyr::mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
+    dplyr::mutate(CHG = .data$AVAL - .data$BASE) %>%
+    dplyr::mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
     var_relabel(
       STUDYID = attr(ADSL$STUDYID, "label"),
       USUBJID = attr(ADSL$USUBJID, "label")
@@ -141,28 +137,38 @@ radqs <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add QS date and study day variables
-  ADQS <- inner_join( # nolint
+  ADQS <- dplyr::inner_join( # nolint
     ADSL, # nolint
     ADQS,
     by = c("STUDYID", "USUBJID")) %>%
-    rowwise() %>%
-    mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-    mutate(trtedt_int = case_when(
+    dplyr::rowwise() %>%
+    dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
+    dplyr::mutate(trtedt_int = dplyr::case_when(
       !is.na(TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
       is.na(TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
     )) %>%
-    mutate(ADTM = as.POSIXct((sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400), origin = "1970-01-01")) %>%
-    mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
-    select(-.data$trtsdt_int, -.data$trtedt_int) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
+    dplyr::mutate(ADTM = as.POSIXct(
+      (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
+      origin = "1970-01-01")
+    ) %>%
+    dplyr::mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
+    dplyr::select(-.data$trtsdt_int, -.data$trtedt_int) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
   ADQS <- ADQS %>% # nolint
-    group_by(.data$USUBJID) %>%
-    mutate(QSSEQ = 1:n()) %>%
-    mutate(ASEQ = .data$QSSEQ) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$AVISITN, .data$ADTM, .data$QSSEQ)
+    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::mutate(QSSEQ = seq_len(dplyr::n())) %>%
+    dplyr::mutate(ASEQ = .data$QSSEQ) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(
+      .data$STUDYID,
+      .data$USUBJID,
+      .data$PARAMCD,
+      .data$AVISITN,
+      .data$ADTM,
+      .data$QSSEQ
+    )
 
   # apply metadata
   ADQS <- apply_metadata(ADQS, "metadata/ADQS.yml") # nolint

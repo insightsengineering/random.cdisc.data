@@ -16,10 +16,6 @@
 #' @template param_cached
 #' @template return_data.frame
 #'
-#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup slice
-#' @importFrom magrittr %>%
-#' @importFrom stats rnorm
-#'
 #' @export
 #'
 #' @author tomlinsj, npaszty, Xuefeng Hou, dipietrc
@@ -52,11 +48,18 @@ radtr <- function(ADSL, # nolint
   # Make times consistent with ADRS at ADY and ADTM.
   adrs <- radrs(ADSL, seed = seed, ...) %>% # nolint
     dplyr::filter(.data$PARAMCD == "OVRINV") %>% # nolint
-    dplyr::select(.data$STUDYID, .data$USUBJID, .data$AVISIT, .data$AVISITN, .data$ADTM, .data$ADY)
+    dplyr::select(
+      .data$STUDYID,
+      .data$USUBJID,
+      .data$AVISIT,
+      .data$AVISITN,
+      .data$ADTM,
+      .data$ADY
+    )
 
   ADTR <- Map(function(parcd, par) { # nolint
     df <- adrs
-    df$AVAL <- rnorm(nrow(df), mean = 150, sd = 30) # nolint
+    df$AVAL <- stats::rnorm(nrow(df), mean = 150, sd = 30) # nolint
     df$PARAMCD <- parcd # nolint
     df$PARAM <- par # nolint
     df
@@ -74,29 +77,34 @@ radtr <- function(ADSL, # nolint
     dplyr::filter(!is.na(.data$AVAL)) %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
     dplyr::filter(.data$AVAL == min(.data$AVAL)) %>%
-    slice(1) %>%
-    mutate(AVISIT = "POST-BASELINE MINIMUM") %>%
-    mutate(DTYPE = "MINIMUM") %>%
-    ungroup()
+    dplyr::slice(1) %>%
+    dplyr::mutate(AVISIT = "POST-BASELINE MINIMUM") %>%
+    dplyr::mutate(DTYPE = "MINIMUM") %>%
+    dplyr::ungroup()
 
   ADTR_lastobs <- ADTR %>% # nolint
     dplyr::filter(.data$AVISITN > 0) %>%
     dplyr::filter(!is.na(.data$AVAL)) %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
     dplyr::filter(.data$ADTM == max(.data$ADTM, na.rm = TRUE)) %>%
-    slice(1) %>%
+    dplyr::slice(1) %>%
     dplyr::mutate(LAST_VISIT = .data$AVISIT) %>%
-    ungroup() %>%
-    dplyr::select(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$LAST_VISIT)
+    dplyr::ungroup() %>%
+    dplyr::select(
+      .data$STUDYID,
+      .data$USUBJID,
+      .data$PARAMCD,
+      .data$LAST_VISIT
+    )
 
   ADTR <- rbind(ADTR %>% dplyr::mutate(DTYPE = ""), ADTR_postbase) # nolint
 
   ADTR <- merge(ADTR, ADTR_base, by = c("STUDYID", "USUBJID", "PARAMCD")) %>% # nolint
     dplyr::mutate(
-      ABLFL = case_when(.data$AVISIT == "BASELINE" ~ "Y", TRUE ~ ""),
-      AVAL = case_when(.data$AVISIT == "BASELINE" ~ NA_real_, TRUE ~ AVAL),
-      CHG = case_when(.data$AVISITN > 0 ~ .data$AVAL - .data$BASE, TRUE ~ NA_real_),
-      PCHG = case_when(.data$AVISITN > 0 ~ .data$CHG / .data$BASE * 100, TRUE ~ NA_real_),
+      ABLFL = dplyr::case_when(.data$AVISIT == "BASELINE" ~ "Y", TRUE ~ ""),
+      AVAL = dplyr::case_when(.data$AVISIT == "BASELINE" ~ NA_real_, TRUE ~ AVAL),
+      CHG = dplyr::case_when(.data$AVISITN > 0 ~ .data$AVAL - .data$BASE, TRUE ~ NA_real_),
+      PCHG = dplyr::case_when(.data$AVISITN > 0 ~ .data$CHG / .data$BASE * 100, TRUE ~ NA_real_),
       AVALC = as.character(.data$AVAL),
       AVALU = "mm"
     )
@@ -105,17 +113,17 @@ radtr <- function(ADSL, # nolint
   ADTR <- ADTR %>% # nolint
     dplyr::mutate(
       PCHG_DUM = .data$PCHG,
-      PCHG = case_when(
+      PCHG = dplyr::case_when(
         .data$PCHG_DUM > 200 ~ 200,
         .data$PCHG_DUM < -100 ~ -100,
         TRUE ~ .data$PCHG
       ),
-      AVAL = case_when(
+      AVAL = dplyr::case_when(
         .data$PCHG_DUM > 200 ~ 3 * .data$BASE,
         .data$PCHG_DUM < -100 ~ 0,
         TRUE ~ .data$AVAL
       ),
-      CHG = case_when(
+      CHG = dplyr::case_when(
         .data$PCHG_DUM > 200 ~ 2 * .data$BASE,
         .data$PCHG_DUM < -100 ~ -.data$BASE,
         TRUE ~ .data$CHG
@@ -126,17 +134,17 @@ radtr <- function(ADSL, # nolint
   ADTR <- merge(ADSL, ADTR, by = c("STUDYID", "USUBJID")) %>% # nolint
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
     dplyr::mutate(
-      ONTRTFL = case_when(
+      ONTRTFL = dplyr::case_when(
         is.na(.data$TRTSDTM) ~ "",
         is.na(.data$ADTM) ~ "Y",
         .data$ADTM < .data$TRTSDTM ~ "",
         TRUE ~ "Y"
       ),
-      ANL01FL = case_when(
+      ANL01FL = dplyr::case_when(
         .data$DTYPE == "" & .data$AVISITN > 0 ~ "Y",
         TRUE ~ ""
       ),
-      ANL03FL = case_when(
+      ANL03FL = dplyr::case_when(
         .data$DTYPE == "MINIMUM" ~ "Y",
         .data$ABLFL == "Y" ~ "Y",
         TRUE ~ ""
@@ -144,7 +152,7 @@ radtr <- function(ADSL, # nolint
     )
   ADTR <- merge(ADTR, ADTR_lastobs, by = c("STUDYID", "USUBJID", "PARAMCD")) %>% # nolint
     dplyr::mutate(
-      ANL02FL = case_when(
+      ANL02FL = dplyr::case_when(
         as.character(.data$AVISIT) == as.character(.data$LAST_VISIT) ~ "Y",
         .data$ABLFL == "Y" ~ "Y",
         TRUE ~ ""
@@ -156,7 +164,11 @@ radtr <- function(ADSL, # nolint
     dplyr::mutate(
       AEWITHFL = ifelse(.data$DCSREAS == "ADVERSE EVENT", "Y", "N"),
       DCSREAS_GRP = ifelse(.data$DCSREAS == "ADVERSE EVENT", "Safety", "Non-Safety"),
-      TRTDURD = ifelse(is.na(.data$TRTSDTM) | is.na(.data$TRTEDTM), NA, .data$TRTEDTM - (.data$TRTSDTM + 1)),
+      TRTDURD = ifelse(
+        is.na(.data$TRTSDTM) | is.na(.data$TRTEDTM),
+        NA,
+        .data$TRTEDTM - (.data$TRTSDTM + 1)
+      ),
       AGEGR1 = ifelse(.data$AGE < 65, "<65", ">=65")
     )
 

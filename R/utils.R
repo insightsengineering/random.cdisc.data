@@ -2,7 +2,6 @@
 #'
 #' Return data attached to package
 #'
-#' @importFrom utils data
 #' @noRd
 get_cached_data <- function(dataname) {
   stopifnot(is_character_single(dataname))
@@ -171,7 +170,7 @@ visit_schedule <- function(visit_format = "WEEK",
   }
 
   # create and order factor variable to return from function
-  visit_values <- reorder(factor(visit_values), assessments_ord)
+  visit_values <- stats::reorder(factor(visit_values), assessments_ord)
 }
 
 #' Primary keys: retain values
@@ -225,8 +224,6 @@ var_relabel <- function(x, ...) {
 #' @param add_adsl logical to control merging of ADSL data to domain
 #' @param adsl_filename \code{yaml} file containing ADSL metadata.
 #'
-#' @importFrom dplyr inner_join
-#' @importFrom yaml yaml.load_file
 #'
 #' @examples
 #' seed <- 1
@@ -270,9 +267,9 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
   }
 
   # get metadata
-  metadata <- yaml.load_file(system.file(filename, package = "random.cdisc.data"))
+  metadata <- yaml::yaml.load_file(system.file(filename, package = "random.cdisc.data"))
   adsl_metadata <- if (add_adsl) {
-    yaml.load_file(system.file(adsl_filename, package = "random.cdisc.data"))
+    yaml::yaml.load_file(system.file(adsl_filename, package = "random.cdisc.data"))
   } else {
     NULL
   }
@@ -364,13 +361,12 @@ replace_na <- function(v, percentage = 0.05, seed = NULL) {
 #' }
 #' @param na_percentage (\code{numeric}) Default percentage of values to be replaced by NA
 #'
-#' @importFrom dplyr mutate is.tbl tbl_df
 #' @importFrom rlang := !!
 #' @import utils.nest
 mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {
 
-  if (!is.tbl(ds)) {
-    tbl_df(ds)
+  if (!dplyr::is.tbl(ds)) {
+    dplyr::tbl_df(ds)
   }
 
   if (!is.null(na_vars)) {
@@ -421,7 +417,6 @@ ungroup_rowwise_df <- function(x) {
 #' @param lambda non-negative mean(s).
 #'
 #' @return The random numbers.
-#' @importFrom stats dpois qpois
 #' @export
 #'
 #' @examples
@@ -433,7 +428,7 @@ ungroup_rowwise_df <- function(x) {
 #' hist(y)
 #'
 rtpois <- function(n, lambda) {
-  qpois(runif(n, dpois(0, lambda), 1), lambda)
+  stats::qpois(stats::runif(n, stats::dpois(0, lambda), 1), lambda)
 }
 
 #' Truncated Exponential Distribution
@@ -454,7 +449,7 @@ rtpois <- function(n, lambda) {
 #' @export
 #'
 #' @examples
-#' x <- rexp(1e6, rate = 5)
+#' x <- stats::rexp(1e6, rate = 5)
 #' x <- x[x > 0.5]
 #' hist(x)
 #'
@@ -466,10 +461,10 @@ rtpois <- function(n, lambda) {
 #'
 rtexp <- function(n, rate, l = NULL, r = NULL) {
   if (!is.null(l)) {
-    l - log(1 - runif(n)) / rate
+    l - log(1 - stats::runif(n)) / rate
   } else if (!is.null(r)) {
-    - log(1 - runif(n) * (1 - exp(- r * rate))) / rate
+    - log(1 - stats::runif(n) * (1 - exp(- r * rate))) / rate
   } else {
-    rexp(n, rate)
+    stats::rexp(n, rate)
   }
 }

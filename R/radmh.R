@@ -18,11 +18,6 @@
 #'
 #' @template return_data.frame
 #'
-#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup
-#' @importFrom magrittr %>%
-#' @importFrom tibble tribble
-#' @importFrom rlang .data
-#'
 #' @export
 #'
 #' @examples
@@ -48,7 +43,7 @@ radmh <- function(ADSL, # nolint
 
   lookup_mh <- if_null(
     lookup,
-    tribble(
+    tibble::tribble(
       ~MHBODSYS, ~MHDECOD, ~MHSOC,
       "cl A", "trm A_1/2", "cl A",
       "cl A", "trm A_2/2", "cl A",
@@ -71,7 +66,7 @@ radmh <- function(ADSL, # nolint
     function(id, sid) {
       n_mhs <- sample(0:max_n_mhs, 1)
       i <- sample(seq_len(nrow(lookup_mh)), n_mhs, TRUE)
-      mutate(
+      dplyr::mutate(
         lookup_mh[i, ],
         USUBJID = id,
         STUDYID = sid
@@ -82,7 +77,7 @@ radmh <- function(ADSL, # nolint
   ) %>%
     Reduce(rbind, .) %>%
     `[`(c(4, 5, 1, 2, 3)) %>%
-    mutate(MHTERM = .data$MHDECOD)
+    dplyr::mutate(MHTERM = .data$MHDECOD)
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADMH <- mutate_na(ds = ADMH, na_vars = na_vars, na_percentage = na_percentage) # nolint
@@ -95,36 +90,36 @@ radmh <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add MH date and study day variables
-  ADMH <- inner_join( # nolint
+  ADMH <- dplyr::inner_join( # nolint
     ADSL, # nolint
     ADMH,
     by = c("STUDYID", "USUBJID")) %>%
-    rowwise() %>%
-    mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-    mutate(trtedt_int = case_when(
+    dplyr::rowwise() %>%
+    dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
+    dplyr::mutate(trtedt_int = dplyr::case_when(
       !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
       is.na(.data$TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
     )) %>%
-    mutate(ASTDTM = as.POSIXct(
+    dplyr::mutate(ASTDTM = as.POSIXct(
       (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
       origin = "1970-01-01")) %>%
-    mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
-    mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
+    dplyr::mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
+    dplyr::mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
-    mutate(AENDTM = as.POSIXct(
+    dplyr::mutate(AENDTM = as.POSIXct(
       (sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
       origin = "1970-01-01")) %>%
-    mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
-    select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHTERM)
+    dplyr::mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
+    dplyr::select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHTERM)
 
   ADMH <- ADMH %>% # nolint
-    group_by(.data$USUBJID) %>%
-    mutate(MHSEQ = 1:n()) %>%
-    mutate(ASEQ = .data$MHSEQ) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHSEQ)
+    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::mutate(MHSEQ = seq_len(dplyr::n())) %>%
+    dplyr::mutate(ASEQ = .data$MHSEQ) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHSEQ)
 
   # apply metadata
   ADMH <- apply_metadata(ADMH, "metadata/ADMH.yml") # nolint

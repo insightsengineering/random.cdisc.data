@@ -4,6 +4,7 @@
 #'
 #'
 #' @import utils.nest
+#' @import magrittr
 #' @docType package
 #' @name random.cdisc.data
 NULL

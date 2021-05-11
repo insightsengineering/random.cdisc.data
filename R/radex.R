@@ -22,13 +22,6 @@
 #' @template return_data.frame
 #'
 #'
-#' @importFrom dplyr arrange case_when group_by mutate n rowwise select ungroup
-#' @importFrom magrittr %>%
-#' @importFrom tibble tribble
-#' @importFrom rlang .data
-#' @importFrom yaml yaml.load_file
-#'
-#'
 #' @export
 #'
 #' @examples
@@ -114,32 +107,50 @@ radex <- function(ADSL, # nolint
   ))
 
   adex <- adex %>%
-    group_by(.data$USUBJID) %>%
-    mutate(PARCAT_ind = sample(c(1, 2), size = 1)) %>%
-    mutate(PARCAT2 = ifelse(.data$PARCAT_ind == 1, parcat2[1], parcat2[2])) %>%
-    select(-.data$PARCAT_ind)
+    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::mutate(PARCAT_ind = sample(c(1, 2), size = 1)) %>%
+    dplyr::mutate(PARCAT2 = ifelse(.data$PARCAT_ind == 1, parcat2[1], parcat2[2])) %>%
+    dplyr::select(-.data$PARCAT_ind)
 
   # Add in PARCAT1
-  adex <- adex %>% mutate(PARCAT1 = case_when(
+  adex <- adex %>% dplyr::mutate(PARCAT1 = dplyr::case_when(
     (.data$PARAMCD == "TNDOSE" | .data$PARAMCD == "TDOSE") ~ "OVERALL",
     .data$PARAMCD == "DOSE" | .data$PARAMCD == "NDOSE" ~ "INDIVIDUAL"))
 
   adex_visit <- adex %>%
     dplyr::filter(.data$PARAMCD == "DOSE" | .data$PARAMCD == "NDOSE") %>%
-    mutate(AVISIT = rep(visit_schedule(visit_format = visit_format, n_assessments = n_assessments, n_days = n_days), 2))
+    dplyr::mutate(
+      AVISIT = rep(visit_schedule(visit_format = visit_format, n_assessments = n_assessments, n_days = n_days), 2)
+    )
 
-  adex <- left_join(
+  adex <- dplyr::left_join(
     adex %>%
-    group_by(.data$USUBJID, .data$STUDYID, .data$PARAM, .data$PARAMCD, .data$AVALU, .data$PARCAT1, .data$PARCAT2) %>%
-      mutate(id = dplyr::row_number()),
+    dplyr::group_by(
+      .data$USUBJID,
+      .data$STUDYID,
+      .data$PARAM,
+      .data$PARAMCD,
+      .data$AVALU,
+      .data$PARCAT1,
+      .data$PARCAT2
+      ) %>%
+      dplyr::mutate(id = dplyr::row_number()),
     adex_visit %>%
-    group_by(.data$USUBJID, .data$STUDYID, .data$PARAM, .data$PARAMCD, .data$AVALU, .data$PARCAT1, .data$PARCAT2) %>%
-      mutate(id = dplyr::row_number()),
+    dplyr::group_by(
+      .data$USUBJID,
+      .data$STUDYID,
+      .data$PARAM,
+      .data$PARAMCD,
+      .data$AVALU,
+      .data$PARCAT1,
+      .data$PARCAT2
+      ) %>%
+      dplyr::mutate(id = dplyr::row_number()),
     by = c("USUBJID", "STUDYID", "PARCAT1", "PARCAT2", "id", "PARAMCD", "PARAM", "AVALU")) %>%
-  select(-.data$id)
+  dplyr::select(-.data$id)
 
   #Visit numbers
-  adex <- adex %>% mutate(AVISITN = case_when(
+  adex <- adex %>% dplyr::mutate(AVISITN = dplyr::case_when(
     AVISIT == "SCREENING" ~ -1,
     AVISIT == "BASELINE" ~ 0,
     (grepl("^WEEK", AVISIT) | grepl("^CYCLE", AVISIT)) ~ as.numeric(AVISIT) - 2,
@@ -151,44 +162,51 @@ radex <- function(ADSL, # nolint
     lapply(function(pinfo) {
       pinfo %>%
         dplyr::filter(.data$PARAMCD == "DOSE") %>%
-        group_by(.data$USUBJID, .data$PARCAT2, .data$AVISIT) %>%
-        mutate(changeind = case_when(
+        dplyr::group_by(.data$USUBJID, .data$PARCAT2, .data$AVISIT) %>%
+        dplyr::mutate(changeind = dplyr::case_when(
           .data$AVISIT == "SCREENING" ~ 0,
           .data$AVISIT != "SCREENING" ~ sample(c(-1, 0, 1),
           size = 1,
           prob = c(0.25, 0.5, 0.25),
           replace = TRUE))) %>%
-        ungroup() %>%
-        group_by(.data$USUBJID, .data$PARCAT2) %>%
-        mutate(
+        dplyr::ungroup() %>%
+        dplyr::group_by(.data$USUBJID, .data$PARCAT2) %>%
+        dplyr::mutate(
           csum = cumsum(.data$changeind),
-          changeind = case_when(
+          changeind = dplyr::case_when(
             .data$csum <= -3 ~ sample(c(0, 1), size = 1, prob = c(0.5, 0.5)),
             .data$csum >= 3 ~ sample(c(0, -1), size = 1, prob = c(0.5, 0.5)),
             TRUE ~ .data$changeind)
           ) %>%
-        mutate(csum = cumsum(.data$changeind)) %>%
-        ungroup() %>%
-        group_by(.data$USUBJID, .data$PARCAT2, .data$AVISIT) %>%
-        mutate(AVAL = case_when(
+        dplyr::mutate(csum = cumsum(.data$changeind)) %>%
+        dplyr::ungroup() %>%
+        dplyr::group_by(.data$USUBJID, .data$PARCAT2, .data$AVISIT) %>%
+        dplyr::mutate(AVAL = dplyr::case_when(
           .data$csum == -2 ~ 480,
           .data$csum == -1 ~ 720,
           .data$csum == 0 ~ 960,
           .data$csum == 1 ~ 1200,
           .data$csum == 2 ~ 1440)) %>%
-        select(-c(.data$csum, .data$changeind)) %>%
-        ungroup()
+        dplyr::select(-c(.data$csum, .data$changeind)) %>%
+        dplyr::ungroup()
     })  %>%
     Reduce(rbind, .)
 
   adextmp <- dplyr::full_join(adex2, adex, by = names(adex))
   adex <- adextmp %>%
-    group_by(.data$USUBJID) %>%
-    mutate(AVAL = ifelse(.data$PARAMCD == "NDOSE", 1, .data$AVAL)) %>%
-    mutate(AVAL = ifelse(.data$PARAMCD == "TNDOSE", sum(.data$AVAL[.data$PARAMCD == "NDOSE"]), .data$AVAL)) %>%
-    ungroup() %>%
-    group_by(.data$USUBJID, .data$STUDYID, .data$PARCAT2) %>%
-    mutate(AVAL = ifelse(.data$PARAMCD == "TDOSE", sum(.data$AVAL[.data$PARAMCD == "DOSE"]), .data$AVAL))
+    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::mutate(AVAL = ifelse(.data$PARAMCD == "NDOSE", 1, .data$AVAL)) %>%
+    dplyr::mutate(AVAL = ifelse(
+      .data$PARAMCD == "TNDOSE",
+      sum(.data$AVAL[.data$PARAMCD == "NDOSE"]),
+      .data$AVAL)) %>%
+    dplyr::ungroup() %>%
+    dplyr::group_by(.data$USUBJID, .data$STUDYID, .data$PARCAT2) %>%
+    dplyr::mutate(AVAL = ifelse(
+      .data$PARAMCD == "TDOSE",
+      sum(.data$AVAL[.data$PARAMCD == "DOSE"]),
+      .data$AVAL)
+    )
 
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
@@ -202,32 +220,39 @@ radex <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add adex date and study day variables
-  adex <- inner_join(ADSL, adex, by = c("STUDYID", "USUBJID")) %>%
-    rowwise() %>%
-    mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-    mutate(trtedt_int = case_when(
+  adex <- dplyr::inner_join(ADSL, adex, by = c("STUDYID", "USUBJID")) %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
+    dplyr::mutate(trtedt_int = dplyr::case_when(
       !is.na(TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
       is.na(TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
     )) %>%
-    mutate(ASTDTM = as.POSIXct(
+    dplyr::mutate(ASTDTM = as.POSIXct(
       (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
       origin = "1970-01-01")) %>%
-    mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
+    dplyr::mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
-    mutate(AENDTM = as.POSIXct(
+    dplyr::mutate(AENDTM = as.POSIXct(
       (sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
       origin = "1970-01-01")) %>%
-    select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)
+    dplyr::select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)
 
 
   adex <- adex %>%
-    group_by(.data$USUBJID) %>%
-    mutate(EXSEQ = 1:n()) %>%
-    mutate(ASEQ = .data$EXSEQ) %>%
-    ungroup() %>%
-    arrange(.data$STUDYID, .data$USUBJID, .data$PARAMCD, .data$ASTDTM, .data$AVISITN, .data$EXSEQ)
+    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::mutate(EXSEQ = seq_len(dplyr::n())) %>%
+    dplyr::mutate(ASEQ = .data$EXSEQ) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(
+      .data$STUDYID,
+      .data$USUBJID,
+      .data$PARAMCD,
+      .data$ASTDTM,
+      .data$AVISITN,
+      .data$EXSEQ
+    )
 
   # apply metadata
   adex <- apply_metadata(adex, "metadata/ADEX.yml")
