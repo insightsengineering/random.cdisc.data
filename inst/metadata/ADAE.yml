@@ -51,6 +51,9 @@ variables:
   TRTEMFL:
     label: Treatment Emergent Analysis Flag
     type: factor
+  AECONTRT:
+    label: Concomitant or Additional Trtmnt Given
+    type: factor
   ASTDTM:
     label: Analysis Start Datetime
   AENDTM:

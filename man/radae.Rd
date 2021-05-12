@@ -57,7 +57,7 @@ ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
 radae(ADSL, seed = 2)
 
 # Add metadata.
-aag <- utils::read.table(
+aag <- read.table(
 sep = ',', header = TRUE,
 text = paste(
   "NAMVAR,SRCVAR,GRPTYPE,REFNAME,REFTERM,SCOPE",
