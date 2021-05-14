@@ -1,5 +1,7 @@
 # random.cdisc.data 0.3.10.9000
+* Added new parameters to ADAETTE.
 * Added AECONTRT variable to ADAE.
+
 
 # random.cdisc.data 0.3.10
 * Added additional parameters to ADHY data. 
