@@ -22,10 +22,13 @@ radhy(
     "TBILI <= 2 times ULN and two consecutive elevations of ALT in relation to Baseline",
     "TBILI > 2 times ULN and two consecutive elevations of AST in relation to Baseline", 
        
-    "TBILI <= 2 times ULN and two consecutive elevations of AST in relation to Baseline"),
+    "TBILI <= 2 times ULN and two consecutive elevations of AST in relation to Baseline",
+    "ALT > 3 times ULN by Period", "AST > 3 times ULN by Period",
+    "ALT or AST > 3 times ULN by Period", "ALT > 3 times Baseline by Period",
+    "AST > 3 times Baseline by Period", "ALT or AST > 3 times Baseline by Period"),
   paramcd = c("BLAL", "BGAS", "BGAL", "BLAS", "BA2AL", "BA2AS", "BA5AL", "BA5AS",
     "BL2AL2CU", "BG2AS2CU", "BL2AS2CU", "BG2AL2CU", "BG2AL2CB", "BL2AL2CB", "BG2AS2CB",
-    "BL2AS2CB"),
+    "BL2AS2CB", "ALTPULN", "ASTPULN", "ALTASTPU", "ALTPBASE", "ASTPBASE", "ALTASTPB"),
   seed = NULL,
   cached = FALSE
 )

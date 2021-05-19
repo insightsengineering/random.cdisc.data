@@ -35,6 +35,12 @@ variables:
   AVISITN:
     label: Analysis Visit (N)
     type: integer
+  APERIOD:
+    label: Period
+    type: integer
+  APERIODC:
+    label: Period (C)
+    type: factor
   ONTRTFL:
     label: On Treatment Record Flag
     type: factor
