@@ -17,9 +17,6 @@
 #'
 #' @template return_data.frame
 #'
-#' @importFrom dplyr arrange case_when filter group_by if_else inner_join left_join mutate n rowwise select ungroup
-#' @importFrom magrittr %>%
-#' @importFrom tibble tribble
 #'
 #' @export
 #'
@@ -124,7 +121,7 @@ radaette <- function(ADSL, # nolint
   paramcd_hy <- c("HYSTTEUL", "HYSTTEBL")
   param_hy <- c("Time to Hy's Law Elevation in relation to ULN", "Time to Hy's Law Elevation in relation to Baseline")
   param_init_list <- relvar_init(param_hy, paramcd_hy)
-  adsl_hy <- select(ADSL, "STUDYID", "USUBJID", "TRTSDTM", "SITEID", "ARM", "study_duration_secs")
+  adsl_hy <- dplyr::select(ADSL, "STUDYID", "USUBJID", "TRTSDTM", "SITEID", "ARM", "study_duration_secs")
 
   # create all combinations of unique values in STUDYID, USUBJID, PARAM, AVISIT
   adaette_hy <- expand.grid( # nolint
@@ -134,33 +131,33 @@ radaette <- function(ADSL, # nolint
     stringsAsFactors = FALSE)
 
   # Add other variables to adaette_hy
-  adaette_hy <- left_join(adaette_hy, adsl_hy, by = c("STUDYID", "USUBJID")) %>% # nolint
-  mutate(
+  adaette_hy <- dplyr::left_join(adaette_hy, adsl_hy, by = c("STUDYID", "USUBJID")) %>% # nolint
+  dplyr::mutate(
     PARAMCD = factor(rel_var(
       df = as.data.frame(adaette_hy),
       var_values = param_init_list$relvar2,
       related_var = "PARAM"
     ))
   ) %>%
-  mutate(
-    CNSR = sample(c(0, 1), prob = c(0.1, 0.9), size = n(), replace = TRUE),
-    EVNTDESC = if_else(.data$CNSR == 0, "First Post-Baseline Raised ALT or AST Elevation Result", NA_character_),
-    CNSDTDSC = if_else(.data$CNSR == 0, NA_character_,
+  dplyr::mutate(
+    CNSR = sample(c(0, 1), prob = c(0.1, 0.9), size = dplyr::n(), replace = TRUE),
+    EVNTDESC = dplyr::if_else(.data$CNSR == 0, "First Post-Baseline Raised ALT or AST Elevation Result", NA_character_),
+    CNSDTDSC = dplyr::if_else(.data$CNSR == 0, NA_character_,
       sample(c("Last Post-Baseline ALT or AST Result", "Treatment Start"),
         prob = c(0.9, 0.1),
-        size = n(), replace = TRUE
+        size = dplyr::n(), replace = TRUE
       )
     )
   ) %>%
-  rowwise() %>%
-  mutate(ADTM = case_when(
+  dplyr::rowwise() %>%
+  dplyr::mutate(ADTM = dplyr::case_when(
     .data$CNSDTDSC == "Treatment Start" ~ .data$TRTSDTM,
     TRUE ~ as.POSIXct(
-      .data$TRTSDTM + sample(seq(0, .data$study_duration_secs), size = n(), replace = TRUE),
+      .data$TRTSDTM + sample(seq(0, .data$study_duration_secs), size = dplyr::n(), replace = TRUE),
       origin = "1970-01-01"
     )
   )) %>%
-  mutate(
+  dplyr::mutate(
     STARTDT = as.Date(.data$TRTSDTM),
     ADT = as.Date(.data$ADTM),
     ADY = as.numeric(.data$ADT - .data$STARTDT + 1),
@@ -168,7 +165,7 @@ radaette <- function(ADSL, # nolint
     AVALU = "WEEKS"
   )
 
-  adaette_hy <- select(adaette_hy, -"TRTSDTM", -"study_duration_secs", -"ADT", -"STARTDT")
+  adaette_hy <- dplyr::select(adaette_hy, -"TRTSDTM", -"study_duration_secs", -"ADT", -"STARTDT")
 
   random_ae_data <- function(lookup_info, patient_info, patient_data) {
     cnsr <- sample(c(0, 1), 1, prob = c(1 - lookup_info$CNSR_P, lookup_info$CNSR_P))
@@ -238,7 +235,7 @@ radaette <- function(ADSL, # nolint
     )
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADAETTE <- mutate_na(ds = ADAETTE, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    ADAETTE <- dplyr::mutate(ds = ADAETTE, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
   ADAETTE <- var_relabel( # nolint
