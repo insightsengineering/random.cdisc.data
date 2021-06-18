@@ -1,9 +1,10 @@
 # random.cdisc.data 0.3.10.9000
-* Added new parameters to ADAETTE.
-* Added AECONTRT variable to ADAE.
-* Added new parameters and period variables to ADHY.
 
-
+### Enhancements
+* Added `AECONTRT` variable to ADAE dataset.
+* Added new parameters in ADAETTE dataset.
+* Added new parameters in ADHY dataset.
+* Added period variables `APERIOD` and `APERIODC` to ADHY dataset.
 
 # random.cdisc.data 0.3.10
 * Added additional parameters to ADHY data. 
