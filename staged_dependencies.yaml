@@ -1,0 +1,13 @@
+
+---
+upstream_repos:
+- repo: Roche/rtables
+  host: https://github.com
+
+downstream_repos:
+- repo: NEST/teal
+  host: https://github.roche.com
+
+current_repo:
+  repo: NEST/random.cdisc.data
+  host: https://github.roche.com
