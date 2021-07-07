@@ -27,6 +27,8 @@ Imports:
     yaml
 Suggests:
     knitr,
+    rmarkdown,
+    test.nest (>= 0.2.9),
     testthat (>= 0.2)
 License: GPL-2
 Encoding: UTF-8
