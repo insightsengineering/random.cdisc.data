@@ -1,6 +1,8 @@
 
 ---
 upstream_repos:
+- repo: NEST/utils.nest
+  host: https://github.roche.com
 - repo: Roche/rtables
   host: https://github.com
 
