@@ -1,5 +1,8 @@
 # random.cdisc.data 0.3.11.9000
 
+### Enhancements
+* Enable users to define mean analysis value for each lab test in `radlb` with new argument `aval_mean`.
+
 # random.cdisc.data 0.3.11
 
 ### Enhancements

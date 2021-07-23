@@ -11,6 +11,7 @@
 #' @template BDS_findings_params
 #' @param lbcat As character vector of lb category values.
 #' @param paramu As character vector of parameter unit values.
+#' @param aval_mean As numerical vector of appropriate mean values for each lab test.
 #' @param max_n_lbs As numeric. maximum number of labs.
 #' @param lookup control lookup process.
 #' @inheritParams radsl
@@ -35,9 +36,10 @@ radlb <- function(ADSL, # nolint
                     "Alanine Aminotransferase Measurement",
                     "C-Reactive Protein Measurement",
                     "Immunoglobulin A Measurement"
-                    ),
+                  ),
                   paramcd = c("ALT", "CRP", "IGA"),
                   paramu = c("U/L", "mg/L", "g/L"),
+                  aval_mean = c(20, 1, 2),
                   visit_format = "WEEK",
                   n_assessments = 5L,
                   n_days = 5L,
@@ -86,7 +88,13 @@ radlb <- function(ADSL, # nolint
     stringsAsFactors = FALSE
   )
 
-  ADLB$AVAL <- stats::rnorm(nrow(ADLB), mean = 50, sd = 8) # nolint
+  # assign AVAL based on different test
+  ADLB <- ADLB %>% # nolint
+    dplyr::mutate(AVAL = stats::rnorm(nrow(ADLB), mean = 1, sd = 0.2)) %>%
+    dplyr::left_join(data.frame(PARAM = param, ADJUST = aval_mean), by = "PARAM") %>%
+    dplyr::mutate(AVAL = .data$AVAL * .data$ADJUST) %>%
+    dplyr::select(-.data$ADJUST)
+
   ADLB$LBSTRESC <- ADLB$AVAL # nolint
 
   # assign related variable values: PARAMxLBCAT are related
@@ -179,7 +187,7 @@ radlb <- function(ADSL, # nolint
         replace = TRUE,
         prob = c(0.30, 0.25, 0.20, 0.15, 0)),
       .data$ANRIND == "NORMAL" ~ "0"
-      ))) %>%
+    ))) %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
     dplyr::mutate(BTOXGR = .data$ATOXGR[.data$ABLFL == "Y"]) %>%
     dplyr::ungroup() %>%
@@ -205,7 +213,7 @@ radlb <- function(ADSL, # nolint
     ADSL,
     ADLB,
     by = c("STUDYID", "USUBJID")
-    ) %>%
+  ) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     dplyr::mutate(trtedt_int = dplyr::case_when(
@@ -246,7 +254,7 @@ radlb <- function(ADSL, # nolint
     (.data$ADTM < .data$TRTSDTM) ~ "",
     (.data$ADTM > .data$TRTEDTM) ~ "",
     TRUE ~ "Y"
-    )))
+  )))
 
   flag_variables <- function(data,
                              apply_grouping,
@@ -268,26 +276,26 @@ radlb <- function(ADSL, # nolint
         .,
         (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") & # nolint
           (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
+      ) %>%
+        dplyr::filter(.data$ATOXGR == max(as.numeric(as.character(.data$ATOXGR))))
+      else if (apply_filter == FALSE) dplyr::filter(
+        .,
+        (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") &
+          (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
         ) %>%
-          dplyr::filter(.data$ATOXGR == max(as.numeric(as.character(.data$ATOXGR))))
-        else if (apply_filter == FALSE) dplyr::filter(
-          .,
-          (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") &
-            (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
-          ) %>%
           dplyr::filter(.data$ATOXGR == min(as.numeric(as.character(.data$ATOXGR))))
         else dplyr::filter(
-          .,
-          .data$AVAL == min(.data$AVAL) &
-            (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") &
-            (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
-          )
-        } %>%
+        .,
+        .data$AVAL == min(.data$AVAL) &
+          (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") &
+          (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
+      )
+      } %>%
 
       dplyr::slice(1) %>%
       {if (apply_mutate == TRUE) dplyr::mutate(., new_var = ifelse(is.na(.data$DTYPE), "Y", "")) # nolint
         else dplyr::mutate(., new_var = ifelse(is.na(.data$AVAL) == FALSE & is.na(.data$DTYPE), "Y", ""))
-        } %>%
+      } %>%
 
       dplyr::ungroup()
 
@@ -310,7 +318,7 @@ radlb <- function(ADSL, # nolint
     & (.data$AVISIT != "SCREENING"),
     "Y",
     ""
-    ))
+  ))
 
   # apply metadata
 

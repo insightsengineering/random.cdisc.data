@@ -11,6 +11,7 @@ radlb(
     "Immunoglobulin A Measurement"),
   paramcd = c("ALT", "CRP", "IGA"),
   paramu = c("U/L", "mg/L", "g/L"),
+  aval_mean = c(20, 1, 2),
   visit_format = "WEEK",
   n_assessments = 5L,
   n_days = 5L,
@@ -34,6 +35,8 @@ radlb(
 \item{paramcd}{As character string. list of parameter code values.}
 
 \item{paramu}{As character vector of parameter unit values.}
+
+\item{aval_mean}{As numerical vector of appropriate mean values for each lab test.}
 
 \item{visit_format}{Type of visit either "WEEK" or "CYCLE".}
 
