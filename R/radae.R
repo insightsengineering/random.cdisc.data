@@ -221,8 +221,16 @@ radae <- function(ADSL, # nolint
     dplyr::mutate(AECONTRT = sample(c("Y", "N"), prob = c(0.4, 0.6), size = dplyr::n(), replace = TRUE)) %>%
     dplyr::mutate(ANL01FL = ifelse(.data$TRTEMFL == "Y" & .data$ASTDTM <= .data$TRTEDTM + 2592000, "Y", ""))
 
+  ADAE <- ADAE %>% # nolint
+    dplyr::mutate(AERELNST = sample(c("Y", "N"), prob = c(0.4, 0.6), size = dplyr::n(), replace = TRUE)) %>%
+    dplyr::mutate(AEACNOTH = sample(
+      x = c("MEDICATION", "PROCEDURE/SURGERY", "SUBJECT DISCONTINUED FROM STUDY", "NONE"),
+      prob = c(0.2, 0.4, 0.2, 0.2),
+      size = dplyr::n(),
+      replace = TRUE
+    ))
 
-  # Split metadata for AEs of special interest (AESI)
+  # Split metadata for AEs of special interest (AESI).
   l_AAG <- split(AAG, interaction(AAG$NAMVAR, AAG$SRCVAR, AAG$GRPTYPE, drop = TRUE)) # nolint
 
   # Create AESI flags

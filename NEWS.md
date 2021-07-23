@@ -2,6 +2,7 @@
 
 ### Enhancements
 * Enable users to define mean analysis value for each lab test in `radlb` with new argument `aval_mean`.
+* Added `AERELNST` and `AEACNOTH` variables to ADAE dataset.
 
 # random.cdisc.data 0.3.11
 

@@ -85,3 +85,9 @@ variables:
   ANL01FL:
     label: Analysis Flag 01
     type: factor
+  AERELNST:
+    label: Relationship to Non-Study Treatment
+    type: factor
+  AEACNOTH:
+    label: Other Action Taken
+    type: factor
