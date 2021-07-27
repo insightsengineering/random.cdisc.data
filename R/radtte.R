@@ -100,7 +100,12 @@ radtte <- function(ADSL, # nolint
           CNSR = sample(c(0, 1), 1, prob = c(1 - .data$CNSR_P, .data$CNSR_P)),
           AVAL = stats::rexp(1, .data$LAMBDA),
           AVALU = "DAYS",
-          EVNTDESC = if (.data$CNSR == 1) sample(evntdescr_sel[-c(1:2)], 1) else sample(evntdescr_sel, 1),
+          EVNTDESC = if (.data$CNSR == 1) sample(evntdescr_sel[-c(1:2)], 1)
+          else {
+            ifelse(.data$PARAMCD == "OS",
+                   sample(evntdescr_sel[1], 1),
+                   sample(evntdescr_sel[c(1:2)], 1)
+            )},
           CNSDTDSC = if (.data$CNSR == 1) sample(cnsdtdscr_sel, 1) else ""
         ) %>%
         dplyr::select(-.data$LAMBDA, -.data$CNSR_P)
