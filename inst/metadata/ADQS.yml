@@ -19,7 +19,7 @@ variables:
     label: Analysis Value
     type: numeric
   BASE2:
-    label: Screeening Value
+    label: Screening Value
     type: numeric
   BASE:
     label: Baseline Value
