@@ -77,7 +77,7 @@ radsl <- function(N = 400, # nolint
       sample_fct(N, prob = c(.55, .23, .16, .05, .004, .003, .002, .002)),
     TRTSDTM =  as.POSIXct(
       sys_dtm + sample(seq(0, study_duration_secs), size = N, replace = TRUE), origin = "1970-01-01"
-      ),
+    ),
     RANDDT = as.Date(.data$TRTSDTM) - floor(stats::runif(N, min = 0, max = 5)),
     st_posixn = as.numeric(.data$TRTSDTM),
     TRTEDTM = as.POSIXct(.data$st_posixn + study_duration_secs, origin = "1970-01-01"),
@@ -119,7 +119,8 @@ radsl <- function(N = 400, # nolint
       EOSDY == max(EOSDY, na.rm = TRUE) ~ "COMPLETED",
       EOSDY < max(EOSDY, na.rm = TRUE) ~ "DISCONTINUED",
       is.na(TRTEDTM) ~ "ONGOING"
-  ))
+    )) %>%
+    dplyr::mutate(EOTSTT = EOSSTT)
 
   # disposition related variables
   # using probability of 1 for the "DEATH" level to ensure at least one death record exists
@@ -174,8 +175,8 @@ radsl <- function(N = 400, # nolint
       TRUE ~ as.character(NA)
     )) %>%
     dplyr::mutate(LSTALVDT = dplyr::case_when(
-    DCSREAS == "DEATH" ~ DTHDT,
-    TRUE ~ as.Date(.data$TRTEDTM) + floor(stats::runif(N, min = 10, max = 30))
+      DCSREAS == "DEATH" ~ DTHDT,
+      TRUE ~ as.Date(.data$TRTEDTM) + floor(stats::runif(N, min = 10, max = 30))
     )) %>%
     dplyr::select(-.data$st_posixn)
 

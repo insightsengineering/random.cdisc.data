@@ -5,7 +5,7 @@
 \alias{cadtr}
 \title{Cached ADTR}
 \format{
-An object of class \code{data.frame} with 2800 rows and 60 columns.
+An object of class \code{data.frame} with 2800 rows and 61 columns.
 }
 \usage{
 data(cadtr)

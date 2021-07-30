@@ -1,6 +1,7 @@
 # random.cdisc.data 0.3.11.9000
 
 ### Enhancements
+* Add EOTSTT variable to ADSL
 * Enable users to define mean analysis value for each lab test in `radlb` with new argument `aval_mean`.
 * Added `AERELNST` and `AEACNOTH` variables to ADAE dataset.
 * Corrected the `EVNTDESC` and `CNSR` variable values for the Overall Survival parameter in ADTTE dataset.

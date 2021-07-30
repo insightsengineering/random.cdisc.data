@@ -84,6 +84,9 @@ variables:
   EOSSTT:
     label: End of Study Status
     type: factor
+  EOTSTT:
+    label: End of Treatment Status
+    type: factor
   EOSDT:
     label: End of Study Date
   EOSDY:

@@ -5,7 +5,7 @@
 \alias{cadvs}
 \title{Cached ADVS}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 16800 rows and 68 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 16800 rows and 69 columns.
 }
 \usage{
 data(cadvs)
