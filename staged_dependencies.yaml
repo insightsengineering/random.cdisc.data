@@ -1,15 +1,17 @@
-
----
-upstream_repos:
-- repo: insightsengineering/utils.nest
-  host: https://github.com
-- repo: Roche/rtables
-  host: https://github.com
-
-downstream_repos:
-- repo: insightsengineering/teal
-  host: https://github.com
-
 current_repo:
   repo: insightsengineering/random.cdisc.data
   host: https://github.com
+upstream_repos:
+  insightsengineering/utils.nest:
+    repo: insightsengineering/utils.nest
+    host: https://github.com
+  insightsengineering/test.nest:
+    repo: insightsengineering/test.nest
+    host: https://github.com
+downstream_repos:
+  insightsengineering/teal:
+    repo: insightsengineering/teal
+    host: https://github.com
+  insightsengineering/teal.modules.hermes:
+    repo: insightsengineering/teal.modules.hermes
+    host: https://github.com
