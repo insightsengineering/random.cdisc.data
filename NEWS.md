@@ -1,4 +1,5 @@
 # random.cdisc.data 0.3.11.9000
+* Updated license and `README.md` with appropriate information for migration to public Github.
 
 ### Enhancements
 * Add EOTSTT variable to ADSL
