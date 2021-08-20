@@ -1,6 +1,4 @@
 test_that("r<data> functions work", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
 
   expect_silent(
@@ -25,8 +23,6 @@ test_that("r<data> functions work", {
 })
 
 test_that("r<data> with cached = TRUE", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   expect_silent(radae(cached = TRUE))
   expect_silent(radaette(cached = TRUE))
   expect_silent(radcm(cached = TRUE))
@@ -45,8 +41,6 @@ test_that("r<data> with cached = TRUE", {
 })
 
 test_that("seed works", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   expect_true(identical(radsl(seed = 1), radsl(seed = 1)))
 })
 
@@ -64,8 +58,6 @@ get_meta_info <- function(df) {
 }
 
 test_that("metadata matches radsl", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   rdf_label <- vapply(adsl, function(x) attributes(x)[["label"]], character(1))
@@ -75,8 +67,6 @@ test_that("metadata matches radsl", {
 })
 
 test_that("metadata matches radae", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   df <- radae(adsl, seed = 1)
@@ -88,8 +78,6 @@ test_that("metadata matches radae", {
 })
 
 test_that("metadata matches radaette", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   df <- radaette(adsl, seed = 1)
@@ -101,8 +89,6 @@ test_that("metadata matches radaette", {
 })
 
 test_that("metadata matches radcm", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   df <- radcm(adsl, seed = 1)
@@ -114,8 +100,6 @@ test_that("metadata matches radcm", {
 })
 
 test_that("metadata matches raddv", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   df <- raddv(adsl, seed = 1)
@@ -127,8 +111,6 @@ test_that("metadata matches raddv", {
 })
 
 test_that("metadata matches radeg", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   df <- radeg(adsl, seed = 1)
@@ -140,8 +122,6 @@ test_that("metadata matches radeg", {
 })
 
 test_that("metadata matches radex", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   df <- radex(adsl, seed = 1)
@@ -153,8 +133,6 @@ test_that("metadata matches radex", {
 })
 
 test_that("metadata matches radlb", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   df <- radlb(adsl, seed = 1)
@@ -166,8 +144,6 @@ test_that("metadata matches radlb", {
 })
 
 test_that("metadata matches radmh", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   df <- radmh(adsl, seed = 1)
@@ -179,8 +155,6 @@ test_that("metadata matches radmh", {
 })
 
 test_that("metadata matches radqs", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   df <- radqs(adsl, seed = 1)
@@ -192,8 +166,6 @@ test_that("metadata matches radqs", {
 })
 
 test_that("metadata matches radrs", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   df <- radrs(adsl, seed = 1)
@@ -205,8 +177,6 @@ test_that("metadata matches radrs", {
 })
 
 test_that("metadata matches radtr", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   df <- radtr(adsl, seed = 1)
@@ -218,8 +188,6 @@ test_that("metadata matches radtr", {
 })
 
 test_that("metadata matches radtte", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   df <- radtte(adsl, seed = 1)
@@ -231,8 +199,6 @@ test_that("metadata matches radtte", {
 })
 
 test_that("metadata matches radvs", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   df <- radvs(adsl, seed = 1)
@@ -245,8 +211,6 @@ test_that("metadata matches radvs", {
 
 
 test_that("metadata matches radsub", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   df <- radsub(adsl, seed = 1)
@@ -258,8 +222,6 @@ test_that("metadata matches radsub", {
 })
 
 test_that("metadata matches radhy", {
-  test.nest::skip_if_too_deep(depth = 0)
-
   n <- 10
   adsl <- radsl(n, seed = 1)
   df <- radhy(adsl, seed = 1)
