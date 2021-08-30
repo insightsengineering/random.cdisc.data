@@ -1,5 +1,6 @@
 # random.cdisc.data 0.3.11.9000
 * Updated license and `README.md` with appropriate information for migration to public Github.
+* Added `error_on_lint: TRUE` to `.lintr`.
 
 ### Enhancements
 * Add EOTSTT variable to ADSL
@@ -17,7 +18,7 @@
 * Added period variables `APERIOD` and `APERIODC` to ADHY dataset.
 
 # random.cdisc.data 0.3.10
-* Added additional parameters to ADHY data. 
+* Added additional parameters to ADHY data.
 * Fix bug to make internal helper `rel_var` work with `tibbles`.
 * Added new random dataset generator: Hys Law Analysis Dataset (`radhy`) .
 * Updated the sampling of `TRTSDTM` in `radsl` to be more efficient.
@@ -28,7 +29,7 @@
 # random.cdisc.data 0.3.8
 * Four variables `ATC1CD`, `ATC2CD`, `ATC3CD`, `ATC4CD` have been added to ADCM data.
 * ADAETTE data set generation via `radaette()` has been enhanced:
-  - `lookup` argument now takes the parameters `CATCD` and `CAT` instead of `PARAMCD` and `PARAM`. 
+  - `lookup` argument now takes the parameters `CATCD` and `CAT` instead of `PARAMCD` and `PARAM`.
     `CATCD` specifies the code to be used for study specific treatment emergent adverse events (e.g. "1")
     and `CAT` specifies the corresponding text (e.g. "any adverse event").
   - The resulting data set contains now the number of total occurrences per patient of each specific
