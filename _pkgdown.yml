@@ -1,4 +1,4 @@
-url: https://go.roche.com/nest-docs/releases/latest/api-reference/random.cdisc.data
+url: https://insightsengineering.github.io/random.cdisc.data
 
 template:
   params:
@@ -7,7 +7,7 @@ template:
 navbar:
   right:
     - icon: fa-github
-      href: https://github.roche.com/NEST/random.cdisc.data
+      href: https://github.com/insightsengineering/random.cdisc.data/
 
 reference:
 
