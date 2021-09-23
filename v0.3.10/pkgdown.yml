@@ -1,0 +1,10 @@
+pandoc: 2.3.1
+pkgdown: 1.5.1
+pkgdown_sha: ~
+articles:
+  rebuild_cached_data: rebuild_cached_data.html
+last_built: 2021-05-05T14:05Z
+urls:
+  reference: https://go.roche.com/nest-docs/releases/latest/api-reference/random.cdisc.data/reference
+  article: https://go.roche.com/nest-docs/releases/latest/api-reference/random.cdisc.data/articles
+
