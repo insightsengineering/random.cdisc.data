@@ -1,4 +1,4 @@
-# random.cdisc.data 0.3.11.9000
+# random.cdisc.data 0.3.12
 * Updated license and `README.md` with appropriate information for migration to public Github.
 * Added `error_on_lint: TRUE` to `.lintr`.
 
