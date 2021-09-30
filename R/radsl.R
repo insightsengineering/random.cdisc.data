@@ -120,7 +120,7 @@ radsl <- function(N = 400, # nolint
       EOSDY < max(EOSDY, na.rm = TRUE) ~ "DISCONTINUED",
       is.na(TRTEDTM) ~ "ONGOING"
     )) %>%
-    dplyr::mutate(EOTSTT = EOSSTT)
+    dplyr::mutate(EOTSTT = .data$EOSSTT)
 
   # disposition related variables
   # using probability of 1 for the "DEATH" level to ensure at least one death record exists
