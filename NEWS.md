@@ -1,13 +1,15 @@
-# random.cdisc.data 0.3.11.9000
-* Updated license and `README.md` with appropriate information for migration to public Github.
-* Added `error_on_lint: TRUE` to `.lintr`.
+# random.cdisc.data 0.3.12
 
 ### Enhancements
-* Add EOTSTT variable to ADSL
-* Enable users to define mean analysis value for each lab test in `radlb` with new argument `aval_mean`.
+* Added `EOTSTT` variable to ADSL dataset.
+* Enabled users to define mean analysis value for each lab test in `radlb` with new argument `aval_mean`.
 * Added `AERELNST` and `AEACNOTH` variables to ADAE dataset.
-* Corrected the `EVNTDESC` and `CNSR` variable values for the Overall Survival parameter in ADTTE dataset.
+
+### Miscellaneous
+* Updated `LICENCE` and `README` with new package references.
+* Corrected the `EVNTDESC` and `CNSR` variable values for the "Overall Survival parameter" in ADTTE dataset.
 * Fixed typo in label for `BASE2` variable in ADQS dataset.
+* Added `error_on_lint: TRUE` to `.lintr`.
 
 # random.cdisc.data 0.3.11
 
