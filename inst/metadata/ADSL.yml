@@ -58,7 +58,7 @@ variables:
     label: Stratification Factor 2
     type: factor
   BMRKR1:
-    label: Continous Level Biomarker 1
+    label: Continuous Level Biomarker 1
     type: numeric
   BMRKR2:
     label: Categorical Level Biomarker 2
