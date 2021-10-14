@@ -1,4 +1,5 @@
 # random.cdisc.data 0.3.12.9000
+* Fixed a typo in `ADSL$BMRKR1`'s label.
 
 # random.cdisc.data 0.3.12
 
