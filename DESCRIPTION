@@ -17,7 +17,7 @@ Authors@R: c(
   )
 Description: Create random CDISC data.
 Depends:
-    R (>= 3.5.0),
+    R (>= 3.6),
 Imports:
     dplyr,
     magrittr,
