@@ -9,6 +9,3 @@ upstream_repos:
     repo: insightsengineering/test.nest
     host: https://github.com
 downstream_repos:
-  insightsengineering/teal:
-    repo: insightsengineering/teal
-    host: https://github.com
