@@ -1,6 +1,9 @@
 # random.cdisc.data 0.3.12.9000
 * Fixed a typo in `ADSL$BMRKR1`'s label.
 
+### Miscellaneous
+* Updated R version requirement to >= 3.6.
+
 # random.cdisc.data 0.3.12
 
 ### Enhancements
