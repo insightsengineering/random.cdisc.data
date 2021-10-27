@@ -1,37 +1,38 @@
-Package: random.cdisc.data
 Type: Package
+Package: random.cdisc.data
 Title: Create Random SDTM and ADAM Datasets
+Version: 0.3.12.9001
 Date: 2021-10-13
-Version: 0.3.12.9000
 Authors@R: c(
-  person("NEST", email = "nestcicd@roche.com", role = c("aut", "cre")),
-  person("Adrian", "Waddell", email = "adrian.waddell@roche.com", role = "aut"),
-  person("Nick", "Paszty", email = "npaszty@gene.com", role = "aut"),
-  person("Federico", "Martinello", email = "mika.maekinen@roche.com", role = "aut"),
-  person("Heng", "Wang", email = "wangh107@gene.com", role = "aut"),
-  person("Mika", "Maekinen", email = "mika.maekinen@roche.com", role = "aut"),
-  person("Chendi", "Lioa", email = "chendi.liao@roche.com", role = "aut"),
-  person("Edgar", "Manukyan", email = "edgar.manukyan@roche.com", role = "aut"),
-  person("Wojciech", "Wojciak", email = "wojciech.wojciak@contractors.roche.com", role = "aut"),
-  person("Roche", role = c("cph", "fnd"))
+    person("NEST", , , "nestcicd@roche.com", role = c("aut", "cre")),
+    person("Adrian", "Waddell", , "adrian.waddell@roche.com", role = "aut"),
+    person("Nick", "Paszty", , "npaszty@gene.com", role = "aut"),
+    person("Federico", "Martinello", , "mika.maekinen@roche.com", role = "aut"),
+    person("Heng", "Wang", , "wangh107@gene.com", role = "aut"),
+    person("Mika", "Maekinen", , "mika.maekinen@roche.com", role = "aut"),
+    person("Chendi", "Lioa", , "chendi.liao@roche.com", role = "aut"),
+    person("Edgar", "Manukyan", , "edgar.manukyan@roche.com", role = "aut"),
+    person("Wojciech", "Wojciak", , "wojciech.wojciak@contractors.roche.com", role = "aut"),
+    person("Roche", role = c("cph", "fnd"))
   )
 Description: Create random CDISC data.
+License: Apache License 2.0 | file LICENSE
 Depends:
-    R (>= 3.6),
+    R (>= 3.6)
 Imports:
     dplyr,
     magrittr,
     rlang,
-    utils.nest (>= 0.2.11),
     tibble,
+    utils.nest (>= 0.2.11),
     yaml
 Suggests:
     knitr,
     rmarkdown,
     test.nest (>= 0.2.11),
     testthat (>= 0.2)
-License: Apache License 2.0 | file LICENSE
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
 LazyData: true
-VignetteBuilder: knitr
 RoxygenNote: 7.1.2
