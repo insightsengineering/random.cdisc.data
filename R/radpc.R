@@ -1,20 +1,36 @@
-
-library(dplyr)
-library(forcats)
-ADSL <- radsl(N = 100, seed = 1, study_duration = 2)
-
+#' Title
+#'
+#' @param ADSL
+#' @param avalu
+#' @param rel_increase_by_visit
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' library(random.cdisc.data)
+#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' ADPC <- radpc(ADSL)
 radpc <- function(
   ADSL,
   avalu = "ug/mL",
-  timepoints = c(0, 0.5, 1, 1.5 , 2)
-
+  base_mean = 50,
+  rel_increase_by_visit = 0.5,
+  rel_increase_by_plasma = 0.5
 ){
+
+  stopifnot(
+    rel_increase_by_visit >= 0 && rel_increase_by_visit <= 1,
+    rel_increase_by_plasma >= 0 && rel_increase_by_plasma <= 1,
+    is_character_single(avalu),
+    is_numeric_single(base_mean)
+  )
 
   ADPC <- expand.grid( # nolint
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
     PARAM = factor(paste0(c("Plasma Drug X", "Plasma Drug Y"), "(", avalu, ")")),
-    PCPTNUM = c(0, 0.5, 1, 1.5, 2, 3, 4, 8, 12, 24),
+    PCPTNUM = c(0, 0.5, 1, 1.5, 2, 3, 4, 8, 12),
     stringsAsFactors = FALSE
   )
 
@@ -30,11 +46,11 @@ radpc <- function(
         TRUE ~ 8
       ),
       VISIT = paste("Day", VISITDY),
-      PCPT = fct_reorder(factor(case_when(
+      PCPT = factor(case_when(
         PCPTNUM == 0 ~ "Predose",
         TRUE ~ paste0(PCPTNUM, "H")
-      )
-      ), PCPTNUM),
+        ),
+      ),
       NRELTM1 = PCPTNUM,
       ARELTM1 = round(rnorm(n(), mean = PCPTNUM, sd = 0.1), 1),
       is_plasmay = case_when(
@@ -42,19 +58,20 @@ radpc <- function(
         TRUE ~ FALSE,
       ),
       substract = case_when(
-        PCPTNUM == 3 ~ 2.5,
-        PCPTNUM == 4 ~ 3,
-        PCPTNUM == 8 ~ 3.5,
-        PCPTNUM == 12 ~ 4,
+        PCPTNUM == 3 ~ 2,
+        PCPTNUM == 4 ~ 3.5,
+        PCPTNUM == 8 ~ 9,
         TRUE ~ 0
       ),
       AVAL = case_when(
         ARMCD == "ARM B" | (ARMCD == "ARM A" & grepl("Plasma Drug Y", PARAM)) ~ NA_real_,
-        PCPT == "Predose" |  PCPTNUM == 24 ~ 0,
+        PCPT == "Predose" |  PCPTNUM == 12 ~ 0,
         TRUE ~ round(
-          rnorm(n(), 50, 5) +  PCPTNUM * rnorm(n(), 25, 1) + is_plasmay * rnorm(n(), 25, 5) - substract * rnorm(n(), 25, 1),
-          2
-        )
+          rnorm(n(), base_mean, 5) +
+            PCPTNUM * rnorm(n(), base_mean * rel_increase_by_visit, 1)
+          + is_plasmay * rnorm(n(), base_mean * rel_increase_by_plasma, 5)
+          - substract * rnorm(n(), base_mean * rel_increase_by_visit, 0.2),
+          2)
       ),
       AVALC = factor(case_when(
         AVAL == NA_real_ ~ "NA",
@@ -68,11 +85,3 @@ radpc <- function(
     select(-c(is_plasmay, substract))
 
 }
-
-
-a <- split(ADPC, ADPC$PARAM)
-
-sum <- lapply(a, summary)
-
-
-ggplot(data = ADPC, aes(x = PCPT, y = AVAL, fill = PARAM)) + geom_boxplot()
