@@ -13,13 +13,16 @@ radpc(
 )
 }
 \arguments{
-\item{avalu}{}
+\item{rel_increase_by_visit}{}
 }
 \value{
 
 }
 \description{
 Title
+}
+\details{
+One record per per study per subject per parameter per time point
 }
 \examples{
 library(random.cdisc.data)

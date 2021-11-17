@@ -4,6 +4,8 @@
 #' @param avalu
 #' @param rel_increase_by_visit
 #'
+#' @details One record per per study per subject per parameter per time point
+#'
 #' @return
 #' @export
 #'
