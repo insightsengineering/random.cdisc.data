@@ -1,25 +1,37 @@
-#' Title
+#' PK dataset
 #'
 #' @param ADSL
-#' @param avalu
-#' @param rel_increase_by_visit
+#' @param avalu (`string`)\cr Analysis value unit value
+#' @param rel_increase_by_visit (`numeric`)\cr relative increase in AVAL over visits.
+#' @param rel_increase_by_plasma (`numeric`)\cr relative increase in AVAL between parameters.
+#' @inheritParams radsl
 #'
 #' @details One record per per study per subject per parameter per time point
 #'
 #' @return
+#' @importFrom stats rnorm
 #' @export
 #'
 #' @examples
 #' library(random.cdisc.data)
+#' library(dplyr)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' ADPC <- radpc(ADSL)
+#'
 radpc <- function(
-  ADSL,
+  ADSL, # nolint
   avalu = "ug/mL",
   base_mean = 50,
   rel_increase_by_visit = 0.5,
-  rel_increase_by_plasma = 0.5
+  rel_increase_by_plasma = 0.5,
+  seed = NULL,
+  cached = FALSE
 ){
+
+  stopifnot(is_logical_single(cached))
+  if (cached) {
+    return(get_cached_data("cadlb"))
+  }
 
   stopifnot(
     rel_increase_by_visit >= 0 && rel_increase_by_visit <= 1,
@@ -27,6 +39,10 @@ radpc <- function(
     is_character_single(avalu),
     is_numeric_single(base_mean)
   )
+
+  if (!is.null(seed)) {
+    set.seed(seed)
+  }
 
   ADPC <- expand.grid( # nolint
     STUDYID = unique(ADSL$STUDYID),
@@ -37,7 +53,7 @@ radpc <- function(
   )
 
   ADPC <- ADSL[, c("STUDYID", "USUBJID", "ARMCD", "ARM", "AGE", "SEX")] %>%
-    inner_join(ADPC, by = c("STUDYID", "USUBJID"))
+    dplyr::inner_join(ADPC, by = c("STUDYID", "USUBJID"))
   ADPC <- ADPC %>%
     mutate(
       VISITDY = case_when(
@@ -78,12 +94,12 @@ radpc <- function(
       AVALC = factor(case_when(
         AVAL == NA_real_ ~ "NA",
         AVAL == 0 ~ "BLQ",
-        TRUE ~ as.character(round(AVAL, 0))
+        TRUE ~ as.character(AVAL, 0)
       )
       ),
       AVALU = avalu,
       RELTMU = "hr"
     ) %>%
-    select(-c(is_plasmay, substract))
+    select(-c(is_plasmay, substract, ARMCD, ARM))
 
 }

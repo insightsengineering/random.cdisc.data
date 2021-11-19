@@ -2,30 +2,43 @@
 % Please edit documentation in R/radpc.R
 \name{radpc}
 \alias{radpc}
-\title{Title}
+\title{PK dataset}
 \usage{
 radpc(
   ADSL,
   avalu = "ug/mL",
   base_mean = 50,
   rel_increase_by_visit = 0.5,
-  rel_increase_by_plasma = 0.5
+  rel_increase_by_plasma = 0.5,
+  seed = NULL,
+  cached = FALSE
 )
 }
 \arguments{
-\item{rel_increase_by_visit}{}
+\item{avalu}{(`string`)\cr Analysis value unit value}
+
+\item{rel_increase_by_visit}{(`numeric`)\cr relative increase in AVAL over visits.}
+
+\item{rel_increase_by_plasma}{(`numeric`)\cr relative increase in AVAL between parameters.}
+
+\item{seed}{Seed for random number generation.}
+
+\item{cached}{boolean whether the cached ADSL data \code{cadsl} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
 }
 \value{
 
 }
 \description{
-Title
+PK dataset
 }
 \details{
 One record per per study per subject per parameter per time point
 }
 \examples{
 library(random.cdisc.data)
+library(dplyr)
 ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 ADPC <- radpc(ADSL)
+
 }
