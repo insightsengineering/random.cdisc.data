@@ -11,17 +11,33 @@ radpc(
   rel_increase_by_visit = 0.5,
   rel_increase_by_plasma = 0.5,
   seed = NULL,
+  na_percentage = 0,
+  na_vars = list(AVAL = c(NA, 0.1)),
   cached = FALSE
 )
 }
 \arguments{
+\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+
 \item{avalu}{(`string`)\cr Analysis value unit value}
 
-\item{rel_increase_by_visit}{(`numeric`)\cr relative increase in AVAL over visits.}
+\item{base_mean}{(`numeric`)}
 
-\item{rel_increase_by_plasma}{(`numeric`)\cr relative increase in AVAL between parameters.}
+\item{rel_increase_by_visit}{(`numeric`)\cr relative increase in analysis value over visits.}
+
+\item{rel_increase_by_plasma}{(`numeric`)\cr relative increase in analysis value between parameters.}
 
 \item{seed}{Seed for random number generation.}
+
+\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+
+\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
+ element of this list should be a numeric vector with two elements
+ \itemize{
+    \item{seed }{The seed to be used for this element - can be left NA}
+    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
+    percentage is used. This will overwrite default percentage (percentage argument))}
+}}
 
 \item{cached}{boolean whether the cached ADSL data \code{cadsl} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
@@ -39,6 +55,6 @@ One record per per study per subject per parameter per time point
 library(random.cdisc.data)
 library(dplyr)
 ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-ADPC <- radpc(ADSL)
+ADPC <- radpc(ADSL, seed = 2)
 
 }

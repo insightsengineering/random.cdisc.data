@@ -1,0 +1,39 @@
+domain:
+  name: ADPC
+  label: PK Analysis Dataset
+
+variables:
+ NRELTM1:
+    label: Nominal Relative Time from First Dose
+    type: numeric
+ ARELTM1:
+    label: Analysis Rel. Actual Time from 1st Dose
+    type: numeric
+ PCTPTNUM:
+    label: Planned Time Point Number
+    type: numeric
+ PCTPT:
+    label: Planned Time Point Name
+    type: factor
+ AVAL:
+    label: Analysis Value
+    type: numeric
+ AVALC:
+    label: Analysis Value (C)
+    type: character
+ AVALU:
+    label: Analysis Value Unit
+    type: factor
+ RELTMU:
+    label: Relative Actual/Nominal Time Units
+    type: factor
+ PARAM:
+    label: Parameter
+    type: factor
+ VISIT:
+    label: Visit
+    type: factor
+ VISITDY:
+    label: Visit (N)
+    type: integer
+
