@@ -156,6 +156,18 @@ test_that("metadata matches radmh", {
   expect_identical(meta_info, rdf_label)
 })
 
+test_that("metadata matches radpc", {
+  n <- 10
+  adsl <- radsl(n, seed = 1)
+  df <- radpc(adsl, seed = 1)
+
+  rdf_label <- vapply(df, function(x) attributes(x)[["label"]], character(1))
+  meta_info <- get_meta_info("ADPC")
+
+  expect_identical(meta_info, rdf_label)
+})
+
+
 test_that("metadata matches radqs", {
   n <- 10
   adsl <- radsl(n, seed = 1)
@@ -233,3 +245,4 @@ test_that("metadata matches radhy", {
 
   expect_identical(meta_info, rdf_label)
 })
+
