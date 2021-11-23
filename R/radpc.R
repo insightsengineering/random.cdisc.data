@@ -25,7 +25,7 @@ radpc <- function(
     AVAL = c(NA, 0.1)
   ),
   cached = FALSE
-){
+) {
 
   stopifnot(is_logical_single(cached))
   if (cached) {
@@ -41,7 +41,7 @@ radpc <- function(
     set.seed(seed)
   }
 
-  ADPC <- tidyr::expand_grid(
+  ADPC <- tidyr::expand_grid( # nolint
     data.frame(
       STUDYID = ADSL$STUDYID,
       USUBJID = ADSL$USUBJID,
@@ -56,7 +56,7 @@ radpc <- function(
     dplyr::mutate(
        VISITDY = dplyr::case_when(
          .data$PCTPTNUM < 24 ~ 1,
-         .data$PCTPTNUM >=24 & PCTPTNUM < 48 ~ 2,
+         .data$PCTPTNUM >= 24 & PCTPTNUM < 48 ~ 2,
          .data$PCTPTNUM == 48 ~ 3,
          .data$PCTPTNUM == 72 ~ 4,
          TRUE ~ 8
@@ -64,20 +64,23 @@ radpc <- function(
        VISIT = paste("Day",  .data$VISITDY),
        PCTPT = factor(dplyr::case_when(
          .data$PCTPTNUM == 0 ~ "Predose",
-         TRUE ~ paste0( .data$PCTPTNUM, "H")
+         TRUE ~ paste0(.data$PCTPTNUM, "H")
        )),
        ARELTM1 = .data$PCTPTNUM,
        NRELTM1 =  .data$PCTPTNUM,
        A0 = ifelse(.data$PARAM == "Plasma Drug Y", .data$A0,  .data$A0 / 2),
-       AVAL = round((.data$A0 *  .data$ka * (exp(- .data$ka *  .data$ARELTM1) - exp(- .data$ke *  .data$ARELTM1))) / ( .data$ke -  .data$ka), digits = 3), # PK Equation
-       AVALC = ifelse(.data$AVAL == 0, "BLQ", as.character( .data$AVAL)),
+       AVAL = round(
+         (.data$A0 *  .data$ka * (exp(- .data$ka *  .data$ARELTM1)
+                                  - exp(- .data$ke *  .data$ARELTM1))) / ( .data$ke -  .data$ka),
+         digits = 3), # PK Equation
+       AVALC = ifelse(.data$AVAL == 0, "BLQ", as.character(.data$AVAL)),
        AVALU =  avalu,
        RELTMU = "hr"
      ) %>%
-    dplyr::select(-c( .data$A0,  .data$ka,  .data$ke))
+    dplyr::select(-c( .data$A0, .data$ka, .data$ke))
 
   ADPC <- ADSL %>%
-    dplyr::inner_join(ADPC, by = c("STUDYID", "USUBJID", "ARMCD"))
+    dplyr::inner_join(ADPC, by = c("STUDYID", "USUBJID", "ARMCD")) # nolint
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADPC <- mutate_na(ds = ADPC, na_vars = na_vars, na_percentage = na_percentage) # nolint
