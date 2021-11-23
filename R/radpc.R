@@ -71,7 +71,8 @@ radpc <- function(
     NRELTM1 =  .data$PCTPTNUM,
     A0 = ifelse(.data$PARAM == "Plasma Drug Y", .data$A0,  .data$A0 / 2),
     AVAL = round(
-      (.data$A0 * .data$ka * (exp(- .data$ka * .data$ARELTM1) - exp(- .data$ke * .data$ARELTM1))) / (.data$ke - .data$ka),
+      (.data$A0 * .data$ka * (exp(- .data$ka * .data$ARELTM1) - exp(- .data$ke * .data$ARELTM1)))
+      / (.data$ke - .data$ka),
       digits = 3
     ), # PK Equation
     AVALC = ifelse(.data$AVAL == 0, "BLQ", as.character(.data$AVAL)),
