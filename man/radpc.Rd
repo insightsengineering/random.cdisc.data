@@ -7,9 +7,7 @@
 radpc(
   ADSL,
   avalu = "ug/mL",
-  base_mean = 50,
-  rel_increase_by_visit = 0.5,
-  rel_increase_by_plasma = 0.5,
+  constants = c(D = 100, ka = 0.8, ke = 1),
   seed = NULL,
   na_percentage = 0,
   na_vars = list(AVAL = c(NA, 0.1)),
@@ -21,11 +19,8 @@ radpc(
 
 \item{avalu}{(`string`)\cr Analysis value unit value}
 
-\item{base_mean}{(`numeric`)}
-
-\item{rel_increase_by_visit}{(`numeric`)\cr relative increase in analysis value over visits.}
-
-\item{rel_increase_by_plasma}{(`numeric`)\cr relative increase in analysis value between parameters.}
+\item{constants}{(`character vector`)\cr Constant parameters to be used in the PK
+equation for creating analysis values.}
 
 \item{seed}{Seed for random number generation.}
 
@@ -42,9 +37,6 @@ radpc(
 \item{cached}{boolean whether the cached ADSL data \code{cadsl} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
 }
-\value{
-
-}
 \description{
 PK dataset
 }
@@ -53,7 +45,6 @@ One record per per study per subject per parameter per time point
 }
 \examples{
 library(random.cdisc.data)
-library(dplyr)
 ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 ADPC <- radpc(ADSL, seed = 2)
 

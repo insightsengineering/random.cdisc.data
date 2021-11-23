@@ -11,6 +11,7 @@ The random datasets available to create are:
  - Exposure Analysis Dataset (`radex`)
  - Laboratory Data Analysis Dataset (`radlb`)
  - Medical History Analysis Dataset (`radmh`)
+ - PK Analysis Dataset (`radpc`)
  - Questionnaires Analysis Dataset (`radqs`)
  - Response Analysis Dataset (`radrs`)
  - Tumor Response Analysis Dataset (`radtr`)

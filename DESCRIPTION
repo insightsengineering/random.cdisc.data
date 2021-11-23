@@ -24,6 +24,7 @@ Imports:
     magrittr,
     rlang,
     tibble,
+    tidyr,
     utils.nest (>= 0.2.11),
     yaml
 Suggests:
