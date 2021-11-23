@@ -71,13 +71,13 @@ radpc <- function(
        A0 = ifelse(.data$PARAM == "Plasma Drug Y", .data$A0,  .data$A0 / 2),
        AVAL = round(
          (.data$A0 *  .data$ka * (exp(- .data$ka *  .data$ARELTM1)
-                                  - exp(- .data$ke *  .data$ARELTM1))) / ( .data$ke -  .data$ka),
+                                  - exp(- .data$ke *  .data$ARELTM1))) / ( .data$ke - .data$ka),
          digits = 3), # PK Equation
        AVALC = ifelse(.data$AVAL == 0, "BLQ", as.character(.data$AVAL)),
        AVALU =  avalu,
        RELTMU = "hr"
      ) %>%
-    dplyr::select(-c( .data$A0, .data$ka, .data$ke))
+    dplyr::select(-c(.data$A0, .data$ka, .data$ke))
 
   ADPC <- ADSL %>%
     dplyr::inner_join(ADPC, by = c("STUDYID", "USUBJID", "ARMCD")) # nolint
