@@ -2,26 +2,23 @@
 #'
 #' @template ADSL_params
 #' @param avalu (`string`)\cr Analysis value unit value
-#' @param base_mean (`numeric`)
-#' @param rel_increase_by_visit (`numeric`)\cr relative increase in analysis value over visits.
-#' @param rel_increase_by_plasma (`numeric`)\cr relative increase in analysis value between parameters.
+#' @param constants (`character vector`)\cr Constant parameters to be used in the PK
+#' equation for creating analysis values.
 #' @inheritParams radsl
 #'
 #' @details One record per per study per subject per parameter per time point
 #'
-#' @return
-#' @importFrom stats rnorm
 #' @export
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' library(dplyr)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' ADPC <- radpc(ADSL, seed = 2)
 #'
 radpc <- function(
   ADSL, # nolint
   avalu = "ug/mL",
+  constants = c(D = 100, ka = 0.8, ke = 1),
   seed = NULL,
   na_percentage = 0,
   na_vars = list(
@@ -37,52 +34,50 @@ radpc <- function(
 
   stopifnot(
     is_character_single(avalu),
-    is_numeric_single(base_mean)
+    all(names(constants) %in% c("D", "ka", "ke"))
   )
 
   if (!is.null(seed)) {
     set.seed(seed)
   }
 
-
   ADPC <- tidyr::expand_grid(
     data.frame(
       STUDYID = ADSL$STUDYID,
       USUBJID = ADSL$USUBJID,
       ARMCD = ADSL$ARMCD,
-      A0 = .D,
-      ka = .ka - runif(length(ADSL$USUBJID), -0.2, 0.2),
-      ke = .ke - runif(length(ADSL$USUBJID), -0.2, 0.2)
+      A0 = unname(constants["D"]),
+      ka = unname(constants["ka"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2),
+      ke = unname(constants["ke"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2)
      ),
      PCTPTNUM = c(0, 0.5, 1, 1.5, 2, 3, 4, 8, 12),
      PARAM = c("Plasma Drug X", "Plasma Drug Y"),
    ) %>%
-     mutate(
-       VISITDY = case_when(
-         PCTPTNUM < 24 ~ 1,
-         PCTPTNUM >=24 & PCTPTNUM < 48 ~ 2,
-         PCTPTNUM == 48 ~ 3,
-         PCTPTNUM == 72 ~ 4,
+    dplyr::mutate(
+       VISITDY = dplyr::case_when(
+         .data$PCTPTNUM < 24 ~ 1,
+         .data$PCTPTNUM >=24 & PCTPTNUM < 48 ~ 2,
+         .data$PCTPTNUM == 48 ~ 3,
+         .data$PCTPTNUM == 72 ~ 4,
          TRUE ~ 8
        ),
-       VISIT = paste("Day", VISITDY),
-       PCTPT = factor(case_when(
-         PCTPTNUM == 0 ~ "Predose",
-         TRUE ~ paste0(PCTPTNUM, "H")
+       VISIT = paste("Day",  .data$VISITDY),
+       PCTPT = factor(dplyr::case_when(
+         .data$PCTPTNUM == 0 ~ "Predose",
+         TRUE ~ paste0( .data$PCTPTNUM, "H")
        )),
-       ARELTM1 = PCTPTNUM,
-       NRELTM1 = PCTPTNUM,
-       A0 = ifelse(PARAM == "Plasma Drug Y", A0, A0 / 2),
-       AVAL = round((A0 * ka * (exp(-ka * ARELTM1) - exp(-ke * ARELTM1))) / (ke - ka), digits = 3), # PK Equation
-       AVALC = ifelse(AVAL == 0, "BLQ", as.character(AVAL)),
-       AVALU = avalu,
+       ARELTM1 = .data$PCTPTNUM,
+       NRELTM1 =  .data$PCTPTNUM,
+       A0 = ifelse(.data$PARAM == "Plasma Drug Y", .data$A0,  .data$A0 / 2),
+       AVAL = round((.data$A0 *  .data$ka * (exp(- .data$ka *  .data$ARELTM1) - exp(- .data$ke *  .data$ARELTM1))) / ( .data$ke -  .data$ka), digits = 3), # PK Equation
+       AVALC = ifelse(.data$AVAL == 0, "BLQ", as.character( .data$AVAL)),
+       AVALU =  avalu,
        RELTMU = "hr"
      ) %>%
-    select(-c(A0, ka, ke))
+    dplyr::select(-c( .data$A0,  .data$ka,  .data$ke))
 
   ADPC <- ADSL %>%
-    dplyr::inner_join(ADPC, by = c("STUDYID", "USUBJID"))
-
+    dplyr::inner_join(ADPC, by = c("STUDYID", "USUBJID", "ARMCD"))
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADPC <- mutate_na(ds = ADPC, na_vars = na_vars, na_percentage = na_percentage) # nolint
