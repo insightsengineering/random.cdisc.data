@@ -41,15 +41,15 @@ radpc <- function(
     set.seed(seed)
   }
 
-  ADPC <- tidyr::expand_grid(
+  ADPC <- tidyr::expand_grid( # nolint
     # nolint
     data.frame(
       STUDYID = ADSL$STUDYID,
       USUBJID = ADSL$USUBJID,
       ARMCD = ADSL$ARMCD,
       A0 = unname(constants["D"]),
-      ka = unname(constants["ka"]) - stats::runif(length(ADSL$USUBJID),-0.2, 0.2),
-      ke = unname(constants["ke"]) - stats::runif(length(ADSL$USUBJID),-0.2, 0.2)
+      ka = unname(constants["ka"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2),
+      ke = unname(constants["ke"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2)
     ),
     PCTPTNUM = c(0, 0.5, 1, 1.5, 2, 3, 4, 8, 12),
     PARAM = c("Plasma Drug X", "Plasma Drug Y"),
