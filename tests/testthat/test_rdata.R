@@ -245,4 +245,3 @@ test_that("metadata matches radhy", {
 
   expect_identical(meta_info, rdf_label)
 })
-
