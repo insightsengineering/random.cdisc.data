@@ -13,6 +13,7 @@ test_that("r<data> functions work", {
   expect_silent(radhy(adsl))
   expect_silent(radlb(adsl))
   expect_silent(radmh(adsl))
+  expect_silent(radpc(adsl))
   expect_silent(radqs(adsl))
   expect_silent(radrs(adsl))
   expect_silent(radtr(adsl))
@@ -31,6 +32,7 @@ test_that("r<data> with cached = TRUE", {
   expect_silent(radhy(cached = TRUE))
   expect_silent(radlb(cached = TRUE))
   expect_silent(radmh(cached = TRUE))
+  expect_silent(radpc(cached = TRUE))
   expect_silent(radqs(cached = TRUE))
   expect_silent(radrs(cached = TRUE))
   expect_silent(radtr(cached = TRUE))
@@ -153,6 +155,18 @@ test_that("metadata matches radmh", {
 
   expect_identical(meta_info, rdf_label)
 })
+
+test_that("metadata matches radpc", {
+  n <- 10
+  adsl <- radsl(n, seed = 1)
+  df <- radpc(adsl, seed = 1)
+
+  rdf_label <- vapply(df, function(x) attributes(x)[["label"]], character(1))
+  meta_info <- get_meta_info("ADPC")
+
+  expect_identical(meta_info, rdf_label)
+})
+
 
 test_that("metadata matches radqs", {
   n <- 10
