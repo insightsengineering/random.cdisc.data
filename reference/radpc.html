@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>License • random.cdisc.data</title>
+<title>PK dataset — radpc • random.cdisc.data</title>
 
 
 <!-- jquery -->
@@ -18,8 +18,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
-<link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script>
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
@@ -33,13 +33,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
 
 
 
 
-<meta property="og:title" content="License" />
+<meta property="og:title" content="PK dataset — radpc" />
+<meta property="og:description" content="PK dataset" />
 
 
 
@@ -68,7 +69,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-title-body">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -80,7 +81,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">random.cdisc.data</a>
+        <a class="navbar-link" href="../index.html">random.cdisc.data</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12.9004</span>
       </span>
     </div>
@@ -88,13 +89,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -104,12 +105,12 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/rebuild_cached_data.html">Rebuilding Random CDISC Cached Data</a>
+      <a href="../articles/rebuild_cached_data.html">Rebuilding Random CDISC Cached Data</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="news/index.html">Changelog</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -130,36 +131,84 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>License</h1>
+    <h1>PK dataset</h1>
+    
+    <div class="hidden name"><code>radpc.Rd</code></div>
     </div>
 
-<pre>Copyright 2021 Roche
+    <div class="ref-description">
+    <p>PK dataset</p>
+    </div>
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+    <pre class="usage"><span class='fu'>radpc</span><span class='op'>(</span>
+  <span class='va'>ADSL</span>,
+  avalu <span class='op'>=</span> <span class='st'>"ug/mL"</span>,
+  constants <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>D <span class='op'>=</span> <span class='fl'>100</span>, ka <span class='op'>=</span> <span class='fl'>0.8</span>, ke <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>,
+  seed <span class='op'>=</span> <span class='cn'>NULL</span>,
+  na_percentage <span class='op'>=</span> <span class='fl'>0</span>,
+  na_vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>AVAL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>,
+  cached <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
-    http://www.apache.org/licenses/LICENSE-2.0
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>ADSL</th>
+      <td><p>Subject-Level Analysis Dataset (ADSL).</p></td>
+    </tr>
+    <tr>
+      <th>avalu</th>
+      <td><p>(`string`)<br /> Analysis value unit value</p></td>
+    </tr>
+    <tr>
+      <th>constants</th>
+      <td><p>(`character vector`)<br /> Constant parameters to be used in the PK
+equation for creating analysis values.</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>Seed for random number generation.</p></td>
+    </tr>
+    <tr>
+      <th>na_percentage</th>
+      <td><p>(<code>numeric</code>) Default percentage of values to be replaced by NA</p></td>
+    </tr>
+    <tr>
+      <th>na_vars</th>
+      <td><p>(<code>list</code>) A named list where the name of each element is a column name of <code>ds</code>. Each
+ element of this list should be a numeric vector with two elements</p><ul>
+<li><p>seed The seed to be used for this element - can be left NA</p></li>
+<li><p>percentage How many element should be replaced. 0 is 0 % 1 is 100 %, can be left NA and default
+    percentage is used. This will overwrite default percentage (percentage argument))</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>cached</th>
+      <td><p>boolean whether the cached ADSL data <code>cadsl</code> should be returned or new data
+should be generated. If set to <code>TRUE</code> then the other arguments to <code>radsl</code> will be ignored.</p></td>
+    </tr>
+    </table>
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>One record per per study per subject per parameter per time point</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>random.cdisc.data</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ADSL</span> <span class='op'>&lt;-</span> <span class='fu'><a href='radsl.html'>radsl</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span>, seed <span class='op'>=</span> <span class='fl'>1</span>, study_duration <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ADPC</span> <span class='op'>&lt;-</span> <span class='fu'>radpc</span><span class='op'>(</span><span class='va'>ADSL</span>, seed <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'></span>
 </pre>
-
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
-
 
 
       <footer>

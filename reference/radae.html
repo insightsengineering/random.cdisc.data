@@ -83,7 +83,7 @@ Subject-Level Analysis Dataset." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">random.cdisc.data</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12.9004</span>
       </span>
     </div>
 
@@ -207,64 +207,66 @@ should be generated. If set to <code>TRUE</code> then the other arguments to <co
 <p>Keys: STUDYID USUBJID ASTDTM AETERM AESEQ.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>random.cdisc.data</span><span class='op'>)</span>
-<span class='va'>ADSL</span> <span class='op'>&lt;-</span> <span class='fu'><a href='radsl.html'>radsl</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span>, study_duration <span class='op'>=</span> <span class='fl'>2</span>, seed <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-<span class='fu'>radae</span><span class='op'>(</span><span class='va'>ADSL</span>, seed <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 51 × 69</span>
-#&gt;    STUDYID USUBJID  SUBJID SITEID   AGE SEX   RACE    COUNTRY DTHFL INVID INVNAM
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
-#&gt; <span style='color: #BCBCBC;'> 1</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…
-#&gt; <span style='color: #BCBCBC;'> 2</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…
-#&gt; <span style='color: #BCBCBC;'> 3</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…
-#&gt; <span style='color: #BCBCBC;'> 4</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…
-#&gt; <span style='color: #BCBCBC;'> 5</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…
-#&gt; <span style='color: #BCBCBC;'> 6</span> AB12345 AB12345… id-8   BRA-9     31 F     ASIAN   BRA     N     INV … Dr. B…
-#&gt; <span style='color: #BCBCBC;'> 7</span> AB12345 AB12345… id-8   BRA-9     31 F     ASIAN   BRA     N     INV … Dr. B…
-#&gt; <span style='color: #BCBCBC;'> 8</span> AB12345 AB12345… id-8   BRA-9     31 F     ASIAN   BRA     N     INV … Dr. B…
-#&gt; <span style='color: #BCBCBC;'> 9</span> AB12345 AB12345… id-8   BRA-9     31 F     ASIAN   BRA     N     INV … Dr. B…
-#&gt; <span style='color: #BCBCBC;'>10</span> AB12345 AB12345… id-8   BRA-9     31 F     ASIAN   BRA     N     INV … Dr. B…
-#&gt; <span style='color: #949494;'># … with 41 more rows, and 58 more variables: ARM &lt;fct&gt;, ARMCD &lt;fct&gt;,</span>
-#&gt; <span style='color: #949494;'>#   ACTARM &lt;fct&gt;, ACTARMCD &lt;fct&gt;, REGION1 &lt;fct&gt;, STRATA1 &lt;fct&gt;, STRATA2 &lt;fct&gt;,</span>
-#&gt; <span style='color: #949494;'>#   BMRKR1 &lt;dbl&gt;, BMRKR2 &lt;fct&gt;, ITTFL &lt;fct&gt;, SAFFL &lt;fct&gt;, BMEASIFL &lt;fct&gt;,</span>
-#&gt; <span style='color: #949494;'>#   BEP01FL &lt;fct&gt;, RANDDT &lt;date&gt;, TRTSDTM &lt;dttm&gt;, TRTEDTM &lt;dttm&gt;, EOSSTT &lt;fct&gt;,</span>
-#&gt; <span style='color: #949494;'>#   EOTSTT &lt;fct&gt;, EOSDT &lt;date&gt;, EOSDY &lt;int&gt;, DCSREAS &lt;fct&gt;, DTHDT &lt;date&gt;,</span>
-#&gt; <span style='color: #949494;'>#   DTHCAUS &lt;fct&gt;, DTHCAT &lt;fct&gt;, LDDTHELD &lt;int&gt;, LDDTHGR1 &lt;fct&gt;,</span>
-#&gt; <span style='color: #949494;'>#   LSTALVDT &lt;date&gt;, study_duration_secs &lt;dbl&gt;, ASEQ &lt;int&gt;, AESEQ &lt;int&gt;, …</span></div><div class='input'>
-<span class='co'># Add metadata.</span>
-<span class='va'>aag</span> <span class='op'>&lt;-</span> <span class='fu'>utils</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span>
-sep <span class='op'>=</span> <span class='st'>','</span>, header <span class='op'>=</span> <span class='cn'>TRUE</span>,
-text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span>
-  <span class='st'>"NAMVAR,SRCVAR,GRPTYPE,REFNAME,REFTERM,SCOPE"</span>,
-  <span class='st'>"CQ01NAM,AEDECOD,CUSTOM,D.2.1.5.3/A.1.1.1.1 AESI,dcd D.2.1.5.3,"</span>,
-  <span class='st'>"CQ01NAM,AEDECOD,CUSTOM,D.2.1.5.3/A.1.1.1.1 AESI,dcd A.1.1.1.1,"</span>,
-  <span class='st'>"SMQ01NAM,AEDECOD,SMQ,C.1.1.1.3/B.2.2.3.1 AESI,dcd C.1.1.1.3,BROAD"</span>,
-  <span class='st'>"SMQ01NAM,AEDECOD,SMQ,C.1.1.1.3/B.2.2.3.1 AESI,dcd B.2.2.3.1,BROAD"</span>,
-  <span class='st'>"SMQ02NAM,AEDECOD,SMQ,Y.9.9.9.9/Z.9.9.9.9 AESI,dcd Y.9.9.9.9,NARROW"</span>,
-  <span class='st'>"SMQ02NAM,AEDECOD,SMQ,Y.9.9.9.9/Z.9.9.9.9 AESI,dcd Z.9.9.9.9,NARROW"</span>,
-  sep <span class='op'>=</span> <span class='st'>'\n'</span>
-<span class='op'>)</span>, stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span>
-
-<span class='va'>adae</span> <span class='op'>&lt;-</span> <span class='fu'>radae</span><span class='op'>(</span><span class='va'>ADSL</span>, lookup_aag <span class='op'>=</span> <span class='va'>aag</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span>
-  <span class='va'>adae</span>,
-  <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>AEDECOD</span>, <span class='va'>SMQ01NAM</span><span class='op'>)</span>,
-    <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>AEDECOD</span>, <span class='va'>CQ01NAM</span><span class='op'>)</span>
-  <span class='op'>)</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt;               C.1.1.1.3/B.2.2.3.1 AESI D.2.1.5.3/A.1.1.1.1 AESI
-#&gt; dcd A.1.1.1.1                        0                        4
-#&gt; dcd A.1.1.1.2                        0                        0
-#&gt; dcd B.1.1.1.1                        0                        0
-#&gt; dcd B.2.1.2.1                        0                        0
-#&gt; dcd B.2.2.3.1                       11                        0
-#&gt; dcd C.1.1.1.3                        9                        0
-#&gt; dcd C.2.1.2.1                        0                        0
-#&gt; dcd D.1.1.1.1                        0                        0
-#&gt; dcd D.1.1.4.2                        0                        0
-#&gt; dcd D.2.1.5.3                        0                        6</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>random.cdisc.data</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ADSL</span> <span class='op'>&lt;-</span> <span class='fu'><a href='radsl.html'>radsl</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span>, study_duration <span class='op'>=</span> <span class='fl'>2</span>, seed <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>radae</span><span class='op'>(</span><span class='va'>ADSL</span>, seed <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 51 × 69</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    STUDYID USUBJID  SUBJID SITEID   AGE SEX   RACE    COUNTRY DTHFL INVID INVNAM</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> AB12345 AB12345… id-8   BRA-9     31 F     ASIAN   BRA     N     INV … Dr. B…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> AB12345 AB12345… id-8   BRA-9     31 F     ASIAN   BRA     N     INV … Dr. B…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> AB12345 AB12345… id-8   BRA-9     31 F     ASIAN   BRA     N     INV … Dr. B…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> AB12345 AB12345… id-8   BRA-9     31 F     ASIAN   BRA     N     INV … Dr. B…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> AB12345 AB12345… id-8   BRA-9     31 F     ASIAN   BRA     N     INV … Dr. B…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 41 more rows, and 58 more variables: ARM &lt;fct&gt;, ARMCD &lt;fct&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   ACTARM &lt;fct&gt;, ACTARMCD &lt;fct&gt;, REGION1 &lt;fct&gt;, STRATA1 &lt;fct&gt;, STRATA2 &lt;fct&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   BMRKR1 &lt;dbl&gt;, BMRKR2 &lt;fct&gt;, ITTFL &lt;fct&gt;, SAFFL &lt;fct&gt;, BMEASIFL &lt;fct&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   BEP01FL &lt;fct&gt;, RANDDT &lt;date&gt;, TRTSDTM &lt;dttm&gt;, TRTEDTM &lt;dttm&gt;, EOSSTT &lt;fct&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   EOTSTT &lt;fct&gt;, EOSDT &lt;date&gt;, EOSDY &lt;int&gt;, DCSREAS &lt;fct&gt;, DTHDT &lt;date&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   DTHCAUS &lt;fct&gt;, DTHCAT &lt;fct&gt;, LDDTHELD &lt;int&gt;, LDDTHGR1 &lt;fct&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   LSTALVDT &lt;date&gt;, study_duration_secs &lt;dbl&gt;, ASEQ &lt;int&gt;, AESEQ &lt;int&gt;, …</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Add metadata.</span></span>
+<span class='r-in'><span class='va'>aag</span> <span class='op'>&lt;-</span> <span class='fu'>utils</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span></span>
+<span class='r-in'>sep <span class='op'>=</span> <span class='st'>','</span>, header <span class='op'>=</span> <span class='cn'>TRUE</span>,</span>
+<span class='r-in'>text <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='st'>"NAMVAR,SRCVAR,GRPTYPE,REFNAME,REFTERM,SCOPE"</span>,</span>
+<span class='r-in'>  <span class='st'>"CQ01NAM,AEDECOD,CUSTOM,D.2.1.5.3/A.1.1.1.1 AESI,dcd D.2.1.5.3,"</span>,</span>
+<span class='r-in'>  <span class='st'>"CQ01NAM,AEDECOD,CUSTOM,D.2.1.5.3/A.1.1.1.1 AESI,dcd A.1.1.1.1,"</span>,</span>
+<span class='r-in'>  <span class='st'>"SMQ01NAM,AEDECOD,SMQ,C.1.1.1.3/B.2.2.3.1 AESI,dcd C.1.1.1.3,BROAD"</span>,</span>
+<span class='r-in'>  <span class='st'>"SMQ01NAM,AEDECOD,SMQ,C.1.1.1.3/B.2.2.3.1 AESI,dcd B.2.2.3.1,BROAD"</span>,</span>
+<span class='r-in'>  <span class='st'>"SMQ02NAM,AEDECOD,SMQ,Y.9.9.9.9/Z.9.9.9.9 AESI,dcd Y.9.9.9.9,NARROW"</span>,</span>
+<span class='r-in'>  <span class='st'>"SMQ02NAM,AEDECOD,SMQ,Y.9.9.9.9/Z.9.9.9.9 AESI,dcd Z.9.9.9.9,NARROW"</span>,</span>
+<span class='r-in'>  sep <span class='op'>=</span> <span class='st'>'\n'</span></span>
+<span class='r-in'><span class='op'>)</span>, stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>adae</span> <span class='op'>&lt;-</span> <span class='fu'>radae</span><span class='op'>(</span><span class='va'>ADSL</span>, lookup_aag <span class='op'>=</span> <span class='va'>aag</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span></span>
+<span class='r-in'>  <span class='va'>adae</span>,</span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span></span>
+<span class='r-in'>    <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>AEDECOD</span>, <span class='va'>SMQ01NAM</span><span class='op'>)</span>,</span>
+<span class='r-in'>    <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>AEDECOD</span>, <span class='va'>CQ01NAM</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='op'>)</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               C.1.1.1.3/B.2.2.3.1 AESI D.2.1.5.3/A.1.1.1.1 AESI</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dcd A.1.1.1.1                        0                        4</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dcd A.1.1.1.2                        0                        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dcd B.1.1.1.1                        0                        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dcd B.2.1.2.1                        0                        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dcd B.2.2.3.1                       11                        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dcd C.1.1.1.3                        9                        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dcd C.2.1.2.1                        0                        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dcd D.1.1.1.1                        0                        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dcd D.1.1.4.2                        0                        0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> dcd D.2.1.5.3                        0                        6</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

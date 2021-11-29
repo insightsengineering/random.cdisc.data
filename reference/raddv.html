@@ -83,7 +83,7 @@ Subject-Level Analysis Dataset." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">random.cdisc.data</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12.9004</span>
       </span>
     </div>
 
@@ -208,27 +208,28 @@ should be generated. If set to <code>TRUE</code> then the other arguments to <co
 <p>Keys: STUDYID USUBJID ASTDT DVTERM DVSEQ.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>ADSL</span> <span class='op'>&lt;-</span> <span class='fu'><a href='radsl.html'>radsl</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span>, seed <span class='op'>=</span> <span class='fl'>1</span>, study_duration <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-<span class='fu'>raddv</span><span class='op'>(</span><span class='va'>ADSL</span>, seed <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 9 × 50</span>
-#&gt;   STUDYID USUBJID  SUBJID SITEID   AGE SEX   RACE    COUNTRY DTHFL INVID  INVNAM
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
-#&gt; <span style='color: #BCBCBC;'>1</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV I… Dr. B…
-#&gt; <span style='color: #BCBCBC;'>2</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV I… Dr. B…
-#&gt; <span style='color: #BCBCBC;'>3</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV I… Dr. B…
-#&gt; <span style='color: #BCBCBC;'>4</span> AB12345 AB12345… id-5   CHN-3     36 F     ASIAN   CHN     N     INV I… Dr. C…
-#&gt; <span style='color: #BCBCBC;'>5</span> AB12345 AB12345… id-5   CHN-3     36 F     ASIAN   CHN     N     INV I… Dr. C…
-#&gt; <span style='color: #BCBCBC;'>6</span> AB12345 AB12345… id-5   CHN-3     36 F     ASIAN   CHN     N     INV I… Dr. C…
-#&gt; <span style='color: #BCBCBC;'>7</span> AB12345 AB12345… id-3   USA-13    35 F     AMERIC… USA     N     INV I… Dr. U…
-#&gt; <span style='color: #BCBCBC;'>8</span> AB12345 AB12345… id-3   USA-13    35 F     AMERIC… USA     N     INV I… Dr. U…
-#&gt; <span style='color: #BCBCBC;'>9</span> AB12345 AB12345… id-3   USA-13    35 F     AMERIC… USA     N     INV I… Dr. U…
-#&gt; <span style='color: #949494;'># … with 39 more variables: ARM &lt;fct&gt;, ARMCD &lt;fct&gt;, ACTARM &lt;fct&gt;,</span>
-#&gt; <span style='color: #949494;'>#   ACTARMCD &lt;fct&gt;, REGION1 &lt;fct&gt;, STRATA1 &lt;fct&gt;, STRATA2 &lt;fct&gt;, BMRKR1 &lt;dbl&gt;,</span>
-#&gt; <span style='color: #949494;'>#   BMRKR2 &lt;fct&gt;, ITTFL &lt;fct&gt;, SAFFL &lt;fct&gt;, BMEASIFL &lt;fct&gt;, BEP01FL &lt;fct&gt;,</span>
-#&gt; <span style='color: #949494;'>#   RANDDT &lt;date&gt;, TRTSDTM &lt;dttm&gt;, TRTEDTM &lt;dttm&gt;, EOSSTT &lt;fct&gt;, EOTSTT &lt;fct&gt;,</span>
-#&gt; <span style='color: #949494;'>#   EOSDT &lt;date&gt;, EOSDY &lt;int&gt;, DCSREAS &lt;fct&gt;, DTHDT &lt;date&gt;, DTHCAUS &lt;fct&gt;,</span>
-#&gt; <span style='color: #949494;'>#   DTHCAT &lt;fct&gt;, LDDTHELD &lt;int&gt;, LDDTHGR1 &lt;fct&gt;, LSTALVDT &lt;date&gt;,</span>
-#&gt; <span style='color: #949494;'>#   study_duration_secs &lt;dbl&gt;, DOMAIN &lt;chr&gt;, DVSEQ &lt;fct&gt;, DVTERM &lt;fct&gt;, …</span></div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>ADSL</span> <span class='op'>&lt;-</span> <span class='fu'><a href='radsl.html'>radsl</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span>, seed <span class='op'>=</span> <span class='fl'>1</span>, study_duration <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>raddv</span><span class='op'>(</span><span class='va'>ADSL</span>, seed <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 9 × 50</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   STUDYID USUBJID  SUBJID SITEID   AGE SEX   RACE    COUNTRY DTHFL INVID  INVNAM</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>1</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV I… Dr. B…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>2</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV I… Dr. B…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>3</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV I… Dr. B…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>4</span> AB12345 AB12345… id-5   CHN-3     36 F     ASIAN   CHN     N     INV I… Dr. C…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>5</span> AB12345 AB12345… id-5   CHN-3     36 F     ASIAN   CHN     N     INV I… Dr. C…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>6</span> AB12345 AB12345… id-5   CHN-3     36 F     ASIAN   CHN     N     INV I… Dr. C…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>7</span> AB12345 AB12345… id-3   USA-13    35 F     AMERIC… USA     N     INV I… Dr. U…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>8</span> AB12345 AB12345… id-3   USA-13    35 F     AMERIC… USA     N     INV I… Dr. U…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>9</span> AB12345 AB12345… id-3   USA-13    35 F     AMERIC… USA     N     INV I… Dr. U…</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 39 more variables: ARM &lt;fct&gt;, ARMCD &lt;fct&gt;, ACTARM &lt;fct&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   ACTARMCD &lt;fct&gt;, REGION1 &lt;fct&gt;, STRATA1 &lt;fct&gt;, STRATA2 &lt;fct&gt;, BMRKR1 &lt;dbl&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   BMRKR2 &lt;fct&gt;, ITTFL &lt;fct&gt;, SAFFL &lt;fct&gt;, BMEASIFL &lt;fct&gt;, BEP01FL &lt;fct&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   RANDDT &lt;date&gt;, TRTSDTM &lt;dttm&gt;, TRTEDTM &lt;dttm&gt;, EOSSTT &lt;fct&gt;, EOTSTT &lt;fct&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   EOSDT &lt;date&gt;, EOSDY &lt;int&gt;, DCSREAS &lt;fct&gt;, DTHDT &lt;date&gt;, DTHCAUS &lt;fct&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   DTHCAT &lt;fct&gt;, LDDTHELD &lt;int&gt;, LDDTHGR1 &lt;fct&gt;, LSTALVDT &lt;date&gt;,</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   study_duration_secs &lt;dbl&gt;, DOMAIN &lt;chr&gt;, DVSEQ &lt;fct&gt;, DVTERM &lt;fct&gt;, …</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

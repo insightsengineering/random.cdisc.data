@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">random.cdisc.data</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.12.9004</span>
       </span>
     </div>
 
@@ -87,35 +87,36 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-
 <div id="randomcdiscdata" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#randomcdiscdata" class="anchor"></a>random.cdisc.data</h1></div>
 <p>The <code>random.cdisc.data</code> is a package for creating random CDISC data. The random datasets available to create are:</p>
 <ul>
-<li>Subject-Level Analysis Dataset (<code>radsl</code>)</li>
-<li>Adverse Event Analysis Dataset (<code>radae</code>)</li>
-<li>Time to Adverse Event Analysis Dataset (<code>radaette</code>)</li>
-<li>Previous and Concomitant Medications Analysis Dataset (<code>radcm</code>)</li>
-<li>ECG Analysis Dataset (<code>radeg</code>)</li>
-<li>Exposure Analysis Dataset (<code>radex</code>)</li>
-<li>Laboratory Data Analysis Dataset (<code>radlb</code>)</li>
-<li>Medical History Analysis Dataset (<code>radmh</code>)</li>
-<li>Questionnaires Analysis Dataset (<code>radqs</code>)</li>
-<li>Response Analysis Dataset (<code>radrs</code>)</li>
-<li>Tumor Response Analysis Dataset (<code>radtr</code>)</li>
-<li>Time-to-Event Dataset (<code>radtte</code>)</li>
-<li>Vital Signs Analysis Dataset (<code>radvs</code>)</li>
-<li>Subcategory Analysis Dataset (<code>radsub</code>)</li>
-</ul>
+<li><p>Subject-Level Analysis Dataset (<code>radsl</code>)</p></li>
+<li><p>Adverse Event Analysis Dataset (<code>radae</code>)</p></li>
+<li><p>Time to Adverse Event Analysis Dataset (<code>radaette</code>)</p></li>
+<li><p>Previous and Concomitant Medications Analysis Dataset (<code>radcm</code>)</p></li>
+<li><p>ECG Analysis Dataset (<code>radeg</code>)</p></li>
+<li><p>Exposure Analysis Dataset (<code>radex</code>)</p></li>
+<li><p>Laboratory Data Analysis Dataset (<code>radlb</code>)</p></li>
+<li><p>Medical History Analysis Dataset (<code>radmh</code>)</p></li>
+<li><p>PK Analysis Dataset (<code>radpc</code>)</p></li>
+<li><p>Questionnaires Analysis Dataset (<code>radqs</code>)</p></li>
+<li><p>Response Analysis Dataset (<code>radrs</code>)</p></li>
+<li><p>Tumor Response Analysis Dataset (<code>radtr</code>)</p></li>
+<li><p>Time-to-Event Dataset (<code>radtte</code>)</p></li>
+<li><p>Vital Signs Analysis Dataset (<code>radvs</code>)</p></li>
+<li>
+<p>Subcategory Analysis Dataset (<code>radsub</code>)</p>
 <p>Please note that changes to random data functions requires rebuild of cached data. Please read the “Rebuilding Random CDISC Cached Data” article.</p>
-</div>
-<div id="installation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h1>
-<div id="clone-and-install-manually" class="section level2">
+</li>
+</ul>
+<div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#clone-and-install-manually" class="anchor"></a>Clone and install manually</h2>
+<a href="#installation" class="anchor"></a>Installation</h2>
+<div id="clone-and-install-manually" class="section level3">
+<h3 class="hasAnchor">
+<a href="#clone-and-install-manually" class="anchor"></a>Clone and install manually</h3>
 <ol>
 <li>
 <p>Clone the repository</p>
@@ -123,29 +124,30 @@
 <ol>
 <li>
 <p>Using PAT. Input in the Git Bash console, PowerShell or any Linux shell:</p>
-<pre><code>$ git clone https://github.com/insightsengineering/random.cdisc.data.git
-Username: your_username_goes_here
-Password: your_token_goes_here</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git clone https://github.com/insightsengineering/random.cdisc.data.git</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Username:</span> your_username_goes_here</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Password:</span> your_token_goes_here</span></code></pre></div>
 </li>
 <li>
 <p>Using SSH. If set up properly, the repository is ready to be cloned executing:</p>
-<pre><code>$ git clone https://github.com/insightsengineering/random.cdisc.data.git</code></pre>
-<p>This creates a subdirectory <code>random.cdisc.data</code> containing the cloned repository.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/insightsengineering/random.cdisc.data.git</span></code></pre></div>
 </li>
 </ol>
+<p>This creates a subdirectory <code>random.cdisc.data</code> containing the cloned repository.</p>
 </li>
 <li>
 <p>Build and install</p>
 <p>The native R tools provide a quick way to install a package. Run in PowerShell or any Linux shell:</p>
-<pre><code>$ R CMD build random.cdisc.data</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> CMD build random.cdisc.data</span></code></pre></div>
 <p>This command builds the package and creates an archive. The name of the archive is output by the command at then of building. Then input in the shell:</p>
-<pre><code>$ Rscript -e 'install.packages("name_of_the_archive")</code></pre>
-<p>Here is an example of a real command (with name_of_the_archive substituted by the output of the build command): ``` $ Rscript -e ‘install.packages(“random.cdisc.data_0.9.5.9000.tar.gz”)’</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'install.packages("name_of_the_archive")</span></span></code></pre></div>
+<p>Here is an example of a real command (with name_of_the_archive substituted by the output of the build command):</p>
+<p>```sh $ Rscript -e ‘install.packages(“random.cdisc.data_0.9.5.9000.tar.gz”)’</p>
 </li>
 </ol>
 </div>
 </div>
-
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
