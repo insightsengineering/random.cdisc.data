@@ -46,6 +46,7 @@ cadcm_new <- radcm(cadsl_new, seed = 1, who_coding = TRUE, na_vars = list()) %>%
 cadex_new <- radex(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadlb_new <- radlb(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadmh_new <- radmh(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
+cadpc_new <- radpc(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadqs_new <- radqs(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadrs_new <- radrs(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadtte_new <- radtte(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
@@ -64,6 +65,7 @@ diffdf(cadcm, cadcm_new)
 diffdf(cadex, cadex_new)
 diffdf(cadlb, cadlb_new)
 diffdf(cadmh, cadmh_new)
+diffdf(cadpc, cadpc_new)
 diffdf(cadqs, cadqs_new)
 diffdf(cadrs, cadrs_new)
 diffdf(cadtte, cadtte_new)
@@ -83,6 +85,7 @@ cadeg <- cadeg_new
 cadex <- cadex_new
 cadlb <- cadlb_new
 cadmh <- cadmh_new
+cadpc <- cadpc_new
 cadqs <- cadqs_new
 cadrs <- cadrs_new
 cadtr <- cadtr_new
@@ -101,6 +104,7 @@ save(cadeg, file = "data/cadeg.RData", compress = "xz")
 save(cadex, file = "data/cadex.RData", compress = "xz")
 save(cadlb, file = "data/cadlb.RData", compress = "xz")
 save(cadmh, file = "data/cadmh.RData", compress = "xz")
+save(cadpc, file = "data/cadpc.RData", compress = "xz")
 save(cadqs, file = "data/cadqs.RData", compress = "xz")
 save(cadrs, file = "data/cadrs.RData", compress = "xz")
 save(cadtr, file = "data/cadtr.RData", compress = "xz")

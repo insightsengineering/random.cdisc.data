@@ -88,6 +88,15 @@
 #' @usage data(cadmh)
 "cadmh"
 
+#' Cached ADPC
+#'
+#' Cached ADPC data generated with \code{seed = 1}
+#'
+#' @docType data
+#'
+#' @usage data(cadpc)
+"cadpc"
+
 #' Cached ADQS
 #'
 #' Cached ADQS data generated with \code{seed = 1}
