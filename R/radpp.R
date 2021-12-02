@@ -13,12 +13,18 @@
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' ADPC <- radpc(ADSL, seed = 2)
+#' ADPP <- radpp(ADSL, seed = 2)
 #'
 radpc <- function(
-  ADSL, # nolint
-  avalu = "ug/mL",
-  constants = c(D = 100, ka = 0.8, ke = 1),
+  ADSL, # nolint,
+  ppcat = c("Plasma Drug X", "Plasma Drug Y"),
+  ppspec = c("Plasma"),
+  paramcd = c("AUCIFO", "CMAX", "CLO"),
+  param = c("AUC Infinity Obs", "Max Conc", "Total CL Obs"),
+  paramu = c("day*ug/mL", "ug/mL", "ml/day/kg"),
+
+
+  # constants = c(D = 100, ka = 0.8, ke = 1),
   seed = NULL,
   na_percentage = 0,
   na_vars = list(
