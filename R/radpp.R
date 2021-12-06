@@ -60,6 +60,9 @@ radpc <- function(
     dplyr::mutate(AVAL = .data$AVAL * .data$ADJUST) %>%
     dplyr::select(-.data$ADJUST)
 
+  # add PPSPEC
+  ADPP$PPSPEC <- ppspec
+
   # assign related variable values: PARAMxPARAMCD are related
   ADPP$PARAMCD <- as.factor(rel_var( # nolint
     df = ADPP,
@@ -74,7 +77,16 @@ radpc <- function(
     var_values = unit_init_list$relvar2,
     related_var = "PARAM"
   ))
-
+  # derive AVISITN based AVISIT and AVALC based on AVAL
+  ADPP <- ADPP %>%
+    dplyr::mutate(AVALC = as.character(AVAL)) %>%
+    dplyr::mutate(
+      AVISITN = dplyr::case_when(
+        AVISIT == "SCREENING" ~ 0,
+        (grepl("^WEEK", AVISIT) | grepl("^CYCLE", AVISIT)) ~ as.numeric(AVISIT) - 1,
+        TRUE ~ NA_real_
+      )
+    )
 
   ADPP <- ADSL %>% # nolint %>%
     dplyr::select(STUDYID, USUBJID, AGE, SEX, RACE, ARM, ARMCD, ACTARM, ACTARMCD) %>%
