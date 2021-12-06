@@ -46,7 +46,7 @@ radpc <- function(
   param_init_list <- relvar_init(param, paramcd)
   unit_init_list <- relvar_init(param, paramu)
 
-  ADPP <- expand.grid(
+  ADPP <- expand.grid( # nolint
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
     PPCAT = as.factor(ppcat),
@@ -54,14 +54,14 @@ radpc <- function(
     AVISIT = visit_schedule(visit_format = visit_format, n_assessments = 1L, n_days = n_days),
     stringsAsFactors = FALSE
   )
-  ADPP <- ADPP %>%
+  ADPP <- ADPP %>% # nolint
     dplyr::mutate(AVAL = stats::rnorm(nrow(ADPP), mean = 1, sd = 0.2)) %>%
     dplyr::left_join(data.frame(PARAM = param, ADJUST = aval_mean), by = "PARAM") %>%
     dplyr::mutate(AVAL = .data$AVAL * .data$ADJUST) %>%
     dplyr::select(-.data$ADJUST)
 
   # add PPSPEC
-  ADPP$PPSPEC <- ppspec
+  ADPP$PPSPEC <- ppspec # nolint
 
   # assign related variable values: PARAMxPARAMCD are related
   ADPP$PARAMCD <- as.factor(rel_var( # nolint
@@ -78,7 +78,7 @@ radpc <- function(
     related_var = "PARAM"
   ))
   # derive AVISITN based AVISIT and AVALC based on AVAL
-  ADPP <- ADPP %>%
+  ADPP <- ADPP %>% # nolint
     dplyr::mutate(AVALC = as.character(AVAL)) %>%
     dplyr::mutate(
       AVISITN = dplyr::case_when(
