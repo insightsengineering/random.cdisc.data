@@ -1,12 +1,15 @@
 #' PK parameters dataset
 #'
 #' @template ADSL_params
-#' @param avalu (`string`)\cr Analysis value unit value
-#' @param constants (`character vector`)\cr Constant parameters to be used in the PK
-#' equation for creating analysis values.
+#' @param ppcat (`character`)\cr category of parameter.
+#' @param ppsec (`string`)\cr spec of parameter.
+#' @param paramcd (`character`)\cr parameter code.
+#' @param param(`character`)\cr parameters.
+#' @param paramu (`string`)\cr Analysis value unit value.
+#' @param aval_mean(`vector`)\cr the mean for corresponding parameter.
 #' @inheritParams radsl
 #'
-#' @details One record per per study per subject per parameter per time point
+#' @details One record per per study per subject per parameter category per parameter per visit.
 #'
 #' @export
 #'
