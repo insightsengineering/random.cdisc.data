@@ -85,6 +85,6 @@ radpc <- function(
     ADPP <- mutate_na(ds = ADPP, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
-  ADPP <- apply_metadata(ADPP, "metadata/ADPP.yml") # nolint
+  # ADPP <- apply_metadata(ADPP, "metadata/ADPP.yml") # nolint
   return(ADPP)
 }
