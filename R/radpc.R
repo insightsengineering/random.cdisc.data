@@ -1,4 +1,4 @@
-#' PK concentrations dataset
+#' PK dataset
 #'
 #' @template ADSL_params
 #' @param avalu (`string`)\cr Analysis value unit value

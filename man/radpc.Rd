@@ -2,7 +2,7 @@
 % Please edit documentation in R/radpc.R, R/radpp.R
 \name{radpc}
 \alias{radpc}
-\title{PK concentrations dataset}
+\title{PK dataset}
 \usage{
 radpc(
   ADSL,
@@ -72,7 +72,7 @@ equation for creating analysis values.}
 \item{aval_mean(`vector`)\cr}{the mean for corresponding parameter.}
 }
 \description{
-PK concentrations dataset
+PK dataset
 
 PK parameters dataset
 }
