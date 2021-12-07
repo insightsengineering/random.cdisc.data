@@ -5,7 +5,4 @@ upstream_repos:
   insightsengineering/utils.nest:
     repo: insightsengineering/utils.nest
     host: https://github.com
-  insightsengineering/test.nest:
-    repo: insightsengineering/test.nest
-    host: https://github.com
 downstream_repos:
