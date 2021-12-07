@@ -64,7 +64,7 @@ radpp <- function(
     dplyr::select(-.data$ADJUST)
 
   # add PPSPEC
-  ADPP$PPSPEC <- ppspec # nolint
+  ADPP$PPSPEC <- as.factor(ppspec) # nolint
 
   # assign related variable values: PARAMxPARAMCD are related
   ADPP$PARAMCD <- as.factor(rel_var( # nolint
@@ -100,6 +100,6 @@ radpp <- function(
     ADPP <- mutate_na(ds = ADPP, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
-  # ADPP <- apply_metadata(ADPP, "metadata/ADPP.yml") # nolint
+  ADPP <- apply_metadata(ADPP, "metadata/ADPP.yml") # nolint
   return(ADPP)
 }
