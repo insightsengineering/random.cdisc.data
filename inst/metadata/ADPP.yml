@@ -7,7 +7,7 @@ variables:
     label: PK Parameter Category
     type: factor
  PPSPEC:
-    label: PK Parameter Category
+    label: PK Parameter Spec
     type: factor
  PARAM:
     label: Parameter
