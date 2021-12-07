@@ -92,7 +92,6 @@ radpp <- function(
     )
 
   ADPP <- ADSL %>% # nolint %>%
-    dplyr::select(STUDYID, USUBJID, AGE, SEX, RACE, ARM, ARMCD, ACTARM, ACTARMCD) %>%
     dplyr::inner_join(ADPP, by = c("STUDYID", "USUBJID")) %>% # nolint
     dplyr::filter(ACTARM != "B: Placebo", !(ACTARM == "A: Drug X" & PPCAT == "Plasma Drug Y"))
 
