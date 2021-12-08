@@ -4,10 +4,10 @@ domain:
 
 variables:
  PPCAT:
-    label: PK Parameter Category
+    label: Parameter Category
     type: factor
  PPSPEC:
-    label: PK Parameter Spec
+    label: Specimen Material Type
     type: factor
  PARAM:
     label: Parameter
@@ -16,10 +16,10 @@ variables:
     label: Parameter Code
     type: factor
  AVISIT:
-    label: Visit
+    label: Analysis Visit
     type: factor
  AVISITN:
-    label: Visit Number
+    label: Analysis Visit (N)
     type: numeric
  AVAL:
     label: Analysis Value
