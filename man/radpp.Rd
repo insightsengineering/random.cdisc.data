@@ -25,9 +25,15 @@ radpp(
 
 \item{ppcat}{(`character`)\cr category of parameter.}
 
+\item{ppspec}{(`string`)\cr specimen material type.}
+
 \item{paramcd}{(`character`)\cr parameter code.}
 
+\item{param}{(`character`)\cr parameters.}
+
 \item{paramu}{(`string`)\cr Analysis value unit value.}
+
+\item{aval_mean}{(`vector`)\cr the mean for corresponding parameter.}
 
 \item{seed}{Seed for random number generation.}
 
@@ -43,12 +49,6 @@ radpp(
 
 \item{cached}{boolean whether the cached ADSL data \code{cadsl} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
-
-\item{ppsec}{(`string`)\cr spec of parameter.}
-
-\item{param(`character`)\cr}{parameters.}
-
-\item{aval_mean(`vector`)\cr}{the mean for corresponding parameter.}
 }
 \description{
 PK parameters dataset
