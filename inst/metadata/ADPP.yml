@@ -1,0 +1,32 @@
+domain:
+  name: ADPP
+  label: PK Parameters Dataset
+
+variables:
+ PPCAT:
+    label: Parameter Category
+    type: factor
+ PPSPEC:
+    label: Specimen Material Type
+    type: factor
+ PARAM:
+    label: Parameter
+    type: factor
+ PARAMCD:
+    label: Parameter Code
+    type: factor
+ AVISIT:
+    label: Analysis Visit
+    type: factor
+ AVISITN:
+    label: Analysis Visit (N)
+    type: numeric
+ AVAL:
+    label: Analysis Value
+    type: numeric
+ AVALC:
+    label: Analysis Value (C)
+    type: character
+ AVALU:
+    label: Analysis Value Unit
+    type: factor
