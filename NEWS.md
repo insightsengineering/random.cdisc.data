@@ -1,4 +1,4 @@
-# random.cdisc.data 0.3.12.9007
+# random.cdisc.data 0.3.12.9008
 * Fixed a typo in `ADSL$BMRKR1`'s label.
 * Added new random dataset generator: PK Analysis Dataset (`radpc`).
 * Added new random dataset generator: PK Parameter Dataset (`radpp`).
