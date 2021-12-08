@@ -7,6 +7,8 @@
 #' @param param (`character`)\cr parameters.
 #' @param paramu (`string`)\cr Analysis value unit value.
 #' @param aval_mean (`vector`)\cr the mean for corresponding parameter.
+#' @param visit_format (`string`)\cr the visit format to produce AVISIT in the dataset.
+#' @param n_days (`integer`)\cr the number days that will be included to produce AVISIT in the dataset.
 #' @inheritParams radsl
 #'
 #' @details One record per per study per subject per parameter category per parameter per visit.

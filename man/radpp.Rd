@@ -35,6 +35,10 @@ radpp(
 
 \item{aval_mean}{(`vector`)\cr the mean for corresponding parameter.}
 
+\item{visit_format}{(`string`)\cr the visit format to produce AVISIT in the dataset.}
+
+\item{n_days}{(`integer`)\cr the number days that will be included to produce AVISIT in the dataset.}
+
 \item{seed}{Seed for random number generation.}
 
 \item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
