@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tumor Response Analysis Data Set (ADRS) — radrs • random.cdisc.data</title>
+<title>PK parameters dataset — radpp • random.cdisc.data</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Tumor Response Analysis Data Set (ADRS) — radrs" />
-<meta property="og:description" content="Function for generating random Tumor Response Analysis Data Set for a given
-Subject-Level Analysis Dataset." />
+<meta property="og:title" content="PK parameters dataset — radpp" />
+<meta property="og:description" content="PK parameters dataset" />
 
 
 
@@ -134,23 +133,28 @@ Subject-Level Analysis Dataset." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tumor Response Analysis Data Set (ADRS)</h1>
+    <h1>PK parameters dataset</h1>
     
-    <div class="hidden name"><code>radrs.Rd</code></div>
+    <div class="hidden name"><code>radpp.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Function for generating random Tumor Response Analysis Data Set for a given
-Subject-Level Analysis Dataset.</p>
+    <p>PK parameters dataset</p>
     </div>
 
-    <pre class="usage"><span class='fu'>radrs</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>radpp</span><span class='op'>(</span>
   <span class='va'>ADSL</span>,
-  avalc <span class='op'>=</span> <span class='cn'>NULL</span>,
-  lookup <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ppcat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Plasma Drug X"</span>, <span class='st'>"Plasma Drug Y"</span><span class='op'>)</span>,
+  ppspec <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Plasma"</span><span class='op'>)</span>,
+  paramcd <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"AUCIFO"</span>, <span class='st'>"CMAX"</span>, <span class='st'>"CLO"</span><span class='op'>)</span>,
+  param <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"AUC Infinity Obs"</span>, <span class='st'>"Max Conc"</span>, <span class='st'>"Total CL Obs"</span><span class='op'>)</span>,
+  paramu <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"day*ug/mL"</span>, <span class='st'>"ug/mL"</span>, <span class='st'>"ml/day/kg"</span><span class='op'>)</span>,
+  aval_mean <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>200</span>, <span class='fl'>30</span>, <span class='fl'>5</span><span class='op'>)</span>,
+  visit_format <span class='op'>=</span> <span class='st'>"CYCLE"</span>,
+  n_days <span class='op'>=</span> <span class='fl'>2L</span>,
   seed <span class='op'>=</span> <span class='cn'>NULL</span>,
   na_percentage <span class='op'>=</span> <span class='fl'>0</span>,
-  na_vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>AVISIT <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='fl'>0.1</span><span class='op'>)</span>, AVAL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1234</span>, <span class='fl'>0.1</span><span class='op'>)</span>, AVALC <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1234</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>,
+  na_vars <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>AVAL <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>,
   cached <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
@@ -162,12 +166,36 @@ Subject-Level Analysis Dataset.</p>
       <td><p>Subject-Level Analysis Dataset (ADSL).</p></td>
     </tr>
     <tr>
-      <th>avalc</th>
-      <td><p>Vector of analysis value categories.</p></td>
+      <th>ppcat</th>
+      <td><p>(`character`)<br /> category of parameter.</p></td>
     </tr>
     <tr>
-      <th>lookup</th>
-      <td><p>Data.frame containing additional parameters.</p></td>
+      <th>ppspec</th>
+      <td><p>(`string`)<br /> specimen material type.</p></td>
+    </tr>
+    <tr>
+      <th>paramcd</th>
+      <td><p>(`character`)<br /> parameter code.</p></td>
+    </tr>
+    <tr>
+      <th>param</th>
+      <td><p>(`character`)<br /> parameters.</p></td>
+    </tr>
+    <tr>
+      <th>paramu</th>
+      <td><p>(`string`)<br /> Analysis value unit value.</p></td>
+    </tr>
+    <tr>
+      <th>aval_mean</th>
+      <td><p>(`vector`)<br /> the mean for corresponding parameter.</p></td>
+    </tr>
+    <tr>
+      <th>visit_format</th>
+      <td><p>(`string`)<br /> the visit format to produce AVISIT in the dataset.</p></td>
+    </tr>
+    <tr>
+      <th>n_days</th>
+      <td><p>(`integer`)<br /> the number days that will be included to produce AVISIT in the dataset.</p></td>
     </tr>
     <tr>
       <th>seed</th>
@@ -188,45 +216,20 @@ Subject-Level Analysis Dataset.</p>
     </tr>
     <tr>
       <th>cached</th>
-      <td><p>boolean whether the cached ADRS data <code>cadrs</code> should be returned or new data
-should be generated. If set to <code>TRUE</code> then the other arguments to <code>radrs</code> will be ignored.</p></td>
+      <td><p>boolean whether the cached ADSL data <code>cadsl</code> should be returned or new data
+should be generated. If set to <code>TRUE</code> then the other arguments to <code>radsl</code> will be ignored.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>data.frame</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>One record per subject per parameter per analysis visit per analysis date.
-SDTM variables are populated on new records coming from other single records.
-Otherwise, SDTM variables are left blank.</p>
-<p>Keys: STUDYID USUBJID PARAMCD AVISITN ADT RSSEQ</p>
+    <p>One record per per study per subject per parameter category per parameter per visit.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>random.cdisc.data</span><span class='op'>)</span></span>
 <span class='r-in'><span class='va'>ADSL</span> <span class='op'>&lt;-</span> <span class='fu'><a href='radsl.html'>radsl</a></span><span class='op'>(</span>N <span class='op'>=</span> <span class='fl'>10</span>, seed <span class='op'>=</span> <span class='fl'>1</span>, study_duration <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
-<span class='r-in'><span class='fu'>radrs</span><span class='op'>(</span><span class='va'>ADSL</span>, seed <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># A tibble: 80 × 49</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    STUDYID USUBJID  SUBJID SITEID   AGE SEX   RACE    COUNTRY DTHFL INVID INVNAM</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span>   <span style='color: #949494; font-style: italic;'>&lt;fct&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> </span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 1</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 2</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 3</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 4</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 5</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 6</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 7</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 8</span> AB12345 AB12345… id-9   BRA-1     35 F     BLACK … BRA     N     INV … Dr. B…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'> 9</span> AB12345 AB12345… id-8   BRA-9     31 F     ASIAN   BRA     N     INV … Dr. B…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #BCBCBC;'>10</span> AB12345 AB12345… id-8   BRA-9     31 F     ASIAN   BRA     N     INV … Dr. B…</span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'># … with 70 more rows, and 38 more variables: ARM &lt;fct&gt;, ARMCD &lt;fct&gt;,</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   ACTARM &lt;fct&gt;, ACTARMCD &lt;fct&gt;, REGION1 &lt;fct&gt;, STRATA1 &lt;fct&gt;, STRATA2 &lt;fct&gt;,</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   BMRKR1 &lt;dbl&gt;, BMRKR2 &lt;fct&gt;, ITTFL &lt;fct&gt;, SAFFL &lt;fct&gt;, BMEASIFL &lt;fct&gt;,</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   BEP01FL &lt;fct&gt;, RANDDT &lt;date&gt;, TRTSDTM &lt;dttm&gt;, TRTEDTM &lt;dttm&gt;, EOSSTT &lt;fct&gt;,</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   EOTSTT &lt;fct&gt;, EOSDT &lt;date&gt;, EOSDY &lt;int&gt;, DCSREAS &lt;fct&gt;, DTHDT &lt;date&gt;,</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   DTHCAUS &lt;fct&gt;, DTHCAT &lt;fct&gt;, LDDTHELD &lt;int&gt;, LDDTHGR1 &lt;fct&gt;,</span></span>
-<span class='r-out co'><span class='r-pr'>#&gt;</span> <span style='color: #949494;'>#   LSTALVDT &lt;date&gt;, study_duration_secs &lt;dbl&gt;, ASEQ &lt;int&gt;, RSSEQ &lt;int&gt;, …</span></span>
+<span class='r-in'><span class='va'>ADPP</span> <span class='op'>&lt;-</span> <span class='fu'>radpp</span><span class='op'>(</span><span class='va'>ADSL</span>, seed <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-in'></span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
