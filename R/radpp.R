@@ -84,7 +84,7 @@ radpp <- function(
   ))
   # derive AVISITN based AVISIT and AVALC based on AVAL
   ADPP <- ADPP %>% # nolint
-    dplyr::mutate(AVALC = as.character(AVAL)) %>%
+    dplyr::mutate(AVALC = as.character(.data$AVAL)) %>%
     dplyr::mutate(
       AVISITN = dplyr::case_when(
         AVISIT == "SCREENING" ~ 0,
@@ -95,7 +95,7 @@ radpp <- function(
 
   ADPP <- ADSL %>% # nolint %>%
     dplyr::inner_join(ADPP, by = c("STUDYID", "USUBJID")) %>% # nolint
-    dplyr::filter(ACTARM != "B: Placebo", !(ACTARM == "A: Drug X" & PPCAT == "Plasma Drug Y"))
+    dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" & .data$PPCAT == "Plasma Drug Y"))
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADPP <- mutate_na(ds = ADPP, na_vars = na_vars, na_percentage = na_percentage) # nolint
