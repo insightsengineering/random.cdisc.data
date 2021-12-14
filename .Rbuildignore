@@ -37,4 +37,4 @@
 ^\.gitlab-ci\.yml$
 ^LICENSE\.md$
 coverage.*
-^\..markdownlint\.json$
+^\.markdownlint\.json$
