@@ -56,7 +56,7 @@ radex <- function(ADSL, # nolint
     return(get_cached_data("cadex"))
   }
 
-  stopifnot(is.data.frame(ADSL))
+  checkmate::assert_data_frame(ADSL)
   checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(parcat1, min.len = 1, any.missing = FALSE)
@@ -65,8 +65,8 @@ radex <- function(ADSL, # nolint
   checkmate::assert_integer(n_assessments, len = 1, any.missing = FALSE)
   checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
   checkmate::assert_integer(max_n_exs, len = 1, any.missing = FALSE)
-  checkmate::assert_numeric(seed, null.ok = TRUE, len = 1, any.missing = FALSE)
-  checkmate::assert_numeric(na_percentage, len = 1, any.missing = TRUE, lower = 0, upper = 1)
+  checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
 
   #validate and initialize related variables
   param_init_list <- relvar_init(param, paramcd)

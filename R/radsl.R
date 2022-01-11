@@ -44,10 +44,10 @@ radsl <- function(N = 400, # nolint
     return(get_cached_data("cadsl"))
   }
 
-  checkmate::assert_numeric(N, len = 1, any.missing = FALSE)
-  checkmate::assert_numeric(study_duration, len = 1, any.missing = FALSE)
-  checkmate::assert_numeric(seed, null.ok = TRUE, len = 1, any.missing = FALSE)
-  checkmate::assert_numeric(na_percentage, len = 1, any.missing = TRUE, lower = 0, upper = 1)
+  checkmate::assert_number(N)
+  checkmate::assert_number(study_duration)
+  checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
 
   if (!is.null(seed)) {
     set.seed(seed)

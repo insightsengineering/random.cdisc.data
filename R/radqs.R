@@ -49,14 +49,14 @@ radqs <- function(ADSL, # nolint
     return(get_cached_data("cadqs"))
   }
 
-  stopifnot(is.data.frame(ADSL))
+  checkmate::assert_data_frame(ADSL)
   checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
   checkmate::assert_string(visit_format)
   checkmate::assert_integer(n_assessments, len = 1, any.missing = FALSE)
   checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
-  checkmate::assert_numeric(seed, null.ok = TRUE, len = 1, any.missing = FALSE)
-  checkmate::assert_numeric(na_percentage, len = 1, any.missing = TRUE, lower = 0, upper = 1)
+  checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
 
   # validate and initialize param vectors
   param_init_list <- relvar_init(param, paramcd)

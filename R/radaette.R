@@ -40,11 +40,11 @@ radaette <- function(ADSL, # nolint
     return(get_cached_data("cadaette"))
   }
 
-  stopifnot(is.data.frame(ADSL))
+  checkmate::assert_data_frame(ADSL)
   checkmate::assert_character(censor.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(event.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
-  checkmate::assert_numeric(seed, null.ok = TRUE, len = 1, any.missing = FALSE)
-  checkmate::assert_numeric(na_percentage, len = 1, any.missing = TRUE, lower = 0, upper = 1)
+  checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
 
   lookup_ADAETTE <- if (!is.null(lookup)) { # nolint
     lookup
@@ -70,9 +70,7 @@ radaette <- function(ADSL, # nolint
   evntdescr_sel <- if (!is.null(event.descr)) {
     event.descr
   } else {
-    c(
-      "Preferred Term"
-    )
+    "Preferred Term"
   }
 
   cnsdtdscr_sel <- if (!is.null(censor.descr)) {

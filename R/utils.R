@@ -29,7 +29,7 @@ get_cached_data <- function(dataname) {
 #' random.cdisc.data:::sample_fct(letters[1:3], 10)
 #' random.cdisc.data:::sample_fct(iris$Species, 10)
 sample_fct <- function(x, N, ...) { # nolint
-  checkmate::assert_numeric(N, len = 1, any.missing = FALSE)
+  checkmate::assert_number(N)
 
   factor(sample(x, N, replace = TRUE, ...), levels = if (is.factor(x)) levels(x) else x)
 }
@@ -101,7 +101,7 @@ relvar_init <- function(relvar1, relvar2) {
 #' )
 #'
 rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var = NULL) {
-  stopifnot(is.null(df) || is.data.frame(df))
+  checkmate::assert_data_frame(df, null.ok = TRUE)
   checkmate::assert_string(var_name, null.ok = TRUE)
   checkmate::assert_character(var_values, null.ok = TRUE, min.len = 1, any.missing = FALSE)
   checkmate::assert_string(related_var, null.ok = TRUE)
@@ -239,7 +239,7 @@ var_relabel <- function(x, ...) {
 #' }
 #'
 apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metadata/ADSL.yml") { # nolint
-  stopifnot(is.data.frame(df))
+  checkmate::assert_data_frame(df)
   checkmate::assert_string(filename)
   checkmate::assert_flag(add_adsl)
   checkmate::assert_string(adsl_filename)
@@ -329,8 +329,7 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
 #' @export
 replace_na <- function(v, percentage = 0.05, seed = NULL) {
 
-  checkmate::assert_numeric(percentage, len = 1, any.missing = FALSE)
-  stopifnot(percentage >= 0 && percentage <= 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
 
   if (percentage == 0) {
     return(v)

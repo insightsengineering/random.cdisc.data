@@ -34,10 +34,10 @@ radtr <- function(ADSL, # nolint
   if (cached) {
     return(get_cached_data("cadtr"))
   }
-  stopifnot(is.data.frame(ADSL))
+  checkmate::assert_data_frame(ADSL)
   checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
-  checkmate::assert_numeric(seed, null.ok = TRUE, len = 1, any.missing = FALSE)
+  checkmate::assert_number(seed, null.ok = TRUE)
   stopifnot(length(param) == length(paramcd))
   # validate and initialize related variables
 
