@@ -46,8 +46,9 @@ radcm <- function(ADSL, # nolint
   checkmate::assert_numeric(na_percentage, len = 1, any.missing = TRUE, lower = 0, upper = 1)
   checkmate::assert_flag(who_coding)
 
-  lookup_cm <- if_null(
-    lookup,
+  lookup_cm <- if (!is.null(lookup)) {
+    lookup
+  } else {
     tibble::tribble(
       ~CMCLAS, ~CMDECOD, ~ATIREL,
       "medcl A", "medname A_1/3", "PRIOR",
@@ -60,7 +61,7 @@ radcm <- function(ADSL, # nolint
       "medcl C", "medname C_1/2", "CONCOMITANT",
       "medcl C", "medname C_2/2", "CONCOMITANT"
     )
-  )
+  }
 
   if (!is.null(seed)) {
     set.seed(seed)

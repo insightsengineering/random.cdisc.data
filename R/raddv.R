@@ -48,8 +48,9 @@ raddv <- function(ADSL, # nolint
 
   if (!is.null(seed)) set.seed(seed)
 
-  lookup_dv <- if_null( # nolint
-    lookup,
+  lookup_dv <- if (!is.null(lookup)) {
+    lookup
+  } else {
     tibble::tribble(
       ~DOMAIN, ~DVCAT, ~DVSCAT, ~DVDECOD, ~DVREAS, ~DVEPRELI,
       "DV", "MAJOR", "EXCLUSION CRITERIA", "Received prior prohibited therapy or medication", "", "N",
@@ -79,7 +80,7 @@ raddv <- function(ADSL, # nolint
       "DV", "MAJOR", "PROCEDURAL", "Missed 2 or more efficacy assessments",
       "Site action due to epidemic/pandemic", "Y"
     )
-  )
+  }
 
 
   ADDV <- Map( # nolint

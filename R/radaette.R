@@ -46,8 +46,9 @@ radaette <- function(ADSL, # nolint
   checkmate::assert_numeric(seed, null.ok = TRUE, len = 1, any.missing = FALSE)
   checkmate::assert_numeric(na_percentage, len = 1, any.missing = TRUE, lower = 0, upper = 1)
 
-  lookup_ADAETTE <- if_null( # nolint
-    lookup,
+  lookup_ADAETTE <- if (!is.null(lookup)) {
+    lookup
+  } else {
     tibble::tribble(
       ~ARM, ~CATCD, ~CAT, ~LAMBDA, ~CNSR_P,
       "ARM A", "1", "any adverse event", 1 / 80, 0.4,
@@ -60,27 +61,29 @@ radaette <- function(ADSL, # nolint
       "ARM B", "3", "a grade 3-5 adverse event", 1 / 100, 0.08,
       "ARM C", "3", "a grade 3-5 adverse event", 1 / 60, 0.23
     )
-  )
+  }
 
   if (!is.null(seed)) {
     set.seed(seed)
   }
 
-  evntdescr_sel <- if_null(
-    event.descr,
+  evntdescr_sel <- if (is.null(event.descr)) {
+    event.descr
+  } else {
     c(
       "Preferred Term"
     )
-  )
+  }
 
-  cnsdtdscr_sel <- if_null(
-    censor.descr,
+  cnsdtdscr_sel <- if (is.null(censor.descr)) {
+    censor.descr
+  } else {
     c(
       "Clinical Cut Off",
       "Completion or Discontinuation",
       "End of AE Reporting Period"
     )
-  )
+  }
 
   random_patient_data <- function(patient_info) {
     trtsdt_int <- as.numeric(as.Date(patient_info$TRTSDTM))

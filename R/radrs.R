@@ -42,10 +42,15 @@ radrs <- function(ADSL, # nolint
   checkmate::assert_numeric(seed, null.ok = TRUE, len = 1, any.missing = FALSE)
   checkmate::assert_numeric(na_percentage, len = 1, any.missing = TRUE, lower = 0, upper = 1)
 
-  param_codes <- if_null(avalc, stats::setNames(1:5, c("CR", "PR", "SD", "PD", "NE")))
+  param_codes <- if (!null(avalc)) {
+    avalc
+  } else {
+    stats::setNames(1:5, c("CR", "PR", "SD", "PD", "NE"))
+  }
 
-  lookup_ARS <- if_null( # nolint
-    lookup,
+  lookup_ARS <- if (!is.null(lookup)) {
+    lookup
+  } else {
     expand.grid(
       ARM = c("A: Drug X", "B: Placebo", "C: Combination"),
       AVALC = names(param_codes)
@@ -57,7 +62,7 @@ radrs <- function(ADSL, # nolint
       p_eoi = c(c(.4, .3, .5), c(.35, .25, .25), c(.1, .2, .08), c(.14, 0.15, 0.15), c(.01, 0.1, 0.02)),
       p_fu = c(c(.3, .2, .4), c(.2, .1, .3), c(.2, .2, .2), c(.3, .5, 0.1), rep(0, 3))
     )
-  )
+  }
 
   if (!is.null(seed)) {
     set.seed(seed)

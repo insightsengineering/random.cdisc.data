@@ -47,8 +47,9 @@ radtte <- function(ADSL, # nolint
     set.seed(seed)
   }
 
-  lookup_TTE <- if_null( # nolint
-    lookup,
+  lookup_TTE <- if(!is.null(lookup)) {
+    lookup
+  } else {
     tibble::tribble(
       ~ARM,  ~PARAMCD, ~PARAM, ~LAMBDA, ~CNSR_P,
       "ARM A", "OS",  "Overall Survival",                 log(2) / 610, 0.4,
@@ -64,10 +65,11 @@ radtte <- function(ADSL, # nolint
       "ARM B", "CRSD", "Duration of Confirmed Response",  log(2) / 243, 0.3,
       "ARM C", "CRSD", "Duration of Confirmed Response",  log(2) / 182, 0.2,
     )
-  )
+  }
 
-  evntdescr_sel <- if_null(
-    event.descr,
+  evntdescr_sel <- if (is.null(event.descr)) {
+    event.descr
+  } else {
     c(
       "Death",
       "Disease Progression",
@@ -75,17 +77,18 @@ radtte <- function(ADSL, # nolint
       "Adverse Event",
       "Last Date Known To Be Alive"
     )
-  )
+  }
 
-  cnsdtdscr_sel <- if_null(
-    censor.descr,
+  cnsdtdscr_sel <- if (is.null(censor.descr)) {
+    censor.descr
+  } else {
     c(
       "Preferred Term",
       "Clinical Cut Off",
       "Completion or Discontinuation",
       "End of AE Reporting Period"
     )
-  )
+  }
 
   ADTTE <- split(ADSL, ADSL$USUBJID) %>% # nolint
 

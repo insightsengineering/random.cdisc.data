@@ -41,8 +41,9 @@ radmh <- function(ADSL, # nolint
   checkmate::assert_numeric(seed, null.ok = TRUE, len = 1, any.missing = FALSE)
   checkmate::assert_numeric(na_percentage, len = 1, any.missing = TRUE, lower = 0, upper = 1)
 
-  lookup_mh <- if_null(
-    lookup,
+  lookup_mh <- if(!is.null(lookup)) {
+    lookup
+  } else {
     tibble::tribble(
       ~MHBODSYS, ~MHDECOD, ~MHSOC,
       "cl A", "trm A_1/2", "cl A",
@@ -56,7 +57,7 @@ radmh <- function(ADSL, # nolint
       "cl D", "trm D_2/3", "cl D",
       "cl D", "trm D_3/3", "cl D"
     )
-  )
+  }
 
   if (!is.null(seed)) {
     set.seed(seed)
