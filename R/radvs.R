@@ -46,19 +46,20 @@ radvs <- function(ADSL, # nolint
                   ),
                   cached = FALSE) {
 
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadvs"))
   }
 
   stopifnot(is.data.frame(ADSL))
-  stopifnot(is_character_vector(param))
-  stopifnot(is_character_vector(paramcd))
-  stopifnot(is_character_vector(paramu))
-  stopifnot(is_character_single(visit_format))
-  stopifnot(is_integer_single(n_assessments))
-  stopifnot(is_integer_single(n_days))
-  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(paramu, min.len = 1, any.missing = FALSE)
+  checkmate::assert_string(visit_format)
+  checkmate::assert_integer(n_assessments, len = 1, any.missing = FALSE)
+  checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
+  checkmate::assert_numeric(seed, null.ok = TRUE, len = 1, any.missing = FALSE)
+  checkmate::assert_numeric(na_percentage, len = 1, any.missing = TRUE, lower = 0, upper = 1)
 
   # validate and initialize param vectors
   param_init_list <- relvar_init(param, paramcd)

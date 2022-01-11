@@ -54,22 +54,22 @@ radlb <- function(ADSL, # nolint
                   ),
                   cached = FALSE) { # nolint
 
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadlb"))
   }
 
   stopifnot(is.data.frame(ADSL))
-  stopifnot(is_character_vector(lbcat))
-  stopifnot(is_character_vector(param))
-  stopifnot(is_character_vector(paramcd))
-  stopifnot(is_character_vector(paramu))
-  stopifnot(is_character_single(visit_format))
-  stopifnot(is_integer_single(n_assessments))
-  stopifnot(is_integer_single(n_days))
-  stopifnot(is_integer_single(max_n_lbs))
-  stopifnot(is.null(seed) || is_numeric_single(seed))
-  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(paramu, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(lbcat, min.len = 1, any.missing = FALSE)
+  checkmate::assert_string(visit_format)
+  checkmate::assert_integer(n_assessments, len = 1, any.missing = FALSE)
+  checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
+  checkmate::assert_integer(max_n_lbs, len = 1, any.missing = FALSE)
+  checkmate::assert_numeric(seed, null.ok = TRUE, len = 1, any.missing = FALSE)
+  checkmate::assert_numeric(na_percentage, len = 1, any.missing = TRUE, lower = 0, upper = 1)
 
   # validate and initialize related variables
   lbcat_init_list <- relvar_init(param, lbcat)

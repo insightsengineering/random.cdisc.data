@@ -36,16 +36,16 @@ h_anthropometrics_by_sex <- function(df,
                                      male_height_in_m = list(mean = 1.75, sd = 0.14),
                                      female_height_in_m = list(mean = 1.61, sd = 0.24)) { # nolint
   stopifnot(is.data.frame(df))
-  stopifnot(is_character_single(id_var))
-  stopifnot(is_character_single(sex_var))
-  stopifnot(is_character_single(sex_var_level_male))
-  stopifnot(is_numeric_list(male_weight_in_kg))
+  checkmate::assert_string(id_var)
+  checkmate::assert_string(sex_var)
+  checkmate::assert_string(sex_var_level_male)
+  checkmate::assert_list(male_weight_in_kg, types = "numeric")
   stopifnot(names(male_weight_in_kg) %in% c("mean", "sd"))
-  stopifnot(is_numeric_list(female_weight_in_kg))
+  checkmate::assert_list(female_weight_in_kg, types = "numeric")
   stopifnot(names(female_weight_in_kg) %in% c("mean", "sd"))
-  stopifnot(is_numeric_list(male_height_in_m))
+  checkmate::assert_list(male_height_in_m, types = "numeric")
   stopifnot(names(male_height_in_m) %in% c("mean", "sd"))
-  stopifnot(is_numeric_list(female_height_in_m))
+  checkmate::assert_list(female_height_in_m, types = "numeric")
   stopifnot(names(female_height_in_m) %in% c("mean", "sd"))
 
   n <- length(unique(df[[id_var]]))
@@ -116,16 +116,16 @@ radsub <- function(ADSL, # nolint
                    na_percentage = 0,
                    na_vars = list(),
                    cached = FALSE) {
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadsub"))
   }
 
   stopifnot(is.data.frame(ADSL))
-  stopifnot(is_character_vector(param))
-  stopifnot(is_character_vector(paramcd))
-  stopifnot(is.null(seed) || is_numeric_single(seed))
-  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
+  checkmate::assert_numeric(seed, null.ok = TRUE, len = 1, any.missing = FALSE)
+  checkmate::assert_numeric(na_percentage, len = 1, any.missing = TRUE, lower = 0, upper = 1)
 
   # Validate and initialize related variables.
   param_init_list <- relvar_init(param, paramcd)
