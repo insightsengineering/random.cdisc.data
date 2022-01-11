@@ -42,7 +42,7 @@ radrs <- function(ADSL, # nolint
   checkmate::assert_numeric(seed, null.ok = TRUE, len = 1, any.missing = FALSE)
   checkmate::assert_numeric(na_percentage, len = 1, any.missing = TRUE, lower = 0, upper = 1)
 
-  param_codes <- if (!null(avalc)) {
+  param_codes <- if (!is.null(avalc)) {
     avalc
   } else {
     stats::setNames(1:5, c("CR", "PR", "SD", "PD", "NE"))
