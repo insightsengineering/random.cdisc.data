@@ -329,7 +329,7 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
 #' @export
 replace_na <- function(v, percentage = 0.05, seed = NULL) {
 
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_number(percentage, lower = 0, upper = 1)
 
   if (percentage == 0) {
     return(v)
