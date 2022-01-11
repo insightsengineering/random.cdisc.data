@@ -67,7 +67,7 @@ radaette <- function(ADSL, # nolint
     set.seed(seed)
   }
 
-  evntdescr_sel <- if (is.null(event.descr)) {
+  evntdescr_sel <- if (!is.null(event.descr)) {
     event.descr
   } else {
     c(
@@ -75,7 +75,7 @@ radaette <- function(ADSL, # nolint
     )
   }
 
-  cnsdtdscr_sel <- if (is.null(censor.descr)) {
+  cnsdtdscr_sel <- if (!is.null(censor.descr)) {
     censor.descr
   } else {
     c(
