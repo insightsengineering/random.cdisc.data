@@ -35,16 +35,16 @@ radcm <- function(ADSL, # nolint
                   na_vars = list(CMCLAS = c(NA, 0.1), CMDECOD = c(1234, 0.1), ATIREL = c(1234, 0.1)),
                   who_coding = FALSE,
                   cached = FALSE) {
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadcm"))
   }
 
   stopifnot(is.data.frame(ADSL))
-  stopifnot(is_integer_single(max_n_cms))
-  stopifnot(is.null(seed) || is_numeric_single(seed))
-  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
-  stopifnot(is_logical_single(who_coding))
+  checkmate::assert_integer(max_n_cms, len = 1, any.missing = FALSE)
+  checkmate::assert_numeric(seed, null.ok = TRUE, len = 1, any.missing = FALSE)
+  checkmate::assert_numeric(na_percentage, len = 1, any.missing = TRUE, lower = 0, upper = 1)
+  checkmate::assert_flag(who_coding)
 
   lookup_cm <- if_null(
     lookup,

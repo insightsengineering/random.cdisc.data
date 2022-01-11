@@ -5,6 +5,7 @@
 
 ### Miscellaneous
 * Updated R version requirement to >= 3.6.
+* Removed `utils.nest` from imports and use `checkmate` for validation functions.
 
 # random.cdisc.data 0.3.12
 

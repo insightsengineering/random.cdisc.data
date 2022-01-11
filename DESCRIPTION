@@ -20,12 +20,12 @@ License: Apache License 2.0 | file LICENSE
 Depends:
     R (>= 3.6)
 Imports:
+    checkmate,
     dplyr,
     magrittr,
     rlang,
     tibble,
     tidyr,
-    utils.nest (>= 0.2.11),
     yaml
 Suggests:
     knitr,
