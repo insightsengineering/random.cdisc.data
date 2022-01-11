@@ -51,7 +51,7 @@ radvs <- function(ADSL, # nolint
     return(get_cached_data("cadvs"))
   }
 
-  stopifnot(is.data.frame(ADSL))
+  checkmate::assert_data_frame(ADSL)
   checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(paramu, min.len = 1, any.missing = FALSE)

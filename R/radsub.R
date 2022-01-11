@@ -40,13 +40,14 @@ h_anthropometrics_by_sex <- function(df,
   checkmate::assert_string(sex_var)
   checkmate::assert_string(sex_var_level_male)
   checkmate::assert_list(male_weight_in_kg, types = "numeric")
-  stopifnot(names(male_weight_in_kg) %in% c("mean", "sd"))
+  checkmate::assert_subset(names(male_weight_in_kg), choices = c("mean", "sd"))
   checkmate::assert_list(female_weight_in_kg, types = "numeric")
-  stopifnot(names(female_weight_in_kg) %in% c("mean", "sd"))
+  checkmate::assert_subset(names(female_weight_in_kg), choices = c("mean", "sd"))
   checkmate::assert_list(male_height_in_m, types = "numeric")
-  stopifnot(names(male_height_in_m) %in% c("mean", "sd"))
+  checkmate::assert_subset(names(male_height_in_m), choices = c("mean", "sd"))
   checkmate::assert_list(female_height_in_m, types = "numeric")
-  stopifnot(names(female_height_in_m) %in% c("mean", "sd"))
+  checkmate::assert_subset(names(female_height_in_m), choices = c("mean", "sd"))
+
 
   n <- length(unique(df[[id_var]]))
   set.seed(seed)
