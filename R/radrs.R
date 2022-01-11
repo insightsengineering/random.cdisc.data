@@ -48,7 +48,7 @@ radrs <- function(ADSL, # nolint
     stats::setNames(1:5, c("CR", "PR", "SD", "PD", "NE"))
   }
 
-  lookup_ARS <- if (!is.null(lookup)) {
+  lookup_ARS <- if (!is.null(lookup)) { # nolint
     lookup
   } else {
     expand.grid(
