@@ -47,7 +47,7 @@ radtte <- function(ADSL, # nolint
     set.seed(seed)
   }
 
-  lookup_TTE <- if(!is.null(lookup)) {
+  lookup_TTE <- if (!is.null(lookup)) { # nolint
     lookup
   } else {
     tibble::tribble(
