@@ -72,7 +72,7 @@ radae <- function(ADSL, # nolint
   checkmate::assert_data_frame(ADSL)
   checkmate::assert_integer(max_n_aes, len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1, null.ok = TRUE)
 
   lookup_ae <- if (!is.null(lookup)) {
     lookup
@@ -92,7 +92,9 @@ radae <- function(ADSL, # nolint
     )
   }
 
-  AAG <- if (is.null(lookup_aag)) { # nolint
+  AAG <- if (!is.null(lookup_aag)) { # nolint
+    lookup_aag
+  } else {
     aag <- utils::read.table(
       sep = ",", header = TRUE,
       text = paste(
@@ -106,8 +108,6 @@ radae <- function(ADSL, # nolint
         sep = "\n"
       ), stringsAsFactors = FALSE
     )
-  } else {
-    lookup_aag
   }
 
   if (!is.null(seed)) set.seed(seed)

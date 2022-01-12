@@ -44,7 +44,7 @@ raddv <- function(ADSL, # nolint
   checkmate::assert_integer(max_n_dv, len = 1, any.missing = FALSE)
   checkmate::assert_number(p_dv, lower = 0, upper = 1)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1, null.ok = TRUE)
 
   if (!is.null(seed)) set.seed(seed)
 
