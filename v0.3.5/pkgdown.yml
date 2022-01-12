@@ -1,9 +1,0 @@
-pandoc: 2.3.1
-pkgdown: 1.4.1
-pkgdown_sha: ~
-articles:
-  rebuild_cached_data: rebuild_cached_data.html
-urls:
-  reference: https://pages.github.roche.com/NEST/random.cdisc.data/reference
-  article: https://pages.github.roche.com/NEST/random.cdisc.data/articles
-

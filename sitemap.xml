@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://insightsengineering.github.io/random.cdisc.data/404.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/random.cdisc.data/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/random.cdisc.data/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/random.cdisc.data/articles/rebuild_cached_data.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/random.cdisc.data/authors.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/random.cdisc.data/index.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/random.cdisc.data/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/random.cdisc.data/pull_request_template.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/random.cdisc.data/reference/apply_metadata.html</loc>
@@ -62,6 +83,9 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/random.cdisc.data/reference/h_anthropometrics_by_sex.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/random.cdisc.data/reference/index.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/random.cdisc.data/reference/mutate_na.html</loc>
@@ -152,8 +176,5 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/random.cdisc.data/reference/visit_schedule.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/random.cdisc.data/articles/rebuild_cached_data.html</loc>
   </url>
 </urlset>
