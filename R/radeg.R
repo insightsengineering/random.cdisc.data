@@ -67,7 +67,7 @@ radeg <- function(ADSL, # nolint
   checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
   checkmate::assert_integer(max_n_eg, len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
   # also check na_percentage is not 1
   stopifnot(is.na(na_percentage) || na_percentage < 1)
 

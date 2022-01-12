@@ -47,7 +47,7 @@ radsl <- function(N = 400, # nolint
   checkmate::assert_number(N)
   checkmate::assert_number(study_duration)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
   # also check na_percentage is not 1
   stopifnot(is.na(na_percentage) || na_percentage < 1)
 
