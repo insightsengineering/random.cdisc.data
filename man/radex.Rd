@@ -76,7 +76,6 @@ Keys: STUDYID USUBJID EXSEQ PARAMCD PARCAT1 ASTDTM AVISITN
 }
 \examples{
 library(random.cdisc.data)
-library(utils.nest)
 library(dplyr)
 
 ADSL <- radsl(N = 10, study_duration = 2, seed = 1)

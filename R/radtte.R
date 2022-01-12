@@ -32,23 +32,26 @@ radtte <- function(ADSL, # nolint
                    na_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234, 0.1), AVALU = c(1234, 0.1)),
                    cached = FALSE) {
 
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadtte"))
   }
 
-  stopifnot(is.data.frame(ADSL))
-  stopifnot(is.null(event.descr) || is_character_vector(event.descr))
-  stopifnot(is.null(censor.descr) || is_character_vector(censor.descr))
-  stopifnot(is.null(seed) || is_numeric_single(seed))
-  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_character(censor.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(event.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
+  checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
+  # also check na_percentage is not 1
+  stopifnot(is.na(na_percentage) || na_percentage < 1)
 
   if (!is.null(seed)) {
     set.seed(seed)
   }
 
-  lookup_TTE <- if_null( # nolint
-    lookup,
+  lookup_TTE <- if (!is.null(lookup)) { # nolint
+    lookup
+  } else {
     tibble::tribble(
       ~ARM,  ~PARAMCD, ~PARAM, ~LAMBDA, ~CNSR_P,
       "ARM A", "OS",  "Overall Survival",                 log(2) / 610, 0.4,
@@ -64,10 +67,11 @@ radtte <- function(ADSL, # nolint
       "ARM B", "CRSD", "Duration of Confirmed Response",  log(2) / 243, 0.3,
       "ARM C", "CRSD", "Duration of Confirmed Response",  log(2) / 182, 0.2,
     )
-  )
+  }
 
-  evntdescr_sel <- if_null(
-    event.descr,
+  evntdescr_sel <- if (!is.null(event.descr)) {
+    event.descr
+  } else {
     c(
       "Death",
       "Disease Progression",
@@ -75,17 +79,18 @@ radtte <- function(ADSL, # nolint
       "Adverse Event",
       "Last Date Known To Be Alive"
     )
-  )
+  }
 
-  cnsdtdscr_sel <- if_null(
-    censor.descr,
+  cnsdtdscr_sel <- if (!is.null(censor.descr)) {
+    censor.descr
+  } else {
     c(
       "Preferred Term",
       "Clinical Cut Off",
       "Completion or Discontinuation",
       "End of AE Reporting Period"
     )
-  )
+  }
 
   ADTTE <- split(ADSL, ADSL$USUBJID) %>% # nolint
 

@@ -44,19 +44,21 @@ radqs <- function(ADSL, # nolint
                   ),
                   cached = FALSE) {
 
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadqs"))
   }
 
-  stopifnot(is.data.frame(ADSL))
-  stopifnot(is_character_vector(param))
-  stopifnot(is_character_vector(paramcd))
-  stopifnot(is_character_single(visit_format))
-  stopifnot(is_integer_single(n_assessments))
-  stopifnot(is_integer_single(n_days))
-  stopifnot(is.null(seed) || is_numeric_single(seed))
-  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
+  checkmate::assert_string(visit_format)
+  checkmate::assert_integer(n_assessments, len = 1, any.missing = FALSE)
+  checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
+  checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
+  # also check na_percentage is not 1
+  stopifnot(is.na(na_percentage) || na_percentage < 1)
 
   # validate and initialize param vectors
   param_init_list <- relvar_init(param, paramcd)

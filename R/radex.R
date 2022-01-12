@@ -26,7 +26,6 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' library(utils.nest)
 #' library(dplyr)
 #'
 #' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
@@ -52,22 +51,24 @@ radex <- function(ADSL, # nolint
                   na_vars =  list(AVAL = c(NA, 0.1), AVALU = c(NA), 0.1),
                   cached = FALSE) {
 
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadex"))
   }
 
-  stopifnot(is.data.frame(ADSL))
-  stopifnot(is_character_vector(param))
-  stopifnot(is_character_vector(paramcd))
-  stopifnot(is_character_vector(parcat1))
-  stopifnot(is_character_vector(parcat2))
-  stopifnot(is_character_single(visit_format))
-  stopifnot(is_integer_single(n_assessments))
-  stopifnot(is_integer_single(n_days))
-  stopifnot(is_integer_single(max_n_exs))
-  stopifnot(is.null(seed) || is_numeric_single(seed))
-  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(parcat1, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(parcat2, min.len = 1, any.missing = FALSE)
+  checkmate::assert_string(visit_format)
+  checkmate::assert_integer(n_assessments, len = 1, any.missing = FALSE)
+  checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
+  checkmate::assert_integer(max_n_exs, len = 1, any.missing = FALSE)
+  checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
+  # also check na_percentage is not 1
+  stopifnot(is.na(na_percentage) || na_percentage < 1)
 
   #validate and initialize related variables
   param_init_list <- relvar_init(param, paramcd)

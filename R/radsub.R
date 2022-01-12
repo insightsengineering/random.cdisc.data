@@ -35,18 +35,19 @@ h_anthropometrics_by_sex <- function(df,
                                      female_weight_in_kg = list(mean = 77.5, sd = 46.2),
                                      male_height_in_m = list(mean = 1.75, sd = 0.14),
                                      female_height_in_m = list(mean = 1.61, sd = 0.24)) { # nolint
-  stopifnot(is.data.frame(df))
-  stopifnot(is_character_single(id_var))
-  stopifnot(is_character_single(sex_var))
-  stopifnot(is_character_single(sex_var_level_male))
-  stopifnot(is_numeric_list(male_weight_in_kg))
-  stopifnot(names(male_weight_in_kg) %in% c("mean", "sd"))
-  stopifnot(is_numeric_list(female_weight_in_kg))
-  stopifnot(names(female_weight_in_kg) %in% c("mean", "sd"))
-  stopifnot(is_numeric_list(male_height_in_m))
-  stopifnot(names(male_height_in_m) %in% c("mean", "sd"))
-  stopifnot(is_numeric_list(female_height_in_m))
-  stopifnot(names(female_height_in_m) %in% c("mean", "sd"))
+  checkmate::assert_data_frame(df)
+  checkmate::assert_string(id_var)
+  checkmate::assert_string(sex_var)
+  checkmate::assert_string(sex_var_level_male)
+  checkmate::assert_list(male_weight_in_kg, types = "numeric")
+  checkmate::assert_subset(names(male_weight_in_kg), choices = c("mean", "sd"))
+  checkmate::assert_list(female_weight_in_kg, types = "numeric")
+  checkmate::assert_subset(names(female_weight_in_kg), choices = c("mean", "sd"))
+  checkmate::assert_list(male_height_in_m, types = "numeric")
+  checkmate::assert_subset(names(male_height_in_m), choices = c("mean", "sd"))
+  checkmate::assert_list(female_height_in_m, types = "numeric")
+  checkmate::assert_subset(names(female_height_in_m), choices = c("mean", "sd"))
+
 
   n <- length(unique(df[[id_var]]))
   set.seed(seed)
@@ -116,16 +117,18 @@ radsub <- function(ADSL, # nolint
                    na_percentage = 0,
                    na_vars = list(),
                    cached = FALSE) {
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadsub"))
   }
 
-  stopifnot(is.data.frame(ADSL))
-  stopifnot(is_character_vector(param))
-  stopifnot(is_character_vector(paramcd))
-  stopifnot(is.null(seed) || is_numeric_single(seed))
-  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
+  checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
+  # also check na_percentage is not 1
+  stopifnot(is.na(na_percentage) || na_percentage < 1)
 
   # Validate and initialize related variables.
   param_init_list <- relvar_init(param, paramcd)

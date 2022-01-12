@@ -30,14 +30,14 @@ radtr <- function(ADSL, # nolint
                   seed = NULL,
                   cached = FALSE,
                   ...) {
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadtr"))
   }
-  stopifnot(is.data.frame(ADSL))
-  stopifnot(is_character_vector(param))
-  stopifnot(is_character_vector(paramcd))
-  stopifnot(is.null(seed) || is_numeric_single(seed))
+  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
+  checkmate::assert_number(seed, null.ok = TRUE)
   stopifnot(length(param) == length(paramcd))
   # validate and initialize related variables
 

@@ -3,7 +3,6 @@
 #' This file facilitates package build
 #'
 #'
-#' @import utils.nest
 #' @import magrittr
 #' @docType package
 #' @name random.cdisc.data

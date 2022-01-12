@@ -35,22 +35,22 @@ radaette <- function(ADSL, # nolint
                      na_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234, 0.1)),
                      cached = FALSE) {
 
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadaette"))
   }
 
-  stopifnot(is.data.frame(ADSL))
-  stopifnot(is.null(event.descr) || is_character_vector(event.descr))
-  stopifnot(is.null(censor.descr) || is_character_vector(censor.descr))
-  stopifnot(is.null(seed) || is_numeric_single(seed))
-  stopifnot(
-    (is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) ||
-      is.na(na_percentage)
-  )
+  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_character(censor.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(event.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
+  checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
+  # also check na_percentage is not 1
+  stopifnot(is.na(na_percentage) || na_percentage < 1)
 
-  lookup_ADAETTE <- if_null( # nolint
-    lookup,
+  lookup_ADAETTE <- if (!is.null(lookup)) { # nolint
+    lookup
+  } else {
     tibble::tribble(
       ~ARM, ~CATCD, ~CAT, ~LAMBDA, ~CNSR_P,
       "ARM A", "1", "any adverse event", 1 / 80, 0.4,
@@ -63,27 +63,27 @@ radaette <- function(ADSL, # nolint
       "ARM B", "3", "a grade 3-5 adverse event", 1 / 100, 0.08,
       "ARM C", "3", "a grade 3-5 adverse event", 1 / 60, 0.23
     )
-  )
+  }
 
   if (!is.null(seed)) {
     set.seed(seed)
   }
 
-  evntdescr_sel <- if_null(
-    event.descr,
-    c(
-      "Preferred Term"
-    )
-  )
+  evntdescr_sel <- if (!is.null(event.descr)) {
+    event.descr
+  } else {
+    "Preferred Term"
+  }
 
-  cnsdtdscr_sel <- if_null(
-    censor.descr,
+  cnsdtdscr_sel <- if (!is.null(censor.descr)) {
+    censor.descr
+  } else {
     c(
       "Clinical Cut Off",
       "Completion or Discontinuation",
       "End of AE Reporting Period"
     )
-  )
+  }
 
   random_patient_data <- function(patient_info) {
     trtsdt_int <- as.numeric(as.Date(patient_info$TRTSDTM))

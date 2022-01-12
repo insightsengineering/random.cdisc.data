@@ -39,15 +39,17 @@ radsl <- function(N = 400, # nolint
                     "BMRKR1" = c(seed = 1234, percentage = 0.1), "BMRKR2" = c(1234, 0.1), "BEP01FL" = NA
                   ),
                   cached = FALSE) {
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadsl"))
   }
 
-  stopifnot(is_numeric_single(N))
-  stopifnot(is_numeric_single(study_duration))
-  stopifnot(is.null(seed) || is_numeric_single(seed))
-  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  checkmate::assert_number(N)
+  checkmate::assert_number(study_duration)
+  checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
+  # also check na_percentage is not 1
+  stopifnot(is.na(na_percentage) || na_percentage < 1)
 
   if (!is.null(seed)) {
     set.seed(seed)

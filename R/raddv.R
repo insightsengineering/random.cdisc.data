@@ -37,19 +37,22 @@ raddv <- function(ADSL, # nolint
                   ),
                   cached = FALSE) {
 
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) return(get_cached_data("caddv"))
 
-  stopifnot(is.data.frame(ADSL))
-  stopifnot(is_integer_single(max_n_dv))
-  stopifnot(is_numeric_single(p_dv) && p_dv > 0 && p_dv <= 1)
-  stopifnot(is.null(seed) || is_numeric_single(seed))
-  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_integer(max_n_dv, len = 1, any.missing = FALSE)
+  checkmate::assert_number(p_dv, lower = .Machine$double.xmin, upper = 1)
+  checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
+  # also check na_percentage is not 1
+  stopifnot(is.na(na_percentage) || na_percentage < 1)
 
   if (!is.null(seed)) set.seed(seed)
 
-  lookup_dv <- if_null( # nolint
-    lookup,
+  lookup_dv <- if (!is.null(lookup)) {
+    lookup
+  } else {
     tibble::tribble(
       ~DOMAIN, ~DVCAT, ~DVSCAT, ~DVDECOD, ~DVREAS, ~DVEPRELI,
       "DV", "MAJOR", "EXCLUSION CRITERIA", "Received prior prohibited therapy or medication", "", "N",
@@ -79,7 +82,7 @@ raddv <- function(ADSL, # nolint
       "DV", "MAJOR", "PROCEDURAL", "Missed 2 or more efficacy assessments",
       "Site action due to epidemic/pandemic", "Y"
     )
-  )
+  }
 
 
   ADDV <- Map( # nolint

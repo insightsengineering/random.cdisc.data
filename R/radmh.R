@@ -31,18 +31,21 @@ radmh <- function(ADSL, # nolint
                   na_percentage = 0,
                   na_vars = list(MHBODSYS = c(NA, 0.1), MHDECOD = c(1234, 0.1)),
                   cached = FALSE) {
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadmh"))
   }
 
-  stopifnot(is.data.frame(ADSL))
-  stopifnot(is_integer_single(max_n_mhs))
-  stopifnot(is.null(seed) || is_numeric_single(seed))
-  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
+  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_integer(max_n_mhs, len = 1, any.missing = FALSE)
+  checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
+  # also check na_percentage is not 1
+  stopifnot(is.na(na_percentage) || na_percentage < 1)
 
-  lookup_mh <- if_null(
-    lookup,
+  lookup_mh <- if (!is.null(lookup)) {
+    lookup
+  } else {
     tibble::tribble(
       ~MHBODSYS, ~MHDECOD, ~MHSOC,
       "cl A", "trm A_1/2", "cl A",
@@ -56,7 +59,7 @@ radmh <- function(ADSL, # nolint
       "cl D", "trm D_2/3", "cl D",
       "cl D", "trm D_3/3", "cl D"
     )
-  )
+  }
 
   if (!is.null(seed)) {
     set.seed(seed)

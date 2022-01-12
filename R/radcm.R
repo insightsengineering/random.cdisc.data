@@ -35,19 +35,22 @@ radcm <- function(ADSL, # nolint
                   na_vars = list(CMCLAS = c(NA, 0.1), CMDECOD = c(1234, 0.1), ATIREL = c(1234, 0.1)),
                   who_coding = FALSE,
                   cached = FALSE) {
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadcm"))
   }
 
-  stopifnot(is.data.frame(ADSL))
-  stopifnot(is_integer_single(max_n_cms))
-  stopifnot(is.null(seed) || is_numeric_single(seed))
-  stopifnot((is_numeric_single(na_percentage) && na_percentage >= 0 && na_percentage < 1) || is.na(na_percentage))
-  stopifnot(is_logical_single(who_coding))
+  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_integer(max_n_cms, len = 1, any.missing = FALSE)
+  checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
+  # also check na_percentage is not 1
+  stopifnot(is.na(na_percentage) || na_percentage < 1)
+  checkmate::assert_flag(who_coding)
 
-  lookup_cm <- if_null(
-    lookup,
+  lookup_cm <- if (!is.null(lookup)) {
+    lookup
+  } else {
     tibble::tribble(
       ~CMCLAS, ~CMDECOD, ~ATIREL,
       "medcl A", "medname A_1/3", "PRIOR",
@@ -60,7 +63,7 @@ radcm <- function(ADSL, # nolint
       "medcl C", "medname C_1/2", "CONCOMITANT",
       "medcl C", "medname C_2/2", "CONCOMITANT"
     )
-  )
+  }
 
   if (!is.null(seed)) {
     set.seed(seed)

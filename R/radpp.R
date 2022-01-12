@@ -38,7 +38,7 @@ radpp <- function(
   cached = FALSE
 ) {
 
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadlb"))
   }

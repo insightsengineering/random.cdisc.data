@@ -27,15 +27,13 @@ radpc <- function(
   cached = FALSE
 ) {
 
-  stopifnot(is_logical_single(cached))
+  checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadlb"))
   }
 
-  stopifnot(
-    is_character_single(avalu),
-    all(names(constants) %in% c("D", "ka", "ke"))
-  )
+  checkmate::assert_character(avalu, len = 1, any.missing = FALSE)
+  checkmate::assert_subset(names(constants), c("D", "ka", "ke"))
 
   if (!is.null(seed)) {
     set.seed(seed)
