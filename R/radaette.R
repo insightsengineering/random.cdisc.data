@@ -45,6 +45,8 @@ radaette <- function(ADSL, # nolint
   checkmate::assert_character(event.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1, null.ok = TRUE)
+  # also check na_percentage is not 1
+  stopifnot(is.na(na_percentage) || na_percentage < 1)
 
   lookup_ADAETTE <- if (!is.null(lookup)) { # nolint
     lookup
