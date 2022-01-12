@@ -33,9 +33,7 @@ radpc <- function(
   }
 
   checkmate::assert_character(avalu, len = 1, any.missing = FALSE)
-  stopifnot(
-    all(names(constants) %in% c("D", "ka", "ke"))
-  )
+  checkmate::assert_subset(names(constants), c("D", "ka", "ke"))
 
   if (!is.null(seed)) {
     set.seed(seed)
