@@ -6,7 +6,7 @@
 
 ### Miscellaneous
 * Updated R version requirement to >= 3.6.
-* Removed deprecated package`utils.nest` from imports and now use `checkmate` for validation functions.
+* Removed deprecated package `utils.nest` from imports and now use `checkmate` for validation functions.
 * Removed deprecated dependency `test.nest`.
 
 # random.cdisc.data 0.3.12
