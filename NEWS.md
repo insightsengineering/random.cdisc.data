@@ -1,11 +1,13 @@
 # random.cdisc.data 0.3.12.9011
+
 * Fixed a typo in `ADSL$BMRKR1`'s label.
 * Added new random dataset generator: PK Analysis Dataset (`radpc`).
 * Added new random dataset generator: PK Parameter Dataset (`radpp`).
 
 ### Miscellaneous
 * Updated R version requirement to >= 3.6.
-* Removed `utils.nest` from imports and used `checkmate` for validation functions.
+* Removed deprecated package `utils.nest` from imports and now use `checkmate` for validation functions.
+* Removed deprecated dependency `test.nest`.
 
 # random.cdisc.data 0.3.12
 
