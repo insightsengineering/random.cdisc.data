@@ -44,15 +44,6 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="..//index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/insightsengineering/random.cdisc.data/" class="external-link">
     <span class="fa fa-github"></span>
@@ -92,21 +83,23 @@ Other releases
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ADSL</span> <span class="op">&lt;-</span> <span class="fu"><a href="radsl.html">radsl</a></span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">random.cdisc.data</span><span class="fu">:::</span><span class="fu">var_relabel</span><span class="op">(</span><span class="va">ADSL</span>, STUDYID <span class="op">=</span> <span class="st">"Study Identifier"</span>,</span>
-<span class="r-in">USUBJID <span class="op">=</span> <span class="st">"Unique Subject Identifier"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">random.cdisc.data</span><span class="fu">:::</span><span class="fu">var_relabel</span><span class="op">(</span><span class="va">ADSL</span>,</span>
+<span class="r-in">  STUDYID <span class="op">=</span> <span class="st">"Study Identifier"</span>,</span>
+<span class="r-in">  USUBJID <span class="op">=</span> <span class="st">"Unique Subject Identifier"</span></span>
+<span class="r-in"><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 400 × 39</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    STUDYID USUBJID  SUBJID SITEID   AGE SEX   RACE    COUNTRY DTHFL INVID INVNAM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AB12345 AB12345… id-89  CHN-17    29 M     BLACK … CHN     N     INV … Dr. C…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AB12345 AB12345… id-45  CHN-9     28 F     AMERIC… CHN     N     INV … Dr. C…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AB12345 AB12345… id-302 CHN-1     32 F     BLACK … CHN     N     INV … Dr. C…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AB12345 AB12345… id-19  CHN-11    38 M     ASIAN   CHN     N     INV … Dr. C…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AB12345 AB12345… id-346 CHN-12    29 M     ASIAN   CHN     Y     INV … Dr. C…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AB12345 AB12345… id-202 CHN-4     29 F     WHITE   CHN     N     INV … Dr. C…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AB12345 AB12345… id-272 NGA-6     41 M     BLACK … NGA     N     INV … Dr. N…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AB12345 AB12345… id-276 PAK-13    39 F     BLACK … PAK     N     INV … Dr. P…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AB12345 AB12345… id-204 CHN-4     43 M     ASIAN   CHN     N     INV … Dr. C…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AB12345 AB12345… id-230 GBR-3     37 M     ASIAN   GBR     N     INV … Dr. G…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    STUDYID USUBJID    SUBJID SITEID   AGE SEX   RACE  COUNTRY DTHFL INVID INVNAM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AB12345 AB12345-C… id-89  CHN-17    29 M     BLAC… CHN     N     INV … Dr. C…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AB12345 AB12345-C… id-45  CHN-9     28 F     AMER… CHN     N     INV … Dr. C…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AB12345 AB12345-C… id-302 CHN-1     32 F     BLAC… CHN     N     INV … Dr. C…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AB12345 AB12345-C… id-19  CHN-11    38 M     ASIAN CHN     N     INV … Dr. C…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AB12345 AB12345-C… id-346 CHN-12    29 M     ASIAN CHN     Y     INV … Dr. C…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AB12345 AB12345-C… id-202 CHN-4     29 F     WHITE CHN     N     INV … Dr. C…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AB12345 AB12345-N… id-272 NGA-6     41 M     BLAC… NGA     N     INV … Dr. N…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AB12345 AB12345-P… id-276 PAK-13    39 F     BLAC… PAK     N     INV … Dr. P…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AB12345 AB12345-C… id-204 CHN-4     43 M     ASIAN CHN     N     INV … Dr. C…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AB12345 AB12345-G… id-230 GBR-3     37 M     ASIAN GBR     N     INV … Dr. G…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 390 more rows, and 28 more variables: ARM &lt;fct&gt;, ARMCD &lt;fct&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ACTARM &lt;fct&gt;, ACTARMCD &lt;fct&gt;, REGION1 &lt;fct&gt;, STRATA1 &lt;fct&gt;, STRATA2 &lt;fct&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   BMRKR1 &lt;dbl&gt;, BMRKR2 &lt;fct&gt;, ITTFL &lt;fct&gt;, SAFFL &lt;fct&gt;, BMEASIFL &lt;fct&gt;,</span></span>
@@ -128,7 +121,7 @@ Other releases
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>
