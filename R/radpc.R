@@ -4,6 +4,7 @@
 #' @param avalu (`string`)\cr Analysis value unit value
 #' @param constants (`character vector`)\cr Constant parameters to be used in the PK
 #' equation for creating analysis values.
+#' @param duration (`numeric`)\cr Duration in number of days.
 #' @inheritParams radsl
 #'
 #' @details One record per per study per subject per parameter per time point
@@ -14,11 +15,13 @@
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' ADPC <- radpc(ADSL, seed = 2)
+#' ADPC <- radpc(ADSL, seed = 2, duration = 3)
 #'
 radpc <- function(
   ADSL, # nolint
   avalu = "ug/mL",
   constants = c(D = 100, ka = 0.8, ke = 1),
+  duration = 2,
   seed = NULL,
   na_percentage = 0,
   na_vars = list(
@@ -34,51 +37,60 @@ radpc <- function(
 
   checkmate::assert_character(avalu, len = 1, any.missing = FALSE)
   checkmate::assert_subset(names(constants), c("D", "ka", "ke"))
+  checkmate::assert_numeric(x = duration, max.len = 1)
 
   if (!is.null(seed)) {
     set.seed(seed)
   }
 
-  ADPC <- tidyr::expand_grid( # nolint
-    # nolint
-    data.frame(
-      STUDYID = ADSL$STUDYID,
-      USUBJID = ADSL$USUBJID,
-      ARMCD = ADSL$ARMCD,
-      A0 = unname(constants["D"]),
-      ka = unname(constants["ka"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2),
-      ke = unname(constants["ke"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2)
-    ),
-    PCTPTNUM = c(0, 0.5, 1, 1.5, 2, 3, 4, 8, 12),
-    PARAM = c("Plasma Drug X", "Plasma Drug Y"),
-  ) %>%
-    dplyr::mutate(
-      VISITDY = dplyr::case_when(
-        .data$PCTPTNUM < 24 ~ 1,
-        .data$PCTPTNUM >= 24 & PCTPTNUM < 48 ~ 2,
-        .data$PCTPTNUM == 48 ~ 3,
-        .data$PCTPTNUM == 72 ~ 4,
-        TRUE ~ 8
+  radpc_core <- function(day) {
+
+    ADPC_day <- tidyr::expand_grid( # nolint
+      # nolint
+      data.frame(
+        STUDYID = ADSL$STUDYID,
+        USUBJID = ADSL$USUBJID,
+        ARMCD = ADSL$ARMCD,
+        A0 = unname(constants["D"]),
+        ka = unname(constants["ka"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2),
+        ke = unname(constants["ke"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2)
       ),
-      VISIT = paste("Day",  .data$VISITDY),
-      PCTPT = factor(dplyr::case_when(
-        .data$PCTPTNUM == 0 ~ "Predose",
-        TRUE ~ paste0(.data$PCTPTNUM, "H")
-      )),
-      ARELTM1 = .data$PCTPTNUM,
-      NRELTM1 =  .data$PCTPTNUM,
-      A0 = ifelse(.data$PARAM == "Plasma Drug Y", .data$A0,  .data$A0 / 2),
-      AVAL = round((.data$A0 * .data$ka * (
-        exp(-.data$ka * .data$ARELTM1) - exp(-.data$ke * .data$ARELTM1)
-      ))
-      / (.data$ke - .data$ka),
-      digits = 3),
-      # PK Equation
-      AVALC = ifelse(.data$AVAL == 0, "BLQ", as.character(.data$AVAL)),
-      AVALU =  avalu,
-      RELTMU = "hr"
+      PCTPTNUM = if (day == 1) c(0, 0.5, 1, 1.5, 2, 3, 4, 8, 12, 24) else 24 * day,
+      PARAM = c("Plasma Drug X", "Plasma Drug Y"),
     ) %>%
-    dplyr::select(-c(.data$A0, .data$ka, .data$ke))
+      dplyr::mutate(
+        VISITDY = day,
+        VISIT = paste("Day",  .data$VISITDY),
+        PCTPT = factor(dplyr::case_when(
+          .data$PCTPTNUM == 0 ~ "Predose",
+          TRUE ~ paste0(.data$PCTPTNUM, "H")
+        )),
+        ARELTM1 = .data$PCTPTNUM,
+        NRELTM1 =  .data$PCTPTNUM,
+        ARELTM2 = .data$ARELTM1 - (24 * (day - 1)),
+        NRELTM2 =  .data$NRELTM1 - (24 * (day - 1)),
+        A0 = ifelse(.data$PARAM == "Plasma Drug Y", .data$A0,  .data$A0 / 2),
+        AVAL = round((.data$A0 * .data$ka * (
+          exp(-.data$ka * .data$ARELTM1) - exp(-.data$ke * .data$ARELTM1)
+        ))
+        / (.data$ke - .data$ka),
+        digits = 3),
+        # PK Equation
+        AVALC = ifelse(.data$AVAL == 0, "BLQ", as.character(.data$AVAL)),
+        AVALU =  avalu,
+        RELTMU = "hr"
+      ) %>%
+      dplyr::select(-c(.data$A0, .data$ka, .data$ke))
+
+    return(ADPC_day)
+  }
+
+  ADPC <- list()
+  for (day in seq(duration)) {
+    ADPC[[day]] <- radpc_core(day = day)
+  }
+
+  ADPC <- do.call(rbind, ADPC)
 
   ADPC <- ADSL %>% # nolint
     dplyr::inner_join(ADPC, by = c("STUDYID", "USUBJID", "ARMCD")) %>% # nolint
@@ -89,5 +101,5 @@ radpc <- function(
   }
 
   ADPC <- apply_metadata(ADPC, "metadata/ADPC.yml") # nolint
-  return(ADPC)
+
 }
