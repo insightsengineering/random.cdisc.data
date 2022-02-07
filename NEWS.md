@@ -1,5 +1,6 @@
 # random.cdisc.data 0.3.12.9011
 
+* Enhanced `radpc` to add an argument to set the duration in number of days. 
 * Fixed a typo in `ADSL$BMRKR1`'s label.
 * Added new random dataset generator: PK Analysis Dataset (`radpc`).
 * Added new random dataset generator: PK Parameter Dataset (`radpp`).
