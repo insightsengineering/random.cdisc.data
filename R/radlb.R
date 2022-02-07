@@ -271,14 +271,16 @@ radlb <- function(ADSL, # nolint
     data_compare <- data %>%
       dplyr::mutate(row_check = seq_len(nrow(data)))
 
-    data <- data_compare %>% { # nolint
+    data <- data_compare %>%
+      { # nolint
         if (apply_grouping == TRUE) {
           dplyr::group_by(., .data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISIT) # nolint
         } else {
           dplyr::group_by(., .data$USUBJID, .data$PARAMCD, .data$BASETYPE)
         }
       } %>%
-      dplyr::arrange(.data$ADTM, .data$ASPID, .data$LBSEQ) %>% { # nolint
+      dplyr::arrange(.data$ADTM, .data$ASPID, .data$LBSEQ) %>%
+      { # nolint
         if (apply_filter == TRUE) {
           dplyr::filter( # nolint
             .,
@@ -302,11 +304,11 @@ radlb <- function(ADSL, # nolint
           )
         }
       } %>%
-      dplyr::slice(1) %>% { # nolint
+      dplyr::slice(1) %>%
+      { # nolint
         if (apply_mutate == TRUE) {
           dplyr::mutate(., new_var = ifelse(is.na(.data$DTYPE), "Y", ""))
-        } # nolint
-        else {
+        } else {
           dplyr::mutate(., new_var = ifelse(is.na(.data$AVAL) == FALSE & is.na(.data$DTYPE), "Y", ""))
         }
       } %>%
