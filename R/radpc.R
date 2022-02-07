@@ -85,12 +85,12 @@ radpc <- function(
     return(ADPC_day)
   }
 
-  ADPC <- list()
+  ADPC <- list() # nolint
   for (day in seq(duration)) {
     ADPC[[day]] <- radpc_core(day = day)
   }
 
-  ADPC <- do.call(rbind, ADPC)
+  ADPC <- do.call(rbind, ADPC) # nolint
 
   ADPC <- ADSL %>% # nolint
     dplyr::inner_join(ADPC, by = c("STUDYID", "USUBJID", "ARMCD")) %>% # nolint
