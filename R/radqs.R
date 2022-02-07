@@ -31,7 +31,8 @@ radqs <- function(ADSL, # nolint
                     "Fatigue Interference",
                     "Function/Well-Being (GF1,GF3,GF7)",
                     "Treatment Side Effects (GP2,C5,GP5)",
-                    "FKSI-19 All Questions"),
+                    "FKSI-19 All Questions"
+                  ),
                   paramcd = c("BFIALL", "FATIGI", "FKSI-FWB", "FKSI-TSE", "FKSIALL"),
                   visit_format = "WEEK",
                   n_assessments = 5L,
@@ -43,7 +44,6 @@ radqs <- function(ADSL, # nolint
                     CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1)
                   ),
                   cached = FALSE) {
-
   checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadqs"))
@@ -142,7 +142,8 @@ radqs <- function(ADSL, # nolint
   ADQS <- dplyr::inner_join( # nolint
     ADSL, # nolint
     ADQS,
-    by = c("STUDYID", "USUBJID")) %>%
+    by = c("STUDYID", "USUBJID")
+  ) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     dplyr::mutate(trtedt_int = dplyr::case_when(
@@ -151,8 +152,8 @@ radqs <- function(ADSL, # nolint
     )) %>%
     dplyr::mutate(ADTM = as.POSIXct(
       (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-      origin = "1970-01-01")
-    ) %>%
+      origin = "1970-01-01"
+    )) %>%
     dplyr::mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
     dplyr::select(-.data$trtsdt_int, -.data$trtedt_int) %>%
     dplyr::ungroup() %>%

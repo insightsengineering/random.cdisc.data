@@ -19,5 +19,4 @@ given subject-level analysis dataset.
 
 ADSL <- suppressWarnings(radsl(N = 10, seed = 1, study_duration = 2))
 radsaftte(ADSL, seed = 2)
-
 }

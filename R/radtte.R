@@ -31,7 +31,6 @@ radtte <- function(ADSL, # nolint
                    na_percentage = 0,
                    na_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234, 0.1), AVALU = c(1234, 0.1)),
                    cached = FALSE) {
-
   checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadtte"))
@@ -53,19 +52,19 @@ radtte <- function(ADSL, # nolint
     lookup
   } else {
     tibble::tribble(
-      ~ARM,  ~PARAMCD, ~PARAM, ~LAMBDA, ~CNSR_P,
-      "ARM A", "OS",  "Overall Survival",                 log(2) / 610, 0.4,
-      "ARM B", "OS",  "Overall Survival",                 log(2) / 490, 0.3,
-      "ARM C", "OS",  "Overall Survival",                 log(2) / 365, 0.2,
-      "ARM A", "PFS", "Progression Free Survival",        log(2) / 365, 0.4,
-      "ARM B", "PFS", "Progression Free Survival",        log(2) / 305, 0.3,
-      "ARM C", "PFS", "Progression Free Survival",        log(2) / 243, 0.2,
-      "ARM A", "EFS", "Event Free Survival",              log(2) / 365, 0.4,
-      "ARM B", "EFS", "Event Free Survival",              log(2) / 305, 0.3,
-      "ARM C", "EFS", "Event Free Survival",              log(2) / 243, 0.2,
-      "ARM A", "CRSD", "Duration of Confirmed Response",  log(2) / 305, 0.4,
-      "ARM B", "CRSD", "Duration of Confirmed Response",  log(2) / 243, 0.3,
-      "ARM C", "CRSD", "Duration of Confirmed Response",  log(2) / 182, 0.2,
+      ~ARM, ~PARAMCD, ~PARAM, ~LAMBDA, ~CNSR_P,
+      "ARM A", "OS", "Overall Survival", log(2) / 610, 0.4,
+      "ARM B", "OS", "Overall Survival", log(2) / 490, 0.3,
+      "ARM C", "OS", "Overall Survival", log(2) / 365, 0.2,
+      "ARM A", "PFS", "Progression Free Survival", log(2) / 365, 0.4,
+      "ARM B", "PFS", "Progression Free Survival", log(2) / 305, 0.3,
+      "ARM C", "PFS", "Progression Free Survival", log(2) / 243, 0.2,
+      "ARM A", "EFS", "Event Free Survival", log(2) / 365, 0.4,
+      "ARM B", "EFS", "Event Free Survival", log(2) / 305, 0.3,
+      "ARM C", "EFS", "Event Free Survival", log(2) / 243, 0.2,
+      "ARM A", "CRSD", "Duration of Confirmed Response", log(2) / 305, 0.4,
+      "ARM B", "CRSD", "Duration of Confirmed Response", log(2) / 243, 0.3,
+      "ARM C", "CRSD", "Duration of Confirmed Response", log(2) / 182, 0.2,
     )
   }
 
@@ -105,21 +104,22 @@ radtte <- function(ADSL, # nolint
           CNSR = sample(c(0, 1), 1, prob = c(1 - .data$CNSR_P, .data$CNSR_P)),
           AVAL = stats::rexp(1, .data$LAMBDA),
           AVALU = "DAYS",
-          EVNTDESC = if (.data$CNSR == 1) sample(evntdescr_sel[-c(1:2)], 1)
-          else {
+          EVNTDESC = if (.data$CNSR == 1) {
+            sample(evntdescr_sel[-c(1:2)], 1)
+          } else {
             ifelse(.data$PARAMCD == "OS",
-                   sample(evntdescr_sel[1], 1),
-                   sample(evntdescr_sel[c(1:2)], 1)
-            )},
+              sample(evntdescr_sel[1], 1),
+              sample(evntdescr_sel[c(1:2)], 1)
+            )
+          },
           CNSDTDSC = if (.data$CNSR == 1) sample(cnsdtdscr_sel, 1) else ""
         ) %>%
         dplyr::select(-.data$LAMBDA, -.data$CNSR_P)
-
     }) %>%
     Reduce(rbind, .) %>%
     var_relabel(
       STUDYID = "Study Identifier",
-      USUBJID = "Unique Subject Identifier"#)
+      USUBJID = "Unique Subject Identifier" # )
     )
 
   na_vars <- na_vars[setdiff(colnames(ADTTE), colnames(ADSL))]
@@ -137,7 +137,8 @@ radtte <- function(ADSL, # nolint
   ADTTE <- dplyr::inner_join( # nolint
     ADSL, # nolint
     dplyr::select(ADTTE, -.data$SITEID, -.data$ARM),
-    by = c("STUDYID", "USUBJID")) %>%
+    by = c("STUDYID", "USUBJID")
+  ) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     dplyr::mutate(trtedt_int = dplyr::case_when(
@@ -146,8 +147,8 @@ radtte <- function(ADSL, # nolint
     )) %>%
     dplyr::mutate(ADTM = as.POSIXct(
       (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-      origin = "1970-01-01")
-    ) %>%
+      origin = "1970-01-01"
+    )) %>%
     dplyr::mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
     dplyr::select(-.data$trtsdt_int, -.data$trtedt_int) %>%
     dplyr::ungroup() %>%

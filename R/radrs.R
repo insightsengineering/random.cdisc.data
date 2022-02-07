@@ -72,7 +72,6 @@ radrs <- function(ADSL, # nolint
 
   ADRS <- split(ADSL, ADSL$USUBJID) %>% # nolint
     lapply(function(pinfo) {
-
       probs <- dplyr::filter(lookup_ARS, .data$ARM == as.character(pinfo$ACTARM))
 
       # screening
@@ -101,7 +100,8 @@ radrs <- function(ADSL, # nolint
       trtsdt_int <- as.numeric(as.Date(pinfo$TRTSDTM))
       trtedt_int <- ifelse(
         !is.na(pinfo$TRTEDTM),  as.numeric(as.Date(pinfo$TRTEDTM)),
-        floor(trtsdt_int + (pinfo$study_duration_secs) / 86400))
+        floor(trtsdt_int + (pinfo$study_duration_secs) / 86400)
+      )
       scr_date <- as.POSIXct(((trtsdt_int - 100) * 86400), origin = "1970-01-01")
       bs_date <- pinfo$TRTSDTM
       flu_date <- as.POSIXct((sample(trtsdt_int:trtedt_int, size = 1) * 86400), origin = "1970-01-01")
@@ -166,7 +166,8 @@ radrs <- function(ADSL, # nolint
   ADRS <- dplyr::inner_join( # nolint
     ADSL, # nolint
     dplyr::select(ADRS, -.data$SITEID),
-    by = c("STUDYID", "USUBJID"))
+    by = c("STUDYID", "USUBJID")
+  )
 
   ADRS <- ADRS %>% # nolint
     dplyr::group_by(.data$USUBJID) %>%

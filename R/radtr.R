@@ -175,5 +175,4 @@ radtr <- function(ADSL, # nolint
   # apply metadata
   ADTR <- apply_metadata(ADTR, "metadata/ADTR.yml") # nolint
   return(ADTR)
-
 }

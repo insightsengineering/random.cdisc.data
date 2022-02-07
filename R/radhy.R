@@ -74,11 +74,11 @@ radhy <- function(ADSL, # nolint
                   ),
                   seed = NULL,
                   cached = FALSE) {
-
   checkmate::assert_flag(cached)
 
-  if (cached)
+  if (cached) {
     return(get_cached_data("cadhy"))
+  }
 
   checkmate::assert_data_frame(ADSL)
   checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
@@ -88,8 +88,9 @@ radhy <- function(ADSL, # nolint
   # validate and initialize related variables
   param_init_list <- relvar_init(param, paramcd)
 
-  if (!is.null(seed))
+  if (!is.null(seed)) {
     set.seed(seed)
+  }
 
   # create all combinations of unique values in STUDYID, USUBJID, PARAM, AVISIT
   ADHY <- expand.grid( # nolint
@@ -98,7 +99,8 @@ radhy <- function(ADSL, # nolint
     PARAM = as.factor(param_init_list$relvar1),
     AVISIT = as.factor(c("BASELINE", "POST-BASELINE")),
     APERIODC = as.factor(c("PERIOD 1", "PERIOD 2")),
-    stringsAsFactors = FALSE)
+    stringsAsFactors = FALSE
+  )
 
   # remove records that are not needed and were created as a side product of expand.grid above
   ADHY <- dplyr::filter(ADHY, !(.data$AVISIT == "BASELINE" & .data$APERIODC == "PERIOD 2")) # nolint
@@ -117,13 +119,16 @@ radhy <- function(ADSL, # nolint
       PARAMCD = factor(rel_var(
         df = as.data.frame(ADHY),
         var_values = param_init_list$relvar2,
-        related_var = "PARAM")),
+        related_var = "PARAM"
+      )),
       AVALC = dplyr::case_when(
         .data$PARAMCD %in% paramcd_tbilialtast ~ sample(
-          x = c(">3-5ULN", ">5-10ULN", ">10-20ULN", ">20ULN", "Criteria not met"), size = dplyr::n(), replace = TRUE),
-        .data$PARAMCD %in% paramcd_yn ~ sample(
-          x = c("Y", "N"), prob = c(0.1, 0.9), size = dplyr::n(), replace = TRUE)
+          x = c(">3-5ULN", ">5-10ULN", ">10-20ULN", ">20ULN", "Criteria not met"), size = dplyr::n(), replace = TRUE
         ),
+        .data$PARAMCD %in% paramcd_yn ~ sample(
+          x = c("Y", "N"), prob = c(0.1, 0.9), size = dplyr::n(), replace = TRUE
+        )
+      ),
       AVAL = dplyr::case_when(
         .data$AVALC == ">3-5ULN" ~ 1,
         .data$AVALC == ">5-10ULN" ~ 2,
@@ -136,11 +141,13 @@ radhy <- function(ADSL, # nolint
       AVISITN = dplyr::case_when(
         .data$AVISIT == "BASELINE" ~ 0L,
         .data$AVISIT == "POST-BASELINE" ~ 9995L,
-        TRUE ~ NA_integer_),
+        TRUE ~ NA_integer_
+      ),
       APERIOD = dplyr::case_when(
         .data$APERIODC == "PERIOD 1" ~ 1L,
         .data$APERIODC == "PERIOD 2" ~ 2L,
-        TRUE ~ NA_integer_),
+        TRUE ~ NA_integer_
+      ),
       ABLFL = dplyr::if_else(.data$AVISIT == "BASELINE", "Y", NA_character_),
       ONTRTFL = dplyr::if_else(.data$AVISIT == "POST-BASELINE", "Y", NA_character_),
       ANL01FL = "Y",
@@ -155,7 +162,8 @@ radhy <- function(ADSL, # nolint
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
     dplyr::mutate(
       BASEC = .data$AVALC[.data$AVISIT == "BASELINE"],
-      BASE = .data$AVAL[.data$AVISIT == "BASELINE"]) %>%
+      BASE = .data$AVAL[.data$AVISIT == "BASELINE"]
+    ) %>%
     dplyr::ungroup()
 
   ADHY <- ADHY %>% # nolint
@@ -169,7 +177,6 @@ radhy <- function(ADSL, # nolint
 
   # define a simple helper function to create ADY variable
   add_ady <- function(x, avisit) {
-
     if (avisit == "BASELINE") {
       dplyr::mutate(
         x,
@@ -181,15 +188,14 @@ radhy <- function(ADSL, # nolint
           x = ifelse(
             !is.na(.data$TRTEDTM),
             difftime(.data$TRTEDTM, .data$TRTSDTM, units = "days"),
-            (.data$study_duration_secs) / 86400),
+            (.data$study_duration_secs) / 86400
+          ),
           size = 1,
-          replace = TRUE)))
-
+          replace = TRUE
+        )))
     } else {
       dplyr::mutate(x, ADY = NA_integer_)
-
     }
-
   }
 
   # add ADY and ADTM variables
@@ -238,5 +244,4 @@ radhy <- function(ADSL, # nolint
   ADHY <- apply_metadata(ADHY, "metadata/ADHY.yml") # nolint
 
   return(ADHY)
-
 }

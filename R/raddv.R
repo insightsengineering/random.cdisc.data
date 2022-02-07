@@ -36,9 +36,10 @@ raddv <- function(ADSL, # nolint
                     "DVCAT" = c(seed = 1234, percentage = 0.1)
                   ),
                   cached = FALSE) {
-
   checkmate::assert_flag(cached)
-  if (cached) return(get_cached_data("caddv"))
+  if (cached) {
+    return(get_cached_data("caddv"))
+  }
 
   checkmate::assert_data_frame(ADSL)
   checkmate::assert_integer(max_n_dv, len = 1, any.missing = FALSE)
@@ -108,7 +109,7 @@ raddv <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add deviation date and study day variables
-  ADDV <- dplyr::inner_join(ADSL, ADDV,by = c("STUDYID", "USUBJID")) %>% # nolint
+  ADDV <- dplyr::inner_join(ADSL, ADDV, by = c("STUDYID", "USUBJID")) %>% # nolint
     dplyr::rowwise() %>%
     dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     dplyr::mutate(trtedt_int = dplyr::case_when(
@@ -117,7 +118,8 @@ raddv <- function(ADSL, # nolint
     )) %>%
     dplyr::mutate(ASTDTM = as.POSIXct(
       (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-      origin = "1970-01-01")) %>%
+      origin = "1970-01-01"
+    )) %>%
     dplyr::mutate(ASTDT = as.Date(.data$ASTDTM)) %>%
     dplyr::mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
     dplyr::select(-.data$trtsdt_int, -.data$trtedt_int, -.data$ASTDTM) %>%
