@@ -19,25 +19,21 @@
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' ADPP <- radpp(ADSL, seed = 2)
-#'
-radpp <- function(
-  ADSL, # nolint,
-  ppcat = c("Plasma Drug X", "Plasma Drug Y"),
-  ppspec = c("Plasma"),
-  paramcd = c("AUCIFO", "CMAX", "CLO"),
-  param = c("AUC Infinity Obs", "Max Conc", "Total CL Obs"),
-  paramu = c("day*ug/mL", "ug/mL", "ml/day/kg"),
-  aval_mean = c(200, 30, 5),
-  visit_format = "CYCLE",
-  n_days = 2L,
-  seed = NULL,
-  na_percentage = 0,
-  na_vars = list(
-    AVAL = c(NA, 0.1)
-  ),
-  cached = FALSE
-) {
-
+radpp <- function(ADSL, # nolint,
+                  ppcat = c("Plasma Drug X", "Plasma Drug Y"),
+                  ppspec = c("Plasma"),
+                  paramcd = c("AUCIFO", "CMAX", "CLO"),
+                  param = c("AUC Infinity Obs", "Max Conc", "Total CL Obs"),
+                  paramu = c("day*ug/mL", "ug/mL", "ml/day/kg"),
+                  aval_mean = c(200, 30, 5),
+                  visit_format = "CYCLE",
+                  n_days = 2L,
+                  seed = NULL,
+                  na_percentage = 0,
+                  na_vars = list(
+                    AVAL = c(NA, 0.1)
+                  ),
+                  cached = FALSE) {
   checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadlb"))

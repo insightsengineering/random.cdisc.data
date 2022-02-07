@@ -25,10 +25,14 @@
 #' @examples
 #' library(random.cdisc.data)
 #' radsl(N = 10, study_duration = 2, seed = 1)
-#' radsl(N = 10, seed = 1,
-#'       na_percentage = 0.1,
-#'       na_vars = list(DTHDT = c(seed = 1234, percentage = 0.1),
-#'                      LSTALVDT = c(seed = 1234, percentage = 0.1)))
+#' radsl(
+#'   N = 10, seed = 1,
+#'   na_percentage = 0.1,
+#'   na_vars = list(
+#'     DTHDT = c(seed = 1234, percentage = 0.1),
+#'     LSTALVDT = c(seed = 1234, percentage = 0.1)
+#'   )
+#' )
 #' radsl(N = 10, seed = 1, na_percentage = .1)
 radsl <- function(N = 400, # nolint
                   study_duration = 2,
@@ -77,8 +81,9 @@ radsl <- function(N = 400, # nolint
       "MULTIPLE", "NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER", "OTHER", "UNKNOWN"
     ) %>%
       sample_fct(N, prob = c(.55, .23, .16, .05, .004, .003, .002, .002)),
-    TRTSDTM =  as.POSIXct(
-      sys_dtm + sample(seq(0, study_duration_secs), size = N, replace = TRUE), origin = "1970-01-01"
+    TRTSDTM = as.POSIXct(
+      sys_dtm + sample(seq(0, study_duration_secs), size = N, replace = TRUE),
+      origin = "1970-01-01"
     ),
     RANDDT = as.Date(.data$TRTSDTM) - floor(stats::runif(N, min = 0, max = 5)),
     st_posixn = as.numeric(.data$TRTSDTM),
@@ -91,7 +96,9 @@ radsl <- function(N = 400, # nolint
     BEP01FL = sample_fct(c("Y", "N"), N)
   ) %>%
     dplyr::mutate(ARM = dplyr::recode(
-      .data$ARMCD, "ARM A" = "A: Drug X", "ARM B" = "B: Placebo", "ARM C" = "C: Combination")) %>%
+      .data$ARMCD,
+      "ARM A" = "A: Drug X", "ARM B" = "B: Placebo", "ARM C" = "C: Combination"
+    )) %>%
     dplyr::mutate(ACTARM = .data$ARM) %>%
     dplyr::mutate(ACTARMCD = .data$ARMCD) %>%
     dplyr::mutate(ITTFL = factor("Y")) %>%
@@ -101,7 +108,8 @@ radsl <- function(N = 400, # nolint
   ADDS <- ADSL[sample(nrow(ADSL), discons), ] %>% # nolint
     dplyr::mutate(TRTEDTM_discon = as.POSIXct(
       sample(seq(from = max(.data$st_posixn), to = sys_dtm + study_duration_secs, by = 1), size = discons),
-      origin = "1970-01-01")) %>%
+      origin = "1970-01-01"
+    )) %>%
     dplyr::select(.data$st_posixn, .data$TRTEDTM_discon) %>%
     dplyr::arrange(.data$st_posixn)
 
@@ -111,7 +119,7 @@ radsl <- function(N = 400, # nolint
       st_posixn >= quantile(st_posixn)[2] & st_posixn <= quantile(st_posixn)[3] ~ as.POSIXct(NA, origin = "1970-01-01"),
       TRUE ~ TRTEDTM
     )) %>%
-    dplyr::mutate(TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01"))  %>%
+    dplyr::mutate(TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01")) %>%
     dplyr::select(-.data$TRTEDTM_discon)
 
   ADSL <- ADSL %>% # nolint

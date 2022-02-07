@@ -27,12 +27,13 @@ Apply label and variable ordering attributes to domains
 seed <- 1
 ADSL <- suppressWarnings(radsl(seed = seed))
 ADLB <- radlb(ADSL, seed = seed)
-
 \dontrun{
 yaml_path <- file.path(path.package("random.cdisc.data"), "inst", "metadata")
 ADSL <- random.cdisc.data:::apply_metadata(ADSL, file.path(yaml_path, "ADSL.yml"), FALSE)
-ADLB <- random.cdisc.data:::apply_metadata(ADLB, file.path(yaml_path, "ADLB.yml"), TRUE,
-  file.path(yaml_path, "ADSL.yml"))
+ADLB <- random.cdisc.data:::apply_metadata(
+  ADLB, file.path(yaml_path, "ADLB.yml"), TRUE,
+  file.path(yaml_path, "ADSL.yml")
+)
 }
 
 }

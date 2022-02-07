@@ -26,7 +26,7 @@ ADLB_df <- data.frame(
   PARAM = factor(
     rep(c("Level A", "Level B", "Level C"), 3),
     levels = params
-   )
+  )
 )
 random.cdisc.data:::rel_var(
   df = ADLB_df,
@@ -41,7 +41,7 @@ ADLB_tbl <- tibble::tibble(
   PARAM = factor(
     rep(c("Level A", "Level B", "Level C"), 3),
     levels = params
-   )
+  )
 )
 random.cdisc.data:::rel_var(
   df = ADLB_tbl,
@@ -49,5 +49,4 @@ random.cdisc.data:::rel_var(
   var_values = c("A", "B", "C"),
   related_var = "PARAM"
 )
-
 }

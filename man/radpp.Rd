@@ -64,5 +64,4 @@ One record per per study per subject per parameter category per parameter per vi
 library(random.cdisc.data)
 ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 ADPP <- radpp(ADSL, seed = 2)
-
 }

@@ -47,5 +47,4 @@ One record per per study per subject per parameter per time point
 library(random.cdisc.data)
 ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 ADPC <- radpc(ADSL, seed = 2)
-
 }

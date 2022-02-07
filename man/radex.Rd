@@ -80,5 +80,4 @@ library(dplyr)
 
 ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
 ADEX <- radex(ADSL, seed = 2)
-
 }

@@ -32,7 +32,8 @@ radvs <- function(ADSL, # nolint
                     "Pulse Rate",
                     "Respiratory Rate",
                     "Systolic Blood Pressure",
-                    "Temperature", "Weight"),
+                    "Temperature", "Weight"
+                  ),
                   paramcd = c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT"),
                   paramu = c("Pa", "beats/min", "breaths/min", "Pa", "C", "Kg"),
                   visit_format = "WEEK",
@@ -45,7 +46,6 @@ radvs <- function(ADSL, # nolint
                     AVAL = c(123, 0.1), AVALU = c(123, 0.1)
                   ),
                   cached = FALSE) {
-
   checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadvs"))
@@ -141,7 +141,8 @@ radvs <- function(ADSL, # nolint
     dplyr::mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
     dplyr::mutate(
       ANRIND = ANRIND_choices %>%
-      sample_fct(nrow(ADVS), prob = c(0.1, 0.1, 0.8))) %>%
+        sample_fct(nrow(ADVS), prob = c(0.1, 0.1, 0.8))
+    ) %>%
     dplyr::mutate(BASETYPE = "LAST") %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
     dplyr::mutate(BNRIND = .data$ANRIND[.data$ABLFL == "Y"]) %>%
@@ -167,7 +168,8 @@ radvs <- function(ADSL, # nolint
   ADVS <- dplyr::inner_join( # nolint
     ADSL, # nolint
     ADVS,
-    by = c("STUDYID", "USUBJID")) %>%
+    by = c("STUDYID", "USUBJID")
+  ) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     dplyr::mutate(trtedt_int = dplyr::case_when(
@@ -177,14 +179,15 @@ radvs <- function(ADSL, # nolint
     dplyr::mutate(
       ADTM = as.POSIXct(
         (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-        origin = "1970-01-01")
-      ) %>%
+        origin = "1970-01-01"
+      )
+    ) %>%
     dplyr::mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
     dplyr::select(-.data$trtsdt_int, -.data$trtedt_int) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
-  ADVS <- ADVS %>% dplyr::mutate(ONTRTFL =  factor(dplyr::case_when( # nolint
+  ADVS <- ADVS %>% dplyr::mutate(ONTRTFL = factor(dplyr::case_when( # nolint
     is.na(.data$TRTSDTM) ~ "",
     is.na(.data$ADTM) ~ "Y",
     (.data$ADTM < .data$TRTSDTM) ~ "",

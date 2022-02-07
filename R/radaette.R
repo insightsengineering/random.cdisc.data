@@ -34,7 +34,6 @@ radaette <- function(ADSL, # nolint
                      na_percentage = 0,
                      na_vars = list(CNSR = c(NA, 0.1), AVAL = c(1234, 0.1)),
                      cached = FALSE) {
-
   checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadaette"))
@@ -128,42 +127,47 @@ radaette <- function(ADSL, # nolint
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
     PARAM = as.factor(param_init_list$relvar1),
-    stringsAsFactors = FALSE)
+    stringsAsFactors = FALSE
+  )
 
   # Add other variables to adaette_hy
   adaette_hy <- dplyr::left_join(adaette_hy, adsl_hy, by = c("STUDYID", "USUBJID")) %>% # nolint
-  dplyr::mutate(
-    PARAMCD = factor(rel_var(
-      df = as.data.frame(adaette_hy),
-      var_values = param_init_list$relvar2,
-      related_var = "PARAM"
-    ))
-  ) %>%
-  dplyr::mutate(
-    CNSR = sample(c(0, 1), prob = c(0.1, 0.9), size = dplyr::n(), replace = TRUE),
-    EVNTDESC = dplyr::if_else(.data$CNSR == 0, "First Post-Baseline Raised ALT or AST Elevation Result", NA_character_),
-    CNSDTDSC = dplyr::if_else(.data$CNSR == 0, NA_character_,
-      sample(c("Last Post-Baseline ALT or AST Result", "Treatment Start"),
-        prob = c(0.9, 0.1),
-        size = dplyr::n(), replace = TRUE
+    dplyr::mutate(
+      PARAMCD = factor(rel_var(
+        df = as.data.frame(adaette_hy),
+        var_values = param_init_list$relvar2,
+        related_var = "PARAM"
+      ))
+    ) %>%
+    dplyr::mutate(
+      CNSR = sample(c(0, 1), prob = c(0.1, 0.9), size = dplyr::n(), replace = TRUE),
+      EVNTDESC = dplyr::if_else(
+        .data$CNSR == 0,
+        "First Post-Baseline Raised ALT or AST Elevation Result",
+        NA_character_
+      ),
+      CNSDTDSC = dplyr::if_else(.data$CNSR == 0, NA_character_,
+        sample(c("Last Post-Baseline ALT or AST Result", "Treatment Start"),
+          prob = c(0.9, 0.1),
+          size = dplyr::n(), replace = TRUE
+        )
       )
+    ) %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(ADTM = dplyr::case_when(
+      .data$CNSDTDSC == "Treatment Start" ~ .data$TRTSDTM,
+      TRUE ~ as.POSIXct(
+        .data$TRTSDTM + sample(seq(0, .data$study_duration_secs), size = dplyr::n(), replace = TRUE),
+        origin = "1970-01-01"
+      )
+    )) %>%
+    dplyr::mutate(
+      STARTDT = as.Date(.data$TRTSDTM),
+      ADT = as.Date(.data$ADTM),
+      ADY = as.numeric(.data$ADT - .data$STARTDT + 1),
+      AVAL = .data$ADY / 7,
+      AVALU = "WEEKS"
     )
-  ) %>%
-  dplyr::rowwise() %>%
-  dplyr::mutate(ADTM = dplyr::case_when(
-    .data$CNSDTDSC == "Treatment Start" ~ .data$TRTSDTM,
-    TRUE ~ as.POSIXct(
-      .data$TRTSDTM + sample(seq(0, .data$study_duration_secs), size = dplyr::n(), replace = TRUE),
-      origin = "1970-01-01"
-    )
-  )) %>%
-  dplyr::mutate(
-    STARTDT = as.Date(.data$TRTSDTM),
-    ADT = as.Date(.data$ADTM),
-    ADY = as.numeric(.data$ADT - .data$STARTDT + 1),
-    AVAL = .data$ADY / 7,
-    AVALU = "WEEKS"
-  )
 
   adaette_hy <- dplyr::select(adaette_hy, -"TRTSDTM", -"study_duration_secs", -"ADT", -"STARTDT")
 
@@ -244,9 +248,9 @@ radaette <- function(ADSL, # nolint
     USUBJID = "Unique Subject Identifier"
   )
 
-  ADAETTE <- rbind(ADAETTE, adaette_hy) #nolint
+  ADAETTE <- rbind(ADAETTE, adaette_hy) # nolint
 
-  ADAETTE <- ADSL %>%  #nolint
+  ADAETTE <- ADSL %>% # nolint
     dplyr::inner_join(
       dplyr::select(ADAETTE, -.data$SITEID, -.data$ARM),
       by = c("STUDYID", "USUBJID")
