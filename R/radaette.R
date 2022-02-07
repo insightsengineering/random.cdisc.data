@@ -141,7 +141,11 @@ radaette <- function(ADSL, # nolint
     ) %>%
     dplyr::mutate(
       CNSR = sample(c(0, 1), prob = c(0.1, 0.9), size = dplyr::n(), replace = TRUE),
-      EVNTDESC = dplyr::if_else(.data$CNSR == 0, "First Post-Baseline Raised ALT or AST Elevation Result", NA_character_),
+      EVNTDESC = dplyr::if_else(
+        .data$CNSR == 0,
+        "First Post-Baseline Raised ALT or AST Elevation Result",
+        NA_character_
+      ),
       CNSDTDSC = dplyr::if_else(.data$CNSR == 0, NA_character_,
         sample(c("Last Post-Baseline ALT or AST Result", "Treatment Start"),
           prob = c(0.9, 0.1),
