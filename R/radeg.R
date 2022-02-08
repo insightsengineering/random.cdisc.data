@@ -163,7 +163,8 @@ radeg <- function(ADSL, # nolint
     .data$AVAL > .data$ANRHI ~ "HIGH"
   )))
 
-  ADEG <- ADEG %>% # nolint
+  ADEG <- ADEG %>%
+    # nolint
     dplyr::mutate(CHG = ifelse(.data$AVISITN > 0, .data$AVAL - .data$BASE, NA)) %>%
     dplyr::mutate(PCHG = ifelse(.data$AVISITN > 0, 100 * (.data$CHG / .data$BASE), NA)) %>%
     dplyr::mutate(BASETYPE = "LAST") %>%
@@ -211,7 +212,8 @@ radeg <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
-  ADEG <- ADEG %>% # nolint
+  ADEG <- ADEG %>%
+    # nolint
     dplyr::mutate(ASPID = sample(seq_len(dplyr::n()))) %>%
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(EGSEQ = seq_len(dplyr::n())) %>%
@@ -275,7 +277,8 @@ radeg <- function(ADSL, # nolint
   }
 
   # Binding the new observations to the dataset from the function above and rearranging in the correct order.
-  ADEG <- rbind(ADEG, get_groups(ADEG, TRUE), get_groups(ADEG, FALSE)) %>% # nolint
+  ADEG <- rbind(ADEG, get_groups(ADEG, TRUE), get_groups(ADEG, FALSE)) %>%
+    # nolint
     dplyr::arrange(.data$row_check) %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
     dplyr::arrange(.data$AVISIT, .by_group = TRUE) %>%
@@ -351,7 +354,8 @@ radeg <- function(ADSL, # nolint
     ""
   )))
 
-  ADEG <- ADEG %>% # nolint
+  ADEG <- ADEG %>%
+    # nolint
     dplyr::group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
     dplyr::mutate(BASEC = ifelse(
       .data$PARAMCD == "ECGINTP",

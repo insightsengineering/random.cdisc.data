@@ -16,19 +16,16 @@
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' ADPC <- radpc(ADSL, seed = 2)
 #' ADPC <- radpc(ADSL, seed = 2, duration = 3)
-#'
-radpc <- function(
-  ADSL, # nolint
-  avalu = "ug/mL",
-  constants = c(D = 100, ka = 0.8, ke = 1),
-  duration = 2,
-  seed = NULL,
-  na_percentage = 0,
-  na_vars = list(
-    AVAL = c(NA, 0.1)
-  ),
-  cached = FALSE
-) {
+radpc <- function(ADSL, # nolint
+                  avalu = "ug/mL",
+                  constants = c(D = 100, ka = 0.8, ke = 1),
+                  duration = 2,
+                  seed = NULL,
+                  na_percentage = 0,
+                  na_vars = list(
+                    AVAL = c(NA, 0.1)
+                  ),
+                  cached = FALSE) {
   checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadlb"))
@@ -43,7 +40,6 @@ radpc <- function(
   }
 
   radpc_core <- function(day) {
-
     ADPC_day <- tidyr::expand_grid( # nolint
       # nolint
       data.frame(
@@ -59,24 +55,25 @@ radpc <- function(
     ) %>%
       dplyr::mutate(
         VISITDY = day,
-        VISIT = paste("Day",  .data$VISITDY),
+        VISIT = paste("Day", .data$VISITDY),
         PCTPT = factor(dplyr::case_when(
           .data$PCTPTNUM == 0 ~ "Predose",
           TRUE ~ paste0(.data$PCTPTNUM, "H")
         )),
         ARELTM1 = .data$PCTPTNUM,
-        NRELTM1 =  .data$PCTPTNUM,
+        NRELTM1 = .data$PCTPTNUM,
         ARELTM2 = .data$ARELTM1 - (24 * (day - 1)),
-        NRELTM2 =  .data$NRELTM1 - (24 * (day - 1)),
-        A0 = ifelse(.data$PARAM == "Plasma Drug Y", .data$A0,  .data$A0 / 2),
+        NRELTM2 = .data$NRELTM1 - (24 * (day - 1)),
+        A0 = ifelse(.data$PARAM == "Plasma Drug Y", .data$A0, .data$A0 / 2),
         AVAL = round((.data$A0 * .data$ka * (
           exp(-.data$ka * .data$ARELTM1) - exp(-.data$ke * .data$ARELTM1)
         ))
         / (.data$ke - .data$ka),
-        digits = 3),
+        digits = 3
+        ),
         # PK Equation
         AVALC = ifelse(.data$AVAL == 0, "BLQ", as.character(.data$AVAL)),
-        AVALU =  avalu,
+        AVALU = avalu,
         RELTMU = "hr"
       ) %>%
       dplyr::select(-c(.data$A0, .data$ka, .data$ke))
@@ -100,5 +97,4 @@ radpc <- function(
   }
 
   ADPC <- apply_metadata(ADPC, "metadata/ADPC.yml") # nolint
-
 }

@@ -120,7 +120,8 @@ radmh <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHTERM)
 
-  ADMH <- ADMH %>% # nolint
+  ADMH <- ADMH %>%
+    # nolint
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(MHSEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = .data$MHSEQ) %>%

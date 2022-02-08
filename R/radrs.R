@@ -70,7 +70,8 @@ radrs <- function(ADSL, # nolint
     set.seed(seed)
   }
 
-  ADRS <- split(ADSL, ADSL$USUBJID) %>% # nolint
+  ADRS <- split(ADSL, ADSL$USUBJID) %>%
+    # nolint
     lapply(function(pinfo) {
       probs <- dplyr::filter(lookup_ARS, .data$ARM == as.character(pinfo$ACTARM))
 
@@ -169,7 +170,8 @@ radrs <- function(ADSL, # nolint
     by = c("STUDYID", "USUBJID")
   )
 
-  ADRS <- ADRS %>% # nolint
+  ADRS <- ADRS %>%
+    # nolint
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(RSSEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = .data$RSSEQ) %>%

@@ -66,13 +66,15 @@ radtr <- function(ADSL, # nolint
   }, paramcd, param) %>%
     Reduce(rbind, .)
 
-  ADTR_base <- ADTR %>% # nolint
+  ADTR_base <- ADTR %>%
+    # nolint
     dplyr::filter(.data$AVISITN == 0) %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
     dplyr::mutate(BASE = .data$AVAL) %>%
     dplyr::select(.data$STUDYID, .data$USUBJID, .data$BASE, .data$PARAMCD)
 
-  ADTR_postbase <- ADTR %>% # nolint
+  ADTR_postbase <- ADTR %>%
+    # nolint
     dplyr::filter(.data$AVISITN > 0) %>%
     dplyr::filter(!is.na(.data$AVAL)) %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
@@ -82,7 +84,8 @@ radtr <- function(ADSL, # nolint
     dplyr::mutate(DTYPE = "MINIMUM") %>%
     dplyr::ungroup()
 
-  ADTR_lastobs <- ADTR %>% # nolint
+  ADTR_lastobs <- ADTR %>%
+    # nolint
     dplyr::filter(.data$AVISITN > 0) %>%
     dplyr::filter(!is.na(.data$AVAL)) %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
