@@ -29,7 +29,6 @@ radpc <- function(
   ),
   cached = FALSE
 ) {
-
   checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadlb"))

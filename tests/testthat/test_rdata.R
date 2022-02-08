@@ -49,7 +49,6 @@ test_that("seed works", {
 })
 
 get_meta_info <- function(df) {
-
   adsl_yml <- yaml::yaml.load_file(system.file(paste0("metadata/ADSL.yml"), package = "random.cdisc.data"))
   df_meta <- vapply(adsl_yml$variables, function(x) x[["label"]], character(1))
 

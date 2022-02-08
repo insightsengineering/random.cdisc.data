@@ -96,7 +96,8 @@ radmh <- function(ADSL, # nolint
   ADMH <- dplyr::inner_join( # nolint
     ADSL, # nolint
     ADMH,
-    by = c("STUDYID", "USUBJID")) %>%
+    by = c("STUDYID", "USUBJID")
+  ) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     dplyr::mutate(trtedt_int = dplyr::case_when(
@@ -105,13 +106,15 @@ radmh <- function(ADSL, # nolint
     )) %>%
     dplyr::mutate(ASTDTM = as.POSIXct(
       (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-      origin = "1970-01-01")) %>%
+      origin = "1970-01-01"
+    )) %>%
     dplyr::mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
     dplyr::mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
     dplyr::mutate(AENDTM = as.POSIXct(
       (sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
-      origin = "1970-01-01")) %>%
+      origin = "1970-01-01"
+    )) %>%
     dplyr::mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
     dplyr::select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
     dplyr::ungroup() %>%

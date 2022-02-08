@@ -25,7 +25,6 @@
 #' ADSL <- radsl(N = 5, seed = 1)
 #' df_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = ADSL)
 #' df_with_measurements
-#'
 h_anthropometrics_by_sex <- function(df,
                                      seed = 1,
                                      id_var = "USUBJID",
@@ -176,13 +175,14 @@ radsub <- function(ADSL, # nolint
     dplyr::rowwise() %>%
     dplyr::mutate(ADTM = as.POSIXct(
       (as.Date(.data$TRTSDTM) - sample(1:10, size = 1)),
-      origin = "1970-01-01")) %>%
+      origin = "1970-01-01"
+    )) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
   # Generate a dataset with height, weight and BMI measurements for each subject.
   if (!is.null(seed)) {
-    df_with_measurements <- h_anthropometrics_by_sex(ADSUB, seed = seed)  # nolint
+    df_with_measurements <- h_anthropometrics_by_sex(ADSUB, seed = seed) # nolint
   } else {
     df_with_measurements <- h_anthropometrics_by_sex(ADSUB) # nolint
   }
@@ -200,7 +200,8 @@ radsub <- function(ADSL, # nolint
           "BBMISI" ~ df_with_measurements$BMI[df_with_measurements$USUBJID == .data$USUBJID],
         .data$PARAMCD == "BECOG" ~ sample(c(0, 1, 2, 3, 4, 5), 1),
         .data$PARAMCD == "BBMRKR1" ~ sample(c(1, 2), prob = c(0.5, 0.5), 1)
-      )) %>%
+      )
+    ) %>%
     dplyr::arrange(.data$PARAMCD) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(AVAL = dplyr::case_when(
@@ -208,13 +209,14 @@ radsub <- function(ADSL, # nolint
       TRUE ~ round(.data$AVAL)
     ))
 
-  ADSUB <- ADSUB %>% #nolint
+  ADSUB <- ADSUB %>% # nolint
     dplyr::mutate(
       AVALC = dplyr::case_when(
         .data$PARAMCD == "BBMRKR1" ~ dplyr::case_when(
           .data$AVAL == "1" ~ "WILD TYPE",
           .data$AVAL == "2" ~ "MUTANT",
-          TRUE ~ ""),
+          TRUE ~ ""
+        ),
         TRUE ~ as.character(.data$AVAL)
       ),
       AVALU = dplyr::case_when(
@@ -239,7 +241,7 @@ radsub <- function(ADSL, # nolint
       ),
       AVISITN = "0",
       SRCSEQ = "1"
-      ) %>%
+    ) %>%
     dplyr::arrange(
       .data$USUBJID,
       factor(.data$PARAMCD, levels = c("BWGHTSI", "BHGHTSI", "BBMISI", "BECOG", "BBMRKR1"))

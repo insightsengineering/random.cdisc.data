@@ -148,8 +148,8 @@ radlb <- function(ADSL, # nolint
     x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])] # nolint
     x$ABLFL2 <- ifelse(x$AVISIT == "SCREENING", "Y", "") # nolint
     x$ABLFL <- ifelse(toupper(visit_format) == "WEEK" & x$AVISIT == "BASELINE", # nolint
-                      "Y",
-                      ifelse(toupper(visit_format) == "CYCLE" & x$AVISIT == "CYCLE 1 DAY 1", "Y", "")
+      "Y",
+      ifelse(toupper(visit_format) == "CYCLE" & x$AVISIT == "CYCLE 1 DAY 1", "Y", "")
     )
     x$LOQFL <- ifelse(x$AVAL < 32, "Y", "N") # nolint
     x
@@ -174,20 +174,26 @@ radlb <- function(ADSL, # nolint
       .data$AVISITN > 0,
       paste(retain(
         ADLB, as.character(.data$BNRIND),
-        .data$AVISITN == 0),
-        .data$ANRIND, sep = " to "),
-      ""))) %>%
+        .data$AVISITN == 0
+      ),
+      .data$ANRIND,
+      sep = " to "
+      ),
+      ""
+    ))) %>%
     dplyr::mutate(ATOXGR = factor(dplyr::case_when(
       .data$ANRIND == "LOW" ~ sample(
         c("-1", "-2", "-3", "-4", "-5"),
         nrow(ADLB),
         replace = TRUE,
-        prob = c(0.30, 0.25, 0.20, 0.15, 0)),
+        prob = c(0.30, 0.25, 0.20, 0.15, 0)
+      ),
       .data$ANRIND == "HIGH" ~ sample(
         c("1", "2", "3", "4", "5"),
         nrow(ADLB),
         replace = TRUE,
-        prob = c(0.30, 0.25, 0.20, 0.15, 0)),
+        prob = c(0.30, 0.25, 0.20, 0.15, 0)
+      ),
       .data$ANRIND == "NORMAL" ~ "0"
     ))) %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
@@ -224,8 +230,8 @@ radlb <- function(ADSL, # nolint
     )) %>%
     dplyr::mutate(ADTM = as.POSIXct(
       (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-      origin = "1970-01-01")
-    ) %>%
+      origin = "1970-01-01"
+    )) %>%
     dplyr::mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
     dplyr::select(-.data$trtsdt_int, -.data$trtedt_int) %>%
     dplyr::ungroup() %>%
@@ -250,7 +256,7 @@ radlb <- function(ADSL, # nolint
       .data$ASPID
     )
 
-  ADLB <- ADLB %>% dplyr::mutate(ONTRTFL =  factor(dplyr::case_when( # nolint
+  ADLB <- ADLB %>% dplyr::mutate(ONTRTFL = factor(dplyr::case_when( # nolint
     is.na(.data$TRTSDTM) ~ "",
     is.na(.data$ADTM) ~ "Y",
     (.data$ADTM < .data$TRTSDTM) ~ "",
@@ -262,43 +268,50 @@ radlb <- function(ADSL, # nolint
                              apply_grouping,
                              apply_filter,
                              apply_mutate) {
-
     data_compare <- data %>%
       dplyr::mutate(row_check = seq_len(nrow(data)))
 
-    data <- data_compare %>% {
-      if (apply_grouping == TRUE) {
-        dplyr::group_by(., .data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISIT) # nolint
-      } else {
-        dplyr::group_by(., .data$USUBJID, .data$PARAMCD, .data$BASETYPE)
-      }
-    } %>%
+    data <- data_compare %>%
+      { # nolint
+        if (apply_grouping == TRUE) {
+          dplyr::group_by(., .data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISIT) # nolint
+        } else {
+          dplyr::group_by(., .data$USUBJID, .data$PARAMCD, .data$BASETYPE)
+        }
+      } %>%
       dplyr::arrange(.data$ADTM, .data$ASPID, .data$LBSEQ) %>%
-      {if (apply_filter == TRUE) dplyr::filter( # nolint
-        .,
-        (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") & # nolint
-          (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
-      ) %>%
-        dplyr::filter(.data$ATOXGR == max(as.numeric(as.character(.data$ATOXGR))))
-      else if (apply_filter == FALSE) dplyr::filter(
-        .,
-        (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") &
-          (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
-        ) %>%
-          dplyr::filter(.data$ATOXGR == min(as.numeric(as.character(.data$ATOXGR))))
-        else dplyr::filter(
-        .,
-        .data$AVAL == min(.data$AVAL) &
-          (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") &
-          (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
-      )
+      { # nolint
+        if (apply_filter == TRUE) {
+          dplyr::filter( # nolint
+            .,
+            (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") & # nolint
+              (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
+          ) %>%
+            dplyr::filter(.data$ATOXGR == max(as.numeric(as.character(.data$ATOXGR))))
+        } else if (apply_filter == FALSE) {
+          dplyr::filter(
+            .,
+            (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") &
+              (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
+          ) %>%
+            dplyr::filter(.data$ATOXGR == min(as.numeric(as.character(.data$ATOXGR))))
+        } else {
+          dplyr::filter(
+            .,
+            .data$AVAL == min(.data$AVAL) &
+              (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") &
+              (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
+          )
+        }
       } %>%
-
       dplyr::slice(1) %>%
-      {if (apply_mutate == TRUE) dplyr::mutate(., new_var = ifelse(is.na(.data$DTYPE), "Y", "")) # nolint
-        else dplyr::mutate(., new_var = ifelse(is.na(.data$AVAL) == FALSE & is.na(.data$DTYPE), "Y", ""))
+      { # nolint
+        if (apply_mutate == TRUE) {
+          dplyr::mutate(., new_var = ifelse(is.na(.data$DTYPE), "Y", ""))
+        } else {
+          dplyr::mutate(., new_var = ifelse(is.na(.data$AVAL) == FALSE & is.na(.data$DTYPE), "Y", ""))
+        }
       } %>%
-
       dplyr::ungroup()
 
     data_compare$new_var <- ifelse(data_compare$row_check %in% data$row_check, "Y", "")
@@ -306,7 +319,6 @@ radlb <- function(ADSL, # nolint
     data_compare <- data_compare[, -which(names(data_compare) %in% c("row_check"))]
 
     return(data_compare)
-
   }
 
   ADLB <- flag_variables(ADLB, TRUE, "ELSE", FALSE) %>% dplyr::rename(WORS01FL = .data$new_var) # nolint
@@ -316,8 +328,8 @@ radlb <- function(ADSL, # nolint
   ADLB <- flag_variables(ADLB, TRUE, FALSE, TRUE) %>% dplyr::rename(WGRLOVFL = .data$new_var) # nolint
 
   ADLB <- ADLB %>% dplyr::mutate(ANL01FL = ifelse( # nolint
-    (.data$ABLFL == "Y" | (.data$WORS01FL == "Y" & is.na(.data$DTYPE)))
-    & (.data$AVISIT != "SCREENING"),
+    (.data$ABLFL == "Y" | (.data$WORS01FL == "Y" & is.na(.data$DTYPE))) &
+      (.data$AVISIT != "SCREENING"),
     "Y",
     ""
   ))

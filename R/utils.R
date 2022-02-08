@@ -7,7 +7,9 @@ get_cached_data <- function(dataname) {
   checkmate::assert_string(dataname)
   if (!("package:random.cdisc.data" %in% search())) {
     stop("cached data can only be loaded if the random.cdisc.data package is attached.",
-         "Please run library(random.cdisc.data) before loading cached data.", call. = FALSE)
+      "Please run library(random.cdisc.data) before loading cached data.",
+      call. = FALSE
+    )
   } else {
     get(dataname, envir = asNamespace("random.cdisc.data"))
   }
@@ -76,7 +78,7 @@ relvar_init <- function(relvar1, relvar2) {
 #'   PARAM = factor(
 #'     rep(c("Level A", "Level B", "Level C"), 3),
 #'     levels = params
-#'    )
+#'   )
 #' )
 #' random.cdisc.data:::rel_var(
 #'   df = ADLB_df,
@@ -91,7 +93,7 @@ relvar_init <- function(relvar1, relvar2) {
 #'   PARAM = factor(
 #'     rep(c("Level A", "Level B", "Level C"), 3),
 #'     levels = params
-#'    )
+#'   )
 #' )
 #' random.cdisc.data:::rel_var(
 #'   df = ADLB_tbl,
@@ -99,7 +101,6 @@ relvar_init <- function(relvar1, relvar2) {
 #'   var_values = c("A", "B", "C"),
 #'   related_var = "PARAM"
 #' )
-#'
 rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var = NULL) {
   checkmate::assert_data_frame(df, null.ok = TRUE)
   checkmate::assert_string(var_name, null.ok = TRUE)
@@ -109,7 +110,7 @@ rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var =
   if (is.null(df)) {
     message("Missing data frame argument value.")
     return(NA)
-  } else{
+  } else {
     n_relvar1 <- length(unique(df[, related_var, drop = TRUE]))
     n_relvar2 <- length(var_values)
     if (n_relvar1 != n_relvar2) {
@@ -145,7 +146,6 @@ rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var =
 visit_schedule <- function(visit_format = "WEEK",
                            n_assessments = 10L,
                            n_days = 5L) {
-
   checkmate::assert_string(visit_format)
   checkmate::assert_integer(n_assessments, len = 1, any.missing = FALSE)
   checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
@@ -185,8 +185,10 @@ visit_schedule <- function(visit_format = "WEEK",
 #'
 #' @examples
 #' ADLB <- radlb(radsl(N = 10, na_percentage = 0), na_vars = list())
-#' ADLB$BASE2 <- random.cdisc.data:::retain(df = ADLB, value_var = ADLB$AVAL,
-#'   event = ADLB$ABLFL2 == "Y")
+#' ADLB$BASE2 <- random.cdisc.data:::retain(
+#'   df = ADLB, value_var = ADLB$AVAL,
+#'   event = ADLB$ABLFL2 == "Y"
+#' )
 retain <- function(df, value_var, event, outside = NA) {
   indices <- c(1, which(event == TRUE), nrow(df) + 1)
   values <- c(outside, value_var[event == TRUE])
@@ -201,8 +203,10 @@ retain <- function(df, value_var, event, outside = NA) {
 #' @param ... ellipsis.
 #' @examples
 #' ADSL <- radsl()
-#' random.cdisc.data:::var_relabel(ADSL, STUDYID = "Study Identifier",
-#' USUBJID = "Unique Subject Identifier")
+#' random.cdisc.data:::var_relabel(ADSL,
+#'   STUDYID = "Study Identifier",
+#'   USUBJID = "Unique Subject Identifier"
+#' )
 var_relabel <- function(x, ...) {
   dots <- list(...)
   varnames <- names(dots)
@@ -211,7 +215,7 @@ var_relabel <- function(x, ...) {
   }
   map_varnames <- match(varnames, names(x))
   for (i in seq_along(map_varnames)) {
-    attr(x[[map_varnames[[i]]]], "label") <-  dots[[i]]
+    attr(x[[map_varnames[[i]]]], "label") <- dots[[i]]
   }
   x
 }
@@ -230,12 +234,13 @@ var_relabel <- function(x, ...) {
 #' seed <- 1
 #' ADSL <- suppressWarnings(radsl(seed = seed))
 #' ADLB <- radlb(ADSL, seed = seed)
-#'
 #' \dontrun{
 #' yaml_path <- file.path(path.package("random.cdisc.data"), "inst", "metadata")
 #' ADSL <- random.cdisc.data:::apply_metadata(ADSL, file.path(yaml_path, "ADSL.yml"), FALSE)
-#' ADLB <- random.cdisc.data:::apply_metadata(ADLB, file.path(yaml_path, "ADLB.yml"), TRUE,
-#'   file.path(yaml_path, "ADSL.yml"))
+#' ADLB <- random.cdisc.data:::apply_metadata(
+#'   ADLB, file.path(yaml_path, "ADLB.yml"), TRUE,
+#'   file.path(yaml_path, "ADSL.yml")
+#' )
 #' }
 #'
 apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metadata/ADSL.yml") { # nolint
@@ -253,11 +258,11 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
       df[[var]] <<- as.character(df[[var]])
     } else if (type == "factor" && !is.factor(df[[var]])) {
       df[[var]] <<- as.factor(df[[var]])
-    } else if  (type == "integer" && !is.integer(df[[var]])) {
+    } else if (type == "integer" && !is.integer(df[[var]])) {
       df[[var]] <<- as.integer(df[[var]])
-    } else if  (type == "numeric" && !is.numeric(df[[var]])) {
+    } else if (type == "numeric" && !is.numeric(df[[var]])) {
       df[[var]] <<- as.numeric(df[[var]])
-    } else if  (type == "logical" && !is.logical(df[[var]])) {
+    } else if (type == "logical" && !is.logical(df[[var]])) {
       df[[var]] <<- as.logical(df[[var]])
     }
   }
@@ -280,8 +285,9 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
   # find variables that does not have labels and are not it metadata
   missing_vars_map <- vapply(
     names(df),
-    function(x)
-      !(x %in% c("STUDYID", "USUBJID", metadata_varnames)) && is.null(attr(df[[x]], "label")),
+    function(x) {
+      !(x %in% c("STUDYID", "USUBJID", metadata_varnames)) && is.null(attr(df[[x]], "label"))
+    },
     logical(1)
   )
   missing_vars <- names(df)[missing_vars_map]
@@ -290,7 +296,8 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
       "Following variables does not have label or are not found in ",
       filename,
       ": ",
-      paste0(missing_vars, collapse = ", "))
+      paste0(missing_vars, collapse = ", ")
+    )
     warning(msg)
   }
 
@@ -328,7 +335,6 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
 #'
 #' @export
 replace_na <- function(v, percentage = 0.05, seed = NULL) {
-
   checkmate::assert_number(percentage, lower = 0, upper = 1)
 
   if (percentage == 0) {
@@ -363,7 +369,6 @@ replace_na <- function(v, percentage = 0.05, seed = NULL) {
 #'
 #' @importFrom rlang := !!
 mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {
-
   if (!dplyr::is.tbl(ds)) {
     dplyr::tbl_df(ds)
   }
@@ -384,7 +389,7 @@ mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {
         warning(paste(na_var, "not in column names"))
       } else {
         ds <- ds %>%
-          ungroup_rowwise_df %>%
+          ungroup_rowwise_df() %>%
           dplyr::mutate(
             !!na_var := ds[[na_var]] %>%
               replace_na(
@@ -425,7 +430,6 @@ ungroup_rowwise_df <- function(x) {
 #'
 #' y <- rtpois(1e6, lambda = 5)
 #' hist(y)
-#'
 rtpois <- function(n, lambda) {
   stats::qpois(stats::runif(n, stats::dpois(0, lambda), 1), lambda)
 }
@@ -457,12 +461,11 @@ rtpois <- function(n, lambda) {
 #'
 #' z <- rtexp(1e6, rate = 5, r = 0.5)
 #' hist(z)
-#'
 rtexp <- function(n, rate, l = NULL, r = NULL) {
   if (!is.null(l)) {
     l - log(1 - stats::runif(n)) / rate
   } else if (!is.null(r)) {
-    - log(1 - stats::runif(n) * (1 - exp(- r * rate))) / rate
+    -log(1 - stats::runif(n) * (1 - exp(-r * rate))) / rate
   } else {
     stats::rexp(n, rate)
   }

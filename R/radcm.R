@@ -96,27 +96,29 @@ radcm <- function(ADSL, # nolint
   ADCM <- dplyr::inner_join( # nolint
     ADSL, # nolint
     ADCM,
-    by = c("STUDYID", "USUBJID")) %>%
-  dplyr::rowwise() %>%
-  dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-  dplyr::mutate(trtedt_int = dplyr::case_when(
-    !is.na(TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
-    is.na(TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
-  )) %>%
-  dplyr::mutate(ASTDTM = as.POSIXct(
-    (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-    origin = "1970-01-01")
+    by = c("STUDYID", "USUBJID")
   ) %>%
-  dplyr::mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
-  dplyr::mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
-  # add 1 to end of range incase both values passed to sample() are the same
-  dplyr::mutate(AENDTM = as.POSIXct((
-    sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
-    origin = "1970-01-01")) %>%
-  dplyr::mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
-  dplyr::select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
-  dplyr::ungroup() %>%
-  dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)
+    dplyr::rowwise() %>%
+    dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
+    dplyr::mutate(trtedt_int = dplyr::case_when(
+      !is.na(TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
+      is.na(TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
+    )) %>%
+    dplyr::mutate(ASTDTM = as.POSIXct(
+      (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
+      origin = "1970-01-01"
+    )) %>%
+    dplyr::mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
+    dplyr::mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
+    # add 1 to end of range incase both values passed to sample() are the same
+    dplyr::mutate(AENDTM = as.POSIXct((
+      sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
+    origin = "1970-01-01"
+    )) %>%
+    dplyr::mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
+    dplyr::select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)
 
   ADCM <- ADCM %>% # nolint
     dplyr::group_by(.data$USUBJID) %>%
@@ -135,7 +137,7 @@ radcm <- function(ADSL, # nolint
   if (who_coding) {
     n_cmdecod_path2 <- ceiling(nrow(lookup_cm) / 2)
     cmdecod_path2 <- sample(lookup_cm$CMDECOD, n_cmdecod_path2)
-    ADCM_path2 <- ADCM %>%  #nolint
+    ADCM_path2 <- ADCM %>% # nolint
       dplyr::filter(.data$CMDECOD %in% cmdecod_path2) %>%
       dplyr::mutate(
         ATC1 = paste(.data$ATC1, "p2"),
@@ -146,7 +148,7 @@ radcm <- function(ADSL, # nolint
 
     n_cmdecod_path3 <- ceiling(length(cmdecod_path2) / 2)
     cmdecod_path3 <- sample(cmdecod_path2, n_cmdecod_path3)
-    ADCM_path3 <- ADCM %>%  #nolint
+    ADCM_path3 <- ADCM %>% # nolint
       dplyr::filter(.data$CMDECOD %in% cmdecod_path3) %>%
       dplyr::mutate(
         ATC1 = paste(.data$ATC1, "p3"),
@@ -155,7 +157,7 @@ radcm <- function(ADSL, # nolint
         ATC4 = paste(.data$ATC4, "p3")
       )
 
-    ADCM <- dplyr::bind_rows(  #nolint
+    ADCM <- dplyr::bind_rows( # nolint
       ADCM,
       ADCM_path2,
       ADCM_path3
