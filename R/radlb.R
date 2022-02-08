@@ -91,7 +91,8 @@ radlb <- function(ADSL, # nolint
   )
 
   # assign AVAL based on different test
-  ADLB <- ADLB %>% # nolint
+  ADLB <- ADLB %>%
+    # nolint
     dplyr::mutate(AVAL = stats::rnorm(nrow(ADLB), mean = 1, sd = 0.2)) %>%
     dplyr::left_join(data.frame(PARAM = param, ADJUST = aval_mean), by = "PARAM") %>%
     dplyr::mutate(AVAL = .data$AVAL * .data$ADJUST) %>%
@@ -160,7 +161,8 @@ radlb <- function(ADSL, # nolint
 
   ANRIND_choices <- c("HIGH", "LOW", "NORMAL") # nolint
 
-  ADLB <- ADLB %>% # nolint
+  ADLB <- ADLB %>%
+    # nolint
     dplyr::mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
     dplyr::mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
     dplyr::mutate(CHG = .data$AVAL - .data$BASE) %>%
@@ -237,7 +239,8 @@ radlb <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
-  ADLB <- ADLB %>% # nolint
+  ADLB <- ADLB %>%
+    # nolint
     dplyr::mutate(ASPID = sample(seq_len(dplyr::n()))) %>%
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(LBSEQ = seq_len(dplyr::n())) %>%

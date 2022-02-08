@@ -55,7 +55,8 @@ radpp <- function(ADSL, # nolint,
     AVISIT = visit_schedule(visit_format = visit_format, n_assessments = 1L, n_days = n_days),
     stringsAsFactors = FALSE
   )
-  ADPP <- ADPP %>% # nolint
+  ADPP <- ADPP %>%
+    # nolint
     dplyr::mutate(AVAL = stats::rnorm(nrow(ADPP), mean = 1, sd = 0.2)) %>%
     dplyr::left_join(data.frame(PARAM = param, ADJUST = aval_mean), by = "PARAM") %>%
     dplyr::mutate(AVAL = .data$AVAL * .data$ADJUST) %>%

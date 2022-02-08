@@ -188,7 +188,8 @@ radsub <- function(ADSL, # nolint
   }
 
   # Add this to ADSUB and create other measurements.
-  ADSUB <- ADSUB %>% # nolint
+  ADSUB <- ADSUB %>%
+    # nolint
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(
       AVAL = dplyr::case_when(

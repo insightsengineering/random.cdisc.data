@@ -109,7 +109,8 @@ raddv <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add deviation date and study day variables
-  ADDV <- dplyr::inner_join(ADSL, ADDV, by = c("STUDYID", "USUBJID")) %>% # nolint
+  ADDV <- dplyr::inner_join(ADSL, ADDV, by = c("STUDYID", "USUBJID")) %>%
+    # nolint
     dplyr::rowwise() %>%
     dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     dplyr::mutate(trtedt_int = dplyr::case_when(
@@ -126,7 +127,8 @@ raddv <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDT, .data$DVTERM)
 
-  ADDV <- ADDV %>% # nolint
+  ADDV <- ADDV %>%
+    # nolint
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(DVSEQ = seq_len(dplyr::n())) %>%
     dplyr::ungroup() %>%

@@ -105,7 +105,8 @@ radsl <- function(N = 400, # nolint
     dplyr::mutate(SAFFL = factor("Y")) %>%
     dplyr::arrange(.data$st_posixn)
 
-  ADDS <- ADSL[sample(nrow(ADSL), discons), ] %>% # nolint
+  ADDS <- ADSL[sample(nrow(ADSL), discons), ] %>%
+    # nolint
     dplyr::mutate(TRTEDTM_discon = as.POSIXct(
       sample(seq(from = max(.data$st_posixn), to = sys_dtm + study_duration_secs, by = 1), size = discons),
       origin = "1970-01-01"
@@ -113,7 +114,8 @@ radsl <- function(N = 400, # nolint
     dplyr::select(.data$st_posixn, .data$TRTEDTM_discon) %>%
     dplyr::arrange(.data$st_posixn)
 
-  ADSL <- dplyr::left_join(ADSL, ADDS, by = "st_posixn") %>% # nolint
+  ADSL <- dplyr::left_join(ADSL, ADDS, by = "st_posixn") %>%
+    # nolint
     dplyr::mutate(TRTEDTM = dplyr::case_when(
       !is.na(TRTEDTM_discon) ~ as.POSIXct(TRTEDTM_discon, origin = "1970-01-01"),
       st_posixn >= quantile(st_posixn)[2] & st_posixn <= quantile(st_posixn)[3] ~ as.POSIXct(NA, origin = "1970-01-01"),
@@ -122,7 +124,8 @@ radsl <- function(N = 400, # nolint
     dplyr::mutate(TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01")) %>%
     dplyr::select(-.data$TRTEDTM_discon)
 
-  ADSL <- ADSL %>% # nolint
+  ADSL <- ADSL %>%
+    # nolint
     dplyr::mutate(EOSDT = as.Date(.data$TRTEDTM)) %>%
     dplyr::mutate(EOSDY = as.numeric(ceiling(difftime(.data$TRTEDTM, .data$TRTSDTM, units = "days")))) %>%
     dplyr::mutate(EOSSTT = dplyr::case_when(
@@ -148,7 +151,8 @@ radsl <- function(N = 400, # nolint
     prob = c(.1, .3, .3, .2, .1)
   )
 
-  ADSL <- ADSL %>% # nolint
+  ADSL <- ADSL %>%
+    # nolint
     dplyr::mutate(
       DCSREAS = ifelse(
         .data$EOSSTT == "DISCONTINUED",
@@ -191,7 +195,8 @@ radsl <- function(N = 400, # nolint
     dplyr::select(-.data$st_posixn)
 
   # associate sites with countries and regions
-  ADSL <- ADSL %>% # nolint
+  ADSL <- ADSL %>%
+    # nolint
     dplyr::mutate(SITEID = paste0(.data$COUNTRY, "-", .data$SITEID)) %>%
     dplyr::mutate(REGION1 = dplyr::case_when(
       COUNTRY %in% c("NGA") ~ "Africa",
