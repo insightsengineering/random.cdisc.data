@@ -158,8 +158,7 @@ radhy <- function(ADSL, # nolint
   ADHY <- dplyr::filter(ADHY, .data$PARAMCD %in% paramcd_by_period | .data$APERIODC == "PERIOD 1") # nolint
 
   # add baseline variables
-  ADHY <- ADHY %>%
-    # nolint
+  ADHY <- ADHY %>% # nolint
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
     dplyr::mutate(
       BASEC = .data$AVALC[.data$AVISIT == "BASELINE"],
@@ -200,8 +199,7 @@ radhy <- function(ADSL, # nolint
   }
 
   # add ADY and ADTM variables
-  ADHY <- ADHY %>%
-    # nolint
+  ADHY <- ADHY %>% # nolint
     dplyr::group_by(.data$AVISIT, .add = FALSE) %>%
     dplyr::group_modify(~ add_ady(.x, .y$AVISIT)) %>%
     dplyr::ungroup() %>%

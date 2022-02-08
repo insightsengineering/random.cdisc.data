@@ -134,8 +134,7 @@ radvs <- function(ADSL, # nolint
   ADVS$BASE <- ifelse(ADVS$ABLFL2 != "Y", retain(ADVS, ADVS$AVAL, ADVS$ABLFL == "Y"), NA) # nolint
   ANRIND_choices <- c("HIGH", "LOW", "NORMAL") # nolint
 
-  ADVS <- ADVS %>%
-    # nolint
+  ADVS <- ADVS %>% # nolint
     dplyr::mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
     dplyr::mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
     dplyr::mutate(CHG = .data$AVAL - .data$BASE) %>%
@@ -196,8 +195,7 @@ radvs <- function(ADSL, # nolint
     TRUE ~ "Y"
   )))
 
-  ADVS <- ADVS %>%
-    # nolint
+  ADVS <- ADVS %>% # nolint
     dplyr::mutate(ASPID = sample(seq_len(dplyr::n()))) %>%
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(VSSEQ = seq_len(dplyr::n())) %>%

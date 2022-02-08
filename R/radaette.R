@@ -131,8 +131,7 @@ radaette <- function(ADSL, # nolint
   )
 
   # Add other variables to adaette_hy
-  adaette_hy <- dplyr::left_join(adaette_hy, adsl_hy, by = c("STUDYID", "USUBJID")) %>%
-    # nolint
+  adaette_hy <- dplyr::left_join(adaette_hy, adsl_hy, by = c("STUDYID", "USUBJID")) %>% # nolint
     dplyr::mutate(
       PARAMCD = factor(rel_var(
         df = as.data.frame(adaette_hy),
@@ -223,8 +222,7 @@ radaette <- function(ADSL, # nolint
     )
   }
 
-  ADAETTE <- split(ADSL, ADSL$USUBJID) %>%
-    # nolint
+  ADAETTE <- split(ADSL, ADSL$USUBJID) %>% # nolint
     lapply(function(patient_info) {
       patient_data <- random_patient_data(patient_info)
       lookup_arm <- lookup_ADAETTE %>%
@@ -252,8 +250,7 @@ radaette <- function(ADSL, # nolint
 
   ADAETTE <- rbind(ADAETTE, adaette_hy) # nolint
 
-  ADAETTE <- ADSL %>%
-    # nolint
+  ADAETTE <- ADSL %>% # nolint
     dplyr::inner_join(
       dplyr::select(ADAETTE, -.data$SITEID, -.data$ARM),
       by = c("STUDYID", "USUBJID")

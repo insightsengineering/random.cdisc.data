@@ -120,8 +120,7 @@ radcm <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)
 
-  ADCM <- ADCM %>%
-    # nolint
+  ADCM <- ADCM %>% # nolint
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(CMSEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = .data$CMSEQ) %>%

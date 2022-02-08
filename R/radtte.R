@@ -91,8 +91,7 @@ radtte <- function(ADSL, # nolint
     )
   }
 
-  ADTTE <- split(ADSL, ADSL$USUBJID) %>%
-    # nolint
+  ADTTE <- split(ADSL, ADSL$USUBJID) %>% # nolint
 
     lapply(FUN = function(pinfo) {
       lookup_TTE %>%
@@ -155,8 +154,7 @@ radtte <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
-  ADTTE <- ADTTE %>%
-    # nolint
+  ADTTE <- ADTTE %>% # nolint
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(TTESEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = .data$TTESEQ) %>%

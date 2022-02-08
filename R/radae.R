@@ -147,8 +147,7 @@ radae <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add AE date and study day variables
-  ADAE <- dplyr::inner_join(ADSL, ADAE, by = c("STUDYID", "USUBJID")) %>%
-    # nolint
+  ADAE <- dplyr::inner_join(ADSL, ADAE, by = c("STUDYID", "USUBJID")) %>% # nolint
     dplyr::rowwise() %>%
     dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     dplyr::mutate(trtedt_int = dplyr::case_when(
@@ -171,8 +170,7 @@ radae <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$AETERM)
 
-  ADAE <- ADAE %>%
-    # nolint
+  ADAE <- ADAE %>% # nolint
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(AESEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = .data$AESEQ) %>%
@@ -205,8 +203,7 @@ radae <- function(ADSL, # nolint
     "NOT EVALUABLE"
   )
 
-  ADAE <- ADAE %>%
-    # nolint
+  ADAE <- ADAE %>% # nolint
     dplyr::mutate(AEOUT = factor(ifelse(
       .data$AETOXGR == "5",
       "FATAL",

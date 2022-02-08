@@ -118,8 +118,7 @@ radqs <- function(ADSL, # nolint
   ADQS$BASE2 <- retain(ADQS, ADQS$AVAL, ADQS$ABLFL2 == "Y") # nolint
   ADQS$BASE <- ifelse(ADQS$ABLFL2 != "Y", retain(ADQS, ADQS$AVAL, ADQS$ABLFL == "Y"), NA) # nolint
 
-  ADQS <- ADQS %>%
-    # nolint
+  ADQS <- ADQS %>% # nolint
     dplyr::mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
     dplyr::mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
     dplyr::mutate(CHG = .data$AVAL - .data$BASE) %>%
@@ -160,8 +159,7 @@ radqs <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
-  ADQS <- ADQS %>%
-    # nolint
+  ADQS <- ADQS %>% # nolint
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(QSSEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = .data$QSSEQ) %>%
