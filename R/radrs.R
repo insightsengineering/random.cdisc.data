@@ -99,7 +99,7 @@ radrs <- function(ADSL, # nolint
       # meaningful date information
       trtsdt_int <- as.numeric(as.Date(pinfo$TRTSDTM))
       trtedt_int <- ifelse(
-        !is.na(pinfo$TRTEDTM),  as.numeric(as.Date(pinfo$TRTEDTM)),
+        !is.na(pinfo$TRTEDTM), as.numeric(as.Date(pinfo$TRTEDTM)),
         floor(trtsdt_int + (pinfo$study_duration_secs) / 86400)
       )
       scr_date <- as.POSIXct(((trtsdt_int - 100) * 86400), origin = "1970-01-01")
