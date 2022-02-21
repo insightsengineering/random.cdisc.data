@@ -120,11 +120,11 @@ radmh <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHTERM) %>%
     dplyr::mutate(MHDISTAT = sample(
-    x = c("Resolved", "Ongoing with treatment", "Ongoing without treatment"),
-    prob = c(0.6, 0.2, 0.2),
-    size = dplyr::n(),
-    replace = TRUE
-  ))
+      x = c("Resolved", "Ongoing with treatment", "Ongoing without treatment"),
+      prob = c(0.6, 0.2, 0.2),
+      size = dplyr::n(),
+      replace = TRUE
+    ))
 
   ADMH <- ADMH %>% # nolint
     dplyr::group_by(.data$USUBJID) %>%
