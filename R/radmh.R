@@ -118,7 +118,13 @@ radmh <- function(ADSL, # nolint
     dplyr::mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
     dplyr::select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
     dplyr::ungroup() %>%
-    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHTERM)
+    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHTERM) %>%
+    dplyr::mutate(MHDISTAT = sample(
+    x = c("Resolved", "Ongoing with treatment", "Ongoing without treatment"),
+    prob = c(0.6, 0.2, 0.2),
+    size = dplyr::n(),
+    replace = TRUE
+  ))
 
   ADMH <- ADMH %>% # nolint
     dplyr::group_by(.data$USUBJID) %>%
