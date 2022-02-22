@@ -31,3 +31,6 @@ variables:
   AENDY:
     label: Analysis End Relative Day
     type: integer
+  MHDISTAT:
+    label: Status of Disease
+    type: factor
