@@ -63,15 +63,6 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="..//index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -108,8 +99,12 @@ Other releases
 <div class="section level2">
 <h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
-<p>The following script is used to create, compare and save cached data to <code>data/</code> directory.</p>
-<p>Starting in <code>R 3.6.0</code> the default kind of under-the-hood random-number generator was changed. Now, in order to get the results from <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code> to match, you have to first call the function <code>RNGkind(sample.kind = "Rounding")</code>.</p>
+<p>The following script is used to create, compare and save cached data
+to <code>data/</code> directory.</p>
+<p>Starting in <code>R 3.6.0</code> the default kind of under-the-hood
+random-number generator was changed. Now, in order to get the results
+from <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code> to match, you have to first call the
+function <code>RNGkind(sample.kind = "Rounding")</code>.</p>
 <p>It does throw an expected warning</p>
 <pre><code>Warning message:
 In RNGkind(sample.kind = "Rounding") : non-uniform 'Rounding' sampler used</code></pre>
@@ -117,7 +112,11 @@ In RNGkind(sample.kind = "Rounding") : non-uniform 'Rounding' sampler used</code
 <div class="section level2">
 <h2 id="code-maintenance">Code maintenance<a class="anchor" aria-label="anchor" href="#code-maintenance"></a>
 </h2>
-<p>Currently, when a new random.cdisc.data function is created then this script needs to be manually updated to include the new cached data set in the rebuild process. If an existing function is modified then the cached data also need to be updated by running through the rebuild process.</p>
+<p>Currently, when a new random.cdisc.data function is created then this
+script needs to be manually updated to include the new cached data set
+in the rebuild process. If an existing function is modified then the
+cached data also need to be updated by running through the rebuild
+process.</p>
 </div>
 <div class="section level2">
 <h2 id="code-to-run-interactively">Code to run interactively<a class="anchor" aria-label="anchor" href="#code-to-run-interactively"></a>
@@ -224,12 +223,15 @@ In RNGkind(sample.kind = "Rounding") : non-uniform 'Rounding' sampler used</code
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by NEST, Adrian Waddell, Nick Paszty, Federico Martinello, Heng Wang, Mika Maekinen, Chendi Lioa, Edgar Manukyan, Wojciech Wojciak, Roche.</p>
+<p>Developed by NEST, Adrian Waddell, Nick Paszty, Federico Martinello,
+Heng Wang, Mika Maekinen, Chendi Lioa, Edgar Manukyan, Wojciech Wojciak,
+Roche.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer>

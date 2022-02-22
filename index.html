@@ -63,15 +63,6 @@
 <li>
   <a href="news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="index.html">latest</a></li>
-   <li><a href="/index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -95,12 +86,15 @@ Other releases
 <div class="section level1">
 <div class="page-header"><h1 id="randomcdiscdata">random.cdisc.data<a class="anchor" aria-label="anchor" href="#randomcdiscdata"></a>
 </h1></div>
-<p>The <code>random.cdisc.data</code> is a package for creating random CDISC data. The random datasets available to create are:</p>
+<p>The <code>random.cdisc.data</code> is a package for creating random
+CDISC data. The random datasets available to create are:</p>
 <ul>
 <li><p>Subject-Level Analysis Dataset (<code>radsl</code>)</p></li>
 <li><p>Adverse Event Analysis Dataset (<code>radae</code>)</p></li>
-<li><p>Time to Adverse Event Analysis Dataset (<code>radaette</code>)</p></li>
-<li><p>Previous and Concomitant Medications Analysis Dataset (<code>radcm</code>)</p></li>
+<li><p>Time to Adverse Event Analysis Dataset
+(<code>radaette</code>)</p></li>
+<li><p>Previous and Concomitant Medications Analysis Dataset
+(<code>radcm</code>)</p></li>
 <li><p>ECG Analysis Dataset (<code>radeg</code>)</p></li>
 <li><p>Exposure Analysis Dataset (<code>radex</code>)</p></li>
 <li><p>Laboratory Data Analysis Dataset (<code>radlb</code>)</p></li>
@@ -113,7 +107,9 @@ Other releases
 <li><p>Vital Signs Analysis Dataset (<code>radvs</code>)</p></li>
 <li>
 <p>Subcategory Analysis Dataset (<code>radsub</code>)</p>
-<p>Please note that changes to random data functions requires rebuild of cached data. Please read the “Rebuilding Random CDISC Cached Data” article.</p>
+<p>Please note that changes to random data functions requires rebuild of
+cached data. Please read the “Rebuilding Random CDISC Cached Data”
+article.</p>
 </li>
 </ul>
 <div class="section level2">
@@ -125,29 +121,45 @@ Other releases
 <ol style="list-style-type: decimal">
 <li>
 <p>Clone the repository</p>
-<p>The repository can be downloaded directly from the <code>github.com</code> site as an archive (see <a href="https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository" class="external-link">Github tutorial on cloning to learn more</a>). Alternatively, Git command line tools offer the same functionality, without the need for manual downloading and unpacking the archive, but require to authenticate to Github. You can authenticate using a key pair or a Personal Access Token (PAT). Please refer to excellent Github tutorials on <a href="https://docs.github.com/en/github/authenticating-to-github" class="external-link">connecting to Github using SSH</a> or <a href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token" class="external-link">creating and using PAT</a>.</p>
+<p>The repository can be downloaded directly from the
+<code>github.com</code> site as an archive (see <a href="https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository" class="external-link">Github
+tutorial on cloning to learn more</a>). Alternatively, Git command line
+tools offer the same functionality, without the need for manual
+downloading and unpacking the archive, but require to authenticate to
+Github. You can authenticate using a key pair or a Personal Access Token
+(PAT). Please refer to excellent Github tutorials on <a href="https://docs.github.com/en/github/authenticating-to-github" class="external-link">connecting
+to Github using SSH</a> or <a href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token" class="external-link">creating
+and using PAT</a>.</p>
 <ol style="list-style-type: decimal">
 <li>
-<p>Using PAT. Input in the Git Bash console, PowerShell or any Linux shell:</p>
+<p>Using PAT. Input in the Git Bash console, PowerShell or any Linux
+shell:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git clone https://github.com/insightsengineering/random.cdisc.data.git</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Username:</span> your_username_goes_here</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Password:</span> your_token_goes_here</span></code></pre></div>
 </li>
 <li>
-<p>Using SSH. If set up properly, the repository is ready to be cloned executing:</p>
+<p>Using SSH. If set up properly, the repository is ready to be
+cloned executing:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/insightsengineering/random.cdisc.data.git</span></code></pre></div>
 </li>
 </ol>
-<p>This creates a subdirectory <code>random.cdisc.data</code> containing the cloned repository.</p>
+<p>This creates a subdirectory <code>random.cdisc.data</code> containing
+the cloned repository.</p>
 </li>
 <li>
 <p>Build and install</p>
-<p>The native R tools provide a quick way to install a package. Run in PowerShell or any Linux shell:</p>
+<p>The native R tools provide a quick way to install a package. Run in
+PowerShell or any Linux shell:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> CMD build random.cdisc.data</span></code></pre></div>
-<p>This command builds the package and creates an archive. The name of the archive is output by the command at then of building. Then input in the shell:</p>
+<p>This command builds the package and creates an archive. The name of
+the archive is output by the command at then of building. Then input in
+the shell:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'install.packages("name_of_the_archive")</span></span></code></pre></div>
-<p>Here is an example of a real command (with name_of_the_archive substituted by the output of the build command):</p>
-<p>```sh $ Rscript -e ‘install.packages(“random.cdisc.data_0.9.5.9000.tar.gz”)’</p>
+<p>Here is an example of a real command (with name_of_the_archive
+substituted by the output of the build command):</p>
+<p>```sh $ Rscript -e
+‘install.packages(“random.cdisc.data_0.9.5.9000.tar.gz”)’</p>
 </li>
 </ol>
 </div>
@@ -196,12 +208,15 @@ Other releases
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by NEST, Adrian Waddell, Nick Paszty, Federico Martinello, Heng Wang, Mika Maekinen, Chendi Lioa, Edgar Manukyan, Wojciech Wojciak, Roche.</p>
+<p>Developed by NEST, Adrian Waddell, Nick Paszty, Federico Martinello,
+Heng Wang, Mika Maekinen, Chendi Lioa, Edgar Manukyan, Wojciech Wojciak,
+Roche.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer>

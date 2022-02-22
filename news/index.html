@@ -44,15 +44,6 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="..//index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/insightsengineering/random.cdisc.data/" class="external-link">
     <span class="fa fa-github"></span>
@@ -75,12 +66,15 @@ Other releases
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.12.9011" id="randomcdiscdata-03129011">random.cdisc.data 0.3.12.9011<a class="anchor" aria-label="anchor" href="#randomcdiscdata-03129011"></a></h2>
 <ul><li>Fixed a typo in <code>ADSL$BMRKR1</code>’s label.</li>
-<li>Added new random dataset generator: PK Analysis Dataset (<code>radpc</code>).</li>
-<li>Added new random dataset generator: PK Parameter Dataset (<code>radpp</code>).</li>
+<li>Added new random dataset generator: PK Analysis Dataset
+(<code>radpc</code>).</li>
+<li>Added new random dataset generator: PK Parameter Dataset
+(<code>radpp</code>).</li>
 </ul><div class="section level4">
 <h4 id="miscellaneous-0-3-12-9011">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-3-12-9011"></a></h4>
 <ul><li>Updated R version requirement to &gt;= 3.6.</li>
-<li>Removed deprecated package <code>utils.nest</code> from imports and now use <code>checkmate</code> for validation functions.</li>
+<li>Removed deprecated package <code>utils.nest</code> from imports and
+now use <code>checkmate</code> for validation functions.</li>
 <li>Removed deprecated dependency <code>test.nest</code>.</li>
 </ul></div>
 </div>
@@ -89,14 +83,19 @@ Other releases
 <div class="section level4">
 <h4 id="enhancements-0-3-12">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-3-12"></a></h4>
 <ul><li>Added <code>EOTSTT</code> variable to ADSL dataset.</li>
-<li>Enabled users to define mean analysis value for each lab test in <code>radlb</code> with new argument <code>aval_mean</code>.</li>
-<li>Added <code>AERELNST</code> and <code>AEACNOTH</code> variables to ADAE dataset.</li>
+<li>Enabled users to define mean analysis value for each lab test in
+<code>radlb</code> with new argument <code>aval_mean</code>.</li>
+<li>Added <code>AERELNST</code> and <code>AEACNOTH</code> variables to
+ADAE dataset.</li>
 </ul></div>
 <div class="section level4">
 <h4 id="miscellaneous-0-3-12">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-3-12"></a></h4>
-<ul><li>Updated <code>LICENCE</code> and <code>README</code> with new package references.</li>
-<li>Corrected the <code>EVNTDESC</code> and <code>CNSR</code> variable values for the “Overall Survival parameter” in ADTTE dataset.</li>
-<li>Fixed typo in label for <code>BASE2</code> variable in ADQS dataset.</li>
+<ul><li>Updated <code>LICENCE</code> and <code>README</code> with new
+package references.</li>
+<li>Corrected the <code>EVNTDESC</code> and <code>CNSR</code> variable
+values for the “Overall Survival parameter” in ADTTE dataset.</li>
+<li>Fixed typo in label for <code>BASE2</code> variable in ADQS
+dataset.</li>
 <li>Added <code>error_on_lint: TRUE</code> to <code>.lintr</code>.</li>
 </ul></div>
 </div>
@@ -107,15 +106,19 @@ Other releases
 <ul><li>Added <code>AECONTRT</code> variable to ADAE dataset.</li>
 <li>Added new parameters in ADAETTE dataset.</li>
 <li>Added new parameters in ADHY dataset.</li>
-<li>Added period variables <code>APERIOD</code> and <code>APERIODC</code> to ADHY dataset.</li>
+<li>Added period variables <code>APERIOD</code> and
+<code>APERIODC</code> to ADHY dataset.</li>
 </ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.10" id="randomcdiscdata-0310">random.cdisc.data 0.3.10<a class="anchor" aria-label="anchor" href="#randomcdiscdata-0310"></a></h2>
 <ul><li>Added additional parameters to ADHY data.</li>
-<li>Fix bug to make internal helper <code>rel_var</code> work with <code>tibbles</code>.</li>
-<li>Added new random dataset generator: Hys Law Analysis Dataset (<code>radhy</code>) .</li>
-<li>Updated the sampling of <code>TRTSDTM</code> in <code>radsl</code> to be more efficient.</li>
+<li>Fix bug to make internal helper <code>rel_var</code> work with
+<code>tibbles</code>.</li>
+<li>Added new random dataset generator: Hys Law Analysis Dataset
+(<code>radhy</code>) .</li>
+<li>Updated the sampling of <code>TRTSDTM</code> in <code>radsl</code>
+to be more efficient.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.9" id="randomcdiscdata-039">random.cdisc.data 0.3.9<a class="anchor" aria-label="anchor" href="#randomcdiscdata-039"></a></h2>
@@ -123,21 +126,40 @@ Other releases
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.8" id="randomcdiscdata-038">random.cdisc.data 0.3.8<a class="anchor" aria-label="anchor" href="#randomcdiscdata-038"></a></h2>
-<ul><li>Four variables <code>ATC1CD</code>, <code>ATC2CD</code>, <code>ATC3CD</code>, <code>ATC4CD</code> have been added to ADCM data.</li>
-<li>ADAETTE data set generation via <code><a href="../reference/radaette.html">radaette()</a></code> has been enhanced:
+<ul><li>Four variables <code>ATC1CD</code>, <code>ATC2CD</code>,
+<code>ATC3CD</code>, <code>ATC4CD</code> have been added to ADCM
+data.</li>
+<li>ADAETTE data set generation via <code><a href="../reference/radaette.html">radaette()</a></code> has been
+enhanced:
 <ul><li>
-<code>lookup</code> argument now takes the parameters <code>CATCD</code> and <code>CAT</code> instead of <code>PARAMCD</code> and <code>PARAM</code>. <code>CATCD</code> specifies the code to be used for study specific treatment emergent adverse events (e.g. “1”) and <code>CAT</code> specifies the corresponding text (e.g. “any adverse event”).</li>
-<li>The resulting data set contains now the number of total occurrences per patient of each specific AE category (<code>PARAMCD</code> starting with <code>AETOT</code> and ending with <code>CATCD</code>), in addition to the already available time to first occurrence (<code>PARAMCD</code> starting with <code>AETTE</code> and ending with <code>CATCD</code>).</li>
-<li>An additional parameter included is <code>AEREPTTE</code>, the time to end of the AE reporting period.</li>
-<li>Generation of the time to and number of adverse events now is conditional on the censoring information, i.e. it is no longer possible to have a situation where the patient is censored but the time to first AE is larger than the AE reporting period.</li>
+<code>lookup</code> argument now takes the parameters
+<code>CATCD</code> and <code>CAT</code> instead of <code>PARAMCD</code>
+and <code>PARAM</code>. <code>CATCD</code> specifies the code to be used
+for study specific treatment emergent adverse events (e.g. “1”) and
+<code>CAT</code> specifies the corresponding text (e.g. “any adverse
+event”).</li>
+<li>The resulting data set contains now the number of total occurrences
+per patient of each specific AE category (<code>PARAMCD</code> starting
+with <code>AETOT</code> and ending with <code>CATCD</code>), in addition
+to the already available time to first occurrence (<code>PARAMCD</code>
+starting with <code>AETTE</code> and ending with
+<code>CATCD</code>).</li>
+<li>An additional parameter included is <code>AEREPTTE</code>, the time
+to end of the AE reporting period.</li>
+<li>Generation of the time to and number of adverse events now is
+conditional on the censoring information, i.e. it is no longer possible
+to have a situation where the patient is censored but the time to first
+AE is larger than the AE reporting period.</li>
 </ul></li>
 <li>Updated examples to not use <code>cached = TRUE</code>.</li>
 <li>Added ADSUB dataset.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.7" id="randomcdiscdata-037">random.cdisc.data 0.3.7<a class="anchor" aria-label="anchor" href="#randomcdiscdata-037"></a></h2>
-<ul><li>ADVS data set was updated. Two additional parameters were included: BNRIND and ONTRTFL.</li>
-<li>ADTTE data set was updated. There is a new parameter in this data set: “PARAM == Duration of Confirmed Response”.</li>
+<ul><li>ADVS data set was updated. Two additional parameters were included:
+BNRIND and ONTRTFL.</li>
+<li>ADTTE data set was updated. There is a new parameter in this data
+set: “PARAM == Duration of Confirmed Response”.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.6" id="randomcdiscdata-036">random.cdisc.data 0.3.6<a class="anchor" aria-label="anchor" href="#randomcdiscdata-036"></a></h2>
@@ -146,10 +168,13 @@ Other releases
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.5" id="randomcdiscdata-035">random.cdisc.data 0.3.5<a class="anchor" aria-label="anchor" href="#randomcdiscdata-035"></a></h2>
 <ul><li>Added ADTR dataset from osprey.</li>
-<li>Added 10 variables to ADAE dataset: AEOUT, AEACN, AESDTH, TRTEMFL, ANL01FL, SMQ01NAM, SMQ02NAM, SMQ01SC, SMQ02SC, CQ01NAM.</li>
-<li>Added WORS02FL (Worst Post-Baseline Observation) to ADEG dataset.</li>
+<li>Added 10 variables to ADAE dataset: AEOUT, AEACN, AESDTH, TRTEMFL,
+ANL01FL, SMQ01NAM, SMQ02NAM, SMQ01SC, SMQ02SC, CQ01NAM.</li>
+<li>Added WORS02FL (Worst Post-Baseline Observation) to ADEG
+dataset.</li>
 <li>Added ADEG dataset.</li>
-<li>Added 11 variables to ADLB dataset: BNRIND, SHIFT1, ATOXGR, BTOXGR, WOS01FL, ANL01FL, WGRHIFL, WGRLOFL, WGRHIVFL, WGRLOVFL, ONTRTFL.</li>
+<li>Added 11 variables to ADLB dataset: BNRIND, SHIFT1, ATOXGR, BTOXGR,
+WOS01FL, ANL01FL, WGRHIFL, WGRLOFL, WGRHIVFL, WGRLOVFL, ONTRTFL.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.4" id="randomcdiscdata-034">random.cdisc.data 0.3.4<a class="anchor" aria-label="anchor" href="#randomcdiscdata-034"></a></h2>
@@ -174,23 +199,28 @@ Other releases
 <ul><li>Columns classes configuration in <code>.yml</code> file.</li>
 <li>Added Medical History Analysis Dataset (<code>radmh</code>).</li>
 <li>Added missing columns based on Roche standards.</li>
-<li>Introduced missing values in random datasets generators (i.e. <code>r&lt;name&gt;</code>).</li>
+<li>Introduced missing values in random datasets generators
+(i.e. <code>r&lt;name&gt;</code>).</li>
 <li>Updating list of created columns in multiple datasets.</li>
 <li>Enhanced auto-testing.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.1" id="randomcdiscdata-021">random.cdisc.data 0.2.1<a class="anchor" aria-label="anchor" href="#randomcdiscdata-021"></a></h2>
-<ul><li>Added cached versions of the datasets <code>c&lt;name&gt;</code>.</li>
+<ul><li>Added cached versions of the datasets
+<code>c&lt;name&gt;</code>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.0" id="randomcdiscdata-020">random.cdisc.data 0.2.0<a class="anchor" aria-label="anchor" href="#randomcdiscdata-020"></a></h2>
-<ul><li>New consistent approach of creating random data for the different domains.</li>
-<li>Switch to new CDISC names (e.g. <code>ADSL</code> instead of <code>ASL</code>).</li>
+<ul><li>New consistent approach of creating random data for the different
+domains.</li>
+<li>Switch to new CDISC names (e.g. <code>ADSL</code> instead of
+<code>ASL</code>).</li>
 <li>Random dataset generators are:
 <ul><li>Subject-Level Analysis Dataset (<code>radsl</code>).</li>
 <li>Adverse Event Analysis Dataset (<code>radae</code>).</li>
 <li>Time to Adverse Event Analysis Dataset (<code>radaette</code>).</li>
-<li>Previous and Concomitant Medications Analysis Dataset (<code>radcm</code>).</li>
+<li>Previous and Concomitant Medications Analysis Dataset
+(<code>radcm</code>).</li>
 <li>Laboratory Data Analysis Dataset (<code>radlb</code>).</li>
 <li>Questionnaires Analysis Dataset (<code>radqs</code>).</li>
 <li>Time-to-Event Dataset (<code>radtte</code>).</li>
@@ -212,11 +242,14 @@ Other releases
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by NEST, Adrian Waddell, Nick Paszty, Federico Martinello, Heng Wang, Mika Maekinen, Chendi Lioa, Edgar Manukyan, Wojciech Wojciak, Roche.</p>
+  <p></p><p>Developed by NEST, Adrian Waddell, Nick Paszty, Federico Martinello,
+Heng Wang, Mika Maekinen, Chendi Lioa, Edgar Manukyan, Wojciech Wojciak,
+Roche.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
       </footer></div>
