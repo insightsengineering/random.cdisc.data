@@ -24,6 +24,9 @@ variables:
   RACE:
     label: Race
     type: factor
+  ETHNIC:
+    label: Ethnicity
+    type: factor
   COUNTRY:
     label: Country
     type: factor
@@ -111,5 +114,8 @@ variables:
     type: factor
   LSTALVDT:
     label: Date Last Known Alive
+  DTHADY:
+    label: Relative Day of Death
+    type: integer
   study_duration_secs:
     label: NOT A STANDARD BUT NEEDED FOR RCD
