@@ -255,6 +255,13 @@ radae <- function(ADSL, # nolint
 
   ADAE <- dplyr::bind_cols(ADAE, l_AESI) # nolint
 
+  ADAE <- dplyr::mutate(ADAE, AERELNST = sample( # nolint
+    x = c("CONCURRENT ILLNESS", "OTHER", "DISEASE UNDER STUDY", "NONE"),
+    prob = c(0.3, 0.3, 0.3, 0.1),
+    size = dplyr::n(),
+    replace = TRUE
+  ))
+
   # apply metadata
   ADAE <- apply_metadata(ADAE, "metadata/ADAE.yml") # nolint
 
