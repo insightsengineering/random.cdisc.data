@@ -147,7 +147,7 @@ radvs <- function(ADSL, # nolint
       .data$PARAMCD == "DIABP" ~ 80,
       .data$PARAMCD == "PULSE" ~ 60,
       .data$PARAMCD == "RESP" ~ 12,
-      .data$PARAMCD == "SYSBP"~ 120,
+      .data$PARAMCD == "SYSBP" ~ 120,
       .data$PARAMCD == "TEMP" ~ 36.1,
       .data$PARAMCD == "WEIGHT" ~ 40
     )) %>%
@@ -155,7 +155,7 @@ radvs <- function(ADSL, # nolint
       .data$PARAMCD == "DIABP" ~ 120,
       .data$PARAMCD == "PULSE" ~ 100,
       .data$PARAMCD == "RESP" ~ 20,
-      .data$PARAMCD == "SYSBP"~ 180,
+      .data$PARAMCD == "SYSBP" ~ 180,
       .data$PARAMCD == "TEMP" ~ 37.2,
       .data$PARAMCD == "WEIGHT" ~ 100
     )) %>%
@@ -165,7 +165,6 @@ radvs <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::mutate(ATPTN = 1) %>%
     dplyr::mutate(DTYPE = NA) %>%
-
     var_relabel(
       USUBJID = attr(ADSL$USUBJID, "label"),
       STUDYID = attr(ADSL$STUDYID, "label")

@@ -185,7 +185,7 @@ radlb <- function(ADSL, # nolint
       .data$PARAMCD == "ALT" ~ 7,
       .data$PARAMCD == "CRP" ~ 8,
       .data$PARAMCD == "IGA" ~ 0.8
-      )) %>%
+    )) %>%
     dplyr::mutate(ANRHI = dplyr::case_when(
       .data$PARAMCD == "ALT" ~ 55,
       .data$PARAMCD == "CRP" ~ 10,
