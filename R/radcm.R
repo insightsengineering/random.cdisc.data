@@ -131,7 +131,18 @@ radcm <- function(ADSL, # nolint
       ATC2 = paste("ATCCLAS2", substr(.data$CMDECOD, 9, 9)),
       ATC3 = paste("ATCCLAS3", substr(.data$CMDECOD, 9, 9)),
       ATC4 = paste("ATCCLAS4", substr(.data$CMDECOD, 9, 9))
-    )
+    ) %>% #update
+    dplyr::mutate(CMINDC = sample(c("Nausea", "Hypertension", "Urticaria", "Fever",
+                                    "Asthma", "Infection", "Diabete", "Diarrhea", "Pneumonia"), n(), replace = TRUE)) %>%
+    dplyr::mutate(CMDOSE = sample(1:99 , n(), replace = TRUE) ) %>%
+    dplyr::mutate(CMTRT = substr(.data$CMDECOD, 9, 13)) %>%
+    dplyr::mutate(CMDOSU = sample(c("ug/mL", "ug/kg/day", "%", "uL", "DROP",
+                                    "umol/L", "mg", "mg/breath", "ug"), n(), replace = TRUE)) %>%
+    dplyr::mutate(CMROUTE =  sample(c("INTRAVENOUS", "ORAL", "NASAL",
+                                      "INTRAMUSCULAR", "SUBCUTANEOUS", "INHALED", "RECTAL", "UNKNOWN"), n(), replace = TRUE)) %>%
+    dplyr::mutate(CMDOSFRQ = sample(c("Q4W", "QN", "Q4H", "UNKNOWN", "TWICE",
+                                      "Q4H", "QD", "TID", "4 TIMES PER MONTH"), n(), replace = TRUE))
+
 
   # Optional WHO coding, which adds more `ATC` paths for randomly selected `CMDECOD`.
   if (who_coding) {
