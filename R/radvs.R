@@ -143,12 +143,29 @@ radvs <- function(ADSL, # nolint
       ANRIND = ANRIND_choices %>%
         sample_fct(nrow(ADVS), prob = c(0.1, 0.1, 0.8))
     ) %>%
+    dplyr::mutate(ANRLO = dplyr::case_when(
+      .data$PARAMCD == "DIABP" ~ 80,
+      .data$PARAMCD == "PULSE" ~ 60,
+      .data$PARAMCD == "RESP" ~ 12,
+      .data$PARAMCD == "SYSBP"~ 120,
+      .data$PARAMCD == "TEMP" ~ 36.1,
+      .data$PARAMCD == "WEIGHT" ~ 40
+    )) %>%
+    dplyr::mutate(ANRHI = dplyr::case_when(
+      .data$PARAMCD == "DIABP" ~ 120,
+      .data$PARAMCD == "PULSE" ~ 100,
+      .data$PARAMCD == "RESP" ~ 20,
+      .data$PARAMCD == "SYSBP"~ 180,
+      .data$PARAMCD == "TEMP" ~ 37.2,
+      .data$PARAMCD == "WEIGHT" ~ 100
+    )) %>%
     dplyr::mutate(BASETYPE = "LAST") %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
     dplyr::mutate(BNRIND = .data$ANRIND[.data$ABLFL == "Y"]) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(ATPTN = 1) %>%
     dplyr::mutate(DTYPE = NA) %>%
+
     var_relabel(
       USUBJID = attr(ADSL$USUBJID, "label"),
       STUDYID = attr(ADSL$STUDYID, "label")
