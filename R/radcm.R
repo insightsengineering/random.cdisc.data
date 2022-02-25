@@ -131,7 +131,7 @@ radcm <- function(ADSL, # nolint
       ATC2 = paste("ATCCLAS2", substr(.data$CMDECOD, 9, 9)),
       ATC3 = paste("ATCCLAS3", substr(.data$CMDECOD, 9, 9)),
       ATC4 = paste("ATCCLAS4", substr(.data$CMDECOD, 9, 9))
-    ) %>% #update
+    ) %>%
     dplyr::mutate(CMINDC = sample(c("Nausea", "Hypertension", "Urticaria", "Fever",
                                     "Asthma", "Infection", "Diabete", "Diarrhea", "Pneumonia"), n(), replace = TRUE)) %>%
     dplyr::mutate(CMDOSE = sample(1:99 , n(), replace = TRUE) ) %>%
