@@ -1,5 +1,6 @@
 # random.cdisc.data 0.3.12.9011
 
+* Added `ANRLO` and `ANRHI` column to ADLB and ADVS
 * Added `AERELNST` column to ADAE. 
 * Added `MHDISTAT` column to ADMH. 
 * Fixed a typo in `ADSL$BMRKR1`'s label.
