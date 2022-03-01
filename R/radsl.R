@@ -190,6 +190,20 @@ radsl <- function(N = 400, # nolint
     )) %>%
     dplyr::select(-.data$st_posixn)
 
+  # add random ETHNIC (Ethnicity)
+  ADSL <- ADSL %>% # nolint
+    dplyr::mutate(ETHNIC = sample(
+      x = c("HISPANIC OR LATINO", "NOT HISPANIC OR LATINO", " NOT REPORTED", "UNKNOWN"),
+      size = N, replace = TRUE, prob = c(.1, .8, .06, .04)
+    ))
+
+  # associate DTHADY (Relative Day of Death) with Death date
+  # Date of Death [ADSL.DTHDT] - date part of Date of First Exposure to Treatment [ADSL.TRTSDTM]
+
+  ADSL <- ADSL %>% # nolint
+    dplyr::mutate(DTHADY = as.numeric(DTHDT - as.Date(TRTSDTM)))
+
+
   # associate sites with countries and regions
   ADSL <- ADSL %>% # nolint
     dplyr::mutate(SITEID = paste0(.data$COUNTRY, "-", .data$SITEID)) %>%

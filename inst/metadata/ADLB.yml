@@ -119,3 +119,9 @@ variables:
   ANL01FL:
     label: Analysis Flag 01 Baseline Post-Baseline
     type: factor
+  ANRLO:
+    label: Analysis Normal Range Lower Limit
+    type: numeric
+  ANRHI:
+    label: Analysis Normal Range Upper Limit
+    type: numeric
