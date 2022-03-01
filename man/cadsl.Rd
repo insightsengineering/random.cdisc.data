@@ -5,7 +5,7 @@
 \alias{cadsl}
 \title{Cached ADSL}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 400 rows and 39 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 400 rows and 41 columns.
 }
 \usage{
 data(cadsl)
