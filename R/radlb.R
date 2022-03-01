@@ -181,6 +181,16 @@ radlb <- function(ADSL, # nolint
       ),
       ""
     ))) %>%
+    dplyr::mutate(ANRLO = dplyr::case_when(
+      .data$PARAMCD == "ALT" ~ 7,
+      .data$PARAMCD == "CRP" ~ 8,
+      .data$PARAMCD == "IGA" ~ 0.8
+    )) %>%
+    dplyr::mutate(ANRHI = dplyr::case_when(
+      .data$PARAMCD == "ALT" ~ 55,
+      .data$PARAMCD == "CRP" ~ 10,
+      .data$PARAMCD == "IGA" ~ 3
+    )) %>%
     dplyr::mutate(ATOXGR = factor(dplyr::case_when(
       .data$ANRIND == "LOW" ~ sample(
         c("-1", "-2", "-3", "-4", "-5"),
