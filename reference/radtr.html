@@ -45,15 +45,6 @@ Subject-Level Analysis Dataset."><!-- mathjax --><script src="https://cdnjs.clou
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="..//index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/insightsengineering/random.cdisc.data/" class="external-link">
     <span class="fa fa-github"></span>
@@ -196,645 +187,716 @@ should be generated. If set to <code>TRUE</code> then the other arguments to <co
 <span class="r-out co"><span class="r-pr">#&gt;</span> 68 AB12345 AB12345-USA-13-id-3   id-3 USA-13  35   F</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 69 AB12345 AB12345-USA-13-id-3   id-3 USA-13  35   F</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 70 AB12345 AB12345-USA-13-id-3   id-3 USA-13  35   F</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                RACE COUNTRY DTHFL         INVID         INVNAM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         BLACK OR AFRICAN AMERICAN     BRA     N  INV ID BRA-1  Dr. BRA-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2         BLACK OR AFRICAN AMERICAN     BRA     N  INV ID BRA-1  Dr. BRA-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3         BLACK OR AFRICAN AMERICAN     BRA     N  INV ID BRA-1  Dr. BRA-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         BLACK OR AFRICAN AMERICAN     BRA     N  INV ID BRA-1  Dr. BRA-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5         BLACK OR AFRICAN AMERICAN     BRA     N  INV ID BRA-1  Dr. BRA-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6         BLACK OR AFRICAN AMERICAN     BRA     N  INV ID BRA-1  Dr. BRA-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7         BLACK OR AFRICAN AMERICAN     BRA     N  INV ID BRA-1  Dr. BRA-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                             ASIAN     BRA     N  INV ID BRA-9  Dr. BRA-9 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9                             ASIAN     BRA     N  INV ID BRA-9  Dr. BRA-9 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                            ASIAN     BRA     N  INV ID BRA-9  Dr. BRA-9 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11                            ASIAN     BRA     N  INV ID BRA-9  Dr. BRA-9 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                            ASIAN     BRA     N  INV ID BRA-9  Dr. BRA-9 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                            ASIAN     BRA     N  INV ID BRA-9  Dr. BRA-9 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14                            ASIAN     BRA     N  INV ID BRA-9  Dr. BRA-9 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15                            WHITE     CHN     N INV ID CHN-11 Dr. CHN-11 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16                            WHITE     CHN     N INV ID CHN-11 Dr. CHN-11 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17                            WHITE     CHN     N INV ID CHN-11 Dr. CHN-11 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18                            WHITE     CHN     N INV ID CHN-11 Dr. CHN-11 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19                            WHITE     CHN     N INV ID CHN-11 Dr. CHN-11 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20                            WHITE     CHN     N INV ID CHN-11 Dr. CHN-11 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21                            WHITE     CHN     N INV ID CHN-11 Dr. CHN-11 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22        BLACK OR AFRICAN AMERICAN     CHN     Y INV ID CHN-11 Dr. CHN-11 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23        BLACK OR AFRICAN AMERICAN     CHN     Y INV ID CHN-11 Dr. CHN-11 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24        BLACK OR AFRICAN AMERICAN     CHN     Y INV ID CHN-11 Dr. CHN-11 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25        BLACK OR AFRICAN AMERICAN     CHN     Y INV ID CHN-11 Dr. CHN-11 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26        BLACK OR AFRICAN AMERICAN     CHN     Y INV ID CHN-11 Dr. CHN-11 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27        BLACK OR AFRICAN AMERICAN     CHN     Y INV ID CHN-11 Dr. CHN-11 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28        BLACK OR AFRICAN AMERICAN     CHN     Y INV ID CHN-11 Dr. CHN-11 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29                            ASIAN     CHN     N  INV ID CHN-3  Dr. CHN-3 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30                            ASIAN     CHN     N  INV ID CHN-3  Dr. CHN-3 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31                            ASIAN     CHN     N  INV ID CHN-3  Dr. CHN-3 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32                            ASIAN     CHN     N  INV ID CHN-3  Dr. CHN-3 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33                            ASIAN     CHN     N  INV ID CHN-3  Dr. CHN-3 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34                            ASIAN     CHN     N  INV ID CHN-3  Dr. CHN-3 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35                            ASIAN     CHN     N  INV ID CHN-3  Dr. CHN-3 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36                            ASIAN     CHN     N  INV ID CHN-3  Dr. CHN-3 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37                            ASIAN     CHN     N  INV ID CHN-3  Dr. CHN-3 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38                            ASIAN     CHN     N  INV ID CHN-3  Dr. CHN-3 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39                            ASIAN     CHN     N  INV ID CHN-3  Dr. CHN-3 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40                            ASIAN     CHN     N  INV ID CHN-3  Dr. CHN-3 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41                            ASIAN     CHN     N  INV ID CHN-3  Dr. CHN-3 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42                            ASIAN     CHN     N  INV ID CHN-3  Dr. CHN-3 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43                            ASIAN     JPN     N  INV ID JPN-4  Dr. JPN-4 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44                            ASIAN     JPN     N  INV ID JPN-4  Dr. JPN-4 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45                            ASIAN     JPN     N  INV ID JPN-4  Dr. JPN-4 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46                            ASIAN     JPN     N  INV ID JPN-4  Dr. JPN-4 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47                            ASIAN     JPN     N  INV ID JPN-4  Dr. JPN-4 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48                            ASIAN     JPN     N  INV ID JPN-4  Dr. JPN-4 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49                            ASIAN     JPN     N  INV ID JPN-4  Dr. JPN-4 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50        BLACK OR AFRICAN AMERICAN     RUS     N  INV ID RUS-1  Dr. RUS-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51        BLACK OR AFRICAN AMERICAN     RUS     N  INV ID RUS-1  Dr. RUS-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52        BLACK OR AFRICAN AMERICAN     RUS     N  INV ID RUS-1  Dr. RUS-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53        BLACK OR AFRICAN AMERICAN     RUS     N  INV ID RUS-1  Dr. RUS-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54        BLACK OR AFRICAN AMERICAN     RUS     N  INV ID RUS-1  Dr. RUS-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55        BLACK OR AFRICAN AMERICAN     RUS     N  INV ID RUS-1  Dr. RUS-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56        BLACK OR AFRICAN AMERICAN     RUS     N  INV ID RUS-1  Dr. RUS-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57                            ASIAN     RUS     Y  INV ID RUS-1  Dr. RUS-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58                            ASIAN     RUS     Y  INV ID RUS-1  Dr. RUS-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59                            ASIAN     RUS     Y  INV ID RUS-1  Dr. RUS-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60                            ASIAN     RUS     Y  INV ID RUS-1  Dr. RUS-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61                            ASIAN     RUS     Y  INV ID RUS-1  Dr. RUS-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62                            ASIAN     RUS     Y  INV ID RUS-1  Dr. RUS-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63                            ASIAN     RUS     Y  INV ID RUS-1  Dr. RUS-1 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64 AMERICAN INDIAN OR ALASKA NATIVE     USA     N INV ID USA-13 Dr. USA-13 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65 AMERICAN INDIAN OR ALASKA NATIVE     USA     N INV ID USA-13 Dr. USA-13 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66 AMERICAN INDIAN OR ALASKA NATIVE     USA     N INV ID USA-13 Dr. USA-13 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67 AMERICAN INDIAN OR ALASKA NATIVE     USA     N INV ID USA-13 Dr. USA-13 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68 AMERICAN INDIAN OR ALASKA NATIVE     USA     N INV ID USA-13 Dr. USA-13 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69 AMERICAN INDIAN OR ALASKA NATIVE     USA     N INV ID USA-13 Dr. USA-13 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70 AMERICAN INDIAN OR ALASKA NATIVE     USA     N INV ID USA-13 Dr. USA-13 Doe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               ARM ARMCD         ACTARM ACTARMCD       REGION1 STRATA1 STRATA2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  C: Combination ARM C C: Combination    ARM C South America       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  C: Combination ARM C C: Combination    ARM C South America       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  C: Combination ARM C C: Combination    ARM C South America       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  C: Combination ARM C C: Combination    ARM C South America       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  C: Combination ARM C C: Combination    ARM C South America       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  C: Combination ARM C C: Combination    ARM C South America       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  C: Combination ARM C C: Combination    ARM C South America       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8       A: Drug X ARM A      A: Drug X    ARM A South America       B      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9       A: Drug X ARM A      A: Drug X    ARM A South America       B      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10      A: Drug X ARM A      A: Drug X    ARM A South America       B      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11      A: Drug X ARM A      A: Drug X    ARM A South America       B      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12      A: Drug X ARM A      A: Drug X    ARM A South America       B      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13      A: Drug X ARM A      A: Drug X    ARM A South America       B      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14      A: Drug X ARM A      A: Drug X    ARM A South America       B      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 C: Combination ARM C C: Combination    ARM C          Asia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 C: Combination ARM C C: Combination    ARM C          Asia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 C: Combination ARM C C: Combination    ARM C          Asia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 C: Combination ARM C C: Combination    ARM C          Asia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 C: Combination ARM C C: Combination    ARM C          Asia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 C: Combination ARM C C: Combination    ARM C          Asia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 C: Combination ARM C C: Combination    ARM C          Asia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22      A: Drug X ARM A      A: Drug X    ARM A          Asia       C      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23      A: Drug X ARM A      A: Drug X    ARM A          Asia       C      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24      A: Drug X ARM A      A: Drug X    ARM A          Asia       C      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25      A: Drug X ARM A      A: Drug X    ARM A          Asia       C      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26      A: Drug X ARM A      A: Drug X    ARM A          Asia       C      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27      A: Drug X ARM A      A: Drug X    ARM A          Asia       C      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28      A: Drug X ARM A      A: Drug X    ARM A          Asia       C      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29     B: Placebo ARM B     B: Placebo    ARM B          Asia       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30     B: Placebo ARM B     B: Placebo    ARM B          Asia       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31     B: Placebo ARM B     B: Placebo    ARM B          Asia       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32     B: Placebo ARM B     B: Placebo    ARM B          Asia       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33     B: Placebo ARM B     B: Placebo    ARM B          Asia       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34     B: Placebo ARM B     B: Placebo    ARM B          Asia       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35     B: Placebo ARM B     B: Placebo    ARM B          Asia       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36      A: Drug X ARM A      A: Drug X    ARM A          Asia       A      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37      A: Drug X ARM A      A: Drug X    ARM A          Asia       A      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38      A: Drug X ARM A      A: Drug X    ARM A          Asia       A      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39      A: Drug X ARM A      A: Drug X    ARM A          Asia       A      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40      A: Drug X ARM A      A: Drug X    ARM A          Asia       A      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41      A: Drug X ARM A      A: Drug X    ARM A          Asia       A      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42      A: Drug X ARM A      A: Drug X    ARM A          Asia       A      S2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43      A: Drug X ARM A      A: Drug X    ARM A          Asia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44      A: Drug X ARM A      A: Drug X    ARM A          Asia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45      A: Drug X ARM A      A: Drug X    ARM A          Asia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46      A: Drug X ARM A      A: Drug X    ARM A          Asia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47      A: Drug X ARM A      A: Drug X    ARM A          Asia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48      A: Drug X ARM A      A: Drug X    ARM A          Asia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49      A: Drug X ARM A      A: Drug X    ARM A          Asia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50     B: Placebo ARM B     B: Placebo    ARM B       Eurasia       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51     B: Placebo ARM B     B: Placebo    ARM B       Eurasia       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52     B: Placebo ARM B     B: Placebo    ARM B       Eurasia       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53     B: Placebo ARM B     B: Placebo    ARM B       Eurasia       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54     B: Placebo ARM B     B: Placebo    ARM B       Eurasia       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55     B: Placebo ARM B     B: Placebo    ARM B       Eurasia       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56     B: Placebo ARM B     B: Placebo    ARM B       Eurasia       A      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57      A: Drug X ARM A      A: Drug X    ARM A       Eurasia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58      A: Drug X ARM A      A: Drug X    ARM A       Eurasia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59      A: Drug X ARM A      A: Drug X    ARM A       Eurasia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60      A: Drug X ARM A      A: Drug X    ARM A       Eurasia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61      A: Drug X ARM A      A: Drug X    ARM A       Eurasia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62      A: Drug X ARM A      A: Drug X    ARM A       Eurasia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63      A: Drug X ARM A      A: Drug X    ARM A       Eurasia       B      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64      A: Drug X ARM A      A: Drug X    ARM A North America       C      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65      A: Drug X ARM A      A: Drug X    ARM A North America       C      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66      A: Drug X ARM A      A: Drug X    ARM A North America       C      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67      A: Drug X ARM A      A: Drug X    ARM A North America       C      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68      A: Drug X ARM A      A: Drug X    ARM A North America       C      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69      A: Drug X ARM A      A: Drug X    ARM A North America       C      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70      A: Drug X ARM A      A: Drug X    ARM A North America       C      S1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       BMRKR1 BMRKR2 ITTFL SAFFL BMEASIFL BEP01FL     RANDDT             TRTSDTM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   6.922043   HIGH     Y     Y        Y       N 2021-01-17 2021-01-17 22:43:53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   6.922043   HIGH     Y     Y        Y       N 2021-01-17 2021-01-17 22:43:53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   6.922043   HIGH     Y     Y        Y       N 2021-01-17 2021-01-17 22:43:53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   6.922043   HIGH     Y     Y        Y       N 2021-01-17 2021-01-17 22:43:53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   6.922043   HIGH     Y     Y        Y       N 2021-01-17 2021-01-17 22:43:53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   6.922043   HIGH     Y     Y        Y       N 2021-01-17 2021-01-17 22:43:53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   6.922043   HIGH     Y     Y        Y       N 2021-01-17 2021-01-17 22:43:53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  11.277028 MEDIUM     Y     Y        Y       Y 2020-01-18 2020-01-21 10:19:08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  11.277028 MEDIUM     Y     Y        Y       Y 2020-01-18 2020-01-21 10:19:08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 11.277028 MEDIUM     Y     Y        Y       Y 2020-01-18 2020-01-21 10:19:08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 11.277028 MEDIUM     Y     Y        Y       Y 2020-01-18 2020-01-21 10:19:08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 11.277028 MEDIUM     Y     Y        Y       Y 2020-01-18 2020-01-21 10:19:08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 11.277028 MEDIUM     Y     Y        Y       Y 2020-01-18 2020-01-21 10:19:08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 11.277028 MEDIUM     Y     Y        Y       Y 2020-01-18 2020-01-21 10:19:08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  8.926907    LOW     Y     Y        N       N 2020-04-29 2020-05-02 02:28:45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  8.926907    LOW     Y     Y        N       N 2020-04-29 2020-05-02 02:28:45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17  8.926907    LOW     Y     Y        N       N 2020-04-29 2020-05-02 02:28:45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18  8.926907    LOW     Y     Y        N       N 2020-04-29 2020-05-02 02:28:45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19  8.926907    LOW     Y     Y        N       N 2020-04-29 2020-05-02 02:28:45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20  8.926907    LOW     Y     Y        N       N 2020-04-29 2020-05-02 02:28:45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21  8.926907    LOW     Y     Y        N       N 2020-04-29 2020-05-02 02:28:45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22  4.084350   HIGH     Y     Y        Y       Y 2020-02-23 2020-02-26 18:15:59</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23  4.084350   HIGH     Y     Y        Y       Y 2020-02-23 2020-02-26 18:15:59</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24  4.084350   HIGH     Y     Y        Y       Y 2020-02-23 2020-02-26 18:15:59</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25  4.084350   HIGH     Y     Y        Y       Y 2020-02-23 2020-02-26 18:15:59</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26  4.084350   HIGH     Y     Y        Y       Y 2020-02-23 2020-02-26 18:15:59</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27  4.084350   HIGH     Y     Y        Y       Y 2020-02-23 2020-02-26 18:15:59</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28  4.084350   HIGH     Y     Y        Y       Y 2020-02-23 2020-02-26 18:15:59</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29  1.777905    LOW     Y     Y        N       Y 2019-03-24 2019-03-28 12:07:16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30  1.777905    LOW     Y     Y        N       Y 2019-03-24 2019-03-28 12:07:16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31  1.777905    LOW     Y     Y        N       Y 2019-03-24 2019-03-28 12:07:16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32  1.777905    LOW     Y     Y        N       Y 2019-03-24 2019-03-28 12:07:16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33  1.777905    LOW     Y     Y        N       Y 2019-03-24 2019-03-28 12:07:16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34  1.777905    LOW     Y     Y        N       Y 2019-03-24 2019-03-28 12:07:16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35  1.777905    LOW     Y     Y        N       Y 2019-03-24 2019-03-28 12:07:16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36  2.619796    LOW     Y     Y        Y       N 2020-06-24 2020-06-27 04:48:00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37  2.619796    LOW     Y     Y        Y       N 2020-06-24 2020-06-27 04:48:00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38  2.619796    LOW     Y     Y        Y       N 2020-06-24 2020-06-27 04:48:00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39  2.619796    LOW     Y     Y        Y       N 2020-06-24 2020-06-27 04:48:00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40  2.619796    LOW     Y     Y        Y       N 2020-06-24 2020-06-27 04:48:00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41  2.619796    LOW     Y     Y        Y       N 2020-06-24 2020-06-27 04:48:00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42  2.619796    LOW     Y     Y        Y       N 2020-06-24 2020-06-27 04:48:00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43  7.459420 MEDIUM     Y     Y        Y       N 2019-09-22 2019-09-22 02:25:18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44  7.459420 MEDIUM     Y     Y        Y       N 2019-09-22 2019-09-22 02:25:18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45  7.459420 MEDIUM     Y     Y        Y       N 2019-09-22 2019-09-22 02:25:18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46  7.459420 MEDIUM     Y     Y        Y       N 2019-09-22 2019-09-22 02:25:18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47  7.459420 MEDIUM     Y     Y        Y       N 2019-09-22 2019-09-22 02:25:18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48  7.459420 MEDIUM     Y     Y        Y       N 2019-09-22 2019-09-22 02:25:18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49  7.459420 MEDIUM     Y     Y        Y       N 2019-09-22 2019-09-22 02:25:18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50  9.952892 MEDIUM     Y     Y        Y       N 2020-08-27 2020-08-28 20:42:09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51  9.952892 MEDIUM     Y     Y        Y       N 2020-08-27 2020-08-28 20:42:09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52  9.952892 MEDIUM     Y     Y        Y       N 2020-08-27 2020-08-28 20:42:09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53  9.952892 MEDIUM     Y     Y        Y       N 2020-08-27 2020-08-28 20:42:09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54  9.952892 MEDIUM     Y     Y        Y       N 2020-08-27 2020-08-28 20:42:09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55  9.952892 MEDIUM     Y     Y        Y       N 2020-08-27 2020-08-28 20:42:09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56  9.952892 MEDIUM     Y     Y        Y       N 2020-08-27 2020-08-28 20:42:09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57  9.342782 MEDIUM     Y     Y        N       N 2020-10-24 2020-10-26 22:16:26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58  9.342782 MEDIUM     Y     Y        N       N 2020-10-24 2020-10-26 22:16:26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59  9.342782 MEDIUM     Y     Y        N       N 2020-10-24 2020-10-26 22:16:26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60  9.342782 MEDIUM     Y     Y        N       N 2020-10-24 2020-10-26 22:16:26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61  9.342782 MEDIUM     Y     Y        N       N 2020-10-24 2020-10-26 22:16:26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62  9.342782 MEDIUM     Y     Y        N       N 2020-10-24 2020-10-26 22:16:26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63  9.342782 MEDIUM     Y     Y        N       N 2020-10-24 2020-10-26 22:16:26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64  7.254058    LOW     Y     Y        Y       N 2019-10-16 2019-10-17 17:56:02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65  7.254058    LOW     Y     Y        Y       N 2019-10-16 2019-10-17 17:56:02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66  7.254058    LOW     Y     Y        Y       N 2019-10-16 2019-10-17 17:56:02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67  7.254058    LOW     Y     Y        Y       N 2019-10-16 2019-10-17 17:56:02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68  7.254058    LOW     Y     Y        Y       N 2019-10-16 2019-10-17 17:56:02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69  7.254058    LOW     Y     Y        Y       N 2019-10-16 2019-10-17 17:56:02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70  7.254058    LOW     Y     Y        Y       N 2019-10-16 2019-10-17 17:56:02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                TRTEDTM       EOSSTT       EOTSTT      EOSDT EOSDY       DCSREAS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2023-01-18 10:22:17    COMPLETED    COMPLETED 2023-01-18   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2023-01-18 10:22:17    COMPLETED    COMPLETED 2023-01-18   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2023-01-18 10:22:17    COMPLETED    COMPLETED 2023-01-18   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2023-01-18 10:22:17    COMPLETED    COMPLETED 2023-01-18   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2023-01-18 10:22:17    COMPLETED    COMPLETED 2023-01-18   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2023-01-18 10:22:17    COMPLETED    COMPLETED 2023-01-18   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2023-01-18 10:22:17    COMPLETED    COMPLETED 2023-01-18   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                 &lt;NA&gt;      ONGOING      ONGOING       &lt;NA&gt;    NA          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9                 &lt;NA&gt;      ONGOING      ONGOING       &lt;NA&gt;    NA          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                &lt;NA&gt;      ONGOING      ONGOING       &lt;NA&gt;    NA          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11                &lt;NA&gt;      ONGOING      ONGOING       &lt;NA&gt;    NA          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                &lt;NA&gt;      ONGOING      ONGOING       &lt;NA&gt;    NA          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                &lt;NA&gt;      ONGOING      ONGOING       &lt;NA&gt;    NA          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14                &lt;NA&gt;      ONGOING      ONGOING       &lt;NA&gt;    NA          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2022-05-02 14:07:09    COMPLETED    COMPLETED 2022-05-02   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2022-05-02 14:07:09    COMPLETED    COMPLETED 2022-05-02   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2022-05-02 14:07:09    COMPLETED    COMPLETED 2022-05-02   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2022-05-02 14:07:09    COMPLETED    COMPLETED 2022-05-02   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2022-05-02 14:07:09    COMPLETED    COMPLETED 2022-05-02   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2022-05-02 14:07:09    COMPLETED    COMPLETED 2022-05-02   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2022-05-02 14:07:09    COMPLETED    COMPLETED 2022-05-02   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2021-01-22 14:18:49 DISCONTINUED DISCONTINUED 2021-01-22   331         DEATH</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 2021-01-22 14:18:49 DISCONTINUED DISCONTINUED 2021-01-22   331         DEATH</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 2021-01-22 14:18:49 DISCONTINUED DISCONTINUED 2021-01-22   331         DEATH</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 2021-01-22 14:18:49 DISCONTINUED DISCONTINUED 2021-01-22   331         DEATH</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 2021-01-22 14:18:49 DISCONTINUED DISCONTINUED 2021-01-22   331         DEATH</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 2021-01-22 14:18:49 DISCONTINUED DISCONTINUED 2021-01-22   331         DEATH</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 2021-01-22 14:18:49 DISCONTINUED DISCONTINUED 2021-01-22   331         DEATH</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29 2021-03-27 23:45:40    COMPLETED    COMPLETED 2021-03-27   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30 2021-03-27 23:45:40    COMPLETED    COMPLETED 2021-03-27   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31 2021-03-27 23:45:40    COMPLETED    COMPLETED 2021-03-27   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32 2021-03-27 23:45:40    COMPLETED    COMPLETED 2021-03-27   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33 2021-03-27 23:45:40    COMPLETED    COMPLETED 2021-03-27   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34 2021-03-27 23:45:40    COMPLETED    COMPLETED 2021-03-27   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35 2021-03-27 23:45:40    COMPLETED    COMPLETED 2021-03-27   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36 2020-11-06 15:43:55 DISCONTINUED DISCONTINUED 2020-11-06   133 ADVERSE EVENT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37 2020-11-06 15:43:55 DISCONTINUED DISCONTINUED 2020-11-06   133 ADVERSE EVENT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38 2020-11-06 15:43:55 DISCONTINUED DISCONTINUED 2020-11-06   133 ADVERSE EVENT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39 2020-11-06 15:43:55 DISCONTINUED DISCONTINUED 2020-11-06   133 ADVERSE EVENT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40 2020-11-06 15:43:55 DISCONTINUED DISCONTINUED 2020-11-06   133 ADVERSE EVENT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41 2020-11-06 15:43:55 DISCONTINUED DISCONTINUED 2020-11-06   133 ADVERSE EVENT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42 2020-11-06 15:43:55 DISCONTINUED DISCONTINUED 2020-11-06   133 ADVERSE EVENT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43 2021-09-21 14:03:42    COMPLETED    COMPLETED 2021-09-21   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44 2021-09-21 14:03:42    COMPLETED    COMPLETED 2021-09-21   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45 2021-09-21 14:03:42    COMPLETED    COMPLETED 2021-09-21   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46 2021-09-21 14:03:42    COMPLETED    COMPLETED 2021-09-21   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47 2021-09-21 14:03:42    COMPLETED    COMPLETED 2021-09-21   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48 2021-09-21 14:03:42    COMPLETED    COMPLETED 2021-09-21   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49 2021-09-21 14:03:42    COMPLETED    COMPLETED 2021-09-21   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50 2022-08-29 08:20:33    COMPLETED    COMPLETED 2022-08-29   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51 2022-08-29 08:20:33    COMPLETED    COMPLETED 2022-08-29   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52 2022-08-29 08:20:33    COMPLETED    COMPLETED 2022-08-29   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53 2022-08-29 08:20:33    COMPLETED    COMPLETED 2022-08-29   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54 2022-08-29 08:20:33    COMPLETED    COMPLETED 2022-08-29   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55 2022-08-29 08:20:33    COMPLETED    COMPLETED 2022-08-29   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56 2022-08-29 08:20:33    COMPLETED    COMPLETED 2022-08-29   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57 2021-01-30 03:55:51 DISCONTINUED DISCONTINUED 2021-01-30    96         DEATH</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58 2021-01-30 03:55:51 DISCONTINUED DISCONTINUED 2021-01-30    96         DEATH</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59 2021-01-30 03:55:51 DISCONTINUED DISCONTINUED 2021-01-30    96         DEATH</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60 2021-01-30 03:55:51 DISCONTINUED DISCONTINUED 2021-01-30    96         DEATH</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61 2021-01-30 03:55:51 DISCONTINUED DISCONTINUED 2021-01-30    96         DEATH</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62 2021-01-30 03:55:51 DISCONTINUED DISCONTINUED 2021-01-30    96         DEATH</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63 2021-01-30 03:55:51 DISCONTINUED DISCONTINUED 2021-01-30    96         DEATH</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64 2021-10-17 05:34:26    COMPLETED    COMPLETED 2021-10-17   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65 2021-10-17 05:34:26    COMPLETED    COMPLETED 2021-10-17   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66 2021-10-17 05:34:26    COMPLETED    COMPLETED 2021-10-17   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67 2021-10-17 05:34:26    COMPLETED    COMPLETED 2021-10-17   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68 2021-10-17 05:34:26    COMPLETED    COMPLETED 2021-10-17   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69 2021-10-17 05:34:26    COMPLETED    COMPLETED 2021-10-17   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70 2021-10-17 05:34:26    COMPLETED    COMPLETED 2021-10-17   731          &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         DTHDT       DTHCAUS        DTHCAT LDDTHELD LDDTHGR1   LSTALVDT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2023-02-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2023-02-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2023-02-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2023-02-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5        &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2023-02-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2023-02-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7        &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2023-02-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8        &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt;       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9        &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt;       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt;       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt;       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt;       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt;       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt;       &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2022-05-25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2022-05-25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2022-05-25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2022-05-25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2022-05-25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2022-05-25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2022-05-25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2021-01-23 ADVERSE EVENT ADVERSE EVENT        1     &lt;=30 2021-01-23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 2021-01-23 ADVERSE EVENT ADVERSE EVENT        1     &lt;=30 2021-01-23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 2021-01-23 ADVERSE EVENT ADVERSE EVENT        1     &lt;=30 2021-01-23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 2021-01-23 ADVERSE EVENT ADVERSE EVENT        1     &lt;=30 2021-01-23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 2021-01-23 ADVERSE EVENT ADVERSE EVENT        1     &lt;=30 2021-01-23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 2021-01-23 ADVERSE EVENT ADVERSE EVENT        1     &lt;=30 2021-01-23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 2021-01-23 ADVERSE EVENT ADVERSE EVENT        1     &lt;=30 2021-01-23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-04-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-04-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-04-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-04-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-04-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-04-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-04-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2020-11-17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2020-11-17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2020-11-17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2020-11-17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2020-11-17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2020-11-17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2020-11-17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-10-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-10-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-10-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-10-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-10-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-10-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-10-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2022-09-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2022-09-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2022-09-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2022-09-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2022-09-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2022-09-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2022-09-10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57 2021-02-24 ADVERSE EVENT ADVERSE EVENT       25     &lt;=30 2021-02-24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58 2021-02-24 ADVERSE EVENT ADVERSE EVENT       25     &lt;=30 2021-02-24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59 2021-02-24 ADVERSE EVENT ADVERSE EVENT       25     &lt;=30 2021-02-24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60 2021-02-24 ADVERSE EVENT ADVERSE EVENT       25     &lt;=30 2021-02-24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61 2021-02-24 ADVERSE EVENT ADVERSE EVENT       25     &lt;=30 2021-02-24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62 2021-02-24 ADVERSE EVENT ADVERSE EVENT       25     &lt;=30 2021-02-24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63 2021-02-24 ADVERSE EVENT ADVERSE EVENT       25     &lt;=30 2021-02-24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-11-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-11-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-11-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-11-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-11-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-11-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;       NA     &lt;NA&gt; 2021-11-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    study_duration_secs AGEGR1   TRTDURD DCSREAS_GRP AEWITHFL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1             63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2             63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3             63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4             63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5             63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6             63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7             63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8             63113904    &lt;65        NA        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9             63113904    &lt;65        NA        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10            63113904    &lt;65        NA        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11            63113904    &lt;65        NA        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12            63113904    &lt;65        NA        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13            63113904    &lt;65        NA        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14            63113904    &lt;65        NA        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22            63113904    &lt;65 330.83529  Non-Safety        N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23            63113904    &lt;65 330.83529  Non-Safety        N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24            63113904    &lt;65 330.83529  Non-Safety        N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25            63113904    &lt;65 330.83529  Non-Safety        N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26            63113904    &lt;65 330.83529  Non-Safety        N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27            63113904    &lt;65 330.83529  Non-Safety        N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28            63113904    &lt;65 330.83529  Non-Safety        N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36            63113904    &lt;65 132.45549      Safety        Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37            63113904    &lt;65 132.45549      Safety        Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38            63113904    &lt;65 132.45549      Safety        Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39            63113904    &lt;65 132.45549      Safety        Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40            63113904    &lt;65 132.45549      Safety        Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41            63113904    &lt;65 132.45549      Safety        Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42            63113904    &lt;65 132.45549      Safety        Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57            63113904    &lt;65  95.23569  Non-Safety        N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58            63113904    &lt;65  95.23569  Non-Safety        N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59            63113904    &lt;65  95.23569  Non-Safety        N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60            63113904    &lt;65  95.23569  Non-Safety        N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61            63113904    &lt;65  95.23569  Non-Safety        N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62            63113904    &lt;65  95.23569  Non-Safety        N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63            63113904    &lt;65  95.23569  Non-Safety        N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70            63113904    &lt;65 730.48499        &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                      PARAM PARAMCD                AVISIT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Sum of Longest Diameter by Investigator  SLDINV      END OF INDUCTION</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Sum of Longest Diameter by Investigator  SLDINV POST-BASELINE MINIMUM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Sum of Longest Diameter by Investigator  SLDINV             SCREENING</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Sum of Longest Diameter by Investigator  SLDINV              BASELINE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Sum of Longest Diameter by Investigator  SLDINV         CYCLE 2 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Sum of Longest Diameter by Investigator  SLDINV         CYCLE 4 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Sum of Longest Diameter by Investigator  SLDINV             FOLLOW UP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Sum of Longest Diameter by Investigator  SLDINV      END OF INDUCTION</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Sum of Longest Diameter by Investigator  SLDINV         CYCLE 4 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Sum of Longest Diameter by Investigator  SLDINV             FOLLOW UP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Sum of Longest Diameter by Investigator  SLDINV POST-BASELINE MINIMUM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Sum of Longest Diameter by Investigator  SLDINV              BASELINE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 2 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 Sum of Longest Diameter by Investigator  SLDINV             SCREENING</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 4 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 Sum of Longest Diameter by Investigator  SLDINV POST-BASELINE MINIMUM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 Sum of Longest Diameter by Investigator  SLDINV             SCREENING</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 2 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 Sum of Longest Diameter by Investigator  SLDINV             FOLLOW UP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 Sum of Longest Diameter by Investigator  SLDINV              BASELINE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 Sum of Longest Diameter by Investigator  SLDINV      END OF INDUCTION</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 Sum of Longest Diameter by Investigator  SLDINV              BASELINE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 Sum of Longest Diameter by Investigator  SLDINV             SCREENING</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 Sum of Longest Diameter by Investigator  SLDINV             FOLLOW UP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 2 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 Sum of Longest Diameter by Investigator  SLDINV      END OF INDUCTION</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 Sum of Longest Diameter by Investigator  SLDINV POST-BASELINE MINIMUM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 4 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 2 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 4 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31 Sum of Longest Diameter by Investigator  SLDINV              BASELINE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32 Sum of Longest Diameter by Investigator  SLDINV             FOLLOW UP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33 Sum of Longest Diameter by Investigator  SLDINV POST-BASELINE MINIMUM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34 Sum of Longest Diameter by Investigator  SLDINV      END OF INDUCTION</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35 Sum of Longest Diameter by Investigator  SLDINV             SCREENING</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 2 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37 Sum of Longest Diameter by Investigator  SLDINV             FOLLOW UP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38 Sum of Longest Diameter by Investigator  SLDINV      END OF INDUCTION</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39 Sum of Longest Diameter by Investigator  SLDINV              BASELINE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40 Sum of Longest Diameter by Investigator  SLDINV POST-BASELINE MINIMUM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 4 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42 Sum of Longest Diameter by Investigator  SLDINV             SCREENING</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43 Sum of Longest Diameter by Investigator  SLDINV POST-BASELINE MINIMUM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44 Sum of Longest Diameter by Investigator  SLDINV             FOLLOW UP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45 Sum of Longest Diameter by Investigator  SLDINV              BASELINE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46 Sum of Longest Diameter by Investigator  SLDINV      END OF INDUCTION</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47 Sum of Longest Diameter by Investigator  SLDINV             SCREENING</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 2 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 4 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50 Sum of Longest Diameter by Investigator  SLDINV             SCREENING</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 2 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 4 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53 Sum of Longest Diameter by Investigator  SLDINV              BASELINE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54 Sum of Longest Diameter by Investigator  SLDINV POST-BASELINE MINIMUM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55 Sum of Longest Diameter by Investigator  SLDINV      END OF INDUCTION</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56 Sum of Longest Diameter by Investigator  SLDINV             FOLLOW UP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57 Sum of Longest Diameter by Investigator  SLDINV              BASELINE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58 Sum of Longest Diameter by Investigator  SLDINV             SCREENING</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59 Sum of Longest Diameter by Investigator  SLDINV      END OF INDUCTION</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60 Sum of Longest Diameter by Investigator  SLDINV             FOLLOW UP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61 Sum of Longest Diameter by Investigator  SLDINV POST-BASELINE MINIMUM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 2 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 4 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64 Sum of Longest Diameter by Investigator  SLDINV POST-BASELINE MINIMUM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65 Sum of Longest Diameter by Investigator  SLDINV      END OF INDUCTION</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 4 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67 Sum of Longest Diameter by Investigator  SLDINV             FOLLOW UP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68 Sum of Longest Diameter by Investigator  SLDINV             SCREENING</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 2 DAY 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70 Sum of Longest Diameter by Investigator  SLDINV              BASELINE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    AVISITN                ADTM  ADY   DTYPE      AVAL            AVALC AVALU</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      999 2021-12-31 00:00:00  348          91.02365 91.0236527565802    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      999 2021-12-31 00:00:00  348 MINIMUM  91.02365 91.0236527565802    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       -1 2020-10-09 00:00:00 -100         124.85139 124.851385571939    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        0 2021-01-17 22:43:53    0                NA             &lt;NA&gt;    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5        2 2021-08-08 00:00:00  203         133.13259 133.132588399725    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        4 2021-10-07 00:00:00  263         188.27147 188.271465355528    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7      999 2021-10-16 00:00:00  272         118.57282 118.572821190151    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8      999 2021-04-28 00:00:00  463          96.35273 96.3527337970544    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9        4                &lt;NA&gt;   NA         200.14856  200.14856301978    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10     999 2021-06-05 00:00:00  501         210.93728 210.937275562657    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11     999 2021-04-28 00:00:00  463 MINIMUM  96.35273 96.3527337970544    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12       0 2020-01-21 10:19:08    0                NA             &lt;NA&gt;    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13       2 2021-05-14 00:00:00  479         184.17689 184.176894082022    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14      -1 2019-10-13 00:00:00 -100         140.31087 140.310867187201    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15       4 2022-03-16 00:00:00  683         125.40015 125.400146831514    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16     999 2021-02-14 00:00:00  288 MINIMUM  90.03459 90.0345901510763    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17      -1 2020-01-23 00:00:00 -100         128.90567 128.905670010183    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18       2 2022-01-15 00:00:00  623         165.18704 165.187043924422    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19     999 2021-02-14 00:00:00  288          90.03459 90.0345901510763    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20       0 2020-05-02 02:28:45    0                NA             &lt;NA&gt;    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21     999 2021-11-18 00:00:00  565         135.62122 135.621222256451    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22       0 2020-02-26 18:15:59    0                NA             &lt;NA&gt;    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23      -1 2019-11-18 00:00:00 -100         152.52540 152.525397129667    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24     999 2020-07-18 00:00:00  143         163.04543 163.045432845081    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25       2 2020-10-20 00:00:00  237         122.36173 122.361730034768    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26     999 2020-04-10 00:00:00   44         145.75018 145.750175731918    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27       2 2020-10-20 00:00:00  237 MINIMUM 122.36173 122.361730034768    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28       4 2020-12-19 00:00:00  297         159.91349 159.913485103959    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29       2 2020-03-11 00:00:00  349         189.10537 189.105366972668    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30       4 2020-05-10 00:00:00  409         173.15369 173.153693266196    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31       0 2019-03-28 12:07:16    0                NA             &lt;NA&gt;    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32     999 2020-05-29 00:00:00  428         107.69885 107.698849780089    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33     999 2020-05-29 00:00:00  428 MINIMUM 107.69885 107.698849780089    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34     999 2020-04-20 00:00:00  389         181.57577 181.575767859229    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35      -1 2018-12-18 00:00:00 -100         148.38832 148.388321219484    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36       2 2020-08-06 00:00:00   40         133.99884 133.998835723584    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37     999 2020-11-02 00:00:00  128         204.66368 204.663675562607    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38     999 2020-08-13 00:00:00   47          83.76241 83.7624066358607    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39       0 2020-06-27 04:48:00    0                NA             &lt;NA&gt;    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40     999 2020-08-13 00:00:00   47 MINIMUM  83.76241 83.7624066358607    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41       4 2020-10-05 00:00:00  100         108.83192 108.831916465708    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42      -1 2020-03-19 00:00:00 -100         179.87954 179.879537693333    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43       2 2021-07-13 00:00:00  660 MINIMUM 138.39151 138.391511890652    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44     999 2021-03-23 00:00:00  548         200.43465 200.434648673004    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45       0 2019-09-22 02:25:18    0                NA             &lt;NA&gt;    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46     999 2020-05-04 00:00:00  225         198.01173 198.011725546186    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47      -1 2019-06-14 00:00:00 -100         130.39820 130.398197675437    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48       2 2021-07-13 00:00:00  660         138.39151 138.391511890652    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49       4 2021-09-11 00:00:00  720         161.60085 161.600849239382    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50      -1 2020-05-20 00:00:00 -100         114.49181 114.491808353182    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51       2 2021-11-22 00:00:00  451         104.61988  104.61987615837    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52       4 2022-01-21 00:00:00  511         112.40685 112.406853018924    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53       0 2020-08-28 20:42:09    0                NA             &lt;NA&gt;    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54       2 2021-11-22 00:00:00  451 MINIMUM 104.61988  104.61987615837    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55     999 2022-06-26 00:00:00  667         150.22938 150.229376163983    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56     999 2022-03-06 00:00:00  555         208.78071 208.780712314368    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57       0 2020-10-26 22:16:26    0                NA             &lt;NA&gt;    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58      -1 2020-07-18 00:00:00 -100         124.72154 124.721544072311    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59     999 2020-12-15 00:00:00   50         140.57184 140.571840594842    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60     999 2021-01-29 00:00:00   95         127.51110 127.511097135508    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61     999 2021-01-29 00:00:00   95 MINIMUM 127.51110 127.511097135508    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62       2 2020-11-09 00:00:00   14         182.23378 182.233782192385    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63       4 2021-01-08 00:00:00   74         157.81794 157.817935052765    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64     999 2020-09-13 00:00:00  332 MINIMUM 137.35879 137.358792827839    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65     999 2020-11-08 00:00:00  388         139.47497 139.474967305564    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66       4 2020-05-29 00:00:00  225         210.26061 210.260613477461    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67     999 2020-09-13 00:00:00  332         137.35879 137.358792827839    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68      -1 2019-07-09 00:00:00 -100         124.13405 124.134050109426    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69       2 2020-03-30 00:00:00  165         178.19760 178.197602328401    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70       0 2019-10-17 17:56:02    0                NA             &lt;NA&gt;    mm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         BASE ABLFL          CHG        PCHG ONTRTFL ANL01FL ANL02FL ANL03FL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  211.98904       -120.9653879 -57.0620951       Y       Y       Y        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  211.98904       -120.9653879 -57.0620951       Y                       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  211.98904                 NA          NA                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  211.98904     Y           NA          NA       Y               Y       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  211.98904        -78.8564523 -37.1983627       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  211.98904        -23.7175753 -11.1881139       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  211.98904        -93.4162195 -44.0665325       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  178.07588        -81.7231420 -45.8923151       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  178.07588         22.0726872  12.3951024       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 178.07588         32.8613998  18.4535944       Y       Y       Y        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 178.07588        -81.7231420 -45.8923151       Y                       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 178.07588     Y           NA          NA       Y               Y       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 178.07588          6.1010183   3.4260779       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 178.07588                 NA          NA                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 154.74494        -29.3447960 -18.9633312       Y       Y       Y        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 154.74494        -64.7103527 -41.8174265       Y                       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 154.74494                 NA          NA                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 154.74494         10.4421010   6.7479433       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 154.74494        -64.7103527 -41.8174265       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 154.74494     Y           NA          NA       Y               Y       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 154.74494        -19.1237206 -12.3582201       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 123.13540     Y           NA          NA       Y               Y       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 123.13540                 NA          NA                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 123.13540         39.9100312  32.4115004       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25 123.13540         -0.7736716  -0.6283097       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26 123.13540         22.6147741  18.3657776       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 123.13540         -0.7736716  -0.6283097       Y                       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 123.13540         36.7780834  29.8680013       Y       Y       Y        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29 122.78669         66.3186782  54.0112930       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30 122.78669         50.3670045  41.0199225       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31 122.78669     Y           NA          NA       Y               Y       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32 122.78669        -15.0878390 -12.2878458       Y       Y       Y        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33 122.78669        -15.0878390 -12.2878458       Y                       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34 122.78669         58.7890791  47.8790329       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35 122.78669                 NA          NA                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36  99.12705         34.8717828  35.1788758       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37  99.12705        105.5366227 106.4660147       Y       Y       Y        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38  99.12705        -15.3646463 -15.4999527       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39  99.12705     Y           NA          NA       Y               Y       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40  99.12705        -15.3646463 -15.4999527       Y                       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41  99.12705          9.7048636   9.7903280       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42  99.12705                 NA          NA                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43 141.45956         -3.0680515  -2.1688541       Y                       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44 141.45956         58.9750853  41.6904194       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45 141.45956     Y           NA          NA       Y               Y       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46 141.45956         56.5521621  39.9776168       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47 141.45956                 NA          NA                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48 141.45956         -3.0680515  -2.1688541       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49 141.45956         20.1412858  14.2381931       Y       Y       Y        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50 109.24628                 NA          NA                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51 109.24628         -4.6264062  -4.2348409       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52 109.24628          3.1605706   2.8930693       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53 109.24628     Y           NA          NA       Y               Y       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54 109.24628         -4.6264062  -4.2348409       Y                       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55 109.24628         40.9830938  37.5144059       Y       Y       Y        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56 109.24628         99.5344299  91.1101300       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57 131.96520     Y           NA          NA       Y               Y       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58 131.96520                 NA          NA                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59 131.96520          8.6066437   6.5219042       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60 131.96520         -4.4540997  -3.3752079       Y       Y       Y        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61 131.96520         -4.4540997  -3.3752079       Y                       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62 131.96520         50.2685853  38.0923051       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63 131.96520         25.8527382  19.5905730       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64 211.44121        -74.0824163 -35.0368864       Y                       Y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65 211.44121        -71.9662418 -34.0360529       Y       Y       Y        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66 211.44121         -1.1805956  -0.5583564       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67 211.44121        -74.0824163 -35.0368864       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68 211.44121                 NA          NA                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69 211.44121        -33.2436068 -15.7223878       Y       Y                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70 211.44121     Y           NA          NA       Y               Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                RACE                 ETHNIC COUNTRY DTHFL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         BLACK OR AFRICAN AMERICAN NOT HISPANIC OR LATINO     BRA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         BLACK OR AFRICAN AMERICAN NOT HISPANIC OR LATINO     BRA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         BLACK OR AFRICAN AMERICAN NOT HISPANIC OR LATINO     BRA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         BLACK OR AFRICAN AMERICAN NOT HISPANIC OR LATINO     BRA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         BLACK OR AFRICAN AMERICAN NOT HISPANIC OR LATINO     BRA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         BLACK OR AFRICAN AMERICAN NOT HISPANIC OR LATINO     BRA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         BLACK OR AFRICAN AMERICAN NOT HISPANIC OR LATINO     BRA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                             ASIAN NOT HISPANIC OR LATINO     BRA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                             ASIAN NOT HISPANIC OR LATINO     BRA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                            ASIAN NOT HISPANIC OR LATINO     BRA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                            ASIAN NOT HISPANIC OR LATINO     BRA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                            ASIAN NOT HISPANIC OR LATINO     BRA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                            ASIAN NOT HISPANIC OR LATINO     BRA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                            ASIAN NOT HISPANIC OR LATINO     BRA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                            WHITE                UNKNOWN     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                            WHITE                UNKNOWN     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                            WHITE                UNKNOWN     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18                            WHITE                UNKNOWN     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19                            WHITE                UNKNOWN     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20                            WHITE                UNKNOWN     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21                            WHITE                UNKNOWN     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22        BLACK OR AFRICAN AMERICAN NOT HISPANIC OR LATINO     CHN     Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23        BLACK OR AFRICAN AMERICAN NOT HISPANIC OR LATINO     CHN     Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24        BLACK OR AFRICAN AMERICAN NOT HISPANIC OR LATINO     CHN     Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25        BLACK OR AFRICAN AMERICAN NOT HISPANIC OR LATINO     CHN     Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26        BLACK OR AFRICAN AMERICAN NOT HISPANIC OR LATINO     CHN     Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27        BLACK OR AFRICAN AMERICAN NOT HISPANIC OR LATINO     CHN     Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28        BLACK OR AFRICAN AMERICAN NOT HISPANIC OR LATINO     CHN     Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29                            ASIAN NOT HISPANIC OR LATINO     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30                            ASIAN NOT HISPANIC OR LATINO     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31                            ASIAN NOT HISPANIC OR LATINO     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32                            ASIAN NOT HISPANIC OR LATINO     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33                            ASIAN NOT HISPANIC OR LATINO     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34                            ASIAN NOT HISPANIC OR LATINO     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35                            ASIAN NOT HISPANIC OR LATINO     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36                            ASIAN NOT HISPANIC OR LATINO     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37                            ASIAN NOT HISPANIC OR LATINO     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38                            ASIAN NOT HISPANIC OR LATINO     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39                            ASIAN NOT HISPANIC OR LATINO     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40                            ASIAN NOT HISPANIC OR LATINO     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41                            ASIAN NOT HISPANIC OR LATINO     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42                            ASIAN NOT HISPANIC OR LATINO     CHN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43                            ASIAN NOT HISPANIC OR LATINO     JPN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44                            ASIAN NOT HISPANIC OR LATINO     JPN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45                            ASIAN NOT HISPANIC OR LATINO     JPN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46                            ASIAN NOT HISPANIC OR LATINO     JPN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47                            ASIAN NOT HISPANIC OR LATINO     JPN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48                            ASIAN NOT HISPANIC OR LATINO     JPN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49                            ASIAN NOT HISPANIC OR LATINO     JPN     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50        BLACK OR AFRICAN AMERICAN     HISPANIC OR LATINO     RUS     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51        BLACK OR AFRICAN AMERICAN     HISPANIC OR LATINO     RUS     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52        BLACK OR AFRICAN AMERICAN     HISPANIC OR LATINO     RUS     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53        BLACK OR AFRICAN AMERICAN     HISPANIC OR LATINO     RUS     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54        BLACK OR AFRICAN AMERICAN     HISPANIC OR LATINO     RUS     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55        BLACK OR AFRICAN AMERICAN     HISPANIC OR LATINO     RUS     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56        BLACK OR AFRICAN AMERICAN     HISPANIC OR LATINO     RUS     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57                            ASIAN NOT HISPANIC OR LATINO     RUS     Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58                            ASIAN NOT HISPANIC OR LATINO     RUS     Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59                            ASIAN NOT HISPANIC OR LATINO     RUS     Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60                            ASIAN NOT HISPANIC OR LATINO     RUS     Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61                            ASIAN NOT HISPANIC OR LATINO     RUS     Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62                            ASIAN NOT HISPANIC OR LATINO     RUS     Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63                            ASIAN NOT HISPANIC OR LATINO     RUS     Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64 AMERICAN INDIAN OR ALASKA NATIVE NOT HISPANIC OR LATINO     USA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65 AMERICAN INDIAN OR ALASKA NATIVE NOT HISPANIC OR LATINO     USA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66 AMERICAN INDIAN OR ALASKA NATIVE NOT HISPANIC OR LATINO     USA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67 AMERICAN INDIAN OR ALASKA NATIVE NOT HISPANIC OR LATINO     USA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68 AMERICAN INDIAN OR ALASKA NATIVE NOT HISPANIC OR LATINO     USA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69 AMERICAN INDIAN OR ALASKA NATIVE NOT HISPANIC OR LATINO     USA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70 AMERICAN INDIAN OR ALASKA NATIVE NOT HISPANIC OR LATINO     USA     N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            INVID         INVNAM            ARM ARMCD         ACTARM ACTARMCD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   INV ID BRA-1  Dr. BRA-1 Doe C: Combination ARM C C: Combination    ARM C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   INV ID BRA-1  Dr. BRA-1 Doe C: Combination ARM C C: Combination    ARM C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   INV ID BRA-1  Dr. BRA-1 Doe C: Combination ARM C C: Combination    ARM C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   INV ID BRA-1  Dr. BRA-1 Doe C: Combination ARM C C: Combination    ARM C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   INV ID BRA-1  Dr. BRA-1 Doe C: Combination ARM C C: Combination    ARM C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   INV ID BRA-1  Dr. BRA-1 Doe C: Combination ARM C C: Combination    ARM C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   INV ID BRA-1  Dr. BRA-1 Doe C: Combination ARM C C: Combination    ARM C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   INV ID BRA-9  Dr. BRA-9 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   INV ID BRA-9  Dr. BRA-9 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  INV ID BRA-9  Dr. BRA-9 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  INV ID BRA-9  Dr. BRA-9 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  INV ID BRA-9  Dr. BRA-9 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  INV ID BRA-9  Dr. BRA-9 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  INV ID BRA-9  Dr. BRA-9 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 INV ID CHN-11 Dr. CHN-11 Doe C: Combination ARM C C: Combination    ARM C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 INV ID CHN-11 Dr. CHN-11 Doe C: Combination ARM C C: Combination    ARM C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 INV ID CHN-11 Dr. CHN-11 Doe C: Combination ARM C C: Combination    ARM C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 INV ID CHN-11 Dr. CHN-11 Doe C: Combination ARM C C: Combination    ARM C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 INV ID CHN-11 Dr. CHN-11 Doe C: Combination ARM C C: Combination    ARM C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 INV ID CHN-11 Dr. CHN-11 Doe C: Combination ARM C C: Combination    ARM C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 INV ID CHN-11 Dr. CHN-11 Doe C: Combination ARM C C: Combination    ARM C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 INV ID CHN-11 Dr. CHN-11 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 INV ID CHN-11 Dr. CHN-11 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 INV ID CHN-11 Dr. CHN-11 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 INV ID CHN-11 Dr. CHN-11 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 INV ID CHN-11 Dr. CHN-11 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 INV ID CHN-11 Dr. CHN-11 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 INV ID CHN-11 Dr. CHN-11 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29  INV ID CHN-3  Dr. CHN-3 Doe     B: Placebo ARM B     B: Placebo    ARM B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30  INV ID CHN-3  Dr. CHN-3 Doe     B: Placebo ARM B     B: Placebo    ARM B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31  INV ID CHN-3  Dr. CHN-3 Doe     B: Placebo ARM B     B: Placebo    ARM B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32  INV ID CHN-3  Dr. CHN-3 Doe     B: Placebo ARM B     B: Placebo    ARM B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33  INV ID CHN-3  Dr. CHN-3 Doe     B: Placebo ARM B     B: Placebo    ARM B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34  INV ID CHN-3  Dr. CHN-3 Doe     B: Placebo ARM B     B: Placebo    ARM B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35  INV ID CHN-3  Dr. CHN-3 Doe     B: Placebo ARM B     B: Placebo    ARM B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36  INV ID CHN-3  Dr. CHN-3 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37  INV ID CHN-3  Dr. CHN-3 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38  INV ID CHN-3  Dr. CHN-3 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39  INV ID CHN-3  Dr. CHN-3 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40  INV ID CHN-3  Dr. CHN-3 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41  INV ID CHN-3  Dr. CHN-3 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42  INV ID CHN-3  Dr. CHN-3 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43  INV ID JPN-4  Dr. JPN-4 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44  INV ID JPN-4  Dr. JPN-4 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45  INV ID JPN-4  Dr. JPN-4 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46  INV ID JPN-4  Dr. JPN-4 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47  INV ID JPN-4  Dr. JPN-4 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48  INV ID JPN-4  Dr. JPN-4 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49  INV ID JPN-4  Dr. JPN-4 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50  INV ID RUS-1  Dr. RUS-1 Doe     B: Placebo ARM B     B: Placebo    ARM B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51  INV ID RUS-1  Dr. RUS-1 Doe     B: Placebo ARM B     B: Placebo    ARM B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52  INV ID RUS-1  Dr. RUS-1 Doe     B: Placebo ARM B     B: Placebo    ARM B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53  INV ID RUS-1  Dr. RUS-1 Doe     B: Placebo ARM B     B: Placebo    ARM B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54  INV ID RUS-1  Dr. RUS-1 Doe     B: Placebo ARM B     B: Placebo    ARM B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55  INV ID RUS-1  Dr. RUS-1 Doe     B: Placebo ARM B     B: Placebo    ARM B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56  INV ID RUS-1  Dr. RUS-1 Doe     B: Placebo ARM B     B: Placebo    ARM B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57  INV ID RUS-1  Dr. RUS-1 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58  INV ID RUS-1  Dr. RUS-1 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59  INV ID RUS-1  Dr. RUS-1 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60  INV ID RUS-1  Dr. RUS-1 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61  INV ID RUS-1  Dr. RUS-1 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62  INV ID RUS-1  Dr. RUS-1 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63  INV ID RUS-1  Dr. RUS-1 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64 INV ID USA-13 Dr. USA-13 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65 INV ID USA-13 Dr. USA-13 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66 INV ID USA-13 Dr. USA-13 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67 INV ID USA-13 Dr. USA-13 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68 INV ID USA-13 Dr. USA-13 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69 INV ID USA-13 Dr. USA-13 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70 INV ID USA-13 Dr. USA-13 Doe      A: Drug X ARM A      A: Drug X    ARM A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          REGION1 STRATA1 STRATA2    BMRKR1 BMRKR2 ITTFL SAFFL BMEASIFL BEP01FL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  South America       A      S1  6.922043   HIGH     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  South America       A      S1  6.922043   HIGH     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  South America       A      S1  6.922043   HIGH     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  South America       A      S1  6.922043   HIGH     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  South America       A      S1  6.922043   HIGH     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  South America       A      S1  6.922043   HIGH     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  South America       A      S1  6.922043   HIGH     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  South America       B      S2 11.277028 MEDIUM     Y     Y        Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  South America       B      S2 11.277028 MEDIUM     Y     Y        Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 South America       B      S2 11.277028 MEDIUM     Y     Y        Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 South America       B      S2 11.277028 MEDIUM     Y     Y        Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 South America       B      S2 11.277028 MEDIUM     Y     Y        Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 South America       B      S2 11.277028 MEDIUM     Y     Y        Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 South America       B      S2 11.277028 MEDIUM     Y     Y        Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15          Asia       B      S1  8.926907    LOW     Y     Y        N       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16          Asia       B      S1  8.926907    LOW     Y     Y        N       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17          Asia       B      S1  8.926907    LOW     Y     Y        N       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18          Asia       B      S1  8.926907    LOW     Y     Y        N       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19          Asia       B      S1  8.926907    LOW     Y     Y        N       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20          Asia       B      S1  8.926907    LOW     Y     Y        N       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21          Asia       B      S1  8.926907    LOW     Y     Y        N       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22          Asia       C      S2  4.084350   HIGH     Y     Y        Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23          Asia       C      S2  4.084350   HIGH     Y     Y        Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24          Asia       C      S2  4.084350   HIGH     Y     Y        Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25          Asia       C      S2  4.084350   HIGH     Y     Y        Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26          Asia       C      S2  4.084350   HIGH     Y     Y        Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27          Asia       C      S2  4.084350   HIGH     Y     Y        Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28          Asia       C      S2  4.084350   HIGH     Y     Y        Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29          Asia       A      S1  1.777905    LOW     Y     Y        N       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30          Asia       A      S1  1.777905    LOW     Y     Y        N       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31          Asia       A      S1  1.777905    LOW     Y     Y        N       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32          Asia       A      S1  1.777905    LOW     Y     Y        N       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33          Asia       A      S1  1.777905    LOW     Y     Y        N       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34          Asia       A      S1  1.777905    LOW     Y     Y        N       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35          Asia       A      S1  1.777905    LOW     Y     Y        N       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36          Asia       A      S2  2.619796    LOW     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37          Asia       A      S2  2.619796    LOW     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38          Asia       A      S2  2.619796    LOW     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39          Asia       A      S2  2.619796    LOW     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40          Asia       A      S2  2.619796    LOW     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41          Asia       A      S2  2.619796    LOW     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42          Asia       A      S2  2.619796    LOW     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43          Asia       B      S1  7.459420 MEDIUM     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44          Asia       B      S1  7.459420 MEDIUM     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45          Asia       B      S1  7.459420 MEDIUM     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46          Asia       B      S1  7.459420 MEDIUM     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47          Asia       B      S1  7.459420 MEDIUM     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48          Asia       B      S1  7.459420 MEDIUM     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49          Asia       B      S1  7.459420 MEDIUM     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50       Eurasia       A      S1  9.952892 MEDIUM     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51       Eurasia       A      S1  9.952892 MEDIUM     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52       Eurasia       A      S1  9.952892 MEDIUM     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53       Eurasia       A      S1  9.952892 MEDIUM     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54       Eurasia       A      S1  9.952892 MEDIUM     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55       Eurasia       A      S1  9.952892 MEDIUM     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56       Eurasia       A      S1  9.952892 MEDIUM     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57       Eurasia       B      S1  9.342782 MEDIUM     Y     Y        N       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58       Eurasia       B      S1  9.342782 MEDIUM     Y     Y        N       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59       Eurasia       B      S1  9.342782 MEDIUM     Y     Y        N       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60       Eurasia       B      S1  9.342782 MEDIUM     Y     Y        N       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61       Eurasia       B      S1  9.342782 MEDIUM     Y     Y        N       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62       Eurasia       B      S1  9.342782 MEDIUM     Y     Y        N       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63       Eurasia       B      S1  9.342782 MEDIUM     Y     Y        N       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64 North America       C      S1  7.254058    LOW     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65 North America       C      S1  7.254058    LOW     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66 North America       C      S1  7.254058    LOW     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67 North America       C      S1  7.254058    LOW     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68 North America       C      S1  7.254058    LOW     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69 North America       C      S1  7.254058    LOW     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70 North America       C      S1  7.254058    LOW     Y     Y        Y       N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        RANDDT             TRTSDTM             TRTEDTM       EOSSTT       EOTSTT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2021-01-17 2021-01-17 22:43:53 2023-01-18 10:22:17    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2021-01-17 2021-01-17 22:43:53 2023-01-18 10:22:17    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2021-01-17 2021-01-17 22:43:53 2023-01-18 10:22:17    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2021-01-17 2021-01-17 22:43:53 2023-01-18 10:22:17    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2021-01-17 2021-01-17 22:43:53 2023-01-18 10:22:17    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2021-01-17 2021-01-17 22:43:53 2023-01-18 10:22:17    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2021-01-17 2021-01-17 22:43:53 2023-01-18 10:22:17    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2020-01-18 2020-01-21 10:19:08                &lt;NA&gt;      ONGOING      ONGOING</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2020-01-18 2020-01-21 10:19:08                &lt;NA&gt;      ONGOING      ONGOING</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2020-01-18 2020-01-21 10:19:08                &lt;NA&gt;      ONGOING      ONGOING</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 2020-01-18 2020-01-21 10:19:08                &lt;NA&gt;      ONGOING      ONGOING</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 2020-01-18 2020-01-21 10:19:08                &lt;NA&gt;      ONGOING      ONGOING</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 2020-01-18 2020-01-21 10:19:08                &lt;NA&gt;      ONGOING      ONGOING</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 2020-01-18 2020-01-21 10:19:08                &lt;NA&gt;      ONGOING      ONGOING</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2020-04-29 2020-05-02 02:28:45 2022-05-02 14:07:09    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2020-04-29 2020-05-02 02:28:45 2022-05-02 14:07:09    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2020-04-29 2020-05-02 02:28:45 2022-05-02 14:07:09    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2020-04-29 2020-05-02 02:28:45 2022-05-02 14:07:09    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2020-04-29 2020-05-02 02:28:45 2022-05-02 14:07:09    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2020-04-29 2020-05-02 02:28:45 2022-05-02 14:07:09    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2020-04-29 2020-05-02 02:28:45 2022-05-02 14:07:09    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2020-02-23 2020-02-26 18:15:59 2021-01-22 14:18:49 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 2020-02-23 2020-02-26 18:15:59 2021-01-22 14:18:49 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 2020-02-23 2020-02-26 18:15:59 2021-01-22 14:18:49 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 2020-02-23 2020-02-26 18:15:59 2021-01-22 14:18:49 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 2020-02-23 2020-02-26 18:15:59 2021-01-22 14:18:49 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 2020-02-23 2020-02-26 18:15:59 2021-01-22 14:18:49 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 2020-02-23 2020-02-26 18:15:59 2021-01-22 14:18:49 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 2019-03-24 2019-03-28 12:07:16 2021-03-27 23:45:40    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 2019-03-24 2019-03-28 12:07:16 2021-03-27 23:45:40    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31 2019-03-24 2019-03-28 12:07:16 2021-03-27 23:45:40    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32 2019-03-24 2019-03-28 12:07:16 2021-03-27 23:45:40    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 2019-03-24 2019-03-28 12:07:16 2021-03-27 23:45:40    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34 2019-03-24 2019-03-28 12:07:16 2021-03-27 23:45:40    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35 2019-03-24 2019-03-28 12:07:16 2021-03-27 23:45:40    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36 2020-06-24 2020-06-27 04:48:00 2020-11-06 15:43:55 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37 2020-06-24 2020-06-27 04:48:00 2020-11-06 15:43:55 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38 2020-06-24 2020-06-27 04:48:00 2020-11-06 15:43:55 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39 2020-06-24 2020-06-27 04:48:00 2020-11-06 15:43:55 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40 2020-06-24 2020-06-27 04:48:00 2020-11-06 15:43:55 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41 2020-06-24 2020-06-27 04:48:00 2020-11-06 15:43:55 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42 2020-06-24 2020-06-27 04:48:00 2020-11-06 15:43:55 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43 2019-09-22 2019-09-22 02:25:18 2021-09-21 14:03:42    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44 2019-09-22 2019-09-22 02:25:18 2021-09-21 14:03:42    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45 2019-09-22 2019-09-22 02:25:18 2021-09-21 14:03:42    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46 2019-09-22 2019-09-22 02:25:18 2021-09-21 14:03:42    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47 2019-09-22 2019-09-22 02:25:18 2021-09-21 14:03:42    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48 2019-09-22 2019-09-22 02:25:18 2021-09-21 14:03:42    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49 2019-09-22 2019-09-22 02:25:18 2021-09-21 14:03:42    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50 2020-08-27 2020-08-28 20:42:09 2022-08-29 08:20:33    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51 2020-08-27 2020-08-28 20:42:09 2022-08-29 08:20:33    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52 2020-08-27 2020-08-28 20:42:09 2022-08-29 08:20:33    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53 2020-08-27 2020-08-28 20:42:09 2022-08-29 08:20:33    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54 2020-08-27 2020-08-28 20:42:09 2022-08-29 08:20:33    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55 2020-08-27 2020-08-28 20:42:09 2022-08-29 08:20:33    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56 2020-08-27 2020-08-28 20:42:09 2022-08-29 08:20:33    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57 2020-10-24 2020-10-26 22:16:26 2021-01-30 03:55:51 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58 2020-10-24 2020-10-26 22:16:26 2021-01-30 03:55:51 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59 2020-10-24 2020-10-26 22:16:26 2021-01-30 03:55:51 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60 2020-10-24 2020-10-26 22:16:26 2021-01-30 03:55:51 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61 2020-10-24 2020-10-26 22:16:26 2021-01-30 03:55:51 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62 2020-10-24 2020-10-26 22:16:26 2021-01-30 03:55:51 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63 2020-10-24 2020-10-26 22:16:26 2021-01-30 03:55:51 DISCONTINUED DISCONTINUED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64 2019-10-16 2019-10-17 17:56:02 2021-10-17 05:34:26    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65 2019-10-16 2019-10-17 17:56:02 2021-10-17 05:34:26    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66 2019-10-16 2019-10-17 17:56:02 2021-10-17 05:34:26    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67 2019-10-16 2019-10-17 17:56:02 2021-10-17 05:34:26    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68 2019-10-16 2019-10-17 17:56:02 2021-10-17 05:34:26    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69 2019-10-16 2019-10-17 17:56:02 2021-10-17 05:34:26    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70 2019-10-16 2019-10-17 17:56:02 2021-10-17 05:34:26    COMPLETED    COMPLETED</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         EOSDT EOSDY       DCSREAS      DTHDT       DTHCAUS        DTHCAT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2023-01-18   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2023-01-18   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2023-01-18   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2023-01-18   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2023-01-18   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2023-01-18   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2023-01-18   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        &lt;NA&gt;    NA          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9        &lt;NA&gt;    NA          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10       &lt;NA&gt;    NA          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11       &lt;NA&gt;    NA          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12       &lt;NA&gt;    NA          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13       &lt;NA&gt;    NA          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14       &lt;NA&gt;    NA          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 2022-05-02   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 2022-05-02   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 2022-05-02   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 2022-05-02   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 2022-05-02   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2022-05-02   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 2022-05-02   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 2021-01-22   331         DEATH 2021-01-23 ADVERSE EVENT ADVERSE EVENT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 2021-01-22   331         DEATH 2021-01-23 ADVERSE EVENT ADVERSE EVENT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 2021-01-22   331         DEATH 2021-01-23 ADVERSE EVENT ADVERSE EVENT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 2021-01-22   331         DEATH 2021-01-23 ADVERSE EVENT ADVERSE EVENT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 2021-01-22   331         DEATH 2021-01-23 ADVERSE EVENT ADVERSE EVENT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 2021-01-22   331         DEATH 2021-01-23 ADVERSE EVENT ADVERSE EVENT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 2021-01-22   331         DEATH 2021-01-23 ADVERSE EVENT ADVERSE EVENT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 2021-03-27   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 2021-03-27   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31 2021-03-27   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32 2021-03-27   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 2021-03-27   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34 2021-03-27   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35 2021-03-27   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36 2020-11-06   133 ADVERSE EVENT       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37 2020-11-06   133 ADVERSE EVENT       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38 2020-11-06   133 ADVERSE EVENT       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39 2020-11-06   133 ADVERSE EVENT       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40 2020-11-06   133 ADVERSE EVENT       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41 2020-11-06   133 ADVERSE EVENT       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42 2020-11-06   133 ADVERSE EVENT       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43 2021-09-21   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44 2021-09-21   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45 2021-09-21   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46 2021-09-21   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47 2021-09-21   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48 2021-09-21   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49 2021-09-21   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50 2022-08-29   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51 2022-08-29   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52 2022-08-29   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53 2022-08-29   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54 2022-08-29   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55 2022-08-29   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56 2022-08-29   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57 2021-01-30    96         DEATH 2021-02-24 ADVERSE EVENT ADVERSE EVENT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58 2021-01-30    96         DEATH 2021-02-24 ADVERSE EVENT ADVERSE EVENT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59 2021-01-30    96         DEATH 2021-02-24 ADVERSE EVENT ADVERSE EVENT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60 2021-01-30    96         DEATH 2021-02-24 ADVERSE EVENT ADVERSE EVENT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61 2021-01-30    96         DEATH 2021-02-24 ADVERSE EVENT ADVERSE EVENT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62 2021-01-30    96         DEATH 2021-02-24 ADVERSE EVENT ADVERSE EVENT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63 2021-01-30    96         DEATH 2021-02-24 ADVERSE EVENT ADVERSE EVENT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64 2021-10-17   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65 2021-10-17   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66 2021-10-17   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67 2021-10-17   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68 2021-10-17   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69 2021-10-17   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70 2021-10-17   731          &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    LDDTHELD LDDTHGR1   LSTALVDT DTHADY study_duration_secs AGEGR1   TRTDURD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        NA     &lt;NA&gt; 2023-02-15     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        NA     &lt;NA&gt; 2023-02-15     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        NA     &lt;NA&gt; 2023-02-15     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        NA     &lt;NA&gt; 2023-02-15     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        NA     &lt;NA&gt; 2023-02-15     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        NA     &lt;NA&gt; 2023-02-15     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        NA     &lt;NA&gt; 2023-02-15     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        NA     &lt;NA&gt;       &lt;NA&gt;     NA            63113904    &lt;65        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9        NA     &lt;NA&gt;       &lt;NA&gt;     NA            63113904    &lt;65        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10       NA     &lt;NA&gt;       &lt;NA&gt;     NA            63113904    &lt;65        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11       NA     &lt;NA&gt;       &lt;NA&gt;     NA            63113904    &lt;65        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12       NA     &lt;NA&gt;       &lt;NA&gt;     NA            63113904    &lt;65        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13       NA     &lt;NA&gt;       &lt;NA&gt;     NA            63113904    &lt;65        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14       NA     &lt;NA&gt;       &lt;NA&gt;     NA            63113904    &lt;65        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15       NA     &lt;NA&gt; 2022-05-25     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16       NA     &lt;NA&gt; 2022-05-25     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17       NA     &lt;NA&gt; 2022-05-25     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18       NA     &lt;NA&gt; 2022-05-25     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19       NA     &lt;NA&gt; 2022-05-25     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20       NA     &lt;NA&gt; 2022-05-25     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21       NA     &lt;NA&gt; 2022-05-25     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22        1     &lt;=30 2021-01-23    332            63113904    &lt;65 330.83529</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23        1     &lt;=30 2021-01-23    332            63113904    &lt;65 330.83529</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24        1     &lt;=30 2021-01-23    332            63113904    &lt;65 330.83529</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25        1     &lt;=30 2021-01-23    332            63113904    &lt;65 330.83529</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26        1     &lt;=30 2021-01-23    332            63113904    &lt;65 330.83529</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27        1     &lt;=30 2021-01-23    332            63113904    &lt;65 330.83529</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28        1     &lt;=30 2021-01-23    332            63113904    &lt;65 330.83529</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29       NA     &lt;NA&gt; 2021-04-10     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30       NA     &lt;NA&gt; 2021-04-10     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31       NA     &lt;NA&gt; 2021-04-10     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32       NA     &lt;NA&gt; 2021-04-10     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33       NA     &lt;NA&gt; 2021-04-10     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34       NA     &lt;NA&gt; 2021-04-10     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35       NA     &lt;NA&gt; 2021-04-10     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36       NA     &lt;NA&gt; 2020-11-17     NA            63113904    &lt;65 132.45549</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37       NA     &lt;NA&gt; 2020-11-17     NA            63113904    &lt;65 132.45549</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38       NA     &lt;NA&gt; 2020-11-17     NA            63113904    &lt;65 132.45549</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39       NA     &lt;NA&gt; 2020-11-17     NA            63113904    &lt;65 132.45549</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40       NA     &lt;NA&gt; 2020-11-17     NA            63113904    &lt;65 132.45549</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41       NA     &lt;NA&gt; 2020-11-17     NA            63113904    &lt;65 132.45549</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42       NA     &lt;NA&gt; 2020-11-17     NA            63113904    &lt;65 132.45549</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43       NA     &lt;NA&gt; 2021-10-03     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44       NA     &lt;NA&gt; 2021-10-03     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45       NA     &lt;NA&gt; 2021-10-03     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46       NA     &lt;NA&gt; 2021-10-03     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47       NA     &lt;NA&gt; 2021-10-03     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48       NA     &lt;NA&gt; 2021-10-03     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49       NA     &lt;NA&gt; 2021-10-03     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50       NA     &lt;NA&gt; 2022-09-10     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51       NA     &lt;NA&gt; 2022-09-10     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52       NA     &lt;NA&gt; 2022-09-10     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53       NA     &lt;NA&gt; 2022-09-10     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54       NA     &lt;NA&gt; 2022-09-10     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55       NA     &lt;NA&gt; 2022-09-10     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56       NA     &lt;NA&gt; 2022-09-10     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57       25     &lt;=30 2021-02-24    121            63113904    &lt;65  95.23569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58       25     &lt;=30 2021-02-24    121            63113904    &lt;65  95.23569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59       25     &lt;=30 2021-02-24    121            63113904    &lt;65  95.23569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60       25     &lt;=30 2021-02-24    121            63113904    &lt;65  95.23569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61       25     &lt;=30 2021-02-24    121            63113904    &lt;65  95.23569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62       25     &lt;=30 2021-02-24    121            63113904    &lt;65  95.23569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63       25     &lt;=30 2021-02-24    121            63113904    &lt;65  95.23569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64       NA     &lt;NA&gt; 2021-11-15     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65       NA     &lt;NA&gt; 2021-11-15     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66       NA     &lt;NA&gt; 2021-11-15     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67       NA     &lt;NA&gt; 2021-11-15     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68       NA     &lt;NA&gt; 2021-11-15     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69       NA     &lt;NA&gt; 2021-11-15     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70       NA     &lt;NA&gt; 2021-11-15     NA            63113904    &lt;65 730.48499</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    DCSREAS_GRP AEWITHFL                                   PARAM PARAMCD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22  Non-Safety        N Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23  Non-Safety        N Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24  Non-Safety        N Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25  Non-Safety        N Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26  Non-Safety        N Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27  Non-Safety        N Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28  Non-Safety        N Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36      Safety        Y Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37      Safety        Y Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38      Safety        Y Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39      Safety        Y Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40      Safety        Y Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41      Safety        Y Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42      Safety        Y Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57  Non-Safety        N Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58  Non-Safety        N Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59  Non-Safety        N Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60  Non-Safety        N Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61  Non-Safety        N Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62  Non-Safety        N Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63  Non-Safety        N Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70        &lt;NA&gt;     &lt;NA&gt; Sum of Longest Diameter by Investigator  SLDINV</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   AVISIT AVISITN                ADTM  ADY   DTYPE      AVAL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       END OF INDUCTION     999 2021-12-31 00:00:00  348          91.02365</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  POST-BASELINE MINIMUM     999 2021-12-31 00:00:00  348 MINIMUM  91.02365</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3              SCREENING      -1 2020-10-09 00:00:00 -100         124.85139</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4               BASELINE       0 2021-01-17 22:43:53    0                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          CYCLE 2 DAY 1       2 2021-08-08 00:00:00  203         133.13259</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          CYCLE 4 DAY 1       4 2021-10-07 00:00:00  263         188.27147</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7              FOLLOW UP     999 2021-10-16 00:00:00  272         118.57282</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8       END OF INDUCTION     999 2021-04-28 00:00:00  463          96.35273</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          CYCLE 4 DAY 1       4                &lt;NA&gt;   NA         200.14856</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10             FOLLOW UP     999 2021-06-05 00:00:00  501         210.93728</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 POST-BASELINE MINIMUM     999 2021-04-28 00:00:00  463 MINIMUM  96.35273</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12              BASELINE       0 2020-01-21 10:19:08    0                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13         CYCLE 2 DAY 1       2 2021-05-14 00:00:00  479         184.17689</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14             SCREENING      -1 2019-10-13 00:00:00 -100         140.31087</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15         CYCLE 4 DAY 1       4 2022-03-16 00:00:00  683         125.40015</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 POST-BASELINE MINIMUM     999 2021-02-14 00:00:00  288 MINIMUM  90.03459</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17             SCREENING      -1 2020-01-23 00:00:00 -100         128.90567</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18         CYCLE 2 DAY 1       2 2022-01-15 00:00:00  623         165.18704</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19             FOLLOW UP     999 2021-02-14 00:00:00  288          90.03459</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20              BASELINE       0 2020-05-02 02:28:45    0                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21      END OF INDUCTION     999 2021-11-18 00:00:00  565         135.62122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22              BASELINE       0 2020-02-26 18:15:59    0                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23             SCREENING      -1 2019-11-18 00:00:00 -100         152.52540</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24             FOLLOW UP     999 2020-07-18 00:00:00  143         163.04543</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25         CYCLE 2 DAY 1       2 2020-10-20 00:00:00  237         122.36173</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26      END OF INDUCTION     999 2020-04-10 00:00:00   44         145.75018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 POST-BASELINE MINIMUM       2 2020-10-20 00:00:00  237 MINIMUM 122.36173</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28         CYCLE 4 DAY 1       4 2020-12-19 00:00:00  297         159.91349</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29         CYCLE 2 DAY 1       2 2020-03-11 00:00:00  349         189.10537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30         CYCLE 4 DAY 1       4 2020-05-10 00:00:00  409         173.15369</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31              BASELINE       0 2019-03-28 12:07:16    0                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32             FOLLOW UP     999 2020-05-29 00:00:00  428         107.69885</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 POST-BASELINE MINIMUM     999 2020-05-29 00:00:00  428 MINIMUM 107.69885</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34      END OF INDUCTION     999 2020-04-20 00:00:00  389         181.57577</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35             SCREENING      -1 2018-12-18 00:00:00 -100         148.38832</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36         CYCLE 2 DAY 1       2 2020-08-06 00:00:00   40         133.99884</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37             FOLLOW UP     999 2020-11-02 00:00:00  128         204.66368</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38      END OF INDUCTION     999 2020-08-13 00:00:00   47          83.76241</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39              BASELINE       0 2020-06-27 04:48:00    0                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40 POST-BASELINE MINIMUM     999 2020-08-13 00:00:00   47 MINIMUM  83.76241</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41         CYCLE 4 DAY 1       4 2020-10-05 00:00:00  100         108.83192</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42             SCREENING      -1 2020-03-19 00:00:00 -100         179.87954</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43 POST-BASELINE MINIMUM       2 2021-07-13 00:00:00  660 MINIMUM 138.39151</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44             FOLLOW UP     999 2021-03-23 00:00:00  548         200.43465</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45              BASELINE       0 2019-09-22 02:25:18    0                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46      END OF INDUCTION     999 2020-05-04 00:00:00  225         198.01173</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47             SCREENING      -1 2019-06-14 00:00:00 -100         130.39820</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48         CYCLE 2 DAY 1       2 2021-07-13 00:00:00  660         138.39151</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49         CYCLE 4 DAY 1       4 2021-09-11 00:00:00  720         161.60085</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50             SCREENING      -1 2020-05-20 00:00:00 -100         114.49181</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51         CYCLE 2 DAY 1       2 2021-11-22 00:00:00  451         104.61988</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52         CYCLE 4 DAY 1       4 2022-01-21 00:00:00  511         112.40685</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53              BASELINE       0 2020-08-28 20:42:09    0                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54 POST-BASELINE MINIMUM       2 2021-11-22 00:00:00  451 MINIMUM 104.61988</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55      END OF INDUCTION     999 2022-06-26 00:00:00  667         150.22938</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56             FOLLOW UP     999 2022-03-06 00:00:00  555         208.78071</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57              BASELINE       0 2020-10-26 22:16:26    0                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58             SCREENING      -1 2020-07-18 00:00:00 -100         124.72154</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59      END OF INDUCTION     999 2020-12-15 00:00:00   50         140.57184</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60             FOLLOW UP     999 2021-01-29 00:00:00   95         127.51110</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61 POST-BASELINE MINIMUM     999 2021-01-29 00:00:00   95 MINIMUM 127.51110</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62         CYCLE 2 DAY 1       2 2020-11-09 00:00:00   14         182.23378</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63         CYCLE 4 DAY 1       4 2021-01-08 00:00:00   74         157.81794</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64 POST-BASELINE MINIMUM     999 2020-09-13 00:00:00  332 MINIMUM 137.35879</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65      END OF INDUCTION     999 2020-11-08 00:00:00  388         139.47497</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66         CYCLE 4 DAY 1       4 2020-05-29 00:00:00  225         210.26061</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67             FOLLOW UP     999 2020-09-13 00:00:00  332         137.35879</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68             SCREENING      -1 2019-07-09 00:00:00 -100         124.13405</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69         CYCLE 2 DAY 1       2 2020-03-30 00:00:00  165         178.19760</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70              BASELINE       0 2019-10-17 17:56:02    0                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               AVALC AVALU      BASE ABLFL          CHG        PCHG ONTRTFL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  91.0236527565802    mm 211.98904       -120.9653879 -57.0620951       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  91.0236527565802    mm 211.98904       -120.9653879 -57.0620951       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  124.851385571939    mm 211.98904                 NA          NA        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4              &lt;NA&gt;    mm 211.98904     Y           NA          NA       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  133.132588399725    mm 211.98904        -78.8564523 -37.1983627       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  188.271465355528    mm 211.98904        -23.7175753 -11.1881139       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  118.572821190151    mm 211.98904        -93.4162195 -44.0665325       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  96.3527337970544    mm 178.07588        -81.7231420 -45.8923151       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   200.14856301978    mm 178.07588         22.0726872  12.3951024       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 210.937275562657    mm 178.07588         32.8613998  18.4535944       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 96.3527337970544    mm 178.07588        -81.7231420 -45.8923151       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12             &lt;NA&gt;    mm 178.07588     Y           NA          NA       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 184.176894082022    mm 178.07588          6.1010183   3.4260779       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 140.310867187201    mm 178.07588                 NA          NA        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 125.400146831514    mm 154.74494        -29.3447960 -18.9633312       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 90.0345901510763    mm 154.74494        -64.7103527 -41.8174265       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 128.905670010183    mm 154.74494                 NA          NA        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 165.187043924422    mm 154.74494         10.4421010   6.7479433       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 90.0345901510763    mm 154.74494        -64.7103527 -41.8174265       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20             &lt;NA&gt;    mm 154.74494     Y           NA          NA       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 135.621222256451    mm 154.74494        -19.1237206 -12.3582201       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22             &lt;NA&gt;    mm 123.13540     Y           NA          NA       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23 152.525397129667    mm 123.13540                 NA          NA        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 163.045432845081    mm 123.13540         39.9100312  32.4115004       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25 122.361730034768    mm 123.13540         -0.7736716  -0.6283097       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 145.750175731918    mm 123.13540         22.6147741  18.3657776       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 122.361730034768    mm 123.13540         -0.7736716  -0.6283097       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28 159.913485103959    mm 123.13540         36.7780834  29.8680013       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 189.105366972668    mm 122.78669         66.3186782  54.0112930       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 173.153693266196    mm 122.78669         50.3670045  41.0199225       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31             &lt;NA&gt;    mm 122.78669     Y           NA          NA       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32 107.698849780089    mm 122.78669        -15.0878390 -12.2878458       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 107.698849780089    mm 122.78669        -15.0878390 -12.2878458       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34 181.575767859229    mm 122.78669         58.7890791  47.8790329       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35 148.388321219484    mm 122.78669                 NA          NA        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36 133.998835723584    mm  99.12705         34.8717828  35.1788758       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37 204.663675562607    mm  99.12705        105.5366227 106.4660147       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38 83.7624066358607    mm  99.12705        -15.3646463 -15.4999527       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39             &lt;NA&gt;    mm  99.12705     Y           NA          NA       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40 83.7624066358607    mm  99.12705        -15.3646463 -15.4999527       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41 108.831916465708    mm  99.12705          9.7048636   9.7903280       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42 179.879537693333    mm  99.12705                 NA          NA        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43 138.391511890652    mm 141.45956         -3.0680515  -2.1688541       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44 200.434648673004    mm 141.45956         58.9750853  41.6904194       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45             &lt;NA&gt;    mm 141.45956     Y           NA          NA       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46 198.011725546186    mm 141.45956         56.5521621  39.9776168       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47 130.398197675437    mm 141.45956                 NA          NA        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48 138.391511890652    mm 141.45956         -3.0680515  -2.1688541       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49 161.600849239382    mm 141.45956         20.1412858  14.2381931       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50 114.491808353182    mm 109.24628                 NA          NA        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51  104.61987615837    mm 109.24628         -4.6264062  -4.2348409       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52 112.406853018924    mm 109.24628          3.1605706   2.8930693       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53             &lt;NA&gt;    mm 109.24628     Y           NA          NA       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54  104.61987615837    mm 109.24628         -4.6264062  -4.2348409       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55 150.229376163983    mm 109.24628         40.9830938  37.5144059       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56 208.780712314368    mm 109.24628         99.5344299  91.1101300       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57             &lt;NA&gt;    mm 131.96520     Y           NA          NA       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58 124.721544072311    mm 131.96520                 NA          NA        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59 140.571840594842    mm 131.96520          8.6066437   6.5219042       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60 127.511097135508    mm 131.96520         -4.4540997  -3.3752079       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61 127.511097135508    mm 131.96520         -4.4540997  -3.3752079       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62 182.233782192385    mm 131.96520         50.2685853  38.0923051       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63 157.817935052765    mm 131.96520         25.8527382  19.5905730       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64 137.358792827839    mm 211.44121        -74.0824163 -35.0368864       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65 139.474967305564    mm 211.44121        -71.9662418 -34.0360529       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66 210.260613477461    mm 211.44121         -1.1805956  -0.5583564       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67 137.358792827839    mm 211.44121        -74.0824163 -35.0368864       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68 124.134050109426    mm 211.44121                 NA          NA        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69 178.197602328401    mm 211.44121        -33.2436068 -15.7223878       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70             &lt;NA&gt;    mm 211.44121     Y           NA          NA       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ANL01FL ANL02FL ANL03FL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        Y       Y        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                        Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9        Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10       Y       Y        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12               Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15       Y       Y        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20               Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22               Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27                       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28       Y       Y        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31               Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32       Y       Y        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33                       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37       Y       Y        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39               Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40                       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43                       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45               Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49       Y       Y        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53               Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54                       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55       Y       Y        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57               Y       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60       Y       Y        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61                       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64                       Y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65       Y       Y        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69       Y                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70               Y       Y</span>
 </code></pre></div>
     </div>
   </div>
