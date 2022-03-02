@@ -141,15 +141,15 @@ radcm <- function(ADSL, # nolint
     dplyr::mutate(CMDOSU = sample(c(
       "ug/mL", "ug/kg/day", "%", "uL", "DROP",
       "umol/L", "mg", "mg/breath", "ug"
-    ), n(), replace = TRUE)) %>%
+    ), dplyr::n(), replace = TRUE)) %>%
     dplyr::mutate(CMROUTE = sample(c(
       "INTRAVENOUS", "ORAL", "NASAL",
       "INTRAMUSCULAR", "SUBCUTANEOUS", "INHALED", "RECTAL", "UNKNOWN"
-    ), n(), replace = TRUE)) %>%
+    ), dplyr::n(), replace = TRUE)) %>%
     dplyr::mutate(CMDOSFRQ = sample(c(
       "Q4W", "QN", "Q4H", "UNKNOWN", "TWICE",
       "Q4H", "QD", "TID", "4 TIMES PER MONTH"
-    ), n(), replace = TRUE))
+    ), dplyr::n(), replace = TRUE))
 
 
   # Optional WHO coding, which adds more `ATC` paths for randomly selected `CMDECOD`.
