@@ -1,5 +1,6 @@
 # random.cdisc.data 0.3.12.9011
 
+* Added new variables `CMINDC`, `CMDOSE`, `CMTRT`, `CMDOSU`, `CMROUTE`, `CMDOSFRQ` to `ADCM`.
 * Added `ANRLO` and `ANRHI` column to ADLB and ADVS
 * Added `AERELNST` column to ADAE. 
 * Added `MHDISTAT` column to ADMH. 
