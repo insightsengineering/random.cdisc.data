@@ -135,8 +135,8 @@ radcm <- function(ADSL, # nolint
     dplyr::mutate(CMINDC = sample(c(
       "Nausea", "Hypertension", "Urticaria", "Fever",
       "Asthma", "Infection", "Diabete", "Diarrhea", "Pneumonia"
-    ), n(), replace = TRUE)) %>%
-    dplyr::mutate(CMDOSE = sample(1:99, n(), replace = TRUE)) %>%
+    ), dplyr::n(), replace = TRUE)) %>%
+    dplyr::mutate(CMDOSE = sample(1:99, dplyr::n(), replace = TRUE)) %>%
     dplyr::mutate(CMTRT = substr(.data$CMDECOD, 9, 13)) %>%
     dplyr::mutate(CMDOSU = sample(c(
       "ug/mL", "ug/kg/day", "%", "uL", "DROP",
