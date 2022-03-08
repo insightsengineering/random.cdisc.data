@@ -92,4 +92,9 @@ variables:
   ONTRTFL:
     label: On Treatment Record Flag
     type: factor
-
+  ANRLO:
+    label: Analysis Normal Range Lower Limit
+    type: numeric
+  ANRHI:
+    label: Analysis Normal Range Upper Limit
+    type: numeric

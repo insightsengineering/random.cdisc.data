@@ -5,7 +5,7 @@
 \alias{cadpp}
 \title{Cached ADPP}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3582 rows and 48 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3582 rows and 50 columns.
 }
 \usage{
 data(cadpp)

@@ -55,3 +55,21 @@ variables:
   AENDY:
     label: Analysis End Relative Day
     type: integer
+  CMINDC:
+    label: Indication
+    type: factor
+  CMDOSE:
+    label: Dose per Administration
+    type: integer
+  CMTRT:
+    label: Reported Name of Drug, Med, or Therapy
+    type: factor
+  CMDOSU:
+    label: Dose Units
+    type: factor
+  CMROUTE:
+    label: Route of Administration
+    type: factor
+  CMDOSFRQ:
+    label: Dosing Frequency per Interval
+    type: factor
