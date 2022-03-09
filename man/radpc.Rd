@@ -8,6 +8,7 @@ radpc(
   ADSL,
   avalu = "ug/mL",
   constants = c(D = 100, ka = 0.8, ke = 1),
+  duration = 2,
   seed = NULL,
   na_percentage = 0,
   na_vars = list(AVAL = c(NA, 0.1)),
@@ -21,6 +22,8 @@ radpc(
 
 \item{constants}{(`character vector`)\cr Constant parameters to be used in the PK
 equation for creating analysis values.}
+
+\item{duration}{(`numeric`)\cr Duration in number of days.}
 
 \item{seed}{Seed for random number generation.}
 
@@ -47,4 +50,5 @@ One record per per study per subject per parameter per time point
 library(random.cdisc.data)
 ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 ADPC <- radpc(ADSL, seed = 2)
+ADPC <- radpc(ADSL, seed = 2, duration = 3)
 }

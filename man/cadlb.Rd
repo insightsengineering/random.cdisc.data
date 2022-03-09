@@ -5,7 +5,7 @@
 \alias{cadlb}
 \title{Cached ADLB}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 8400 rows and 80 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 8400 rows and 82 columns.
 }
 \usage{
 data(cadlb)

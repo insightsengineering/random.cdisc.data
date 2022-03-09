@@ -7,6 +7,7 @@
 * Fixed a typo in `ADSL$BMRKR1`'s label.
 * Added new random dataset generator: PK Analysis Dataset (`radpc`).
 * Added new random dataset generator: PK Parameter Dataset (`radpp`).
+* Enhanced `radpc` to add an argument to set the duration in number of days. 
 
 ### Miscellaneous
 * Updated R version requirement to >= 3.6.
