@@ -34,6 +34,7 @@ radpc <- function(ADSL, # nolint
   checkmate::assert_character(avalu, len = 1, any.missing = FALSE)
   checkmate::assert_subset(names(constants), c("D", "ka", "ke"))
   checkmate::assert_numeric(x = duration, max.len = 1)
+  checkmate::assert_number(seed, null.ok = TRUE)
 
   if (!is.null(seed)) {
     set.seed(seed)

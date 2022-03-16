@@ -39,6 +39,8 @@ radpp <- function(ADSL, # nolint,
     return(get_cached_data("cadlb"))
   }
 
+  checkmate::assert_number(seed, null.ok = TRUE)
+
   if (!is.null(seed)) {
     set.seed(seed)
   }
