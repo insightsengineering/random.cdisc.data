@@ -39,6 +39,7 @@ radrs <- function(ADSL, # nolint
   }
 
   checkmate::assert_data_frame(ADSL)
+  checkmate::assert_vector(avalc, null.ok = TRUE)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
   # also check na_percentage is not 1
