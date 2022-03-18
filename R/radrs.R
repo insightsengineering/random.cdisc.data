@@ -51,6 +51,7 @@ radrs <- function(ADSL, # nolint
     stats::setNames(1:5, c("CR", "PR", "SD", "PD", "NE"))
   }
 
+  checkmate::assert_data_frame(lookup, null.ok = TRUE)
   lookup_ARS <- if (!is.null(lookup)) { # nolint
     lookup
   } else {
