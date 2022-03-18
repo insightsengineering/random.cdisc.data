@@ -76,6 +76,8 @@ radae <- function(ADSL, # nolint
   # also check na_percentage is not 1
   stopifnot(is.na(na_percentage) || na_percentage < 1)
 
+  # check loopup parameters
+  checkmate::assert_data_frame(lookup, null.ok = TRUE)
   lookup_ae <- if (!is.null(lookup)) {
     lookup
   } else {
@@ -94,6 +96,7 @@ radae <- function(ADSL, # nolint
     )
   }
 
+  checkmate::assert_data_frame(lookup_aag, null.ok = TRUE)
   AAG <- if (!is.null(lookup_aag)) { # nolint
     lookup_aag
   } else {
