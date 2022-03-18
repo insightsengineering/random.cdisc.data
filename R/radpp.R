@@ -39,7 +39,17 @@ radpp <- function(ADSL, # nolint,
     return(get_cached_data("cadlb"))
   }
 
+  checkmate::assert_character(ppcat)
+  checkmate::assert_character(ppspec)
+  checkmate::assert_character(paramcd)
+  checkmate::assert_character(param)
+  checkmate::assert_character(paramu)
+  checkmate::assert_numeric(aval_mean)
+  checkmate::assert_character(visit_format)
+  checkmate::assert_integer(n_days)
   checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_numeric(na_percentage)
+  checkmate::assert_list(na_vars)
 
   if (!is.null(seed)) {
     set.seed(seed)
