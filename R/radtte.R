@@ -48,6 +48,7 @@ radtte <- function(ADSL, # nolint
     set.seed(seed)
   }
 
+  checkmate::assert_data_frame(lookup, null.ok = TRUE)
   lookup_TTE <- if (!is.null(lookup)) { # nolint
     lookup
   } else {

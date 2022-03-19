@@ -68,6 +68,7 @@ radlb <- function(ADSL, # nolint
   checkmate::assert_integer(n_assessments, len = 1, any.missing = FALSE)
   checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
   checkmate::assert_integer(max_n_lbs, len = 1, any.missing = FALSE)
+  checkmate::assert_data_frame(lookup, null.ok = TRUE)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
   # also check na_percentage is not 1

@@ -47,6 +47,7 @@ radaette <- function(ADSL, # nolint
   # also check na_percentage is not 1
   stopifnot(is.na(na_percentage) || na_percentage < 1)
 
+  checkmate::assert_data_frame(lookup, null.ok = TRUE)
   lookup_ADAETTE <- if (!is.null(lookup)) { # nolint
     lookup
   } else {

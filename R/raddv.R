@@ -51,6 +51,7 @@ raddv <- function(ADSL, # nolint
 
   if (!is.null(seed)) set.seed(seed)
 
+  checkmate::assert_data_frame(lookup, null.ok = TRUE)
   lookup_dv <- if (!is.null(lookup)) {
     lookup
   } else {

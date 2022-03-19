@@ -48,6 +48,7 @@ radcm <- function(ADSL, # nolint
   stopifnot(is.na(na_percentage) || na_percentage < 1)
   checkmate::assert_flag(who_coding)
 
+  checkmate::assert_data_frame(lookup, null.ok = TRUE)
   lookup_cm <- if (!is.null(lookup)) {
     lookup
   } else {
