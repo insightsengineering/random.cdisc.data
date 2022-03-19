@@ -5,7 +5,7 @@
 #' @param ppspec (`string`)\cr specimen material type.
 #' @param paramcd (`character`)\cr parameter code.
 #' @param param (`character`)\cr parameters.
-#' @param paramu (`string`)\cr Analysis value unit value.
+#' @param paramu (`character`)\cr Analysis value unit value.
 #' @param aval_mean (`vector`)\cr the mean for corresponding parameter.
 #' @param visit_format (`string`)\cr the visit format to produce AVISIT in the dataset.
 #' @param n_days (`integer`)\cr the number days that will be included to produce AVISIT in the dataset.
@@ -39,7 +39,17 @@ radpp <- function(ADSL, # nolint,
     return(get_cached_data("cadlb"))
   }
 
+  checkmate::assert_character(ppcat)
+  checkmate::assert_string(ppspec)
+  checkmate::assert_character(paramcd)
+  checkmate::assert_character(param)
+  checkmate::assert_character(paramu)
+  checkmate::assert_vector(aval_mean)
+  checkmate::assert_string(visit_format)
+  checkmate::assert_integer(n_days)
   checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_numeric(na_percentage)
+  checkmate::assert_list(na_vars)
 
   if (!is.null(seed)) {
     set.seed(seed)

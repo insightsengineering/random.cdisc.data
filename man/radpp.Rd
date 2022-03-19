@@ -31,7 +31,7 @@ radpp(
 
 \item{param}{(`character`)\cr parameters.}
 
-\item{paramu}{(`string`)\cr Analysis value unit value.}
+\item{paramu}{(`character`)\cr Analysis value unit value.}
 
 \item{aval_mean}{(`vector`)\cr the mean for corresponding parameter.}
 
