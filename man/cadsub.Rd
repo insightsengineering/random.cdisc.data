@@ -5,7 +5,7 @@
 \alias{cadsub}
 \title{Cached ADSUB}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2000 rows and 51 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2000 rows and 54 columns.
 }
 \usage{
 data(cadsub)

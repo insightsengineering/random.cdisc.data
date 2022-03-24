@@ -75,6 +75,7 @@ radsl <- function(N = 400, # nolint
     SITEID = sample_fct(1:20, N, prob = rep(country_site_prob, times = 2)),
     SUBJID = paste("id", seq_len(N), sep = "-"),
     AGE = sapply(stats::rchisq(N, df = 5, ncp = 10), max, 0) + 20,
+    AGEU = "YEARS",
     SEX = c("F", "M") %>% sample_fct(N, prob = c(.52, .48)),
     ARMCD = c("ARM A", "ARM B", "ARM C") %>% sample_fct(N),
     RACE = c(
@@ -102,6 +103,8 @@ radsl <- function(N = 400, # nolint
     )) %>%
     dplyr::mutate(ACTARM = .data$ARM) %>%
     dplyr::mutate(ACTARMCD = .data$ARMCD) %>%
+    dplyr::mutate(TRT01P = .data$ARM) %>%
+    dplyr::mutate(TRT01A = .data$ACTARM) %>%
     dplyr::mutate(ITTFL = factor("Y")) %>%
     dplyr::mutate(SAFFL = factor("Y")) %>%
     dplyr::arrange(.data$st_posixn)
