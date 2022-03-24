@@ -18,6 +18,9 @@ variables:
   AGE:
     label: Age
     type: integer
+  AGEU:
+    label: Age Units
+    type: factor
   SEX:
     label: Sex
     type: factor
@@ -50,6 +53,12 @@ variables:
     type: factor
   ACTARMCD:
     label: Actual Arm Code
+    type: factor
+  TRT01P:
+    label: Planned Treatment for Period 01
+    type: factor
+  TRT01A:
+    label: Actual Treatment for Period 01
     type: factor
   REGION1:
     label: Geographic Region 1
