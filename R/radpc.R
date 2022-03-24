@@ -28,13 +28,16 @@ radpc <- function(ADSL, # nolint
                   cached = FALSE) {
   checkmate::assert_flag(cached)
   if (cached) {
-    return(get_cached_data("cadlb"))
+    return(get_cached_data("cadpc"))
   }
 
+  checkmate::assert_data_frame(ADSL)
   checkmate::assert_character(avalu, len = 1, any.missing = FALSE)
   checkmate::assert_subset(names(constants), c("D", "ka", "ke"))
   checkmate::assert_numeric(x = duration, max.len = 1)
   checkmate::assert_number(seed, null.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
+  checkmate::assert_list(na_vars)
 
   if (!is.null(seed)) {
     set.seed(seed)
