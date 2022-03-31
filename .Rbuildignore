@@ -9,6 +9,7 @@
 ^\.CI-FORCE-RELEASE-VERSION$
 ^\.drone\.yml$
 ^\.github$
+^\.git$
 ^\.lintr$
 ^\.Rprofile$
 ^\.Rproj\.user$
