@@ -1,4 +1,4 @@
-# random.cdisc.data 0.3.12.9018
+# random.cdisc.data 0.3.12.9019
 
 * Added new variables `AGEU`, `TRT01P`, `TRT01A` to `ADSL`
 * Added new variables `CMINDC`, `CMDOSE`, `CMTRT`, `CMDOSU`, `CMROUTE`, `CMDOSFRQ` to `ADCM`.
