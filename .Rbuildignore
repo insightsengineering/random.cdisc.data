@@ -39,3 +39,4 @@
 ^LICENSE\.md$
 coverage.*
 ^\.markdownlint\.json$
+.pre-commit-config.yaml

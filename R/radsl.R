@@ -205,7 +205,7 @@ radsl <- function(N = 400, # nolint
   # Date of Death [ADSL.DTHDT] - date part of Date of First Exposure to Treatment [ADSL.TRTSDTM]
 
   ADSL <- ADSL %>% # nolint
-    dplyr::mutate(DTHADY = as.numeric(DTHDT - as.Date(TRTSDTM)))
+    dplyr::mutate(DTHADY = as.numeric(.data$DTHDT - as.Date(.data$TRTSDTM)))
 
 
   # associate sites with countries and regions
