@@ -1,7 +1,8 @@
 Type: Package
 Package: random.cdisc.data
 Title: Create Random SDTM and ADAM Datasets
-Version: 0.3.12.9019
+Version: 0.3.13
+
 Date: 2021-10-13
 Authors@R: c(
     person("NEST", , , "basel.nestcicd@roche.com", role = c("aut", "cre")),
@@ -10,7 +11,7 @@ Authors@R: c(
     person("Federico", "Martinello", , "mika.maekinen@roche.com", role = "aut"),
     person("Heng", "Wang", , "wangh107@gene.com", role = "aut"),
     person("Mika", "Maekinen", , "mika.maekinen@roche.com", role = "aut"),
-    person("Chendi", "Lioa", , "chendi.liao@roche.com", role = "aut"),
+    person("Chendi", "Liao", , "chendi.liao@roche.com", role = "aut"),
     person("Edgar", "Manukyan", , "edgar.manukyan@roche.com", role = "aut"),
     person("Wojciech", "Wojciak", , "wojciech.wojciak@contractors.roche.com", role = "aut"),
     person("Roche", role = c("cph", "fnd"))
