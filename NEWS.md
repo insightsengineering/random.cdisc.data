@@ -1,16 +1,16 @@
-# random.cdisc.data 0.3.13.9000
+# random.cdisc.data 0.3.13
 
 ### New features
 * Added new random dataset generator: PK Analysis Dataset (`radpc`).
 * Added new random dataset generator: PK Parameter Dataset (`radpp`).
 
 ### Enhancements
-* Added new variables `AGEU`, `TRT01P`, `TRT01A` to `ADSL`
+* Added new variables `AGEU`, `TRT01P`, `TRT01A` to `ADSL`.
 * Added new variables `CMINDC`, `CMDOSE`, `CMTRT`, `CMDOSU`, `CMROUTE`, `CMDOSFRQ` to `ADCM`.
-* Added `ANRLO` and `ANRHI` column to ADLB and ADVS
-* Added `AERELNST` column to ADAE. 
-* Added `MHDISTAT` column to ADMH. 
-* Enhanced `radpc` to add an argument to set the duration in number of days. 
+* Added `ANRLO` and `ANRHI` column to `ADLB` and `ADVS`.
+* Added `AERELNST` column to `ADAE`.
+* Added `MHDISTAT` column to `ADMH`.
+* Enhanced `radpc` to add an argument to set the duration in number of days.
 
 ### Bug fix
 * Fixed a typo in `ADSL$BMRKR1`'s label.
