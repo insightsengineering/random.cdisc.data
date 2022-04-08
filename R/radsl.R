@@ -111,7 +111,11 @@ radsl <- function(N = 400, # nolint
 
   ADDS <- ADSL[sample(nrow(ADSL), discons), ] %>% # nolint
     dplyr::mutate(TRTEDTM_discon = as.POSIXct(
-      sample(seq(from = max(.data$st_posixn), to = sys_dtm + study_duration_secs, by = 1), size = discons),
+      sample(
+        seq(from = max(.data$st_posixn), to = sys_dtm + study_duration_secs, by = 1),
+        size = discons,
+        replace = TRUE
+      ),
       origin = "1970-01-01"
     )) %>%
     dplyr::select(.data$st_posixn, .data$TRTEDTM_discon) %>%
