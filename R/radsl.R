@@ -118,10 +118,10 @@ radsl <- function(N = 400, # nolint
       ),
       origin = "1970-01-01"
     )) %>%
-    dplyr::select(.data$st_posixn, .data$TRTEDTM_discon) %>%
+    dplyr::select(.data$SUBJID, .data$st_posixn, .data$TRTEDTM_discon) %>%
     dplyr::arrange(.data$st_posixn)
 
-  ADSL <- dplyr::left_join(ADSL, ADDS, by = "st_posixn") %>% # nolint
+  ADSL <- dplyr::left_join(ADSL, ADDS, by = c("SUBJID", "st_posixn")) %>% # nolint
     dplyr::mutate(TRTEDTM = dplyr::case_when(
       !is.na(TRTEDTM_discon) ~ as.POSIXct(TRTEDTM_discon, origin = "1970-01-01"),
       st_posixn >= quantile(st_posixn)[2] & st_posixn <= quantile(st_posixn)[3] ~ as.POSIXct(NA, origin = "1970-01-01"),
