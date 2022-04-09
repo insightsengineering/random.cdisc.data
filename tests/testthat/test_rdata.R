@@ -259,10 +259,10 @@ test_that("metadata matches radhy", {
 })
 
 test_that("radsl works with large N", {
-  N <- 120000
-  adsl <- radsl(N, seed = 123)
+  n <- 120000
+  adsl <- radsl(n, seed = 123)
 
   adsl_n <- nrow(adsl)
 
-  expect_equal(adsl_n, N)
+  expect_equal(adsl_n, n)
 })
