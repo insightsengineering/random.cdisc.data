@@ -1,4 +1,4 @@
-# random.cdisc.data 0.3.13.9000
+# random.cdisc.data 0.3.13.9001
 
 ### Bug fix
 * Updated `DVDECOD` and `DVSCAT` values in ADDV Dataset (`raddv`, `caddv`)
