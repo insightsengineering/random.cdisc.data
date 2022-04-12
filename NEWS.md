@@ -1,5 +1,8 @@
 # random.cdisc.data 0.3.13.9000
 
+### Bug fix
+* Updated `DVDECOD` and `DVSCAT` values in ADDV Dataset (`raddv`, `caddv`)
+
 ### New features
 * Added new random dataset generator: PK Analysis Dataset (`radpc`).
 * Added new random dataset generator: PK Parameter Dataset (`radpp`).
