@@ -56,7 +56,7 @@ raddv <- function(ADSL, # nolint
     lookup
   } else {
     tibble::tribble(
-      ~DOMAIN, ~DVCAT, ~DVSCAT, ~DVDECOD, ~DVREAS, ~DVEPRELI,
+      ~DOMAIN, ~DVCAT, ~DVDECOD, ~DVTERM, ~DVREAS, ~DVEPRELI,
       "DV", "MAJOR", "EXCLUSION CRITERIA", "Received prior prohibited therapy or medication", "", "N",
       "DV", "MAJOR", "EXCLUSION CRITERIA", "Active or untreated or other excluded cns metastases", "", "N",
       "DV", "MAJOR", "EXCLUSION CRITERIA", "History of other malignancies within the last 5 years", "", "N",
@@ -101,7 +101,7 @@ raddv <- function(ADSL, # nolint
     ADSL$STUDYID
   ) %>%
     Reduce(rbind, .) %>%
-    dplyr::mutate(DVTERM = .data$DVDECOD)
+    dplyr::mutate(DVSCAT = .data$DVCAT)
 
   ADDV <- var_relabel( # nolint
     ADDV,
