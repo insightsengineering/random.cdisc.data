@@ -19,21 +19,38 @@
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' ADPP <- radpp(ADSL, seed = 2)
-radpp <- function(ADSL, # nolint,
-                  ppcat = c("Plasma Drug X", "Plasma Drug Y"),
-                  ppspec = c("Plasma"),
-                  paramcd = c("AUCIFO", "CMAX", "CLO"),
-                  param = c("AUC Infinity Obs", "Max Conc", "Total CL Obs"),
-                  paramu = c("day*ug/mL", "ug/mL", "ml/day/kg"),
-                  aval_mean = c(200, 30, 5),
-                  visit_format = "CYCLE",
-                  n_days = 2L,
-                  seed = NULL,
-                  na_percentage = 0,
-                  na_vars = list(
-                    AVAL = c(NA, 0.1)
-                  ),
-                  cached = FALSE) {
+
+pk_param_plasma = list(
+  ppspec = "Plasma",
+  paramcd = c("AUCIFO", "CMAX", "CMAX_D", "CLO"),
+  param = c("AUC Infinity Obs", "Max Conc", "Max Conc Dose Norm", "Total CL Obs"),
+  paramu = c("day*ug/mL", "ug/mL", "ug/mL/mg" , "ml/day/kg"),
+  aval_mean = c(200, 30, 3, 5)
+)
+
+pk_param_urine = list(
+  ppspec = "Urine",
+  paramcd = c("RENALCL", "RENALCLD"),
+  param = c("Renal CL", "Renal CL Dose Norm"),
+  paramu = c("L/hr", "L/hr/mg"),
+  aval_mean = c(0.05, 0.005)
+)
+
+radpp_core <- function(ADSL, # nolint,
+                       ppcat = c("Plasma Drug X", "Plasma Drug Y"),
+                       ppspec,
+                       paramcd,
+                       param,
+                       paramu,
+                       aval_mean,
+                       visit_format = "CYCLE",
+                       n_days = 2L,
+                       seed = NULL,
+                       na_percentage = 0,
+                       na_vars = list(
+                         AVAL = c(NA, 0.1)
+                       ),
+                       cached = FALSE) {
   checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadlb"))
@@ -110,5 +127,21 @@ radpp <- function(ADSL, # nolint,
   }
 
   ADPP <- apply_metadata(ADPP, "metadata/ADPP.yml") # nolint
+  return(ADPP)
+}
+
+radpp <- function(ADSL,seed = NULL){
+  ADPP = data.frame()
+  for (params in list(pk_param_plasma, pk_param_urine)) {
+    ADPP = rbind(ADPP,
+                 radpp_core(
+                   ADSL,
+                   ppspec = params$ppspec,
+                   paramcd = params$paramcd,
+                   param = params$param,
+                   paramu = params$paramu,
+                   aval_mean = params$aval_mean)
+    )
+  }
   return(ADPP)
 }

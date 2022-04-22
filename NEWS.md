@@ -14,6 +14,7 @@
 * Added `AERELNST` column to `ADAE`.
 * Added `MHDISTAT` column to `ADMH`.
 * Enhanced `radpc` to add an argument to set the duration in number of days.
+* Added new parameters to `radpp`.
 
 ### Bug fix
 * Fixed a typo in `ADSL$BMRKR1`'s label.
