@@ -19,16 +19,15 @@
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' ADPP <- radpp(ADSL, seed = 2)
-
-pk_param_plasma = list(
+pk_param_plasma <- list(
   ppspec = "Plasma",
   paramcd = c("AUCIFO", "CMAX", "CMAX_D", "CLO"),
   param = c("AUC Infinity Obs", "Max Conc", "Max Conc Dose Norm", "Total CL Obs"),
-  paramu = c("day*ug/mL", "ug/mL", "ug/mL/mg" , "ml/day/kg"),
+  paramu = c("day*ug/mL", "ug/mL", "ug/mL/mg", "ml/day/kg"),
   aval_mean = c(200, 30, 3, 5)
 )
 
-pk_param_urine = list(
+pk_param_urine <- list(
   ppspec = "Urine",
   paramcd = c("RENALCL", "RENALCLD"),
   param = c("Renal CL", "Renal CL Dose Norm"),
@@ -130,17 +129,19 @@ radpp_core <- function(ADSL, # nolint,
   return(ADPP)
 }
 
-radpp <- function(ADSL,seed = NULL){
-  ADPP = data.frame()
+radpp <- function(ADSL, seed = NULL) {
+  ADPP <- data.frame() # nolint
   for (params in list(pk_param_plasma, pk_param_urine)) {
-    ADPP = rbind(ADPP,
-                 radpp_core(
-                   ADSL,
-                   ppspec = params$ppspec,
-                   paramcd = params$paramcd,
-                   param = params$param,
-                   paramu = params$paramu,
-                   aval_mean = params$aval_mean)
+    ADPP <- rbind(
+      ADPP,
+      radpp_core(
+        ADSL,
+        ppspec = params$ppspec,
+        paramcd = params$paramcd,
+        param = params$param,
+        paramu = params$paramu,
+        aval_mean = params$aval_mean
+      )
     )
   }
   return(ADPP)
