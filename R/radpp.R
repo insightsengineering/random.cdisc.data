@@ -129,13 +129,13 @@ radpp_core <- function(ADSL, # nolint,
   return(ADPP)
 }
 
-radpp <- function(ADSL, seed = NULL) {
+radpp <- function(ADSL, seed = NULL) { # nolint
   ADPP <- data.frame() # nolint
   for (params in list(pk_param_plasma, pk_param_urine)) {
-    ADPP <- rbind(
+    ADPP <- rbind( # nolint
       ADPP,
       radpp_core(
-        ADSL,
+        ADSL, # nolint
         ppspec = params$ppspec,
         paramcd = params$paramcd,
         param = params$param,
