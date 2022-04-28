@@ -4,6 +4,11 @@
 * Update all the NA and "" to "" in `ADAE$ANL01FL`.
 * Updated `DVDECOD` and `DVSCAT` values in ADDV Dataset (`raddv`, `caddv`).
 
+### Enhancements
+* Enhanced `radpp` with additional default `PARAM`s.
+
+# random.cdisc.data 0.3.13
+
 ### New features
 * Added new random dataset generator: PK Analysis Dataset (`radpc`).
 * Added new random dataset generator: PK Parameter Dataset (`radpp`).
