@@ -21,11 +21,14 @@
 #' ADPP <- radpp(ADSL, seed = 2)
 radpp <- function(ADSL, # nolint,
                   ppcat = c("Plasma Drug X", "Plasma Drug Y"),
-                  ppspec = c("Plasma"),
-                  paramcd = c("AUCIFO", "CMAX", "CLO"),
-                  param = c("AUC Infinity Obs", "Max Conc", "Total CL Obs"),
-                  paramu = c("day*ug/mL", "ug/mL", "ml/day/kg"),
-                  aval_mean = c(200, 30, 5),
+                  ppspec = c("Plasma", "Plasma", "Plasma", "Matrix of PD", "Matrix of PD", "Urine", "Urine"),
+                  paramcd = c("AUCIFO", "CMAX", "CLO", "RMAX", "TON", "RENALCL", "RENALCLD"),
+                  param = c(
+                    "AUC Infinity Obs", "Max Conc", "Total CL Obs", "Time of Maximum Response",
+                    "Time to Onset", "Renal CL", "Renal CL Dose Norm"
+                  ),
+                  paramu = c("day*ug/mL", "ug/mL", "ml/day/kg", "hr", "hr", "L/hr", "L/hr/mg"),
+                  aval_mean = c(200, 30, 5, 10, 3, 0.05, 0.005),
                   visit_format = "CYCLE",
                   n_days = 2L,
                   seed = NULL,
@@ -40,7 +43,7 @@ radpp <- function(ADSL, # nolint,
   }
 
   checkmate::assert_character(ppcat)
-  checkmate::assert_string(ppspec)
+  checkmate::assert_character(ppspec)
   checkmate::assert_character(paramcd)
   checkmate::assert_character(param)
   checkmate::assert_character(paramu)
@@ -51,11 +54,17 @@ radpp <- function(ADSL, # nolint,
   checkmate::assert_numeric(na_percentage)
   checkmate::assert_list(na_vars)
 
+  checkmate::assertTRUE(length(ppspec) == length(paramcd))
+  checkmate::assertTRUE(length(ppspec) == length(param))
+  checkmate::assertTRUE(length(ppspec) == length(paramu))
+  checkmate::assertTRUE(length(ppspec) == length(aval_mean))
+
   if (!is.null(seed)) {
     set.seed(seed)
   }
 
   # validate and initialize related variables
+  ppspec_init_list <- relvar_init(param, ppspec)
   param_init_list <- relvar_init(param, paramcd)
   unit_init_list <- relvar_init(param, paramu)
 
@@ -73,8 +82,13 @@ radpp <- function(ADSL, # nolint,
     dplyr::mutate(AVAL = .data$AVAL * .data$ADJUST) %>%
     dplyr::select(-.data$ADJUST)
 
-  # add PPSPEC
-  ADPP$PPSPEC <- as.factor(ppspec) # nolint
+  # assign related variable values: PARAMxPPSPEC are related
+  ADPP$PPSPEC <- as.factor(rel_var( # nolint
+    df = ADPP,
+    var_name = "PPSPEC",
+    var_values = ppspec_init_list$relvar2,
+    related_var = "PARAM"
+  ))
 
   # assign related variable values: PARAMxPARAMCD are related
   ADPP$PARAMCD <- as.factor(rel_var( # nolint
