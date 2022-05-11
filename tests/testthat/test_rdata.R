@@ -268,7 +268,6 @@ test_that("radsl works with large N", {
 })
 
 test_that("radsl has no LSTALVDT greater than DTHDT", {
-
   n <- 100
   adsl <- radsl(n, seed = 1, cached = TRUE)
 
