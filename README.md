@@ -68,4 +68,4 @@ Please refer to excellent Github tutorials on [connecting to Github using SSH](h
 
 ## Acknowledgment
 
-This package is a result of a joint effords by many developers and stakeholders. We would like to thank everyone who contributed so far!
+This package is a result of a joint efforts by many developers and stakeholders. We would like to thank everyone who contributed so far!
