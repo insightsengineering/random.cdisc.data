@@ -266,3 +266,13 @@ test_that("radsl works with large N", {
 
   expect_equal(adsl_n, n)
 })
+
+test_that("radsl has no LSTALVDT greater than DTHDT", {
+
+  n <- 100
+  adsl <- radsl(n, seed = 1, cached = TRUE)
+
+  exceptions <- which(adsl$DTHDT < adsl$LSTALVDT)
+
+  expect_equal(exceptions, which(1 == 2))
+})
