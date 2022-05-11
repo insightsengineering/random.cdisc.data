@@ -9,7 +9,7 @@ Authors@R: c(
     person("Jana", "Stoilova", , "jana.stoilova@roche.com", role = "aut"),
     person("Joe", "Zhu", , "joe.zhu@roche.com", role = "aut"),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd")),
-    person("Christopher", "DiPietrantonio", role = "ctb"),
+    person("Christopher", "DiPietrantonio", role = "ctb")
   )
 Description: Create random CDISC data.
 License: Apache License 2.0 | file LICENSE
