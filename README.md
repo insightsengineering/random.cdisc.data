@@ -64,3 +64,8 @@ Please refer to excellent Github tutorials on [connecting to Github using SSH](h
 
    ```sh
    $ Rscript -e 'install.packages("random.cdisc.data_0.9.5.9000.tar.gz")'
+
+
+## Acknowledgment
+
+This package is a result of a joint effords by many developers and stakeholders. We would like to thank everyone who contributed so far!
