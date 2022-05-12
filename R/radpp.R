@@ -21,8 +21,8 @@
 #' ADPP <- radpp(ADSL, seed = 2)
 pk_param_plasma <- list(
   ppspec = "Plasma",
-  paramcd = c("AUCIFO", "CMAX", "CMAX_D", "CLO"),
-  param = c("AUC Infinity Obs", "Max Conc", "Max Conc Dose Norm", "Total CL Obs"),
+  paramcd = c("AUCIFO", "CMAX", "CMAXD", "CLO"),
+  param = c("AUC Infinity Obs", "Max Conc", "Max Conc Norm by Dose", "Total CL Obs"),
   paramu = c("day*ug/mL", "ug/mL", "ug/mL/mg", "ml/day/kg"),
   aval_mean = c(200, 30, 3, 5)
 )
@@ -30,7 +30,7 @@ pk_param_plasma <- list(
 pk_param_urine <- list(
   ppspec = "Urine",
   paramcd = c("RENALCL", "RENALCLD"),
-  param = c("Renal CL", "Renal CL Dose Norm"),
+  param = c("Renal CL", "Renal CL Norm by Dose"),
   paramu = c("L/hr", "L/hr/mg"),
   aval_mean = c(0.05, 0.005)
 )
