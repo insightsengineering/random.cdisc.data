@@ -25,7 +25,7 @@ radpp <- function(ADSL, # nolint,
                   paramcd = c("AUCIFO", "CMAX", "CLO", "RMAX", "TON", "RENALCL", "RENALCLD"),
                   param = c(
                     "AUC Infinity Obs", "Max Conc", "Total CL Obs", "Time of Maximum Response",
-                    "Time to Onset", "Renal CL", "Renal CL Dose Norm"
+                    "Time to Onset", "Renal CL", "Renal CL Norm by Dose"
                   ),
                   paramu = c("day*ug/mL", "ug/mL", "ml/day/kg", "hr", "hr", "L/hr", "L/hr/mg"),
                   aval_mean = c(200, 30, 5, 10, 3, 0.05, 0.005),
