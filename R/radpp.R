@@ -21,10 +21,14 @@
 #' ADPP <- radpp(ADSL, seed = 2)
 radpp <- function(ADSL, # nolint,
                   ppcat = c("Plasma Drug X", "Plasma Drug Y"),
-                  ppspec = c("Plasma", "Plasma", "Plasma", "Matrix of PD", "Matrix of PD",
-                             "Urine", "Urine", "Urine", "Urine"),
-                  paramcd = c("AUCIFO", "CMAX", "CLO", "RMAX", "TON",
-                              "RENALCL", "RENALCLD", "RCAMINT", "RCPCINT"),
+                  ppspec = c(
+                    "Plasma", "Plasma", "Plasma", "Matrix of PD", "Matrix of PD",
+                    "Urine", "Urine", "Urine", "Urine"
+                  ),
+                  paramcd = c(
+                    "AUCIFO", "CMAX", "CLO", "RMAX", "TON",
+                    "RENALCL", "RENALCLD", "RCAMINT", "RCPCINT"
+                  ),
                   param = c(
                     "AUC Infinity Obs", "Max Conc", "Total CL Obs", "Time of Maximum Response",
                     "Time to Onset", "Renal CL", "Renal CL Norm by Dose",
