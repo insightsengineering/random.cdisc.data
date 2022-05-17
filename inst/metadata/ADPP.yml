@@ -15,6 +15,12 @@ variables:
  PARAMCD:
     label: Parameter Code
     type: factor
+ PPSTINT:
+    label: Planned Start of Assessment Interval
+    type: factor
+ PPENINT:
+    label: Planned End of Assessment Interval
+    type: factor
  AVISIT:
     label: Analysis Visit
     type: factor
