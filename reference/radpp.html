@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">random.cdisc.data</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13.9003</span>
       </span>
     </div>
 
@@ -44,15 +44,6 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="..//index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/insightsengineering/random.cdisc.data/" class="external-link">
     <span class="fa fa-github"></span>
@@ -82,12 +73,15 @@ Other releases
   <span class="va">ADSL</span>,
   ppcat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Plasma Drug X"</span>, <span class="st">"Plasma Drug Y"</span><span class="op">)</span>,
   ppspec <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Plasma"</span>, <span class="st">"Plasma"</span>, <span class="st">"Plasma"</span>, <span class="st">"Matrix of PD"</span>, <span class="st">"Matrix of PD"</span>, <span class="st">"Urine"</span>,
-    <span class="st">"Urine"</span><span class="op">)</span>,
-  paramcd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AUCIFO"</span>, <span class="st">"CMAX"</span>, <span class="st">"CLO"</span>, <span class="st">"RMAX"</span>, <span class="st">"TON"</span>, <span class="st">"RENALCL"</span>, <span class="st">"RENALCLD"</span><span class="op">)</span>,
+    <span class="st">"Urine"</span>, <span class="st">"Urine"</span>, <span class="st">"Urine"</span><span class="op">)</span>,
+  paramcd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AUCIFO"</span>, <span class="st">"CMAX"</span>, <span class="st">"CLO"</span>, <span class="st">"RMAX"</span>, <span class="st">"TON"</span>, <span class="st">"RENALCL"</span>, <span class="st">"RENALCLD"</span>, <span class="st">"RCAMINT"</span>,
+    <span class="st">"RCPCINT"</span><span class="op">)</span>,
   param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AUC Infinity Obs"</span>, <span class="st">"Max Conc"</span>, <span class="st">"Total CL Obs"</span>, <span class="st">"Time of Maximum Response"</span>,
-    <span class="st">"Time to Onset"</span>, <span class="st">"Renal CL"</span>, <span class="st">"Renal CL Norm by Dose"</span><span class="op">)</span>,
-  paramu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"day*ug/mL"</span>, <span class="st">"ug/mL"</span>, <span class="st">"ml/day/kg"</span>, <span class="st">"hr"</span>, <span class="st">"hr"</span>, <span class="st">"L/hr"</span>, <span class="st">"L/hr/mg"</span><span class="op">)</span>,
-  aval_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">30</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">3</span>, <span class="fl">0.05</span>, <span class="fl">0.005</span><span class="op">)</span>,
+    <span class="st">"Time to Onset"</span>, <span class="st">"Renal CL"</span>, <span class="st">"Renal CL Norm by Dose"</span>, <span class="st">"Amt Rec from T1 to T2"</span>,
+    <span class="st">"Pct Rec from T1 to T2"</span><span class="op">)</span>,
+  paramu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"day*ug/mL"</span>, <span class="st">"ug/mL"</span>, <span class="st">"ml/day/kg"</span>, <span class="st">"hr"</span>, <span class="st">"hr"</span>, <span class="st">"L/hr"</span>, <span class="st">"L/hr/mg"</span>, <span class="st">"mg"</span>,
+    <span class="st">"%"</span><span class="op">)</span>,
+  aval_mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">30</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">3</span>, <span class="fl">0.05</span>, <span class="fl">0.005</span>, <span class="fl">1.5613</span>, <span class="fl">15.65</span><span class="op">)</span>,
   visit_format <span class="op">=</span> <span class="st">"CYCLE"</span>,
   n_days <span class="op">=</span> <span class="fl">2L</span>,
   seed <span class="op">=</span> <span class="cn">NULL</span>,
