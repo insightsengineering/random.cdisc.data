@@ -19,7 +19,6 @@
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' ADPP <- radpp(ADSL, seed = 2)
-
 radpp <- function(ADSL, # nolint,
                   ppcat = c("Plasma Drug X", "Plasma Drug Y"),
                   ppspec = c("Plasma", "Plasma", "Plasma", "Matrix of PD", "Matrix of PD", "Urine", "Urine", "Urine", "Urine"),
