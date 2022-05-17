@@ -21,14 +21,21 @@
 #' ADPP <- radpp(ADSL, seed = 2)
 radpp <- function(ADSL, # nolint,
                   ppcat = c("Plasma Drug X", "Plasma Drug Y"),
-                  ppspec = c("Plasma", "Plasma", "Plasma", "Matrix of PD", "Matrix of PD", "Urine", "Urine"),
-                  paramcd = c("AUCIFO", "CMAX", "CLO", "RMAX", "TON", "RENALCL", "RENALCLD"),
+                  ppspec = c(
+                    "Plasma", "Plasma", "Plasma", "Matrix of PD", "Matrix of PD",
+                    "Urine", "Urine", "Urine", "Urine"
+                  ),
+                  paramcd = c(
+                    "AUCIFO", "CMAX", "CLO", "RMAX", "TON",
+                    "RENALCL", "RENALCLD", "RCAMINT", "RCPCINT"
+                  ),
                   param = c(
                     "AUC Infinity Obs", "Max Conc", "Total CL Obs", "Time of Maximum Response",
-                    "Time to Onset", "Renal CL", "Renal CL Norm by Dose"
+                    "Time to Onset", "Renal CL", "Renal CL Norm by Dose",
+                    "Amt Rec from T1 to T2", "Pct Rec from T1 to T2"
                   ),
-                  paramu = c("day*ug/mL", "ug/mL", "ml/day/kg", "hr", "hr", "L/hr", "L/hr/mg"),
-                  aval_mean = c(200, 30, 5, 10, 3, 0.05, 0.005),
+                  paramu = c("day*ug/mL", "ug/mL", "ml/day/kg", "hr", "hr", "L/hr", "L/hr/mg", "mg", "%"),
+                  aval_mean = c(200, 30, 5, 10, 3, 0.05, 0.005, 1.5613, 15.65),
                   visit_format = "CYCLE",
                   n_days = 2L,
                   seed = NULL,
@@ -97,6 +104,7 @@ radpp <- function(ADSL, # nolint,
     var_values = param_init_list$relvar2,
     related_var = "PARAM"
   ))
+
   # assign related variable values: PARAMxPARAMU are related
   ADPP$AVALU <- as.factor(rel_var( # nolint
     df = ADPP,
@@ -104,6 +112,7 @@ radpp <- function(ADSL, # nolint,
     var_values = unit_init_list$relvar2,
     related_var = "PARAM"
   ))
+
   # derive AVISITN based AVISIT and AVALC based on AVAL
   ADPP <- ADPP %>% # nolint
     dplyr::mutate(AVALC = as.character(.data$AVAL)) %>%
@@ -114,6 +123,11 @@ radpp <- function(ADSL, # nolint,
         TRUE ~ NA_real_
       )
     )
+
+  # derive PPSTINT and PPENINT based on PARAMCD
+  T1_T2 <- data.frame(PARAMCD = c("RCAMINT", "RCAMINT", "RCPCINT", "RCPCINT"), PPSTINT = c("P0H", "P0H", "P0H", "P0H"), PPENINT = c("P12H", "P24H", "P12H", "P24H")) # nolint
+  ADPP <- ADPP %>% # nolint %>%
+    dplyr::left_join(T1_T2, by = c("PARAMCD")) # nolint
 
   ADPP <- ADSL %>% # nolint %>%
     dplyr::inner_join(ADPP, by = c("STUDYID", "USUBJID")) %>% # nolint

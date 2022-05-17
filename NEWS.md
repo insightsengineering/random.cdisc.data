@@ -6,6 +6,7 @@
 
 ### Enhancements
 * Enhanced `radpp` with additional default `PARAM`s.
+* Add new variables `PPSTINT` `PPENINT` to `radpp`.
 
 # random.cdisc.data 0.3.13
 
