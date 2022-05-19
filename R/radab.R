@@ -68,15 +68,15 @@ radab <- function(ADPC, # nolint
   aval_random <- stats::rnorm(nrow(unique(ADAB %>% dplyr::select(USUBJID, VISIT))), mean = 1, sd = 0.2)
   aval_random <- cbind(unique(ADAB %>% dplyr::select(USUBJID, VISIT)), AVAL1 = aval_random)
 
-  ADAB <- ADAB %>% left_join(aval_random, by = c("USUBJID", "VISIT")) # nolint
+  ADAB <- ADAB %>% dplyr::left_join(aval_random, by = c("USUBJID", "VISIT")) # nolint
   ADAB <- ADAB %>% # nolint
     dplyr::mutate(
       AVAL2 = ifelse(AVAL1 >= 1, AVAL1, NA),
-      AVALC = case_when(
+      AVALC = dplyr::case_when(
         !is.na(AVAL2) ~ "POSITIVE",
         is.na(AVAL2) ~ "NEGATIVE"
       ),
-      AVAL = case_when(
+      AVAL = dplyr::case_when(
         (PARAM == "ADA interpreted per sample result" & !is.na(AVAL2)) ~ 1,
         (PARAM == "ADA interpreted per sample result" & is.na(AVAL2)) ~ 0,
         (PARAM == "Antibody titer units" & !is.na(AVAL2)) ~ AVAL2,
@@ -107,7 +107,7 @@ radab <- function(ADPC, # nolint
 
   # retrieve other variables from ADPC
   ADAB <- ADAB %>% # nolint
-    inner_join(ADPC %>% dplyr::select(
+    dplyr::inner_join(ADPC %>% dplyr::select(
       STUDYID,
       USUBJID,
       VISIT,
