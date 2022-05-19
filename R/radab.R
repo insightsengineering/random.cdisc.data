@@ -65,8 +65,8 @@ radab <- function(ADPC, # nolint
     stringsAsFactors = FALSE
   )
 
-  aval_random <- stats::rnorm(nrow(unique(ADAB %>% select(USUBJID, VISIT))), mean = 1, sd = 0.2)
-  aval_random <- cbind(unique(ADAB %>% select(USUBJID, VISIT)), AVAL1 = aval_random)
+  aval_random <- stats::rnorm(nrow(unique(ADAB %>% dplyr::select(USUBJID, VISIT))), mean = 1, sd = 0.2)
+  aval_random <- cbind(unique(ADAB %>% dplyr::select(USUBJID, VISIT)), AVAL1 = aval_random)
 
   ADAB <- ADAB %>% left_join(aval_random, by = c("USUBJID", "VISIT")) # nolint
   ADAB <- ADAB %>% # nolint
@@ -87,7 +87,7 @@ radab <- function(ADPC, # nolint
       ADAPBLFL = "Y",
       ABLFL = "Y"
     ) %>%
-    select(-c(AVAL1, AVAL2))
+    dplyr::select(-c(AVAL1, AVAL2))
 
   # assign related variable values: PARAMxPARAMCD are related
   ADAB$PARAMCD <- as.factor(rel_var( # nolint
@@ -107,7 +107,7 @@ radab <- function(ADPC, # nolint
 
   # retrieve other variables from ADPC
   ADAB <- ADAB %>% # nolint
-    inner_join(ADPC %>% select(
+    inner_join(ADPC %>% dplyr::select(
       STUDYID,
       USUBJID,
       VISIT,
@@ -122,7 +122,7 @@ radab <- function(ADPC, # nolint
       RELTMU
     ) %>%
       unique(), by = c("STUDYID", "USUBJID", "VISIT", "PCTPT")) %>%
-    select(-PCTPT)
+    dplyr::select(-PCTPT)
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADAB <- mutate_na(ds = ADAB, na_vars = na_vars, na_percentage = na_percentage) # nolint
