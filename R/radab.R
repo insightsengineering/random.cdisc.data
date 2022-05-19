@@ -1,12 +1,10 @@
 #' ADA dataset
 #'
 #' @template ADSL_params
-#' @param constants (`character vector`)\cr Constant parameters to be used in the PK
-#' equation for creating analysis values.
-#' @param duration (`numeric`)\cr Duration in number of days.
+#' @param constants (`character vector`)\cr Constant parameters to be used for creating analysis values.
 #' @inheritParams radpc
 #'
-#' @details One record per per study per subject per parameter per time point
+#' @details One record per study per subject per parameter per time point
 #'
 #' @export
 #'
