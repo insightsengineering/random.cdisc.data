@@ -5,6 +5,7 @@
 \title{ADA dataset}
 \usage{
 radab(
+  ADSL,
   ADPC,
   constants = c(D = 100, ka = 0.8, ke = 1),
   paramcd = c("R1800000", "RESULT"),
@@ -17,7 +18,15 @@ radab(
 )
 }
 \arguments{
+\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+
+\item{ADPC}{(`character`)\cr parameter code.}
+
 \item{constants}{(`character vector`)\cr Constant parameters to be used for creating analysis values.}
+
+\item{paramcd}{(`character`)\cr parameter code.}
+
+\item{param}{(`character`)\cr parameters.}
 
 \item{avalu}{(`string`)\cr Analysis value unit value}
 
@@ -35,8 +44,6 @@ radab(
 
 \item{cached}{boolean whether the cached ADSL data \code{cadsl} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
-
-\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
 }
 \description{
 ADA dataset
@@ -48,5 +55,5 @@ One record per study per subject per parameter per time point
 library(random.cdisc.data)
 ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 ADPC <- radpc(ADSL, seed = 2)
-ADAB <- radab(ADPC, seed = 2)
+ADAB <- radab(ADSL, ADPC, seed = 2)
 }

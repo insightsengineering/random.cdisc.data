@@ -3,6 +3,9 @@
 #' @template ADSL_params
 #' @param constants (`character vector`)\cr Constant parameters to be used for creating analysis values.
 #' @inheritParams radpc
+#' @param ADPC (`character`)\cr parameter code.
+#' @param paramcd (`character`)\cr parameter code.
+#' @param param (`character`)\cr parameters.
 #'
 #' @details One record per study per subject per parameter per time point
 #'
@@ -12,8 +15,9 @@
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' ADPC <- radpc(ADSL, seed = 2)
-#' ADAB <- radab(ADPC, seed = 2)
-radab <- function(ADPC, # nolint
+#' ADAB <- radab(ADSL, ADPC, seed = 2)
+radab <- function(ADSL, # nolint
+                  ADPC, # nolint
                   constants = c(D = 100, ka = 0.8, ke = 1),
                   paramcd = c(
                     "R1800000", "RESULT"
@@ -56,11 +60,11 @@ radab <- function(ADPC, # nolint
   unit_init_list <- relvar_init(param, avalu)
 
   ADAB <- expand.grid( # nolint
-    STUDYID = unique(ADPC$STUDYID),
-    USUBJID = unique(ADPC$USUBJID),
+    STUDYID = unique(ADSL$STUDYID),
+    USUBJID = unique(ADSL$USUBJID),
     VISIT = unique(ADPC$VISIT),
     PARAM = as.factor(param_init_list$relvar1),
-    PARCAT1 = paste(unique(ADPC$ARM), "Antibody"),
+    PARCAT1 = paste(unique(ADSL$ARM), "Antibody"),
     PCTPT = "Predose",
     stringsAsFactors = FALSE
   )

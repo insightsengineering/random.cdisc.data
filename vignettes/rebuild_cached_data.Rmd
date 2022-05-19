@@ -48,7 +48,7 @@ cadlb_new <- radlb(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation
 cadmh_new <- radmh(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadpc_new <- radpc(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadpp_new <- radpp(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadab_new <- radab(cadpc_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
+cadab_new <- radab(cadsl_new, cadpc_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadqs_new <- radqs(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadrs_new <- radrs(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadtte_new <- radtte(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
