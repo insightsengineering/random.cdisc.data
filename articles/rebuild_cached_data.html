@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">random.cdisc.data</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13.9005</span>
       </span>
     </div>
 
@@ -63,15 +63,6 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="..//index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -148,6 +139,7 @@ process.</p>
 <span class="va">cadmh_new</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/radmh.html">radmh</a></span><span class="op">(</span><span class="va">cadsl_new</span>, seed <span class="op">=</span> <span class="fl">1</span>, na_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">`attr&lt;-`</span><span class="op">(</span><span class="st">"creation date"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">cadpc_new</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/radpc.html">radpc</a></span><span class="op">(</span><span class="va">cadsl_new</span>, seed <span class="op">=</span> <span class="fl">1</span>, na_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">`attr&lt;-`</span><span class="op">(</span><span class="st">"creation date"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">cadpp_new</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/radpp.html">radpp</a></span><span class="op">(</span><span class="va">cadsl_new</span>, seed <span class="op">=</span> <span class="fl">1</span>, na_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">`attr&lt;-`</span><span class="op">(</span><span class="st">"creation date"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="va">cadab_new</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/radab.html">radab</a></span><span class="op">(</span><span class="va">cadsl_new</span>, <span class="va">cadpc_new</span>, seed <span class="op">=</span> <span class="fl">1</span>, na_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">`attr&lt;-`</span><span class="op">(</span><span class="st">"creation date"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">cadqs_new</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/radqs.html">radqs</a></span><span class="op">(</span><span class="va">cadsl_new</span>, seed <span class="op">=</span> <span class="fl">1</span>, na_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">`attr&lt;-`</span><span class="op">(</span><span class="st">"creation date"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">cadrs_new</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/radrs.html">radrs</a></span><span class="op">(</span><span class="va">cadsl_new</span>, seed <span class="op">=</span> <span class="fl">1</span>, na_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">`attr&lt;-`</span><span class="op">(</span><span class="st">"creation date"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">cadtte_new</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/radtte.html">radtte</a></span><span class="op">(</span><span class="va">cadsl_new</span>, seed <span class="op">=</span> <span class="fl">1</span>, na_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">`attr&lt;-`</span><span class="op">(</span><span class="st">"creation date"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
@@ -160,6 +152,7 @@ process.</p>
 
 <span class="co"># use diffdf package: diffdf() to compare cached vs new and review/verify differences</span>
 <span class="fu">diffdf</span><span class="op">(</span><span class="va">cadsl</span>, <span class="va">cadsl_new</span><span class="op">)</span>
+<span class="fu">diffdf</span><span class="op">(</span><span class="va">cadab</span>, <span class="va">cadab_new</span><span class="op">)</span>
 <span class="fu">diffdf</span><span class="op">(</span><span class="va">cadae</span>, <span class="va">cadae_new</span><span class="op">)</span>
 <span class="fu">diffdf</span><span class="op">(</span><span class="va">cadaette</span>, <span class="va">cadaette_new</span><span class="op">)</span>
 <span class="fu">diffdf</span><span class="op">(</span><span class="va">cadcm</span>, <span class="va">cadcm_new</span><span class="op">)</span>
@@ -180,6 +173,7 @@ process.</p>
 
 <span class="co"># when diff reflects changes accurately then create environment objects to save out to cache</span>
 <span class="va">cadsl</span> <span class="op">&lt;-</span> <span class="va">cadsl_new</span>
+<span class="va">cadab</span> <span class="op">&lt;-</span> <span class="va">cadab_new</span>
 <span class="va">cadae</span> <span class="op">&lt;-</span> <span class="va">cadae_new</span>
 <span class="va">cadaette</span> <span class="op">&lt;-</span> <span class="va">cadaette_new</span>
 <span class="va">cadcm</span> <span class="op">&lt;-</span> <span class="va">cadcm_new</span>
@@ -200,6 +194,7 @@ process.</p>
 
 <span class="co"># update cache</span>
 <span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">cadsl</span>, file <span class="op">=</span> <span class="st">"data/cadsl.RData"</span>, compress <span class="op">=</span> <span class="st">"xz"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">cadab</span>, file <span class="op">=</span> <span class="st">"data/cadab.RData"</span>, compress <span class="op">=</span> <span class="st">"xz"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">cadae</span>, file <span class="op">=</span> <span class="st">"data/cadae.RData"</span>, compress <span class="op">=</span> <span class="st">"xz"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">cadaette</span>, file <span class="op">=</span> <span class="st">"data/cadaette.RData"</span>, compress <span class="op">=</span> <span class="st">"xz"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">cadcm</span>, file <span class="op">=</span> <span class="st">"data/cadcm.RData"</span>, compress <span class="op">=</span> <span class="st">"xz"</span><span class="op">)</span>
