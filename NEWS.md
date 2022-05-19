@@ -1,5 +1,8 @@
 # random.cdisc.data 0.3.13.9005
 
+### New features
+* Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (`radab`).
+
 ### Bug fix
 * Update all the NA and "" to "" in `ADAE$ANL01FL`.
 * Updated `DVDECOD` and `DVSCAT` values in ADDV Dataset (`raddv`, `caddv`).

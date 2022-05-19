@@ -48,6 +48,7 @@ cadlb_new <- radlb(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation
 cadmh_new <- radmh(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadpc_new <- radpc(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadpp_new <- radpp(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
+cadab_new <- radab(cadsl_new, cadpc_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadqs_new <- radqs(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadrs_new <- radrs(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadtte_new <- radtte(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
@@ -60,6 +61,7 @@ cadhy_new <- radhy(cadsl_new, seed = 1) %>% `attr<-`("creation date", Sys.Date()
 
 # use diffdf package: diffdf() to compare cached vs new and review/verify differences
 diffdf(cadsl, cadsl_new)
+diffdf(cadab, cadab_new)
 diffdf(cadae, cadae_new)
 diffdf(cadaette, cadaette_new)
 diffdf(cadcm, cadcm_new)
@@ -80,6 +82,7 @@ diffdf(cadhy, cadhy_new)
 
 # when diff reflects changes accurately then create environment objects to save out to cache
 cadsl <- cadsl_new
+cadab <- cadab_new
 cadae <- cadae_new
 cadaette <- cadaette_new
 cadcm <- cadcm_new
@@ -100,6 +103,7 @@ cadhy <- cadhy_new
 
 # update cache
 save(cadsl, file = "data/cadsl.RData", compress = "xz")
+save(cadab, file = "data/cadab.RData", compress = "xz")
 save(cadae, file = "data/cadae.RData", compress = "xz")
 save(cadaette, file = "data/cadaette.RData", compress = "xz")
 save(cadcm, file = "data/cadcm.RData", compress = "xz")
