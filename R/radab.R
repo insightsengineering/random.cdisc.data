@@ -1,6 +1,5 @@
 #' ADA dataset
 #'
-#' @template ADSL_params
 #' @param constants (`character vector`)\cr Constant parameters to be used for creating analysis values.
 #' @inheritParams radpc
 #' @param ADPC (`character`)\cr parameter code.
