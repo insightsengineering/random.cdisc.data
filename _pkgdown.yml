@@ -16,6 +16,7 @@ reference:
     desc: These functions generate CDISC domains containing randomly assigned data
     contents:
       - radae
+      - radab
       - radaette
       - radcm
       - raddv
@@ -40,6 +41,7 @@ reference:
           Note you can also use the `cached` option in thre respection `r*` function to retrieve these cached datasets.
     contents:
       - cadae
+      - cadab
       - cadaette
       - cadcm
       - caddv
