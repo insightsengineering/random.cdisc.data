@@ -17,7 +17,6 @@
 #' ADAB <- radab(ADPC, seed = 2)
 radab <- function(ADPC, # nolint
                   constants = c(D = 100, ka = 0.8, ke = 1),
-                  # duration = 2,
                   paramcd = c(
                     "R1800000", "RESULT"
                   ),
@@ -38,7 +37,6 @@ radab <- function(ADPC, # nolint
 
   checkmate::assert_data_frame(ADPC)
   checkmate::assert_subset(names(constants), c("D", "ka", "ke"))
-  # checkmate::assert_numeric(x = duration, max.len = 1)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
   checkmate::assert_list(na_vars)
@@ -72,7 +70,7 @@ radab <- function(ADPC, # nolint
   aval_random <- stats::rnorm(nrow(unique(ADAB %>% select(USUBJID, VISIT))), mean = 1, sd = 0.2)
   aval_random <- cbind(unique(ADAB %>% select(USUBJID, VISIT)), AVAL1 = aval_random)
 
-  ADAB <- ADAB %>% left_join(aval_random, by = c("USUBJID", "VISIT"))
+  ADAB <- ADAB %>% left_join(aval_random, by = c("USUBJID", "VISIT")) # nolint
   ADAB <- ADAB %>% # nolint
     dplyr::mutate(
       AVAL2 = ifelse(AVAL1 >= 1, AVAL1, NA),
@@ -90,7 +88,8 @@ radab <- function(ADPC, # nolint
       ADABLFL = "Y",
       ADAPBLFL = "Y",
       ABLFL = "Y"
-    ) %>% select(-c(AVAL1, AVAL2))
+    ) %>%
+    select(-c(AVAL1, AVAL2))
 
   # assign related variable values: PARAMxPARAMCD are related
   ADAB$PARAMCD <- as.factor(rel_var( # nolint
@@ -109,7 +108,7 @@ radab <- function(ADPC, # nolint
   ))
 
   # retrieve other variables from ADPC
-  ADAB <- ADAB %>%
+  ADAB <- ADAB %>% # nolint
     inner_join(ADPC %>% select(
       STUDYID,
       USUBJID,
@@ -123,7 +122,8 @@ radab <- function(ADPC, # nolint
       ARELTM2,
       NRELTM2,
       RELTMU
-    ) %>% unique(), by = c("STUDYID", "USUBJID", "VISIT", "PCTPT")) %>%
+    ) %>%
+      unique(), by = c("STUDYID", "USUBJID", "VISIT", "PCTPT")) %>%
     select(-PCTPT)
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
