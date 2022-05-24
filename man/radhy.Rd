@@ -14,14 +14,16 @@ radhy(
     "TBILI > 2 times ULN and ALKPH <= 2 times ULN and AST value category",
     "TBILI > 2 times ULN and ALKPH <= 5 times ULN and ALT value category",
     "TBILI > 2 times ULN and ALKPH <= 5 times ULN and AST value category",
-    "TBILI <= 2 times ULN and two consecutive elevations of ALT in relation to ULN",     
-    "TBILI > 2 times ULN and two consecutive elevations of AST in relation to ULN",
+    "TBILI <= 2 times ULN and two consecutive elevations of ALT in relation to ULN", 
+   
+     "TBILI > 2 times ULN and two consecutive elevations of AST in relation to ULN",
     "TBILI <= 2 times ULN and two consecutive elevations of AST in relation to ULN",
     "TBILI > 2 times ULN and two consecutive elevations of ALT in relation to ULN",
     "TBILI > 2 times ULN and two consecutive elevations of ALT in relation to Baseline",
     "TBILI <= 2 times ULN and two consecutive elevations of ALT in relation to Baseline",
-    "TBILI > 2 times ULN and two consecutive elevations of AST in relation to Baseline", 
-       
+    "TBILI > 2 times ULN and two consecutive elevations of AST in relation to Baseline",
+    
+    
     "TBILI <= 2 times ULN and two consecutive elevations of AST in relation to Baseline",
     "ALT > 3 times ULN by Period", "AST > 3 times ULN by Period",
     "ALT or AST > 3 times ULN by Period", "ALT > 3 times Baseline by Period",
