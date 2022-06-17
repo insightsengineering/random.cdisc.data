@@ -20,7 +20,7 @@
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' ADPP <- radpp(ADSL, seed = 2)
 radpp <- function(ADSL, # nolint,
-                  ppcat = c("Plasma Drug X", "Plasma Drug Y"),
+                  ppcat = c("Plasma Drug X", "Plasma Drug Y", "Metabolite Drug X", "Metabolite Drug Y"),
                   ppspec = c(
                     "Plasma", "Plasma", "Plasma", "Matrix of PD", "Matrix of PD",
                     "Urine", "Urine", "Urine", "Urine"
@@ -131,7 +131,8 @@ radpp <- function(ADSL, # nolint,
 
   ADPP <- ADSL %>% # nolint %>%
     dplyr::inner_join(ADPP, by = c("STUDYID", "USUBJID")) %>% # nolint
-    dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" & .data$PPCAT == "Plasma Drug Y"))
+    dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" & .data$PPCAT == "Plasma Drug Y")) %>%
+    dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" & .data$PPCAT == "Metabolite Drug Y"))
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADPP <- mutate_na(ds = ADPP, na_vars = na_vars, na_percentage = na_percentage) # nolint
