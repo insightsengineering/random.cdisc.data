@@ -18,6 +18,8 @@ The random datasets available to create are:
 - Time-to-Event Dataset (`radtte`)
 - Vital Signs Analysis Dataset (`radvs`)
 - Subcategory Analysis Dataset (`radsub`)
+- Anti-drug Antibody Analysis Dataset (`radab`)
+- Pharmacokinetics Parameters Analysis Dataset (`radpp`)
 
   Please note that changes to random data functions requires rebuild of cached data. Please read the "Rebuilding Random CDISC Cached Data" article.
 
@@ -64,7 +66,6 @@ Please refer to excellent Github tutorials on [connecting to Github using SSH](h
 
    ```sh
    $ Rscript -e 'install.packages("random.cdisc.data_0.9.5.9000.tar.gz")'
-
 
 ## Acknowledgment
 
