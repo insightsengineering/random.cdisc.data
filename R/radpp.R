@@ -131,7 +131,8 @@ radpp <- function(ADSL, # nolint,
 
   ADPP <- ADSL %>% # nolint %>%
     dplyr::inner_join(ADPP, by = c("STUDYID", "USUBJID")) %>% # nolint
-    dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" & (.data$PPCAT == "Plasma Drug Y" | .data$PPCAT == "Metabolite Drug Y")))
+    dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" &
+      (.data$PPCAT == "Plasma Drug Y" | .data$PPCAT == "Metabolite Drug Y")))
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADPP <- mutate_na(ds = ADPP, na_vars = na_vars, na_percentage = na_percentage) # nolint
