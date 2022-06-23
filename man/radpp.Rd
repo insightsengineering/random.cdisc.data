@@ -6,7 +6,7 @@
 \usage{
 radpp(
   ADSL,
-  ppcat = c("Plasma Drug X", "Plasma Drug Y"),
+  ppcat = c("Plasma Drug X", "Plasma Drug Y", "Metabolite Drug X", "Metabolite Drug Y"),
   ppspec = c("Plasma", "Plasma", "Plasma", "Matrix of PD", "Matrix of PD", "Urine",
     "Urine", "Urine", "Urine"),
   paramcd = c("AUCIFO", "CMAX", "CLO", "RMAX", "TON", "RENALCL", "RENALCLD", "RCAMINT",
