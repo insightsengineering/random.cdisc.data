@@ -124,7 +124,7 @@ radpp <- function(ADSL, # nolint,
       )
     )
 
-  #derive REGIMEN variable # nolint
+  # derive REGIMEN variable # nolint
   ADPP <- ADPP %>% dplyr::mutate(REGIMEN = "BID") # nolint
 
   # derive PPSTINT and PPENINT based on PARAMCD
