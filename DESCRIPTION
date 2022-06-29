@@ -28,7 +28,8 @@ Suggests:
     diffdf,
     knitr,
     rmarkdown,
-    testthat (>= 0.2)
+    testthat (>= 0.2),
+    diffdf
 VignetteBuilder:
     knitr
 Encoding: UTF-8

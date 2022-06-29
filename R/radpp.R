@@ -141,6 +141,14 @@ radpp <- function(ADSL, # nolint,
     ADPP <- mutate_na(ds = ADPP, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
+
+  # derive PKARMCD column for creating more cohorts
+  ADPP <- ADPP %>% # nolint
+    dplyr::mutate(PKARMCD = factor(1 + (seq(nrow(ADPP)) - 1) %/% (nrow(ADPP) / 10), labels = c(
+      "Drug A", "Drug B", "Drug C", "Drug D", "Drug E", "Drug F", "Drug G", "Drug H",
+      "Drug I", "Drug J"
+    )))
+
   ADPP <- apply_metadata(ADPP, "metadata/ADPP.yml") # nolint
   return(ADPP)
 }

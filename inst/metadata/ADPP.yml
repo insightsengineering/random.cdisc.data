@@ -39,4 +39,6 @@ variables:
  REGIMEN:
     label: Regimen
     type: factor
-
+ PKARMCD:
+    label: PK Arm Code
+    type: factor
