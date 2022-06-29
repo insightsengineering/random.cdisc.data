@@ -36,6 +36,9 @@ variables:
  AVALU:
     label: Analysis Value Unit
     type: factor
+ REGIMEN:
+    label: Regimen
+    type: factor
  PKARMCD:
     label: PK Arm Code
     type: factor
