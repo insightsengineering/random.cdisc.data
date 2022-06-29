@@ -1,7 +1,7 @@
 Type: Package
 Package: random.cdisc.data
 Title: Create Random SDTM and ADAM Datasets
-Version: 0.3.13.9011
+Version: 0.3.13.9012
 Date: 2021-10-13
 Authors@R: c(
     person("Pawel", "Rucki", , "pawel.rucki@roche.com", role = c("aut", "cre")),
@@ -26,10 +26,10 @@ Imports:
     yaml
 Suggests:
     diffdf,
+    diffdf,
     knitr,
     rmarkdown,
-    testthat (>= 0.2),
-    diffdf
+    testthat (>= 0.2)
 VignetteBuilder:
     knitr
 Encoding: UTF-8
