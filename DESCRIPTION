@@ -25,6 +25,7 @@ Imports:
     tidyr,
     yaml
 Suggests:
+    diffdf,
     knitr,
     rmarkdown,
     testthat (>= 0.2)
