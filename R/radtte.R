@@ -171,17 +171,19 @@ radtte <- function(ADSL, # nolint
     )
 
   # adding adverse event counts and log follow-up time
-  ADTTE <- ADTTE %>% #nolint
-    dplyr::group_by(.data$USUBJID) %>%
-    dplyr::slice(c(1:dplyr::n(), dplyr::n()))%>%
-    dplyr::mutate(PARAMCD = as.factor(ifelse(duplicated(.data$PARAMCD), "TNE", as.character(.data$PARAMCD))),
-           PARAM = as.factor(ifelse(duplicated(.data$PARAM), "Total Number of Exacerbations", as.character(.data$PARAM))),
-           AVAL = replace(.data$AVAL, duplicated(.data$AVAL), stats::rpois(1,3)),
-           AVALU = as.factor(ifelse(.data$PARAMCD == "TNE", "COUNT", as.character(.data$AVALU))),
-           LOGFUTM = ifelse(.data$PARAMCD == "TNE", log(stats::rexp(1, 3)), NA),
-           dplyr::across(c(.data$ASEQ, .data$TTESEQ, .data$ADY, .data$ADTM, .data$EVNTDESC),
-                  ~ ifelse(.data$PARAMCD == "TNE", NA, .x)))%>%
-    dplyr::ungroup()%>%
+  ADTTE <- dplyr::bind_rows(ADTTE, data.frame(ADTTE %>% dplyr::group_by(.data$USUBJID) %>% # nolint
+    dplyr::slice_head(n = 1) %>%
+    dplyr::mutate(
+      PARAMCD = "TNE",
+      PARAM = "Total Number of Exacerbations",
+      AVAL = stats::rpois(1, 3),
+      AVALU = "COUNT",
+      LOGFUTM = log(stats::rexp(1, rate = 3)),
+      dplyr::across(
+        c(.data$ASEQ, .data$TTESEQ, .data$ADY, .data$ADTM, .data$EVNTDESC),
+        ~ ifelse(.data$PARAMCD == "TNE", NA, .x)
+      )
+    ))) %>%
     dplyr::arrange(
       .data$STUDYID,
       .data$USUBJID,
