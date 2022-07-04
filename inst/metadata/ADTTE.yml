@@ -35,3 +35,6 @@ variables:
   CNSDTDSC:
     label: Censor Date Description
     type: character
+  LOGFUTM:
+    label: Log Follow Up Time
+    type: numeric
