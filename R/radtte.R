@@ -178,7 +178,7 @@ radtte <- function(ADSL, # nolint
       PARAM = "Total Number of Exacerbations",
       AVAL = stats::rpois(1, 3),
       AVALU = "COUNT",
-      LOGFUTM = log(stats::rexp(1, rate = 3)),
+      lgTMATRSK = log(stats::rexp(1, rate = 3)),
       dplyr::across(
         c(.data$ASEQ, .data$TTESEQ, .data$ADY, .data$ADTM, .data$EVNTDESC),
         ~ ifelse(.data$PARAMCD == "TNE", NA, .x)
