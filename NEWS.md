@@ -10,8 +10,6 @@
 ### Enhancements
 * Enhanced `radpp` with additional default `PARAM`s.
 * Add new variables `PPSTINT` `PPENINT` `REGIMEN` `PKARMCD` to `radpp`.
-* Add new variable `lgTMATRSK` to `adtte`.
-* Add `TNE` to `PARAMCD` and `Total Number of Exacerbations` to `PARAM` in `adtte`.
 
 # random.cdisc.data 0.3.13
 
