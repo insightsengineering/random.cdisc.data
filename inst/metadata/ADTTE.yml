@@ -35,3 +35,6 @@ variables:
   CNSDTDSC:
     label: Censor Date Description
     type: character
+  lgTMATRSK:
+    label: Log Time At Risk
+    type: numeric
