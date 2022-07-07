@@ -130,7 +130,7 @@ radab <- function(ADSL, # nolint
 
   # mutate time from dose variables from ADPC to convert into Days
   ADAB <- ADAB %>% dplyr::mutate_at(c("ARELTM1", "NRELTM1", "ARELTM2", "NRELTM2"), ~ . / 24) # nolint
-  ADAB <- ADAB %>% dplyr::mutate(
+  ADAB <- ADAB %>% dplyr::mutate( # nolint
     RELTMU = "day", # nolint
     ADABLFL = "Y",
     ADAPBLFL = ifelse(ACTARM == "A: Drug X" | ACTARM == "C: Combination", "Y",
