@@ -65,7 +65,6 @@ radab <- function(ADSL, # nolint
     PARAM = as.factor(param_init_list$relvar1),
     PARCAT1 = "A: Drug X Antibody",
     PCTPT = unique(ADPC$PCTPT),
-    #PCTPT = "Predose",
     stringsAsFactors = FALSE
   )
 
@@ -129,13 +128,16 @@ radab <- function(ADSL, # nolint
     ADAB <- mutate_na(ds = ADAB, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
-  #mutate time from dose variables from ADPC to convert into Days
-  ADAB <- ADAB %>% dplyr::mutate_at(c("ARELTM1", "NRELTM1", "ARELTM2", "NRELTM2"), ~ ./24) #nolint
-  ADAB <- ADAB %>% dplyr::mutate(RELTMU = "day", #nolint
-                                 ADABLFL = "Y",
-                                 ADAPBLFL = ifelse(ACTARM == "A: Drug X" | ACTARM == "C: Combination", "Y",
-                                                  NA),
-                                 ABLFL = ifelse(NRELTM1 == 0, "Y", NA))
+  # mutate time from dose variables from ADPC to convert into Days
+  ADAB <- ADAB %>% dplyr::mutate_at(c("ARELTM1", "NRELTM1", "ARELTM2", "NRELTM2"), ~ . / 24) # nolint
+  ADAB <- ADAB %>% dplyr::mutate(
+    RELTMU = "day", # nolint
+    ADABLFL = "Y",
+    ADAPBLFL = ifelse(ACTARM == "A: Drug X" | ACTARM == "C: Combination", "Y",
+      NA
+    ),
+    ABLFL = ifelse(NRELTM1 == 0, "Y", NA)
+  )
 
 
   ADAB <- apply_metadata(ADAB, "metadata/ADAB.yml") # nolint
