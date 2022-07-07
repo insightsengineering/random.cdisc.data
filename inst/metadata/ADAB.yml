@@ -39,3 +39,6 @@ variables:
  ABLFL:
     label: Baseline Record Flag
     type: factor
+ RELTMU:
+    label: Relative Actual/Nominal Time Units
+    type: factor

@@ -6,10 +6,12 @@
 ### Bug fix
 * Update all the NA and "" to "" in `ADAE$ANL01FL`.
 * Updated `DVDECOD` and `DVSCAT` values in ADDV Dataset (`raddv`, `caddv`).
+* Included post-baseline visits to `radab`
 
 ### Enhancements
 * Enhanced `radpp` with additional default `PARAM`s.
 * Add new variables `PPSTINT` `PPENINT` `REGIMEN` `PKARMCD` to `radpp`.
+* Enhanced `radab` variables `ADAPBLFL`, `ABLFL`, `ADABLFL`, `PARCAT1`, `RELTMU`
 
 # random.cdisc.data 0.3.13
 
