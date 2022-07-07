@@ -170,6 +170,28 @@ radtte <- function(ADSL, # nolint
       .data$TTESEQ
     )
 
+  # adding adverse event counts and log follow-up time
+  ADTTE <- dplyr::bind_rows(ADTTE, data.frame(ADTTE %>% dplyr::group_by(.data$USUBJID) %>% # nolint
+    dplyr::slice_head(n = 1) %>%
+    dplyr::mutate(
+      PARAMCD = "TNE",
+      PARAM = "Total Number of Exacerbations",
+      AVAL = stats::rpois(1, 3),
+      AVALU = "COUNT",
+      lgTMATRSK = log(stats::rexp(1, rate = 3)),
+      dplyr::across(
+        c(.data$ASEQ, .data$TTESEQ, .data$ADY, .data$ADTM, .data$EVNTDESC),
+        ~ ifelse(.data$PARAMCD == "TNE", NA, .x)
+      )
+    ))) %>%
+    dplyr::arrange(
+      .data$STUDYID,
+      .data$USUBJID,
+      .data$PARAMCD,
+      .data$ADTM,
+      .data$TTESEQ
+    )
+
   # apply metadata
   ADTTE <- apply_metadata(ADTTE, "metadata/ADTTE.yml") # nolint
 
