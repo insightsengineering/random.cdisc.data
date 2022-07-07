@@ -40,3 +40,5 @@
 coverage.*
 ^\.markdownlint\.json$
 .pre-commit-config.yaml
+SECURITY.md
+^man-roxygen$
