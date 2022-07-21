@@ -19,8 +19,7 @@ radab <- function(ADSL, # nolint
                   ADPC, # nolint
                   constants = c(D = 100, ka = 0.8, ke = 1),
                   paramcd = c(
-                    "R1800000", "RESULT", "INDUCD",
-                    "PERSADA", "TRANADA", "TIMADA", "ADADUR"
+                    "R1800000", "RESULT", "INDUCD", "PERSADA", "TRANADA", "TIMADA", "ADADUR"
                   ),
                   param = c(
                     "Antibody titer units", "ADA interpreted per sample result",
