@@ -19,12 +19,15 @@ radab <- function(ADSL, # nolint
                   ADPC, # nolint
                   constants = c(D = 100, ka = 0.8, ke = 1),
                   paramcd = c(
-                    "R1800000", "RESULT"
+                    "R1800000", "RESULT", "INDUCD",
+                    "PERSADA", "TRANADA", "TIMADA", "ADADUR"
                   ),
                   param = c(
-                    "Antibody titer units", "ADA interpreted per sample result"
+                    "Antibody titer units", "ADA interpreted per sample result",
+                    "Treatment induced ADA (Y/N)", "Persistent ADA (Y/N)", "Transient ADA (Y/N)",
+                    "Time to onset of ADA (Weeks)", "ADA Duration (Weeks)"
                   ),
-                  avalu = c("titer", ""),
+                  avalu = c("titer", "", "", "", "", "week", "week"),
                   seed = NULL,
                   na_percentage = 0,
                   na_vars = list(
@@ -41,14 +44,9 @@ radab <- function(ADSL, # nolint
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
   checkmate::assert_list(na_vars)
-
-
   checkmate::assert_character(paramcd)
-  checkmate::assert_character(param)
-  checkmate::assert_character(avalu)
-  checkmate::assertTRUE(length(paramcd) == length(param))
-  checkmate::assertTRUE(length(paramcd) == length(avalu))
-
+  checkmate::assert_character(param, len = length(paramcd))
+  checkmate::assert_character(avalu, len = length(paramcd))
 
   if (!is.null(seed)) {
     set.seed(seed)
@@ -139,6 +137,59 @@ radab <- function(ADSL, # nolint
     ABLFL = ifelse(NRELTM1 == 0, "Y", NA)
   )
 
+  # create flags to derive subject-level variables
+  adab_subj <- ADAB %>%
+    dplyr::filter(PARAM == "ADA interpreted per sample result") %>%
+    dplyr::group_by(USUBJID) %>%
+    dplyr::mutate(
+      pos_bl = any(!is.na(ABLFL) & AVALC == "POSITIVE"),
+      any_pos_postbl = any(is.na(ABLFL) & AVALC == "POSITIVE"),
+      pos_last_postbl = any(NRELTM1 == max(NRELTM1) & AVALC == "POSITIVE")
+    )
+  pos_tots <- adab_subj %>%
+    dplyr::summarise(
+      n_pos = sum(AVALC == "POSITIVE"),
+      onset_ada = if (any(AVALC == "POSITIVE")) min(NRELTM1[AVALC == "POSITIVE"]) else NA,
+      last_ada = if (any(AVALC == "POSITIVE")) max(NRELTM1[AVALC == "POSITIVE"]) else NA
+    )
+  adab_subj <- adab_subj %>%
+    dplyr::left_join(pos_tots, by = "USUBJID") %>%
+    dplyr::select(
+      USUBJID, NRELTM1, pos_bl, any_pos_postbl,
+      pos_last_postbl, n_pos, onset_ada, last_ada
+    )
+
+  # add flags to ADAB dataset
+  ADAB <- ADAB %>% # nolint
+    dplyr::left_join(adab_subj, by = c("USUBJID", "NRELTM1"))
+
+  # derive subject-level variables
+  ADAB[!(ADAB$PARAM %in% c("ADA interpreted per sample result", "Antibody titer units")), ] <- ADAB %>% # nolint
+    dplyr::filter(!(PARAM %in% c("ADA interpreted per sample result", "Antibody titer units"))) %>%
+    dplyr::mutate(
+      AVALC = dplyr::case_when(
+        (PARAM == "Treatment induced ADA (Y/N)" & !pos_bl & any_pos_postbl) ~ "Y",
+        (PARAM == "Persistent ADA (Y/N)" & pos_last_postbl) ~ "Y",
+        (PARAM == "Transient ADA (Y/N)" &
+          (n_pos - ifelse(pos_bl, 1, 0) - ifelse(pos_last_postbl, 1, 0) == 1 | n_pos > 1)) ~ "Y",
+        (PARAM == "Time to onset of ADA (Weeks)") ~ as.character(onset_ada / 7),
+        (PARAM == "ADA Duration (Weeks)") ~ as.character((last_ada - onset_ada) / 7),
+        TRUE ~ "N"
+      ),
+      AVAL = dplyr::case_when(
+        (PARAM == "Treatment induced ADA (Y/N)" & !pos_bl & any_pos_postbl) ~ 1,
+        (PARAM == "Persistent ADA (Y/N)" & pos_last_postbl) ~ 1,
+        (PARAM == "Transient ADA (Y/N)" &
+          (n_pos - ifelse(pos_bl, 1, 0) - ifelse(pos_last_postbl, 1, 0) == 1 | n_pos > 1)) ~ 1,
+        (PARAM == "Time to onset of ADA (Weeks)") ~ onset_ada / 7,
+        (PARAM == "ADA Duration (Weeks)") ~ (last_ada - onset_ada) / 7,
+        TRUE ~ 0
+      )
+    )
+
+  # remove intermediate flag variables from ADAB
+  ADAB <- ADAB %>% # nolint
+    dplyr::select(-c(pos_bl, any_pos_postbl, pos_last_postbl, n_pos, onset_ada, last_ada))
 
   ADAB <- apply_metadata(ADAB, "metadata/ADAB.yml") # nolint
 }
