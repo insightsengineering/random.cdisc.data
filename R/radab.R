@@ -19,14 +19,18 @@ radab <- function(ADSL, # nolint
                   ADPC, # nolint
                   constants = c(D = 100, ka = 0.8, ke = 1),
                   paramcd = c(
-                    "R1800000", "RESULT", "INDUCD", "PERSADA", "TRANADA", "TIMADA", "ADADUR"
+                    "R1800000", "RESULT1", "R1800001", "RESULT2", "INDUCD1", "ENHANC1",
+                    "PERSADA1", "TRANADA1", "TIMADA1", "ADADUR1", "ADASTAT2"
                   ),
                   param = c(
                     "Antibody titer units", "ADA interpreted per sample result",
-                    "Treatment induced ADA (Y/N)", "Persistent ADA (Y/N)", "Transient ADA (Y/N)",
-                    "Time to onset of ADA (Weeks)", "ADA Duration (Weeks)"
+                    "Neutralizing Antibody titer units", "NAB interpreted per sample result",
+                    "Treatment induced ADA", "Treatment enhanced ADA",
+                    "Persistent ADA", "Transient ADA",
+                    "Time to onset of ADA", "ADA Duration",
+                    "NAB Status of a patient"
                   ),
-                  avalu = c("titer", "", "", "", "", "week", "week"),
+                  avalu = c("titer", "titer", "", "", "", "", "", "", "weeks", "weeks", ""),
                   seed = NULL,
                   na_percentage = 0,
                   na_vars = list(
@@ -65,6 +69,9 @@ radab <- function(ADSL, # nolint
     stringsAsFactors = FALSE
   )
 
+  visit_lvl_params <- c(
+    "Antibody titer units", "Neutralizing Antibody titer units",
+    "ADA interpreted per sample result", "NAB interpreted per sample result")
   aval_random <- stats::rnorm(nrow(unique(ADAB %>% dplyr::select(USUBJID, VISIT))), mean = 1, sd = 0.2)
   aval_random <- cbind(unique(ADAB %>% dplyr::select(USUBJID, VISIT)), AVAL1 = aval_random)
 
@@ -77,9 +84,9 @@ radab <- function(ADSL, # nolint
         is.na(AVAL2) ~ "NEGATIVE"
       ),
       AVAL = dplyr::case_when(
-        (PARAM == "ADA interpreted per sample result" & !is.na(AVAL2)) ~ 1,
-        (PARAM == "ADA interpreted per sample result" & is.na(AVAL2)) ~ 0,
-        (PARAM == "Antibody titer units" & !is.na(AVAL2)) ~ AVAL2,
+        (PARAM %in% visit_lvl_params[3:4] & !is.na(AVAL2)) ~ 1,
+        (PARAM %in% visit_lvl_params[3:4] & is.na(AVAL2)) ~ 0,
+        (PARAM %in% visit_lvl_params[1:2] & !is.na(AVAL2)) ~ AVAL2,
         TRUE ~ as.numeric(NA)
       ),
       ISTPT = "Predose"
@@ -136,59 +143,85 @@ radab <- function(ADSL, # nolint
     ABLFL = ifelse(NRELTM1 == 0, "Y", NA)
   )
 
-  # create flags to derive subject-level variables
+  # create temporary flags to derive subject-level variables
   adab_subj <- ADAB %>%
-    dplyr::filter(PARAM == "ADA interpreted per sample result") %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(
-      pos_bl = any(!is.na(ABLFL) & AVALC == "POSITIVE"),
-      any_pos_postbl = any(is.na(ABLFL) & AVALC == "POSITIVE"),
-      pos_last_postbl = any(NRELTM1 == max(NRELTM1) & AVALC == "POSITIVE")
-    )
+      pos_bl = any(PARAM == "ADA interpreted per sample result" &
+                     !is.na(ABLFL) & AVALC == "POSITIVE"),
+      any_pos_postbl = any(PARAM == "ADA interpreted per sample result" &
+                           is.na(ABLFL) & AVALC == "POSITIVE"),
+      pos_last_postbl = any(PARAM == "ADA interpreted per sample result" &
+                              NRELTM1 == max(NRELTM1) & AVALC == "POSITIVE"),
+      ada_bl = AVAL[PARAM == "Antibody titer units" & !is.na(ABLFL)],
+      any_pos_postbl_nab = any(PARAM == "NAB interpreted per sample result" &
+                             is.na(ABLFL) & AVALC == "POSITIVE")
+    ) %>%
+    dplyr::mutate(any_inc_postbl = any(
+      PARAM == "ADA interpreted per sample result" & is.na(ABLFL) & (AVAL - ada_bl) > 0.60
+    ))
   pos_tots <- adab_subj %>%
     dplyr::summarise(
-      n_pos = sum(AVALC == "POSITIVE"),
-      onset_ada = if (any(AVALC == "POSITIVE")) min(NRELTM1[AVALC == "POSITIVE"]) else NA,
-      last_ada = if (any(AVALC == "POSITIVE")) max(NRELTM1[AVALC == "POSITIVE"]) else NA
+      n_pos = sum(PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"),
+      onset_ada = if (any(PARAM == "ADA interpreted per sample result" &
+                          AVALC == "POSITIVE")) {
+        min(NRELTM1[PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"])
+      } else NA,
+      last_ada = if (any(PARAM == "ADA interpreted per sample result" &
+                         AVALC == "POSITIVE")) {
+        max(NRELTM1[PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"])
+      } else NA
     )
   adab_subj <- adab_subj %>%
     dplyr::left_join(pos_tots, by = "USUBJID") %>%
     dplyr::select(
-      USUBJID, NRELTM1, pos_bl, any_pos_postbl,
+      USUBJID, NRELTM1, pos_bl, any_pos_postbl, any_pos_postbl_nab, any_inc_postbl,
       pos_last_postbl, n_pos, onset_ada, last_ada
-    )
+    ) %>%
+    unique()
 
   # add flags to ADAB dataset
   ADAB <- ADAB %>% # nolint
     dplyr::left_join(adab_subj, by = c("USUBJID", "NRELTM1"))
 
   # derive subject-level variables
-  ADAB[!(ADAB$PARAM %in% c("ADA interpreted per sample result", "Antibody titer units")), ] <- ADAB %>% # nolint
-    dplyr::filter(!(PARAM %in% c("ADA interpreted per sample result", "Antibody titer units"))) %>%
+  ADAB[!(ADAB$PARAM %in% visit_lvl_params), ] <- ADAB %>% # nolint
+    dplyr::filter(!(PARAM %in% visit_lvl_params)) %>%
     dplyr::mutate(
       AVALC = dplyr::case_when(
-        (PARAM == "Treatment induced ADA (Y/N)" & !pos_bl & any_pos_postbl) ~ "Y",
-        (PARAM == "Persistent ADA (Y/N)" & pos_last_postbl) ~ "Y",
-        (PARAM == "Transient ADA (Y/N)" &
-          (n_pos - ifelse(pos_bl, 1, 0) - ifelse(pos_last_postbl, 1, 0) == 1 | n_pos > 1)) ~ "Y",
-        (PARAM == "Time to onset of ADA (Weeks)") ~ as.character(onset_ada / 7),
-        (PARAM == "ADA Duration (Weeks)") ~ as.character((last_ada - onset_ada) / 7),
+        (PARAM == "Treatment induced ADA" & !pos_bl & any_pos_postbl) ~ "Y",
+        (PARAM == "Treatment enhanced ADA" & pos_bl & any_inc_postbl) ~ "Y",
+        (PARAM == "Persistent ADA" & pos_last_postbl) ~ "Y",
+        (PARAM == "Transient ADA" &
+          (n_pos - pos_bl - pos_last_postbl == 1 | n_pos > 1)) ~ "Y",
+        (PARAM == "Time to onset of ADA") ~ as.character(onset_ada / 7),
+        (PARAM == "ADA Duration") ~ as.character((last_ada - onset_ada) / 7),
+        (PARAM == "NAB Status of a patient" & any_pos_postbl_nab) ~ "POSITIVE",
+        (PARAM == "NAB Status of a patient" & !any_pos_postbl_nab) ~ "NEGATIVE",
         TRUE ~ "N"
       ),
       AVAL = dplyr::case_when(
-        (PARAM == "Treatment induced ADA (Y/N)" & !pos_bl & any_pos_postbl) ~ 1,
-        (PARAM == "Persistent ADA (Y/N)" & pos_last_postbl) ~ 1,
-        (PARAM == "Transient ADA (Y/N)" &
+        (PARAM == "Treatment induced ADA" & !pos_bl & any_pos_postbl) ~ 1,
+        (PARAM == "Treatment enhanced ADA" & pos_bl & any_inc_postbl) ~ 1,
+        (PARAM == "Persistent ADA" & pos_last_postbl) ~ 1,
+        (PARAM == "Transient ADA" &
           (n_pos - ifelse(pos_bl, 1, 0) - ifelse(pos_last_postbl, 1, 0) == 1 | n_pos > 1)) ~ 1,
-        (PARAM == "Time to onset of ADA (Weeks)") ~ onset_ada / 7,
-        (PARAM == "ADA Duration (Weeks)") ~ (last_ada - onset_ada) / 7,
+        (PARAM == "Time to onset of ADA") ~ onset_ada / 7,
+        (PARAM == "ADA Duration") ~ (last_ada - onset_ada) / 7,
+        (PARAM == "NAB Status of a patient" & any_pos_postbl_nab) ~ 1,
         TRUE ~ 0
+      ),
+      PARCAT1 = dplyr::case_when(
+        PARAM %in% c("Neutralizing Antibody titer units", "NAB interpreted per sample result",
+                     "NAB Status of a patient") ~ "A: Drug X Neutralizing Antibody",
+        TRUE ~ PARCAT1
       )
     )
 
   # remove intermediate flag variables from ADAB
   ADAB <- ADAB %>% # nolint
-    dplyr::select(-c(pos_bl, any_pos_postbl, pos_last_postbl, n_pos, onset_ada, last_ada))
+    dplyr::select(-c(pos_bl, any_pos_postbl, any_pos_postbl_nab, any_inc_postbl,
+                     pos_last_postbl, n_pos, onset_ada, last_ada))
 
   ADAB <- apply_metadata(ADAB, "metadata/ADAB.yml") # nolint
 }
