@@ -71,7 +71,8 @@ radab <- function(ADSL, # nolint
 
   visit_lvl_params <- c(
     "Antibody titer units", "Neutralizing Antibody titer units",
-    "ADA interpreted per sample result", "NAB interpreted per sample result")
+    "ADA interpreted per sample result", "NAB interpreted per sample result"
+  )
   aval_random <- stats::rnorm(nrow(unique(ADAB %>% dplyr::select(USUBJID, VISIT))), mean = 1, sd = 0.2)
   aval_random <- cbind(unique(ADAB %>% dplyr::select(USUBJID, VISIT)), AVAL1 = aval_random)
 
@@ -148,14 +149,14 @@ radab <- function(ADSL, # nolint
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(
       pos_bl = any(PARAM == "ADA interpreted per sample result" &
-                     !is.na(ABLFL) & AVALC == "POSITIVE"),
+        !is.na(ABLFL) & AVALC == "POSITIVE"),
       any_pos_postbl = any(PARAM == "ADA interpreted per sample result" &
-                           is.na(ABLFL) & AVALC == "POSITIVE"),
+        is.na(ABLFL) & AVALC == "POSITIVE"),
       pos_last_postbl = any(PARAM == "ADA interpreted per sample result" &
-                              NRELTM1 == max(NRELTM1) & AVALC == "POSITIVE"),
+        NRELTM1 == max(NRELTM1) & AVALC == "POSITIVE"),
       ada_bl = AVAL[PARAM == "Antibody titer units" & !is.na(ABLFL)],
       any_pos_postbl_nab = any(PARAM == "NAB interpreted per sample result" &
-                             is.na(ABLFL) & AVALC == "POSITIVE")
+        is.na(ABLFL) & AVALC == "POSITIVE")
     ) %>%
     dplyr::mutate(any_inc_postbl = any(
       PARAM == "ADA interpreted per sample result" & is.na(ABLFL) & (AVAL - ada_bl) > 0.60
@@ -164,13 +165,17 @@ radab <- function(ADSL, # nolint
     dplyr::summarise(
       n_pos = sum(PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"),
       onset_ada = if (any(PARAM == "ADA interpreted per sample result" &
-                          AVALC == "POSITIVE")) {
+        AVALC == "POSITIVE")) {
         min(NRELTM1[PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"])
-      } else NA,
+      } else {
+        NA
+      },
       last_ada = if (any(PARAM == "ADA interpreted per sample result" &
-                         AVALC == "POSITIVE")) {
+        AVALC == "POSITIVE")) {
         max(NRELTM1[PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"])
-      } else NA
+      } else {
+        NA
+      }
     )
   adab_subj <- adab_subj %>%
     dplyr::left_join(pos_tots, by = "USUBJID") %>%
@@ -212,16 +217,20 @@ radab <- function(ADSL, # nolint
         TRUE ~ 0
       ),
       PARCAT1 = dplyr::case_when(
-        PARAM %in% c("Neutralizing Antibody titer units", "NAB interpreted per sample result",
-                     "NAB Status of a patient") ~ "A: Drug X Neutralizing Antibody",
+        PARAM %in% c(
+          "Neutralizing Antibody titer units", "NAB interpreted per sample result",
+          "NAB Status of a patient"
+        ) ~ "A: Drug X Neutralizing Antibody",
         TRUE ~ PARCAT1
       )
     )
 
   # remove intermediate flag variables from ADAB
   ADAB <- ADAB %>% # nolint
-    dplyr::select(-c(pos_bl, any_pos_postbl, any_pos_postbl_nab, any_inc_postbl,
-                     pos_last_postbl, n_pos, onset_ada, last_ada))
+    dplyr::select(-c(
+      pos_bl, any_pos_postbl, any_pos_postbl_nab, any_inc_postbl,
+      pos_last_postbl, n_pos, onset_ada, last_ada
+    ))
 
   ADAB <- apply_metadata(ADAB, "metadata/ADAB.yml") # nolint
 }
