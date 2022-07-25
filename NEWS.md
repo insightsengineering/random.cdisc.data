@@ -6,7 +6,7 @@
 ### Bug fix
 * Update all the NA and "" to "" in `ADAE$ANL01FL`.
 * Updated `DVDECOD` and `DVSCAT` values in ADDV Dataset (`raddv`, `caddv`).
-* Included post-baseline visits to `radab`
+* Included post-baseline visits to `radab`.
 
 ### Enhancements
 * Enhanced `radpp` with additional default `PARAM`s.
@@ -14,6 +14,8 @@
 * Enhanced `radab` variables `ADAPBLFL`, `ABLFL`, `ADABLFL`, `PARCAT1`, `RELTMU`
 * Add new variable `lgTMATRSK` to `adtte`.
 * Add `TNE` to `PARAMCD` and `Total Number of Exacerbations` to `PARAM` in `adtte`.
+* Add `Treatment induced ADA (Y/N)`, `Persistent ADA (Y/N)`, `Transient ADA (Y/N)`,
+  `Time to onset of ADA (Weeks)`, and `ADA Duration (Weeks)` to `PARAM` in `adab`.
 
 # random.cdisc.data 0.3.13
 
