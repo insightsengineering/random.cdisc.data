@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">random.cdisc.data</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13.9013</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13.9016</span>
       </span>
     </div>
 
@@ -44,12 +44,6 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" href="https://insightsengineering.github.io/random.cdisc.data/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/insightsengineering/random.cdisc.data/" class="external-link">
     <span class="fa fa-github"></span>
@@ -79,9 +73,13 @@
 <span>  <span class="va">ADSL</span>,</span>
 <span>  <span class="va">ADPC</span>,</span>
 <span>  constants <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>D <span class="op">=</span> <span class="fl">100</span>, ka <span class="op">=</span> <span class="fl">0.8</span>, ke <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
-<span>  paramcd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"R1800000"</span>, <span class="st">"RESULT"</span><span class="op">)</span>,</span>
-<span>  param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Antibody titer units"</span>, <span class="st">"ADA interpreted per sample result"</span><span class="op">)</span>,</span>
-<span>  avalu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"titer"</span>, <span class="st">""</span><span class="op">)</span>,</span>
+<span>  paramcd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"R1800000"</span>, <span class="st">"RESULT1"</span>, <span class="st">"R1800001"</span>, <span class="st">"RESULT2"</span>, <span class="st">"INDUCD1"</span>, <span class="st">"ENHANC1"</span>,</span>
+<span>    <span class="st">"PERSADA1"</span>, <span class="st">"TRANADA1"</span>, <span class="st">"TIMADA1"</span>, <span class="st">"ADADUR1"</span>, <span class="st">"ADASTAT2"</span><span class="op">)</span>,</span>
+<span>  param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Antibody titer units"</span>, <span class="st">"ADA interpreted per sample result"</span>,</span>
+<span>    <span class="st">"Neutralizing Antibody titer units"</span>, <span class="st">"NAB interpreted per sample result"</span>,</span>
+<span>    <span class="st">"Treatment induced ADA"</span>, <span class="st">"Treatment enhanced ADA"</span>, <span class="st">"Persistent ADA"</span>, <span class="st">"Transient ADA"</span>,</span>
+<span>    <span class="st">"Time to onset of ADA"</span>, <span class="st">"ADA Duration"</span>, <span class="st">"NAB Status of a patient"</span><span class="op">)</span>,</span>
+<span>  avalu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"titer"</span>, <span class="st">"titer"</span>, <span class="st">""</span>, <span class="st">""</span>, <span class="st">""</span>, <span class="st">""</span>, <span class="st">""</span>, <span class="st">""</span>, <span class="st">"weeks"</span>, <span class="st">"weeks"</span>, <span class="st">""</span><span class="op">)</span>,</span>
 <span>  seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  na_percentage <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  na_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>AVAL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -161,7 +159,7 @@ should be generated. If set to <code>TRUE</code> then the other arguments to <co
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
