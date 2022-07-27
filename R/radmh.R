@@ -125,6 +125,10 @@ radmh <- function(ADSL, # nolint
       prob = c(0.6, 0.2, 0.2),
       size = dplyr::n(),
       replace = TRUE
+    )) %>%
+    dplyr::mutate(ATIREL = dplyr::case_when(
+      (AENDTM < TRTSDTM | (is.na(AENDTM) & MHDISTAT == "Resolved")) ~ "PRIOR",
+      (AENDTM >= TRTSDTM | (is.na(AENDTM) & grepl("Ongoing", MHDISTAT))) ~ "PRIOR_CONCOMITANT"
     ))
 
   ADMH <- ADMH %>% # nolint
