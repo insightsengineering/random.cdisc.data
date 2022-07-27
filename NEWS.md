@@ -14,7 +14,7 @@
 * Enhanced `radab` variables `ADAPBLFL`, `ABLFL`, `ADABLFL`, `PARCAT1`, `RELTMU`
 * Add new variable `lgTMATRSK` to `adtte`.
 * Add `TNE` to `PARAMCD` and `Total Number of Exacerbations` to `PARAM` in `adtte`.
-* Add new ADA and NAb `PARAM`s in `adab`.
+* Add new default `PARAM`s in `adab`.
 
 # random.cdisc.data 0.3.13
 
