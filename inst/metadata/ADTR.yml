@@ -12,9 +12,6 @@ variables:
   DCSREAS_GRP:
     label: Grouped Reason for Disc. from Study
     type: character
-  AEWITHFL:
-    label: AE Leading to Drug Withdrawal Flag
-    type: factor
   PARAM:
     label: Parameter
     type: factor

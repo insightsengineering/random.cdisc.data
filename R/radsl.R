@@ -14,6 +14,8 @@
 #' @param N Number of patients.
 #' @param study_duration Duration of study in years.
 #' @param seed Seed for random number generation.
+#' @param ae_withdrawal_prob Probability that there is at least one Adverse Event
+#' leading to the withdrawal of a study drug.
 #' @inheritParams mutate_na
 #' @templateVar data adsl
 #' @template param_cached
@@ -42,6 +44,7 @@ radsl <- function(N = 400, # nolint
                     "AGE" = NA, "SEX" = NA, "RACE" = NA, "STRATA1" = NA, "STRATA2" = NA,
                     "BMRKR1" = c(seed = 1234, percentage = 0.1), "BMRKR2" = c(1234, 0.1), "BEP01FL" = NA
                   ),
+                  ae_withdrawal_prob = 0.05,
                   cached = FALSE) {
   checkmate::assert_flag(cached)
   if (cached) {
@@ -53,6 +56,7 @@ radsl <- function(N = 400, # nolint
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
   checkmate::assert_number(study_duration, lower = 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
   # also check na_percentage is not 1
   stopifnot(is.na(na_percentage) || na_percentage < 1)
 
@@ -95,7 +99,8 @@ radsl <- function(N = 400, # nolint
     BMRKR1 = stats::rchisq(N, 6),
     BMRKR2 = sample_fct(c("LOW", "MEDIUM", "HIGH"), N),
     BMEASIFL = sample_fct(c("Y", "N"), N),
-    BEP01FL = sample_fct(c("Y", "N"), N)
+    BEP01FL = sample_fct(c("Y", "N"), N),
+    AEWITHFL = sample_fct(c("Y", "N"), N, prob = c(ae_withdrawal_prob, 1 - ae_withdrawal_prob))
   ) %>%
     dplyr::mutate(ARM = dplyr::recode(
       .data$ARMCD,
