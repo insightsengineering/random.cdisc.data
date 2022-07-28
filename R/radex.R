@@ -274,16 +274,16 @@ radex <- function(ADSL, # nolint
     dplyr::mutate(EXDOSFRQ = dplyr::case_when(
       PARCAT1 == "INDIVIDUAL" ~ "ONCE",
       TRUE ~ ""
-    )
-  )
+    ))
 
   # Adding EXROUTE
   adex <- adex %>%
     mutate(EXROUTE = case_when(
       PARCAT1 == "INDIVIDUAL" ~ sample(c("INTRAVENOUS", "SUBCUTANEOUS"),
-                                       nrow(adex),
-                                       replace = TRUE,
-                                       prob = c(0.9, 0.1)),
+        nrow(adex),
+        replace = TRUE,
+        prob = c(0.9, 0.1)
+      ),
       TRUE ~ ""
     ))
 
@@ -303,10 +303,12 @@ radex <- function(ADSL, # nolint
 
   # Exposure time stamps
   adex <- adex %>%
-    mutate(EXSTDTC = lubridate::as_datetime(TRTSDTM) + lubridate::days(VISITDY),
-           EXENDTC = EXSTDTC + lubridate::hours(1),
-           EXSTDY = VISITDY,
-           EXENDY = VISITDY)
+    mutate(
+      EXSTDTC = lubridate::as_datetime(TRTSDTM) + lubridate::days(VISITDY),
+      EXENDTC = EXSTDTC + lubridate::hours(1),
+      EXSTDY = VISITDY,
+      EXENDY = VISITDY
+    )
 
   # Correcting last exposure to treatment
   adex <- adex %>%
@@ -316,15 +318,18 @@ radex <- function(ADSL, # nolint
 
   # Fixing Date - to add into ADSL
   adex <- adex %>%
-    mutate(TRTSDT = lubridate::as_date(TRTSDTM),
-           TRTEDT = lubridate::as_date(TRTEDTM))
+    mutate(
+      TRTSDT = lubridate::as_date(TRTSDTM),
+      TRTEDT = lubridate::as_date(TRTEDTM)
+    )
 
   # Fixing analysis time stamps
   adex <- adex %>%
-    mutate(AENDY = EXENDY,
-           ASTDY = EXSTDY,
-           AENDTM = EXENDTC,
-           ASTDTM = EXSTDTC
+    mutate(
+      AENDY = EXENDY,
+      ASTDY = EXSTDY,
+      AENDTM = EXENDTC,
+      ASTDTM = EXSTDTC
     )
 
   # apply metadata

@@ -72,7 +72,8 @@ Subject-Level Analysis Dataset.
 \details{
 One record per each record in the corresponding SDTM domain.
 
-Keys: STUDYID USUBJID EXSEQ PARAMCD PARCAT1 ASTDTM AVISITN
+Keys: STUDYID USUBJID EXSEQ PARAMCD PARCAT1 ASTDTM AENDTM ASTDY AENDY AVISITN
+EXDOSFRQ EXROUTE VISIT VISITDY EXSTDTC EXENDTC EXSTDY EXENDY
 }
 \examples{
 library(random.cdisc.data)
