@@ -37,5 +37,9 @@ variables:
     label: Analysis Start Datetime
   AENDTM:
     label: Analysis End Datetime
+  EXDOSFRQ:
+    label: Dosing Frequency per Interval
+  EXROUTE:
+    label: Route of Administration
 
 

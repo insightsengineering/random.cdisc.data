@@ -5,7 +5,7 @@
 #'
 #' @details One record per each record in the corresponding SDTM domain.
 #'
-#' Keys: STUDYID USUBJID EXSEQ PARAMCD PARCAT1 ASTDTM AVISITN
+#' Keys: STUDYID USUBJID EXSEQ PARAMCD PARCAT1 ASTDTM AVISITN EXDOSFRQ
 #'
 #' @template ADSL_params
 #' @template BDS_findings_params
@@ -267,6 +267,24 @@ radex <- function(ADSL, # nolint
       .data$AVISITN,
       .data$EXSEQ
     )
+
+  # Adding EXDOSFRQ
+  adex <- adex %>%
+    dplyr::mutate(EXDOSFRQ = dplyr::case_when(
+      PARCAT1 == "INDIVIDUAL" ~ "ONCE",
+      TRUE ~ ""
+    )
+  )
+
+  # Adding EXROUTE
+  adex <- adex %>%
+    mutate(EXROUTE = case_when(
+      PARCAT1 == "INDIVIDUAL" ~ sample(c("INTRAVENOUS", "SUBCUTANEOUS"),
+                                       nrow(adex),
+                                       replace = TRUE,
+                                       prob = c(0.9, 0.1)),
+      TRUE ~ ""
+    ))
 
   # apply metadata
   adex <- apply_metadata(adex, "metadata/ADEX.yml")
