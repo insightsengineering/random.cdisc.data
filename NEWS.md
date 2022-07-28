@@ -14,8 +14,7 @@
 * Enhanced `radab` variables `ADAPBLFL`, `ABLFL`, `ADABLFL`, `PARCAT1`, `RELTMU`
 * Add new variable `lgTMATRSK` to `adtte`.
 * Add `TNE` to `PARAMCD` and `Total Number of Exacerbations` to `PARAM` in `adtte`.
-* Add `Treatment induced ADA (Y/N)`, `Persistent ADA (Y/N)`, `Transient ADA (Y/N)`,
-  `Time to onset of ADA (Weeks)`, and `ADA Duration (Weeks)` to `PARAM` in `adab`.
+* Add new default `PARAM`s in `adab`.
 * Add `AEWITHFL` variable to `adsl`.
 * Add `ATIREL` variable to `admh`.
 * Add variables `CMSTRTPT`, `CMENRTPT`, `ADURN`, and `ADURU` to `adcm`.
