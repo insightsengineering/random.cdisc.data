@@ -1,4 +1,4 @@
-# random.cdisc.data 0.3.13.9015
+# random.cdisc.data 0.3.13.9017
 
 ### New features
 * Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (`radab`).
@@ -17,6 +17,7 @@
 * Add `Treatment induced ADA (Y/N)`, `Persistent ADA (Y/N)`, `Transient ADA (Y/N)`,
   `Time to onset of ADA (Weeks)`, and `ADA Duration (Weeks)` to `PARAM` in `adab`.
 * Add `AEWITHFL` variable to `adsl`.
+* Add `ATIREL` variable to `admh`.
 
 # random.cdisc.data 0.3.13
 

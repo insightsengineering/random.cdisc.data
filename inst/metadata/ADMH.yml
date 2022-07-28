@@ -34,3 +34,6 @@ variables:
   MHDISTAT:
     label: Status of Disease
     type: factor
+  ATIREL:
+    label: Time Relative to Reference
+    type: factor
