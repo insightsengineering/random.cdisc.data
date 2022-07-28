@@ -28,14 +28,14 @@ radab <- function(ADSL, # nolint
                     "Antibody titer units", "ADA interpreted per sample result",
                     "Neutralizing Antibody titer units", "NAB interpreted per sample result",
                     "ADA Status of a patient", "Treatment induced ADA", "Treatment enhanced ADA",
-                    "Treatment unaffected", "Treatment Emergent - Negative",
-                    "Treatment Emergent - Positive", "Persistent ADA", "Transient ADA",
+                    "Treatment unaffected ADA", "Treatment Emergent - Negative, ADA",
+                    "Treatment Emergent - Positive, ADA", "Persistent ADA", "Transient ADA",
                     "Time to onset of ADA", "ADA Duration", "NAB Status of a patient",
                     "Treatment induced ADA, Neutralizing Antibody",
                     "Treatment enhanced ADA, Neutralizing Antibody",
                     "Treatment Emergent - Negative, Neutralizing Antibody",
                     "Treatment Emergent - Positive, Neutralizing Antibody",
-                    "Treatment unaffected, Neutralizing Antibody"
+                    "Treatment unaffected ADA, Neutralizing Antibody"
                   ),
                   avalu = c(
                     "titer", "", "titer", "", "", "", "", "", "", "", "", "", "weeks", "weeks",
@@ -212,10 +212,10 @@ radab <- function(ADSL, # nolint
         (PARAM == "ADA Status of a patient" & !any_pos_postbl) ~ "NEGATIVE",
         (PARAM == "Treatment induced ADA" & !pos_bl & any_pos_postbl) ~ "Y",
         (PARAM == "Treatment enhanced ADA" & pos_bl & inc_postbl > 0) ~ "Y",
-        (PARAM == "Treatment unaffected" & pos_bl & (inc_postbl == 0 | !any_pos_postbl)) ~ "Y",
-        (PARAM == "Treatment Emergent - Positive" &
+        (PARAM == "Treatment unaffected ADA" & pos_bl & (inc_postbl == 0 | !any_pos_postbl)) ~ "Y",
+        (PARAM == "Treatment Emergent - Positive, ADA" &
           ((!pos_bl & any_pos_postbl) | (pos_bl & inc_postbl > 0))) ~ "Y",
-        (PARAM == "Treatment Emergent - Negative" &
+        (PARAM == "Treatment Emergent - Negative, ADA" &
           !((!pos_bl & any_pos_postbl) | (pos_bl & inc_postbl > 0))) ~ "Y",
         (PARAM == "Persistent ADA" & pos_last_postbl) ~ "Y",
         (PARAM == "Transient ADA" &
@@ -228,7 +228,7 @@ radab <- function(ADSL, # nolint
           !pos_bl_nab & any_pos_postbl_nab) ~ "Y",
         (PARAM == "Treatment enhanced ADA, Neutralizing Antibody" &
           pos_bl_nab & inc_postbl_nab > 0) ~ "Y",
-        (PARAM == "Treatment unaffected, Neutralizing Antibody" & pos_bl_nab &
+        (PARAM == "Treatment unaffected ADA, Neutralizing Antibody" & pos_bl_nab &
           (inc_postbl_nab == 0 | !any_pos_postbl_nab)) ~ "Y",
         (PARAM == "Treatment Emergent - Positive, Neutralizing Antibody" &
           ((!pos_bl_nab & any_pos_postbl_nab) | (pos_bl_nab & inc_postbl_nab > 0))) ~ "Y",
@@ -240,10 +240,10 @@ radab <- function(ADSL, # nolint
         (PARAM == "ADA Status of a patient" & any_pos_postbl) ~ 1,
         (PARAM == "Treatment induced ADA" & !pos_bl & any_pos_postbl) ~ 1,
         (PARAM == "Treatment enhanced ADA" & pos_bl & inc_postbl > 0) ~ 1,
-        (PARAM == "Treatment unaffected" & pos_bl & (inc_postbl == 0 | !any_pos_postbl)) ~ 1,
-        (PARAM == "Treatment Emergent - Positive" &
+        (PARAM == "Treatment unaffected ADA" & pos_bl & (inc_postbl == 0 | !any_pos_postbl)) ~ 1,
+        (PARAM == "Treatment Emergent - Positive, ADA" &
           ((!pos_bl & any_pos_postbl) | (pos_bl & inc_postbl > 0))) ~ 1,
-        (PARAM == "Treatment Emergent - Negative" &
+        (PARAM == "Treatment Emergent - Negative, ADA" &
           !((!pos_bl & any_pos_postbl) | (pos_bl & inc_postbl > 0))) ~ 1,
         (PARAM == "Persistent ADA" & pos_last_postbl) ~ 1,
         (PARAM == "Transient ADA" &
@@ -255,7 +255,7 @@ radab <- function(ADSL, # nolint
           !pos_bl_nab & any_pos_postbl_nab) ~ 1,
         (PARAM == "Treatment enhanced ADA, Neutralizing Antibody" &
           pos_bl_nab & inc_postbl_nab > 0) ~ 1,
-        (PARAM == "Treatment unaffected, Neutralizing Antibody" & pos_bl_nab &
+        (PARAM == "Treatment unaffected ADA, Neutralizing Antibody" & pos_bl_nab &
           (inc_postbl_nab == 0 | !any_pos_postbl_nab)) ~ 1,
         (PARAM == "Treatment Emergent - Positive, Neutralizing Antibody" &
           ((!pos_bl_nab & any_pos_postbl_nab) | (pos_bl_nab & inc_postbl_nab > 0))) ~ 1,
@@ -270,7 +270,7 @@ radab <- function(ADSL, # nolint
           "Treatment enhanced ADA, Neutralizing Antibody",
           "Treatment Emergent - Negative, Neutralizing Antibody",
           "Treatment Emergent - Positive, Neutralizing Antibody",
-          "Treatment unaffected, Neutralizing Antibody"
+          "Treatment unaffected ADA, Neutralizing Antibody"
         ) ~ "A: Drug X Neutralizing Antibody",
         TRUE ~ PARCAT1
       )
