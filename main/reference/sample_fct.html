@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">random.cdisc.data</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13.9016</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13.9017</span>
       </span>
     </div>
 
@@ -44,12 +44,6 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" href="https://insightsengineering.github.io/random.cdisc.data/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/insightsengineering/random.cdisc.data/" class="external-link">
     <span class="fa fa-github"></span>
@@ -104,11 +98,11 @@ levels get used as the new levels</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">random.cdisc.data</span><span class="fu">:::</span><span class="fu">sample_fct</span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] c a c b b b b a c b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] a c c c b c b b a b</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: a b c</span>
 <span class="r-in"><span><span class="fu">random.cdisc.data</span><span class="fu">:::</span><span class="fu">sample_fct</span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Species</span>, <span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] versicolor setosa     virginica  versicolor versicolor versicolor</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] versicolor versicolor virginica  versicolor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] virginica  setosa     setosa     virginica  virginica  versicolor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] virginica  virginica  virginica  setosa    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: setosa versicolor virginica</span>
 </code></pre></div>
     </div>
