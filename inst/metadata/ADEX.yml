@@ -35,12 +35,12 @@ variables:
     type: factor
   ASTDTM:
     label: Analysis Start Datetime
-  ASTDT:
-    label: Analysis Start Date
   AENDTM:
     label: Analysis End Datetime
   AENDT:
     label: Analysis End Date
+  ASTDY:
+    label: Analysis Start Relative Day
   AENDY:
     label: Analysis End Relative Day
   EXDOSFRQ:
@@ -64,5 +64,3 @@ variables:
   TRTEDT:
     label: Date of Last Exposure to Treatment
 
-  # ASTDT                      ASTDTM                       AENDT                       AENDY
-  # "Analysis Start Date"   "Analysis Start Datetime"         "Analysis End Date" "Analysis End Relative Day"
