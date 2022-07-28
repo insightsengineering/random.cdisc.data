@@ -1,4 +1,4 @@
-# random.cdisc.data 0.3.13.9018
+# random.cdisc.data 0.3.13.9019
 
 ### New features
 * Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (`radab`).
@@ -17,6 +17,7 @@
 * Add new default `PARAM`s in `adab`.
 * Add `AEWITHFL` variable to `adsl`.
 * Add `ATIREL` variable to `admh`.
+* Add variables `CMSTRTPT`, `CMENRTPT`, `ADURN`, and `ADURU` to `adcm`.
 
 # random.cdisc.data 0.3.13
 
