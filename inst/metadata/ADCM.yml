@@ -73,3 +73,15 @@ variables:
   CMDOSFRQ:
     label: Dosing Frequency per Interval
     type: factor
+  CMSTRTPT:
+    label: Start Relative to Reference Time Point
+    type: factor
+  CMENRTPT:
+    label: End Relative to Reference Time Point
+    type: factor
+  ADURN:
+    label: Analysis Duration
+    type: integer
+  ADURU:
+    label: Analysis Duration Units
+    type: factor

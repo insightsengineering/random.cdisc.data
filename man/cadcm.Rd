@@ -5,7 +5,7 @@
 \alias{cadcm}
 \title{Cached ADCM}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3685 rows and 68 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3685 rows and 73 columns.
 }
 \usage{
 data(cadcm)
