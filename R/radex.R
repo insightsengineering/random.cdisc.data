@@ -5,7 +5,8 @@
 #'
 #' @details One record per each record in the corresponding SDTM domain.
 #'
-#' Keys: STUDYID USUBJID EXSEQ PARAMCD PARCAT1 ASTDTM AVISITN
+#' Keys: STUDYID USUBJID EXSEQ PARAMCD PARCAT1 ASTDTM AENDTM ASTDY AENDY AVISITN
+#' EXDOSFRQ EXROUTE VISIT VISITDY EXSTDTC EXENDTC EXSTDY EXENDY
 #'
 #' @template ADSL_params
 #' @template BDS_findings_params
@@ -268,6 +269,73 @@ radex <- function(ADSL, # nolint
       .data$EXSEQ
     )
 
+  # Adding EXDOSFRQ
+  adex <- adex %>%
+    dplyr::mutate(EXDOSFRQ = dplyr::case_when(
+      PARCAT1 == "INDIVIDUAL" ~ "ONCE",
+      TRUE ~ ""
+    ))
+
+  # Adding EXROUTE
+  adex <- adex %>%
+    dplyr::mutate(EXROUTE = dplyr::case_when(
+      PARCAT1 == "INDIVIDUAL" ~ sample(c("INTRAVENOUS", "SUBCUTANEOUS"),
+        nrow(adex),
+        replace = TRUE,
+        prob = c(0.9, 0.1)
+      ),
+      TRUE ~ ""
+    ))
+
+  # Fix VISIT according to AVISIT
+  adex <- adex %>%
+    dplyr::mutate(VISIT = AVISIT)
+
+  # Hack for VISITDY - to fix in ADSL
+  visit_levels <- str_extract(levels(adex$VISIT), pattern = "[0-9]+")
+  vl_extracted <- vapply(visit_levels, function(x) as.numeric(x[2]), numeric(1))
+  vl_extracted <- c(-1, 1, vl_extracted[!is.na(vl_extracted)])
+
+  # Adding VISITDY
+  adex <- adex %>%
+    dplyr::mutate(VISITDY = as.numeric(as.character(factor(VISIT, labels = vl_extracted))))
+
+  # Exposure time stamps
+  adex <- adex %>%
+    dplyr::mutate(
+      EXSTDTC = lubridate::as_datetime(TRTSDTM) + lubridate::days(VISITDY),
+      EXENDTC = EXSTDTC + lubridate::hours(1),
+      EXSTDY = VISITDY,
+      EXENDY = VISITDY
+    )
+
+  # Correcting last exposure to treatment
+  adex <- adex %>%
+    dplyr::group_by(SUBJID) %>%
+    dplyr::mutate(TRTEDTM = max(EXENDTC, na.rm = TRUE)) %>%
+    dplyr::ungroup()
+
+  # Fixing Date - to add into ADSL
+  adex <- adex %>%
+    dplyr::mutate(
+      TRTSDT = lubridate::as_date(TRTSDTM),
+      TRTEDT = lubridate::as_date(TRTEDTM)
+    )
+
+  # Fixing analysis time stamps
+  adex <- adex %>%
+    dplyr::mutate(
+      ASTDY = EXSTDY,
+      AENDY = EXENDY,
+      ASTDTM = EXSTDTC,
+      AENDTM = EXENDTC
+    )
+
   # apply metadata
   adex <- apply_metadata(adex, "metadata/ADEX.yml")
+}
+
+# Equivalent of stringr::str_extract_all()
+str_extract <- function(string, pattern) {
+  regmatches(string, gregexpr(pattern, string))
 }

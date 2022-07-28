@@ -19,6 +19,7 @@ Depends:
 Imports:
     checkmate,
     dplyr,
+    lubridate,
     magrittr,
     rlang,
     tibble,

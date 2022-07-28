@@ -9,6 +9,7 @@
 * Included post-baseline visits to `radab`.
 
 ### Enhancements
+* Added new variables to `ADEX` data set.
 * Enhanced `radpp` with additional default `PARAM`s.
 * Add new variables `PPSTINT` `PPENINT` `REGIMEN` `PKARMCD` to `radpp`.
 * Enhanced `radab` variables `ADAPBLFL`, `ABLFL`, `ADABLFL`, `PARCAT1`, `RELTMU`
