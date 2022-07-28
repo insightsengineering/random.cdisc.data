@@ -18,6 +18,7 @@
   `Time to onset of ADA (Weeks)`, and `ADA Duration (Weeks)` to `PARAM` in `adab`.
 * Add `AEWITHFL` variable to `adsl`.
 * Add `ATIREL` variable to `admh`.
+* Add variables `CMSTRTPT`, `CMENRTPT`, `ADURN`, and `ADURU` to `adcm`.
 
 # random.cdisc.data 0.3.13
 

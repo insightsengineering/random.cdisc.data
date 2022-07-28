@@ -150,7 +150,22 @@ radcm <- function(ADSL, # nolint
     dplyr::mutate(CMDOSFRQ = sample(c(
       "Q4W", "QN", "Q4H", "UNKNOWN", "TWICE",
       "Q4H", "QD", "TID", "4 TIMES PER MONTH"
-    ), dplyr::n(), replace = TRUE))
+    ), dplyr::n(), replace = TRUE)) %>%
+    dplyr::mutate(
+      # use 1 year as reference time point
+      CMSTRTPT = dplyr::case_when(
+        ASTDY <= 365 ~ "BEFORE",
+        ASTDY > 365 ~ "AFTER",
+        is.na(ASTDY) ~ "U"
+      ),
+      CMENRTPT = dplyr::case_when(
+        EOSSTT %in% c("COMPLETED", "DISCONTINUED") ~ "BEFORE",
+        EOSSTT == "ONGOING" ~ "ONGOING",
+        is.na(EOSSTT) ~ "U"
+      ),
+      ADURN = (AENDTM - ASTDTM) / 86400,
+      ADURU = "days"
+    )
 
 
   # Optional WHO coding, which adds more `ATC` paths for randomly selected `CMDECOD`.
