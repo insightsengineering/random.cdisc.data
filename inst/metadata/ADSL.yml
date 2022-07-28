@@ -87,6 +87,9 @@ variables:
   BEP01FL:
     label: Biomarker Evaluable Population Flag
     type: factor
+  AEWITHFL:
+    label: AE Leading to Drug Withdrawal Flag
+    type: factor
   RANDDT:
     label: Date of Randomization
   TRTSDTM:

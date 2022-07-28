@@ -162,7 +162,6 @@ radtr <- function(ADSL, # nolint
   # Adding variables that are in ADTR osprey but not RCD.
   ADTR <- ADTR %>% # nolint
     dplyr::mutate(
-      AEWITHFL = ifelse(.data$DCSREAS == "ADVERSE EVENT", "Y", "N"),
       DCSREAS_GRP = ifelse(.data$DCSREAS == "ADVERSE EVENT", "Safety", "Non-Safety"),
       TRTDURD = ifelse(
         is.na(.data$TRTSDTM) | is.na(.data$TRTEDTM),
