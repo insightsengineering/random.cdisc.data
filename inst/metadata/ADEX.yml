@@ -41,5 +41,8 @@ variables:
     label: Dosing Frequency per Interval
   EXROUTE:
     label: Route of Administration
-
+  VISIT:
+    label: Visit Name
+  VISITDY:
+    label: Planned Study Day of Visit
 

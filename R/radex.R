@@ -5,7 +5,7 @@
 #'
 #' @details One record per each record in the corresponding SDTM domain.
 #'
-#' Keys: STUDYID USUBJID EXSEQ PARAMCD PARCAT1 ASTDTM AVISITN EXDOSFRQ
+#' Keys: STUDYID USUBJID EXSEQ PARAMCD PARCAT1 ASTDTM AVISITN EXDOSFRQ EXROUTE VISIT VISITDY
 #'
 #' @template ADSL_params
 #' @template BDS_findings_params
@@ -285,6 +285,21 @@ radex <- function(ADSL, # nolint
                                        prob = c(0.9, 0.1)),
       TRUE ~ ""
     ))
+
+  # Fix VISIT according to AVISIT
+  adex <- adex %>%
+    mutate(VISIT = AVISIT)
+
+  # Hack for VISITDY - to fix in ADSL
+  visit_levels <- levels(adex$VISIT) %>%
+    stringr::str_extract_all("[0-9]+")
+  vl_extracted <- vapply(visit_levels, function(x) as.numeric(x[2]), numeric(1))
+  vl_extracted <- c(-1, 1, vl_extracted[!is.na(vl_extracted)])
+
+  # Adding VISITDY
+  adex <- adex %>%
+    mutate(VISITDY = as.numeric(as.character(factor(VISIT, labels = vl_extracted))))
+
 
   # apply metadata
   adex <- apply_metadata(adex, "metadata/ADEX.yml")
