@@ -37,8 +37,6 @@ variables:
     label: Analysis Start Datetime
   AENDTM:
     label: Analysis End Datetime
-  AENDT:
-    label: Analysis End Date
   ASTDY:
     label: Analysis Start Relative Day
   AENDY:
