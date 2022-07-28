@@ -35,8 +35,14 @@ variables:
     type: factor
   ASTDTM:
     label: Analysis Start Datetime
+  ASTDT:
+    label: Analysis Start Date
   AENDTM:
     label: Analysis End Datetime
+  AENDT:
+    label: Analysis End Date
+  AENDY:
+    label: Analysis End Relative Day
   EXDOSFRQ:
     label: Dosing Frequency per Interval
   EXROUTE:
@@ -45,4 +51,18 @@ variables:
     label: Visit Name
   VISITDY:
     label: Planned Study Day of Visit
+  EXSTDTC:
+    label: Start Date/Time of Treatment
+  EXENDTC:
+    label: End Date/Time of Treatment
+  EXSTDY:
+    label: Study Day of Start of Treatment
+  EXENDY:
+    label: Study Day of End of Treatment
+  TRTSDT:
+    label: Date of First Exposure to Treatment
+  TRTEDT:
+    label: Date of Last Exposure to Treatment
 
+  # ASTDT                      ASTDTM                       AENDT                       AENDY
+  # "Analysis Start Date"   "Analysis Start Datetime"         "Analysis End Date" "Analysis End Relative Day"

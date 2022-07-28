@@ -5,7 +5,8 @@
 #'
 #' @details One record per each record in the corresponding SDTM domain.
 #'
-#' Keys: STUDYID USUBJID EXSEQ PARAMCD PARCAT1 ASTDTM AVISITN EXDOSFRQ EXROUTE VISIT VISITDY
+#' Keys: STUDYID USUBJID EXSEQ PARAMCD PARCAT1 ASTDTM AENDTM ASTDY AENDY AVISITN
+#' EXDOSFRQ EXROUTE VISIT VISITDY EXSTDTC EXENDTC EXSTDY EXENDY
 #'
 #' @template ADSL_params
 #' @template BDS_findings_params
@@ -300,6 +301,31 @@ radex <- function(ADSL, # nolint
   adex <- adex %>%
     mutate(VISITDY = as.numeric(as.character(factor(VISIT, labels = vl_extracted))))
 
+  # Exposure time stamps
+  adex <- adex %>%
+    mutate(EXSTDTC = lubridate::as_datetime(TRTSDTM) + lubridate::days(VISITDY),
+           EXENDTC = EXSTDTC + lubridate::hours(1),
+           EXSTDY = VISITDY,
+           EXENDY = VISITDY)
+
+  # Correcting last exposure to treatment
+  adex <- adex %>%
+    group_by(SUBJID) %>%
+    mutate(TRTEDTM = max(EXENDTC, na.rm = TRUE)) %>%
+    ungroup()
+
+  # Fixing Date - to add into ADSL
+  adex <- adex %>%
+    mutate(TRTSDT = lubridate::as_date(TRTSDTM),
+           TRTEDT = lubridate::as_date(TRTEDTM))
+
+  # Fixing analysis time stamps
+  adex <- adex %>%
+    mutate(AENDY = EXENDY,
+           ASTDY = EXSTDY,
+           AENDTM = EXENDTC,
+           ASTDTM = EXSTDTC
+    )
 
   # apply metadata
   adex <- apply_metadata(adex, "metadata/ADEX.yml")
