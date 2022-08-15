@@ -3,10 +3,11 @@
 ### New features
 * Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (`radab`).
 
-### Bug fix
+### Bug fixes
 * Update all the NA and "" to "" in `ADAE$ANL01FL`.
 * Updated `DVDECOD` and `DVSCAT` values in ADDV Dataset (`raddv`, `caddv`).
 * Included post-baseline visits to `radab`.
+* Fixed `ADTM` calculation so that records with same `AVISIT` have the same `ADTM` for each patient.
 
 ### Enhancements
 * Added new variables to `ADEX` data set.

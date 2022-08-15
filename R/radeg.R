@@ -203,10 +203,12 @@ radeg <- function(ADSL, # nolint
       !is.na(TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
       is.na(TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
     )) %>%
+    dplyr::group_by(USUBJID, AVISIT) %>%
     dplyr::mutate(ADTM = as.POSIXct(
-      (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
+      (sample(unique(.data$trtsdt_int):unique(.data$trtedt_int), size = 1) * 86400),
       origin = "1970-01-01"
     )) %>%
+    dplyr::ungroup() %>%
     dplyr::mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
     dplyr::select(-.data$trtsdt_int, -.data$trtedt_int) %>%
     dplyr::ungroup() %>%
