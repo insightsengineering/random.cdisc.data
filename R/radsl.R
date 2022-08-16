@@ -57,8 +57,7 @@ radsl <- function(N = 400, # nolint
   checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
   checkmate::assert_number(study_duration, lower = 1)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
-  # also check na_percentage is not 1
-  stopifnot(is.na(na_percentage) || na_percentage < 1)
+  checkmate::assert_true(na_percentage < 1)
 
   if (!is.null(seed)) {
     set.seed(seed)
@@ -234,7 +233,7 @@ radsl <- function(N = 400, # nolint
     dplyr::mutate(USUBJID = paste(.data$STUDYID, .data$SITEID, .data$SUBJID, sep = "-")) %>%
     dplyr::mutate(study_duration_secs = study_duration_secs)
 
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
+  if (length(na_vars) > 0 && na_percentage > 0) {
     ADSL <- mutate_na(ds = ADSL, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 

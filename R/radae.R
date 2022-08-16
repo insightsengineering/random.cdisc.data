@@ -72,9 +72,8 @@ radae <- function(ADSL, # nolint
   checkmate::assert_data_frame(ADSL)
   checkmate::assert_integer(max_n_aes, len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
-  # also check na_percentage is not 1
-  stopifnot(is.na(na_percentage) || na_percentage < 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_true(na_percentage < 1)
 
   # check loopup parameters
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
@@ -138,10 +137,6 @@ radae <- function(ADSL, # nolint
       AETOXGR %in% c(2, 3) ~ "MODERATE",
       AETOXGR %in% c(4, 5) ~ "SEVERE"
     ))
-
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADAE <- mutate_na(ds = ADAE, na_vars = na_vars, na_percentage = na_percentage) # nolint
-  }
 
   ADAE <- var_relabel( # nolint
     ADAE,
@@ -265,6 +260,10 @@ radae <- function(ADSL, # nolint
     size = dplyr::n(),
     replace = TRUE
   ))
+
+  if (length(na_vars) > 0 && na_percentage > 0) {
+    ADAE <- mutate_na(ds = ADAE, na_vars = na_vars, na_percentage = na_percentage) # nolint
+  }
 
   # apply metadata
   ADAE <- apply_metadata(ADAE, "metadata/ADAE.yml") # nolint

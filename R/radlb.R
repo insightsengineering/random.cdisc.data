@@ -70,9 +70,8 @@ radlb <- function(ADSL, # nolint
   checkmate::assert_integer(max_n_lbs, len = 1, any.missing = FALSE)
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
-  # also check na_percentage is not 1
-  stopifnot(is.na(na_percentage) || na_percentage < 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_true(na_percentage < 1)
 
   # validate and initialize related variables
   lbcat_init_list <- relvar_init(param, lbcat)
@@ -217,10 +216,6 @@ radlb <- function(ADSL, # nolint
       USUBJID = attr(ADSL$USUBJID, "label")
     )
 
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADLB <- mutate_na(ds = ADLB, na_vars = na_vars, na_percentage = na_percentage) # nolint
-  }
-
   ADLB <- var_relabel( # nolint
     ADLB,
     STUDYID = "Study Identifier",
@@ -344,6 +339,10 @@ radlb <- function(ADSL, # nolint
     "Y",
     ""
   ))
+
+  if (length(na_vars) > 0 && na_percentage > 0) {
+    ADLB <- mutate_na(ds = ADLB, na_vars = na_vars, na_percentage = na_percentage) # nolint
+  }
 
   # apply metadata
 

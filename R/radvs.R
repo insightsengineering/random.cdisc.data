@@ -59,9 +59,8 @@ radvs <- function(ADSL, # nolint
   checkmate::assert_integer(n_assessments, len = 1, any.missing = FALSE)
   checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
-  # also check na_percentage is not 1
-  stopifnot(is.na(na_percentage) || na_percentage < 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_true(na_percentage < 1)
 
   # validate and initialize param vectors
   param_init_list <- relvar_init(param, paramcd)
@@ -170,10 +169,6 @@ radvs <- function(ADSL, # nolint
       STUDYID = attr(ADSL$STUDYID, "label")
     )
 
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADVS <- mutate_na(ds = ADVS, na_vars = na_vars, na_percentage = na_percentage) # nolint
-  }
-
   ADVS <- var_relabel( # nolint
     ADVS,
     STUDYID = "Study Identifier",
@@ -229,6 +224,10 @@ radvs <- function(ADSL, # nolint
       .data$VSSEQ,
       .data$ASPID
     )
+
+  if (length(na_vars) > 0 && na_percentage > 0) {
+    ADVS <- mutate_na(ds = ADVS, na_vars = na_vars, na_percentage = na_percentage) # nolint
+  }
 
   # apply metadata
   ADVS <- apply_metadata(ADVS, "metadata/ADVS.yml") # nolint

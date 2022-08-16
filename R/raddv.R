@@ -45,9 +45,8 @@ raddv <- function(ADSL, # nolint
   checkmate::assert_integer(max_n_dv, len = 1, any.missing = FALSE)
   checkmate::assert_number(p_dv, lower = .Machine$double.xmin, upper = 1)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
-  # also check na_percentage is not 1
-  stopifnot(is.na(na_percentage) || na_percentage < 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_true(na_percentage < 1)
 
   if (!is.null(seed)) set.seed(seed)
 
@@ -136,7 +135,7 @@ raddv <- function(ADSL, # nolint
   ADDV <- ADDV %>% # nolint
     dplyr::mutate(AEPRELFL = ifelse(.data$DVEPRELI == "Y", .data$DVEPRELI, ""))
 
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
+  if (length(na_vars) > 0 && na_percentage > 0) {
     ADDV <- mutate_na(ds = ADDV, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 

@@ -68,9 +68,8 @@ radeg <- function(ADSL, # nolint
   checkmate::assert_integer(max_n_eg, len = 1, any.missing = FALSE)
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
-  # also check na_percentage is not 1
-  stopifnot(is.na(na_percentage) || na_percentage < 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_true(na_percentage < 1)
 
   # validate and initialize related variables
   egcat_init_list <- relvar_init(param, egcat)
@@ -180,10 +179,6 @@ radeg <- function(ADSL, # nolint
 
   ADEG$ANRIND <- factor(ADEG$ANRIND, levels = c("LOW", "NORMAL", "HIGH")) # nolint
   ADEG$BNRIND <- factor(ADEG$BNRIND, levels = c("LOW", "NORMAL", "HIGH")) # nolint
-
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADEG <- mutate_na(ds = ADEG, na_vars = na_vars, na_percentage = na_percentage) # nolint
-  }
 
   ADEG <- var_relabel( # nolint
     ADEG,
@@ -372,6 +367,10 @@ radeg <- function(ADSL, # nolint
       TRUE ~ ""
     )) %>%
     dplyr::ungroup()
+
+  if (length(na_vars) > 0 && na_percentage > 0) {
+    ADEG <- mutate_na(ds = ADEG, na_vars = na_vars, na_percentage = na_percentage) # nolint
+  }
 
   # apply metadata
   ADEG <- apply_metadata(ADEG, "metadata/ADEG.yml") # nolint

@@ -67,9 +67,8 @@ radex <- function(ADSL, # nolint
   checkmate::assert_integer(max_n_exs, len = 1, any.missing = FALSE)
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
-  # also check na_percentage is not 1
-  stopifnot(is.na(na_percentage) || na_percentage < 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_true(na_percentage < 1)
 
   # validate and initialize related variables
   param_init_list <- relvar_init(param, paramcd)
@@ -221,11 +220,6 @@ radex <- function(ADSL, # nolint
       .data$AVAL
     ))
 
-
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    adex <- mutate_na(ds = adex, na_vars = na_vars, na_percentage = na_percentage)
-  }
-
   adex <- var_relabel(
     adex,
     STUDYID = "Study Identifier",
@@ -330,6 +324,10 @@ radex <- function(ADSL, # nolint
       ASTDTM = EXSTDTC,
       AENDTM = EXENDTC
     )
+
+  if (length(na_vars) > 0 && na_percentage > 0) {
+    adex <- mutate_na(ds = adex, na_vars = na_vars, na_percentage = na_percentage)
+  }
 
   # apply metadata
   adex <- apply_metadata(adex, "metadata/ADEX.yml")

@@ -40,9 +40,8 @@ radtte <- function(ADSL, # nolint
   checkmate::assert_character(censor.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(event.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
-  # also check na_percentage is not 1
-  stopifnot(is.na(na_percentage) || na_percentage < 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_true(na_percentage < 1)
 
   if (!is.null(seed)) {
     set.seed(seed)
@@ -123,11 +122,6 @@ radtte <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier" # )
     )
 
-  na_vars <- na_vars[setdiff(colnames(ADTTE), colnames(ADSL))]
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADTTE <- mutate_na(ds = ADTTE, na_vars = na_vars, na_percentage = na_percentage) # nolint
-  }
-
   ADTTE <- var_relabel( # nolint
     ADTTE,
     STUDYID = "Study Identifier",
@@ -191,6 +185,10 @@ radtte <- function(ADSL, # nolint
       .data$ADTM,
       .data$TTESEQ
     )
+
+  if (length(na_vars) > 0 && na_percentage > 0) {
+    ADTTE <- mutate_na(ds = ADTTE, na_vars = na_vars, na_percentage = na_percentage) # nolint
+  }
 
   # apply metadata
   ADTTE <- apply_metadata(ADTTE, "metadata/ADTTE.yml") # nolint

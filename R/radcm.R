@@ -43,9 +43,8 @@ radcm <- function(ADSL, # nolint
   checkmate::assert_data_frame(ADSL)
   checkmate::assert_integer(max_n_cms, len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
-  # also check na_percentage is not 1
-  stopifnot(is.na(na_percentage) || na_percentage < 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_true(na_percentage < 1)
   checkmate::assert_flag(who_coding)
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
@@ -82,10 +81,6 @@ radcm <- function(ADSL, # nolint
     Reduce(rbind, .) %>%
     `[`(c(4, 5, 1, 2, 3)) %>%
     dplyr::mutate(CMCAT = .data$CMCLAS)
-
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADCM <- mutate_na(ds = ADCM, na_vars = na_vars, na_percentage = na_percentage) # nolint
-  }
 
   ADCM <- var_relabel( # nolint
     ADCM,
@@ -206,6 +201,10 @@ radcm <- function(ADSL, # nolint
       ATC3CD = .data$ATC3,
       ATC4CD = .data$ATC4
     )
+
+  if (length(na_vars) > 0 && na_percentage > 0) {
+    ADCM <- mutate_na(ds = ADCM, na_vars = na_vars, na_percentage = na_percentage) # nolint
+  }
 
   # apply metadata
   ADCM <- apply_metadata(ADCM, "metadata/ADCM.yml") # nolint

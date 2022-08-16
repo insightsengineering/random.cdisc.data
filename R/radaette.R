@@ -43,9 +43,8 @@ radaette <- function(ADSL, # nolint
   checkmate::assert_character(censor.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(event.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
-  # also check na_percentage is not 1
-  stopifnot(is.na(na_percentage) || na_percentage < 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_true(na_percentage < 1)
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
   lookup_ADAETTE <- if (!is.null(lookup)) { # nolint
@@ -239,10 +238,6 @@ radaette <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier"
     )
 
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADAETTE <- dplyr::mutate(ds = ADAETTE, na_vars = na_vars, na_percentage = na_percentage) # nolint
-  }
-
   ADAETTE <- var_relabel( # nolint
     ADAETTE,
     STUDYID = "Study Identifier",
@@ -270,6 +265,10 @@ radaette <- function(ADSL, # nolint
       .data$ADTM,
       .data$TTESEQ
     )
+
+  if (length(na_vars) > 0 && na_percentage > 0) {
+    ADAETTE <- dplyr::mutate(ds = ADAETTE, na_vars = na_vars, na_percentage = na_percentage) # nolint
+  }
 
   # apply metadata
   ADAETTE <- apply_metadata(ADAETTE, "metadata/ADAETTE.yml") # nolint.
