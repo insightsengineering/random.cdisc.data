@@ -88,7 +88,7 @@ radpc <- function(ADSL, # nolint
 
   ADPC <- list() # nolint
   for (day in seq(duration)) {
-    ADPC[[day]] <- radpc_core(day = day)
+    ADPC[[day]] <- radpc_core(day = day) # nolint
   }
 
   ADPC <- do.call(rbind, ADPC) # nolint
