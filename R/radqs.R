@@ -56,9 +56,8 @@ radqs <- function(ADSL, # nolint
   checkmate::assert_integer(n_assessments, len = 1, any.missing = FALSE)
   checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
-  # also check na_percentage is not 1
-  stopifnot(is.na(na_percentage) || na_percentage < 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_true(na_percentage < 1)
 
   # validate and initialize param vectors
   param_init_list <- relvar_init(param, paramcd)
@@ -128,10 +127,6 @@ radqs <- function(ADSL, # nolint
       USUBJID = attr(ADSL$USUBJID, "label")
     )
 
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADQS <- mutate_na(ds = ADQS, na_vars = na_vars, na_percentage = na_percentage) # nolint
-  }
-
   ADQS <- var_relabel( # nolint
     ADQS,
     STUDYID = "Study Identifier",
@@ -172,6 +167,10 @@ radqs <- function(ADSL, # nolint
       .data$ADTM,
       .data$QSSEQ
     )
+
+  if (length(na_vars) > 0 && na_percentage > 0) {
+    ADQS <- mutate_na(ds = ADQS, na_vars = na_vars, na_percentage = na_percentage) # nolint
+  }
 
   # apply metadata
   ADQS <- apply_metadata(ADQS, "metadata/ADQS.yml") # nolint

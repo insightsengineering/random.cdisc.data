@@ -58,7 +58,8 @@ radpp <- function(ADSL, # nolint,
   checkmate::assert_string(visit_format)
   checkmate::assert_integer(n_days)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_numeric(na_percentage)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_true(na_percentage < 1)
   checkmate::assert_list(na_vars)
 
   checkmate::assertTRUE(length(ppspec) == length(paramcd))
@@ -137,17 +138,16 @@ radpp <- function(ADSL, # nolint,
     dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" &
       (.data$PPCAT == "Plasma Drug Y" | .data$PPCAT == "Metabolite Drug Y")))
 
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADPP <- mutate_na(ds = ADPP, na_vars = na_vars, na_percentage = na_percentage) # nolint
-  }
-
-
   # derive PKARMCD column for creating more cohorts
   ADPP <- ADPP %>% # nolint
     dplyr::mutate(PKARMCD = factor(1 + (seq(nrow(ADPP)) - 1) %/% (nrow(ADPP) / 10), labels = c(
       "Drug A", "Drug B", "Drug C", "Drug D", "Drug E", "Drug F", "Drug G", "Drug H",
       "Drug I", "Drug J"
     )))
+
+  if (length(na_vars) > 0 && na_percentage > 0) {
+    ADPP <- mutate_na(ds = ADPP, na_vars = na_vars, na_percentage = na_percentage) # nolint
+  }
 
   ADPP <- apply_metadata(ADPP, "metadata/ADPP.yml") # nolint
   return(ADPP)

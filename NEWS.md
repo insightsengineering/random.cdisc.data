@@ -8,6 +8,7 @@
 * Updated `DVDECOD` and `DVSCAT` values in ADDV Dataset (`raddv`, `caddv`).
 * Included post-baseline visits to `radab`.
 * Fixed `ADTM` calculation so that records with same `AVISIT` have the same `ADTM` for each patient.
+* Fixed checks for `na_percentage` argument that is present in most datasets.
 
 ### Enhancements
 * Added new variables to `ADEX` data set.

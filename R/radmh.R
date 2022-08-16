@@ -39,9 +39,8 @@ radmh <- function(ADSL, # nolint
   checkmate::assert_data_frame(ADSL)
   checkmate::assert_integer(max_n_mhs, len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
-  # also check na_percentage is not 1
-  stopifnot(is.na(na_percentage) || na_percentage < 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_true(na_percentage < 1)
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
   lookup_mh <- if (!is.null(lookup)) {
@@ -82,10 +81,6 @@ radmh <- function(ADSL, # nolint
     Reduce(rbind, .) %>%
     `[`(c(4, 5, 1, 2, 3)) %>%
     dplyr::mutate(MHTERM = .data$MHDECOD)
-
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADMH <- mutate_na(ds = ADMH, na_vars = na_vars, na_percentage = na_percentage) # nolint
-  }
 
   ADMH <- var_relabel( # nolint
     ADMH,
@@ -137,6 +132,10 @@ radmh <- function(ADSL, # nolint
     dplyr::mutate(ASEQ = .data$MHSEQ) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHSEQ)
+
+  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
+    ADMH <- mutate_na(ds = ADMH, na_vars = na_vars, na_percentage = na_percentage) # nolint
+  }
 
   # apply metadata
   ADMH <- apply_metadata(ADMH, "metadata/ADMH.yml") # nolint

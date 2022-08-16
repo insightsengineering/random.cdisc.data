@@ -41,9 +41,8 @@ radrs <- function(ADSL, # nolint
   checkmate::assert_data_frame(ADSL)
   checkmate::assert_vector(avalc, null.ok = TRUE)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
-  # also check na_percentage is not 1
-  stopifnot(is.na(na_percentage) || na_percentage < 1)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_true(na_percentage < 1)
 
   param_codes <- if (!is.null(avalc)) {
     avalc
@@ -152,10 +151,6 @@ radrs <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier"
     )
 
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADRS <- mutate_na(ds = ADRS, na_vars = na_vars, na_percentage = na_percentage) # nolint
-  }
-
   ADRS <- var_relabel( # nolint
     ADRS,
     STUDYID = "Study Identifier",
@@ -184,6 +179,10 @@ radrs <- function(ADSL, # nolint
       .data$ADTM,
       .data$RSSEQ
     )
+
+  if (length(na_vars) > 0 && na_percentage > 0) {
+    ADRS <- mutate_na(ds = ADRS, na_vars = na_vars, na_percentage = na_percentage) # nolint
+  }
 
   # apply metadata
   ADRS <- apply_metadata(ADRS, "metadata/ADRS.yml") # nolint

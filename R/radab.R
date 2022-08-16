@@ -61,6 +61,8 @@ radab <- function(ADSL, # nolint
   checkmate::assert_character(paramcd)
   checkmate::assert_character(param, len = length(paramcd))
   checkmate::assert_character(avalu, len = length(paramcd))
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_true(na_percentage < 1)
 
   if (!is.null(seed)) {
     set.seed(seed)
@@ -139,10 +141,6 @@ radab <- function(ADSL, # nolint
     ) %>%
       unique(), by = c("STUDYID", "USUBJID", "VISIT", "PCTPT")) %>%
     dplyr::select(-PCTPT)
-
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADAB <- mutate_na(ds = ADAB, na_vars = na_vars, na_percentage = na_percentage) # nolint
-  }
 
   # mutate time from dose variables from ADPC to convert into Days
   ADAB <- ADAB %>% dplyr::mutate_at(c("ARELTM1", "NRELTM1", "ARELTM2", "NRELTM2"), ~ . / 24) # nolint
@@ -289,6 +287,10 @@ radab <- function(ADSL, # nolint
       pos_bl, pos_bl_nab, any_pos_postbl, any_pos_postbl_nab, pos_last_postbl,
       inc_postbl, inc_postbl_nab, n_pos, onset_ada, last_ada
     ))
+
+  if (length(na_vars) > 0 && na_percentage > 0) {
+    ADAB <- mutate_na(ds = ADAB, na_vars = na_vars, na_percentage = na_percentage) # nolint
+  }
 
   ADAB <- apply_metadata(ADAB, "metadata/ADAB.yml") # nolint
 }

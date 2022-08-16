@@ -36,7 +36,8 @@ radpc <- function(ADSL, # nolint
   checkmate::assert_subset(names(constants), c("D", "ka", "ke"))
   checkmate::assert_numeric(x = duration, max.len = 1)
   checkmate::assert_number(seed, null.ok = TRUE)
-  checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
+  checkmate::assert_number(na_percentage, lower = 0, upper = 1)
+  checkmate::assert_true(na_percentage < 1)
   checkmate::assert_list(na_vars)
 
   if (!is.null(seed)) {
@@ -87,7 +88,7 @@ radpc <- function(ADSL, # nolint
 
   ADPC <- list() # nolint
   for (day in seq(duration)) {
-    ADPC[[day]] <- radpc_core(day = day)
+    ADPC[[day]] <- radpc_core(day = day) # nolint
   }
 
   ADPC <- do.call(rbind, ADPC) # nolint
@@ -96,7 +97,7 @@ radpc <- function(ADSL, # nolint
     dplyr::inner_join(ADPC, by = c("STUDYID", "USUBJID", "ARMCD")) %>% # nolint
     dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" & .data$PARAM == "Plasma Drug Y"))
 
-  if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
+  if (length(na_vars) > 0 && na_percentage > 0) {
     ADPC <- mutate_na(ds = ADPC, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
