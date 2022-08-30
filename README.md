@@ -71,9 +71,16 @@ Please refer to excellent Github tutorials on [connecting to Github using SSH](h
 
 This package is a result of a joint efforts by many developers and stakeholders. We would like to thank everyone who contributed so far!
 
-[![Stargazers repo roster for @insightsengineering/random.cdisc.data](https://reporoster.com/stars/insightsengineering/random.cdisc.data)](https://github.com/insightsengineering/random.cdisc.data/stargazers)
-[![Forkers repo roster for @insightsengineering/random.cdisc.data](https://reporoster.com/forks/insightsengineering/random.cdisc.data)](https://github.com/insightsengineering/random.cdisc.data/network/members)
+## Stargazers and Forkers
 
-## Stargazers over time
+### Stargazers over time
 
 [![Stargazers over time](https://starchart.cc/insightsengineering/random.cdisc.data.svg)](https://starchart.cc/insightsengineering/random.cdisc.data)
+
+### Stargazers
+
+[![Stargazers repo roster for @insightsengineering/random.cdisc.data](https://reporoster.com/stars/insightsengineering/random.cdisc.data)](https://github.com/insightsengineering/random.cdisc.data/stargazers)
+
+### Forkers
+
+[![Forkers repo roster for @insightsengineering/random.cdisc.data](https://reporoster.com/forks/insightsengineering/random.cdisc.data)](https://github.com/insightsengineering/random.cdisc.data/network/members)
