@@ -10,11 +10,9 @@ on:
       - ready_for_review
     branches:
       - main
-      - pre-release
   push:
     branches:
       - main
-      - pre-release
   workflow_dispatch:
 
 jobs:
@@ -26,6 +24,8 @@ jobs:
     uses: insightsengineering/r.pkg.template/.github/workflows/build-check-install.yaml@main
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
+    with:
+      additional-r-cmd-check-params: --as-cran
   coverage:
     if: github.event_name == 'pull_request'
     name: Coverage 📔 
@@ -72,3 +72,7 @@ jobs:
     uses: insightsengineering/r.pkg.template/.github/workflows/style.yaml@main
     with:
       auto-update: true
+  grammar:
+    if: github.event_name == 'pull_request'
+    name: Grammar Check 🔤
+    uses: insightsengineering/r.pkg.template/.github/workflows/grammar.yaml@main
