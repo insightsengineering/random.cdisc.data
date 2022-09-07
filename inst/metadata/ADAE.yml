@@ -48,6 +48,21 @@ variables:
   AESDTH:
     label: Results in Death
     type: factor
+  AESCONG:
+    label: Congenital Anomaly or Birth Defect
+    type: factor
+  AESDISAB:
+    label: Persist or Signif Disability/Incapacity
+    type: factor
+  AESHOSP:
+    label: Requires or Prolongs Hospitalization
+    type: factor
+  AESLIFE:
+    label: Is Life Threatening
+    type: factor
+  AESMIE:
+    label: Other Medically Important Serious Event
+    type: factor
   TRTEMFL:
     label: Treatment Emergent Analysis Flag
     type: factor
