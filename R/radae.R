@@ -263,11 +263,11 @@ radae <- function(ADSL, # nolint
 
 
   ADAE <- dplyr::mutate(ADAE, AES_FLAG = sample(
-      x = c("AESLIFE", "AESHOSP", "AESDISAB", "AESCONG", "AESMIE"),
-      prob = c(0.1, 0.2, 0.2, 0.2, 0.3),
-      size = dplyr::n(),
-      replace = TRUE
-    )) %>%
+    x = c("AESLIFE", "AESHOSP", "AESDISAB", "AESCONG", "AESMIE"),
+    prob = c(0.1, 0.2, 0.2, 0.2, 0.3),
+    size = dplyr::n(),
+    replace = TRUE
+  )) %>%
     dplyr::mutate(AES_FLAG = case_when(
       AESDTH == "Y" ~ "AESDTH",
       TRUE ~ AES_FLAG
