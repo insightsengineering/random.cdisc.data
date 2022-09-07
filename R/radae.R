@@ -261,8 +261,7 @@ radae <- function(ADSL, # nolint
     replace = TRUE
   ))
 
-  ADAE <- ADAE %>%
-    dplyr::mutate(AES_FLAG = sample(
+  ADAE <- ADAE %>% dplyr::mutate(AES_FLAG = sample(
       x = c("AESLIFE", "AESHOSP", "AESDISAB", "AESCONG", "AESMIE"),
       prob = c(0.1, 0.2, 0.2, 0.2, 0.3),
       size = dplyr::n(),
