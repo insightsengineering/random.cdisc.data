@@ -60,6 +60,12 @@ variables:
   TRT01A:
     label: Actual Treatment for Period 01
     type: factor
+  TRT02P:
+    label: Planned Treatment for Period 02
+    type: factor
+  TRT02A:
+    label: Actual Treatment for Period 02
+    type: factor
   REGION1:
     label: Geographic Region 1
     type: factor

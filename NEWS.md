@@ -22,6 +22,7 @@
 * Add `ATIREL` variable to `admh`.
 * Add variables `CMSTRTPT`, `CMENRTPT`, `ADURN`, and `ADURU` to `adcm`.
 * Add variables `AESCONG`, `AESDISAB`, `AESHOSP`, `AESLIFE`, and `AESMIE` to `adae`.
+* Add variables `TRT02A` and `TRT02P`to `adsl`.
 
 # random.cdisc.data 0.3.13
 

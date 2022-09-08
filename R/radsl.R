@@ -109,6 +109,8 @@ radsl <- function(N = 400, # nolint
     dplyr::mutate(ACTARMCD = .data$ARMCD) %>%
     dplyr::mutate(TRT01P = .data$ARM) %>%
     dplyr::mutate(TRT01A = .data$ACTARM) %>%
+    dplyr::mutate(TRT02P = sample(.data$ARM)) %>%
+    dplyr::mutate(TRT02A = sample(.data$ACTARM)) %>%
     dplyr::mutate(ITTFL = factor("Y")) %>%
     dplyr::mutate(SAFFL = factor("Y")) %>%
     dplyr::arrange(.data$st_posixn)
