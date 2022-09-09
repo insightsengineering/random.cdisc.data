@@ -14,44 +14,44 @@ on:
 jobs:
   audit:
     name: Audit Dependencies 🕵️‍♂️
-    uses: insightsengineering/r.pkg.template/.github/workflows/audit.yaml@main
+    uses: insightsengineering/r.pkg.template/.github/workflows/audit.yaml@163_v0.2.4
   r-cmd:
     name: R CMD Check 🧬
-    uses: insightsengineering/r.pkg.template/.github/workflows/build-check-install.yaml@main
+    uses: insightsengineering/r.pkg.template/.github/workflows/build-check-install.yaml@163_v0.2.4
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
   coverage:
     if: github.event_name == 'pull_request'
     name: Coverage 📔 
-    uses: insightsengineering/r.pkg.template/.github/workflows/test-coverage.yaml@main
+    uses: insightsengineering/r.pkg.template/.github/workflows/test-coverage.yaml@163_v0.2.4
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
   linter:
     if: github.event_name == 'pull_request'
     name: SuperLinter 🦸‍♀️
-    uses: insightsengineering/r.pkg.template/.github/workflows/linter.yaml@main
+    uses: insightsengineering/r.pkg.template/.github/workflows/linter.yaml@163_v0.2.4
   roxygen:
     name: Roxygen 🅾
-    uses: insightsengineering/r.pkg.template/.github/workflows/roxygen.yaml@main
+    uses: insightsengineering/r.pkg.template/.github/workflows/roxygen.yaml@163_v0.2.4
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
   gitleaks:
     name: gitleaks 💧
-    uses: insightsengineering/r.pkg.template/.github/workflows/gitleaks.yaml@main
+    uses: insightsengineering/r.pkg.template/.github/workflows/gitleaks.yaml@163_v0.2.4
   spelling:
     if: github.event_name == 'pull_request'
     name: Spell Check 🆎
-    uses: insightsengineering/r.pkg.template/.github/workflows/spelling.yaml@main
+    uses: insightsengineering/r.pkg.template/.github/workflows/spelling.yaml@163_v0.2.4
   links:
     if: github.event_name == 'pull_request'
     name: Check URLs 🌐
-    uses: insightsengineering/r.pkg.template/.github/workflows/links.yaml@main
+    uses: insightsengineering/r.pkg.template/.github/workflows/links.yaml@163_v0.2.4
   vbump:
     name: Version Bump 🤜🤛
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    uses: insightsengineering/r.pkg.template/.github/workflows/version-bump.yaml@main
+    uses: insightsengineering/r.pkg.template/.github/workflows/version-bump.yaml@163_v0.2.4
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
   version:
     name: Version Check 🏁
-    uses: insightsengineering/r.pkg.template/.github/workflows/version.yaml@main
+    uses: insightsengineering/r.pkg.template/.github/workflows/version.yaml@163_v0.2.4
