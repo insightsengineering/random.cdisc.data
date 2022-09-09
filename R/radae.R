@@ -269,7 +269,7 @@ radae <- function(ADSL, # nolint
       size = dplyr::n(),
       replace = TRUE
     )) %>%
-    dplyr::mutate(AES_FLAG = case_when(
+    dplyr::mutate(AES_FLAG = dplyr::case_when(
       AESDTH == "Y" ~ "AESDTH",
       TRUE ~ AES_FLAG
     )) %>%
@@ -280,7 +280,7 @@ radae <- function(ADSL, # nolint
       AESLIFE = ifelse(AES_FLAG == "AESLIFE", "Y", "N"),
       AESMIE = ifelse(AES_FLAG == "AESMIE", "Y", "N")
     ) %>%
-    select(-AES_FLAG)
+    dplyr::select(-AES_FLAG)
 
   if (length(na_vars) > 0 && na_percentage > 0) {
     ADAE <- mutate_na(ds = ADAE, na_vars = na_vars, na_percentage = na_percentage) # nolint
