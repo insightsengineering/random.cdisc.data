@@ -280,7 +280,7 @@ radae <- function(ADSL, # nolint
       AESLIFE = ifelse(AES_FLAG == "AESLIFE", "Y", "N"),
       AESMIE = ifelse(AES_FLAG == "AESMIE", "Y", "N")
     ) %>%
-    dplyr::select(-'AES_FLAG') # nolint
+    dplyr::select(-"AES_FLAG") # nolint
 
   if (length(na_vars) > 0 && na_percentage > 0) {
     ADAE <- mutate_na(ds = ADAE, na_vars = na_vars, na_percentage = na_percentage) # nolint
