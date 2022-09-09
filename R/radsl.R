@@ -185,6 +185,12 @@ radsl <- function(N = 400, # nolint
       DTHCAT == "OTHER" ~ sample(x = l_dthcat_other$choices, size = N, replace = TRUE, prob = l_dthcat_other$prob),
       TRUE ~ as.character(NA)
     )) %>%
+    dplyr::mutate(ADTHAUT = dplyr::case_when(
+      DTHCAUS %in% c("ADVERSE EVENT", "DISEASE PROGRESSION") ~ "Yes",
+      DTHCAUS %in% c("UNKNOWN", "SUICIDE", "Post-study reporting of death") ~ sample(
+        x = c("Yes", "No"), size = N, replace = TRUE, prob = c(0.25, 0.75)),
+      TRUE ~ as.character(NA)
+    )) %>%
     # adding some random number of days post last treatment date so that death days from last trt admin
     # supports the LDDTHGR1 derivation below
     dplyr::mutate(DTHDT = dplyr::case_when(
