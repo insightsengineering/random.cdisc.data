@@ -129,5 +129,8 @@ variables:
   DTHADY:
     label: Relative Day of Death
     type: integer
+  ADTHAUT:
+    label: Autopsy Performed
+    type: factor
   study_duration_secs:
     label: NOT A STANDARD BUT NEEDED FOR RCD
