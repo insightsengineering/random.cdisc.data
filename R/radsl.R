@@ -141,11 +141,11 @@ radsl <- function(N = 400, # nolint
       st_posixn >= quantile(st_posixn)[2] & st_posixn <= quantile(st_posixn)[3] ~ as.POSIXct(NA, origin = "1970-01-01"),
       TRUE ~ TRTEDTM
     )) %>%
-    dplyr::mutate(TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01"),
+    dplyr::mutate(TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01"), # nolint
                   AP02EDTM = TRTEDTM,
                   TRT02EDTM = TRTEDTM
-                  ) %>%
-    dplyr::select(-.data$TRTEDTM_discon)
+                  ) %>% # nolint
+    dplyr::select(-.data$TRTEDTM_discon) # nolint
 
   ADSL <- ADSL %>% # nolint
     dplyr::mutate(EOSDT = as.Date(.data$TRTEDTM)) %>%
