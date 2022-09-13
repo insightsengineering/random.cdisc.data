@@ -5,7 +5,7 @@
 \alias{cadrs}
 \title{Cached ADRS}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3200 rows and 66 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3200 rows and 56 columns.
 }
 \usage{
 data(cadrs)
