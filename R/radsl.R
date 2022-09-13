@@ -155,7 +155,7 @@ radsl <- function(N = 400, # nolint
         TRT02EDTM = as.POSIXct(.data$st_posixn_2 + with_trt02, origin = "1970-01-01"),
         AP02EDTM = TRT02EDTM,
         TRTEDTM = TRT02EDTM
-        ) %>% # nolint
+      ) %>% # nolint
       dplyr::select(-.data$st_posixn_2) # nolint
     }
 
