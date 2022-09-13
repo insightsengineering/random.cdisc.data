@@ -102,6 +102,22 @@ variables:
     label: Datetime of First Exposure to Treatment
   TRTEDTM:
     label: Datetime of Last Exposure to Treatment
+  TRT01SDTM:
+    label: Datetime of First Exposure to Treatment in Period 01
+  TRT01EDTM:
+    label: Datetime of Last Exposure in Period 01
+  TRT02SDTM:
+    label: Datetime of First Exposure to Treatment in Period 02
+  TRT02EDTM:
+    label: Datetime of Last Exposure to Treatment in Period 02
+  AP01SDTM:
+    label: Period 01 Start Datetime
+  AP01EDTM:
+    label: Period 01 End Datetime
+  AP02SDTM:
+    label: Period 02 Start Datetime
+  AP02EDTM:
+    label: Period 02 End Datetime
   EOSSTT:
     label: End of Study Status
     type: factor
@@ -135,5 +151,8 @@ variables:
   DTHADY:
     label: Relative Day of Death
     type: integer
+  ADTHAUT:
+    label: Autopsy Performed
+    type: factor
   study_duration_secs:
     label: NOT A STANDARD BUT NEEDED FOR RCD

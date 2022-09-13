@@ -1,4 +1,4 @@
-# random.cdisc.data 0.3.13.9024
+# random.cdisc.data 0.3.13.9026
 
 ### New features
 * Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (`radab`).
@@ -22,7 +22,10 @@
 * Add `ATIREL` variable to `admh`.
 * Add variables `CMSTRTPT`, `CMENRTPT`, `ADURN`, and `ADURU` to `adcm`.
 * Add variables `AESCONG`, `AESDISAB`, `AESHOSP`, `AESLIFE`, and `AESMIE` to `adae`.
-* Add variables `TRT02A` and `TRT02P`to `adsl`.
+* Add variable `ADTHAUT` to `adsl`.
+* Add variables `TRT02A`, `TRT02P`, `TRT02SDTM`, `TRT02EDTM`, `AP02SDTM`, `AP02EDTM`, `TRT01SDTM`, `TRT01EDTM`, 
+  `AP01SDTM`,and `AP01EDTM` to `adsl`.
+* Enhanced variables `TRTSDTM` as `TRT01SDTM`, `TRTEDTM` as `TRT02EDTM`.
 
 # random.cdisc.data 0.3.13
 
