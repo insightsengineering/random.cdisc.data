@@ -11,7 +11,7 @@ vignette: >
 
 # Getting Started
 
-The following script is used to create, compare and save cached data to `C:/Users/delaruae/NEST/random.cdisc.data/data/` directory.
+The following script is used to create, compare and save cached data to `data/` directory.
 
 Starting in `R 3.6.0` the default kind of under-the-hood random-number generator was changed.
 Now, in order to get the results from `set.seed()` to match, you have to first call the
@@ -102,23 +102,23 @@ cadsub <- cadsub_new
 cadhy <- cadhy_new
 
 # update cache
-save(cadsl, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadsl.RData", compress = "xz")
-save(cadab, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadab.RData", compress = "xz")
-save(cadae, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadae.RData", compress = "xz")
-save(cadaette, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadaette.RData", compress = "xz")
-save(cadcm, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadcm.RData", compress = "xz")
-save(cadeg, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadeg.RData", compress = "xz")
-save(cadex, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadex.RData", compress = "xz")
-save(cadlb, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadlb.RData", compress = "xz")
-save(cadmh, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadmh.RData", compress = "xz")
-save(cadpc, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadpc.RData", compress = "xz")
-save(cadpp, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadpp.RData", compress = "xz")
-save(cadqs, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadqs.RData", compress = "xz")
-save(cadrs, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadrs.RData", compress = "xz")
-save(cadtr, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadtr.RData", compress = "xz")
-save(cadtte, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadtte.RData", compress = "xz")
-save(cadvs, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadvs.RData", compress = "xz")
-save(caddv, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/caddv.RData", compress = "xz")
-save(cadsub, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadsub.RData", compress = "xz")
-save(cadhy, file = "C:/Users/delaruae/NEST/random.cdisc.data/data/cadhy.RData", compress = "xz")
+save(cadsl, file = "data/cadsl.RData", compress = "xz")
+save(cadab, file = "data/cadab.RData", compress = "xz")
+save(cadae, file = "data/cadae.RData", compress = "xz")
+save(cadaette, file = "data/cadaette.RData", compress = "xz")
+save(cadcm, file = "data/cadcm.RData", compress = "xz")
+save(cadeg, file = "data/cadeg.RData", compress = "xz")
+save(cadex, file = "data/cadex.RData", compress = "xz")
+save(cadlb, file = "data/cadlb.RData", compress = "xz")
+save(cadmh, file = "data/cadmh.RData", compress = "xz")
+save(cadpc, file = "data/cadpc.RData", compress = "xz")
+save(cadpp, file = "data/cadpp.RData", compress = "xz")
+save(cadqs, file = "data/cadqs.RData", compress = "xz")
+save(cadrs, file = "data/cadrs.RData", compress = "xz")
+save(cadtr, file = "data/cadtr.RData", compress = "xz")
+save(cadtte, file = "data/cadtte.RData", compress = "xz")
+save(cadvs, file = "data/cadvs.RData", compress = "xz")
+save(caddv, file = "data/caddv.RData", compress = "xz")
+save(cadsub, file = "data/cadsub.RData", compress = "xz")
+save(cadhy, file = "data/cadhy.RData", compress = "xz")
 ```
