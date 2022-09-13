@@ -87,20 +87,20 @@ radsl <- function(N = 400, # nolint
     ) %>%
       sample_fct(N, prob = c(.55, .23, .16, .05, .004, .003, .002, .002)),
     TRTSDTM = as.POSIXct(
-      sys_dtm + sample(seq(0, study_duration_secs/8), size = N, replace = TRUE),
+      sys_dtm + sample(seq(0, study_duration_secs / 8), size = N, replace = TRUE),
       origin = "1970-01-01"
     ),
     TRT01SDTM = TRTSDTM,
     AP01SDTM = TRT01SDTM,
     RANDDT = as.Date(.data$TRTSDTM) - floor(stats::runif(N, min = 0, max = 5)),
     st_posixn = as.numeric(.data$TRT01SDTM),
-    TRT01EDTM = as.POSIXct(.data$st_posixn + study_duration_secs/4, origin = "1970-01-01"),
+    TRT01EDTM = as.POSIXct(.data$st_posixn + study_duration_secs / 4, origin = "1970-01-01"),
     AP01EDTM = TRT01EDTM,
     st_posixn_2 = as.numeric(.data$TRT01EDTM),
-    TRT02SDTM = as.POSIXct(.data$st_posixn_2 + study_duration_secs/8, origin = "1970-01-01"),
+    TRT02SDTM = as.POSIXct(.data$st_posixn_2 + study_duration_secs / 8, origin = "1970-01-01"),
     AP02SDTM = TRT02SDTM,
     st_posixn_3 = as.numeric(.data$TRT02SDTM),
-    TRTEDTM = as.POSIXct(.data$st_posixn_3 + study_duration_secs/2, origin = "1970-01-01"),
+    TRTEDTM = as.POSIXct(.data$st_posixn_3 + study_duration_secs / 2, origin = "1970-01-01"),
     STRATA1 = c("A", "B", "C") %>% sample_fct(N),
     STRATA2 = c("S1", "S2") %>% sample_fct(N),
     BMRKR1 = stats::rchisq(N, 6),
@@ -141,10 +141,11 @@ radsl <- function(N = 400, # nolint
       st_posixn >= quantile(st_posixn)[2] & st_posixn <= quantile(st_posixn)[3] ~ as.POSIXct(NA, origin = "1970-01-01"),
       TRUE ~ TRTEDTM
     )) %>%
-    dplyr::mutate(TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01"),
-                  AP02EDTM = TRTEDTM,
-                  TRT02EDTM = TRTEDTM
-                  ) %>%
+    dplyr::mutate(
+      TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01"),
+      AP02EDTM = TRTEDTM,
+      TRT02EDTM = TRTEDTM
+    ) %>%
     dplyr::select(-.data$TRTEDTM_discon)
 
   ADSL <- ADSL %>% # nolint
