@@ -14,6 +14,7 @@
 #' @param N Number of patients.
 #' @param study_duration Duration of study in years.
 #' @param seed Seed for random number generation.
+#' @param with_trt02 If period 2 is needed, set duration of period 2 in years.
 #' @param ae_withdrawal_prob Probability that there is at least one Adverse Event
 #' leading to the withdrawal of a study drug.
 #' @inheritParams mutate_na
@@ -39,6 +40,7 @@
 radsl <- function(N = 400, # nolint
                   study_duration = 2,
                   seed = NULL,
+                  with_trt02 = NULL,
                   na_percentage = 0,
                   na_vars = list(
                     "AGE" = NA, "SEX" = NA, "RACE" = NA, "STRATA1" = NA, "STRATA2" = NA,
@@ -131,8 +133,31 @@ radsl <- function(N = 400, # nolint
       st_posixn >= quantile(st_posixn)[2] & st_posixn <= quantile(st_posixn)[3] ~ as.POSIXct(NA, origin = "1970-01-01"),
       TRUE ~ TRTEDTM
     )) %>%
-    dplyr::mutate(TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01")) %>%
-    dplyr::select(-.data$TRTEDTM_discon)
+    dplyr::mutate( # nolint
+      TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01") # nolint
+    ) %>% # nolint
+    dplyr::select(-.data$TRTEDTM_discon) # nolint
+
+  # add period 2 if needed
+  if (!is.null(with_trt02)) { # nolint
+    with_trt02 <- (31556952 * as.numeric(with_trt02)) # nolint
+    ADSL <- ADSL %>% # nolint
+      dplyr::mutate(TRT02P = sample(.data$ARM)) %>% # nolint
+      dplyr::mutate(TRT02A = sample(.data$ACTARM)) %>% # nolint
+      dplyr::mutate( # nolint
+        TRT01SDTM = TRTSDTM,
+        AP01SDTM = TRT01SDTM,
+        TRT01EDTM = TRTEDTM,
+        AP01EDTM = TRT01EDTM,
+        TRT02SDTM = TRTEDTM,
+        AP02SDTM = TRT02SDTM,
+        st_posixn_2 = as.numeric(.data$TRT01EDTM), # nolint
+        TRT02EDTM = as.POSIXct(.data$st_posixn_2 + with_trt02, origin = "1970-01-01"),
+        AP02EDTM = TRT02EDTM,
+        TRTEDTM = TRT02EDTM
+      ) %>% # nolint
+      dplyr::select(-.data$st_posixn_2) # nolint
+    }
 
   ADSL <- ADSL %>% # nolint
     dplyr::mutate(EOSDT = as.Date(.data$TRTEDTM)) %>%
@@ -240,12 +265,17 @@ radsl <- function(N = 400, # nolint
     dplyr::mutate(USUBJID = paste(.data$STUDYID, .data$SITEID, .data$SUBJID, sep = "-")) %>%
     dplyr::mutate(study_duration_secs = study_duration_secs)
 
+
   if (length(na_vars) > 0 && na_percentage > 0) {
     ADSL <- mutate_na(ds = ADSL, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
   # apply metadata
-  ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml", FALSE) # nolint
+  if (is.null(with_trt02)) { # nolint
+    ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml", FALSE) # nolint
+  } else {
+    ADSL <- apply_metadata(ADSL, "metadata/ADSLwithTRT02.yml", FALSE) # nolint
+  }
 
   return(ADSL)
 }
