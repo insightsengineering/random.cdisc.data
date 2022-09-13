@@ -5,7 +5,7 @@
 \alias{cadmh}
 \title{Cached ADMH}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1934 rows and 57 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1934 rows and 58 columns.
 }
 \usage{
 data(cadmh)
