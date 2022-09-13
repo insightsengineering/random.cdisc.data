@@ -140,8 +140,8 @@ radsl <- function(N = 400, # nolint
 
   # add period 2 if needed
   if (!is.null(with_trt02)) { # nolint
-    with_trt02 <- (31556952 * as.numeric(with_trt02))# nolint
-    ADSL <- ADSL %>%  # nolint
+    with_trt02 <- (31556952 * as.numeric(with_trt02)) # nolint
+    ADSL <- ADSL %>% # nolint
       dplyr::mutate(TRT02P = sample(.data$ARM)) %>% # nolint
       dplyr::mutate(TRT02A = sample(.data$ACTARM)) %>% # nolint
       dplyr::mutate( # nolint
@@ -151,7 +151,7 @@ radsl <- function(N = 400, # nolint
         AP01EDTM = TRT01EDTM,
         TRT02SDTM = TRTEDTM,
         AP02SDTM = TRT02SDTM,
-        st_posixn_2 = as.numeric(.data$TRT01EDTM),# nolint
+        st_posixn_2 = as.numeric(.data$TRT01EDTM), # nolint
         TRT02EDTM = as.POSIXct(.data$st_posixn_2 + with_trt02, origin = "1970-01-01"),
         AP02EDTM = TRT02EDTM,
         TRTEDTM = TRT02EDTM
