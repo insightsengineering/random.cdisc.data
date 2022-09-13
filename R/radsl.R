@@ -273,7 +273,7 @@ radsl <- function(N = 400, # nolint
   # apply metadata
   if (is.null(with_trt02)) { # nolint
     ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml", FALSE) # nolint
-  }else{# nolint
+  } else {
     ADSL <- apply_metadata(ADSL, "metadata/ADSLwithTRT02.yml", FALSE) # nolint
   }
 
