@@ -157,7 +157,7 @@ radsl <- function(N = 400, # nolint
         TRTEDTM = TRT02EDTM
       ) %>% # nolint
       dplyr::select(-.data$st_posixn_2) # nolint
-    }
+  }
 
   ADSL <- ADSL %>% # nolint
     dplyr::mutate(EOSDT = as.Date(.data$TRTEDTM)) %>%
