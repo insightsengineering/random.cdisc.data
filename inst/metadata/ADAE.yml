@@ -79,6 +79,8 @@ variables:
   AENDY:
     label: Analysis End Relative Day
     type: integer
+  LDOSEDTM:
+    label: End Date/Time of Last Dose
   AETOXGR:
     label: Analysis Toxicity Grade
     type: factor
