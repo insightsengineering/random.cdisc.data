@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">random.cdisc.data</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13.9026</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13.9027</span>
       </span>
     </div>
 
@@ -44,12 +44,6 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/random.cdisc.data/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/insightsengineering/random.cdisc.data/" class="external-link">
     <span class="fa fa-github"></span>
@@ -70,13 +64,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.3.13.9026" id="randomcdiscdata-03139026">random.cdisc.data 0.3.13.9026<a class="anchor" aria-label="anchor" href="#randomcdiscdata-03139026"></a></h2>
+<h2 class="page-header" data-toc-text="0.3.13.9027" id="randomcdiscdata-03139027">random.cdisc.data 0.3.13.9027<a class="anchor" aria-label="anchor" href="#randomcdiscdata-03139027"></a></h2>
 <div class="section level4">
-<h4 id="new-features-0-3-13-9026">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-13-9026"></a></h4>
+<h4 id="new-features-0-3-13-9027">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-13-9027"></a></h4>
 <ul><li>Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (<code>radab</code>).</li>
 </ul></div>
 <div class="section level4">
-<h4 id="bug-fixes-0-3-13-9026">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-13-9026"></a></h4>
+<h4 id="bug-fixes-0-3-13-9027">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-13-9027"></a></h4>
 <ul><li>Update all the NA and “” to “” in <code>ADAE$ANL01FL</code>.</li>
 <li>Updated <code>DVDECOD</code> and <code>DVSCAT</code> values in ADDV Dataset (<code>raddv</code>, <code>caddv</code>).</li>
 <li>Included post-baseline visits to <code>radab</code>.</li>
@@ -84,7 +78,7 @@
 <li>Fixed checks for <code>na_percentage</code> argument that is present in most datasets.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="enhancements-0-3-13-9026">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-3-13-9026"></a></h4>
+<h4 id="enhancements-0-3-13-9027">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-3-13-9027"></a></h4>
 <ul><li>Added new variables to <code>ADEX</code> data set.</li>
 <li>Enhanced <code>radpp</code> with additional default <code>PARAM</code>s.</li>
 <li>Add new variables <code>PPSTINT</code> <code>PPENINT</code> <code>REGIMEN</code> <code>PKARMCD</code> to <code>radpp</code>.</li>
@@ -99,6 +93,7 @@
 <li>Add variables <code>AESCONG</code>, <code>AESDISAB</code>, <code>AESHOSP</code>, <code>AESLIFE</code>, and <code>AESMIE</code> to <code>adae</code>.</li>
 <li>Add variable <code>ADTHAUT</code> to <code>adsl</code>.</li>
 <li>Add parameter <code>with_trt02</code> to <code>radsl</code> to make the second treatment period available. When default as NULL, there is no period 2. When set as a specific integer, add variables <code>TRT02A</code>, <code>TRT02P</code>, <code>TRT02SDTM</code>, <code>TRT02EDTM</code>, <code>AP02SDTM</code>, <code>AP02EDTM</code>, <code>TRT01SDTM</code>, <code>TRT01EDTM</code>, <code>AP01SDTM</code>,and <code>AP01EDTM</code> to <code>adsl</code>. And set <code>TRTSDTM</code> as <code>TRT01SDTM</code>, <code>TRTEDTM</code> as <code>TRT02EDTM</code>.</li>
+<li>Add variable <code>LDOSEDTM</code> to <code>adae</code>.</li>
 </ul></div>
 </div>
     <div class="section level2">
