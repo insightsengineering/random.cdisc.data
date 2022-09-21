@@ -60,6 +60,12 @@ variables:
   TRT01A:
     label: Actual Treatment for Period 01
     type: factor
+  TRT02P:
+    label: Planned Treatment for Period 02
+    type: factor
+  TRT02A:
+    label: Actual Treatment for Period 02
+    type: factor
   REGION1:
     label: Geographic Region 1
     type: factor
@@ -96,6 +102,22 @@ variables:
     label: Datetime of First Exposure to Treatment
   TRTEDTM:
     label: Datetime of Last Exposure to Treatment
+  TRT01SDTM:
+    label: Datetime of First Exposure to Treatment in Period 01
+  TRT01EDTM:
+    label: Datetime of Last Exposure in Period 01
+  TRT02SDTM:
+    label: Datetime of First Exposure to Treatment in Period 02
+  TRT02EDTM:
+    label: Datetime of Last Exposure to Treatment in Period 02
+  AP01SDTM:
+    label: Period 01 Start Datetime
+  AP01EDTM:
+    label: Period 01 End Datetime
+  AP02SDTM:
+    label: Period 02 Start Datetime
+  AP02EDTM:
+    label: Period 02 End Datetime
   EOSSTT:
     label: End of Study Status
     type: factor

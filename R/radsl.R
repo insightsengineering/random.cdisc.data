@@ -40,7 +40,7 @@
 radsl <- function(N = 400, # nolint
                   study_duration = 2,
                   seed = NULL,
-                  with_trt02 = NULL,
+                  with_trt02 = TRUE,
                   na_percentage = 0,
                   na_vars = list(
                     "AGE" = NA, "SEX" = NA, "RACE" = NA, "STRATA1" = NA, "STRATA2" = NA,
@@ -139,7 +139,7 @@ radsl <- function(N = 400, # nolint
     dplyr::select(-.data$TRTEDTM_discon) # nolint
 
   # add period 2 if needed
-  if (!is.null(with_trt02)) { # nolint
+  if (with_trt02) { # nolint
     with_trt02 <- (31556952 * as.numeric(with_trt02)) # nolint
     ADSL <- ADSL %>% # nolint
       dplyr::mutate(TRT02P = sample(.data$ARM)) %>% # nolint
@@ -271,11 +271,7 @@ radsl <- function(N = 400, # nolint
   }
 
   # apply metadata
-  if (is.null(with_trt02)) { # nolint
-    ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml", FALSE) # nolint
-  } else {
-    ADSL <- apply_metadata(ADSL, "metadata/ADSLwithTRT02.yml", FALSE) # nolint
-  }
+  ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml", FALSE) # nolint
 
   return(ADSL)
 }
