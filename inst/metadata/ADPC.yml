@@ -36,6 +36,9 @@ variables:
  PARAM:
     label: Parameter
     type: factor
+ ASMED:
+    label: Matrix of Sample
+    type: factor
  VISIT:
     label: Visit
     type: factor
