@@ -21,6 +21,9 @@ variables:
  PCTPT:
     label: Planned Time Point Name
     type: factor
+ PCVOL:
+    label: Volume Of Urine Sampling (mL)
+    type: numeric
  AVAL:
     label: Analysis Value
     type: numeric
@@ -36,10 +39,12 @@ variables:
  PARAM:
     label: Parameter
     type: factor
+ ASMED:
+    label: Matrix of Sample
+    type: factor
  VISIT:
     label: Visit
     type: factor
  VISITDY:
     label: Visit (N)
     type: integer
-
