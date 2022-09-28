@@ -68,8 +68,8 @@ radpc <- function(ADSL, # nolint
         VISIT = paste("Day", .data$VISITDY),
         PCTPT = factor(dplyr::case_when(
           .data$PCTPTNUM == 0 ~ "Predose",
-          grepl("Urine", .data$PARAM, fixed=TRUE) ~ paste0(lag(.data$PCTPTNUM), "H - ", .data$PCTPTNUM, "H"),
-          grepl("Plasma", .data$PARAM, fixed=TRUE) ~ paste0(.data$PCTPTNUM, "H"),
+          day==1 & grepl("Urine", .data$PARAM, fixed=TRUE) ~ paste0(lag(.data$PCTPTNUM), "H - ", .data$PCTPTNUM, "H"),
+          day!=1 & grepl("Urine", .data$PARAM, fixed=TRUE) ~ paste0(as.numeric(.data$PCTPTNUM)-24, "H - ", .data$PCTPTNUM, "H"),
           TRUE ~ paste0(.data$PCTPTNUM, "H")
         )),
         ARELTM1 = .data$PCTPTNUM,
