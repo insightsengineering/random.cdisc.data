@@ -59,8 +59,9 @@ radpc <- function(ADSL, # nolint
       PCTPTNUM = if (day == 1) c(0, 0.5, 1, 1.5, 2, 3, 4, 8, 12, 24) else 24 * day,
     )
 
-    if(day == 1)
-      ADPC_day <- ADPC_day %>% filter(!(grepl("Urine", .data$PARAM, fixed=TRUE) & .data$PCTPTNUM %in% c(0.5, 1, 1.5, 2, 3)))
+    if (day == 1) {
+      ADPC_day <- ADPC_day %>% filter(!(grepl("Urine", .data$PARAM, fixed = TRUE) & .data$PCTPTNUM %in% c(0.5, 1, 1.5, 2, 3)))
+    }
 
     ADPC_day <- ADPC_day %>%
       dplyr::mutate(
@@ -68,15 +69,15 @@ radpc <- function(ADSL, # nolint
         VISIT = paste("Day", .data$VISITDY),
         PCTPT = factor(dplyr::case_when(
           .data$PCTPTNUM == 0 ~ "Predose",
-          grepl("Urine", .data$PARAM, fixed=TRUE) ~ paste0(lag(.data$PCTPTNUM), "H - ", .data$PCTPTNUM, "H"),
-          grepl("Plasma", .data$PARAM, fixed=TRUE) ~ paste0(.data$PCTPTNUM, "H"),
+          grepl("Urine", .data$PARAM, fixed = TRUE) ~ paste0(lag(.data$PCTPTNUM), "H - ", .data$PCTPTNUM, "H"),
+          grepl("Plasma", .data$PARAM, fixed = TRUE) ~ paste0(.data$PCTPTNUM, "H"),
           TRUE ~ paste0(.data$PCTPTNUM, "H")
         )),
         ARELTM1 = .data$PCTPTNUM,
         NRELTM1 = .data$PCTPTNUM,
         ARELTM2 = .data$ARELTM1 - (24 * (day - 1)),
         NRELTM2 = .data$NRELTM1 - (24 * (day - 1)),
-        A0 = ifelse(grepl("Drug Y", .data$PARAM, fixed=TRUE), .data$A0, .data$A0 / 2),
+        A0 = ifelse(grepl("Drug Y", .data$PARAM, fixed = TRUE), .data$A0, .data$A0 / 2),
         AVAL = round((.data$A0 * .data$ka * (
           exp(-.data$ka * .data$ARELTM1) - exp(-.data$ke * .data$ARELTM1)
         ))
@@ -102,7 +103,7 @@ radpc <- function(ADSL, # nolint
 
   ADPC <- ADSL %>% # nolint
     dplyr::inner_join(ADPC, by = c("STUDYID", "USUBJID", "ARMCD")) %>% # nolint
-    dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" & grepl("Drug Y", .data$PARAM, fixed=TRUE)))
+    dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" & grepl("Drug Y", .data$PARAM, fixed = TRUE)))
 
   if (length(na_vars) > 0 && na_percentage > 0) {
     ADPC <- mutate_na(ds = ADPC, na_vars = na_vars, na_percentage = na_percentage) # nolint
