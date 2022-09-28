@@ -61,7 +61,7 @@ radpc <- function(ADSL, # nolint
 
     if (day == 1) {
       ADPC_day <- ADPC_day %>% filter(!(grepl("Urine", .data$PARAM, fixed = TRUE) &
-                                          .data$PCTPTNUM %in% c(0.5, 1, 1.5, 2, 3))) # nolint
+        .data$PCTPTNUM %in% c(0.5, 1, 1.5, 2, 3))) # nolint
     }
 
     ADPC_day <- ADPC_day %>%
@@ -107,8 +107,10 @@ radpc <- function(ADSL, # nolint
 
   ADPC <- ADSL %>% # nolint
     dplyr::inner_join(ADPC, by = c("STUDYID", "USUBJID", "ARMCD")) %>% # nolint
-    dplyr::filter(.data$ACTARM != "B: Placebo",
-                  !(.data$ACTARM == "A: Drug X" & grepl("Drug Y", .data$PARAM, fixed = TRUE)))
+    dplyr::filter(
+      .data$ACTARM != "B: Placebo",
+      !(.data$ACTARM == "A: Drug X" & grepl("Drug Y", .data$PARAM, fixed = TRUE))
+    )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
     ADPC <- mutate_na(ds = ADPC, na_vars = na_vars, na_percentage = na_percentage) # nolint
