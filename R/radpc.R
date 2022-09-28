@@ -71,9 +71,9 @@ radpc <- function(ADSL, # nolint
         PCTPT = factor(dplyr::case_when(
           .data$PCTPTNUM == 0 ~ "Predose",
           day == 1 & grepl("Urine", .data$PARAM, fixed = TRUE) ~
-            paste0(lag(.data$PCTPTNUM), "H - ", .data$PCTPTNUM, "H"),
+          paste0(lag(.data$PCTPTNUM), "H - ", .data$PCTPTNUM, "H"),
           day != 1 & grepl("Urine", .data$PARAM, fixed = TRUE) ~
-            paste0(as.numeric(.data$PCTPTNUM) - 24, "H - ", .data$PCTPTNUM, "H"),
+          paste0(as.numeric(.data$PCTPTNUM) - 24, "H - ", .data$PCTPTNUM, "H"),
           TRUE ~ paste0(.data$PCTPTNUM, "H")
         )),
         ARELTM1 = .data$PCTPTNUM,
@@ -87,7 +87,8 @@ radpc <- function(ADSL, # nolint
         / (.data$ke - .data$ka),
         digits = 3
         ),
-        PCVOL = ifelse(.data$ASMED == "URINE", round(abs(((.data$ARELTM1 - 1) %% 24) * A0 * .data$ka * exp(.data$ARELTM1 %% 1.8 / 10)), 2), NA),
+        PCVOL = ifelse(.data$ASMED == "URINE", round(abs(((.data$ARELTM1 - 1) %% 24) *
+          A0 * .data$ka * exp(.data$ARELTM1 %% 1.8 / 10)), 2), NA),
         # PK Equation
         AVALC = ifelse(.data$AVAL == 0, "BLQ", as.character(.data$AVAL)),
         AVALU = avalu,

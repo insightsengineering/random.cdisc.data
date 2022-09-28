@@ -48,4 +48,3 @@ variables:
  VISITDY:
     label: Visit (N)
     type: integer
-
