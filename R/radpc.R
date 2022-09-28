@@ -55,21 +55,33 @@ radpc <- function(ADSL, # nolint
         ka = unname(constants["ka"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2),
         ke = unname(constants["ke"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2)
       ),
+      PARAM = c("Plasma Drug X", "Urine Drug X", "Plasma Drug Y", "Urine Drug Y"),
       PCTPTNUM = if (day == 1) c(0, 0.5, 1, 1.5, 2, 3, 4, 8, 12, 24) else 24 * day,
-      PARAM = c("Plasma Drug X", "Plasma Drug Y"),
-    ) %>%
+    )
+
+    if (day == 1) {
+      ADPC_day <- ADPC_day %>% filter(!(grepl("Urine", .data$PARAM, fixed = TRUE) &
+        .data$PCTPTNUM %in% c(0.5, 1, 1.5, 2, 3)))
+    }
+
+    ADPC_day <- ADPC_day %>%
       dplyr::mutate(
         VISITDY = day,
         VISIT = paste("Day", .data$VISITDY),
+        ASMED = ifelse(grepl("Urine", .data$PARAM, fixed = TRUE), "URINE", "PLASMA"),
         PCTPT = factor(dplyr::case_when(
           .data$PCTPTNUM == 0 ~ "Predose",
+          day == 1 & grepl("Urine", .data$PARAM, fixed = TRUE) ~
+          paste0(lag(.data$PCTPTNUM), "H - ", .data$PCTPTNUM, "H"),
+          day != 1 & grepl("Urine", .data$PARAM, fixed = TRUE) ~
+          paste0(as.numeric(.data$PCTPTNUM) - 24, "H - ", .data$PCTPTNUM, "H"),
           TRUE ~ paste0(.data$PCTPTNUM, "H")
         )),
         ARELTM1 = .data$PCTPTNUM,
         NRELTM1 = .data$PCTPTNUM,
         ARELTM2 = .data$ARELTM1 - (24 * (day - 1)),
         NRELTM2 = .data$NRELTM1 - (24 * (day - 1)),
-        A0 = ifelse(.data$PARAM == "Plasma Drug Y", .data$A0, .data$A0 / 2),
+        A0 = ifelse(grepl("Drug Y", .data$PARAM, fixed = TRUE), .data$A0, .data$A0 / 2),
         AVAL = round((.data$A0 * .data$ka * (
           exp(-.data$ka * .data$ARELTM1) - exp(-.data$ke * .data$ARELTM1)
         ))
@@ -95,7 +107,10 @@ radpc <- function(ADSL, # nolint
 
   ADPC <- ADSL %>% # nolint
     dplyr::inner_join(ADPC, by = c("STUDYID", "USUBJID", "ARMCD")) %>% # nolint
-    dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" & .data$PARAM == "Plasma Drug Y"))
+    dplyr::filter(
+      .data$ACTARM != "B: Placebo",
+      !(.data$ACTARM == "A: Drug X" & grepl("Drug Y", .data$PARAM, fixed = TRUE))
+    )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
     ADPC <- mutate_na(ds = ADPC, na_vars = na_vars, na_percentage = na_percentage) # nolint
