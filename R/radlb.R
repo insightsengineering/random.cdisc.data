@@ -292,13 +292,7 @@ radlb <- function(ADSL, # nolint
   ADLB <- var_relabel( # nolint
     ADLB,
     STUDYID = "Study Identifier",
-    USUBJID = "Unique Subject Identifier",
-    BTOXGRL = "Baseline Toxicity Grade Low",
-    BTOXGRH = "Baseline Toxicity Grade High",
-    ATOXGRL = "Analysis Toxicity Grade Low",
-    ATOXGRH = "Analysis Toxicity Grade High",
-    ATOXDSCL = "Analysis Toxicity Description Low",
-    ATOXDSCH = "Analysis Toxicity Description High"
+    USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add LB date and study day variables
