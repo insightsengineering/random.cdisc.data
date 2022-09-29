@@ -211,15 +211,97 @@ radlb <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::mutate(ATPTN = 1) %>%
     dplyr::mutate(DTYPE = NA) %>%
+    dplyr::mutate(BTOXGRL = factor(dplyr::case_when(
+      .data$BTOXGR == "0" ~ "0",
+      .data$BTOXGR == "-1" ~ "1",
+      .data$BTOXGR == "-2" ~ "2",
+      .data$BTOXGR == "-3" ~ "3",
+      .data$BTOXGR == "-4" ~ "4",
+      .data$BTOXGR == "1" ~ "<Missing>",
+      .data$BTOXGR == "2" ~ "<Missing>",
+      .data$BTOXGR == "3" ~ "<Missing>",
+      .data$BTOXGR == "4" ~ "<Missing>"
+    ))) %>%
+    dplyr::mutate(BTOXGRH = factor(dplyr::case_when(
+      .data$BTOXGR == "0" ~ "0",
+      .data$BTOXGR == "1" ~ "1",
+      .data$BTOXGR == "2" ~ "2",
+      .data$BTOXGR == "3" ~ "3",
+      .data$BTOXGR == "4" ~ "4",
+      .data$BTOXGR == "-1" ~ "<Missing>",
+      .data$BTOXGR == "-2" ~ "<Missing>",
+      .data$BTOXGR == "-3" ~ "<Missing>",
+      .data$BTOXGR == "-4" ~ "<Missing>",
+
+    ))) %>%
+    dplyr::mutate(ATOXGRL = factor(dplyr::case_when(
+      .data$ATOXGR == "0" ~ "0",
+      .data$ATOXGR == "-1" ~ "1",
+      .data$ATOXGR == "-2" ~ "2",
+      .data$ATOXGR == "-3" ~ "3",
+      .data$ATOXGR == "-4" ~ "4",
+      .data$ATOXGR == "1" ~ "<Missing>",
+      .data$ATOXGR == "2" ~ "<Missing>",
+      .data$ATOXGR == "3" ~ "<Missing>",
+      .data$ATOXGR == "4" ~ "<Missing>",
+
+    ))) %>%
+    dplyr::mutate(ATOXGRH = factor(dplyr::case_when(
+      .data$ATOXGR == "0" ~ "0",
+      .data$ATOXGR == "1" ~ "1",
+      .data$ATOXGR == "2" ~ "2",
+      .data$ATOXGR == "3" ~ "3",
+      .data$ATOXGR == "4" ~ "4",
+      .data$ATOXGR == "-1" ~ "<Missing>",
+      .data$ATOXGR == "-2" ~ "<Missing>",
+      .data$ATOXGR == "-3" ~ "<Missing>",
+      .data$ATOXGR == "-4" ~ "<Missing>",
+
+    ))) %>%
     var_relabel(
       STUDYID = attr(ADSL$STUDYID, "label"),
       USUBJID = attr(ADSL$USUBJID, "label")
     )
 
+  # High and low descriptions of the different PARAMCD values
+  # This is currently hard coded as the GDSR does not have these descriptions yet
+  grade_lookup <- tibble::tribble(
+    ~PARAMCD, ~ATOXDSCL, ~ATOXDSCH,
+    "ALB", "Hypoalbuminemia", NA_character_,
+    "ALKPH", NA_character_, "Alkaline phosphatase increased",
+    "ALT", NA_character_, "Alanine aminotransferase increased",
+    "AST", NA_character_, "Aspartate aminotransferase increased",
+    "BILI", NA_character_, "Blood bilirubin increased",
+    "CA", "Hypocalcemia", "Hypercalcemia",
+    "CHOLES", NA_character_, "Cholesterol high",
+    "CK", NA_character_, "CPK increased",
+    "CREAT", NA_character_, "Creatinine increased",
+    "CRP", NA_character_, "C reactive protein increased",
+    "GGT", NA_character_, "GGT increased",
+    "GLUC", "Hypoglycemia", "Hyperglycemia",
+    "HGB", "Anemia", "Hemoglobin increased",
+    "IGA", NA_character_, "Immunoglobulin A increased",
+    "POTAS", "Hypokalemia", "Hyperkalemia",
+    "LYMPH", "CD4 lymphocytes decreased", NA_character_,
+    "PHOS", "Hypophosphatemia", NA_character_,
+    "PLAT", "Platelet count decreased", NA_character_,
+    "SODIUM", "Hyponatremia", "Hypernatremia",
+    "WBC", "White blood cell decreased", "Leukocytosis",
+  )
+
+  # merge grade_lookup onto ADLB
+  ADLB <- dplyr::left_join(ADLB, grade_lookup, by = "PARAMCD")
+
   ADLB <- var_relabel( # nolint
     ADLB,
     STUDYID = "Study Identifier",
-    USUBJID = "Unique Subject Identifier"
+    USUBJID = "Unique Subject Identifier",
+    BTOXGRL = "Baseline Toxicity Grade Low",
+    BTOXGRH = "Baseline Toxicity Grade High",
+    ATOXGRL = "Analysis Toxicity Grade Low",
+    ATOXGRH = "Analysis Toxicity Grade High",
+    ATOXDSCL = "Analysis Toxicity Description Low",
+    ATOXDSCH = "Analysis Toxicity Description High"
   )
 
   # merge ADSL to be able to add LB date and study day variables
