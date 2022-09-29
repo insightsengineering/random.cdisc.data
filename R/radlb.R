@@ -232,7 +232,6 @@ radlb <- function(ADSL, # nolint
       .data$BTOXGR == "-2" ~ "<Missing>",
       .data$BTOXGR == "-3" ~ "<Missing>",
       .data$BTOXGR == "-4" ~ "<Missing>",
-
     ))) %>%
     dplyr::mutate(ATOXGRL = factor(dplyr::case_when(
       .data$ATOXGR == "0" ~ "0",
@@ -244,7 +243,6 @@ radlb <- function(ADSL, # nolint
       .data$ATOXGR == "2" ~ "<Missing>",
       .data$ATOXGR == "3" ~ "<Missing>",
       .data$ATOXGR == "4" ~ "<Missing>",
-
     ))) %>%
     dplyr::mutate(ATOXGRH = factor(dplyr::case_when(
       .data$ATOXGR == "0" ~ "0",
@@ -256,7 +254,6 @@ radlb <- function(ADSL, # nolint
       .data$ATOXGR == "-2" ~ "<Missing>",
       .data$ATOXGR == "-3" ~ "<Missing>",
       .data$ATOXGR == "-4" ~ "<Missing>",
-
     ))) %>%
     var_relabel(
       STUDYID = attr(ADSL$STUDYID, "label"),
@@ -290,7 +287,7 @@ radlb <- function(ADSL, # nolint
   )
 
   # merge grade_lookup onto ADLB
-  ADLB <- dplyr::left_join(ADLB, grade_lookup, by = "PARAMCD")
+  ADLB <- dplyr::left_join(ADLB, grade_lookup, by = "PARAMCD") #nolint
 
   ADLB <- var_relabel( # nolint
     ADLB,
