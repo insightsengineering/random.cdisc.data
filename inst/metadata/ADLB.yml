@@ -125,3 +125,22 @@ variables:
   ANRHI:
     label: Analysis Normal Range Upper Limit
     type: numeric
+  BTOXGRL:
+    label: Baseline Toxicity Grade Low
+    type: factor
+  BTOXGRH:
+    label: Baseline Toxicity Grade High
+    type: factor
+  ATOXGRL:
+    label: Analysis Toxicity Grade Low
+    type: factor
+  ATOXGRH:
+    label: Analysis Toxicity Grade High
+    type: factor
+  ATOXDSCL:
+    label: Analysis Toxicity Description Low
+    type: character
+  ATOXDSCH:
+    label: Analysis Toxicity Description High
+    type: character
+
