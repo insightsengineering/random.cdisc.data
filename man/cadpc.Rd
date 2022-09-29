@@ -5,7 +5,7 @@
 \alias{cadpc}
 \title{Cached ADPC}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 4378 rows and 69 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 6545 rows and 72 columns.
 }
 \usage{
 data(cadpc)
