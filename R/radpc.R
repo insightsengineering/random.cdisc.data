@@ -67,6 +67,7 @@ radpc <- function(ADSL, # nolint
       dplyr::mutate(
         VISITDY = day,
         VISIT = paste("Day", .data$VISITDY),
+        PCVOLU = ifelse(grepl("Urine", .data$PARAM, fixed = TRUE), "mL", ""),
         ASMED = ifelse(grepl("Urine", .data$PARAM, fixed = TRUE), "URINE", "PLASMA"),
         PCTPT = factor(dplyr::case_when(
           .data$PCTPTNUM == 0 ~ "Predose",
@@ -109,8 +110,8 @@ radpc <- function(ADSL, # nolint
   ADPC <- ADSL %>% # nolint
     dplyr::inner_join(ADPC, by = c("STUDYID", "USUBJID", "ARMCD")) %>% # nolint
     dplyr::filter(
-      .data$ACTARM != "B: Placebo",
-      !(.data$ACTARM == "A: Drug X" & grepl("Drug Y", .data$PARAM, fixed = TRUE))
+      ACTARM != "B: Placebo",
+      !(ACTARM == "A: Drug X" & grepl("Drug Y", PARAM, fixed = TRUE))
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
