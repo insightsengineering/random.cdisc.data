@@ -63,8 +63,8 @@ radpc <- function(ADSL, # nolint
       dplyr::mutate(
         VISITDY = day,
         VISIT = paste("Day", .data$VISITDY),
-        PCVOLU = ifelse(grepl("Urine", ..data$PARAM), "mL", ""),
-        ASMED = ifelse(grepl("Urine", ..data$PARAM), "URINE", "PLASMA"),
+        PCVOLU = ifelse(grepl("Urine", .data$PARAM), "mL", ""),
+        ASMED = ifelse(grepl("Urine", .data$PARAM), "URINE", "PLASMA"),
         PCTPT = factor(dplyr::case_when(
           .data$PCTPTNUM == 0 ~ "Predose",
           (day == 1 & grepl("Urine", .data$PARAM)) ~
