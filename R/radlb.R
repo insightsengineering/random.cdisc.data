@@ -287,7 +287,7 @@ radlb <- function(ADSL, # nolint
   )
 
   # merge grade_lookup onto ADLB
-  ADLB <- dplyr::left_join(ADLB, grade_lookup, by = "PARAMCD") #nolint
+  ADLB <- dplyr::left_join(ADLB, grade_lookup, by = "PARAMCD") # nolint
 
   ADLB <- var_relabel( # nolint
     ADLB,
