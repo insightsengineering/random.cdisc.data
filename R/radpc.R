@@ -87,10 +87,11 @@ radpc <- function(ADSL, # nolint
         ))
         / (ke - ka),
         digits = 3
-        )) %>%
+        )
+      ) %>%
       dplyr::mutate(
         PCVOL = ifelse(.$ASMED == "URINE", round(abs(((.$PCTPTNUM - 1) %% 24) *
-                                                       .$A0 * ka * exp(.$PCTPTNUM %% 1.8 / 10)), 2), NA),
+          .$A0 * ka * exp(.$PCTPTNUM %% 1.8 / 10)), 2), NA),
         # PK Equation
         AVALC = ifelse(.$AVAL == 0, "BLQ", as.character(.$AVAL)),
         AVALU = avalu,
