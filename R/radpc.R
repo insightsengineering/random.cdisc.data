@@ -56,13 +56,21 @@ radpc <- function(ADSL, # nolint
         ke = unname(constants["ke"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2)
       ),
       PCTPTNUM = if (day == 1) c(0, 0.5, 1, 1.5, 2, 3, 4, 8, 12, 24) else 24 * day,
-      PARAM = c("Plasma Drug X", "Plasma Drug Y"),
+      PARAM = c("Plasma Drug X", "Urine Drug X", "Plasma Drug Y", "Urine Drug Y"),
     ) %>%
+      filter(!(grepl("Urine", .data$PARAM) & # nolint
+        .data$PCTPTNUM %in% c(0.5, 1, 1.5, 2, 3))) %>%
       dplyr::mutate(
         VISITDY = day,
         VISIT = paste("Day", .data$VISITDY),
+        PCVOLU = ifelse(grepl("Urine", ..data$PARAM), "mL", ""),
+        ASMED = ifelse(grepl("Urine", ..data$PARAM), "URINE", "PLASMA"),
         PCTPT = factor(dplyr::case_when(
           .data$PCTPTNUM == 0 ~ "Predose",
+          (day == 1 & grepl("Urine", .data$PARAM)) ~
+          paste0(lag(.data$PCTPTNUM), "H - ", .data$PCTPTNUM, "H"),
+          (day != 1 & grepl("Urine", .data$PARAM)) ~
+          paste0(as.numeric(.data$PCTPTNUM) - 24, "H - ", .data$PCTPTNUM, "H"),
           TRUE ~ paste0(.data$PCTPTNUM, "H")
         )),
         ARELTM1 = .data$PCTPTNUM,
@@ -75,7 +83,11 @@ radpc <- function(ADSL, # nolint
         ))
         / (.data$ke - .data$ka),
         digits = 3
-        ),
+        )
+      ) %>%
+      dplyr::mutate(
+        PCVOL = ifelse(.data$ASMED == "URINE", round(abs(((.data$PCTPTNUM - 1) %% 24) *
+          .data$A0 * ka * exp(.data$PCTPTNUM %% 1.8 / 10)), 2), NA),
         # PK Equation
         AVALC = ifelse(.data$AVAL == 0, "BLQ", as.character(.data$AVAL)),
         AVALU = avalu,
