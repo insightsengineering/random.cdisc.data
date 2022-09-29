@@ -45,7 +45,7 @@ radpc <- function(ADSL, # nolint
   }
 
   radpc_core <- function(day) {
-    ADPC_day <- tidyr::expand_grid( # nolint
+    adpc_day <- tidyr::expand_grid( # nolint
       # nolint
       data.frame(
         STUDYID = ADSL$STUDYID,
@@ -56,10 +56,10 @@ radpc <- function(ADSL, # nolint
         ke = unname(constants["ke"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2)
       ),
       PCTPTNUM = if (day == 1) c(0, 0.5, 1, 1.5, 2, 3, 4, 8, 12, 24) else 24 * day,
-      PARAM = c("Plasma Drug X", "Urine Drug X", "Plasma Drug Y", "Urine Drug Y"),
-    ) %>%
-      filter(!(grepl("Urine", .data$PARAM) & # nolint
-        .data$PCTPTNUM %in% c(0.5, 1, 1.5, 2, 3))) %>%
+      PARAM = factor(c("Plasma Drug X", "Urine Drug X", "Plasma Drug Y", "Urine Drug Y"))
+    )
+    adpc_day <- adpc_day[!(grepl("Urine", adpc_day$PARAM) &
+      adpc_day$PCTPTNUM %in% c(0.5, 1, 1.5, 2, 3)), ] %>%
       dplyr::mutate(
         VISITDY = day,
         VISIT = paste("Day", .data$VISITDY),
@@ -95,7 +95,7 @@ radpc <- function(ADSL, # nolint
       ) %>%
       dplyr::select(-c(.data$A0, .data$ka, .data$ke))
 
-    return(ADPC_day)
+    return(adpc_day)
   }
 
   ADPC <- list() # nolint
