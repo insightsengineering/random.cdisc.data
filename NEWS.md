@@ -4,30 +4,25 @@
 * Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (`radab`).
 
 ### Bug fixes
-* Update all the NA and "" to "" in `ADAE$ANL01FL`.
-* Updated `DVDECOD` and `DVSCAT` values in ADDV Dataset (`raddv`, `caddv`).
-* Included post-baseline visits to `radab`.
-* Fixed `ADTM` calculation so that records with same `AVISIT` have the same `ADTM` for each patient.
-* Fixed checks for `na_percentage` argument that is present in most datasets.
+* Updated all the `ANL01FL` `NA` values to `""` in `adae`.
+* Updated `DVDECOD` and `DVSCAT` values in `addv`.
+* Fixed `adtm` calculations so that records with same `AVISIT` have the same `ADTM` for each patient.
+* Fixed checks for `na_percentage` argument that is in most datasets.
 
 ### Enhancements
-* Added new variables to `ADEX` data set.
-* Enhanced `radpp` with additional default `PARAM`s.
-* Add new variables `PPSTINT` `PPENINT` `REGIMEN` `PKARMCD` to `radpp`.
-* Enhanced `radab` variables `ADAPBLFL`, `ABLFL`, `ADABLFL`, `PARCAT1`, `RELTMU`
-* Add new variable `lgTMATRSK` to `adtte`.
-* Add `TNE` to `PARAMCD` and `Total Number of Exacerbations` to `PARAM` in `adtte`.
-* Add new default `PARAM`s in `adab`.
-* Add `AEWITHFL` variable to `adsl`.
-* Add `ATIREL` variable to `admh`.
-* Add variables `CMSTRTPT`, `CMENRTPT`, `ADURN`, and `ADURU` to `adcm`.
-* Add variables `AESCONG`, `AESDISAB`, `AESHOSP`, `AESLIFE`, and `AESMIE` to `adae`.
-* Add variable `ADTHAUT` to `adsl`.
-* Add parameter `with_trt02` to `radsl` to make the second treatment period available. 
-  When TRUE (default), add variables `TRT02A`, `TRT02P`, `TRT02SDTM`, `TRT02EDTM`, `AP02SDTM`, 
-  `AP02EDTM`, `TRT01SDTM`, `TRT01EDTM`, `AP01SDTM`,and `AP01EDTM` to `adsl`, and set 
-  `TRTSDTM` as `TRT01SDTM`, `TRTEDTM` as `TRT02EDTM`.
-* Add variable `LDOSEDTM` to `adae`.
+* Added variables `ASTDY`, `AENDY`, `EXDOSFRQ`, `EXROUTE`, `VISIT`, `VISITDY`, `EXSTDTC`, `EXENDTC`, `EXSTDY`, 
+  `EXENDY`, `TRTSDT`, and `TRTEDT` to `adex`.
+* Added more default `PARAM`s and new variables `PPSTINT`, `PPENINT`, `REGIMEN`, and `PKARMCD` to `adpp`.
+* Added `TNE` to `PARAMCD`, `Total Number of Exacerbations` to `PARAM`, and new variable `lgTMATRSK` to `adtte`.
+* Added more default `PARAM`s and post-baseline visits to `adab` and enhanced variables `ADAPBLFL`, `ABLFL`,
+  `ADABLFL`, `PARCAT1`, and `RELTMU`.
+* Added variables `AEWITHFL` and `ADTHAUT` to `adsl`.
+* Added variable `ATIREL` to `admh`.
+* Added variables `CMSTRTPT`, `CMENRTPT`, `ADURN`, and `ADURU` to `adcm`.
+* Added variables `AESCONG`, `AESDISAB`, `AESHOSP`, `AESLIFE`, `AESMIE`, and `LDOSEDTM` to `adae`.
+* Added parameter `with_trt02` to `radsl` to make the second treatment period available. When `with_trt02 = TRUE` 
+  (default), add variables `TRT02A`, `TRT02P`, `TRT02SDTM`, `TRT02EDTM`, `AP02SDTM`, `AP02EDTM`, `TRT01SDTM`, 
+  `TRT01EDTM`, `AP01SDTM`, and `AP01EDTM` to `adsl`, and set `TRTSDTM` as `TRT01SDTM`, `TRTEDTM` as `TRT02EDTM`.
 
 # random.cdisc.data 0.3.13
 
