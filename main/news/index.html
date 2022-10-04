@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">random.cdisc.data</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13.9029</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13.9031</span>
       </span>
     </div>
 
@@ -44,12 +44,6 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/random.cdisc.data/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/insightsengineering/random.cdisc.data/" class="external-link">
     <span class="fa fa-github"></span>
@@ -70,36 +64,29 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.3.13.9029" id="randomcdiscdata-03139029">random.cdisc.data 0.3.13.9029<a class="anchor" aria-label="anchor" href="#randomcdiscdata-03139029"></a></h2>
+<h2 class="page-header" data-toc-text="0.3.13.9031" id="randomcdiscdata-03139031">random.cdisc.data 0.3.13.9031<a class="anchor" aria-label="anchor" href="#randomcdiscdata-03139031"></a></h2>
 <div class="section level4">
-<h4 id="new-features-0-3-13-9029">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-13-9029"></a></h4>
+<h4 id="new-features-0-3-13-9031">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-13-9031"></a></h4>
 <ul><li>Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (<code>radab</code>).</li>
 </ul></div>
 <div class="section level4">
-<h4 id="bug-fixes-0-3-13-9029">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-13-9029"></a></h4>
-<ul><li>Update all the NA and “” to “” in <code>ADAE$ANL01FL</code>.</li>
-<li>Updated <code>DVDECOD</code> and <code>DVSCAT</code> values in ADDV Dataset (<code>raddv</code>, <code>caddv</code>).</li>
-<li>Included post-baseline visits to <code>radab</code>.</li>
-<li>Fixed <code>ADTM</code> calculation so that records with same <code>AVISIT</code> have the same <code>ADTM</code> for each patient.</li>
-<li>Fixed checks for <code>na_percentage</code> argument that is present in most datasets.</li>
+<h4 id="bug-fixes-0-3-13-9031">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-13-9031"></a></h4>
+<ul><li>Updated all the <code>ANL01FL</code> <code>NA</code> values to <code>""</code> in <code>adae</code>.</li>
+<li>Updated <code>DVDECOD</code> and <code>DVSCAT</code> values in <code>addv</code>.</li>
+<li>Fixed <code>adtm</code> calculations so that records with same <code>AVISIT</code> have the same <code>ADTM</code> for each patient.</li>
+<li>Fixed checks for <code>na_percentage</code> argument that is in most datasets.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="enhancements-0-3-13-9029">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-3-13-9029"></a></h4>
-<ul><li>Added new variables to <code>ADEX</code> data set.</li>
-<li>Enhanced <code>radpp</code> with additional default <code>PARAM</code>s.</li>
-<li>Add new variables <code>PPSTINT</code> <code>PPENINT</code> <code>REGIMEN</code> <code>PKARMCD</code> to <code>radpp</code>.</li>
-<li>Enhanced <code>radab</code> variables <code>ADAPBLFL</code>, <code>ABLFL</code>, <code>ADABLFL</code>, <code>PARCAT1</code>, <code>RELTMU</code>
-</li>
-<li>Add new variable <code>lgTMATRSK</code> to <code>adtte</code>.</li>
-<li>Add <code>TNE</code> to <code>PARAMCD</code> and <code>Total Number of Exacerbations</code> to <code>PARAM</code> in <code>adtte</code>.</li>
-<li>Add new default <code>PARAM</code>s in <code>adab</code>.</li>
-<li>Add <code>AEWITHFL</code> variable to <code>adsl</code>.</li>
-<li>Add <code>ATIREL</code> variable to <code>admh</code>.</li>
-<li>Add variables <code>CMSTRTPT</code>, <code>CMENRTPT</code>, <code>ADURN</code>, and <code>ADURU</code> to <code>adcm</code>.</li>
-<li>Add variables <code>AESCONG</code>, <code>AESDISAB</code>, <code>AESHOSP</code>, <code>AESLIFE</code>, and <code>AESMIE</code> to <code>adae</code>.</li>
-<li>Add variable <code>ADTHAUT</code> to <code>adsl</code>.</li>
-<li>Add parameter <code>with_trt02</code> to <code>radsl</code> to make the second treatment period available. When TRUE (default), add variables <code>TRT02A</code>, <code>TRT02P</code>, <code>TRT02SDTM</code>, <code>TRT02EDTM</code>, <code>AP02SDTM</code>, <code>AP02EDTM</code>, <code>TRT01SDTM</code>, <code>TRT01EDTM</code>, <code>AP01SDTM</code>,and <code>AP01EDTM</code> to <code>adsl</code>, and set <code>TRTSDTM</code> as <code>TRT01SDTM</code>, <code>TRTEDTM</code> as <code>TRT02EDTM</code>.</li>
-<li>Add variable <code>LDOSEDTM</code> to <code>adae</code>.</li>
+<h4 id="enhancements-0-3-13-9031">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-3-13-9031"></a></h4>
+<ul><li>Added variables <code>ASTDY</code>, <code>AENDY</code>, <code>EXDOSFRQ</code>, <code>EXROUTE</code>, <code>VISIT</code>, <code>VISITDY</code>, <code>EXSTDTC</code>, <code>EXENDTC</code>, <code>EXSTDY</code>, <code>EXENDY</code>, <code>TRTSDT</code>, and <code>TRTEDT</code> to <code>adex</code>.</li>
+<li>Added more default <code>PARAM</code>s and new variables <code>PPSTINT</code>, <code>PPENINT</code>, <code>REGIMEN</code>, and <code>PKARMCD</code> to <code>adpp</code>.</li>
+<li>Added <code>TNE</code> to <code>PARAMCD</code>, <code>Total Number of Exacerbations</code> to <code>PARAM</code>, and new variable <code>lgTMATRSK</code> to <code>adtte</code>.</li>
+<li>Added more default <code>PARAM</code>s and post-baseline visits to <code>adab</code> and enhanced variables <code>ADAPBLFL</code>, <code>ABLFL</code>, <code>ADABLFL</code>, <code>PARCAT1</code>, and <code>RELTMU</code>.</li>
+<li>Added variables <code>AEWITHFL</code> and <code>ADTHAUT</code> to <code>adsl</code>.</li>
+<li>Added variable <code>ATIREL</code> to <code>admh</code>.</li>
+<li>Added variables <code>CMSTRTPT</code>, <code>CMENRTPT</code>, <code>ADURN</code>, and <code>ADURU</code> to <code>adcm</code>.</li>
+<li>Added variables <code>AESCONG</code>, <code>AESDISAB</code>, <code>AESHOSP</code>, <code>AESLIFE</code>, <code>AESMIE</code>, and <code>LDOSEDTM</code> to <code>adae</code>.</li>
+<li>Added parameter <code>with_trt02</code> to <code>radsl</code> to make the second treatment period available. When <code>with_trt02 = TRUE</code> (default), add variables <code>TRT02A</code>, <code>TRT02P</code>, <code>TRT02SDTM</code>, <code>TRT02EDTM</code>, <code>AP02SDTM</code>, <code>AP02EDTM</code>, <code>TRT01SDTM</code>, <code>TRT01EDTM</code>, <code>AP01SDTM</code>, and <code>AP01EDTM</code> to <code>adsl</code>, and set <code>TRTSDTM</code> as <code>TRT01SDTM</code>, <code>TRTEDTM</code> as <code>TRT02EDTM</code>.</li>
 </ul></div>
 </div>
     <div class="section level2">
