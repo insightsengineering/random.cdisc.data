@@ -1,5 +1,9 @@
 # random.cdisc.data
 
+<!-- start badges -->
+[![Code Coverage](https://raw.githubusercontent.com/insightsengineering/random.cdisc.data/_xml_coverage_reports/data/main/badge.svg)](https://raw.githubusercontent.com/insightsengineering/random.cdisc.data/_xml_coverage_reports/data/main/coverage.xml)
+<!-- end badges -->
+
 The `random.cdisc.data` is a package for creating random CDISC data.
 The random datasets available to create are:
 
