@@ -154,7 +154,7 @@ radab <- function(ADSL, # nolint
       ),
       ABLFL = ifelse(NRELTM1 == 0, "Y", NA)
     ) %>%
-    group_by(USUBJID) %>%
+    dplyr::group_by(USUBJID) %>%
     dplyr::mutate(ATACHAR = paste0(LETTERS[cur_group_id() %% 10], "+")) %>%
     dplyr::ungroup()
 
