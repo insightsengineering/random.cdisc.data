@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage line-rate="0.895388424636336" branch-rate="0" lines-covered="2893" lines-valid="3231" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2022-11-11 12:37:43">
+<coverage line-rate="0.895388424636336" branch-rate="0" lines-covered="2893" lines-valid="3231" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2022-11-11 12:47:04">
   <sources/>
   <packages>
     <package name="random.cdisc.data" line-rate="0.895388424636336" branch-rate="0" complexity="0">
@@ -6562,15 +6562,15 @@
             </method>
             <method name="rtpois" signature="" line-rate="1" branch-rate="0">
               <lines>
-                <line number="434" hits="46" branch="false"/>
+                <line number="434" hits="47" branch="false"/>
               </lines>
             </method>
             <method name="rtexp" signature="" line-rate="0.6" branch-rate="0">
               <lines>
-                <line number="465" hits="46" branch="false"/>
+                <line number="465" hits="47" branch="false"/>
                 <line number="466" hits="0" branch="false"/>
-                <line number="467" hits="46" branch="false"/>
-                <line number="468" hits="46" branch="false"/>
+                <line number="467" hits="47" branch="false"/>
+                <line number="468" hits="47" branch="false"/>
                 <line number="470" hits="0" branch="false"/>
               </lines>
             </method>
@@ -6724,11 +6724,11 @@
             <line number="403" hits="0" branch="false"/>
             <line number="407" hits="0" branch="false"/>
             <line number="408" hits="0" branch="false"/>
-            <line number="434" hits="46" branch="false"/>
-            <line number="465" hits="46" branch="false"/>
+            <line number="434" hits="47" branch="false"/>
+            <line number="465" hits="47" branch="false"/>
             <line number="466" hits="0" branch="false"/>
-            <line number="467" hits="46" branch="false"/>
-            <line number="468" hits="46" branch="false"/>
+            <line number="467" hits="47" branch="false"/>
+            <line number="468" hits="47" branch="false"/>
             <line number="470" hits="0" branch="false"/>
           </lines>
         </class>
