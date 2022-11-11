@@ -72,7 +72,7 @@ radab <- function(ADSL, # nolint
   param_init_list <- relvar_init(param, paramcd)
   unit_init_list <- relvar_init(param, avalu)
 
-  ADPC <- ADPC %>% filter((ADPC$PCTPTNUM %% (4 * 7 * 24)) == 0)
+  ADPC <- ADPC %>% filter((ADPC$PCTPTNUM %% (4 * 7 * 24)) == 0) # nolint
   ADAB <- expand.grid( # nolint
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = unique(ADSL$USUBJID),
@@ -145,7 +145,7 @@ radab <- function(ADSL, # nolint
 
   # mutate time from dose variables from ADPC to convert into Days
   ADAB <- ADAB %>% dplyr::mutate_at(c("ARELTM1", "NRELTM1", "ARELTM2", "NRELTM2"), ~ . / 24) # nolint
-  ADAB <- ADAB %>%
+  ADAB <- ADAB %>% # nolint
     dplyr::mutate( # nolint
       RELTMU = "day", # nolint
       ADABLFL = "Y",
