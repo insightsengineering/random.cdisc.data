@@ -42,3 +42,6 @@ variables:
  RELTMU:
     label: Relative Actual/Nominal Time Units
     type: factor
+ ATACHAR:
+    label: ATA characterization
+    type: factor
