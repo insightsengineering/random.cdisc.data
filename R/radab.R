@@ -155,7 +155,7 @@ radab <- function(ADSL, # nolint
       ABLFL = ifelse(NRELTM1 == 0, "Y", NA)
     ) %>%
     dplyr::group_by(USUBJID) %>%
-    dplyr::mutate(ATACHAR = paste0(LETTERS[cur_group_id() %% 10], "+")) %>%
+    dplyr::mutate(ATACHAR = paste0(LETTERS[dplyr::cur_group_id() %% 10], "+")) %>%
     dplyr::ungroup()
 
   # create temporary flags to derive subject-level variables
