@@ -55,22 +55,23 @@ radpc <- function(ADSL, # nolint
         ka = unname(constants["ka"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2),
         ke = unname(constants["ke"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2)
       ),
-      PCTPTNUM = if (day == 1) c(0, 0.5, 1, 1.5, 2, 3, 4, 8, 12, 24) else 24 * day,
+      PCTPTNUM = if (day == 1) c(0, 0.5, 1, 1.5, 2, 3, 4, 8, 12) else 24 * (day - 1),
       PARAM = factor(c("Plasma Drug X", "Urine Drug X", "Plasma Drug Y", "Urine Drug Y"))
     )
     adpc_day <- adpc_day[!(grepl("Urine", adpc_day$PARAM) &
       adpc_day$PCTPTNUM %in% c(0.5, 1, 1.5, 2, 3)), ] %>%
+      dplyr::arrange(USUBJID, PARAM) %>%
       dplyr::mutate(
         VISITDY = day,
-        VISIT = paste("Day", .data$VISITDY),
+        VISIT = ifelse(day <= 7, paste("Day", .data$VISITDY), paste("Week", (.data$VISITDY - 1) / 7)),
         PCVOLU = ifelse(grepl("Urine", .data$PARAM), "mL", ""),
         ASMED = ifelse(grepl("Urine", .data$PARAM), "URINE", "PLASMA"),
         PCTPT = factor(dplyr::case_when(
           .data$PCTPTNUM == 0 ~ "Predose",
           (day == 1 & grepl("Urine", .data$PARAM)) ~
-            paste0(lag(.data$PCTPTNUM), "H - ", .data$PCTPTNUM, "H"),
+          paste0(lag(.data$PCTPTNUM), "H - ", .data$PCTPTNUM, "H"),
           (day != 1 & grepl("Urine", .data$PARAM)) ~
-            paste0(as.numeric(.data$PCTPTNUM) - 24, "H - ", .data$PCTPTNUM, "H"),
+          paste0(as.numeric(.data$PCTPTNUM) - 24, "H - ", .data$PCTPTNUM, "H"),
           TRUE ~ paste0(.data$PCTPTNUM, "H")
         )),
         ARELTM1 = .data$PCTPTNUM,
@@ -78,11 +79,12 @@ radpc <- function(ADSL, # nolint
         ARELTM2 = .data$ARELTM1 - (24 * (day - 1)),
         NRELTM2 = .data$NRELTM1 - (24 * (day - 1)),
         A0 = ifelse(.data$PARAM == "Plasma Drug Y", .data$A0, .data$A0 / 2),
-        AVAL = round((.data$A0 * .data$ka * (
-          exp(-.data$ka * .data$ARELTM1) - exp(-.data$ke * .data$ARELTM1)
-        ))
-        / (.data$ke - .data$ka),
-        digits = 3
+        AVAL = round(
+          (.data$A0 * .data$ka * (
+            exp(-.data$ka * .data$ARELTM1) - exp(-.data$ke * .data$ARELTM1)
+          ))
+          / (.data$ke - .data$ka),
+          digits = 3
         )
       ) %>%
       dplyr::mutate(
@@ -99,7 +101,8 @@ radpc <- function(ADSL, # nolint
   }
 
   ADPC <- list() # nolint
-  for (day in seq(duration)) {
+
+  for (day in seq(duration)[seq(duration) <= 7 | ((seq(duration) - 1) %% 7 == 0)]) {
     ADPC[[day]] <- radpc_core(day = day) # nolint
   }
 
