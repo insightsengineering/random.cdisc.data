@@ -13,7 +13,7 @@
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' ADPC <- radpc(ADSL, seed = 2)
+#' ADPC <- radpc(ADSL, seed = 2, duration = 9*7)
 #' ADAB <- radab(ADSL, ADPC, seed = 2)
 radab <- function(ADSL, # nolint
                   ADPC, # nolint
@@ -72,6 +72,7 @@ radab <- function(ADSL, # nolint
   param_init_list <- relvar_init(param, paramcd)
   unit_init_list <- relvar_init(param, avalu)
 
+  ADPC <- ADPC %>% filter((ADPC$PCTPTNUM %% (4*7*24)) == 0)
   ADAB <- expand.grid( # nolint
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = unique(ADSL$USUBJID),
@@ -103,7 +104,7 @@ radab <- function(ADSL, # nolint
         (PARAM %in% visit_lvl_params[1:2] & !is.na(AVAL2)) ~ AVAL2,
         TRUE ~ as.numeric(NA)
       ),
-      ISTPT = "Predose"
+      ISTPT = ifelse(VISIT == "Day 1", "Predose", "")
     ) %>%
     dplyr::select(-c(AVAL1, AVAL2))
 
@@ -151,7 +152,10 @@ radab <- function(ADSL, # nolint
       NA
     ),
     ABLFL = ifelse(NRELTM1 == 0, "Y", NA)
-  )
+  ) %>%
+    group_by(USUBJID) %>%
+    mutate(ATACHAR = paste0(LETTERS[cur_group_id() %% 10], "+")) %>%
+    ungroup()
 
   # create temporary flags to derive subject-level variables
   adab_subj <- ADAB %>%
