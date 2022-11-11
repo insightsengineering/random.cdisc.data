@@ -13,7 +13,7 @@
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' ADPC <- radpc(ADSL, seed = 2)
+#' ADPC <- radpc(ADSL, seed = 2, duration = 9 * 7)
 #' ADAB <- radab(ADSL, ADPC, seed = 2)
 radab <- function(ADSL, # nolint
                   ADPC, # nolint
@@ -72,6 +72,7 @@ radab <- function(ADSL, # nolint
   param_init_list <- relvar_init(param, paramcd)
   unit_init_list <- relvar_init(param, avalu)
 
+  ADPC <- ADPC %>% dplyr::filter((.data$PCTPTNUM %% (4 * 7 * 24)) == 0) # nolint
   ADAB <- expand.grid( # nolint
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = unique(ADSL$USUBJID),
@@ -103,7 +104,7 @@ radab <- function(ADSL, # nolint
         (PARAM %in% visit_lvl_params[1:2] & !is.na(AVAL2)) ~ AVAL2,
         TRUE ~ as.numeric(NA)
       ),
-      ISTPT = "Predose"
+      ISTPT = ifelse(VISIT == "Day 1", "Predose", "")
     ) %>%
     dplyr::select(-c(AVAL1, AVAL2))
 
@@ -144,14 +145,18 @@ radab <- function(ADSL, # nolint
 
   # mutate time from dose variables from ADPC to convert into Days
   ADAB <- ADAB %>% dplyr::mutate_at(c("ARELTM1", "NRELTM1", "ARELTM2", "NRELTM2"), ~ . / 24) # nolint
-  ADAB <- ADAB %>% dplyr::mutate( # nolint
-    RELTMU = "day", # nolint
-    ADABLFL = "Y",
-    ADAPBLFL = ifelse(ACTARM == "A: Drug X" | ACTARM == "C: Combination", "Y",
-      NA
-    ),
-    ABLFL = ifelse(NRELTM1 == 0, "Y", NA)
-  )
+  ADAB <- ADAB %>% # nolint
+    dplyr::mutate( # nolint
+      RELTMU = "day", # nolint
+      ADABLFL = "Y",
+      ADAPBLFL = ifelse(ACTARM == "A: Drug X" | ACTARM == "C: Combination", "Y",
+        NA
+      ),
+      ABLFL = ifelse(NRELTM1 == 0, "Y", NA)
+    ) %>%
+    dplyr::group_by(USUBJID) %>%
+    dplyr::mutate(ATACHAR = paste0(LETTERS[dplyr::cur_group_id() %% 10], "+")) %>%
+    dplyr::ungroup()
 
   # create temporary flags to derive subject-level variables
   adab_subj <- ADAB %>%
