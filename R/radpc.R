@@ -60,7 +60,7 @@ radpc <- function(ADSL, # nolint
     )
     adpc_day <- adpc_day[!(grepl("Urine", adpc_day$PARAM) &
       adpc_day$PCTPTNUM %in% c(0.5, 1, 1.5, 2, 3)), ] %>%
-      arrange(USUBJID, PARAM) %>%
+      dplyr::arrange(USUBJID, PARAM) %>%
       dplyr::mutate(
         VISITDY = day,
         VISIT = ifelse(day <= 7, paste("Day", .data$VISITDY), paste("Week", (.data$VISITDY - 1) / 7)),
@@ -69,9 +69,9 @@ radpc <- function(ADSL, # nolint
         PCTPT = factor(dplyr::case_when(
           .data$PCTPTNUM == 0 ~ "Predose",
           (day == 1 & grepl("Urine", .data$PARAM)) ~
-            paste0(lag(.data$PCTPTNUM), "H - ", .data$PCTPTNUM, "H"),
+          paste0(lag(.data$PCTPTNUM), "H - ", .data$PCTPTNUM, "H"),
           (day != 1 & grepl("Urine", .data$PARAM)) ~
-            paste0(as.numeric(.data$PCTPTNUM) - 24, "H - ", .data$PCTPTNUM, "H"),
+          paste0(as.numeric(.data$PCTPTNUM) - 24, "H - ", .data$PCTPTNUM, "H"),
           TRUE ~ paste0(.data$PCTPTNUM, "H")
         )),
         ARELTM1 = .data$PCTPTNUM,
