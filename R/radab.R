@@ -72,7 +72,7 @@ radab <- function(ADSL, # nolint
   param_init_list <- relvar_init(param, paramcd)
   unit_init_list <- relvar_init(param, avalu)
 
-  ADPC <- ADPC %>% filter((PCTPTNUM %% (4 * 7 * 24)) == 0) # nolint
+  ADPC <- ADPC %>% dplyr::filter((PCTPTNUM %% (4 * 7 * 24)) == 0) # nolint
   ADAB <- expand.grid( # nolint
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = unique(ADSL$USUBJID),
