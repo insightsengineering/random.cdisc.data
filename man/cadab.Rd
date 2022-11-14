@@ -5,11 +5,7 @@
 \alias{cadab}
 \title{Cached ADAB}
 \format{
-<<<<<<< HEAD
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 5698 rows and 22 columns.
-=======
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 5852 rows and 22 columns.
->>>>>>> b23a8f174d5f4f85ebf03b29183c4c3ce5717ed3
 }
 \usage{
 data(cadab)
