@@ -114,7 +114,7 @@ radtte <- function(ADSL, # nolint
           },
           CNSDTDSC = if (.data$CNSR == 1) sample(cnsdtdscr_sel, 1) else ""
         ) %>%
-        dplyr::select(-.data$LAMBDA, -.data$CNSR_P)
+        dplyr::select(-"LAMBDA", -"CNSR_P")
     }) %>%
     Reduce(rbind, .) %>%
     var_relabel(
@@ -131,7 +131,7 @@ radtte <- function(ADSL, # nolint
   # merge ADSL to be able to add TTE date and study day variables
   ADTTE <- dplyr::inner_join( # nolint
     ADSL, # nolint
-    dplyr::select(ADTTE, -.data$SITEID, -.data$ARM),
+    dplyr::select(ADTTE, -"SITEID", -"ARM"),
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%
@@ -145,7 +145,7 @@ radtte <- function(ADSL, # nolint
       origin = "1970-01-01"
     )) %>%
     dplyr::mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
-    dplyr::select(-.data$trtsdt_int, -.data$trtedt_int) %>%
+    dplyr::select(-"trtsdt_int", -"trtedt_int") %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
@@ -174,7 +174,7 @@ radtte <- function(ADSL, # nolint
       AVALU = "COUNT",
       lgTMATRSK = log(stats::rexp(1, rate = 3)),
       dplyr::across(
-        c(.data$ASEQ, .data$TTESEQ, .data$ADY, .data$ADTM, .data$EVNTDESC),
+        c("ASEQ", "TTESEQ", "ADY", "ADTM", "EVNTDESC"),
         ~ ifelse(.data$PARAMCD == "TNE", NA, .x)
       )
     ))) %>%

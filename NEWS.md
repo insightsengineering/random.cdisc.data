@@ -8,6 +8,7 @@
 * Updated `DVDECOD` and `DVSCAT` values in `addv`.
 * Fixed `adtm` calculations so that records with same `AVISIT` have the same `ADTM` for each patient.
 * Fixed checks for `na_percentage` argument that is in most datasets.
+* Updated package for breaking changes in `tidyselect`.
 
 ### Enhancements
 * Added variables `ASTDY`, `AENDY`, `EXDOSFRQ`, `EXROUTE`, `VISIT`, `VISITDY`, `EXSTDTC`, `EXENDTC`, `EXSTDY`, 
