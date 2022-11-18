@@ -107,9 +107,10 @@ radcm <- function(ADSL, # nolint
     dplyr::mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
     dplyr::mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
-    dplyr::mutate(AENDTM = as.POSIXct((
-      sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
-    origin = "1970-01-01"
+    dplyr::mutate(AENDTM = as.POSIXct(
+      (
+        sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
+      origin = "1970-01-01"
     )) %>%
     dplyr::mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
     dplyr::select(-"trtsdt_int", -"trtedt_int", -"astdt_int") %>%

@@ -172,12 +172,13 @@ radlb <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::mutate(SHIFT1 = factor(ifelse(
       .data$AVISITN > 0,
-      paste(retain(
-        ADLB, as.character(.data$BNRIND),
-        .data$AVISITN == 0
-      ),
-      .data$ANRIND,
-      sep = " to "
+      paste(
+        retain(
+          ADLB, as.character(.data$BNRIND),
+          .data$AVISITN == 0
+        ),
+        .data$ANRIND,
+        sep = " to "
       ),
       ""
     ))) %>%
