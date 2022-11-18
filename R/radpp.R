@@ -140,7 +140,7 @@ radpp <- function(ADSL, # nolint,
 
   # derive PKARMCD column for creating more cohorts
   ADPP <- ADPP %>% # nolint
-    dplyr::mutate(PKARMCD = factor(1 + (seq(nrow(ADPP)) - 1) %/% (nrow(ADPP) / 10), labels = c(
+    dplyr::mutate(PKARMCD = factor(1 + (seq_len(nrow(ADPP)) - 1) %/% (nrow(ADPP) / 10), labels = c(
       "Drug A", "Drug B", "Drug C", "Drug D", "Drug E", "Drug F", "Drug G", "Drug H",
       "Drug I", "Drug J"
     )))
