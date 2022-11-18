@@ -95,7 +95,7 @@ radlb <- function(ADSL, # nolint
     dplyr::mutate(AVAL = stats::rnorm(nrow(ADLB), mean = 1, sd = 0.2)) %>%
     dplyr::left_join(data.frame(PARAM = param, ADJUST = aval_mean), by = "PARAM") %>%
     dplyr::mutate(AVAL = .data$AVAL * .data$ADJUST) %>%
-    dplyr::select(-.data$ADJUST)
+    dplyr::select(-"ADJUST")
 
   ADLB$LBSTRESC <- ADLB$AVAL # nolint
 
@@ -312,7 +312,7 @@ radlb <- function(ADSL, # nolint
       origin = "1970-01-01"
     )) %>%
     dplyr::mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
-    dplyr::select(-.data$trtsdt_int, -.data$trtedt_int) %>%
+    dplyr::select(-"trtsdt_int", -"trtedt_int") %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
@@ -400,11 +400,11 @@ radlb <- function(ADSL, # nolint
     return(data_compare)
   }
 
-  ADLB <- flag_variables(ADLB, TRUE, "ELSE", FALSE) %>% dplyr::rename(WORS01FL = .data$new_var) # nolint
-  ADLB <- flag_variables(ADLB, FALSE, TRUE, TRUE) %>% dplyr::rename(WGRHIFL = .data$new_var) # nolint
-  ADLB <- flag_variables(ADLB, FALSE, FALSE, TRUE) %>% dplyr::rename(WGRLOFL = .data$new_var) # nolint
-  ADLB <- flag_variables(ADLB, TRUE, TRUE, TRUE) %>% dplyr::rename(WGRHIVFL = .data$new_var) # nolint
-  ADLB <- flag_variables(ADLB, TRUE, FALSE, TRUE) %>% dplyr::rename(WGRLOVFL = .data$new_var) # nolint
+  ADLB <- flag_variables(ADLB, TRUE, "ELSE", FALSE) %>% dplyr::rename(WORS01FL = "new_var") # nolint
+  ADLB <- flag_variables(ADLB, FALSE, TRUE, TRUE) %>% dplyr::rename(WGRHIFL = "new_var") # nolint
+  ADLB <- flag_variables(ADLB, FALSE, FALSE, TRUE) %>% dplyr::rename(WGRLOFL = "new_var") # nolint
+  ADLB <- flag_variables(ADLB, TRUE, TRUE, TRUE) %>% dplyr::rename(WGRHIVFL = "new_var") # nolint
+  ADLB <- flag_variables(ADLB, TRUE, FALSE, TRUE) %>% dplyr::rename(WGRLOVFL = "new_var") # nolint
 
   ADLB <- ADLB %>% dplyr::mutate(ANL01FL = ifelse( # nolint
     (.data$ABLFL == "Y" | (.data$WORS01FL == "Y" & is.na(.data$DTYPE))) &

@@ -112,7 +112,7 @@ radcm <- function(ADSL, # nolint
     origin = "1970-01-01"
     )) %>%
     dplyr::mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
-    dplyr::select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
+    dplyr::select(-"trtsdt_int", -"trtedt_int", -"astdt_int") %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)
 

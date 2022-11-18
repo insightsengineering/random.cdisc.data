@@ -194,7 +194,7 @@ radvs <- function(ADSL, # nolint
       )
     ) %>%
     dplyr::mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
-    dplyr::select(-.data$trtsdt_int, -.data$trtedt_int) %>%
+    dplyr::select(-"trtsdt_int", -"trtedt_int") %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 

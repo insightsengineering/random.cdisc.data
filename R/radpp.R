@@ -88,7 +88,7 @@ radpp <- function(ADSL, # nolint,
     dplyr::mutate(AVAL = stats::rnorm(nrow(ADPP), mean = 1, sd = 0.2)) %>%
     dplyr::left_join(data.frame(PARAM = param, ADJUST = aval_mean), by = "PARAM") %>%
     dplyr::mutate(AVAL = .data$AVAL * .data$ADJUST) %>%
-    dplyr::select(-.data$ADJUST)
+    dplyr::select(-"ADJUST")
 
   # assign related variable values: PARAMxPPSPEC are related
   ADPP$PPSPEC <- as.factor(rel_var( # nolint
