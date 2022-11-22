@@ -248,7 +248,7 @@ radaette <- function(ADSL, # nolint
 
   ADAETTE <- ADSL %>% # nolint
     dplyr::inner_join(
-      dplyr::select(ADAETTE, -.data$SITEID, -.data$ARM),
+      dplyr::select(ADAETTE, -"SITEID", -"ARM"),
       by = c("STUDYID", "USUBJID")
     ) %>%
     dplyr::group_by(.data$USUBJID) %>%

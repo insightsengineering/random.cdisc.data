@@ -205,7 +205,7 @@ radeg <- function(ADSL, # nolint
     )) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
-    dplyr::select(-.data$trtsdt_int, -.data$trtedt_int) %>%
+    dplyr::select(-"trtsdt_int", -"trtedt_int") %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
@@ -339,8 +339,8 @@ radeg <- function(ADSL, # nolint
     return(data_compare)
   }
 
-  ADEG <- flag_variables(ADEG, FALSE) %>% dplyr::rename(WORS01FL = .data$new_var) # nolint
-  ADEG <- flag_variables(ADEG, TRUE) %>% dplyr::rename(WORS02FL = .data$new_var) # nolint
+  ADEG <- flag_variables(ADEG, FALSE) %>% dplyr::rename(WORS01FL = "new_var") # nolint
+  ADEG <- flag_variables(ADEG, TRUE) %>% dplyr::rename(WORS02FL = "new_var") # nolint
 
   ADEG <- ADEG %>% dplyr::mutate(ANL01FL = factor(ifelse( # nolint
     (.data$ABLFL == "Y" | (is.na(.data$DTYPE) & .data$WORS01FL == "Y")) &

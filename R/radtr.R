@@ -49,12 +49,12 @@ radtr <- function(ADSL, # nolint
   adrs <- radrs(ADSL, seed = seed, ...) %>% # nolint
     dplyr::filter(.data$PARAMCD == "OVRINV") %>% # nolint
     dplyr::select(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$AVISIT,
-      .data$AVISITN,
-      .data$ADTM,
-      .data$ADY
+      "STUDYID",
+      "USUBJID",
+      "AVISIT",
+      "AVISITN",
+      "ADTM",
+      "ADY"
     )
 
   ADTR <- Map(function(parcd, par) { # nolint
@@ -70,7 +70,7 @@ radtr <- function(ADSL, # nolint
     dplyr::filter(.data$AVISITN == 0) %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
     dplyr::mutate(BASE = .data$AVAL) %>%
-    dplyr::select(.data$STUDYID, .data$USUBJID, .data$BASE, .data$PARAMCD)
+    dplyr::select("STUDYID", "USUBJID", "BASE", "PARAMCD")
 
   ADTR_postbase <- ADTR %>% # nolint
     dplyr::filter(.data$AVISITN > 0) %>%
@@ -91,10 +91,10 @@ radtr <- function(ADSL, # nolint
     dplyr::mutate(LAST_VISIT = .data$AVISIT) %>%
     dplyr::ungroup() %>%
     dplyr::select(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$PARAMCD,
-      .data$LAST_VISIT
+      "STUDYID",
+      "USUBJID",
+      "PARAMCD",
+      "LAST_VISIT"
     )
 
   ADTR <- rbind(ADTR %>% dplyr::mutate(DTYPE = ""), ADTR_postbase) # nolint
@@ -129,7 +129,7 @@ radtr <- function(ADSL, # nolint
         TRUE ~ .data$CHG
       )
     ) %>%
-    dplyr::select(-.data$PCHG_DUM)
+    dplyr::select(-"PCHG_DUM")
 
   ADTR <- merge(ADSL, ADTR, by = c("STUDYID", "USUBJID")) %>% # nolint
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
@@ -158,7 +158,7 @@ radtr <- function(ADSL, # nolint
         TRUE ~ ""
       )
     ) %>%
-    dplyr::select(-.data$LAST_VISIT)
+    dplyr::select(-"LAST_VISIT")
   # Adding variables that are in ADTR osprey but not RCD.
   ADTR <- ADTR %>% # nolint
     dplyr::mutate(

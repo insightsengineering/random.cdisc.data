@@ -124,7 +124,7 @@ radsl <- function(N = 400, # nolint
       ),
       origin = "1970-01-01"
     )) %>%
-    dplyr::select(.data$SUBJID, .data$st_posixn, .data$TRTEDTM_discon) %>%
+    dplyr::select("SUBJID", "st_posixn", "TRTEDTM_discon") %>%
     dplyr::arrange(.data$st_posixn)
 
   ADSL <- dplyr::left_join(ADSL, ADDS, by = c("SUBJID", "st_posixn")) %>% # nolint
@@ -136,7 +136,7 @@ radsl <- function(N = 400, # nolint
     dplyr::mutate( # nolint
       TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01") # nolint
     ) %>% # nolint
-    dplyr::select(-.data$TRTEDTM_discon) # nolint
+    dplyr::select(-"TRTEDTM_discon") # nolint
 
   # add period 2 if needed
   if (with_trt02) { # nolint
@@ -156,7 +156,7 @@ radsl <- function(N = 400, # nolint
         AP02EDTM = TRT02EDTM,
         TRTEDTM = TRT02EDTM
       ) %>% # nolint
-      dplyr::select(-.data$st_posixn_2) # nolint
+      dplyr::select(-"st_posixn_2") # nolint
   }
 
   ADSL <- ADSL %>% # nolint
@@ -232,7 +232,7 @@ radsl <- function(N = 400, # nolint
       DCSREAS == "DEATH" ~ DTHDT,
       TRUE ~ as.Date(.data$TRTEDTM) + floor(stats::runif(N, min = 10, max = 30))
     )) %>%
-    dplyr::select(-.data$st_posixn)
+    dplyr::select(-"st_posixn")
 
   # add random ETHNIC (Ethnicity)
   ADSL <- ADSL %>% # nolint

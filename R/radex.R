@@ -115,7 +115,7 @@ radex <- function(ADSL, # nolint
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(PARCAT_ind = sample(c(1, 2), size = 1)) %>%
     dplyr::mutate(PARCAT2 = ifelse(.data$PARCAT_ind == 1, parcat2[1], parcat2[2])) %>%
-    dplyr::select(-.data$PARCAT_ind)
+    dplyr::select(-"PARCAT_ind")
 
   # Add in PARCAT1
   adex <- adex %>% dplyr::mutate(PARCAT1 = dplyr::case_when(
@@ -154,7 +154,7 @@ radex <- function(ADSL, # nolint
       dplyr::mutate(id = dplyr::row_number()),
     by = c("USUBJID", "STUDYID", "PARCAT1", "PARCAT2", "id", "PARAMCD", "PARAM", "AVALU")
   ) %>%
-    dplyr::select(-.data$id)
+    dplyr::select(-"id")
 
   # Visit numbers
   adex <- adex %>% dplyr::mutate(AVISITN = dplyr::case_when(
@@ -198,7 +198,7 @@ radex <- function(ADSL, # nolint
           .data$csum == 1 ~ 1200,
           .data$csum == 2 ~ 1440
         )) %>%
-        dplyr::select(-c(.data$csum, .data$changeind)) %>%
+        dplyr::select(-c("csum", "changeind")) %>%
         dplyr::ungroup()
     }) %>%
     Reduce(rbind, .)
@@ -244,7 +244,7 @@ radex <- function(ADSL, # nolint
       (sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
       origin = "1970-01-01"
     )) %>%
-    dplyr::select(-.data$trtsdt_int, -.data$trtedt_int, -.data$astdt_int) %>%
+    dplyr::select(-"trtsdt_int", -"trtedt_int", -"astdt_int") %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)
 
