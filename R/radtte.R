@@ -175,7 +175,7 @@ radtte <- function(ADSL, # nolint
       lgTMATRSK = log(stats::rexp(1, rate = 3)),
       dplyr::across(
         c("ASEQ", "TTESEQ", "ADY", "ADTM", "EVNTDESC"),
-        ~ NA
+        ~NA
       )
     ))) %>%
     dplyr::arrange(
