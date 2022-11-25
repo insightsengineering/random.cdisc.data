@@ -122,7 +122,7 @@ raddv <- function(ADSL, # nolint
     )) %>%
     dplyr::mutate(ASTDT = as.Date(.data$ASTDTM)) %>%
     dplyr::mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
-    dplyr::select(-.data$trtsdt_int, -.data$trtedt_int, -.data$ASTDTM) %>%
+    dplyr::select(-"trtsdt_int", -"trtedt_int", -"ASTDTM") %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDT, .data$DVTERM)
 

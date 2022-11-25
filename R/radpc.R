@@ -95,7 +95,7 @@ radpc <- function(ADSL, # nolint
         AVALU = avalu,
         RELTMU = "hr"
       ) %>%
-      dplyr::select(-c(.data$A0, .data$ka, .data$ke))
+      dplyr::select(-c("A0", "ka", "ke"))
 
     return(adpc_day)
   }

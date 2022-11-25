@@ -88,7 +88,7 @@ radpp <- function(ADSL, # nolint,
     dplyr::mutate(AVAL = stats::rnorm(nrow(ADPP), mean = 1, sd = 0.2)) %>%
     dplyr::left_join(data.frame(PARAM = param, ADJUST = aval_mean), by = "PARAM") %>%
     dplyr::mutate(AVAL = .data$AVAL * .data$ADJUST) %>%
-    dplyr::select(-.data$ADJUST)
+    dplyr::select(-"ADJUST")
 
   # assign related variable values: PARAMxPPSPEC are related
   ADPP$PPSPEC <- as.factor(rel_var( # nolint
@@ -140,7 +140,7 @@ radpp <- function(ADSL, # nolint,
 
   # derive PKARMCD column for creating more cohorts
   ADPP <- ADPP %>% # nolint
-    dplyr::mutate(PKARMCD = factor(1 + (seq(nrow(ADPP)) - 1) %/% (nrow(ADPP) / 10), labels = c(
+    dplyr::mutate(PKARMCD = factor(1 + (seq_len(nrow(ADPP)) - 1) %/% (nrow(ADPP) / 10), labels = c(
       "Drug A", "Drug B", "Drug C", "Drug D", "Drug E", "Drug F", "Drug G", "Drug H",
       "Drug I", "Drug J"
     )))

@@ -140,7 +140,7 @@ radrs <- function(ADSL, # nolint
             dplyr::mutate(
               ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))
             ) %>%
-            dplyr::select(-.data$TRTSDTM),
+            dplyr::select(-"TRTSDTM"),
           by = "AVISIT"
         )
     }) %>%
@@ -162,7 +162,7 @@ radrs <- function(ADSL, # nolint
 
   ADRS <- dplyr::inner_join( # nolint
     ADSL, # nolint
-    dplyr::select(ADRS, -.data$SITEID),
+    dplyr::select(ADRS, -"SITEID"),
     by = c("STUDYID", "USUBJID")
   )
 
