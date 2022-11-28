@@ -19,12 +19,11 @@
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 1)
 #' ADQLQC <- radqlqc(ADSL, QS, percent = 80, number = 2)
 #' }
-radqlqc <- function (ADSL,
-                     QS,
-                     percent,
-                     number,
-                     cached = FALSE) {
-
+radqlqc <- function(ADSL,
+                    QS,
+                    percent,
+                    number,
+                    cached = FALSE) {
   checkmate::assert_flag(cached)
   if (cached) {
     return(random.cdisc.data:::get_cached_data("cadqlqc"))
@@ -198,7 +197,7 @@ radqlqc <- function (ADSL,
   ) %>%
     filter(
       PARAMCD != "QSALL" &
-        !str_detect(AVISIT, "SCREENING|UNSCHEDULED" )
+        !str_detect(AVISIT, "SCREENING|UNSCHEDULED")
     ) %>%
     group_by(
       USUBJID,
@@ -262,7 +261,7 @@ radqlqc <- function (ADSL,
   # apply metadata
   ADQLQC_final <- random.cdisc.data:::apply_metadata(ADQLQC_final, "metadata/ADQLQC.yml") # nolint
 
-  return (ADQLQC_final)
+  return(ADQLQC_final)
 }
 
 #' Questionnaires EORTC QLQ-C30 V3.0 SDTM (QS)
@@ -295,19 +294,17 @@ radqlqc <- function (ADSL,
 #' \dontrun{
 #' QS <- get_qs_data(n_assessments = 5L, seed = 1, na_percentage = 0.1)
 #' }
-get_qs_data <- function (visit_format = "CYCLE",
-                         n_assessments = 5L,
-                         n_days = 1L,
-                         lookup = NULL,
-                         seed = NULL,
-                         na_percentage = 0,
-                         na_vars = list(
-                           QSORRES = c(1234, 0.2),
-                           QSSTRESC = c(1234, 0.2)
-                         ),
-                         cached = FALSE
-) {
-
+get_qs_data <- function(visit_format = "CYCLE",
+                        n_assessments = 5L,
+                        n_days = 1L,
+                        lookup = NULL,
+                        seed = NULL,
+                        na_percentage = 0,
+                        na_vars = list(
+                          QSORRES = c(1234, 0.2),
+                          QSSTRESC = c(1234, 0.2)
+                        ),
+                        cached = FALSE) {
   checkmate::assert_flag(cached)
   if (cached) {
     return(random.cdisc.data:::get_cached_data("cqs"))
@@ -406,7 +403,9 @@ get_qs_data <- function (visit_format = "CYCLE",
 
   # # prep QSALL --------------------------------------------------------------
   # get last subject and visit for QSALL
-  last_subj_vis <- select(lookup_QS, .data$USUBJID, .data$VISIT) %>% distinct() %>% slice(n())
+  last_subj_vis <- select(lookup_QS, .data$USUBJID, .data$VISIT) %>%
+    distinct() %>%
+    slice(n())
   last_subj_vis_full <- filter(
     lookup_QS,
     .data$USUBJID == last_subj_vis$USUBJID,
@@ -468,13 +467,15 @@ get_qs_data <- function (visit_format = "CYCLE",
     group_by(
       .data$USUBJID
     ) %>%
-    mutate(QSDTC = get_random_dates_between(from = .data$TRTSDTM,
-                                            to = ifelse(
-                                              is.na(.data$TRTEDTM),
-                                              trt_end_date,
-                                              .data$TRTEDTM
-                                            ),
-                                            visit_id = .data$VISITNUM)) %>%
+    mutate(QSDTC = get_random_dates_between(
+      from = .data$TRTSDTM,
+      to = ifelse(
+        is.na(.data$TRTEDTM),
+        trt_end_date,
+        .data$TRTEDTM
+      ),
+      visit_id = .data$VISITNUM
+    )) %>%
     select(-c("TRTSDTM", "TRTEDTM"))
 
   # filter out subjects with missing dates
@@ -487,12 +488,13 @@ get_qs_data <- function (visit_format = "CYCLE",
   lookup_QS_sub_x2 <- filter(
     lookup_QS_sub_x,
     is.na(.data$QSDTC)
-  ) %>% select(
-    .data$STUDYID,
-    .data$USUBJID,
-    .data$VISIT,
-    .data$VISITNUM
   ) %>%
+    select(
+      .data$STUDYID,
+      .data$USUBJID,
+      .data$VISIT,
+      .data$VISITNUM
+    ) %>%
     distinct()
 
   # generate QSALL for subjects with missing dates
@@ -522,7 +524,9 @@ get_qs_data <- function (visit_format = "CYCLE",
     dplyr::ungroup()
 
   # get first and second subject ids
-  first_second_subj <- select(QS_all, .data$USUBJID) %>% distinct() %>% slice(1:2)
+  first_second_subj <- select(QS_all, .data$USUBJID) %>%
+    distinct() %>%
+    slice(1:2)
 
   QS1 <- filter(
     QS_all,
@@ -575,7 +579,7 @@ get_qs_data <- function (visit_format = "CYCLE",
       any_of(qs_name_ordered)
     )
 
-  return (final_QS)
+  return(final_QS)
 }
 
 
@@ -595,7 +599,6 @@ get_qs_data <- function (visit_format = "CYCLE",
 #' }
 get_questionnaire_sdtm <- function(pub_nam = NULL,
                                    qscat) {
-
   assert_that(is.character(qscat))
 
   if (is.null(pub_nam)) {
@@ -648,7 +651,6 @@ get_questionnaire_sdtm <- function(pub_nam = NULL,
   names(questionnaire) <- qrs_vars
 
   return(questionnaire)
-
 }
 
 
@@ -666,8 +668,8 @@ get_questionnaire_sdtm <- function(pub_nam = NULL,
 #' @examples
 #' \dontrun{
 #' df <- group_by(df, USUBJID) %>%
-#' mutate(ADTM = get_random_dates_between(TRTSDTM,TRTEDTM, AVISITN))
-#'}
+#'   mutate(ADTM = get_random_dates_between(TRTSDTM, TRTEDTM, AVISITN))
+#' }
 get_random_dates_between <- function(from, to, visit_id) {
   min_date <- min(lubridate::as_datetime(from), na.rm = TRUE)
   max_date <- max(lubridate::as_datetime(to), na.rm = TRUE)
@@ -707,7 +709,7 @@ get_random_dates_between <- function(from, to, visit_id) {
 #' \dontrun{
 #' adqlqc1 <- prep_adqlqc(df = QS)
 #' }
-prep_adqlqc <- function (df) {
+prep_adqlqc <- function(df) {
   # parameters for ADQLQC from gdsr
   gdsr_param_adqlqc <- adamv_parameters()[["ADQLQC"]] %>%
     select(
@@ -763,7 +765,7 @@ prep_adqlqc <- function (df) {
     gdsr_param_adqlqc
   )
 
-  return (adqlqc1)
+  return(adqlqc1)
 }
 
 
@@ -782,8 +784,8 @@ prep_adqlqc <- function (df) {
 #' @examples
 #' \dontrun{
 #' df <- calc_scales(adqlqc1)
-#'}
-calc_scales <- function (adqlqc1) {
+#' }
+calc_scales <- function(adqlqc1) {
   # Prep scale data ---------------------------------------------------------
   # parcat2 = scales or global health status
   # global health status/scales data
@@ -795,7 +797,7 @@ calc_scales <- function (adqlqc1) {
   eortc_qlq_c30_sub <- filter(
     eortc_qlq_c30,
     !(as.numeric(str_extract(.data$QSTESTCD, "\\d+$")) >= 101 &
-        as.numeric(str_extract(.data$QSTESTCD, "\\d+$")) <= 130)
+      as.numeric(str_extract(.data$QSTESTCD, "\\d+$")) <= 130)
   ) %>%
     mutate(
       PARAMCD = case_when(
@@ -841,96 +843,108 @@ calc_scales <- function (adqlqc1) {
 
   # scale data
   df <- data.frame(index = 1:nrow(ghs_scales))
-  df$previous <-list(c('QS02826', 'QS02827'),
-                     c('QS02811'),
-                     c('QS02810', 'QS02812', 'QS02818'),
-                     c('QS02806', 'QS02807'),
-                     c('QS02814', 'QS02815'),
-                     c('QS02808'),
-                     c('QS02817'),
-                     c('QS02816'),
-                     c('QS02821', 'QS02822','QS02823', 'QS02824'),
-                     c('QS02829', 'QS02830'),
-                     c('QS02813'),
-                     c('QS02801', 'QS02802','QS02803', 'QS02804','QS02805'),
-                     c('QS02809', 'QS02819'),
-                     c('QS02820', 'QS02825'),
-                     c('QS02828'))
-  df$newName <-list('QS028SF',
-                    'QS028SL',
-                    'QS028FA',
-                    'QS028RF2',
-                    'QS028NV',
-                    'QS028DY',
-                    'QS028DI',
-                    'QS028CO',
-                    'QS028EF',
-                    'QS028QL2',
-                    'QS028AP',
-                    'QS028PF2',
-                    'QS028PA',
-                    'QS028CF',
-                    'QS028FI')
-  df$newNamelabel <-list('EORTC QLQ-C30: Social functioning',
-                         'EORTC QLQ-C30: Insomnia',
-                         'EORTC QLQ-C30: Fatigue',
-                         'EORTC QLQ-C30: Role functioning (revised)',
-                         'EORTC QLQ-C30: Nausea and vomiting',
-                         'EORTC QLQ-C30: Dyspnoea',
-                         'EORTC QLQ-C30: Diarrhoea',
-                         'EORTC QLQ-C30: Constipation',
-                         'EORTC QLQ-C30: Emotional functioning',
-                         'EORTC QLQ-C30: Global health status/QoL (revised)',
-                         'EORTC QLQ-C30: Appetite loss',
-                         'EORTC QLQ-C30: Physical functioning (revised)',
-                         'EORTC QLQ-C30: Pain',
-                         'EORTC QLQ-C30: Cognitive functioning',
-                         'EORTC QLQ-C30: Financial difficulties')
-  df$newNameCategory <-list('Functional Scales',
-                            'Symptom Scales',
-                            'Symptom Scales',
-                            'Functional Scales',
-                            'Symptom Scales',
-                            'Symptom Scales',
-                            'Symptom Scales',
-                            'Symptom Scales',
-                            'Functional Scales',
-                            'Global Health Status',
-                            'Symptom Scales',
-                            'Functional Scales',
-                            'Symptom Scales',
-                            'Functional Scales',
-                            'Symptom Scales')
-  df$num_param <- list('1',
-                       '1',
-                       '2',
-                       '1',
-                       '1',
-                       '1',
-                       '1',
-                       '1',
-                       '2',
-                       '1',
-                       '1',
-                       '3',
-                       '1',
-                       '1',
-                       '1')
-  df$equation <-list('newValue = (1 - ((tempVal/varLength)-1)/3)*100.0',
-                     'newValue = ((tempVal/varLength-1)/3)*100.0',
-                     'newValue = ((tempVal/varLength-1)/3)*100.0',
-                     'newValue = (1 - ((tempVal/varLength)-1)/3)*100.0',
-                     'newValue = ((tempVal/varLength-1)/3)*100.0',
-                     'newValue = ((tempVal/varLength-1)/3)*100.0',
-                     'newValue = ((tempVal/varLength-1)/3)*100.0',
-                     'newValue = ((tempVal/varLength-1)/3)*100.0',
-                     'newValue = (1 - ((tempVal/varLength)-1)/3)*100.0',
-                     'newValue = ((tempVal/varLength-1)/6)*100.0',
-                     'newValue = ((tempVal/varLength-1)/3)*100.0',
-                     'newValue = (1 - ((tempVal/varLength)-1)/3)*100.0',
-                     'newValue = ((tempVal/varLength-1)/3)*100.0',
-                     'newValue = (1 - ((tempVal/varLength)-1)/3)*100.0',
-                     'newValue = ((tempVal/varLength-1)/3)*100.0')
+  df$previous <- list(
+    c("QS02826", "QS02827"),
+    c("QS02811"),
+    c("QS02810", "QS02812", "QS02818"),
+    c("QS02806", "QS02807"),
+    c("QS02814", "QS02815"),
+    c("QS02808"),
+    c("QS02817"),
+    c("QS02816"),
+    c("QS02821", "QS02822", "QS02823", "QS02824"),
+    c("QS02829", "QS02830"),
+    c("QS02813"),
+    c("QS02801", "QS02802", "QS02803", "QS02804", "QS02805"),
+    c("QS02809", "QS02819"),
+    c("QS02820", "QS02825"),
+    c("QS02828")
+  )
+  df$newName <- list(
+    "QS028SF",
+    "QS028SL",
+    "QS028FA",
+    "QS028RF2",
+    "QS028NV",
+    "QS028DY",
+    "QS028DI",
+    "QS028CO",
+    "QS028EF",
+    "QS028QL2",
+    "QS028AP",
+    "QS028PF2",
+    "QS028PA",
+    "QS028CF",
+    "QS028FI"
+  )
+  df$newNamelabel <- list(
+    "EORTC QLQ-C30: Social functioning",
+    "EORTC QLQ-C30: Insomnia",
+    "EORTC QLQ-C30: Fatigue",
+    "EORTC QLQ-C30: Role functioning (revised)",
+    "EORTC QLQ-C30: Nausea and vomiting",
+    "EORTC QLQ-C30: Dyspnoea",
+    "EORTC QLQ-C30: Diarrhoea",
+    "EORTC QLQ-C30: Constipation",
+    "EORTC QLQ-C30: Emotional functioning",
+    "EORTC QLQ-C30: Global health status/QoL (revised)",
+    "EORTC QLQ-C30: Appetite loss",
+    "EORTC QLQ-C30: Physical functioning (revised)",
+    "EORTC QLQ-C30: Pain",
+    "EORTC QLQ-C30: Cognitive functioning",
+    "EORTC QLQ-C30: Financial difficulties"
+  )
+  df$newNameCategory <- list(
+    "Functional Scales",
+    "Symptom Scales",
+    "Symptom Scales",
+    "Functional Scales",
+    "Symptom Scales",
+    "Symptom Scales",
+    "Symptom Scales",
+    "Symptom Scales",
+    "Functional Scales",
+    "Global Health Status",
+    "Symptom Scales",
+    "Functional Scales",
+    "Symptom Scales",
+    "Functional Scales",
+    "Symptom Scales"
+  )
+  df$num_param <- list(
+    "1",
+    "1",
+    "2",
+    "1",
+    "1",
+    "1",
+    "1",
+    "1",
+    "2",
+    "1",
+    "1",
+    "3",
+    "1",
+    "1",
+    "1"
+  )
+  df$equation <- list(
+    "newValue = (1 - ((tempVal/varLength)-1)/3)*100.0",
+    "newValue = ((tempVal/varLength-1)/3)*100.0",
+    "newValue = ((tempVal/varLength-1)/3)*100.0",
+    "newValue = (1 - ((tempVal/varLength)-1)/3)*100.0",
+    "newValue = ((tempVal/varLength-1)/3)*100.0",
+    "newValue = ((tempVal/varLength-1)/3)*100.0",
+    "newValue = ((tempVal/varLength-1)/3)*100.0",
+    "newValue = ((tempVal/varLength-1)/3)*100.0",
+    "newValue = (1 - ((tempVal/varLength)-1)/3)*100.0",
+    "newValue = ((tempVal/varLength-1)/6)*100.0",
+    "newValue = ((tempVal/varLength-1)/3)*100.0",
+    "newValue = (1 - ((tempVal/varLength)-1)/3)*100.0",
+    "newValue = ((tempVal/varLength-1)/3)*100.0",
+    "newValue = (1 - ((tempVal/varLength)-1)/3)*100.0",
+    "newValue = ((tempVal/varLength-1)/3)*100.0"
+  )
 
   # parameters for ADQLQC from gdsr
   expect <- adamv_parameters()[["ADQLQC"]] %>%
@@ -952,47 +966,49 @@ calc_scales <- function (adqlqc1) {
     PARAMCD = expect$PARAMCD,
     PARCAT2 = expect$PARCAT2,
     PARCAT1N = expect$PARCAT1N,
-    AVAL = c(0,1),
-    AVALC = c("Not expected to complete questionnaire","Expected to complete questionnaire")
+    AVAL = c(0, 1),
+    AVALC = c("Not expected to complete questionnaire", "Expected to complete questionnaire")
   )
 
   df_saved <- data.frame()
 
   uniqueID <- unique(adqlqc1$USUBJID)
 
-  for (id in uniqueID){
-    idData <- adqlqc1[adqlqc1$USUBJID ==	id, ]
+  for (id in uniqueID) {
+    idData <- adqlqc1[adqlqc1$USUBJID == id, ]
     uniqueAvisit <- unique(idData$AVISIT)
-    for (visit in uniqueAvisit){
-      if(is.na(visit))
+    for (visit in uniqueAvisit) {
+      if (is.na(visit)) {
         next
+      }
       idData_at_visit <- idData[idData$AVISIT == visit, ]
 
       if (any(idData_at_visit$PARAMCD != "QSALL")) {
-        for (idx in 1:length(df$index)){
-          previousNames = df$previous[idx]
-          currentName = df$newName[idx]
-          currentNamelabel = df$newNamelabel[idx]
-          currentNameCategory = df$newNameCategory[idx]
-          eqn = df$equation[idx]
-          tempVal = 0
-          varLength = 0
+        for (idx in 1:length(df$index)) {
+          previousNames <- df$previous[idx]
+          currentName <- df$newName[idx]
+          currentNamelabel <- df$newNamelabel[idx]
+          currentNameCategory <- df$newNameCategory[idx]
+          eqn <- df$equation[idx]
+          tempVal <- 0
+          varLength <- 0
           for (paramName in previousNames[[1]]) {
-
-            if(paramName %in% idData_at_visit$PARAMCD){####
-              currentVal = as.numeric(as.character(idData_at_visit$AVAL[idData_at_visit$PARAMCD == paramName]))
-              if(!is.na(currentVal)){tempVal = tempVal +  currentVal ###
-              varLength = varLength + 1}
-            } #if
-          }#paramName
-          #eval
+            if (paramName %in% idData_at_visit$PARAMCD) { ####
+              currentVal <- as.numeric(as.character(idData_at_visit$AVAL[idData_at_visit$PARAMCD == paramName]))
+              if (!is.na(currentVal)) {
+                tempVal <- tempVal + currentVal ###
+                varLength <- varLength + 1
+              }
+            } # if
+          } # paramName
+          # eval
           if (varLength >= as.numeric(df$num_param[idx])) {
-            eval(parse(text = eqn))#####
+            eval(parse(text = eqn)) #####
           } else {
-            newValue = NA
+            newValue <- NA
           }
 
-          new_data_row = data.frame(
+          new_data_row <- data.frame(
             study = str_extract(id, ".+?(?=\\-)"),
             id,
             visit,
@@ -1005,12 +1021,12 @@ calc_scales <- function (adqlqc1) {
             NA,
             stringsAsFactors = FALSE
           )
-          colnames(new_data_row) = c("STUDYID", "USUBJID","AVISIT","AVISITN", "ADTM", "PARCAT2", "PARAM","PARAMCD","AVAL","AVALC")###
-          df_saved = rbind(df_saved, new_data_row)#####
-        }#idx
+          colnames(new_data_row) <- c("STUDYID", "USUBJID", "AVISIT", "AVISITN", "ADTM", "PARCAT2", "PARAM", "PARAMCD", "AVAL", "AVALC") ###
+          df_saved <- rbind(df_saved, new_data_row) #####
+        } # idx
       }
-      #add expect data
-      expectValue <- sample(expectData$AVAL, 1, prob = c(0.10, 0.90))#TOOO
+      # add expect data
+      expectValue <- sample(expectData$AVAL, 1, prob = c(0.10, 0.90)) # TOOO
       expectValueC <- expectData$AVALC[expectData$AVAL == expectValue]
 
       new_data_row <- data.frame(
@@ -1024,12 +1040,12 @@ calc_scales <- function (adqlqc1) {
         expectData$PARAMCD[1],
         expectValue,
         expectValueC,
-        stringsAsFactors=FALSE
+        stringsAsFactors = FALSE
       )
-      colnames(new_data_row) <- c("STUDYID","USUBJID","AVISIT","AVISITN", "ADTM", "PARCAT2", "PARAM","PARAMCD","AVAL","AVALC")###
+      colnames(new_data_row) <- c("STUDYID", "USUBJID", "AVISIT", "AVISITN", "ADTM", "PARCAT2", "PARAM", "PARAMCD", "AVAL", "AVALC") ###
       df_saved <- rbind(df_saved, new_data_row)
-    }#visit
-  }#id
+    } # visit
+  } # id
 
   df_saved1 <- left_join(
     df_saved,
@@ -1053,8 +1069,7 @@ calc_scales <- function (adqlqc1) {
       .data$QSTESTCD
     )
 
-  return (ADQLQCtmp)
-
+  return(ADQLQCtmp)
 }
 
 
@@ -1068,8 +1083,8 @@ calc_scales <- function (adqlqc1) {
 #' @examples
 #' \dontrun{
 #' ADQLQC <- derv_chgcat1(dataset = ADQLQC)
-#'}
-derv_chgcat1 <- function (dataset) {
+#' }
+derv_chgcat1 <- function(dataset) {
   # derivation of CHGCAT1
   check_vars <- c("PARCAT2", "CHG")
 
@@ -1077,15 +1092,19 @@ derv_chgcat1 <- function (dataset) {
     dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 == "Symptom Scales" & !is.na(dataset$CHG) & dataset$CHG <= -10, "Improved", "")
     dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 == "Symptom Scales" & !is.na(dataset$CHG) & dataset$CHG >= 10, "Worsened", dataset$CHGCAT1)
     dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 == "Symptom Scales" & !is.na(dataset$CHG) & dataset$CHG > -10 & dataset$CHG < 10,
-                              "No change", dataset$CHGCAT1)
+      "No change", dataset$CHGCAT1
+    )
 
     dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 %in% c("Functional Scales", "Global Health Status") & !is.na(dataset$CHG) & dataset$CHG >= 10,
-                              "Improved", dataset$CHGCAT1)
+      "Improved", dataset$CHGCAT1
+    )
     dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 %in% c("Functional Scales", "Global Health Status") & !is.na(dataset$CHG) & dataset$CHG <= -10,
-                              "Worsened", dataset$CHGCAT1)
+      "Worsened", dataset$CHGCAT1
+    )
     dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 %in% c("Functional Scales", "Global Health Status") & !is.na(dataset$CHG) &
-                                dataset$CHG > -10 & dataset$CHG < 10,
-                              "No change", dataset$CHGCAT1)
+      dataset$CHG > -10 & dataset$CHG < 10,
+    "No change", dataset$CHGCAT1
+    )
 
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 6, "Improved by six levels", dataset$CHGCAT1)
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 5, "Improved by five levels", dataset$CHGCAT1)
@@ -1117,9 +1136,11 @@ derv_chgcat1 <- function (dataset) {
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == 2, "Worsened by two levels", dataset$CHGCAT1)
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == 3, "Worsened by three levels", dataset$CHGCAT1)
 
-    paramcd_vec <- c("QS02803", "QS02804", "QS02805", "QS02807",  "QS02808", "QS02809", "QS02810", "QS02811", "QS02812", "QS02813",
-                     "QS02814", "QS02815", "QS02816","QS02817",  "QS02818", "QS02819", "QS02820", "QS02821", "QS02822",
-                     "QS02823", "QS02824", "QS02825", "QS02826", "QS02827",  "QS02828")
+    paramcd_vec <- c(
+      "QS02803", "QS02804", "QS02805", "QS02807", "QS02808", "QS02809", "QS02810", "QS02811", "QS02812", "QS02813",
+      "QS02814", "QS02815", "QS02816", "QS02817", "QS02818", "QS02819", "QS02820", "QS02821", "QS02822",
+      "QS02823", "QS02824", "QS02825", "QS02826", "QS02827", "QS02828"
+    )
 
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == -3, "Improved by three levels", dataset$CHGCAT1)
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == -2, "Improved by two levels", dataset$CHGCAT1)
@@ -1129,7 +1150,7 @@ derv_chgcat1 <- function (dataset) {
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 2, "Worsened by two levels", dataset$CHGCAT1)
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 3, "Worsened by three levels", dataset$CHGCAT1)
 
-    return (dataset)
+    return(dataset)
   } else {
     collapse_vars <- paste(check_vars, collapse = ", ")
     stop(sprintf("%s: one or both variables is/are missing, needed for derivation", collapse_vars))
@@ -1146,8 +1167,8 @@ derv_chgcat1 <- function (dataset) {
 #' @examples
 #' \dontrun{
 #' compliance_data <- comp_derv(ADQLQC, 80, 2)
-#'}
-comp_derv <- function (dataset, percent, number) {
+#' }
+comp_derv <- function(dataset, percent, number) {
   # original items data
   orig_data <- filter(
     dataset,
@@ -1158,7 +1179,9 @@ comp_derv <- function (dataset, percent, number) {
   comp_count_all <- select(
     orig_data,
     .data$PARAMCD
-  ) %>% distinct() %>% count()
+  ) %>%
+    distinct() %>%
+    count()
   comp_count_all <- comp_count_all$n
 
   # original items data count of questions answered
@@ -1171,13 +1194,14 @@ comp_derv <- function (dataset, percent, number) {
     .data$AVISITN,
     .data$ADTM,
     .data$ADY
-  ) %>% summarise(
-    comp_count = sum(!is.na(.data$AVAL)),
-    comp_count_all = comp_count_all,
-    .groups = "drop"
   ) %>%
+    summarise(
+      comp_count = sum(!is.na(.data$AVAL)),
+      comp_count_all = comp_count_all,
+      .groups = "drop"
+    ) %>%
     mutate(
-      per_comp = trunc((.data$comp_count/.data$comp_count_all) * 100)
+      per_comp = trunc((.data$comp_count / .data$comp_count_all) * 100)
     )
 
   # expected data
@@ -1203,12 +1227,14 @@ comp_derv <- function (dataset, percent, number) {
   joined <- left_join(
     ex028_data,
     orig_data_summ,
-    by = c("STUDYID",
-           "USUBJID",
-           "PARCAT1",
-           "AVISIT",
-           "AVISITN",
-           "comp_count_all")
+    by = c(
+      "STUDYID",
+      "USUBJID",
+      "PARCAT1",
+      "AVISIT",
+      "AVISITN",
+      "comp_count_all"
+    )
   ) %>%
     select(-c("ADTM.x", "ADY.x"))
 
