@@ -58,6 +58,7 @@ cadtr_new <- radtr(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation
 caddv_new <- raddv(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadsub_new <- radsub(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadhy_new <- radhy(cadsl_new, seed = 1) %>% `attr<-`("creation date", Sys.Date())
+cadqlqc_new <- radqlqc(cadsl_new, cqs_new, percent = 80, number = 2) %>% `attr<-`("creation date", Sys.Date())
 
 # use diffdf package: diffdf() to compare cached vs new and review/verify differences
 diffdf(cadsl, cadsl_new)
@@ -79,6 +80,7 @@ diffdf(cadtr, cadtr_new)
 diffdf(caddv, caddv_new)
 diffdf(cadsub, cadsub_new)
 diffdf(cadhy, cadhy_new)
+diffdf(cadqlqc, cadqlqc_new)
 
 # when diff reflects changes accurately then create environment objects to save out to cache
 cadsl <- cadsl_new
@@ -100,6 +102,7 @@ cadvs <- cadvs_new
 caddv <- caddv_new
 cadsub <- cadsub_new
 cadhy <- cadhy_new
+cadqlqc <- cadqlqc_new
 
 # update cache
 save(cadsl, file = "data/cadsl.RData", compress = "xz")
@@ -121,4 +124,5 @@ save(cadvs, file = "data/cadvs.RData", compress = "xz")
 save(caddv, file = "data/caddv.RData", compress = "xz")
 save(cadsub, file = "data/cadsub.RData", compress = "xz")
 save(cadhy, file = "data/cadhy.RData", compress = "xz")
+save(cadqlqc, file = "data/cadqlqc.RData", compress = "xz")
 ```
