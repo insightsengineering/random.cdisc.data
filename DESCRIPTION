@@ -21,13 +21,12 @@ Imports:
     dplyr,
     lubridate,
     magrittr,
-    rgdsr,
     rlang,
+    stringr,
     tibble,
     tidyr,
     yaml
 Suggests:
-    diffdf,
     diffdf,
     knitr,
     rmarkdown,

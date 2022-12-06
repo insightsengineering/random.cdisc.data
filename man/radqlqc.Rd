@@ -4,12 +4,10 @@
 \alias{radqlqc}
 \title{EORTC QLQ-C30 V3 Analysis Dataset (ADQLQC)}
 \usage{
-radqlqc(ADSL, QS, percent, number, cached = FALSE)
+radqlqc(ADSL, percent, number, cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset}
-
-\item{QS}{SDTM QS (EORTC QLQ-C30 V3) data frame}
 
 \item{percent}{Completion - Completed at least y percent of questions, 1 record per visit}
 
@@ -27,6 +25,6 @@ EORTC QLQ-C30 V3 Analysis Dataset (ADQLQC)
 \examples{
 \dontrun{
 ADSL <- radsl(N = 10, seed = 1, study_duration = 1)
-ADQLQC <- radqlqc(ADSL, QS, percent = 80, number = 2)
+ADQLQC <- radqlqc(ADSL, percent = 80, number = 2)
 }
 }

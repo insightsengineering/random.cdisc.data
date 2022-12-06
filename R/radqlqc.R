@@ -1,6 +1,5 @@
 #' EORTC QLQ-C30 V3 Analysis Dataset (ADQLQC)
 #' @param ADSL Subject-Level Analysis Dataset
-#' @param QS SDTM QS (EORTC QLQ-C30 V3) data frame
 #' @param percent Completion - Completed at least y percent of questions, 1 record per visit
 #' @param number Completion - Completed at least x question(s), 1 record per visit
 #' @param cached boolean whether the cached <%= toupper(data) %> data \code{c<%=data%>} should be
@@ -8,19 +7,15 @@
 #'
 #' @return a dataframe with EORTC QLQ-C30 V3 Analysis Dataset
 #'
-#' @import random.cdisc.data
 #' @import dplyr
-#' @importFrom rgdsr gdsr_init adamv_variables
-#'
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 1)
-#' ADQLQC <- radqlqc(ADSL, QS, percent = 80, number = 2)
+#' ADQLQC <- radqlqc(ADSL, percent = 80, number = 2)
 #' }
 radqlqc <- function(ADSL,
-                    QS,
                     percent,
                     number,
                     cached = FALSE) {
@@ -30,14 +25,12 @@ radqlqc <- function(ADSL,
   }
 
   checkmate::assert_data_frame(ADSL)
-  checkmate::assert_data_frame(QS)
   checkmate::assert_number(percent, lower = 1, upper = 100)
   checkmate::assert_number(number, lower = 1)
-
   # ADQLQC data -------------------------------------------------------------
+  QS <- get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1)
   # prepare ADaM adqlqc data
   adqlqc1 <- prep_adqlqc(df = QS)
-
   # derive AVAL and AVALC
   adqlqc1 <- mutate(
     adqlqc1,
@@ -50,10 +43,8 @@ radqlqc <- function(ADSL,
     AVISITN = .data$VISITNUM,
     ADTM = .data$QSDTC
   )
-
   # include scale calculation
   ADQLQCtmp <- calc_scales(adqlqc1)
-
   # order to prepare for change from screening and baseline values
   ADQLQCtmp <- ADQLQCtmp[order(ADQLQCtmp$STUDYID, ADQLQCtmp$USUBJID, ADQLQCtmp$PARAMCD, ADQLQCtmp$AVISITN), ] # nolint
 
@@ -110,10 +101,8 @@ radqlqc <- function(ADSL,
       STUDYID = attr(ADSL$STUDYID, "label"),
       USUBJID = attr(ADSL$USUBJID, "label")
     )
-
   # derive CHGCAT1 ----------------------------------------------------------
   ADQLQCtmp <- derv_chgcat1(dataset = ADQLQCtmp)
-
 
   ADQLQCtmp <- random.cdisc.data:::var_relabel( # nolint
     ADQLQCtmp,
@@ -126,25 +115,14 @@ radqlqc <- function(ADSL,
     .data$USUBJID,
     .data$AVISITN
   )
-
   # Merge ADSL --------------------------------------------------------------
-  # adsl variables from ADQLQC in gdsr
-  adsl_vars <- filter(
-    adamv_variables(),
-    .data$dataset == "ADQLQC",
-    str_detect(.data$derivation_text, "^ADSL")
-  )
-  adsl_vars <- adsl_vars$name
-
-  # adsl variables from ADQLQC in gdsr
-  adsl_vars <- filter(
-    adamv_variables(),
-    .data$dataset == "ADQLQC",
-    str_detect(.data$derivation_text, "^ADSL")
-  )
-  adsl_vars <- adsl_vars$name
-
   # adsl variables needed for ADQLQC
+  adsl_vars <- c(
+    "STUDYID","USUBJID","SUBJID","SITEID","REGION1","COUNTRY","ETHNIC","AGE",
+    "AGEU","AAGE","AAGEU","AGEGR1","AGEGR2","AGEGR3","STRATwNM","STRATw","STRATwV",
+    "SEX","RACE","ITTFL","SAFFL","PPROTFL","TRT01P","TRT01A",
+    "TRTSEQP","TRTSEQA","TRTSDTM", "TRTSDT", "TRTEDTM", "TRTEDT","DCUTDT"
+  )
   ADSL <- select(
     ADSL,
     any_of(adsl_vars)
@@ -165,20 +143,17 @@ radqlqc <- function(ADSL,
     select(
       -.data$ADY_der
     )
-
   # get compliance data ---------------------------------------------------
   compliance_data <- comp_derv(
     dataset = ADQLQC,
     percent = percent,
     number = number
   )
-
   # add ADSL variables
   compliance_data <- left_join(
     compliance_data,
     ADSL
   )
-
   # add completion to ADQLQC
   ADQLQC <- bind_rows(
     ADQLQC,
@@ -192,18 +167,18 @@ radqlqc <- function(ADSL,
   # find first set of questionnaire observations
   ADQLQC_x <- arrange(
     ADQLQC,
-    USUBJID,
-    ADTM
+    .data$USUBJID,
+    .data$ADTM
   ) %>%
     filter(
-      PARAMCD != "QSALL" &
-        !str_detect(AVISIT, "SCREENING|UNSCHEDULED")
+      .data$PARAMCD != "QSALL" &
+        !str_detect(.data$AVISIT, "SCREENING|UNSCHEDULED")
     ) %>%
     group_by(
-      USUBJID,
-      ADTM
+      .data$USUBJID,
+      .data$ADTM
     ) %>%
-    summarise(first_date = first(ADTM), .groups = "drop")
+    summarise(first_date = first(.data$ADTM), .groups = "drop")
 
   ADQLQC <- left_join(
     ADQLQC,
@@ -213,12 +188,11 @@ radqlqc <- function(ADSL,
       ANL01FL = case_when(
         PARAMCD != "QSALL" & ABLFL == "Y" ~ "Y",
         PARAMCD != "QSALL" &
-          !str_detect(AVISIT, "UNSCHEDULED") &
-          !is.na(first_date) ~ "Y"
+          !str_detect(.data$AVISIT, "UNSCHEDULED") &
+          !is.na(.data$first_date) ~ "Y"
       )
     ) %>%
-    select(-first_date)
-
+    select(-.data$first_date)
   # final dataset -----------------------------------------------------------
   ADQLQC_final <- ADQLQC %>% # nolint
     dplyr::group_by(.data$USUBJID) %>%
@@ -234,16 +208,19 @@ radqlqc <- function(ADSL,
     ) %>%
     ungroup()
 
-  # ADQLQC variables from gdsr
-  adam_vars <- adamv_variables() %>%
-    filter(.data$dataset == "ADQLQC")
-
-  # ordered variables as per gdsr
-  adam_vars <- adam_vars$name
-
+  adam_vars <- c(
+    adsl_vars, "QSSEQ","QSCAT","QSSCAT","QSDTC","QSSPID","QSSTAT","QSSTRESN",
+    "QSSTRESC","QSSTRESU","QSORRES","QSORRESU","QSTEST","QSTESTCD","QSTPT",
+    "QSTPTNUM","QSTPTREF","QSDY","QSREASND","QSTSTDTL", "QSEVAL","VISIT","VISITNUM",
+    "PARAM","PARAMCD","PARCAT1","PARCAT1N","PARCAT2","AVAL","AVALC","AREASND",
+    "BASE","BASETYPE","ABLFL","CHG","PCHG","CHGCAT1","CRIT1","CRIT1FL","DTYPE",
+    "ADTM","ADT","ADY","ADTF","ATMF","ATPT","ATPTN","AVISIT","AVISITN","APHASE",
+    "APHASEN","APERIOD","APERIODC","APERIODC","ASPER","ASPERC","PERADY","TRTP",
+    "TRTA","ONTRTFL","LAST02FL","FIRS02FL","ANL01FL","ANL02FL","ANL03FL",
+    "ANL04FL","CGCAT1NX"
+  )
   # order variables in mapped qs by variables in adam_vars
   adqlqc_name_ordered <- names(ADQLQC_final)[order(match(names(ADQLQC_final), adam_vars))]
-
   # adqlqc with variables ordered per gdsr
   ADQLQC_final <- ADQLQC_final %>%
     select(
@@ -257,15 +234,15 @@ radqlqc <- function(ADSL,
       .data$ASEQ,
       .data$QSTESTCD
     )
-
   # apply metadata
   ADQLQC_final <- random.cdisc.data:::apply_metadata(ADQLQC_final, "metadata/ADQLQC.yml") # nolint
-
   return(ADQLQC_final)
 }
 
 #' Questionnaires EORTC QLQ-C30 V3.0 SDTM (QS)
+#'
 #' Function for generating random Questionnaires SDTM domain
+#'
 #' @param visit_format as character string. Valid values: WEEK, CYCLE.
 #' @param n_assessments number of assessments. Valid values: integer.
 #' @param n_days number of days for each cycle: Valid values: integer.
@@ -284,27 +261,28 @@ radqlqc <- function(ADSL,
 #'
 #' @return a dataframe with SDTM questionnaire data
 #'
-#' @import random.cdisc.data
 #' @import dplyr
-#' @importFrom rgdsr gdsr_init sdtmv_variables
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' QS <- get_qs_data(n_assessments = 5L, seed = 1, na_percentage = 0.1)
+#' QS <- get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1)
 #' }
-get_qs_data <- function(visit_format = "CYCLE",
-                        n_assessments = 5L,
-                        n_days = 1L,
-                        lookup = NULL,
-                        seed = NULL,
-                        na_percentage = 0,
-                        na_vars = list(
-                          QSORRES = c(1234, 0.2),
-                          QSSTRESC = c(1234, 0.2)
-                        ),
-                        cached = FALSE) {
+get_qs_data <- function (ADSL,
+                         visit_format = "CYCLE",
+                         n_assessments = 5L,
+                         n_days = 1L,
+                         lookup = NULL,
+                         seed = NULL,
+                         na_percentage = 0,
+                         na_vars = list(
+                           QSORRES = c(1234, 0.2),
+                           QSSTRESC = c(1234, 0.2)
+                         ),
+                         cached = FALSE
+) {
+
   checkmate::assert_flag(cached)
   if (cached) {
     return(random.cdisc.data:::get_cached_data("cqs"))
@@ -319,7 +297,6 @@ get_qs_data <- function(visit_format = "CYCLE",
   checkmate::assert_true(na_percentage < 1)
 
   # get subjects for QS data from ADSL
-  ADSL <- radsl(N = 10, seed = 1, study_duration = 1)
   # get studyid, subject for QS generation
   QS <- select(
     ADSL,
@@ -332,9 +309,6 @@ get_qs_data <- function(visit_format = "CYCLE",
 
   # QS prep -----------------------------------------------------------------
   # get questionnaire function for QS
-  # EORTC QLQ-C30 V3.0
-  eortc_qlq_c30 <- get_questionnaire_sdtm(qscat = "EORTC QLQ-C30 V3.0")
-
   # QSTESTCD: EOR0101 to EOR0130
   eortc_qlq_c30_sub <- filter(
     eortc_qlq_c30,
@@ -403,9 +377,7 @@ get_qs_data <- function(visit_format = "CYCLE",
 
   # # prep QSALL --------------------------------------------------------------
   # get last subject and visit for QSALL
-  last_subj_vis <- select(lookup_QS, .data$USUBJID, .data$VISIT) %>%
-    distinct() %>%
-    slice(n())
+  last_subj_vis <- select(lookup_QS, .data$USUBJID, .data$VISIT) %>% distinct() %>% slice(n())
   last_subj_vis_full <- filter(
     lookup_QS,
     .data$USUBJID == last_subj_vis$USUBJID,
@@ -467,15 +439,13 @@ get_qs_data <- function(visit_format = "CYCLE",
     group_by(
       .data$USUBJID
     ) %>%
-    mutate(QSDTC = get_random_dates_between(
-      from = .data$TRTSDTM,
-      to = ifelse(
-        is.na(.data$TRTEDTM),
-        trt_end_date,
-        .data$TRTEDTM
-      ),
-      visit_id = .data$VISITNUM
-    )) %>%
+    mutate(QSDTC = get_random_dates_between(from = .data$TRTSDTM,
+                                            to = ifelse(
+                                              is.na(.data$TRTEDTM),
+                                              trt_end_date,
+                                              .data$TRTEDTM
+                                            ),
+                                            visit_id = .data$VISITNUM)) %>%
     select(-c("TRTSDTM", "TRTEDTM"))
 
   # filter out subjects with missing dates
@@ -488,13 +458,12 @@ get_qs_data <- function(visit_format = "CYCLE",
   lookup_QS_sub_x2 <- filter(
     lookup_QS_sub_x,
     is.na(.data$QSDTC)
+  ) %>% select(
+    .data$STUDYID,
+    .data$USUBJID,
+    .data$VISIT,
+    .data$VISITNUM
   ) %>%
-    select(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$VISIT,
-      .data$VISITNUM
-    ) %>%
     distinct()
 
   # generate QSALL for subjects with missing dates
@@ -524,9 +493,7 @@ get_qs_data <- function(visit_format = "CYCLE",
     dplyr::ungroup()
 
   # get first and second subject ids
-  first_second_subj <- select(QS_all, .data$USUBJID) %>%
-    distinct() %>%
-    slice(1:2)
+  first_second_subj <- select(QS_all, .data$USUBJID) %>% distinct() %>% slice(1:2)
 
   QS1 <- filter(
     QS_all,
@@ -566,94 +533,28 @@ get_qs_data <- function(visit_format = "CYCLE",
     ungroup()
 
   # ordered variables as per gdsr
-  sdtmv_vars <- sdtmv_variables(domain = "QS") %>%
-    select(.data$name) %>%
-    pull()
-
-  # order variables in mapped qs by variables in adam_vars
-  qs_name_ordered <- names(final_QS)[order(match(names(final_QS), sdtmv_vars))]
-
-  # qs with variables ordered per gdsr
-  final_QS <- final_QS %>%
-    select(
-      any_of(qs_name_ordered)
-    )
-
-  return(final_QS)
+  final_QS <- select(
+    final_QS,
+    STUDYID,
+    USUBJID,
+    QSSEQ,
+    QSTESTCD,
+    QSTEST,
+    QSCAT,
+    QSSCAT,
+    QSORRES,
+    QSORRESU,
+    QSSTRESC,
+    QSSTRESU,
+    QSSTAT,
+    QSREASND,
+    VISITNUM,
+    VISIT,
+    QSDTC,
+    QSEVLINT
+  )
+  return (final_QS)
 }
-
-
-#' Generate SDTM QS from gdsr
-#'
-#' @param pub_nam gdsr publication name, default NULL
-#' @param qscat Category of questionnaire
-#'
-#' @return dataframe
-#' @importFrom assertthat assert_that
-#' @importFrom rgdsr gdsr_init qrs_all
-#' @importFrom dplyr filter
-#'
-#' @examples
-#' \dontrun{
-#' eortc_qlq_c30 <- get_questionnaire_sdtm(qscat = "EORTC QLQ-C30 V3.0")
-#' }
-get_questionnaire_sdtm <- function(pub_nam = NULL,
-                                   qscat) {
-  assert_that(is.character(qscat))
-
-  if (is.null(pub_nam)) {
-    gdsr_init()
-  } else {
-    gdsr_init(pub_nam)
-  }
-
-  # get qrs data based on publication
-  qrs_all <- rgdsr::qrs_all()
-
-  # required variables from gdsr
-  gdsr_qrs_vars <- c(
-    "test_code",
-    "test_name",
-    "submission_value",
-    "subcategory",
-    "original_response",
-    "original_unit",
-    "standard_response",
-    "standard_unit",
-    "eval_interval",
-    "publication_name"
-  )
-
-  # SDTMv variable names
-  qrs_vars <- c(
-    "QSTESTCD",
-    "QSTEST",
-    "QSCAT",
-    "QSSCAT",
-    "QSORRES",
-    "QSORRESU",
-    "QSSTRESC",
-    "QSSTRESU",
-    "QSEVLINT",
-    "publication_name"
-  )
-
-  # filter questionnaire
-  questionnaire <- filter(
-    qrs_all,
-    .data$submission_value == qscat
-  )
-
-  # select variables from gdsr_qrs_vars
-  questionnaire <- questionnaire[, gdsr_qrs_vars]
-
-  # rename variables based on qrs_vars
-  names(questionnaire) <- qrs_vars
-
-  return(questionnaire)
-}
-
-
 
 #' Function for generating random dates between 2 dates
 #'
@@ -690,7 +591,6 @@ get_random_dates_between <- function(from, to, visit_id) {
       }
     }
   })
-
   lubridate::as_datetime(out[match(visit_id, visit_ids)])
 }
 
@@ -701,7 +601,6 @@ get_random_dates_between <- function(from, to, visit_id) {
 #'
 #' @return data frame
 #'
-#' @importFrom rgdsr adamv_parameters
 #' @importFrom stringr str_extract
 #' @importFrom dplyr select mutate left_join case_when
 #'
@@ -710,18 +609,6 @@ get_random_dates_between <- function(from, to, visit_id) {
 #' adqlqc1 <- prep_adqlqc(df = QS)
 #' }
 prep_adqlqc <- function(df) {
-  # parameters for ADQLQC from gdsr
-  gdsr_param_adqlqc <- adamv_parameters()[["ADQLQC"]] %>%
-    select(
-      .data$PARAM,
-      .data$PARAMCD,
-      .data$PARCAT2,
-      .data$PARCAT1N
-    ) %>%
-    mutate(
-      PARCAT1 = str_extract(.data$PARAM, ".+(?=:)")
-    )
-
   # create PARAMCD from QSTESTCD
   adqlqc <- mutate(
     df,
@@ -759,16 +646,12 @@ prep_adqlqc <- function(df) {
       TRUE ~ QSTESTCD
     )
   )
-
   adqlqc1 <- left_join(
     adqlqc,
     gdsr_param_adqlqc
   )
-
   return(adqlqc1)
 }
-
-
 
 #' Scale calculation for ADQLQC data
 #'
@@ -778,7 +661,6 @@ prep_adqlqc <- function(df) {
 #'
 #' @import dplyr
 #' @importFrom stringr str_extract str_detect
-#' @importFrom rgdsr adamv_parameters
 #'
 #'
 #' @examples
@@ -789,10 +671,6 @@ calc_scales <- function(adqlqc1) {
   # Prep scale data ---------------------------------------------------------
   # parcat2 = scales or global health status
   # global health status/scales data
-
-  # EORTC QLQ-C30 V3.0
-  eortc_qlq_c30 <- get_questionnaire_sdtm(qscat = "EORTC QLQ-C30 V3.0")
-
   # QSTESTCD: EOR0131 to EOR0145 (global health status and scales)
   eortc_qlq_c30_sub <- filter(
     eortc_qlq_c30,
@@ -822,25 +700,15 @@ calc_scales <- function(adqlqc1) {
     select(-.data$publication_name)
 
   # ADaM global health status and scales from gdsr
-  gdsr_param_adqlqc <- adamv_parameters()[["ADQLQC"]] %>%
-    select(
-      .data$PARAM,
-      .data$PARAMCD,
-      .data$PARCAT2,
-      .data$PARCAT1N
-    ) %>%
-    mutate(
-      PARCAT1 = str_extract(.data$PARAM, ".+(?=:)")
-    ) %>%
-    filter(
-      !str_detect(.data$PARCAT2, "Original Items|Completion")
-    )
+    gdsr_param_adqlqc <- gdsr_param_adqlqc %>%
+      filter(
+        !str_detect(.data$PARCAT2, "Original Items|Completion")
+      )
 
   ghs_scales <- left_join(
     eortc_qlq_c30_sub,
     gdsr_param_adqlqc
   )
-
   # scale data
   df <- data.frame(index = 1:nrow(ghs_scales))
   df$previous <- list(
@@ -946,21 +814,6 @@ calc_scales <- function(adqlqc1) {
     "newValue = ((tempVal/varLength-1)/3)*100.0"
   )
 
-  # parameters for ADQLQC from gdsr
-  expect <- adamv_parameters()[["ADQLQC"]] %>%
-    select(
-      .data$PARAM,
-      .data$PARAMCD,
-      .data$PARCAT2,
-      .data$PARCAT1N
-    ) %>%
-    mutate(
-      PARCAT1 = str_extract(.data$PARAM, ".+(?=:)")
-    ) %>%
-    filter(
-      .data$PARAMCD == "EX028"
-    )
-
   expectData <- data.frame(
     PARAM = expect$PARAM,
     PARAMCD = expect$PARAMCD,
@@ -1009,7 +862,7 @@ calc_scales <- function(adqlqc1) {
           }
 
           new_data_row <- data.frame(
-            study = str_extract(id, ".+?(?=\\-)"),
+            study = str_extract(id, "[A-Z]+[0-9]+"),
             id,
             visit,
             idData_at_visit$AVISITN[1],
@@ -1030,7 +883,7 @@ calc_scales <- function(adqlqc1) {
       expectValueC <- expectData$AVALC[expectData$AVAL == expectValue]
 
       new_data_row <- data.frame(
-        study = str_extract(id, ".+?(?=\\-)"),
+        study = str_extract(id, "[A-Z]+[0-9]+"),
         id,
         visit,
         idData_at_visit$AVISITN[1],
@@ -1068,10 +921,8 @@ calc_scales <- function(adqlqc1) {
       .data$AVISITN,
       .data$QSTESTCD
     )
-
   return(ADQLQCtmp)
 }
-
 
 #' Calculate Change from Baseline Category 1
 #'
@@ -1157,7 +1008,6 @@ derv_chgcat1 <- function(dataset) {
   }
 }
 
-
 #' Completion/Compliance data calculation
 #' @param dataset adam dataset
 #' @param percent Completion - Completed at least y percent of questions, 1 record per visit
@@ -1174,7 +1024,6 @@ comp_derv <- function(dataset, percent, number) {
     dataset,
     .data$PARCAT2 == "Original Items"
   )
-
   # total number of questionnaires
   comp_count_all <- select(
     orig_data,
@@ -1183,7 +1032,6 @@ comp_derv <- function(dataset, percent, number) {
     distinct() %>%
     count()
   comp_count_all <- comp_count_all$n
-
   # original items data count of questions answered
   orig_data_summ <- group_by(
     orig_data,
@@ -1203,7 +1051,6 @@ comp_derv <- function(dataset, percent, number) {
     mutate(
       per_comp = trunc((.data$comp_count / .data$comp_count_all) * 100)
     )
-
   # expected data
   ex028_data <- filter(
     dataset,
@@ -1244,7 +1091,6 @@ comp_derv <- function(dataset, percent, number) {
     ADY = ADY.y
   ) %>%
     select(-c("ADTM.y", "ADY.y"))
-
   # CO028ALL
   co028all <- mutate(
     joined,
@@ -1299,6 +1145,5 @@ comp_derv <- function(dataset, percent, number) {
     select(
       -c("AVAL_ex028", "comp_count", "comp_count_all", "per_comp")
     )
-
   return(co028_bind)
 }

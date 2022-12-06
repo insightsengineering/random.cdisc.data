@@ -2,10 +2,10 @@
 % Please edit documentation in R/radqlqc.R
 \name{get_qs_data}
 \alias{get_qs_data}
-\title{Questionnaires EORTC QLQ-C30 V3.0 SDTM (QS)
-Function for generating random Questionnaires SDTM domain}
+\title{Questionnaires EORTC QLQ-C30 V3.0 SDTM (QS)}
 \usage{
 get_qs_data(
+  ADSL,
   visit_format = "CYCLE",
   n_assessments = 5L,
   n_days = 1L,
@@ -44,11 +44,10 @@ returned or new data}
 a dataframe with SDTM questionnaire data
 }
 \description{
-Questionnaires EORTC QLQ-C30 V3.0 SDTM (QS)
 Function for generating random Questionnaires SDTM domain
 }
 \examples{
 \dontrun{
-QS <- get_qs_data(n_assessments = 5L, seed = 1, na_percentage = 0.1)
+QS <- get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1)
 }
 }
