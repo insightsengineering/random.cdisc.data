@@ -118,10 +118,10 @@ radqlqc <- function(ADSL,
   # Merge ADSL --------------------------------------------------------------
   # adsl variables needed for ADQLQC
   adsl_vars <- c(
-    "STUDYID","USUBJID","SUBJID","SITEID","REGION1","COUNTRY","ETHNIC","AGE",
-    "AGEU","AAGE","AAGEU","AGEGR1","AGEGR2","AGEGR3","STRATwNM","STRATw","STRATwV",
-    "SEX","RACE","ITTFL","SAFFL","PPROTFL","TRT01P","TRT01A",
-    "TRTSEQP","TRTSEQA","TRTSDTM", "TRTSDT", "TRTEDTM", "TRTEDT","DCUTDT"
+    "STUDYID", "USUBJID", "SUBJID", "SITEID", "REGION1", "COUNTRY", "ETHNIC", "AGE",
+    "AGEU", "AAGE", "AAGEU", "AGEGR1", "AGEGR2", "AGEGR3", "STRATwNM", "STRATw", "STRATwV",
+    "SEX", "RACE", "ITTFL", "SAFFL", "PPROTFL", "TRT01P", "TRT01A",
+    "TRTSEQP", "TRTSEQA", "TRTSDTM", "TRTSDT", "TRTEDTM", "TRTEDT", "DCUTDT"
   )
   ADSL <- select(
     ADSL,
@@ -209,15 +209,15 @@ radqlqc <- function(ADSL,
     ungroup()
 
   adam_vars <- c(
-    adsl_vars, "QSSEQ","QSCAT","QSSCAT","QSDTC","QSSPID","QSSTAT","QSSTRESN",
-    "QSSTRESC","QSSTRESU","QSORRES","QSORRESU","QSTEST","QSTESTCD","QSTPT",
-    "QSTPTNUM","QSTPTREF","QSDY","QSREASND","QSTSTDTL", "QSEVAL","VISIT","VISITNUM",
-    "PARAM","PARAMCD","PARCAT1","PARCAT1N","PARCAT2","AVAL","AVALC","AREASND",
-    "BASE","BASETYPE","ABLFL","CHG","PCHG","CHGCAT1","CRIT1","CRIT1FL","DTYPE",
-    "ADTM","ADT","ADY","ADTF","ATMF","ATPT","ATPTN","AVISIT","AVISITN","APHASE",
-    "APHASEN","APERIOD","APERIODC","APERIODC","ASPER","ASPERC","PERADY","TRTP",
-    "TRTA","ONTRTFL","LAST02FL","FIRS02FL","ANL01FL","ANL02FL","ANL03FL",
-    "ANL04FL","CGCAT1NX"
+    adsl_vars, "QSSEQ", "QSCAT", "QSSCAT", "QSDTC", "QSSPID", "QSSTAT", "QSSTRESN",
+    "QSSTRESC", "QSSTRESU", "QSORRES", "QSORRESU", "QSTEST", "QSTESTCD", "QSTPT",
+    "QSTPTNUM", "QSTPTREF", "QSDY", "QSREASND", "QSTSTDTL", "QSEVAL", "VISIT", "VISITNUM",
+    "PARAM", "PARAMCD", "PARCAT1", "PARCAT1N", "PARCAT2", "AVAL", "AVALC", "AREASND",
+    "BASE", "BASETYPE", "ABLFL", "CHG", "PCHG", "CHGCAT1", "CRIT1", "CRIT1FL", "DTYPE",
+    "ADTM", "ADT", "ADY", "ADTF", "ATMF", "ATPT", "ATPTN", "AVISIT", "AVISITN", "APHASE",
+    "APHASEN", "APERIOD", "APERIODC", "APERIODC", "ASPER", "ASPERC", "PERADY", "TRTP",
+    "TRTA", "ONTRTFL", "LAST02FL", "FIRS02FL", "ANL01FL", "ANL02FL", "ANL03FL",
+    "ANL04FL", "CGCAT1NX"
   )
   # order variables in mapped qs by variables in adam_vars
   adqlqc_name_ordered <- names(ADQLQC_final)[order(match(names(ADQLQC_final), adam_vars))]
@@ -269,20 +269,18 @@ radqlqc <- function(ADSL,
 #' \dontrun{
 #' QS <- get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1)
 #' }
-get_qs_data <- function (ADSL,
-                         visit_format = "CYCLE",
-                         n_assessments = 5L,
-                         n_days = 1L,
-                         lookup = NULL,
-                         seed = NULL,
-                         na_percentage = 0,
-                         na_vars = list(
-                           QSORRES = c(1234, 0.2),
-                           QSSTRESC = c(1234, 0.2)
-                         ),
-                         cached = FALSE
-) {
-
+get_qs_data <- function(ADSL,
+                        visit_format = "CYCLE",
+                        n_assessments = 5L,
+                        n_days = 1L,
+                        lookup = NULL,
+                        seed = NULL,
+                        na_percentage = 0,
+                        na_vars = list(
+                          QSORRES = c(1234, 0.2),
+                          QSSTRESC = c(1234, 0.2)
+                        ),
+                        cached = FALSE) {
   checkmate::assert_flag(cached)
   if (cached) {
     return(random.cdisc.data:::get_cached_data("cqs"))
@@ -377,7 +375,9 @@ get_qs_data <- function (ADSL,
 
   # # prep QSALL --------------------------------------------------------------
   # get last subject and visit for QSALL
-  last_subj_vis <- select(lookup_QS, .data$USUBJID, .data$VISIT) %>% distinct() %>% slice(n())
+  last_subj_vis <- select(lookup_QS, .data$USUBJID, .data$VISIT) %>%
+    distinct() %>%
+    slice(n())
   last_subj_vis_full <- filter(
     lookup_QS,
     .data$USUBJID == last_subj_vis$USUBJID,
@@ -439,13 +439,15 @@ get_qs_data <- function (ADSL,
     group_by(
       .data$USUBJID
     ) %>%
-    mutate(QSDTC = get_random_dates_between(from = .data$TRTSDTM,
-                                            to = ifelse(
-                                              is.na(.data$TRTEDTM),
-                                              trt_end_date,
-                                              .data$TRTEDTM
-                                            ),
-                                            visit_id = .data$VISITNUM)) %>%
+    mutate(QSDTC = get_random_dates_between(
+      from = .data$TRTSDTM,
+      to = ifelse(
+        is.na(.data$TRTEDTM),
+        trt_end_date,
+        .data$TRTEDTM
+      ),
+      visit_id = .data$VISITNUM
+    )) %>%
     select(-c("TRTSDTM", "TRTEDTM"))
 
   # filter out subjects with missing dates
@@ -458,12 +460,13 @@ get_qs_data <- function (ADSL,
   lookup_QS_sub_x2 <- filter(
     lookup_QS_sub_x,
     is.na(.data$QSDTC)
-  ) %>% select(
-    .data$STUDYID,
-    .data$USUBJID,
-    .data$VISIT,
-    .data$VISITNUM
   ) %>%
+    select(
+      .data$STUDYID,
+      .data$USUBJID,
+      .data$VISIT,
+      .data$VISITNUM
+    ) %>%
     distinct()
 
   # generate QSALL for subjects with missing dates
@@ -493,7 +496,9 @@ get_qs_data <- function (ADSL,
     dplyr::ungroup()
 
   # get first and second subject ids
-  first_second_subj <- select(QS_all, .data$USUBJID) %>% distinct() %>% slice(1:2)
+  first_second_subj <- select(QS_all, .data$USUBJID) %>%
+    distinct() %>%
+    slice(1:2)
 
   QS1 <- filter(
     QS_all,
@@ -553,7 +558,7 @@ get_qs_data <- function (ADSL,
     QSDTC,
     QSEVLINT
   )
-  return (final_QS)
+  return(final_QS)
 }
 
 #' Function for generating random dates between 2 dates
@@ -700,10 +705,10 @@ calc_scales <- function(adqlqc1) {
     select(-.data$publication_name)
 
   # ADaM global health status and scales from gdsr
-    gdsr_param_adqlqc <- gdsr_param_adqlqc %>%
-      filter(
-        !str_detect(.data$PARCAT2, "Original Items|Completion")
-      )
+  gdsr_param_adqlqc <- gdsr_param_adqlqc %>%
+    filter(
+      !str_detect(.data$PARCAT2, "Original Items|Completion")
+    )
 
   ghs_scales <- left_join(
     eortc_qlq_c30_sub,
