@@ -39,7 +39,7 @@ library(diffdf)
 RNGkind(sample.kind = "Rounding")
 
 # create the new cached data sets
-cadsl_new <- radsl(N= 10, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
+cadsl_new <- radsl(seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadae_new <- radae(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadaette_new <- radaette(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadcm_new <- radcm(cadsl_new, seed = 1, who_coding = TRUE, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
