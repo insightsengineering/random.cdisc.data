@@ -1,3 +1,5 @@
+---
+
 url: https://insightsengineering.github.io/random.cdisc.data
 
 template:
@@ -27,6 +29,7 @@ reference:
       - radmh
       - radpc
       - radpp
+      - radqlqc
       - radqs
       - radrs
       - radsaftte
@@ -52,6 +55,7 @@ reference:
       - cadmh
       - cadpc
       - cadpp
+      - cadqlqc
       - cadqs
       - cadrs
       - cadsl
@@ -64,8 +68,14 @@ reference:
     desc: These functions are not exported but are documented for developers
     contents:
       - apply_metadata
+      - calc_scales
+      - comp_derv
+      - derv_chgcat1
+      - get_qs_data
+      - get_random_dates_between
       - h_anthropometrics_by_sex
       - mutate_na
+      - prep_adqlqc
       - rel_var
       - relvar_init
       - replace_na

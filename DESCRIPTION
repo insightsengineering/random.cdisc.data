@@ -22,11 +22,11 @@ Imports:
     lubridate,
     magrittr,
     rlang,
+    stringr,
     tibble,
     tidyr,
     yaml
 Suggests:
-    diffdf,
     diffdf,
     knitr,
     rmarkdown,
