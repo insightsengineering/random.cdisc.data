@@ -28,7 +28,7 @@ radqlqc <- function(ADSL, # nolint
   checkmate::assert_number(percent, lower = 1, upper = 100)
   checkmate::assert_number(number, lower = 1)
   # ADQLQC data -------------------------------------------------------------
-  QS <- get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1)
+  QS <- get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1) # nolint
   # prepare ADaM adqlqc data
   adqlqc1 <- prep_adqlqc(df = QS)
   # derive AVAL and AVALC
@@ -44,7 +44,7 @@ radqlqc <- function(ADSL, # nolint
     ADTM = .data$QSDTC
   )
   # include scale calculation
-  ADQLQCtmp <- calc_scales(adqlqc1)
+  ADQLQCtmp <- calc_scales(adqlqc1) # nolint
   # order to prepare for change from screening and baseline values
   ADQLQCtmp <- ADQLQCtmp[order(ADQLQCtmp$STUDYID, ADQLQCtmp$USUBJID, ADQLQCtmp$PARAMCD, ADQLQCtmp$AVISITN), ] # nolint
 
@@ -71,7 +71,7 @@ radqlqc <- function(ADSL, # nolint
     )
   )
 
-  ADQLQCtmp$BASE2 <- ifelse(
+  ADQLQCtmp$BASE2 <- ifelse( # nolint
     str_detect(ADQLQCtmp$PARCAT2, "Completion", negate = TRUE),
     random.cdisc.data:::retain(
       df = ADQLQCtmp,
@@ -81,7 +81,7 @@ radqlqc <- function(ADSL, # nolint
     NA
   ) # nolint
 
-  ADQLQCtmp$BASE <- ifelse(
+  ADQLQCtmp$BASE <- ifelse( # nolint
     ADQLQCtmp$ABLFL2 != "Y" &
       str_detect(ADQLQCtmp$PARCAT2, "Completion", negate = TRUE),
     random.cdisc.data:::retain(
@@ -102,7 +102,7 @@ radqlqc <- function(ADSL, # nolint
       USUBJID = attr(ADSL$USUBJID, "label")
     )
   # derive CHGCAT1 ----------------------------------------------------------
-  ADQLQCtmp <- derv_chgcat1(dataset = ADQLQCtmp)
+  ADQLQCtmp <- derv_chgcat1(dataset = ADQLQCtmp) # nolint
 
   ADQLQCtmp <- random.cdisc.data:::var_relabel( # nolint
     ADQLQCtmp,
@@ -110,7 +110,7 @@ radqlqc <- function(ADSL, # nolint
     USUBJID = "Unique Subject Identifier"
   )
 
-  ADQLQCtmp <- arrange(
+  ADQLQCtmp <- arrange( # nolint
     ADQLQCtmp,
     .data$USUBJID,
     .data$AVISITN
@@ -123,7 +123,7 @@ radqlqc <- function(ADSL, # nolint
     "SEX", "RACE", "ITTFL", "SAFFL", "PPROTFL", "TRT01P", "TRT01A",
     "TRTSEQP", "TRTSEQA", "TRTSDTM", "TRTSDT", "TRTEDTM", "TRTEDT", "DCUTDT"
   )
-  ADSL <- select(
+  ADSL <- select( # nolint
     ADSL,
     any_of(adsl_vars)
   )
@@ -133,7 +133,6 @@ radqlqc <- function(ADSL, # nolint
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::mutate(
-      # ADTM = .data$QSDTC,
       ADY_der = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days"))),
       ADY = case_when(
         ADY_der >= 0 ~ ADY_der + 1,
@@ -155,7 +154,7 @@ radqlqc <- function(ADSL, # nolint
     ADSL
   )
   # add completion to ADQLQC
-  ADQLQC <- bind_rows(
+  ADQLQC <- bind_rows( # nolint
     ADQLQC,
     compliance_data
   ) %>%
@@ -165,7 +164,7 @@ radqlqc <- function(ADSL, # nolint
       .data$QSTESTCD
     )
   # find first set of questionnaire observations
-  ADQLQC_x <- arrange(
+  ADQLQC_x <- arrange( # nolint
     ADQLQC,
     .data$USUBJID,
     .data$ADTM
@@ -180,7 +179,7 @@ radqlqc <- function(ADSL, # nolint
     ) %>%
     summarise(first_date = first(.data$ADTM), .groups = "drop")
 
-  ADQLQC <- left_join(
+  ADQLQC <- left_join( # nolint
     ADQLQC,
     ADQLQC_x
   ) %>%
@@ -222,12 +221,12 @@ radqlqc <- function(ADSL, # nolint
   # order variables in mapped qs by variables in adam_vars
   adqlqc_name_ordered <- names(ADQLQC_final)[order(match(names(ADQLQC_final), adam_vars))]
   # adqlqc with variables ordered per gdsr
-  ADQLQC_final <- ADQLQC_final %>%
+  ADQLQC_final <- ADQLQC_final %>% # no lint
     select(
       any_of(adqlqc_name_ordered)
     )
 
-  ADQLQC_final <- relocate(ADQLQC_final, "QSEVLINT", .after = "QSTESTCD") %>%
+  ADQLQC_final <- relocate(ADQLQC_final, "QSEVLINT", .after = "QSTESTCD") %>% # nolint
     arrange(
       .data$USUBJID,
       .data$AVISITN,
@@ -269,7 +268,7 @@ radqlqc <- function(ADSL, # nolint
 #' \dontrun{
 #' QS <- get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1)
 #' }
-get_qs_data <- function(ADSL,
+get_qs_data <- function(ADSL,                         # nolint
                         visit_format = "CYCLE",
                         n_assessments = 5L,
                         n_days = 1L,
@@ -296,7 +295,7 @@ get_qs_data <- function(ADSL,
 
   # get subjects for QS data from ADSL
   # get studyid, subject for QS generation
-  QS <- select(
+  QS <- select(       # nolint
     ADSL,
     .data$STUDYID,
     .data$USUBJID
@@ -346,14 +345,14 @@ get_qs_data <- function(ADSL,
   }
 
   # assign related variable values: QSTESTxQSTESTCD are related
-  lookup_QS$QSTESTCD <- random.cdisc.data:::rel_var(
+  lookup_QS$QSTESTCD <- random.cdisc.data:::rel_var( # nolint
     df = lookup_QS,
     var_name = "QSTESTCD",
     var_values = qstest_init_list$relvar2,
     related_var = "QSTEST"
   ) # nolint
 
-  lookup_QS <- left_join(
+  lookup_QS <- left_join( # nolint
     lookup_QS,
     eortc_qlq_c30_sub,
     by = c(
@@ -396,7 +395,7 @@ get_qs_data <- function(ADSL,
   )
 
   # remove last subject and visit from main data
-  lookup_QS_sub <- anti_join(
+  lookup_QS_sub <- anti_join(      # nolint
     lookup_QS,
     last_subj_vis_full,
     by = c("USUBJID", "VISIT")
@@ -404,7 +403,7 @@ get_qs_data <- function(ADSL,
 
 
   set.seed(seed)
-  lookup_QS_sub_x <- lookup_QS_sub %>%
+  lookup_QS_sub_x <- lookup_QS_sub %>%  # nolint
     group_by(
       .data$USUBJID,
       .data$QSTESTCD,
@@ -414,7 +413,7 @@ get_qs_data <- function(ADSL,
     ungroup() %>%
     as.data.frame()
 
-  lookup_QS_sub_x <- arrange(
+  lookup_QS_sub_x <- arrange(    # nolint
     lookup_QS_sub_x,
     .data$USUBJID,
     .data$VISITNUM
@@ -422,7 +421,7 @@ get_qs_data <- function(ADSL,
 
   # add date: QSDTC ---------------------------------------------------------
   # get treatment dates from ADSL
-  ADSL_trt <- select(
+  ADSL_trt <- select(      # nolint
     ADSL,
     .data$USUBJID,
     .data$TRTSDTM,
@@ -432,7 +431,7 @@ get_qs_data <- function(ADSL,
   # if no treatment end date, create an arbituary one
   trt_end_date <- max(ADSL_trt$TRTEDTM, na.rm = TRUE)
 
-  lookup_QS_sub_x <- left_join(
+  lookup_QS_sub_x <- left_join(                     # nolint
     lookup_QS_sub_x,
     ADSL_trt
   ) %>%
@@ -451,13 +450,13 @@ get_qs_data <- function(ADSL,
     select(-c("TRTSDTM", "TRTEDTM"))
 
   # filter out subjects with missing dates
-  lookup_QS_sub_x1 <- filter(
+  lookup_QS_sub_x1 <- filter(                   # nolint
     lookup_QS_sub_x,
     !is.na(.data$QSDTC)
   )
 
   # subjects with missing dates
-  lookup_QS_sub_x2 <- filter(
+  lookup_QS_sub_x2 <- filter(       # nolint
     lookup_QS_sub_x,
     is.na(.data$QSDTC)
   ) %>%
@@ -480,7 +479,7 @@ get_qs_data <- function(ADSL,
 
 
   # add qsall data to original item data
-  lookup_QS_sub_all <- bind_rows(
+  lookup_QS_sub_all <- bind_rows(           # nolint
     lookup_QS_sub_x1,
     qsall_data1,
     qsall_data2
@@ -500,7 +499,7 @@ get_qs_data <- function(ADSL,
     distinct() %>%
     slice(1:2)
 
-  QS1 <- filter(
+  QS1 <- filter(                                    # nolint
     QS_all,
     .data$USUBJID %in% first_second_subj$USUBJID
   )
@@ -510,7 +509,7 @@ get_qs_data <- function(ADSL,
   }
 
   # QSSTAT = NOT DONE
-  QS1 <- mutate(
+  QS1 <- mutate(                                                     # nolint
     QS1,
     QSSTAT = case_when(
       is.na(.data$QSORRES) & is.na(.data$QSSTRESC) ~ "NOT DONE"
@@ -518,13 +517,13 @@ get_qs_data <- function(ADSL,
   )
 
   # remove first and second subjects from main data
-  QS2 <- anti_join(
+  QS2 <- anti_join(                                    # nolint
     QS_all,
     QS1,
     by = c("USUBJID")
   )
 
-  final_QS <- rbind(
+  final_QS <- rbind(                                # nolint
     QS1,
     QS2
   ) %>%
@@ -538,7 +537,7 @@ get_qs_data <- function(ADSL,
     ungroup()
 
   # ordered variables as per gdsr
-  final_QS <- select(
+  final_QS <- select(                       # nolint
     final_QS,
     STUDYID,
     USUBJID,
@@ -717,7 +716,7 @@ calc_scales <- function(adqlqc1) {
   )
   # scale data
   df <- data.frame(index = 1:nrow(ghs_scales))
-  df$previous <- list(
+  df$previous <- list(                                           # nolint
     c("QS02826", "QS02827"),
     c("QS02811"),
     c("QS02810", "QS02812", "QS02818"),
@@ -820,18 +819,19 @@ calc_scales <- function(adqlqc1) {
     "newValue = ((tempVal/varLength-1)/3)*100.0"
   )
 
-  expectData <- data.frame(
+  expectData <- data.frame(                             # nolint
     PARAM = expect$PARAM,
     PARAMCD = expect$PARAMCD,
     PARCAT2 = expect$PARCAT2,
     PARCAT1N = expect$PARCAT1N,
     AVAL = c(0, 1),
-    AVALC = c("Not expected to complete questionnaire", "Expected to complete questionnaire")
+    AVALC = c("Not expected to complete questionnaire",
+              "Expected to complete questionnaire")
   )
 
-  df_saved <- data.frame()
+  df_saved <- data.frame()   # nolint
 
-  uniqueID <- unique(adqlqc1$USUBJID)
+  uniqueID <- unique(adqlqc1$USUBJID)     # nolint
 
   for (id in uniqueID) {
     idData <- adqlqc1[adqlqc1$USUBJID == id, ]
@@ -880,7 +880,9 @@ calc_scales <- function(adqlqc1) {
             NA,
             stringsAsFactors = FALSE
           )
-          colnames(new_data_row) <- c("STUDYID", "USUBJID", "AVISIT", "AVISITN", "ADTM", "PARCAT2", "PARAM", "PARAMCD", "AVAL", "AVALC") ###
+          colnames(new_data_row) <- c("STUDYID", "USUBJID", "AVISIT", "AVISITN",
+                                      "ADTM", "PARCAT2", "PARAM", "PARAMCD",
+                                      "AVAL", "AVALC") ###
           df_saved <- rbind(df_saved, new_data_row) #####
         } # idx
       }
@@ -901,7 +903,9 @@ calc_scales <- function(adqlqc1) {
         expectValueC,
         stringsAsFactors = FALSE
       )
-      colnames(new_data_row) <- c("STUDYID", "USUBJID", "AVISIT", "AVISITN", "ADTM", "PARCAT2", "PARAM", "PARAMCD", "AVAL", "AVALC") ###
+      colnames(new_data_row) <- c("STUDYID", "USUBJID", "AVISIT", "AVISITN",
+                                  "ADTM", "PARCAT2", "PARAM", "PARAMCD", "AVAL",
+                                  "AVALC") ###
       df_saved <- rbind(df_saved, new_data_row)
     } # visit
   } # id
@@ -947,8 +951,10 @@ derv_chgcat1 <- function(dataset) {
   check_vars <- c("PARCAT2", "CHG")
 
   if (all(check_vars %in% names(dataset))) {
-    dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 == "Symptom Scales" & !is.na(dataset$CHG) & dataset$CHG <= -10, "Improved", "")
-    dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 == "Symptom Scales" & !is.na(dataset$CHG) & dataset$CHG >= 10, "Worsened", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 == "Symptom Scales" & !is.na(dataset$CHG) & dataset$CHG <= -10,
+                              "Improved", "")
+    dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 == "Symptom Scales" & !is.na(dataset$CHG) & dataset$CHG >= 10,
+                              "Worsened", dataset$CHGCAT1)
     dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 == "Symptom Scales" & !is.na(dataset$CHG) & dataset$CHG > -10 & dataset$CHG < 10,
       "No change", dataset$CHGCAT1
     )
@@ -967,53 +973,88 @@ derv_chgcat1 <- function(dataset) {
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 6,
       "Improved by six levels", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 5, "Improved by five levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 4, "Improved by four levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 3, "Improved by three levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 2, "Improved by two levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 1, "Improved by one level", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 0, "No change", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -1, "Worsened by one level", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -2, "Worsened by two levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -3, "Worsened by three levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -4, "Worsened by four levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -5, "Worsened by five levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -6, "Worsened by six levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 5,
+                              "Improved by five levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 4,
+                              "Improved by four levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 3,
+                              "Improved by three levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 2,
+                              "Improved by two levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 1,
+                              "Improved by one level", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 0,
+                              "No change", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -1,
+                              "Worsened by one level", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -2,
+                              "Worsened by two levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -3,
+                              "Worsened by three levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -4,
+                              "Worsened by four levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -5,
+                              "Worsened by five levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -6,
+                              "Worsened by six levels", dataset$CHGCAT1)
 
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == -3, "Improved by three levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == -2, "Improved by two levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == -1, "Improved by one level", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 0, "No change", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 1, "Worsened by one level", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 2, "Worsened by two levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 3, "Worsened by three levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == -3,
+                              "Improved by three levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == -2,
+                              "Improved by two levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == -1,
+                              "Improved by one level", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 0,
+                              "No change", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 1,
+                              "Worsened by one level", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 2,
+                              "Worsened by two levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 3,
+                              "Worsened by three levels", dataset$CHGCAT1)
 
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == -3, "Improved by three levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == -2, "Improved by two levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == -1, "Improved by one level", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == 0, "No changed", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == 1, "Worsened by one level", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == 2, "Worsened by two levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == 3, "Worsened by three levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == -3,
+                              "Improved by three levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == -2,
+                              "Improved by two levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == -1,
+                              "Improved by one level", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == 0,
+                              "No changed", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == 1,
+                              "Worsened by one level", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == 2,
+                              "Worsened by two levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == 3,
+                              "Worsened by three levels", dataset$CHGCAT1)
 
     paramcd_vec <- c(
-      "QS02803", "QS02804", "QS02805", "QS02807", "QS02808", "QS02809", "QS02810", "QS02811", "QS02812", "QS02813",
-      "QS02814", "QS02815", "QS02816", "QS02817", "QS02818", "QS02819", "QS02820", "QS02821", "QS02822",
-      "QS02823", "QS02824", "QS02825", "QS02826", "QS02827", "QS02828"
+      "QS02803", "QS02804", "QS02805", "QS02807", "QS02808", "QS02809", "QS02810",
+      "QS02811", "QS02812", "QS02813", "QS02814", "QS02815", "QS02816", "QS02817",
+      "QS02818", "QS02819", "QS02820", "QS02821", "QS02822", "QS02823", "QS02824",
+      "QS02825", "QS02826", "QS02827", "QS02828"
     )
 
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == -3, "Improved by three levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == -2, "Improved by two levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == -1, "Improved by one level", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 0, "No change", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 1, "Worsened by one level", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 2, "Worsened by two levels", dataset$CHGCAT1)
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 3, "Worsened by three levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == -3,
+                              "Improved by three levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == -2,
+                              "Improved by two levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == -1,
+                              "Improved by one level", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 0,
+                              "No change", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 1,
+                              "Worsened by one level", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 2,
+                              "Worsened by two levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 3,
+                              "Worsened by three levels", dataset$CHGCAT1)
 
     return(dataset)
   } else {
     collapse_vars <- paste(check_vars, collapse = ", ")
-    stop(sprintf("%s: one or both variables is/are missing, needed for derivation", collapse_vars))
+    stop(sprintf("%s: one or both variables is/are missing, needed for derivation",
+                 collapse_vars))
   }
 }
 
@@ -1120,30 +1161,36 @@ comp_derv <- function(dataset, percent, number) {
   co028p <- mutate(
     joined,
     PARAMCD = paste0("CO028", as.character(percent), "P"),
-    PARAM = sprintf("EORTC QLQ-C30: Completion - Completed at least %s%% of questions", as.character(percent)),
+    PARAM = sprintf("EORTC QLQ-C30: Completion - Completed at least %s%% of questions",
+                    as.character(percent)),
     PARCAT2 = "Completion",
     AVAL = case_when(
       AVAL_ex028 == 1 & per_comp >= percent ~ 1,
       AVAL_ex028 == 1 & (is.na(per_comp) | per_comp < percent) ~ 0
     ),
     AVALC = case_when(
-      AVAL == 1 ~ sprintf("Completed at least %s%% of questions", as.character(percent)),
-      AVAL == 0 ~ sprintf("Did not complete at least %s%% of questions", as.character(percent))
+      AVAL == 1 ~ sprintf("Completed at least %s%% of questions",
+                          as.character(percent)),
+      AVAL == 0 ~ sprintf("Did not complete at least %s%% of questions",
+                          as.character(percent))
     )
   )
   # CO028<x>Q
   co028q <- mutate(
     joined,
     PARAMCD = paste0("CO028", as.character(number), "Q"),
-    PARAM = sprintf("EORTC QLQ-C30: Completion - Completed at least %s question(s)", as.character(number)),
+    PARAM = sprintf("EORTC QLQ-C30: Completion - Completed at least %s question(s)",
+                    as.character(number)),
     PARCAT2 = "Completion",
     AVAL = case_when(
       AVAL_ex028 == 1 & comp_count >= number ~ 1,
       AVAL_ex028 == 1 & (comp_count < number | is.na(comp_count)) ~ 0
     ),
     AVALC = case_when(
-      AVAL == 1 ~ sprintf("Completed at least %s questions", as.character(number)),
-      AVAL == 0 ~ sprintf("Did not complete at least %s question(s)", as.character(number))
+      AVAL == 1 ~ sprintf("Completed at least %s questions",
+                          as.character(number)),
+      AVAL == 0 ~ sprintf("Did not complete at least %s question(s)",
+                          as.character(number))
     )
   )
 
