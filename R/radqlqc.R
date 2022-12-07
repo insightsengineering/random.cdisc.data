@@ -15,7 +15,7 @@
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 1)
 #' ADQLQC <- radqlqc(ADSL, percent = 80, number = 2)
 #' }
-radqlqc <- function(ADSL,
+radqlqc <- function(ADSL, # nolint
                     percent,
                     number,
                     cached = FALSE) {
@@ -668,6 +668,7 @@ prep_adqlqc <- function(df) {
 #' @importFrom stringr str_extract str_detect
 #'
 #'
+#'
 #' @examples
 #' \dontrun{
 #' df <- calc_scales(adqlqc1)
@@ -933,6 +934,7 @@ calc_scales <- function(adqlqc1) {
 #'
 #' @param dataset adam dataset
 #'
+#'
 #' @return dataframe
 #'
 #'
@@ -962,7 +964,8 @@ derv_chgcat1 <- function(dataset) {
     "No change", dataset$CHGCAT1
     )
 
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 6, "Improved by six levels", dataset$CHGCAT1)
+    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 6,
+                              "Improved by six levels", dataset$CHGCAT1)
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 5, "Improved by five levels", dataset$CHGCAT1)
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 4, "Improved by four levels", dataset$CHGCAT1)
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 3, "Improved by three levels", dataset$CHGCAT1)
@@ -1018,6 +1021,7 @@ derv_chgcat1 <- function(dataset) {
 #' @param percent Completion - Completed at least y percent of questions, 1 record per visit
 #' @param number Completion - Completed at least x question(s), 1 record per visit
 #' @return data frame
+#'
 #' @import dplyr
 #' @examples
 #' \dontrun{
