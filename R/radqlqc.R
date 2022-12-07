@@ -837,7 +837,7 @@ calc_scales <- function(adqlqc1) {
 
   for (id in uniqueID) {
     idData <- adqlqc1[adqlqc1$USUBJID == id, ] # nolint
-    uniqueAvisit <- unique(idData$AVISIT)   # nolint
+    uniqueAvisit <- unique(idData$AVISIT) # nolint
     for (visit in uniqueAvisit) {
       if (is.na(visit)) {
         next
@@ -846,19 +846,19 @@ calc_scales <- function(adqlqc1) {
 
       if (any(idData_at_visit$PARAMCD != "QSALL")) {
         for (idx in 1:length(df$index)) {
-          previousNames <- df$previous[idx]              # nolint
-          currentName <- df$newName[idx]                 # nolint
-          currentNamelabel <- df$newNamelabel[idx]       # nolint
+          previousNames <- df$previous[idx] # nolint
+          currentName <- df$newName[idx] # nolint
+          currentNamelabel <- df$newNamelabel[idx] # nolint
           currentNameCategory <- df$newNameCategory[idx] # nolint
-          eqn <- df$equation[idx]                        # nolint
-          tempVal <- 0                                   # nolint
-          varLength <- 0                                 # nolint
+          eqn <- df$equation[idx] # nolint
+          tempVal <- 0 # nolint
+          varLength <- 0 # nolint
           for (paramName in previousNames[[1]]) {
             if (paramName %in% idData_at_visit$PARAMCD) { ####
               currentVal <- as.numeric(as.character(idData_at_visit$AVAL[idData_at_visit$PARAMCD == paramName])) # nolint
               if (!is.na(currentVal)) {
                 tempVal <- tempVal + currentVal ###    # nolint
-                varLength <- varLength + 1             # nolint
+                varLength <- varLength + 1 # nolint
               }
             } # if
           } # paramName
@@ -866,7 +866,7 @@ calc_scales <- function(adqlqc1) {
           if (varLength >= as.numeric(df$num_param[idx])) {
             eval(parse(text = eqn)) #####
           } else {
-            newValue <- NA                                 # nolint
+            newValue <- NA # nolint
           }
 
           new_data_row <- data.frame(
@@ -891,7 +891,7 @@ calc_scales <- function(adqlqc1) {
         } # idx
       }
       # add expect data
-      expectValue <- sample(expectData$AVAL, 1, prob = c(0.10, 0.90))  # nolint
+      expectValue <- sample(expectData$AVAL, 1, prob = c(0.10, 0.90)) # nolint
       expectValueC <- expectData$AVALC[expectData$AVAL == expectValue] # nolint
 
       new_data_row <- data.frame(
@@ -931,7 +931,7 @@ calc_scales <- function(adqlqc1) {
       PARCAT1N = ifelse(.data$PARAMCD == "EX028", expect$PARCAT1N, .data$PARCAT1N)
     )
 
-  ADQLQCtmp <- bind_rows(adqlqc1, df_saved1) %>%  # nolint
+  ADQLQCtmp <- bind_rows(adqlqc1, df_saved1) %>% # nolint
     arrange(
       .data$USUBJID,
       .data$AVISITN,
@@ -964,21 +964,21 @@ derv_chgcat1 <- function(dataset) {
       "Worsened", dataset$CHGCAT1
     )
     dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 == "Symptom Scales" &
-                                !is.na(dataset$CHG) & dataset$CHG > -10 &
-                                dataset$CHG < 10,
-      "No change", dataset$CHGCAT1
+      !is.na(dataset$CHG) & dataset$CHG > -10 &
+      dataset$CHG < 10,
+    "No change", dataset$CHGCAT1
     )
 
     dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 %in% c("Functional Scales", "Global Health Status") &
-                                !is.na(dataset$CHG) & dataset$CHG >= 10,
-      "Improved", dataset$CHGCAT1
+      !is.na(dataset$CHG) & dataset$CHG >= 10,
+    "Improved", dataset$CHGCAT1
     )
     dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 %in% c("Functional Scales", "Global Health Status") &
-                                !is.na(dataset$CHG) & dataset$CHG <= -10,
-      "Worsened", dataset$CHGCAT1
+      !is.na(dataset$CHG) & dataset$CHG <= -10,
+    "Worsened", dataset$CHGCAT1
     )
     dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 %in% c("Functional Scales", "Global Health Status") &
-                                !is.na(dataset$CHG) &
+      !is.na(dataset$CHG) &
       dataset$CHG > -10 & dataset$CHG < 10,
     "No change", dataset$CHGCAT1
     )
