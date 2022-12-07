@@ -5,7 +5,7 @@
 \alias{cadqlqc}
 \title{Cached ADQLQC}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2869 rows and 50 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 116803 rows and 50 columns.
 }
 \usage{
 data(cadqlqc)
