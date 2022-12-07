@@ -1,4 +1,5 @@
 #' EORTC QLQ-C30 V3 Analysis Dataset (ADQLQC)
+#'
 #' @param ADSL Subject-Level Analysis Dataset
 #' @param percent Completion - Completed at least y percent of questions, 1 record per visit
 #' @param number Completion - Completed at least x question(s), 1 record per visit
@@ -18,6 +19,7 @@
 radqlqc <- function(ADSL, # nolint
                     percent,
                     number,
+                    seed = NULL,
                     cached = FALSE) {
   checkmate::assert_flag(cached)
   if (cached) {
@@ -27,6 +29,11 @@ radqlqc <- function(ADSL, # nolint
   checkmate::assert_data_frame(ADSL)
   checkmate::assert_number(percent, lower = 1, upper = 100)
   checkmate::assert_number(number, lower = 1)
+
+  if (!is.null(seed)) {
+    set.seed(seed)
+  }
+
   # ADQLQC data -------------------------------------------------------------
   QS <- get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1) # nolint
   # prepare ADaM adqlqc data

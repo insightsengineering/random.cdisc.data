@@ -4,7 +4,7 @@
 \alias{radqlqc}
 \title{EORTC QLQ-C30 V3 Analysis Dataset (ADQLQC)}
 \usage{
-radqlqc(ADSL, percent, number, cached = FALSE)
+radqlqc(ADSL, percent, number, seed = NULL, cached = FALSE)
 }
 \arguments{
 \item{ADSL}{Subject-Level Analysis Dataset}
