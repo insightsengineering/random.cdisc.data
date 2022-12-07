@@ -241,7 +241,7 @@ radqlqc <- function(ADSL, # nolint
 #' Questionnaires EORTC QLQ-C30 V3.0 SDTM (QS)
 #'
 #' Function for generating random Questionnaires SDTM domain
-#'
+#' @param ADSL ADSL dataset
 #' @param visit_format as character string. Valid values: WEEK, CYCLE.
 #' @param n_assessments number of assessments. Valid values: integer.
 #' @param n_days number of days for each cycle: Valid values: integer.
@@ -842,10 +842,10 @@ calc_scales <- function(adqlqc1) {
       if (is.na(visit)) {
         next
       }
-      idData_at_visit <- idData[idData$AVISIT == visit, ]
+      idData_at_visit <- idData[idData$AVISIT == visit, ] # nolint
 
       if (any(idData_at_visit$PARAMCD != "QSALL")) {
-        for (idx in 1:length(df$index)) {
+        for (idx in seq_along(df$index)) {
           previousNames <- df$previous[idx] # nolint
           currentName <- df$newName[idx] # nolint
           currentNamelabel <- df$newNamelabel[idx] # nolint

@@ -62,7 +62,7 @@ cadhy_new <- radhy(cadsl_new, seed = 1) %>% `attr<-`("creation date", Sys.Date()
 load(file.path(system.file(package = "random.cdisc.data"), "data/data_for_adqlqc/eortc_qlq_c30.rda"))
 load(file.path(system.file(package = "random.cdisc.data"), "data/data_for_adqlqc/gdsr_param_adqlqc.rda"))
 load(file.path(system.file(package = "random.cdisc.data"), "data/data_for_adqlqc/expect.rda"))
-cadqlqc_new <- radqlqc(cadsl_new, percent = 80, number = 2) %>% `attr<-`("creation date", Sys.Date())
+cadqlqc_new <- radqlqc(cadsl_new, seed = 1, percent = 80, number = 2) %>% `attr<-`("creation date", Sys.Date())
 
 # use diffdf package: diffdf() to compare cached vs new and review/verify differences
 diffdf(cadsl, cadsl_new)
