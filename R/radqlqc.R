@@ -5,6 +5,7 @@
 #' @param number Completion - Completed at least x question(s), 1 record per visit
 #' @param cached boolean whether the cached <%= toupper(data) %> data \code{c<%=data%>} should be
 #' returned or new data
+#' @templateVar data adqlqc
 #'
 #' @return a dataframe with EORTC QLQ-C30 V3 Analysis Dataset
 #'
