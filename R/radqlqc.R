@@ -965,7 +965,8 @@ derv_chgcat1 <- function(dataset) {
     )
 
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 6,
-                              "Improved by six levels", dataset$CHGCAT1)
+      "Improved by six levels", dataset$CHGCAT1
+    )
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 5, "Improved by five levels", dataset$CHGCAT1)
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 4, "Improved by four levels", dataset$CHGCAT1)
     dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 3, "Improved by three levels", dataset$CHGCAT1)
