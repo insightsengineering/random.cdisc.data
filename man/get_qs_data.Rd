@@ -17,6 +17,8 @@ get_qs_data(
 )
 }
 \arguments{
+\item{ADSL}{ADSL dataset}
+
 \item{visit_format}{as character string. Valid values: WEEK, CYCLE.}
 
 \item{n_assessments}{number of assessments. Valid values: integer.}
