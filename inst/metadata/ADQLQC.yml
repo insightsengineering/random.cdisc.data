@@ -1,0 +1,101 @@
+domain:
+  name: ADQLQC
+  label: Questionnaires Analysis Dataset
+
+variables:
+  QSSEQ:
+    label: Sequence Number
+    type: integer
+  QSCAT:
+    label: Category of Question
+    type: factor
+  QSSCAT:
+    label: Subcategory for Question
+    type: factor
+  QSDTC:
+    label: Date/Time of Finding
+  QSSTAT:
+    label: Completion Status
+    type: factor
+  QSSTRESC:
+    label: Character Result/Finding in Std Format
+    type: factor
+  QSSTRESU:
+    label: Standard Units
+    type: factor
+  QSORRES:
+    label: Finding in Original Units
+    type: factor
+  QSORRESU:
+    label: Original Units
+    type: factor
+  QSTEST:
+    label: Question Name
+    type: factor
+  QSTESTCD:
+    label: Question Short Name
+    type: factor
+  QSREASND:
+    label: Reason Not Performed
+    type: factor
+  VISIT:
+    label: Visit Name
+    type: factor
+  VISITNUM:
+    label: Visit Number
+    type: integer
+
+  ASEQ:
+    label: Analysis Sequence Number
+    type: integer
+  PARAM:
+    label: Parameter
+    type: factor
+  PARAMCD:
+    label: Parameter Code
+    type: factor
+  PARCAT1:
+    label: Parameter Category 1
+    type: factor
+  PARCAT1N:
+    label: Parameter Category 1 (N)
+    type: numeric
+  PARCAT2:
+    label: Parameter Category 2
+    type: factor
+  AVAL:
+    label: Analysis Value
+    type: numeric
+  AVALC:
+    label: Analysis Value (C)
+    type: factor
+  BASE:
+    label: Baseline Value
+    type: numeric
+  ABLFL:
+    label: Baseline Record Flag
+    type: factor
+  CHG:
+    label: Absolute Change from Baseline
+    type: numeric
+  PCHG:
+    label: Percentage Change from Baseline
+    type: numeric
+  CHGCAT1:
+    label: Change from Baseline Category 1
+    type: factor
+  ADTM:
+    label: Analysis Datetime
+  ADY:
+    label: Analysis Relative Day
+    type: integer
+  AVISIT:
+    label: Analysis Visit
+    type: factor
+  AVISITN:
+    label: Analysis Visit (N)
+    type: integer
+  ANL01FL:
+    label: Analysis Flag 01 Baseline Post-Baseline
+    type: factor
+

@@ -106,6 +106,15 @@
 #' @usage data(cadpp)
 "cadpp"
 
+#' Cached ADQLQC
+#'
+#' Cached ADQLQC data generated with \code{seed = 1}
+#'
+#' @docType data
+#'
+#' @usage data(cadqlqc)
+"cadqlqc"
+
 #' Cached ADQS
 #'
 #' Cached ADQS data generated with \code{seed = 1}
