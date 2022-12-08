@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">random.cdisc.data</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13.9036</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.13.9037</span>
       </span>
     </div>
 
@@ -63,12 +63,6 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/random.cdisc.data/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -156,6 +150,11 @@ process.</p>
 <span><span class="va">cadsub_new</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/radsub.html">radsub</a></span><span class="op">(</span><span class="va">cadsl_new</span>, seed <span class="op">=</span> <span class="fl">1</span>, na_vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">`attr&lt;-`</span><span class="op">(</span><span class="st">"creation date"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">cadhy_new</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/radhy.html">radhy</a></span><span class="op">(</span><span class="va">cadsl_new</span>, seed <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">`attr&lt;-`</span><span class="op">(</span><span class="st">"creation date"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"random.cdisc.data"</span><span class="op">)</span>, <span class="st">"extdata/eortc_qlq_c30.rda"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"random.cdisc.data"</span><span class="op">)</span>, <span class="st">"extdata/gdsr_param_adqlqc.rda"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"random.cdisc.data"</span><span class="op">)</span>, <span class="st">"extdata/expect.rda"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">cadqlqc_new</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/radqlqc.html">radqlqc</a></span><span class="op">(</span><span class="va">cadsl_new</span>, percent <span class="op">=</span> <span class="fl">80</span>, number <span class="op">=</span> <span class="fl">2</span>, seed <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu">`attr&lt;-`</span><span class="op">(</span><span class="st">"creation date"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># use diffdf package: diffdf() to compare cached vs new and review/verify differences</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/diffdf/man/diffdf.html" class="external-link">diffdf</a></span><span class="op">(</span><span class="va">cadsl</span>, <span class="va">cadsl_new</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/diffdf/man/diffdf.html" class="external-link">diffdf</a></span><span class="op">(</span><span class="va">cadab</span>, <span class="va">cadab_new</span><span class="op">)</span></span>
@@ -176,6 +175,7 @@ process.</p>
 <span><span class="fu"><a href="https://rdrr.io/pkg/diffdf/man/diffdf.html" class="external-link">diffdf</a></span><span class="op">(</span><span class="va">caddv</span>, <span class="va">caddv_new</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/diffdf/man/diffdf.html" class="external-link">diffdf</a></span><span class="op">(</span><span class="va">cadsub</span>, <span class="va">cadsub_new</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/diffdf/man/diffdf.html" class="external-link">diffdf</a></span><span class="op">(</span><span class="va">cadhy</span>, <span class="va">cadhy_new</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/diffdf/man/diffdf.html" class="external-link">diffdf</a></span><span class="op">(</span><span class="va">cadqlqc</span>, <span class="va">cadqlqc_new</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># when diff reflects changes accurately then create environment objects to save out to cache</span></span>
 <span><span class="va">cadsl</span> <span class="op">&lt;-</span> <span class="va">cadsl_new</span></span>
@@ -197,6 +197,7 @@ process.</p>
 <span><span class="va">caddv</span> <span class="op">&lt;-</span> <span class="va">caddv_new</span></span>
 <span><span class="va">cadsub</span> <span class="op">&lt;-</span> <span class="va">cadsub_new</span></span>
 <span><span class="va">cadhy</span> <span class="op">&lt;-</span> <span class="va">cadhy_new</span></span>
+<span><span class="va">cadqlqc</span> <span class="op">&lt;-</span> <span class="va">cadqlqc_new</span></span>
 <span></span>
 <span><span class="co"># update cache</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">cadsl</span>, file <span class="op">=</span> <span class="st">"data/cadsl.RData"</span>, compress <span class="op">=</span> <span class="st">"xz"</span><span class="op">)</span></span>
@@ -217,7 +218,8 @@ process.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">cadvs</span>, file <span class="op">=</span> <span class="st">"data/cadvs.RData"</span>, compress <span class="op">=</span> <span class="st">"xz"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">caddv</span>, file <span class="op">=</span> <span class="st">"data/caddv.RData"</span>, compress <span class="op">=</span> <span class="st">"xz"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">cadsub</span>, file <span class="op">=</span> <span class="st">"data/cadsub.RData"</span>, compress <span class="op">=</span> <span class="st">"xz"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">cadhy</span>, file <span class="op">=</span> <span class="st">"data/cadhy.RData"</span>, compress <span class="op">=</span> <span class="st">"xz"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">cadhy</span>, file <span class="op">=</span> <span class="st">"data/cadhy.RData"</span>, compress <span class="op">=</span> <span class="st">"xz"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">cadqlqc</span>, file <span class="op">=</span> <span class="st">"data/cadqlqc.RData"</span>, compress <span class="op">=</span> <span class="st">"xz"</span><span class="op">)</span></span></code></pre></div>
 </div>
   </div>
 
