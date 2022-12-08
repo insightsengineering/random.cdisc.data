@@ -1,10 +1,11 @@
 #' EORTC QLQ-C30 V3 Analysis Dataset (ADQLQC)
 #'
 #' @param ADSL Subject-Level Analysis Dataset
+#' @param seed Seed for random number generation
 #' @param percent Completion - Completed at least y percent of questions, 1 record per visit
 #' @param number Completion - Completed at least x question(s), 1 record per visit
-#' @param cached boolean whether the cached <%= toupper(data) %> data \code{c<%=data%>} should be
-#' returned or new data
+#' @param cached boolean whether the cached <%= toupper(data) %> data \code{c<%=data%>}
+#' should be returned or new data
 #' @templateVar data adqlqc
 #'
 #' @return a dataframe with EORTC QLQ-C30 V3 Analysis Dataset
@@ -14,8 +15,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 1)
-#' ADQLQC <- radqlqc(ADSL, percent = 80, number = 2)
+#' ADQLQC <- radqlqc(ADSL, seed = 1, percent = 80, number = 2)
 #' }
 radqlqc <- function(ADSL, # nolint
                     percent,
@@ -36,7 +36,7 @@ radqlqc <- function(ADSL, # nolint
   }
 
   # ADQLQC data -------------------------------------------------------------
-  QS <- get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1) # nolint
+  QS <- get_qs_data(ADSL, n_assessments = 5L, seed = seed, na_percentage = 0.1) # nolint
   # prepare ADaM adqlqc data
   adqlqc1 <- prep_adqlqc(df = QS)
   # derive AVAL and AVALC

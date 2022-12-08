@@ -13,8 +13,10 @@ radqlqc(ADSL, percent, number, seed = NULL, cached = FALSE)
 
 \item{number}{Completion - Completed at least x question(s), 1 record per visit}
 
-\item{cached}{boolean whether the cached <%= toupper(data) %> data \code{c<%=data%>} should be
-returned or new data}
+\item{seed}{Seed for random number generation}
+
+\item{cached}{boolean whether the cached <%= toupper(data) %> data \code{c<%=data%>}
+should be returned or new data}
 }
 \value{
 a dataframe with EORTC QLQ-C30 V3 Analysis Dataset
@@ -24,7 +26,6 @@ EORTC QLQ-C30 V3 Analysis Dataset (ADQLQC)
 }
 \examples{
 \dontrun{
-ADSL <- radsl(N = 10, seed = 1, study_duration = 1)
-ADQLQC <- radqlqc(ADSL, percent = 80, number = 2)
+ADQLQC <- radqlqc(ADSL, seed = 1, percent = 80, number = 2)
 }
 }
