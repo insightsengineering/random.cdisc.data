@@ -1,7 +1,22 @@
 # random.cdisc.data
 
 <!-- start badges -->
-[![Code Coverage](https://raw.githubusercontent.com/insightsengineering/random.cdisc.data/_xml_coverage_reports/data/main/badge.svg)](https://raw.githubusercontent.com/insightsengineering/random.cdisc.data/_xml_coverage_reports/data/main/coverage.xml)
+[![Check 🛠](https://github.com/insightsengineering/random.cdisc.data/actions/workflows/check.yaml/badge.svg)](https://github.com/insightsengineering/random.cdisc.data/actions/workflows/check.yaml)
+[![Docs 📚](https://github.com/insightsengineering/random.cdisc.data/actions/workflows/docs.yaml/badge.svg)](https://insightsengineering.github.io/random.cdisc.data/)
+[![Code Coverage 📔](https://raw.githubusercontent.com/insightsengineering/random.cdisc.data/_xml_coverage_reports/data/main/badge.svg)](https://raw.githubusercontent.com/insightsengineering/random.cdisc.data/_xml_coverage_reports/data/main/coverage.xml)
+
+![GitHub forks](https://img.shields.io/github/forks/insightsengineering/random.cdisc.data?style=social)
+![GitHub Repo stars](https://img.shields.io/github/stars/insightsengineering/random.cdisc.data?style=social)
+
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/insightsengineering/random.cdisc.data)
+![GitHub contributors](https://img.shields.io/github/contributors/insightsengineering/random.cdisc.data)
+![GitHub last commit](https://img.shields.io/github/last-commit/insightsengineering/random.cdisc.data)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/insightsengineering/random.cdisc.data)
+![GitHub repo size](https://img.shields.io/github/repo-size/insightsengineering/random.cdisc.data)
+![GitHub language count](https://img.shields.io/github/languages/count/insightsengineering/random.cdisc.data)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Current Version](https://img.shields.io/github/r-package/v/insightsengineering/random.cdisc.data/main?color=purple\&label=package%20version)](https://github.com/insightsengineering/random.cdisc.data/tree/main)
+[![Open Issues](https://img.shields.io/github/issues-raw/insightsengineering/random.cdisc.data?color=red\&label=open%20issues)](https://github.com/insightsengineering/random.cdisc.data/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
 <!-- end badges -->
 
 The `random.cdisc.data` is a package for creating random CDISC data.
