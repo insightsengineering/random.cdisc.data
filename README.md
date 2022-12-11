@@ -19,7 +19,6 @@
 [![Open Issues](https://img.shields.io/github/issues-raw/insightsengineering/random.cdisc.data?color=red\&label=open%20issues)](https://github.com/insightsengineering/random.cdisc.data/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
 <!-- end badges -->
 
-
 The `random.cdisc.data` is a package for creating random CDISC data.
 The random datasets available to create are:
 
