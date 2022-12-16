@@ -72,7 +72,7 @@ radab <- function(ADSL, # nolint
   param_init_list <- relvar_init(param, paramcd)
   unit_init_list <- relvar_init(param, avalu)
 
-  ADPC <- ADPC %>% dplyr::filter((.data$PCTPTNUM %% (4 * 7 * 24)) == 0) # nolint
+  ADPC <- ADPC %>% dplyr::filter(ASMED == "PLASMA") # nolint
   ADAB <- expand.grid( # nolint
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = unique(ADSL$USUBJID),
@@ -103,8 +103,7 @@ radab <- function(ADSL, # nolint
         (PARAM %in% visit_lvl_params[3:4] & is.na(AVAL2)) ~ 0,
         (PARAM %in% visit_lvl_params[1:2] & !is.na(AVAL2)) ~ AVAL2,
         TRUE ~ as.numeric(NA)
-      ),
-      ISTPT = ifelse(VISIT == "Day 1", "Predose", "")
+      )
     ) %>%
     dplyr::select(-c(AVAL1, AVAL2))
 
@@ -152,7 +151,9 @@ radab <- function(ADSL, # nolint
       ADAPBLFL = ifelse(ACTARM == "A: Drug X" | ACTARM == "C: Combination", "Y",
         NA
       ),
-      ABLFL = ifelse(NRELTM1 == 0, "Y", NA)
+      ABLFL = ifelse(NRELTM1 == 0, "Y", NA),
+      ISTPT = ifelse(VISIT %in% c("Day 1", "Week 4", "Week 8", "Week 12", "Week 16", "Week 20") &
+        ARELTM1 %% 1 == 0, "Predose", "")
     ) %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(ATACHAR = paste0(LETTERS[dplyr::cur_group_id() %% 10], "+")) %>%
