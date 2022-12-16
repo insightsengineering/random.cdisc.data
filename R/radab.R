@@ -152,8 +152,8 @@ radab <- function(ADSL, # nolint
         NA
       ),
       ABLFL = ifelse(NRELTM1 == 0, "Y", NA),
-      ISTPT = ifelse(VISIT %in% c("Day 1", "Week 4", "Week 8", "Week 12", "Week 16", "Week 20")
-                     & ARELTM1 %% 1 == 0, "Predose", "")
+      ISTPT = ifelse(VISIT %in% c("Day 1", "Week 4", "Week 8", "Week 12", "Week 16", "Week 20") &
+        ARELTM1 %% 1 == 0, "Predose", "")
     ) %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(ATACHAR = paste0(LETTERS[dplyr::cur_group_id() %% 10], "+")) %>%
