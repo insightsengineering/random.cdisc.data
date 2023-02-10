@@ -108,8 +108,7 @@ radpc <- function(ADSL, # nolint
 
   ADPC <- do.call(rbind, ADPC) # nolint
 
-  ADPC <- ADSL %>% # nolint
-    dplyr::inner_join(ADPC, by = c("STUDYID", "USUBJID", "ARMCD")) %>% # nolint
+  ADPC <- dplyr::inner_join(ADPC, ADSL, by = c("STUDYID", "USUBJID", "ARMCD")) %>% # nolint
     dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" & .data$PARAM == "Plasma Drug Y"))
 
   if (length(na_vars) > 0 && na_percentage > 0) {

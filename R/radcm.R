@@ -90,8 +90,8 @@ radcm <- function(ADSL, # nolint
 
   # merge ADSL to be able to add CM date and study day variables
   ADCM <- dplyr::inner_join( # nolint
-    ADSL, # nolint
     ADCM,
+    ADSL,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%

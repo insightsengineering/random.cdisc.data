@@ -188,8 +188,8 @@ radeg <- function(ADSL, # nolint
 
   # merge ADSL to be able to add EG date and study day variables
   ADEG <- dplyr::inner_join( # nolint
-    ADSL, # nolint
     ADEG,
+    ADSL,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%

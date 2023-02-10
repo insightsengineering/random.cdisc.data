@@ -133,8 +133,7 @@ radpp <- function(ADSL, # nolint,
   ADPP <- ADPP %>% # nolint %>%
     dplyr::left_join(T1_T2, by = c("PARAMCD")) # nolint
 
-  ADPP <- ADSL %>% # nolint %>%
-    dplyr::inner_join(ADPP, by = c("STUDYID", "USUBJID")) %>% # nolint
+  ADPP <- dplyr::inner_join(ADPP, ADSL, by = c("STUDYID", "USUBJID")) %>% # nolint
     dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" &
       (.data$PPCAT == "Plasma Drug Y" | .data$PPCAT == "Metabolite Drug Y")))
 

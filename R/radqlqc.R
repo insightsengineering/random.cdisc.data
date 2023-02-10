@@ -136,8 +136,8 @@ radqlqc <- function(ADSL, # nolint
     any_of(adsl_vars)
   )
   ADQLQC <- dplyr::inner_join( # nolint
-    ADSL, # nolint
     ADQLQCtmp,
+    ADSL,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::mutate(

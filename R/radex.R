@@ -227,7 +227,7 @@ radex <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add adex date and study day variables
-  adex <- dplyr::inner_join(ADSL, adex, by = c("STUDYID", "USUBJID")) %>%
+  adex <- dplyr::inner_join(adex, ADSL, by = c("STUDYID", "USUBJID")) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     dplyr::mutate(trtedt_int = dplyr::case_when(

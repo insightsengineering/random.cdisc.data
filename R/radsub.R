@@ -163,8 +163,8 @@ radsub <- function(ADSL, # nolint
   # Merge ADSL to be able to add EG date and study day variables.
   # Sample ADTM to be a few days before TRTSDTM.
   ADSUB <- dplyr::inner_join( # nolint
-    ADSL, # nolint
     ADSUB,
+    ADSL,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%
