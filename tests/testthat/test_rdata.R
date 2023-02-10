@@ -5,7 +5,7 @@ test_that("r<data> functions work", {
     adsl <- radsl(n)
   )
 
-  expect_silent(radae(adsl))
+  expect_warning(radae(adsl), "testtt")
   expect_silent(radaette(adsl))
   expect_silent(radcm(adsl))
   expect_silent(radeg(adsl))
