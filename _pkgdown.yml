@@ -2,6 +2,7 @@
 url: https://insightsengineering.github.io/random.cdisc.data
 
 template:
+  package: nesttemplate
   params:
     bootswatch: cerulean
     ganalytics: "UA-125641273-1"
