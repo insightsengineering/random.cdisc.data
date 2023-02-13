@@ -166,7 +166,7 @@ radae <- function(ADSL, # nolint
     dplyr::mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
     dplyr::mutate(LDOSEDTM = as.POSIXct(
       ifelse(.data$TRTSDTM < .data$ASTDTM,
-        lubridate::as_datetime(runif(1, .data$TRTSDTM, .data$ASTDTM), tz = "EST"),
+        lubridate::as_datetime(stats::runif(1, .data$TRTSDTM, .data$ASTDTM), tz = "EST"),
         .data$ASTDTM
       ),
       origin = "1970-01-01"
@@ -226,7 +226,7 @@ radae <- function(ADSL, # nolint
     dplyr::mutate(TRTEMFL = ifelse(.data$ASTDTM >= .data$TRTSDTM, "Y", "")) %>%
     dplyr::mutate(AECONTRT = sample(c("Y", "N"), prob = c(0.4, 0.6), size = dplyr::n(), replace = TRUE)) %>%
     dplyr::mutate(ANL01FL = ifelse(.data$TRTEMFL == "Y" & .data$ASTDTM <= .data$TRTEDTM + 2592000, "Y", "")) %>%
-    dplyr::mutate(ANL01FL = ifelse(is.na(ANL01FL), "", ANL01FL))
+    dplyr::mutate(ANL01FL = ifelse(is.na(.data$ANL01FL), "", .data$ANL01FL))
 
   ADAE <- ADAE %>% # nolint
     dplyr::mutate(AERELNST = sample(c("Y", "N"), prob = c(0.4, 0.6), size = dplyr::n(), replace = TRUE)) %>%
@@ -278,14 +278,14 @@ radae <- function(ADSL, # nolint
     )) %>% # nolint
     dplyr::mutate(AES_FLAG = dplyr::case_when( # nolint
       AESDTH == "Y" ~ "AESDTH",
-      TRUE ~ AES_FLAG
+      TRUE ~ .data$AES_FLAG
     )) %>% # nolint
     dplyr::mutate( # nolint
-      AESCONG = ifelse(AES_FLAG == "AESCONG", "Y", "N"),
-      AESDISAB = ifelse(AES_FLAG == "AESDISAB", "Y", "N"),
-      AESHOSP = ifelse(AES_FLAG == "AESHOSP", "Y", "N"),
-      AESLIFE = ifelse(AES_FLAG == "AESLIFE", "Y", "N"),
-      AESMIE = ifelse(AES_FLAG == "AESMIE", "Y", "N")
+      AESCONG = ifelse(.data$AES_FLAG == "AESCONG", "Y", "N"),
+      AESDISAB = ifelse(.data$AES_FLAG == "AESDISAB", "Y", "N"),
+      AESHOSP = ifelse(.data$AES_FLAG == "AESHOSP", "Y", "N"),
+      AESLIFE = ifelse(.data$AES_FLAG == "AESLIFE", "Y", "N"),
+      AESMIE = ifelse(.data$AES_FLAG == "AESMIE", "Y", "N")
     ) %>% # nolint
     dplyr::select(-"AES_FLAG") # nolint
 

@@ -24,7 +24,7 @@ radqlqc <- function(ADSL, # nolint
                     cached = FALSE) {
   checkmate::assert_flag(cached)
   if (cached) {
-    return(random.cdisc.data:::get_cached_data("cadqlqc"))
+    return(get_cached_data("cadqlqc"))
   }
 
   checkmate::assert_data_frame(ADSL)
@@ -81,7 +81,7 @@ radqlqc <- function(ADSL, # nolint
 
   ADQLQCtmp$BASE2 <- ifelse( # nolint
     str_detect(ADQLQCtmp$PARCAT2, "Completion", negate = TRUE),
-    random.cdisc.data:::retain(
+    retain(
       df = ADQLQCtmp,
       value_var = ADQLQCtmp$AVAL,
       event = ADQLQCtmp$ABLFL2 == "Y"
@@ -92,7 +92,7 @@ radqlqc <- function(ADSL, # nolint
   ADQLQCtmp$BASE <- ifelse( # nolint
     ADQLQCtmp$ABLFL2 != "Y" &
       str_detect(ADQLQCtmp$PARCAT2, "Completion", negate = TRUE),
-    random.cdisc.data:::retain(
+    retain(
       ADQLQCtmp,
       ADQLQCtmp$AVAL,
       ADQLQCtmp$ABLFL == "Y"
@@ -105,14 +105,14 @@ radqlqc <- function(ADSL, # nolint
     dplyr::mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
     dplyr::mutate(CHG = .data$AVAL - .data$BASE) %>%
     dplyr::mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
-    random.cdisc.data:::var_relabel(
+    var_relabel(
       STUDYID = attr(ADSL$STUDYID, "label"),
       USUBJID = attr(ADSL$USUBJID, "label")
     )
   # derive CHGCAT1 ----------------------------------------------------------
   ADQLQCtmp <- derv_chgcat1(dataset = ADQLQCtmp) # nolint
 
-  ADQLQCtmp <- random.cdisc.data:::var_relabel( # nolint
+  ADQLQCtmp <- var_relabel( # nolint
     ADQLQCtmp,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
@@ -242,7 +242,7 @@ radqlqc <- function(ADSL, # nolint
       .data$QSTESTCD
     )
   # apply metadata
-  ADQLQC_final <- random.cdisc.data:::apply_metadata(ADQLQC_final, "metadata/ADQLQC.yml") # nolint
+  ADQLQC_final <- apply_metadata(ADQLQC_final, "metadata/ADQLQC.yml") # nolint
   return(ADQLQC_final)
 }
 
@@ -290,7 +290,7 @@ get_qs_data <- function(ADSL, # nolint
                         cached = FALSE) {
   checkmate::assert_flag(cached)
   if (cached) {
-    return(random.cdisc.data:::get_cached_data("cqs"))
+    return(get_cached_data("cqs"))
   }
 
   checkmate::assert_string(visit_format)
@@ -323,7 +323,7 @@ get_qs_data <- function(ADSL, # nolint
     select(-.data$publication_name)
 
   # validate and initialize QSTEST vectors
-  qstest_init_list <- random.cdisc.data:::relvar_init(
+  qstest_init_list <- relvar_init(
     unique(eortc_qlq_c30_sub$QSTEST),
     unique(eortc_qlq_c30_sub$QSTESTCD)
   )
@@ -343,7 +343,7 @@ get_qs_data <- function(ADSL, # nolint
       STUDYID = unique(QS$STUDYID),
       USUBJID = QS$USUBJID,
       QSTEST = qstest_init_list$relvar1,
-      VISIT = random.cdisc.data:::visit_schedule(
+      VISIT = visit_schedule(
         visit_format = visit_format,
         n_assessments = n_assessments,
         n_days = n_days
@@ -353,7 +353,7 @@ get_qs_data <- function(ADSL, # nolint
   }
 
   # assign related variable values: QSTESTxQSTESTCD are related
-  lookup_QS$QSTESTCD <- random.cdisc.data:::rel_var( # nolint
+  lookup_QS$QSTESTCD <- rel_var( # nolint
     df = lookup_QS,
     var_name = "QSTESTCD",
     var_values = qstest_init_list$relvar2,
@@ -513,7 +513,7 @@ get_qs_data <- function(ADSL, # nolint
   )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    QS1 <- random.cdisc.data:::mutate_na(ds = QS1, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    QS1 <- mutate_na(ds = QS1, na_vars = na_vars, na_percentage = na_percentage) # nolint
   }
 
   # QSSTAT = NOT DONE
@@ -547,23 +547,23 @@ get_qs_data <- function(ADSL, # nolint
   # ordered variables as per gdsr
   final_QS <- select( # nolint
     final_QS,
-    STUDYID,
-    USUBJID,
-    QSSEQ,
-    QSTESTCD,
-    QSTEST,
-    QSCAT,
-    QSSCAT,
-    QSORRES,
-    QSORRESU,
-    QSSTRESC,
-    QSSTRESU,
-    QSSTAT,
-    QSREASND,
-    VISITNUM,
-    VISIT,
-    QSDTC,
-    QSEVLINT
+    .data$STUDYID,
+    .data$USUBJID,
+    .data$QSSEQ,
+    .data$QSTESTCD,
+    .data$QSTEST,
+    .data$QSCAT,
+    .data$QSSCAT,
+    .data$QSORRES,
+    .data$QSORRESU,
+    .data$QSSTRESC,
+    .data$QSSTRESU,
+    .data$QSSTAT,
+    .data$QSREASND,
+    .data$VISITNUM,
+    .data$VISIT,
+    .data$QSDTC,
+    .data$QSEVLINT
   )
   return(final_QS)
 }
@@ -686,7 +686,7 @@ calc_scales <- function(adqlqc1) {
   # global health status/scales data
   # QSTESTCD: EOR0131 to EOR0145 (global health status and scales)
   eortc_qlq_c30_sub <- filter(
-    eortc_qlq_c30,
+    adqlqc1,
     !(as.numeric(str_extract(.data$QSTESTCD, "\\d+$")) >= 101 &
       as.numeric(str_extract(.data$QSTESTCD, "\\d+$")) <= 130)
   ) %>%
@@ -1192,12 +1192,11 @@ comp_derv <- function(dataset, percent, number) {
   ) %>%
     select(-c("ADTM.x", "ADY.x"))
 
-  joined <- mutate(
+  joined <- rename(
     joined,
-    ADTM = ADTM.y,
-    ADY = ADY.y
-  ) %>%
-    select(-c("ADTM.y", "ADY.y"))
+    ADTM = .data$ADTM.y,
+    ADY = .data$ADY.y
+  )
   # CO028ALL
   co028all <- mutate(
     joined,

@@ -159,7 +159,7 @@ radcm <- function(ADSL, # nolint
         EOSSTT == "ONGOING" ~ "ONGOING",
         is.na(EOSSTT) ~ "U"
       ),
-      ADURN = (AENDTM - ASTDTM) / 86400,
+      ADURN = (.data$AENDTM - .data$ASTDTM) / 86400,
       ADURU = "days"
     )
 
