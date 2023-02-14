@@ -206,7 +206,7 @@ radhy <- function(ADSL, # nolint
     dplyr::mutate(ADTM = .data$TRTSDTM + .data$ADY)
 
   # `+` operation causes that tzone attribute is lost for POSIXct objects
-  attributes(ADHY$ADTM) <- attributes(ADSL$TRTSDTM)
+  attributes(ADHY$ADTM) <- attributes(ADSL$TRTSDTM) # nolint
 
   # order columns and arrange rows; column order follows ADaM_1.1 specification
   ADHY <- # nolint
