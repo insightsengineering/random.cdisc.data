@@ -188,8 +188,8 @@ radeg <- function(ADSL, # nolint
 
   # merge ADSL to be able to add EG date and study day variables
   ADEG <- dplyr::inner_join( # nolint
-    ADSL, # nolint
     ADEG,
+    ADSL,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%
@@ -198,7 +198,7 @@ radeg <- function(ADSL, # nolint
       !is.na(TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
       is.na(TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
     )) %>%
-    dplyr::group_by(USUBJID, AVISIT) %>%
+    dplyr::group_by(.data$USUBJID, .data$AVISIT) %>%
     dplyr::mutate(ADTM = as.POSIXct(
       (sample(unique(.data$trtsdt_int):unique(.data$trtedt_int), size = 1) * 86400),
       origin = "1970-01-01"

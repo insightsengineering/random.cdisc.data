@@ -173,7 +173,7 @@ radhy <- function(ADSL, # nolint
     )
 
   # merge ADSL to be able to add analysis datetime and analysis relative day variables
-  ADHY <- dplyr::inner_join(ADSL, ADHY, by = c("STUDYID", "USUBJID")) # nolint
+  ADHY <- dplyr::inner_join(ADHY, ADSL, by = c("STUDYID", "USUBJID")) # nolint
 
   # define a simple helper function to create ADY variable
   add_ady <- function(x, avisit) {
@@ -206,7 +206,7 @@ radhy <- function(ADSL, # nolint
     dplyr::mutate(ADTM = .data$TRTSDTM + .data$ADY)
 
   # `+` operation causes that tzone attribute is lost for POSIXct objects
-  attributes(ADHY$ADTM) <- attributes(ADSL$TRTSDTM)
+  attributes(ADHY$ADTM) <- attributes(ADSL$TRTSDTM) # nolint
 
   # order columns and arrange rows; column order follows ADaM_1.1 specification
   ADHY <- # nolint

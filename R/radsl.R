@@ -145,16 +145,16 @@ radsl <- function(N = 400, # nolint
       dplyr::mutate(TRT02P = sample(.data$ARM)) %>% # nolint
       dplyr::mutate(TRT02A = sample(.data$ACTARM)) %>% # nolint
       dplyr::mutate( # nolint
-        TRT01SDTM = TRTSDTM,
-        AP01SDTM = TRT01SDTM,
-        TRT01EDTM = TRTEDTM,
-        AP01EDTM = TRT01EDTM,
-        TRT02SDTM = TRTEDTM,
-        AP02SDTM = TRT02SDTM,
+        TRT01SDTM = .data$TRTSDTM,
+        AP01SDTM = .data$TRT01SDTM,
+        TRT01EDTM = .data$TRTEDTM,
+        AP01EDTM = .data$TRT01EDTM,
+        TRT02SDTM = .data$TRTEDTM,
+        AP02SDTM = .data$TRT02SDTM,
         st_posixn_2 = as.numeric(.data$TRT01EDTM), # nolint
         TRT02EDTM = as.POSIXct(.data$st_posixn_2 + with_trt02, origin = "1970-01-01"),
-        AP02EDTM = TRT02EDTM,
-        TRTEDTM = TRT02EDTM
+        AP02EDTM = .data$TRT02EDTM,
+        TRTEDTM = .data$TRT02EDTM
       ) %>% # nolint
       dplyr::select(-"st_posixn_2") # nolint
   }

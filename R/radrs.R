@@ -161,8 +161,8 @@ radrs <- function(ADSL, # nolint
 
 
   ADRS <- dplyr::inner_join( # nolint
-    ADSL, # nolint
     dplyr::select(ADRS, -"SITEID"),
+    ADSL,
     by = c("STUDYID", "USUBJID")
   )
 

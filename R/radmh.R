@@ -90,8 +90,8 @@ radmh <- function(ADSL, # nolint
 
   # merge ADSL to be able to add MH date and study day variables
   ADMH <- dplyr::inner_join( # nolint
-    ADSL, # nolint
     ADMH,
+    ADSL,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%

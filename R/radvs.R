@@ -177,8 +177,8 @@ radvs <- function(ADSL, # nolint
 
   # merge ADSL to be able to add LB date and study day variables
   ADVS <- dplyr::inner_join( # nolint
-    ADSL, # nolint
     ADVS,
+    ADSL,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%

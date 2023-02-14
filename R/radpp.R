@@ -130,11 +130,10 @@ radpp <- function(ADSL, # nolint,
 
   # derive PPSTINT and PPENINT based on PARAMCD
   T1_T2 <- data.frame(PARAMCD = c("RCAMINT", "RCAMINT", "RCPCINT", "RCPCINT"), PPSTINT = c("P0H", "P0H", "P0H", "P0H"), PPENINT = c("P12H", "P24H", "P12H", "P24H")) # nolint
-  ADPP <- ADPP %>% # nolint %>%
-    dplyr::left_join(T1_T2, by = c("PARAMCD")) # nolint
+  ADPP <- ADPP %>% # nolint
+    dplyr::left_join(T1_T2, by = c("PARAMCD"), multiple = "all")
 
-  ADPP <- ADSL %>% # nolint %>%
-    dplyr::inner_join(ADPP, by = c("STUDYID", "USUBJID")) %>% # nolint
+  ADPP <- dplyr::inner_join(ADPP, ADSL, by = c("STUDYID", "USUBJID")) %>% # nolint
     dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" &
       (.data$PPCAT == "Plasma Drug Y" | .data$PPCAT == "Metabolite Drug Y")))
 
