@@ -227,7 +227,7 @@ radex <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add adex date and study day variables
-  adex <- dplyr::inner_join(ADSL, adex, by = c("STUDYID", "USUBJID")) %>%
+  adex <- dplyr::inner_join(adex, ADSL, by = c("STUDYID", "USUBJID")) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     dplyr::mutate(trtedt_int = dplyr::case_when(
@@ -283,7 +283,7 @@ radex <- function(ADSL, # nolint
 
   # Fix VISIT according to AVISIT
   adex <- adex %>%
-    dplyr::mutate(VISIT = AVISIT)
+    dplyr::mutate(VISIT = .data$AVISIT)
 
   # Hack for VISITDY - to fix in ADSL
   visit_levels <- str_extract(levels(adex$VISIT), pattern = "[0-9]+")
@@ -292,37 +292,37 @@ radex <- function(ADSL, # nolint
 
   # Adding VISITDY
   adex <- adex %>%
-    dplyr::mutate(VISITDY = as.numeric(as.character(factor(VISIT, labels = vl_extracted))))
+    dplyr::mutate(VISITDY = as.numeric(as.character(factor(.data$VISIT, labels = vl_extracted))))
 
   # Exposure time stamps
   adex <- adex %>%
     dplyr::mutate(
-      EXSTDTC = lubridate::as_datetime(TRTSDTM) + lubridate::days(VISITDY),
-      EXENDTC = EXSTDTC + lubridate::hours(1),
-      EXSTDY = VISITDY,
-      EXENDY = VISITDY
+      EXSTDTC = lubridate::as_datetime(.data$TRTSDTM) + lubridate::days(.data$VISITDY),
+      EXENDTC = .data$EXSTDTC + lubridate::hours(1),
+      EXSTDY = .data$VISITDY,
+      EXENDY = .data$VISITDY
     )
 
   # Correcting last exposure to treatment
   adex <- adex %>%
-    dplyr::group_by(SUBJID) %>%
-    dplyr::mutate(TRTEDTM = max(EXENDTC, na.rm = TRUE)) %>%
+    dplyr::group_by(.data$SUBJID) %>%
+    dplyr::mutate(TRTEDTM = max(.data$EXENDTC, na.rm = TRUE)) %>%
     dplyr::ungroup()
 
   # Fixing Date - to add into ADSL
   adex <- adex %>%
     dplyr::mutate(
-      TRTSDT = lubridate::as_date(TRTSDTM),
-      TRTEDT = lubridate::as_date(TRTEDTM)
+      TRTSDT = lubridate::as_date(.data$TRTSDTM),
+      TRTEDT = lubridate::as_date(.data$TRTEDTM)
     )
 
   # Fixing analysis time stamps
   adex <- adex %>%
     dplyr::mutate(
-      ASTDY = EXSTDY,
-      AENDY = EXENDY,
-      ASTDTM = EXSTDTC,
-      AENDTM = EXENDTC
+      ASTDY = .data$EXSTDY,
+      AENDY = .data$EXENDY,
+      ASTDTM = .data$EXSTDTC,
+      AENDTM = .data$EXENDTC
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {

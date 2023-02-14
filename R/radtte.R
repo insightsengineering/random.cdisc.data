@@ -130,8 +130,8 @@ radtte <- function(ADSL, # nolint
 
   # merge ADSL to be able to add TTE date and study day variables
   ADTTE <- dplyr::inner_join( # nolint
-    ADSL, # nolint
     dplyr::select(ADTTE, -"SITEID", -"ARM"),
+    ADSL,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%

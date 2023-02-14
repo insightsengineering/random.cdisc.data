@@ -173,7 +173,7 @@ radhy <- function(ADSL, # nolint
     )
 
   # merge ADSL to be able to add analysis datetime and analysis relative day variables
-  ADHY <- dplyr::inner_join(ADSL, ADHY, by = c("STUDYID", "USUBJID")) # nolint
+  ADHY <- dplyr::inner_join(ADHY, ADSL, by = c("STUDYID", "USUBJID")) # nolint
 
   # define a simple helper function to create ADY variable
   add_ady <- function(x, avisit) {

@@ -135,8 +135,8 @@ radqs <- function(ADSL, # nolint
 
   # merge ADSL to be able to add QS date and study day variables
   ADQS <- dplyr::inner_join( # nolint
-    ADSL, # nolint
     ADQS,
+    ADSL,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%

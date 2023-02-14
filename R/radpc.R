@@ -60,7 +60,7 @@ radpc <- function(ADSL, # nolint
     )
     adpc_day <- adpc_day[!(grepl("Urine", adpc_day$PARAM) &
       adpc_day$PCTPTNUM %in% c(0.5, 1, 1.5, 2, 3)), ] %>%
-      dplyr::arrange(USUBJID, PARAM) %>%
+      dplyr::arrange(.data$USUBJID, .data$PARAM) %>%
       dplyr::mutate(
         VISITDY = day,
         VISIT = ifelse(day <= 7, paste("Day", .data$VISITDY), paste("Week", (.data$VISITDY - 1) / 7)),
@@ -89,7 +89,7 @@ radpc <- function(ADSL, # nolint
       ) %>%
       dplyr::mutate(
         PCVOL = ifelse(.data$ASMED == "URINE", round(abs(((.data$PCTPTNUM - 1) %% 24) *
-          .data$A0 * ka * exp(.data$PCTPTNUM %% 1.8 / 10)), 2), NA),
+          .data$A0 * .data$ka * exp(.data$PCTPTNUM %% 1.8 / 10)), 2), NA),
         # PK Equation
         AVALC = ifelse(.data$AVAL == 0, "BLQ", as.character(.data$AVAL)),
         AVALU = avalu,
@@ -108,8 +108,7 @@ radpc <- function(ADSL, # nolint
 
   ADPC <- do.call(rbind, ADPC) # nolint
 
-  ADPC <- ADSL %>% # nolint
-    dplyr::inner_join(ADPC, by = c("STUDYID", "USUBJID", "ARMCD")) %>% # nolint
+  ADPC <- dplyr::inner_join(ADPC, ADSL, by = c("STUDYID", "USUBJID", "ARMCD")) %>% # nolint
     dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" & .data$PARAM == "Plasma Drug Y"))
 
   if (length(na_vars) > 0 && na_percentage > 0) {
