@@ -145,7 +145,7 @@ radae <- function(ADSL, # nolint
   )
 
   # merge ADSL to be able to add AE date and study day variables
-  ADAE <- dplyr::inner_join(ADAE, ADSL , by = c("STUDYID", "USUBJID")) %>% # nolint
+  ADAE <- dplyr::inner_join(ADAE, ADSL, by = c("STUDYID", "USUBJID")) %>% # nolint
     dplyr::rowwise() %>%
     dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     dplyr::mutate(trtedt_int = dplyr::case_when(

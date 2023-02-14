@@ -247,10 +247,10 @@ radaette <- function(ADSL, # nolint
   ADAETTE <- rbind(ADAETTE, adaette_hy) # nolint
 
   ADAETTE <- dplyr::inner_join( # nolint
-      dplyr::select(ADAETTE, -"SITEID", -"ARM"),
-      ADSL,
-      by = c("STUDYID", "USUBJID")
-    ) %>%
+    dplyr::select(ADAETTE, -"SITEID", -"ARM"),
+    ADSL,
+    by = c("STUDYID", "USUBJID")
+  ) %>%
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::arrange(.data$ADTM) %>%
     dplyr::mutate(TTESEQ = seq_len(dplyr::n())) %>%
