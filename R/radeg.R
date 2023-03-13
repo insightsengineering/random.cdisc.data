@@ -200,7 +200,7 @@ radeg <- function(ADSL, # nolint
     )) %>%
     dplyr::ungroup()
 
-  ADEG <- ADEG %>%
+  ADEG <- ADEG %>% # nolint
     dplyr::group_by(USUBJID) %>%
     dplyr::arrange(USUBJID, AVISITN) %>%
     dplyr::mutate(ADTM = rep(

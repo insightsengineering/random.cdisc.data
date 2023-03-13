@@ -310,7 +310,7 @@ radlb <- function(ADSL, # nolint
     )) %>%
     dplyr::ungroup()
 
-  ADLB <- ADLB %>%
+  ADLB <- ADLB %>% # nolint
     dplyr::group_by(USUBJID) %>%
     dplyr::arrange(USUBJID, AVISITN) %>%
     dplyr::mutate(ADTM = rep(

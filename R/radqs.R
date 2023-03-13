@@ -147,7 +147,7 @@ radqs <- function(ADSL, # nolint
     )) %>%
     ungroup()
 
-  ADQS <- ADQS %>%
+  ADQS <- ADQS %>% # nolint
     group_by(USUBJID) %>%
     arrange(USUBJID, AVISITN) %>%
     dplyr::mutate(ADTM = rep(
