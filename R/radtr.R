@@ -134,12 +134,10 @@ radtr <- function(ADSL, # nolint
   ADTR <- merge(ADSL, ADTR, by = c("STUDYID", "USUBJID")) %>% # nolint
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
     dplyr::mutate(
-      ONTRTFL = dplyr::case_when(
-        is.na(.data$TRTSDTM) ~ "",
-        is.na(.data$ADTM) ~ "Y",
-        .data$ADTM < .data$TRTSDTM ~ "",
-        TRUE ~ "Y"
-      ),
+      ONTRTFL = factor(dplyr::case_when( # nolint
+        !AVISIT %in% c("SCREENING", "BASELINE", "FOLLOW UP") ~ "Y",
+        TRUE ~ ""
+      )),
       ANL01FL = dplyr::case_when(
         .data$DTYPE == "" & .data$AVISITN > 0 ~ "Y",
         TRUE ~ ""
