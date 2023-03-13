@@ -147,9 +147,8 @@ radqlqc <- function(ADSL, # nolint
         TRUE ~ ADY_der
       )
     ) %>%
-    select(
-      -.data$ADY_der
-    )
+    select(-ADY_der)
+
   # get compliance data ---------------------------------------------------
   compliance_data <- comp_derv(
     dataset = ADQLQC,
@@ -159,7 +158,8 @@ radqlqc <- function(ADSL, # nolint
   # add ADSL variables
   compliance_data <- left_join(
     compliance_data,
-    ADSL
+    ADSL,
+    by = c("STUDYID", "USUBJID")
   )
   # add completion to ADQLQC
   ADQLQC <- bind_rows( # nolint
@@ -189,7 +189,8 @@ radqlqc <- function(ADSL, # nolint
 
   ADQLQC <- left_join( # nolint
     ADQLQC,
-    ADQLQC_x
+    ADQLQC_x,
+    by = c("USUBJID", "ADTM")
   ) %>%
     mutate(
       ANL01FL = case_when(
@@ -199,7 +200,8 @@ radqlqc <- function(ADSL, # nolint
           !is.na(.data$first_date) ~ "Y"
       )
     ) %>%
-    select(-.data$first_date)
+    select(-first_date)
+
   # final dataset -----------------------------------------------------------
   ADQLQC_final <- ADQLQC %>% # nolint
     dplyr::group_by(.data$USUBJID) %>%
@@ -320,7 +322,7 @@ get_qs_data <- function(ADSL, # nolint
     as.numeric(str_extract(.data$QSTESTCD, "\\d+$")) >= 101 &
       as.numeric(str_extract(.data$QSTESTCD, "\\d+$")) <= 130
   ) %>%
-    select(-.data$publication_name)
+    select(-publication_name)
 
   # validate and initialize QSTEST vectors
   qstest_init_list <- relvar_init(
@@ -441,7 +443,8 @@ get_qs_data <- function(ADSL, # nolint
 
   lookup_QS_sub_x <- left_join( # nolint
     lookup_QS_sub_x,
-    ADSL_trt
+    ADSL_trt,
+    by = "USUBJID"
   ) %>%
     group_by(
       .data$USUBJID
@@ -660,7 +663,8 @@ prep_adqlqc <- function(df) {
   )
   adqlqc1 <- left_join(
     adqlqc,
-    gdsr_param_adqlqc
+    gdsr_param_adqlqc,
+    by = "PARAMCD"
   )
   return(adqlqc1)
 }
@@ -685,8 +689,9 @@ calc_scales <- function(adqlqc1) {
   # parcat2 = scales or global health status
   # global health status/scales data
   # QSTESTCD: EOR0131 to EOR0145 (global health status and scales)
+
   eortc_qlq_c30_sub <- filter(
-    adqlqc1,
+    eortc_qlq_c30,
     !(as.numeric(str_extract(.data$QSTESTCD, "\\d+$")) >= 101 &
       as.numeric(str_extract(.data$QSTESTCD, "\\d+$")) <= 130)
   ) %>%
@@ -710,7 +715,7 @@ calc_scales <- function(adqlqc1) {
         TRUE ~ .data$QSTESTCD
       )
     ) %>%
-    select(-.data$publication_name)
+    select(-publication_name)
 
   # ADaM global health status and scales from gdsr
   gdsr_param_adqlqc <- gdsr_param_adqlqc %>%
@@ -720,7 +725,8 @@ calc_scales <- function(adqlqc1) {
 
   ghs_scales <- left_join(
     eortc_qlq_c30_sub,
-    gdsr_param_adqlqc
+    gdsr_param_adqlqc,
+    by = "PARAMCD"
   )
   # scale data
   df <- data.frame(index = 1:nrow(ghs_scales)) # nolint
