@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="rdata" timestamp="2023-03-14T21:15:31Z" hostname="1090e28ffd7f" tests="56" skipped="0" failures="0" errors="0" time="42.34">
+    <testcase time="1.039" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.344" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.509" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.24" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="2.568" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="3.703" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.237" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="1.509" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.199" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.161999999999999" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.0620000000000012" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.691999999999998" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.354000000000001" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.805" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.52" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.892000000000001" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="2.697" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.381999999999998" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.0130000000000017" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.00999999999999801" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0109999999999992" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0410000000000004" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0190000000000019" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.041999999999998" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0310000000000024" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0069999999999979" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0180000000000007" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.00300000000000011" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0339999999999989" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0100000000000016" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0109999999999992" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.00700000000000145" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0449999999999982" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.00300000000000011" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.00700000000000145" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.661999999999999" classname="rdata" name="seed_works"/>
+    <testcase time="0.507999999999999" classname="rdata" name="metadata_matches_radsl"/>
+    <testcase time="0.887" classname="rdata" name="metadata_matches_radae"/>
+    <testcase time="0.998000000000001" classname="rdata" name="metadata_matches_radaette"/>
+    <testcase time="0.809999999999999" classname="rdata" name="metadata_matches_radcm"/>
+    <testcase time="0.687000000000001" classname="rdata" name="metadata_matches_raddv"/>
+    <testcase time="3.157" classname="rdata" name="metadata_matches_radeg"/>
+    <testcase time="4.378" classname="rdata" name="metadata_matches_radex"/>
+    <testcase time="2.013" classname="rdata" name="metadata_matches_radlb"/>
+    <testcase time="0.814" classname="rdata" name="metadata_matches_radmh"/>
+    <testcase time="0.695" classname="rdata" name="metadata_matches_radpc"/>
+    <testcase time="0.620999999999995" classname="rdata" name="metadata_matches_radpp"/>
+    <testcase time="1.155" classname="rdata" name="metadata_matches_radqs"/>
+    <testcase time="0.868000000000002" classname="rdata" name="metadata_matches_radrs"/>
+    <testcase time="1.267" classname="rdata" name="metadata_matches_radtr"/>
+    <testcase time="0.985999999999997" classname="rdata" name="metadata_matches_radtte"/>
+    <testcase time="1.366" classname="rdata" name="metadata_matches_radvs"/>
+    <testcase time="0.972000000000001" classname="rdata" name="metadata_matches_radsub"/>
+    <testcase time="0.879999999999995" classname="rdata" name="metadata_matches_radhy"/>
+    <testcase time="1.381" classname="rdata" name="radsl_works_with_large_N"/>
+    <testcase time="0.00900000000000034" classname="rdata" name="radsl_has_no_LSTALVDT_greater_than_DTHDT"/>
+  </testsuite>
+</testsuites>
