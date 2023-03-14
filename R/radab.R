@@ -108,18 +108,18 @@ radab <- function(ADSL, # nolint
     dplyr::select(-c(.data$AVAL1, .data$AVAL2))
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADAB$PARAMCD <- as.factor(rel_var( # nolint
-    df = ADAB,
-    var_values = param_init_list$relvar2,
-    related_var = "PARAM"
-  ))
+  ADAB <- ADAB %>% rel_var( # nolint
+    var_name = "PARAMCD",
+    related_var = "PARAM",
+    var_values = param_init_list$relvar2
+  )
 
-  # assign related variable values: PARAMxPARAMU are related
-  ADAB$AVALU <- as.factor(rel_var( # nolint
-    df = ADAB,
-    var_values = unit_init_list$relvar2,
-    related_var = "PARAM"
-  ))
+  # assign related variable values: PARAMxAVALU are related
+  ADAB <- ADAB %>% rel_var( # nolint
+    var_name = "AVALU",
+    related_var = "PARAM",
+    var_values = unit_init_list$relvar2
+  )
 
   # retrieve other variables from ADPC
   ADAB <- ADAB %>% # nolint

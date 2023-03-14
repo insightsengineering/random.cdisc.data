@@ -353,10 +353,10 @@ get_qs_data <- function(ADSL, # nolint
   }
 
   # assign related variable values: QSTESTxQSTESTCD are related
-  lookup_QS$QSTESTCD <- rel_var( # nolint
-    df = lookup_QS,
-    var_values = qstest_init_list$relvar2,
-    related_var = "QSTEST"
+  lookup_QS <- lookup_QS %>% rel_var( # nolint
+    var_name = "QSTESTCD",
+    related_var = "QSTEST",
+    var_values = qstest_init_list$relvar2
   )
 
   lookup_QS <- left_join( # nolint

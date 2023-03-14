@@ -96,18 +96,18 @@ radex <- function(ADSL, # nolint
   )
 
   # assign related variable values: PARAMxPARAMCD are related
-  adex$PARAMCD <- as.factor(rel_var( # nolint
-    df = adex,
-    var_values = param_init_list$relvar2,
-    related_var = "PARAM"
-  ))
+  adex <- adex %>% rel_var(
+    var_name = "PARAMCD",
+    related_var = "PARAM",
+    var_values = param_init_list$relvar2
+  )
 
   # assign related variable values: AVALUxPARAM are related
-  adex$AVALU <- as.factor(rel_var( # nolint
-    df = adex,
-    var_values = unit_init_list$relvar2,
-    related_var = "PARAM"
-  ))
+  adex <- adex %>% rel_var(
+    var_name = "AVALU",
+    related_var = "PARAM",
+    var_values = unit_init_list$relvar2
+  )
 
   adex <- adex %>%
     dplyr::group_by(.data$USUBJID) %>%

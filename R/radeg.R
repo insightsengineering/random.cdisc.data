@@ -89,18 +89,18 @@ radeg <- function(ADSL, # nolint
   )
 
   # assign related variable values: PARAMxEGCAT are related
-  ADEG$EGCAT <- as.factor(rel_var( # nolint
-    df = ADEG,
-    var_values = egcat_init_list$relvar2,
-    related_var = "PARAM"
-  ))
+  ADEG <- ADEG %>% rel_var( # nolint
+    var_name = "EGCAT",
+    related_var = "PARAM",
+    var_values = egcat_init_list$relvar2
+  )
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADEG$PARAMCD <- as.factor(rel_var( # nolint
-    df = ADEG,
-    var_values = param_init_list$relvar2,
-    related_var = "PARAM"
-  ))
+  ADEG <- ADEG %>% rel_var( # nolint
+    var_name = "PARAMCD",
+    related_var = "PARAM",
+    var_values = param_init_list$relvar2
+  )
 
   ADEG <- ADEG %>% dplyr::mutate(AVAL = dplyr::case_when( # nolint
     .data$PARAMCD == "QT" ~ stats::rnorm(nrow(ADEG), mean = 350, sd = 100),
@@ -120,11 +120,11 @@ radeg <- function(ADSL, # nolint
     TRUE ~ NA_real_
   ))
 
-  ADEG$AVALU <- as.factor(rel_var( # nolint
-    df = ADEG,
-    var_values = unit_init_list$relvar2,
-    related_var = "PARAM"
-  ))
+  ADEG <- ADEG %>% rel_var( # nolint
+    var_name = "AVALU",
+    related_var = "PARAM",
+    var_values = unit_init_list$relvar2
+  )
 
   # order to prepare for change from screening and baseline values
   ADEG <- ADEG[order(ADEG$STUDYID, ADEG$USUBJID, ADEG$PARAMCD, ADEG$AVISITN), ] # nolint
