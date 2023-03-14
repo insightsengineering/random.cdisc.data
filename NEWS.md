@@ -24,7 +24,7 @@
 * Added parameter `with_trt02` to `radsl` to make the second treatment period available. When `with_trt02 = TRUE` 
   (default), add variables `TRT02A`, `TRT02P`, `TRT02SDTM`, `TRT02EDTM`, `AP02SDTM`, `AP02EDTM`, `TRT01SDTM`, 
   `TRT01EDTM`, `AP01SDTM`, and `AP01EDTM` to `adsl`, and set `TRTSDTM` as `TRT01SDTM`, `TRTEDTM` as `TRT02EDTM`.
-* Made abonrmality directions more realistic in relation to `PARAMCD` in `adlb`.
+* Made abnormality directions more realistic in relation to `PARAMCD` in `adlb`.
 
 # random.cdisc.data 0.3.13
 
