@@ -147,7 +147,6 @@ radsub <- function(ADSL, # nolint
   ADSUB <- ADSUB %>% # nolint
     dplyr::mutate(PARAMCD = as.factor(as.character(rel_var( # nolint
       df = ADSUB,
-      var_name = "PARAMCD",
       var_values = param_init_list$relvar2,
       related_var = "PARAM"
     ))))

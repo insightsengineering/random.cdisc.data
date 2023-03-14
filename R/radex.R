@@ -98,7 +98,6 @@ radex <- function(ADSL, # nolint
   # assign related variable values: PARAMxPARAMCD are related
   adex$PARAMCD <- as.factor(rel_var( # nolint
     df = adex,
-    var_name = "PARAMCD",
     var_values = param_init_list$relvar2,
     related_var = "PARAM"
   ))
@@ -106,7 +105,6 @@ radex <- function(ADSL, # nolint
   # assign related variable values: AVALUxPARAM are related
   adex$AVALU <- as.factor(rel_var( # nolint
     df = adex,
-    var_name = "AVALU",
     var_values = unit_init_list$relvar2,
     related_var = "PARAM"
   ))

@@ -4,16 +4,14 @@
 \alias{rel_var}
 \title{Related variables: assign}
 \usage{
-rel_var(df = NULL, var_name = NULL, var_values = NULL, related_var = NULL)
+rel_var(df = NULL, var_values = NULL, related_var = NULL)
 }
 \arguments{
 \item{df}{data frame containing the related variables.}
 
-\item{var_name}{related to variable name.}
+\item{var_values}{values related to values of `related_var`.}
 
-\item{var_values}{values of related to variable.}
-
-\item{related_var}{variable name with existing values to which var_name values must relate.}
+\item{related_var}{name of variable within `df` with values to which `var_values` must relate.}
 }
 \description{
 Assign values to a related variable within a domain
@@ -30,7 +28,6 @@ ADLB_df <- data.frame(
 )
 random.cdisc.data:::rel_var(
   df = ADLB_df,
-  var_name = "PARAMCD",
   var_values = c("A", "B", "C"),
   related_var = "PARAM"
 )
@@ -45,7 +42,6 @@ ADLB_tbl <- tibble::tibble(
 )
 random.cdisc.data:::rel_var(
   df = ADLB_tbl,
-  var_name = "PARAMCD",
   var_values = c("A", "B", "C"),
   related_var = "PARAM"
 )

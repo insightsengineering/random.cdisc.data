@@ -93,7 +93,6 @@ radvs <- function(ADSL, # nolint
   # assign related variable values: PARAMxPARAMCD are related
   ADVS$PARAMCD <- as.factor(rel_var( # nolint
     df = ADVS,
-    var_name = "PARAMCD",
     var_values = param_init_list$relvar2,
     related_var = "PARAM"
   ))
@@ -102,7 +101,6 @@ radvs <- function(ADSL, # nolint
     dplyr::mutate(VSTEST = .data$PARAM)
   ADVS$AVALU <- as.factor(rel_var( # nolint
     df = ADVS,
-    var_name = "AVALU",
     var_values = unit_init_list$relvar2,
     related_var = "PARAM"
   ))

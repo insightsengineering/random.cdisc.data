@@ -91,7 +91,6 @@ radeg <- function(ADSL, # nolint
   # assign related variable values: PARAMxEGCAT are related
   ADEG$EGCAT <- as.factor(rel_var( # nolint
     df = ADEG,
-    var_name = "EGCAT",
     var_values = egcat_init_list$relvar2,
     related_var = "PARAM"
   ))
@@ -99,7 +98,6 @@ radeg <- function(ADSL, # nolint
   # assign related variable values: PARAMxPARAMCD are related
   ADEG$PARAMCD <- as.factor(rel_var( # nolint
     df = ADEG,
-    var_name = "PARAMCD",
     var_values = param_init_list$relvar2,
     related_var = "PARAM"
   ))
@@ -124,7 +122,6 @@ radeg <- function(ADSL, # nolint
 
   ADEG$AVALU <- as.factor(rel_var( # nolint
     df = ADEG,
-    var_name = "AVALU",
     var_values = unit_init_list$relvar2,
     related_var = "PARAM"
   ))

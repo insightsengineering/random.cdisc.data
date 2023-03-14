@@ -93,7 +93,6 @@ radpp <- function(ADSL, # nolint,
   # assign related variable values: PARAMxPPSPEC are related
   ADPP$PPSPEC <- as.factor(rel_var( # nolint
     df = ADPP,
-    var_name = "PPSPEC",
     var_values = ppspec_init_list$relvar2,
     related_var = "PARAM"
   ))
@@ -101,7 +100,6 @@ radpp <- function(ADSL, # nolint,
   # assign related variable values: PARAMxPARAMCD are related
   ADPP$PARAMCD <- as.factor(rel_var( # nolint
     df = ADPP,
-    var_name = "PARAMCD",
     var_values = param_init_list$relvar2,
     related_var = "PARAM"
   ))
@@ -109,7 +107,6 @@ radpp <- function(ADSL, # nolint,
   # assign related variable values: PARAMxPARAMU are related
   ADPP$AVALU <- as.factor(rel_var( # nolint
     df = ADPP,
-    var_name = "PARAMU",
     var_values = unit_init_list$relvar2,
     related_var = "PARAM"
   ))

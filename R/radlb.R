@@ -102,7 +102,6 @@ radlb <- function(ADSL, # nolint
   # assign related variable values: PARAMxLBCAT are related
   ADLB$LBCAT <- as.factor(rel_var( # nolint
     df = ADLB,
-    var_name = "LBCAT",
     var_values = lbcat_init_list$relvar2,
     related_var = "PARAM"
   ))
@@ -110,7 +109,6 @@ radlb <- function(ADSL, # nolint
   # assign related variable values: PARAMxPARAMCD are related
   ADLB$PARAMCD <- as.factor(rel_var( # nolint
     df = ADLB,
-    var_name = "PARAMCD",
     var_values = param_init_list$relvar2,
     related_var = "PARAM"
   ))
@@ -128,7 +126,6 @@ radlb <- function(ADSL, # nolint
 
   ADLB$AVALU <- as.factor(rel_var( # nolint
     df = ADLB,
-    var_name = "AVALU",
     var_values = unit_init_list$relvar2,
     related_var = "PARAM"
   ))

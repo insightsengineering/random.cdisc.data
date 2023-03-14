@@ -66,9 +66,8 @@ relvar_init <- function(relvar1, relvar2) {
 #' Assign values to a related variable within a domain
 #'
 #' @param df data frame containing the related variables.
-#' @param var_name related to variable name.
-#' @param var_values values of related to variable.
-#' @param related_var variable name with existing values to which var_name values must relate.
+#' @param var_values values related to values of `related_var`.
+#' @param related_var name of variable within `df` with values to which `var_values` must relate.
 #'
 #' @examples
 #' # Example with data.frame.
@@ -82,7 +81,6 @@ relvar_init <- function(relvar1, relvar2) {
 #' )
 #' random.cdisc.data:::rel_var(
 #'   df = ADLB_df,
-#'   var_name = "PARAMCD",
 #'   var_values = c("A", "B", "C"),
 #'   related_var = "PARAM"
 #' )
@@ -97,35 +95,22 @@ relvar_init <- function(relvar1, relvar2) {
 #' )
 #' random.cdisc.data:::rel_var(
 #'   df = ADLB_tbl,
-#'   var_name = "PARAMCD",
 #'   var_values = c("A", "B", "C"),
 #'   related_var = "PARAM"
 #' )
-rel_var <- function(df = NULL, var_name = NULL, var_values = NULL, related_var = NULL) {
-  checkmate::assert_data_frame(df, null.ok = TRUE)
-  checkmate::assert_string(var_name, null.ok = TRUE)
-  checkmate::assert_character(var_values, null.ok = TRUE, min.len = 1, any.missing = FALSE)
+rel_var <- function(df = NULL, var_values = NULL, related_var = NULL) {
+  checkmate::assert_data_frame(df)
   checkmate::assert_string(related_var, null.ok = TRUE)
+  n_relvar1 <- length(unique(df[, related_var, drop = TRUE]))
+  checkmate::assert_vector(var_values, null.ok = TRUE, len = n_relvar1, any.missing = FALSE)
 
-  if (is.null(df)) {
-    message("Missing data frame argument value.")
-    return(NA)
-  } else {
-    n_relvar1 <- length(unique(df[, related_var, drop = TRUE]))
-    n_relvar2 <- length(var_values)
-    if (n_relvar1 != n_relvar2) {
-      message(paste("Unequal vector lengths for", related_var, "and", var_name))
-      return(NA)
-    } else {
-      relvar1 <- unique(df[, related_var, drop = TRUE])
-      relvar2_values <- rep(NA, nrow(df))
-      for (r in seq_len(length(relvar1))) {
-        matched <- which(df[, related_var, drop = TRUE] == relvar1[r])
-        relvar2_values[matched] <- var_values[r]
-      }
-      return(relvar2_values)
-    }
+  relvar1 <- unique(df[, related_var, drop = TRUE])
+  relvar2_values <- rep(NA, nrow(df))
+  for (r in seq_len(n_relvar1)) {
+    matched <- which(df[, related_var, drop = TRUE] == relvar1[r])
+    relvar2_values[matched] <- var_values[r]
   }
+  return(relvar2_values)
 }
 
 #' Create visit schedule
