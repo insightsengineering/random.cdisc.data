@@ -155,15 +155,17 @@ radlb <- function(ADSL, # nolint
   ADLB$BASE2 <- retain(ADLB, ADLB$AVAL, ADLB$ABLFL2 == "Y") # nolint
   ADLB$BASE <- ifelse(ADLB$ABLFL2 != "Y", retain(ADLB, ADLB$AVAL, ADLB$ABLFL == "Y"), NA) # nolint
 
-  ANRIND_choices <- c("HIGH", "LOW", "NORMAL") # nolint
-
   ADLB <- ADLB %>% # nolint
     dplyr::mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
     dplyr::mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
     dplyr::mutate(CHG = .data$AVAL - .data$BASE) %>%
     dplyr::mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
     dplyr::mutate(BASETYPE = "LAST") %>%
-    dplyr::mutate(ANRIND = sample_fct(ANRIND_choices, nrow(ADLB), prob = c(0.1, 0.1, 0.8))) %>%
+    dplyr::mutate(ANRIND = factor(case_when(
+      PARAMCD == "ALT" ~ sample(c("LOW", "NORMAL"), nrow(ADLB), replace = TRUE, prob = c(0.2, 0.8)),
+      PARAMCD == "CRP" ~ sample(c("HIGH", "LOW", "NORMAL"), nrow(ADLB), replace = TRUE, prob = c(0.1, 0.1, 0.8)),
+      TRUE ~ sample(c("HIGH", "NORMAL"), nrow(ADLB), replace = TRUE, prob = c(0.2, 0.8)),
+    ))) %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
     dplyr::mutate(BNRIND = .data$ANRIND[.data$ABLFL == "Y"]) %>%
     dplyr::ungroup() %>%
