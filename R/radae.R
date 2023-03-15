@@ -75,7 +75,7 @@ radae <- function(ADSL, # nolint
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
   checkmate::assert_true(na_percentage < 1)
 
-  # check loopup parameters
+  # check lookup parameters
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
   lookup_ae <- if (!is.null(lookup)) {
     lookup
@@ -171,6 +171,7 @@ radae <- function(ADSL, # nolint
       ),
       origin = "1970-01-01"
     )) %>%
+    mutate(LDRELTM = difftime(.data$ASTDTM, .data$LDOSEDTM, units = "mins")) %>%
     dplyr::select(-"trtsdt_int", -"trtedt_int", -"astdt_int") %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$AETERM)

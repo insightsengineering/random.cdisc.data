@@ -5,7 +5,7 @@
 \alias{cadae}
 \title{Cached ADAE}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1934 rows and 92 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1934 rows and 93 columns.
 }
 \usage{
 data(cadae)
