@@ -25,7 +25,8 @@
   (default), add variables `TRT02A`, `TRT02P`, `TRT02SDTM`, `TRT02EDTM`, `AP02SDTM`, `AP02EDTM`, `TRT01SDTM`, 
   `TRT01EDTM`, `AP01SDTM`, and `AP01EDTM` to `adsl`, and set `TRTSDTM` as `TRT01SDTM`, `TRTEDTM` as `TRT02EDTM`.
 * Added variable `LDRELTM` to `adae`.
-* Made abnormality directions more realistic in relation to `PARAMCD` in `adlb`.
+* Made `AVAL` values more realistic and updated derivations of `ANRIND`, `*STRESC`, and `LOQFL` to depend on value 
+  of `PARAMCD` in `adlb` and `advs`.
 
 # random.cdisc.data 0.3.13
 
