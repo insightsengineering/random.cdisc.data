@@ -293,3 +293,8 @@ test_that("radsl has no LSTALVDT greater than DTHDT", {
   adsl_no_na <- adsl[!is.na(adsl$DTHDT) & !is.na(adsl$LSTALVDT), ]
   expect_true(all(adsl_no_na$DTHDT >= adsl_no_na$LSTALVDT))
 })
+
+test_that("radcm works with who_coding = TRUE", {
+  adsl <- radsl(cached = TRUE)
+  expect_silent(radcm(adsl, who_coding = TRUE))
+})
