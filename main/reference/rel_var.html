@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">random.cdisc.data</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.13.9043</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.13.9044</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,12 +36,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/random.cdisc.data/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -69,7 +63,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rel_var</span><span class="op">(</span>df <span class="op">=</span> <span class="cn">NULL</span>, var_name <span class="op">=</span> <span class="cn">NULL</span>, var_values <span class="op">=</span> <span class="cn">NULL</span>, related_var <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rel_var</span><span class="op">(</span><span class="va">df</span>, <span class="va">var_name</span>, <span class="va">related_var</span>, var_values <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -79,17 +73,23 @@
 
 
 <dt>var_name</dt>
-<dd><p>related to variable name.</p></dd>
-
-
-<dt>var_values</dt>
-<dd><p>values of related to variable.</p></dd>
+<dd><p>name of variable related to `rel_var` to add to `df`</p></dd>
 
 
 <dt>related_var</dt>
-<dd><p>variable name with existing values to which var_name values must relate.</p></dd>
+<dd><p>name of variable within `df` with values to which values of `var_name` must relate.</p></dd>
+
+
+<dt>var_values</dt>
+<dd><p>values related to values of `related_var`.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    
+
+<p>`df` with added factor variable `var_name` containing `var_values` corresponding to `related_var`.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -108,7 +108,16 @@
 <span class="r-in"><span>  var_values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  related_var <span class="op">=</span> <span class="st">"PARAM"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A" "B" "C" "A" "B" "C" "A" "B" "C"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ID   PARAM PARAMCD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1 Level A       A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2 Level B       B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  3 Level C       C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  4 Level A       A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  5 Level B       B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  6 Level C       C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  7 Level A       A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  8 Level B       B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  9 Level C       C</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Example with tibble.</span></span></span>
 <span class="r-in"><span><span class="va">ADLB_tbl</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
@@ -124,7 +133,18 @@
 <span class="r-in"><span>  var_values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  related_var <span class="op">=</span> <span class="st">"PARAM"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "A" "B" "C" "A" "B" "C" "A" "B" "C"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 9 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      ID PARAM   PARAMCD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1 Level A A      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2 Level B B      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3 Level C C      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>     4 Level A A      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>     5 Level B B      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>     6 Level C C      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>     7 Level A A      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>     8 Level B B      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">9</span>     9 Level C C      </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
