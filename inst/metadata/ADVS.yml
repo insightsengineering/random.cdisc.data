@@ -20,7 +20,7 @@ variables:
     type: factor
   VSSTRESC:
     label: Character Result/Finding
-    type: numeric
+    type: character
   ASPID:
     label: Analysis Sponsor Identifier
     type: integer

@@ -39,7 +39,7 @@ radlb <- function(ADSL, # nolint
                   ),
                   paramcd = c("ALT", "CRP", "IGA"),
                   paramu = c("U/L", "mg/L", "g/L"),
-                  aval_mean = c(20, 1, 2),
+                  aval_mean = c(18, 9, 2.2),
                   visit_format = "WEEK",
                   n_assessments = 5L,
                   n_days = 5L,
@@ -90,14 +90,12 @@ radlb <- function(ADSL, # nolint
     stringsAsFactors = FALSE
   )
 
-  # assign AVAL based on different test
-  ADLB <- ADLB %>% # nolint
-    dplyr::mutate(AVAL = stats::rnorm(nrow(ADLB), mean = 1, sd = 0.2)) %>%
-    dplyr::left_join(data.frame(PARAM = param, ADJUST = aval_mean), by = "PARAM") %>%
-    dplyr::mutate(AVAL = .data$AVAL * .data$ADJUST) %>%
-    dplyr::select(-"ADJUST")
-
-  ADLB$LBSTRESC <- ADLB$AVAL # nolint
+  # assign AVAL based on different tests
+  ADLB <- ADLB %>% mutate(AVAL = case_when(
+    .data$PARAM == param[1] ~ stats::rnorm(nrow(ADLB), mean = aval_mean[1], sd = 10),
+    .data$PARAM == param[2] ~ stats::rnorm(nrow(ADLB), mean = aval_mean[2], sd = 1),
+    .data$PARAM == param[3] ~ stats::rnorm(nrow(ADLB), mean = aval_mean[3], sd = 0.1)
+  ))
 
   # assign related variable values: PARAMxLBCAT are related
   ADLB$LBCAT <- as.factor(rel_var( # nolint
@@ -151,7 +149,6 @@ radlb <- function(ADSL, # nolint
       "Y",
       ifelse(toupper(visit_format) == "CYCLE" & x$AVISIT == "CYCLE 1 DAY 1", "Y", "")
     )
-    x$LOQFL <- ifelse(x$AVAL < 32, "Y", "N") # nolint
     x
   }))
 
@@ -164,11 +161,31 @@ radlb <- function(ADSL, # nolint
     dplyr::mutate(CHG = .data$AVAL - .data$BASE) %>%
     dplyr::mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
     dplyr::mutate(BASETYPE = "LAST") %>%
-    dplyr::mutate(ANRIND = factor(case_when(
-      PARAMCD == "ALT" ~ sample(c("LOW", "NORMAL"), nrow(ADLB), replace = TRUE, prob = c(0.2, 0.8)),
-      PARAMCD == "CRP" ~ sample(c("HIGH", "LOW", "NORMAL"), nrow(ADLB), replace = TRUE, prob = c(0.1, 0.1, 0.8)),
-      TRUE ~ sample(c("HIGH", "NORMAL"), nrow(ADLB), replace = TRUE, prob = c(0.2, 0.8)),
+    dplyr::mutate(ANRLO = dplyr::case_when(
+      .data$PARAMCD == "ALT" ~ 7,
+      .data$PARAMCD == "CRP" ~ 8,
+      .data$PARAMCD == "IGA" ~ 0.8
+    )) %>%
+    dplyr::mutate(ANRHI = dplyr::case_when(
+      .data$PARAMCD == "ALT" ~ 55,
+      .data$PARAMCD == "CRP" ~ 10,
+      .data$PARAMCD == "IGA" ~ 3
+    )) %>%
+    dplyr::mutate(ANRIND = factor(dplyr::case_when(
+      .data$AVAL < .data$ANRLO ~ "LOW",
+      .data$AVAL > .data$ANRHI ~ "HIGH",
+      TRUE ~ "NORMAL"
     ))) %>%
+    dplyr::mutate(LBSTRESC = factor(dplyr::case_when(
+      .data$PARAMCD == "ALT" ~ "<7",
+      .data$PARAMCD == "CRP" ~ "<8",
+      .data$PARAMCD == "IGA" ~ ">3"
+    ))) %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(LOQFL = factor(
+      ifelse(eval(parse(text = paste(AVAL, LBSTRESC))), "Y", "N")
+    )) %>%
+    dplyr::ungroup() %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
     dplyr::mutate(BNRIND = .data$ANRIND[.data$ABLFL == "Y"]) %>%
     dplyr::ungroup() %>%
@@ -184,16 +201,6 @@ radlb <- function(ADSL, # nolint
       ),
       ""
     ))) %>%
-    dplyr::mutate(ANRLO = dplyr::case_when(
-      .data$PARAMCD == "ALT" ~ 7,
-      .data$PARAMCD == "CRP" ~ 8,
-      .data$PARAMCD == "IGA" ~ 0.8
-    )) %>%
-    dplyr::mutate(ANRHI = dplyr::case_when(
-      .data$PARAMCD == "ALT" ~ 55,
-      .data$PARAMCD == "CRP" ~ 10,
-      .data$PARAMCD == "IGA" ~ 3
-    )) %>%
     dplyr::mutate(ATOXGR = factor(dplyr::case_when(
       .data$ANRIND == "LOW" ~ sample(
         c("-1", "-2", "-3", "-4", "-5"),

@@ -107,8 +107,14 @@ radvs <- function(ADSL, # nolint
     related_var = "PARAM"
   ))
 
-  ADVS$AVAL <- stats::rnorm(nrow(ADVS), mean = 50, sd = 8) # nolint
-  ADVS$VSSTRESC <- ADVS$AVAL # nolint
+  ADVS <- ADVS %>% dplyr::mutate(AVAL = dplyr::case_when( # nolint
+    .data$PARAMCD == paramcd[1] ~ stats::rnorm(nrow(ADVS), mean = 100, sd = 20),
+    .data$PARAMCD == paramcd[2] ~ stats::rnorm(nrow(ADVS), mean = 80, sd = 15),
+    .data$PARAMCD == paramcd[3] ~ stats::rnorm(nrow(ADVS), mean = 16, sd = 5),
+    .data$PARAMCD == paramcd[4] ~ stats::rnorm(nrow(ADVS), mean = 150, sd = 30),
+    .data$PARAMCD == paramcd[5] ~ stats::rnorm(nrow(ADVS), mean = 36.65, sd = 1),
+    .data$PARAMCD == paramcd[6] ~ stats::rnorm(nrow(ADVS), mean = 70, sd = 20)
+  ))
 
   # order to prepare for change from screening and baseline values
   ADVS <- ADVS[order(ADVS$STUDYID, ADVS$USUBJID, ADVS$PARAMCD, ADVS$AVISITN), ] # nolint
@@ -125,23 +131,17 @@ radvs <- function(ADSL, # nolint
         ""
       )
     )
-    x$LOQFL <- ifelse(x$AVAL < 32, "Y", "N") # nolint
     x
   }))
 
   ADVS$BASE2 <- retain(ADVS, ADVS$AVAL, ADVS$ABLFL2 == "Y") # nolint
   ADVS$BASE <- ifelse(ADVS$ABLFL2 != "Y", retain(ADVS, ADVS$AVAL, ADVS$ABLFL == "Y"), NA) # nolint
-  ANRIND_choices <- c("HIGH", "LOW", "NORMAL") # nolint
 
   ADVS <- ADVS %>% # nolint
     dplyr::mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
     dplyr::mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
     dplyr::mutate(CHG = .data$AVAL - .data$BASE) %>%
     dplyr::mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
-    dplyr::mutate(
-      ANRIND = ANRIND_choices %>%
-        sample_fct(nrow(ADVS), prob = c(0.1, 0.1, 0.8))
-    ) %>%
     dplyr::mutate(ANRLO = dplyr::case_when(
       .data$PARAMCD == "DIABP" ~ 80,
       .data$PARAMCD == "PULSE" ~ 60,
@@ -158,6 +158,24 @@ radvs <- function(ADSL, # nolint
       .data$PARAMCD == "TEMP" ~ 37.2,
       .data$PARAMCD == "WEIGHT" ~ 100
     )) %>%
+    dplyr::mutate(ANRIND = factor(dplyr::case_when(
+      .data$AVAL < .data$ANRLO ~ "LOW",
+      .data$AVAL > .data$ANRHI ~ "HIGH",
+      TRUE ~ "NORMAL"
+    ))) %>%
+    dplyr::mutate(VSSTRESC = dplyr::case_when(
+      .data$PARAMCD == "DIABP" ~ "<80",
+      .data$PARAMCD == "PULSE" ~ "<60",
+      .data$PARAMCD == "RESP" ~ ">20",
+      .data$PARAMCD == "SYSBP" ~ ">180",
+      .data$PARAMCD == "TEMP" ~ "<36.1",
+      .data$PARAMCD == "WEIGHT" ~ "<40"
+    )) %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(LOQFL = factor(
+      ifelse(eval(parse(text = paste(AVAL, VSSTRESC))), "Y", "N")
+    )) %>%
+    dplyr::ungroup() %>%
     dplyr::mutate(BASETYPE = "LAST") %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
     dplyr::mutate(BNRIND = .data$ANRIND[.data$ABLFL == "Y"]) %>%
