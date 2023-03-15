@@ -28,6 +28,7 @@
 * Made abnormality directions more realistic in relation to `PARAMCD` in `adlb`.
 * Aligned logic for `ADTM`, `ADY`, and `ONTRTFL` variables with `AVISIT` where applicable within `adeg`, `adlb`, 
   `adqs`, `adsub`, `adtr`, and `advs`.
+* Added tests to increase package test coverage.
 
 # random.cdisc.data 0.3.13
 
