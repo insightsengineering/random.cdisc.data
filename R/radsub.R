@@ -144,13 +144,11 @@ radsub <- function(ADSL, # nolint
   )
 
   # Assign related variable values: PARAM and PARAMCD are related.
-  ADSUB <- ADSUB %>% # nolint
-    dplyr::mutate(PARAMCD = as.factor(as.character(rel_var( # nolint
-      df = ADSUB,
-      var_name = "PARAMCD",
-      var_values = param_init_list$relvar2,
-      related_var = "PARAM"
-    ))))
+  ADSUB <- ADSUB %>% rel_var( # nolint
+    var_name = "PARAMCD",
+    related_var = "PARAM",
+    var_values = param_init_list$relvar2
+  )
 
   ADSUB <- ADSUB[order(ADSUB$STUDYID, ADSUB$USUBJID, ADSUB$PARAMCD), ] # nolint
 

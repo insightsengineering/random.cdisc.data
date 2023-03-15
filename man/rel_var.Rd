@@ -4,16 +4,19 @@
 \alias{rel_var}
 \title{Related variables: assign}
 \usage{
-rel_var(df = NULL, var_name = NULL, var_values = NULL, related_var = NULL)
+rel_var(df, var_name, related_var, var_values = NULL)
 }
 \arguments{
 \item{df}{data frame containing the related variables.}
 
-\item{var_name}{related to variable name.}
+\item{var_name}{name of variable related to `rel_var` to add to `df`}
 
-\item{var_values}{values of related to variable.}
+\item{related_var}{name of variable within `df` with values to which values of `var_name` must relate.}
 
-\item{related_var}{variable name with existing values to which var_name values must relate.}
+\item{var_values}{values related to values of `related_var`.}
+}
+\value{
+`df` with added factor variable `var_name` containing `var_values` corresponding to `related_var`.
 }
 \description{
 Assign values to a related variable within a domain

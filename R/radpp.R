@@ -91,28 +91,25 @@ radpp <- function(ADSL, # nolint,
     dplyr::select(-"ADJUST")
 
   # assign related variable values: PARAMxPPSPEC are related
-  ADPP$PPSPEC <- as.factor(rel_var( # nolint
-    df = ADPP,
+  ADPP <- ADPP %>% rel_var( # nolint
     var_name = "PPSPEC",
-    var_values = ppspec_init_list$relvar2,
-    related_var = "PARAM"
-  ))
+    related_var = "PARAM",
+    var_values = ppspec_init_list$relvar2
+  )
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADPP$PARAMCD <- as.factor(rel_var( # nolint
-    df = ADPP,
+  ADPP <- ADPP %>% rel_var( # nolint
     var_name = "PARAMCD",
-    var_values = param_init_list$relvar2,
-    related_var = "PARAM"
-  ))
+    related_var = "PARAM",
+    var_values = param_init_list$relvar2
+  )
 
-  # assign related variable values: PARAMxPARAMU are related
-  ADPP$AVALU <- as.factor(rel_var( # nolint
-    df = ADPP,
-    var_name = "PARAMU",
-    var_values = unit_init_list$relvar2,
-    related_var = "PARAM"
-  ))
+  # assign related variable values: PARAMxAVALU are related
+  ADPP <- ADPP %>% rel_var( # nolint
+    var_name = "AVALU",
+    related_var = "PARAM",
+    var_values = unit_init_list$relvar2
+  )
 
   # derive AVISITN based AVISIT and AVALC based on AVAL
   ADPP <- ADPP %>% # nolint
