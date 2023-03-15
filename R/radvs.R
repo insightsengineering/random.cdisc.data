@@ -91,21 +91,22 @@ radvs <- function(ADSL, # nolint
   ADVS$VSCAT <- "VITAL SIGNS" # nolint
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADVS$PARAMCD <- as.factor(rel_var( # nolint
-    df = ADVS,
+  ADVS <- ADVS %>% rel_var( # nolint
     var_name = "PARAMCD",
-    var_values = param_init_list$relvar2,
-    related_var = "PARAM"
-  ))
+    related_var = "PARAM",
+    var_values = param_init_list$relvar2
+  )
+
+  # assign related variable values: PARAMxAVALU are related
+  ADVS <- ADVS %>% rel_var( # nolint
+    var_name = "AVALU",
+    related_var = "PARAM",
+    var_values = unit_init_list$relvar2
+  )
+
   ADVS <- ADVS %>% # nolint
     dplyr::mutate(VSTESTCD = .data$PARAMCD) %>%
     dplyr::mutate(VSTEST = .data$PARAM)
-  ADVS$AVALU <- as.factor(rel_var( # nolint
-    df = ADVS,
-    var_name = "AVALU",
-    var_values = unit_init_list$relvar2,
-    related_var = "PARAM"
-  ))
 
   ADVS <- ADVS %>% dplyr::mutate(AVAL = dplyr::case_when( # nolint
     .data$PARAMCD == paramcd[1] ~ stats::rnorm(nrow(ADVS), mean = 100, sd = 20),

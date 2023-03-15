@@ -81,6 +81,8 @@ variables:
     type: integer
   LDOSEDTM:
     label: End Date/Time of Last Dose
+  LDRELTM:
+    label: Last Dose Relative Time
   AETOXGR:
     label: Analysis Toxicity Grade
     type: factor

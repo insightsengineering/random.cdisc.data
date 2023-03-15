@@ -98,20 +98,18 @@ radlb <- function(ADSL, # nolint
   ))
 
   # assign related variable values: PARAMxLBCAT are related
-  ADLB$LBCAT <- as.factor(rel_var( # nolint
-    df = ADLB,
+  ADLB <- ADLB %>% rel_var( # nolint
     var_name = "LBCAT",
-    var_values = lbcat_init_list$relvar2,
-    related_var = "PARAM"
-  ))
+    related_var = "PARAM",
+    var_values = lbcat_init_list$relvar2
+  )
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADLB$PARAMCD <- as.factor(rel_var( # nolint
-    df = ADLB,
+  ADLB <- ADLB %>% rel_var( # nolint
     var_name = "PARAMCD",
-    var_values = param_init_list$relvar2,
-    related_var = "PARAM"
-  ))
+    related_var = "PARAM",
+    var_values = param_init_list$relvar2
+  )
 
   ADLB <- ADLB %>% # nolint
     dplyr::mutate(LBTESTCD = .data$PARAMCD) %>%
@@ -124,12 +122,11 @@ radlb <- function(ADSL, # nolint
     TRUE ~ NA_real_
   ))
 
-  ADLB$AVALU <- as.factor(rel_var( # nolint
-    df = ADLB,
+  ADLB <- ADLB %>% rel_var( # nolint
     var_name = "AVALU",
-    var_values = unit_init_list$relvar2,
-    related_var = "PARAM"
-  ))
+    related_var = "PARAM",
+    var_values = unit_init_list$relvar2
+  )
 
   ADLB <- ADLB %>% # nolint
     dplyr::mutate(AVISITN = dplyr::case_when(
