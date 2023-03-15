@@ -91,7 +91,7 @@ radlb <- function(ADSL, # nolint
   )
 
   # assign AVAL based on different tests
-  ADLB <- ADLB %>% mutate(AVAL = case_when(
+  ADLB <- ADLB %>% mutate(AVAL = case_when( # nolint
     .data$PARAM == param[1] ~ stats::rnorm(nrow(ADLB), mean = aval_mean[1], sd = 10),
     .data$PARAM == param[2] ~ stats::rnorm(nrow(ADLB), mean = aval_mean[2], sd = 1),
     .data$PARAM == param[3] ~ stats::rnorm(nrow(ADLB), mean = aval_mean[3], sd = 0.1)
