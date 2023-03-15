@@ -137,7 +137,7 @@
 * Added Medical History Analysis Dataset (`radmh`).
 * Added missing columns based on Roche standards.
 * Introduced missing values in random datasets generators (i.e. `r<name>`).
-* Updated list of columns in several datasets.
+* Updated lists of dataset columns.
 * Enhanced auto-testing.
 
 # random.cdisc.data 0.2.1
