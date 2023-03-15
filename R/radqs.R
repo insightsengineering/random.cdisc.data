@@ -85,7 +85,11 @@ radqs <- function(ADSL, # nolint
   )
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADQS$PARAMCD <- rel_var(df = ADQS, var_name = "PARAMCD", var_values = param_init_list$relvar2, related_var = "PARAM") # nolint
+  ADQS <- ADQS %>% rel_var( # nolint
+    var_name = "PARAMCD",
+    related_var = "PARAM",
+    var_values = param_init_list$relvar2
+  )
 
   ADQS$AVAL <- stats::rnorm(nrow(ADQS), mean = 50, sd = 8) + ADQS$AVISITN * stats::rnorm(nrow(ADQS), mean = 5, sd = 2) # nolint
 

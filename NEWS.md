@@ -1,4 +1,4 @@
-# random.cdisc.data 0.3.13.9042
+# random.cdisc.data 0.3.13.9045
 
 ### New features
 * Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (`radab`).
@@ -24,6 +24,8 @@
 * Added parameter `with_trt02` to `radsl` to make the second treatment period available. When `with_trt02 = TRUE` 
   (default), add variables `TRT02A`, `TRT02P`, `TRT02SDTM`, `TRT02EDTM`, `AP02SDTM`, `AP02EDTM`, `TRT01SDTM`, 
   `TRT01EDTM`, `AP01SDTM`, and `AP01EDTM` to `adsl`, and set `TRTSDTM` as `TRT01SDTM`, `TRTEDTM` as `TRT02EDTM`.
+* Added variable `LDRELTM` to `adae`.
+* Made abnormality directions more realistic in relation to `PARAMCD` in `adlb`.
 * Aligned logic for `ADTM`, `ADY`, and `ONTRTFL` variables with `AVISIT` where applicable within `adeg`, `adlb`, 
   `adqs`, `adsub`, `adtr`, and `advs`.
 

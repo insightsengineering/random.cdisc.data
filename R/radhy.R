@@ -115,12 +115,12 @@ radhy <- function(ADSL, # nolint
 
   # add other variables to ADHY
   ADHY <- ADHY %>% # nolint
+    rel_var(
+      var_name = "PARAMCD",
+      related_var = "PARAM",
+      var_values = param_init_list$relvar2
+    ) %>%
     dplyr::mutate(
-      PARAMCD = factor(rel_var(
-        df = as.data.frame(ADHY),
-        var_values = param_init_list$relvar2,
-        related_var = "PARAM"
-      )),
       AVALC = dplyr::case_when(
         .data$PARAMCD %in% paramcd_tbilialtast ~ sample(
           x = c(">3-5ULN", ">5-10ULN", ">10-20ULN", ">20ULN", "Criteria not met"), size = dplyr::n(), replace = TRUE

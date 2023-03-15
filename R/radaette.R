@@ -132,12 +132,10 @@ radaette <- function(ADSL, # nolint
 
   # Add other variables to adaette_hy
   adaette_hy <- dplyr::left_join(adaette_hy, adsl_hy, by = c("STUDYID", "USUBJID")) %>% # nolint
-    dplyr::mutate(
-      PARAMCD = factor(rel_var(
-        df = as.data.frame(adaette_hy),
-        var_values = param_init_list$relvar2,
-        related_var = "PARAM"
-      ))
+    rel_var(
+      var_name = "PARAMCD",
+      related_var = "PARAM",
+      var_values = param_init_list$relvar2
     ) %>%
     dplyr::mutate(
       CNSR = sample(c(0, 1), prob = c(0.1, 0.9), size = dplyr::n(), replace = TRUE),
