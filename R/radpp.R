@@ -1,4 +1,4 @@
-#' PK parameters dataset
+#' Pharmacokinetics Parameters Dataset
 #'
 #' @template ADSL_params
 #' @param ppcat (`character`)\cr category of parameter.
