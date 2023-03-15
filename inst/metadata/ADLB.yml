@@ -4,10 +4,10 @@ domain:
 
 variables:
   ASEQ:
-    label: Sequence Number
+    label: Analysis Sequence Number
     type: integer
   LBSEQ:
-    label: Sequence Number
+    label: Lab Test or Examination Sequence Number
     type: integer
   LBTESTCD:
     label: Lab Test or Examination Short Name

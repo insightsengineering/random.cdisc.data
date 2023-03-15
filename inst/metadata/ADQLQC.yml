@@ -38,13 +38,15 @@ variables:
   QSREASND:
     label: Reason Not Performed
     type: factor
+  QSEVLINT:
+    label: Evaluation Interval
+    type: factor
   VISIT:
     label: Visit Name
     type: factor
   VISITNUM:
     label: Visit Number
     type: integer
-
   ASEQ:
     label: Analysis Sequence Number
     type: integer
@@ -98,4 +100,3 @@ variables:
   ANL01FL:
     label: Analysis Flag 01 Baseline Post-Baseline
     type: factor
-

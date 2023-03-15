@@ -26,6 +26,8 @@
   `TRT01EDTM`, `AP01SDTM`, and `AP01EDTM` to `adsl`, and set `TRTSDTM` as `TRT01SDTM`, `TRTEDTM` as `TRT02EDTM`.
 * Added variable `LDRELTM` to `adae`.
 * Made abnormality directions more realistic in relation to `PARAMCD` in `adlb`.
+* Aligned logic for `ADTM`, `ADY`, and `ONTRTFL` variables with `AVISIT` where applicable within `adeg`, `adlb`, 
+  `adqs`, `adsub`, `adtr`, and `advs`.
 
 # random.cdisc.data 0.3.13
 
