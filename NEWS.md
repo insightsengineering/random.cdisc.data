@@ -27,6 +27,9 @@
 * Added variable `LDRELTM` to `adae`.
 * Made abnormality directions more realistic in relation to `PARAMCD` in `adlb`.
 
+### Miscellaneous
+* Updated installation method and aligned with other packages.
+
 # random.cdisc.data 0.3.13
 
 ### New features
