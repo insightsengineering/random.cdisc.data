@@ -206,23 +206,26 @@ radvs <- function(ADSL, # nolint
       !is.na(TRTEDTM) ~ as.numeric(as.Date(TRTEDTM)),
       is.na(TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
     )) %>%
-    dplyr::mutate(
-      ADTM = as.POSIXct(
-        (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
+    dplyr::ungroup()
+
+  ADVS <- ADVS %>% # nolint
+    dplyr::group_by(USUBJID) %>%
+    dplyr::arrange(USUBJID, AVISITN) %>%
+    dplyr::mutate(ADTM = rep(
+      sort(as.POSIXct(
+        sample(.data$trtsdt_int[1]:.data$trtedt_int[1], size = nlevels(AVISIT)) * 86400,
         origin = "1970-01-01"
-      )
-    ) %>%
+      )),
+      each = n() / nlevels(AVISIT)
+    )) %>%
+    dplyr::ungroup() %>%
     dplyr::mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
     dplyr::select(-"trtsdt_int", -"trtedt_int") %>%
-    dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
   ADVS <- ADVS %>% dplyr::mutate(ONTRTFL = factor(dplyr::case_when( # nolint
-    is.na(.data$TRTSDTM) ~ "",
-    is.na(.data$ADTM) ~ "Y",
-    (.data$ADTM < .data$TRTSDTM) ~ "",
-    (.data$ADTM > .data$TRTEDTM) ~ "",
-    TRUE ~ "Y"
+    !AVISIT %in% c("SCREENING", "BASELINE") ~ "Y",
+    TRUE ~ ""
   )))
 
   ADVS <- ADVS %>% # nolint

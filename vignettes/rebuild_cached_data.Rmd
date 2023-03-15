@@ -59,9 +59,7 @@ caddv_new <- raddv(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation
 cadsub_new <- radsub(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
 cadhy_new <- radhy(cadsl_new, seed = 1) %>% `attr<-`("creation date", Sys.Date())
 
-load(file.path(system.file(package = "random.cdisc.data"), "extdata/eortc_qlq_c30.rda"))
-load(file.path(system.file(package = "random.cdisc.data"), "extdata/gdsr_param_adqlqc.rda"))
-load(file.path(system.file(package = "random.cdisc.data"), "extdata/expect.rda"))
+load(system.file("R", "sysdata.rda", package = "random.cdisc.data"))
 cadqlqc_new <- radqlqc(cadsl_new, percent = 80, number = 2, seed = 1) %>% `attr<-`("creation date", Sys.Date())
 
 # use diffdf package: diffdf() to compare cached vs new and review/verify differences

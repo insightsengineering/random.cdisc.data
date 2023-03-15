@@ -165,10 +165,10 @@ radsub <- function(ADSL, # nolint
     ADSL,
     by = c("STUDYID", "USUBJID")
   ) %>%
-    dplyr::rowwise() %>%
-    dplyr::mutate(ADTM = as.POSIXct(
-      (as.Date(.data$TRTSDTM) - sample(1:10, size = 1)),
-      origin = "1970-01-01"
+    dplyr::group_by(USUBJID) %>%
+    dplyr::mutate(ADTM = rep(
+      as.POSIXct(as.Date(.data$TRTSDTM)[1] - sample(1:10, size = 1), origin = "1970-01-01"),
+      each = n()
     )) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
