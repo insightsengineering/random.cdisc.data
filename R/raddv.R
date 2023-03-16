@@ -42,7 +42,7 @@ raddv <- function(ADSL, # nolint
   }
 
   checkmate::assert_data_frame(ADSL)
-  checkmate::assert_integer(max_n_dv, len = 1, any.missing = FALSE)
+  checkmate::assert_integer(max_n_dv, len = 1, lower = 1, any.missing = FALSE)
   checkmate::assert_number(p_dv, lower = .Machine$double.xmin, upper = 1)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
@@ -88,7 +88,7 @@ raddv <- function(ADSL, # nolint
 
   ADDV <- Map( # nolint
     function(id, sid) {
-      n_dv <- stats::rbinom(1, 1, p_dv) * sample(c(0, seq_len(max_n_dv)), 1)
+      n_dv <- stats::rbinom(1, 1, p_dv) * sample(c(1, seq_len(max_n_dv)), 1)
       i <- sample(seq_len(nrow(lookup_dv)), n_dv, TRUE)
       dplyr::mutate(
         lookup_dv[i, ],
