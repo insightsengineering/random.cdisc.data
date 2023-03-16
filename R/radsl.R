@@ -55,7 +55,6 @@ radsl <- function(N = 400, # nolint
   }
 
   checkmate::assert_number(N)
-  checkmate::assert_number(study_duration)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
   checkmate::assert_number(study_duration, lower = 1)
@@ -251,8 +250,7 @@ radsl <- function(N = 400, # nolint
     )) %>%
     dplyr::mutate(INVID = paste("INV ID", .data$SITEID)) %>%
     dplyr::mutate(INVNAM = paste("Dr.", .data$SITEID, "Doe")) %>%
-    dplyr::mutate(USUBJID = paste(.data$STUDYID, .data$SITEID, .data$SUBJID, sep = "-")) %>%
-    dplyr::mutate(study_duration_secs = study_duration_secs)
+    dplyr::mutate(USUBJID = paste(.data$STUDYID, .data$SITEID, .data$SUBJID, sep = "-"))
 
 
   if (length(na_vars) > 0 && na_percentage > 0) {
@@ -262,5 +260,6 @@ radsl <- function(N = 400, # nolint
   # apply metadata
   ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml", FALSE) # nolint
 
+  attr(ADSL, "study_duration_secs") <- study_duration_secs
   return(ADSL)
 }
