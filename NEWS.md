@@ -30,6 +30,9 @@
   `adqs`, `adsub`, `adtr`, and `advs`.
 * Added tests to increase package test coverage.
 
+### Miscellaneous
+* Updated installation method and aligned with other packages.
+
 # random.cdisc.data 0.3.13
 
 ### New features

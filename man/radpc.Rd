@@ -2,7 +2,7 @@
 % Please edit documentation in R/radpc.R
 \name{radpc}
 \alias{radpc}
-\title{PK dataset}
+\title{Pharmacokinetics Analysis Dataset}
 \usage{
 radpc(
   ADSL,
@@ -41,7 +41,7 @@ equation for creating analysis values.}
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
 }
 \description{
-PK dataset
+Pharmacokinetics Analysis Dataset
 }
 \details{
 One record per per study per subject per parameter per time point

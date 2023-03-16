@@ -1,4 +1,4 @@
-#' ADA dataset
+#' Anti-drug Antibody Analysis Dataset (ADAB)
 #'
 #' @param constants (`character vector`)\cr Constant parameters to be used for creating analysis values.
 #' @inheritParams radpc

@@ -1,4 +1,4 @@
-#' PK dataset
+#' Pharmacokinetics Analysis Dataset
 #'
 #' @template ADSL_params
 #' @param avalu (`string`)\cr Analysis value unit value

@@ -2,7 +2,7 @@
 % Please edit documentation in R/radab.R
 \name{radab}
 \alias{radab}
-\title{ADA dataset}
+\title{Anti-drug Antibody Analysis Dataset (ADAB)}
 \usage{
 radab(
   ADSL,
@@ -61,7 +61,7 @@ radab(
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
 }
 \description{
-ADA dataset
+Anti-drug Antibody Analysis Dataset (ADAB)
 }
 \details{
 One record per study per subject per parameter per time point
