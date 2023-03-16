@@ -367,7 +367,8 @@ get_qs_data <- function(ADSL, # nolint
     by = c(
       "QSTEST",
       "QSTESTCD"
-    )
+    ),
+    multiple = "all"
   )
 
   lookup_QS <- dplyr::mutate( # nolint

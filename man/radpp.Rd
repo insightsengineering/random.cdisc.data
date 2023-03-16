@@ -2,7 +2,7 @@
 % Please edit documentation in R/radpp.R
 \name{radpp}
 \alias{radpp}
-\title{PK parameters dataset}
+\title{Pharmacokinetics Parameters Dataset}
 \usage{
 radpp(
   ADSL,
@@ -60,7 +60,7 @@ radpp(
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
 }
 \description{
-PK parameters dataset
+Pharmacokinetics Parameters Dataset
 }
 \details{
 One record per per study per subject per parameter category per parameter per visit.

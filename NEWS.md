@@ -1,4 +1,4 @@
-# random.cdisc.data 0.3.13.9046
+# random.cdisc.data 0.3.13.9048
 
 ### New features
 * Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (`radab`).
@@ -29,6 +29,10 @@
   `adqs`, `adsub`, `adtr`, and `advs`.
 * Made `AVAL` values more realistic and updated derivations of `ANRIND`, `*STRESC`, and `LOQFL` to depend on value 
   of `PARAMCD` in `adlb` and `advs`.
+* Added tests to increase package test coverage.
+
+### Miscellaneous
+* Updated installation method and aligned with other packages.
 
 # random.cdisc.data 0.3.13
 
@@ -48,7 +52,7 @@
 * Fixed a typo in `ADSL$BMRKR1`'s label.
 
 ### Miscellaneous
-* Updated R version requirement to >= 3.6.
+* Updated required R version to >= 3.6.
 * Removed deprecated package `utils.nest` from imports and now use `checkmate` for validation functions.
 * Removed deprecated dependency `test.nest`.
 
@@ -61,7 +65,7 @@
 
 ### Miscellaneous
 * Updated `LICENCE` and `README` with new package references.
-* Corrected the `EVNTDESC` and `CNSR` variable values for the "Overall Survival parameter" in ADTTE dataset.
+* Corrected the `EVNTDESC` and `CNSR` variable values for the "OS" parameter in ADTTE dataset.
 * Fixed typo in label for `BASE2` variable in ADQS dataset.
 * Added `error_on_lint: TRUE` to `.lintr`.
 
@@ -74,7 +78,7 @@
 * Added period variables `APERIOD` and `APERIODC` to ADHY dataset.
 
 # random.cdisc.data 0.3.10
-* Added additional parameters to ADHY data.
+* Added parameters to ADHY data.
 * Fix bug to make internal helper `rel_var` work with `tibbles`.
 * Added new random dataset generator: Hys Law Analysis Dataset (`radhy`) .
 * Updated the sampling of `TRTSDTM` in `radsl` to be more efficient.
@@ -83,25 +87,23 @@
 * Fix warnings of binding factors to characters.
 
 # random.cdisc.data 0.3.8
-* Four variables `ATC1CD`, `ATC2CD`, `ATC3CD`, `ATC4CD` have been added to ADCM data.
-* ADAETTE data set generation via `radaette()` has been enhanced:
+* Added variables `ATC1CD`, `ATC2CD`, `ATC3CD`, and `ATC4CD` to ADCM data.
+* Enhanced ADAETTE data set generation via `radaette()`:
   - `lookup` argument now takes the parameters `CATCD` and `CAT` instead of `PARAMCD` and `PARAM`.
-    `CATCD` specifies the code to be used for study specific treatment emergent adverse events (e.g. "1")
+    `CATCD` specifies the code for study specific treatment emergent adverse events (e.g. "1")
     and `CAT` specifies the corresponding text (e.g. "any adverse event").
   - The resulting data set contains now the number of total occurrences per patient of each specific
-    AE category (`PARAMCD` starting with `AETOT` and ending with `CATCD`), in addition to the already
-    available time to first occurrence (`PARAMCD` starting with `AETTE` and ending with `CATCD`).
-  - An additional parameter included is `AEREPTTE`, the time to end of the AE reporting period.
+    AE category (`PARAMCD` starting with `AETOT` and ending with `CATCD`).
+  - Added parameter `AEREPTTE`, the time to end of the AE reporting period.
   - Generation of the time to and number of adverse events now is conditional on the censoring information,
-    i.e. it is no longer possible to have a situation where the patient is censored but the time to first AE
-    is larger than the AE reporting period.
+    i.e. no longer possible to have a situation with patient censored but time to first AE larger than the AE reporting period.
 * Updated examples to not use `cached = TRUE`.
 * Added ADSUB dataset.
 
 # random.cdisc.data 0.3.7
 
-* ADVS data set was updated. Two additional parameters were included: BNRIND and ONTRTFL.
-* ADTTE data set was updated. There is a new parameter in this data set: "PARAM == Duration of Confirmed Response".
+* Added parameters BNRIND and ONTRTFL to ADVS data set.
+* Added new parameter "Duration of Confirmed Response" to ADTTE data set.
 
 # random.cdisc.data 0.3.6
 
@@ -139,7 +141,7 @@
 * Added Medical History Analysis Dataset (`radmh`).
 * Added missing columns based on Roche standards.
 * Introduced missing values in random datasets generators (i.e. `r<name>`).
-* Updating list of created columns in multiple datasets.
+* Updated lists of dataset columns.
 * Enhanced auto-testing.
 
 # random.cdisc.data 0.2.1

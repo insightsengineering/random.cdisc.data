@@ -139,15 +139,9 @@ rel_var <- function(df, var_name, related_var, var_values = NULL) {
 visit_schedule <- function(visit_format = "WEEK",
                            n_assessments = 10L,
                            n_days = 5L) {
-  checkmate::assert_string(visit_format)
+  checkmate::assert_string(visit_format, pattern = "^WEEK$|^CYCLE$", ignore.case = TRUE)
   checkmate::assert_integer(n_assessments, len = 1, any.missing = FALSE)
   checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
-
-  # trap invalid assessment format
-  if (!(toupper(visit_format) %in% c("WEEK", "CYCLE"))) {
-    message("Visit format value must either be: WEEK or CYCLE")
-    return(NA)
-  }
 
   if (toupper(visit_format) == "WEEK") {
     # numeric vector of n assessments/cycles/days
@@ -362,10 +356,6 @@ replace_na <- function(v, percentage = 0.05, seed = NULL) {
 #'
 #' @importFrom rlang := !!
 mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {
-  if (!dplyr::is.tbl(ds)) {
-    dplyr::tbl_df(ds)
-  }
-
   if (!is.null(na_vars)) {
     stopifnot(is.list(na_vars)) # any list is OK; as values can be left NA
     stopifnot(length(names(na_vars)) == length(na_vars)) # names for all elements
