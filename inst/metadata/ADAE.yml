@@ -71,8 +71,10 @@ variables:
     type: factor
   ASTDTM:
     label: Analysis Start Datetime
+    type: POSIXct
   AENDTM:
     label: Analysis End Datetime
+    type: POSIXct
   ASTDY:
     label: Analysis Start Relative Day
     type: integer
@@ -81,8 +83,10 @@ variables:
     type: integer
   LDOSEDTM:
     label: End Date/Time of Last Dose
+    type: POSIXct
   LDRELTM:
     label: Last Dose Relative Time
+    type: numeric
   AETOXGR:
     label: Analysis Toxicity Grade
     type: factor

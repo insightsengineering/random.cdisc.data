@@ -115,6 +115,7 @@ radae <- function(ADSL, # nolint
   }
 
   if (!is.null(seed)) set.seed(seed)
+  study_duration_secs <- attr(ADSL, "study_duration_secs")
 
   ADAE <- Map( # nolint
     function(id, sid) {
@@ -147,32 +148,21 @@ radae <- function(ADSL, # nolint
   # merge ADSL to be able to add AE date and study day variables
   ADAE <- dplyr::inner_join(ADAE, ADSL, by = c("STUDYID", "USUBJID")) %>% # nolint
     dplyr::rowwise() %>%
-    dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-    dplyr::mutate(trtedt_int = dplyr::case_when(
-      !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
-      is.na(.data$TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
+    dplyr::mutate(TRTEDTM_fill = dplyr::case_when(
+      is.na(.data$TRTEDTM) ~ floor_date(TRTSDTM + study_duration_secs, unit = "day"),
+      TRUE ~ .data$TRTEDTM
     )) %>%
-    dplyr::mutate(ASTDTM = as.POSIXct(
-      (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-      origin = "1970-01-01"
-    )) %>%
-    dplyr::mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
-    dplyr::mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
+    dplyr::mutate(ASTDTM = as_datetime(sample(TRTSDTM:TRTEDTM_fill, size = 1))) %>%
+    dplyr::mutate(ASTDY = ceiling(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days"))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
-    dplyr::mutate(AENDTM = as.POSIXct(
-      (sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
-      origin = "1970-01-01"
+    dplyr::mutate(AENDTM = as_datetime(sample(ASTDTM:TRTEDTM_fill + 1, size = 1))) %>%
+    dplyr::mutate(AENDY = ceiling(difftime(.data$AENDTM, .data$TRTSDTM, units = "days"))) %>%
+    dplyr::mutate(LDOSEDTM = dplyr::case_when(
+      .data$TRTSDTM < .data$ASTDTM ~ as_datetime(stats::runif(1, .data$TRTSDTM, .data$ASTDTM)),
+      TRUE ~ .data$ASTDTM
     )) %>%
-    dplyr::mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
-    dplyr::mutate(LDOSEDTM = as.POSIXct(
-      ifelse(.data$TRTSDTM < .data$ASTDTM,
-        lubridate::as_datetime(stats::runif(1, .data$TRTSDTM, .data$ASTDTM), tz = "EST"),
-        .data$ASTDTM
-      ),
-      origin = "1970-01-01"
-    )) %>%
-    mutate(LDRELTM = difftime(.data$ASTDTM, .data$LDOSEDTM, units = "mins")) %>%
-    dplyr::select(-"trtsdt_int", -"trtedt_int", -"astdt_int") %>%
+    mutate(LDRELTM = as.numeric(difftime(.data$ASTDTM, .data$LDOSEDTM, units = "mins"))) %>%
+    dplyr::select(-TRTEDTM_fill) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$AETERM)
 
@@ -226,7 +216,7 @@ radae <- function(ADSL, # nolint
     )) %>%
     dplyr::mutate(TRTEMFL = ifelse(.data$ASTDTM >= .data$TRTSDTM, "Y", "")) %>%
     dplyr::mutate(AECONTRT = sample(c("Y", "N"), prob = c(0.4, 0.6), size = dplyr::n(), replace = TRUE)) %>%
-    dplyr::mutate(ANL01FL = ifelse(.data$TRTEMFL == "Y" & .data$ASTDTM <= .data$TRTEDTM + 2592000, "Y", "")) %>%
+    dplyr::mutate(ANL01FL = ifelse(.data$TRTEMFL == "Y" & .data$ASTDTM <= .data$TRTEDTM + months(1), "Y", "")) %>%
     dplyr::mutate(ANL01FL = ifelse(is.na(.data$ANL01FL), "", .data$ANL01FL))
 
   ADAE <- ADAE %>% # nolint
