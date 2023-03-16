@@ -45,3 +45,15 @@ variables:
  ATACHAR:
     label: ATA characterization
     type: factor
+ NRELTM1:
+    label: Nominal Relative Time from First Dose
+    type: numeric
+ ARELTM1:
+    label: Analysis Rel. Actual Time from First Dose
+    type: numeric
+ NRELTM2:
+    label: Nominal Relative Time from Most Recent Dose
+    type: numeric
+ ARELTM2:
+    label: Analysis Rel. Actual Time from Most Recent Dose
+    type: numeric
