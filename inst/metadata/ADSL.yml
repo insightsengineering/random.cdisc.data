@@ -98,26 +98,37 @@ variables:
     type: factor
   RANDDT:
     label: Date of Randomization
+    type: date
   TRTSDTM:
     label: Datetime of First Exposure to Treatment
+    type: datetime
   TRTEDTM:
     label: Datetime of Last Exposure to Treatment
+    type: datetime
   TRT01SDTM:
     label: Datetime of First Exposure to Treatment in Period 01
+    type: datetime
   TRT01EDTM:
     label: Datetime of Last Exposure in Period 01
+    type: datetime
   TRT02SDTM:
     label: Datetime of First Exposure to Treatment in Period 02
+    type: datetime
   TRT02EDTM:
     label: Datetime of Last Exposure to Treatment in Period 02
+    type: datetime
   AP01SDTM:
     label: Period 01 Start Datetime
+    type: datetime
   AP01EDTM:
     label: Period 01 End Datetime
+    type: datetime
   AP02SDTM:
     label: Period 02 Start Datetime
+    type: datetime
   AP02EDTM:
     label: Period 02 End Datetime
+    type: datetime
   EOSSTT:
     label: End of Study Status
     type: factor
@@ -126,6 +137,7 @@ variables:
     type: factor
   EOSDT:
     label: End of Study Date
+    type: date
   EOSDY:
     label: End of Study Relative Day
     type: integer
@@ -134,6 +146,7 @@ variables:
     type: factor
   DTHDT:
     label: Date of Death
+    type: date
   DTHCAUS:
     label: Cause of Death
     type: factor
@@ -148,6 +161,7 @@ variables:
     type: factor
   LSTALVDT:
     label: Date Last Known Alive
+    type: date
   DTHADY:
     label: Relative Day of Death
     type: integer
