@@ -148,14 +148,14 @@ radae <- function(ADSL, # nolint
   # merge ADSL to be able to add AE date and study day variables
   ADAE <- dplyr::inner_join(ADAE, ADSL, by = c("STUDYID", "USUBJID")) %>% # nolint
     dplyr::rowwise() %>%
-    dplyr::mutate(TRTEDTM_fill = dplyr::case_when(
-      is.na(.data$TRTEDTM) ~ floor_date(TRTSDTM + study_duration_secs, unit = "day"),
+    dplyr::mutate(TRTEDTM_fill = date(dplyr::case_when(
+      is.na(.data$TRTEDTM) ~ floor_date(date(TRTSDTM) + study_duration_secs, unit = "day"),
       TRUE ~ .data$TRTEDTM
-    )) %>%
-    dplyr::mutate(ASTDTM = as_datetime(sample(TRTSDTM:TRTEDTM_fill, size = 1))) %>%
+    ))) %>%
+    dplyr::mutate(ASTDTM = as_datetime(sample(date(TRTSDTM):TRTEDTM_fill, size = 1))) %>%
     dplyr::mutate(ASTDY = ceiling(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days"))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
-    dplyr::mutate(AENDTM = as_datetime(sample(ASTDTM:TRTEDTM_fill + 1, size = 1))) %>%
+    dplyr::mutate(AENDTM = as_datetime(sample(date(ASTDTM):TRTEDTM_fill + 1, size = 1))) %>%
     dplyr::mutate(AENDY = ceiling(difftime(.data$AENDTM, .data$TRTSDTM, units = "days"))) %>%
     dplyr::mutate(LDOSEDTM = dplyr::case_when(
       .data$TRTSDTM < .data$ASTDTM ~ as_datetime(stats::runif(1, .data$TRTSDTM, .data$ASTDTM)),

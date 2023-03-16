@@ -88,8 +88,8 @@ radaette <- function(ADSL, # nolint
   random_patient_data <- function(patient_info) {
     startdt <- date(patient_info$TRTSDTM)
     trtedtm <- floor_date(dplyr::case_when(
-      is.na(patient_info$TRTEDTM) ~ patient_info$TRTSDTM + study_duration_secs,
-      TRUE ~ patient_info$TRTEDTM
+      is.na(patient_info$TRTEDTM) ~ date(patient_info$TRTSDTM) + study_duration_secs,
+      TRUE ~ date(patient_info$TRTEDTM)
     ), unit = "day")
     enddts <- c(patient_info$EOSDT, date(trtedtm))
     enddts_min_index <- which.min(enddts)
