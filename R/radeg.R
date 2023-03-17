@@ -191,7 +191,7 @@ radeg <- function(ADSL, # nolint
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%
-    dplyr::mutate(TRTEDT = lubridate::date(dplyr::case_when(
+    dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
       is.na(.data$TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
       TRUE ~ .data$TRTEDTM
     ))) %>%
@@ -202,14 +202,14 @@ radeg <- function(ADSL, # nolint
     dplyr::arrange(USUBJID, AVISITN) %>%
     dplyr::mutate(ADTM = rep(
       sort(sample(
-        seq(lubridate::as_datetime(TRTSDTM[1]), lubridate::as_datetime(TRTEDT[1]), by = "day"),
+        seq(lubridate::as_datetime(TRTSDTM[1]), lubridate::as_datetime(TRTENDT[1]), by = "day"),
         size = nlevels(AVISIT)
       )),
       each = n() / nlevels(AVISIT)
     )) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(ADY = ceiling(difftime(.data$ADTM, .data$TRTSDTM, units = "days"))) %>%
-    dplyr::select(-TRTEDT) %>%
+    dplyr::select(-TRTENDT) %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
   ADEG <- ADEG %>% # nolint

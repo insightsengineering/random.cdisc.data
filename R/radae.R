@@ -148,18 +148,18 @@ radae <- function(ADSL, # nolint
   # merge ADSL to be able to add AE date and study day variables
   ADAE <- dplyr::inner_join(ADAE, ADSL, by = c("STUDYID", "USUBJID")) %>% # nolint
     dplyr::rowwise() %>%
-    dplyr::mutate(TRTEDT = lubridate::date(dplyr::case_when(
+    dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
       is.na(.data$TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
       TRUE ~ .data$TRTEDTM
     ))) %>%
     dplyr::mutate(ASTDTM = sample(
-      seq(lubridate::as_datetime(TRTSDTM), lubridate::as_datetime(TRTEDT), by = "day"),
+      seq(lubridate::as_datetime(TRTSDTM), lubridate::as_datetime(TRTENDT), by = "day"),
       size = 1
     )) %>%
     dplyr::mutate(ASTDY = ceiling(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days"))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
     dplyr::mutate(AENDTM = sample(
-      seq(lubridate::as_datetime(ASTDTM), lubridate::as_datetime(TRTEDT + 1), by = "day"),
+      seq(lubridate::as_datetime(ASTDTM), lubridate::as_datetime(TRTENDT + 1), by = "day"),
       size = 1
     )) %>%
     dplyr::mutate(AENDY = ceiling(difftime(.data$AENDTM, .data$TRTSDTM, units = "days"))) %>%
@@ -168,7 +168,7 @@ radae <- function(ADSL, # nolint
       TRUE ~ .data$ASTDTM
     )) %>%
     mutate(LDRELTM = as.numeric(difftime(.data$ASTDTM, .data$LDOSEDTM, units = "mins"))) %>%
-    dplyr::select(-TRTEDT) %>%
+    dplyr::select(-TRTENDT) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$AETERM)
 
