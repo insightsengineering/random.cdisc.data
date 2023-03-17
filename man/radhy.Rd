@@ -2,7 +2,7 @@
 % Please edit documentation in R/radhy.R
 \name{radhy}
 \alias{radhy}
-\title{Hys Law Analysis Dataset (ADHY)}
+\title{Hy's Law Analysis Dataset (ADHY)}
 \usage{
 radhy(
   ADSL,
@@ -51,7 +51,7 @@ should be generated. If set to \code{TRUE} then the other arguments to \code{rad
 data.frame
 }
 \description{
-Function for generating random dataset from Hys Law Analysis Dataset for a given
+Function for generating random dataset from Hy's Law Analysis Dataset for a given
 Subject-Level Analysis Dataset.
 }
 \details{
