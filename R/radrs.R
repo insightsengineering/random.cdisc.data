@@ -138,7 +138,7 @@ radrs <- function(ADSL, # nolint
             TRTSDTM = pinfo$TRTSDTM
           ) %>%
             dplyr::mutate(
-              ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))
+              ADY = ceiling(difftime(.data$ADTM, .data$TRTSDTM, units = "days"))
             ) %>%
             dplyr::select(-"TRTSDTM"),
           by = "AVISIT"
