@@ -222,7 +222,9 @@ radae <- function(ADSL, # nolint
     )) %>%
     dplyr::mutate(TRTEMFL = ifelse(.data$ASTDTM >= .data$TRTSDTM, "Y", "")) %>%
     dplyr::mutate(AECONTRT = sample(c("Y", "N"), prob = c(0.4, 0.6), size = dplyr::n(), replace = TRUE)) %>%
-    dplyr::mutate(ANL01FL = ifelse(.data$TRTEMFL == "Y" & .data$ASTDTM <= .data$TRTEDTM + lubridate::month(1), "Y", "")) %>%
+    dplyr::mutate(
+      ANL01FL = ifelse(.data$TRTEMFL == "Y" & .data$ASTDTM <= .data$TRTEDTM + lubridate::month(1), "Y", "")
+    ) %>%
     dplyr::mutate(ANL01FL = ifelse(is.na(.data$ANL01FL), "", .data$ANL01FL))
 
   ADAE <- ADAE %>% # nolint
