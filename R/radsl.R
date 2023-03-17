@@ -23,7 +23,6 @@
 #'
 #' @template return_data.frame
 #'
-#' @importFrom lubridate date
 #' @export
 #
 #' @examples
@@ -65,8 +64,8 @@ radsl <- function(N = 400, # nolint
     set.seed(seed)
   }
 
-  study_duration_secs <- seconds(years(study_duration))
-  sys_dtm <- fast_strptime("20/2/2019 11:16:16.683", "%d/%m/%Y %H:%M:%OS")
+  study_duration_secs <- lubridate::seconds(lubridate::years(study_duration))
+  sys_dtm <- lubridate::fast_strptime("20/2/2019 11:16:16.683", "%d/%m/%Y %H:%M:%OS")
   discons <- max(1, floor((N * .3)))
   country_site_prob <- c(.5, .121, .077, .077, .075, .052, .046, .025, .014, .003)
 
@@ -89,7 +88,7 @@ radsl <- function(N = 400, # nolint
     ) %>%
       sample_fct(N, prob = c(.55, .23, .16, .05, .004, .003, .002, .002)),
     TRTSDTM = sys_dtm + sample(seq(0, study_duration_secs), size = N, replace = TRUE),
-    RANDDT = date(TRTSDTM - days(floor(stats::runif(N, min = 0, max = 5)))),
+    RANDDT = lubridate::date(TRTSDTM - lubridate::days(floor(stats::runif(N, min = 0, max = 5)))),
     TRTEDTM = TRTSDTM + study_duration_secs,
     STRATA1 = c("A", "B", "C") %>% sample_fct(N),
     STRATA2 = c("S1", "S2") %>% sample_fct(N),
@@ -123,14 +122,14 @@ radsl <- function(N = 400, # nolint
   ADSL <- dplyr::left_join(ADSL, ADDS, by = c("SUBJID", "TRTSDTM")) %>% # nolint
     dplyr::mutate(TRTEDTM = dplyr::case_when(
       !is.na(TRTEDTM_discon) ~ TRTEDTM_discon,
-      TRTSDTM >= quantile(TRTSDTM)[2] & TRTSDTM <= quantile(TRTSDTM)[3] ~ as_datetime(NA),
+      TRTSDTM >= quantile(TRTSDTM)[2] & TRTSDTM <= quantile(TRTSDTM)[3] ~ lubridate::as_datetime(NA),
       TRUE ~ TRTEDTM
     )) %>%
     dplyr::select(-"TRTEDTM_discon") # nolint
 
   # add period 2 if needed
   if (with_trt02) { # nolint
-    with_trt02 <- seconds(years(1)) # nolint
+    with_trt02 <- lubridate::seconds(lubridate::years(1)) # nolint
     ADSL <- ADSL %>% # nolint
       dplyr::mutate(TRT02P = sample(.data$ARM)) %>% # nolint
       dplyr::mutate(TRT02A = sample(.data$ACTARM)) %>% # nolint
@@ -148,7 +147,7 @@ radsl <- function(N = 400, # nolint
   }
 
   ADSL <- ADSL %>% # nolint
-    dplyr::mutate(EOSDT = date(TRTEDTM)) %>%
+    dplyr::mutate(EOSDT = lubridate::date(TRTEDTM)) %>%
     dplyr::mutate(EOSDY = ceiling(difftime(TRTEDTM, TRTSDTM))) %>%
     dplyr::mutate(EOSSTT = dplyr::case_when(
       EOSDY == max(EOSDY, na.rm = TRUE) ~ "COMPLETED",
@@ -208,10 +207,10 @@ radsl <- function(N = 400, # nolint
     # adding some random number of days post last treatment date so that death days from last trt admin
     # supports the LDDTHGR1 derivation below
     dplyr::mutate(DTHDT = dplyr::case_when(
-      DCSREAS == "DEATH" ~ date(TRTEDTM + days(sample(0:50, size = N, replace = TRUE))),
+      DCSREAS == "DEATH" ~ lubridate::date(TRTEDTM + lubridate::days(sample(0:50, size = N, replace = TRUE))),
       TRUE ~ NA
     )) %>%
-    dplyr::mutate(LDDTHELD = difftime(DTHDT, date(TRTEDTM), units = "days")) %>%
+    dplyr::mutate(LDDTHELD = difftime(DTHDT, lubridate::date(TRTEDTM), units = "days")) %>%
     dplyr::mutate(LDDTHGR1 = dplyr::case_when(
       LDDTHELD <= 30 ~ "<=30",
       LDDTHELD > 30 ~ ">30",
@@ -219,7 +218,7 @@ radsl <- function(N = 400, # nolint
     )) %>%
     dplyr::mutate(LSTALVDT = dplyr::case_when(
       DCSREAS == "DEATH" ~ DTHDT,
-      TRUE ~ date(TRTEDTM) + days(floor(stats::runif(N, min = 10, max = 30)))
+      TRUE ~ lubridate::date(TRTEDTM) + lubridate::days(floor(stats::runif(N, min = 10, max = 30)))
     ))
 
   # add random ETHNIC (Ethnicity)

@@ -96,16 +96,22 @@ radcm <- function(ADSL, # nolint
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%
-    dplyr::mutate(TRTEDT_fill = date(dplyr::case_when(
-      is.na(TRTEDTM) ~ floor_date(date(TRTSDTM) + study_duration_secs, unit = "day"),
+    dplyr::mutate(TRTEDT = lubridate::date(dplyr::case_when(
+      is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
       TRUE ~ TRTEDTM
     ))) %>%
-    dplyr::mutate(ASTDTM = as_datetime(sample(date(TRTSDTM):TRTEDT_fill, size = 1))) %>%
+    dplyr::mutate(ASTDTM = sample(
+      seq(lubridate::as_datetime(TRTSDTM), lubridate::as_datetime(TRTEDT), by = "day"),
+      size = 1
+    )) %>%
     dplyr::mutate(ASTDY = ceiling(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days"))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
-    dplyr::mutate(AENDTM = as_datetime(sample(date(ASTDTM):(TRTEDT_fill + 1), size = 1))) %>%
+    dplyr::mutate(AENDTM = sample(
+      seq(lubridate::as_datetime(ASTDTM), lubridate::as_datetime(TRTEDT + 1), by = "day"),
+      size = 1
+    )) %>%
     dplyr::mutate(AENDY = ceiling(difftime(.data$AENDTM, .data$TRTSDTM, units = "days"))) %>%
-    dplyr::select(-TRTEDT_fill) %>%
+    dplyr::select(-TRTEDT) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)
 
@@ -151,7 +157,7 @@ radcm <- function(ADSL, # nolint
         EOSSTT == "ONGOING" ~ "ONGOING",
         is.na(EOSSTT) ~ "U"
       ),
-      ADURN = as.numeric(difftime(ADCM$ASTDTM, ADCM$AENDTM, units = "days")),
+      ADURN = as.numeric(difftime(.data$ASTDTM, .data$AENDTM, units = "days")),
       ADURU = "days"
     )
 

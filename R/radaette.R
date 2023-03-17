@@ -86,15 +86,15 @@ radaette <- function(ADSL, # nolint
   }
 
   random_patient_data <- function(patient_info) {
-    startdt <- date(patient_info$TRTSDTM)
-    trtedtm <- floor_date(dplyr::case_when(
-      is.na(patient_info$TRTEDTM) ~ date(patient_info$TRTSDTM) + study_duration_secs,
-      TRUE ~ date(patient_info$TRTEDTM)
+    startdt <- lubridate::date(patient_info$TRTSDTM)
+    trtedtm <- lubridate::floor_date(dplyr::case_when(
+      is.na(patient_info$TRTEDTM) ~ lubridate::date(patient_info$TRTSDTM) + study_duration_secs,
+      TRUE ~ lubridate::date(patient_info$TRTEDTM)
     ), unit = "day")
-    enddts <- c(patient_info$EOSDT, date(trtedtm))
+    enddts <- c(patient_info$EOSDT, lubridate::date(trtedtm))
     enddts_min_index <- which.min(enddts)
     adt <- enddts[enddts_min_index]
-    adtm <- as_datetime(adt)
+    adtm <- lubridate::as_datetime(adt)
     ady <- as.numeric(adt - startdt + 1)
     data.frame(
       ARM = patient_info$ARM,
@@ -104,7 +104,7 @@ radaette <- function(ADSL, # nolint
       PARAMCD = "AEREPTTE",
       PARAM = "Time to end of AE reporting period",
       CNSR = 0,
-      AVAL = days(ady) / years(1),
+      AVAL = lubridate::days(ady) / lubridate::years(1),
       AVALU = "YEARS",
       EVNTDESC = ifelse(enddts_min_index == 1, "Completion or Discontinuation", "End of AE Reporting Period"),
       CNSDTDSC = NA,
@@ -155,9 +155,9 @@ radaette <- function(ADSL, # nolint
       TRUE ~ .data$TRTSDTM + sample(seq(0, study_duration_secs), size = dplyr::n(), replace = TRUE)
     )) %>%
     dplyr::mutate(
-      ADY_int = date(.data$ADTM) - date(.data$TRTSDTM) + 1,
+      ADY_int = lubridate::date(.data$ADTM) - lubridate::date(.data$TRTSDTM) + 1,
       ADY = as.numeric(ADY_int),
-      AVAL = days(ADY_int) / weeks(1),
+      AVAL = lubridate::days(ADY_int) / lubridate::weeks(1),
       AVALU = "WEEKS"
     ) %>%
     dplyr::select(-TRTSDTM, -ADY_int)
@@ -207,8 +207,8 @@ radaette <- function(ADSL, # nolint
       ADY = dplyr::if_else(is.na(.data$AVALU), NA_real_, ceiling(as.numeric(dyears(.data$AVAL), "days"))),
       ADTM = dplyr::if_else(
         is.na(.data$AVALU),
-        as_datetime(NA),
-        patient_info$TRTSDTM + days(.data$ADY)
+        lubridate::as_datetime(NA),
+        patient_info$TRTSDTM + lubridate::days(.data$ADY)
       )
     )
   }
