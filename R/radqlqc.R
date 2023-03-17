@@ -141,7 +141,7 @@ radqlqc <- function(ADSL, # nolint
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::mutate(
-      ADY_der = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days"))),
+      ADY_der = ceiling(difftime(.data$ADTM, .data$TRTSDTM, units = "days")),
       ADY = case_when(
         ADY_der >= 0 ~ ADY_der + 1,
         TRUE ~ ADY_der
