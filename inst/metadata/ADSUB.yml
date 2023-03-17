@@ -23,6 +23,7 @@ variables:
     type: character
   ADTM:
     label: Analysis Datetime
+    type: datetime
   AVISIT:
     label: Analysis Visit
     type: factor

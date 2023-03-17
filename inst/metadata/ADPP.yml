@@ -1,6 +1,6 @@
 domain:
   name: ADPP
-  label: PK Parameters Dataset
+  label: Pharmacokinetic Parameters Dataset
 
 variables:
  PPCAT:
