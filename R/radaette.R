@@ -204,7 +204,7 @@ radaette <- function(ADSL, # nolint
       ),
       stringsAsFactors = FALSE
     ) %>% dplyr::mutate(
-      ADY = dplyr::if_else(is.na(.data$AVALU), NA_real_, ceiling(as.numeric(dyears(.data$AVAL), "days"))),
+      ADY = dplyr::if_else(is.na(.data$AVALU), NA_real_, ceiling(as.numeric(lubridate::dyears(.data$AVAL), "days"))),
       ADTM = dplyr::if_else(
         is.na(.data$AVALU),
         lubridate::as_datetime(NA),
