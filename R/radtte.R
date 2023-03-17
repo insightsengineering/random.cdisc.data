@@ -46,6 +46,7 @@ radtte <- function(ADSL, # nolint
   if (!is.null(seed)) {
     set.seed(seed)
   }
+  study_duration_secs <- attr(ADSL, "study_duration_secs")
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
   lookup_TTE <- if (!is.null(lookup)) { # nolint
@@ -135,17 +136,16 @@ radtte <- function(ADSL, # nolint
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%
-    dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-    dplyr::mutate(trtedt_int = dplyr::case_when(
-      !is.na(TRTEDTM) ~ as.numeric(as.Date(TRTEDTM)),
-      is.na(TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
+    dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
+      is.na(.data$TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
+      TRUE ~ .data$TRTEDTM
+    ))) %>%
+    dplyr::mutate(ADTM = sample(
+      seq(lubridate::as_datetime(TRTSDTM), lubridate::as_datetime(TRTENDT), by = "day"),
+      size = 1
     )) %>%
-    dplyr::mutate(ADTM = as.POSIXct(
-      (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-      origin = "1970-01-01"
-    )) %>%
-    dplyr::mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
-    dplyr::select(-"trtsdt_int", -"trtedt_int") %>%
+    dplyr::mutate(ADY = ceiling(difftime(.data$ADTM, .data$TRTSDTM, units = "days"))) %>%
+    dplyr::select(-TRTENDT) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
