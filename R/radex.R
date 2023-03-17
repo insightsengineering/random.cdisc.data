@@ -21,16 +21,14 @@
 #' @templateVar data adex
 #' @template param_cached
 #' @template return_data.frame
-#'
-#'
 #' @export
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' library(dplyr)
+#' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 #'
-#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
-#' ADEX <- radex(ADSL, seed = 2)
+#' adex <- radex(adsl, seed = 2)
+#' adex
 radex <- function(ADSL, # nolint
                   param = c(
                     "Dose administered during constant dosing interval",

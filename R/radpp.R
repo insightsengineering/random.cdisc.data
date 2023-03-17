@@ -1,4 +1,4 @@
-#' Pharmacokinetics Parameters Dataset
+#' Pharmacokinetics Parameters Dataset (ADPP)
 #'
 #' @template ADSL_params
 #' @param ppcat (`character`)\cr category of parameter.
@@ -17,8 +17,10 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' ADPP <- radpp(ADSL, seed = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+#'
+#' adpp <- radpp(adsl, seed = 2)
+#' adpp
 radpp <- function(ADSL, # nolint,
                   ppcat = c("Plasma Drug X", "Plasma Drug Y", "Metabolite Drug X", "Metabolite Drug Y"),
                   ppspec = c(

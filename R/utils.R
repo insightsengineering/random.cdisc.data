@@ -2,7 +2,7 @@
 #'
 #' Return data attached to package
 #'
-#' @noRd
+#' @keywords internal
 get_cached_data <- function(dataname) {
   checkmate::assert_string(dataname)
   if (!("package:random.cdisc.data" %in% search())) {
@@ -27,6 +27,8 @@ get_cached_data <- function(dataname) {
 #'
 #' @return a factor of length N
 #'
+#' @keywords internal
+#'
 #' @examples
 #' random.cdisc.data:::sample_fct(letters[1:3], 10)
 #' random.cdisc.data:::sample_fct(iris$Species, 10)
@@ -44,6 +46,8 @@ sample_fct <- function(x, N, ...) { # nolint
 #' @param relvar2 as character string. list of n elements.
 #'
 #' @return a vector of n elements
+#'
+#' @keywords internal
 #'
 #' @examples
 #' random.cdisc.data:::relvar_init("Alanine Aminotransferase Measurement", "ALT")
@@ -71,6 +75,8 @@ relvar_init <- function(relvar1, relvar2) {
 #' @param related_var name of variable within `df` with values to which values of `var_name` must relate.
 #'
 #' @return `df` with added factor variable `var_name` containing `var_values` corresponding to `related_var`.
+#'
+#' @keywords internal
 #'
 #' @examples
 #' # Example with data.frame.
@@ -133,6 +139,8 @@ rel_var <- function(df, var_name, related_var, var_values = NULL) {
 #'
 #' @return a factor of length n_assessments
 #'
+#' @keywords internal
+#'
 #' @examples
 #' random.cdisc.data:::visit_schedule(visit_format = "WEeK", n_assessments = 10L)
 #' random.cdisc.data:::visit_schedule(visit_format = "CyCLE", n_assessments = 5L, n_days = 2L)
@@ -170,6 +178,8 @@ visit_schedule <- function(visit_format = "WEEK",
 #' @param event flag to trigger the retain.
 #' @param outside value to.
 #'
+#' @keywords internal
+#'
 #' @examples
 #' ADLB <- radlb(radsl(N = 10, na_percentage = 0), na_vars = list())
 #' ADLB$BASE2 <- random.cdisc.data:::retain(
@@ -188,6 +198,9 @@ retain <- function(df, value_var, event, outside = NA) {
 #'
 #' @param x data frame containing variables to which labels are applied.
 #' @param ... ellipsis.
+#'
+#' @keywords internal
+#'
 #' @examples
 #' ADSL <- radsl()
 #' random.cdisc.data:::var_relabel(ADSL,
@@ -216,20 +229,20 @@ var_relabel <- function(x, ...) {
 #' @param add_adsl logical to control merging of ADSL data to domain
 #' @param adsl_filename \code{yaml} file containing ADSL metadata.
 #'
+#' @keywords internal
 #'
 #' @examples
 #' seed <- 1
-#' ADSL <- suppressWarnings(radsl(seed = seed))
-#' ADLB <- radlb(ADSL, seed = seed)
+#' adsl <- radsl(seed = seed)
+#' adlb <- radlb(adsl, seed = seed)
 #' \dontrun{
 #' yaml_path <- file.path(path.package("random.cdisc.data"), "inst", "metadata")
-#' ADSL <- random.cdisc.data:::apply_metadata(ADSL, file.path(yaml_path, "ADSL.yml"), FALSE)
-#' ADLB <- random.cdisc.data:::apply_metadata(
-#'   ADLB, file.path(yaml_path, "ADLB.yml"), TRUE,
+#' adsl <- random.cdisc.data:::apply_metadata(adsl, file.path(yaml_path, "ADSL.yml"), FALSE)
+#' adlb <- random.cdisc.data:::apply_metadata(
+#'   adlb, file.path(yaml_path, "ADLB.yml"), TRUE,
 #'   file.path(yaml_path, "ADSL.yml")
 #' )
 #' }
-#'
 apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metadata/ADSL.yml") { # nolint
   checkmate::assert_data_frame(df)
   checkmate::assert_string(filename)
@@ -355,6 +368,7 @@ replace_na <- function(v, percentage = 0.05, seed = NULL) {
 #' @param na_percentage (\code{numeric}) Default percentage of values to be replaced by NA
 #'
 #' @importFrom rlang := !!
+#' @export
 mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {
   if (!is.null(na_vars)) {
     stopifnot(is.list(na_vars)) # any list is OK; as values can be left NA
@@ -391,8 +405,7 @@ ungroup_rowwise_df <- function(x) {
   return(x)
 }
 
-
-#' Zero-truncated Poisson Distribution
+#' Zero-Truncated Poisson Distribution
 #'
 #' This generates random numbers from a zero-truncated Poisson distribution,
 #' i.e. from `X | X > 0` when `X ~ Poisson(lambda)`. The advantage here is that

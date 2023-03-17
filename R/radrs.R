@@ -19,13 +19,14 @@
 #' @templateVar data adrs
 #' @template param_cached
 #' @template return_data.frame
-#'
 #' @export
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' radrs(ADSL, seed = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+#'
+#' adrs <- radrs(adsl, seed = 2)
+#' adrs
 radrs <- function(ADSL, # nolint
                   avalc = NULL,
                   lookup = NULL,

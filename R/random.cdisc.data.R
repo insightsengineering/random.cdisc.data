@@ -1,11 +1,9 @@
-#' Create Random SDTM and ADAM Datasets
+#' random.cdisc.data
 #'
-#' This file facilitates package build
-#'
+#' Package to create random SDTM and ADAM datasets.
 #'
 #' @import magrittr
-#' @docType package
-#' @name random.cdisc.data
+#' @import lubridate
 NULL
 
 # to avoid NOTEs from R CMD CHECK

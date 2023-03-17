@@ -20,15 +20,16 @@
 #' @inheritParams mutate_na
 #' @templateVar data adsl
 #' @template param_cached
-#'
 #' @template return_data.frame
-#'
 #' @export
 #
 #' @examples
 #' library(random.cdisc.data)
-#' radsl(N = 10, study_duration = 2, seed = 1)
-#' radsl(
+#'
+#' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
+#' adsl
+#'
+#' adsl <- radsl(
 #'   N = 10, seed = 1,
 #'   na_percentage = 0.1,
 #'   na_vars = list(
@@ -36,7 +37,10 @@
 #'     LSTALVDT = c(seed = 1234, percentage = 0.1)
 #'   )
 #' )
-#' radsl(N = 10, seed = 1, na_percentage = .1)
+#' adsl
+#'
+#' adsl <- radsl(N = 10, seed = 1, na_percentage = .1)
+#' adsl
 radsl <- function(N = 400, # nolint
                   study_duration = 2,
                   seed = NULL,

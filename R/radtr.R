@@ -15,15 +15,16 @@
 #' @templateVar data adtr
 #' @template param_cached
 #' @template return_data.frame
-#'
 #' @export
 #'
 #' @author tomlinsj, npaszty, Xuefeng Hou, dipietrc
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' radtr(ADSL, seed = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+#'
+#' adtr <- radtr(adsl, seed = 2)
+#' adtr
 radtr <- function(ADSL, # nolint
                   param = c("Sum of Longest Diameter by Investigator"),
                   paramcd = c("SLDINV"),

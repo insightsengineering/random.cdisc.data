@@ -19,17 +19,19 @@
 #' @templateVar data adeg
 #' @template param_cached
 #' @template return_data.frame
-#'
-#'
 #' @export
 #'
 #' @author tomlinsj, npaszty, Xuefeng Hou, dipietrc
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' radeg(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-#' radeg(ADSL, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+#'
+#' adeg <- radeg(adsl, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+#' adeg
+#'
+#' adeg <- radeg(adsl, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
+#' adeg
 radeg <- function(ADSL, # nolint
                   egcat = c("INTERVAL", "INTERVAL", "MEASUREMENT", "FINDING"),
                   param = c(

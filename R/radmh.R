@@ -15,15 +15,15 @@
 #'
 #' @templateVar data admh
 #' @template param_cached
-#'
 #' @template return_data.frame
-#'
 #' @export
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
-#' radmh(ADSL, seed = 2)
+#' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
+#'
+#' admh <- radmh(adsl, seed = 2)
+#' admh
 radmh <- function(ADSL, # nolint
                   max_n_mhs = 10L,
                   lookup = NULL,

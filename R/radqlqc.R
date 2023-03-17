@@ -14,9 +14,11 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' ADQLQC <- radqlqc(ADSL, seed = 1, percent = 80, number = 2)
-#' }
+#' library(random.cdisc.data)
+#' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
+#'
+#' adqlqc <- radqlqc(adsl, seed = 1, percent = 80, number = 2)
+#' adqlqc
 radqlqc <- function(ADSL, # nolint
                     percent,
                     number,
@@ -251,6 +253,7 @@ radqlqc <- function(ADSL, # nolint
 #' Questionnaires EORTC QLQ-C30 V3.0 SDTM (QS)
 #'
 #' Function for generating random Questionnaires SDTM domain
+#'
 #' @param ADSL ADSL dataset
 #' @param visit_format as character string. Valid values: WEEK, CYCLE.
 #' @param n_assessments number of assessments. Valid values: integer.
@@ -271,12 +274,12 @@ radqlqc <- function(ADSL, # nolint
 #' @return a dataframe with SDTM questionnaire data
 #'
 #' @import dplyr
-#'
-#' @export
+#' @keywords internal
 #'
 #' @examples
 #' \dontrun{
-#' QS <- get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1)
+#' qs <- get_qs_data(adsl, n_assessments = 5L, seed = 1, na_percentage = 0.1)
+#' qs
 #' }
 get_qs_data <- function(ADSL, # nolint
                         visit_format = "CYCLE",
@@ -580,11 +583,14 @@ get_qs_data <- function(ADSL, # nolint
 #' @return data frame with new variable with random generated dates
 #'
 #' @importFrom lubridate as_datetime days
+#' @keywords internal
 #'
 #' @examples
 #' \dontrun{
-#' df <- group_by(df, USUBJID) %>%
+#' df <- df %>%
+#'   group_by(USUBJID) %>%
 #'   mutate(ADTM = get_random_dates_between(TRTSDTM, TRTEDTM, AVISITN))
+#' df
 #' }
 get_random_dates_between <- function(from, to, visit_id) {
   min_date <- min(lubridate::as_datetime(from), na.rm = TRUE)
@@ -618,10 +624,12 @@ get_random_dates_between <- function(from, to, visit_id) {
 #'
 #' @importFrom stringr str_extract
 #' @importFrom dplyr select mutate left_join case_when
+#' @keywords internal
 #'
 #' @examples
 #' \dontrun{
-#' adqlqc1 <- prep_adqlqc(df = QS)
+#' adqlqc1 <- prep_adqlqc(df = qs)
+#' adqlqc1
 #' }
 prep_adqlqc <- function(df) {
   # create PARAMCD from QSTESTCD
@@ -677,8 +685,7 @@ prep_adqlqc <- function(df) {
 #'
 #' @import dplyr
 #' @importFrom stringr str_extract str_detect
-#'
-#'
+#' @keywords internal
 #'
 #' @examples
 #' \dontrun{
@@ -958,13 +965,13 @@ calc_scales <- function(adqlqc1) {
 #'
 #' @param dataset adam dataset
 #'
-#'
 #' @return dataframe
 #'
+#' @keywords internal
 #'
 #' @examples
 #' \dontrun{
-#' ADQLQC <- derv_chgcat1(dataset = ADQLQC)
+#' adqlqc <- derv_chgcat1(dataset = adqlqc)
 #' }
 derv_chgcat1 <- function(dataset) {
   # derivation of CHGCAT1
@@ -1127,9 +1134,11 @@ derv_chgcat1 <- function(dataset) {
 #' @return data frame
 #'
 #' @import dplyr
+#' @keywords internal
+#'
 #' @examples
 #' \dontrun{
-#' compliance_data <- comp_derv(ADQLQC, 80, 2)
+#' compliance_data <- comp_derv(adqlqc, 80, 2)
 #' }
 comp_derv <- function(dataset, percent, number) {
   # original items data

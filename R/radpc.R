@@ -1,4 +1,4 @@
-#' Pharmacokinetics Analysis Dataset
+#' Pharmacokinetics Analysis Dataset (ADPC)
 #'
 #' @template ADSL_params
 #' @param avalu (`string`)\cr Analysis value unit value
@@ -13,9 +13,13 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' ADPC <- radpc(ADSL, seed = 2)
-#' ADPC <- radpc(ADSL, seed = 2, duration = 3)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+#'
+#' adpc <- radpc(adsl, seed = 2)
+#' adpc
+#'
+#' adpc <- radpc(adsl, seed = 2, duration = 3)
+#' adpc
 radpc <- function(ADSL, # nolint
                   avalu = "ug/mL",
                   constants = c(D = 100, ka = 0.8, ke = 1),

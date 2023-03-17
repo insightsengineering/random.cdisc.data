@@ -14,15 +14,16 @@
 #' @templateVar data adhy
 #' @template param_cached
 #' @template return_data.frame
-#'
 #' @export
 #'
 #' @author wojciakw
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' radhy(ADSL, seed = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+#'
+#' adhy <- radhy(adsl, seed = 2)
+#' adhy
 radhy <- function(ADSL, # nolint
                   param = c(
                     "TBILI <= 2 times ULN and ALT value category",

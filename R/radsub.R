@@ -21,9 +21,9 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
+#' adsl <- radsl(N = 5, seed = 1)
 #'
-#' ADSL <- radsl(N = 5, seed = 1)
-#' df_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = ADSL)
+#' df_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = adsl)
 #' df_with_measurements
 h_anthropometrics_by_sex <- function(df,
                                      seed = 1,
@@ -75,7 +75,6 @@ h_anthropometrics_by_sex <- function(df,
   return(df_with_measurements)
 }
 
-
 #' Subcategory Analysis Dataset (ADSUB)
 #'
 #' Function for generating random dataset from Subcategory Analysis Dataset for a given
@@ -94,15 +93,16 @@ h_anthropometrics_by_sex <- function(df,
 #' @templateVar data adsub
 #' @template param_cached
 #' @template return_data.frame
-#'
 #' @export
 #'
 #' @author tomlinsj, npaszty, Xuefeng Hou, dipietrc
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' radsub(ADSL, seed = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+#'
+#' adsub <- radsub(adsl, seed = 2)
+#' adsub
 radsub <- function(ADSL, # nolint
                    param = c(
                      "Baseline Weight",

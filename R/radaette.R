@@ -14,18 +14,17 @@
 #'
 #' @templateVar data adaette
 #' @template param_cached
-#'
 #' @template return_data.frame
-#'
-#'
 #' @export
 #'
 #' @author Xiuting Mi
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- suppressWarnings(radsl(N = 10, seed = 1, study_duration = 2))
-#' radaette(ADSL, seed = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+#'
+#' adaette <- radaette(adsl, seed = 2)
+#' adaette
 radaette <- function(ADSL, # nolint
                      event.descr = NULL, # nolint
                      censor.descr = NULL, # nolint

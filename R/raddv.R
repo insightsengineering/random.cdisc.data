@@ -16,15 +16,15 @@
 #'
 #' @templateVar data addv
 #' @template param_cached
-#'
 #' @template return_data.frame
-#'
-#'
 #' @export
 #'
 #' @examples
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' raddv(ADSL, seed = 2)
+#' library(random.cdisc.data)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+#'
+#' addv <- raddv(adsl, seed = 2)
+#' addv
 raddv <- function(ADSL, # nolint
                   max_n_dv = 3L,
                   p_dv = 0.15,
