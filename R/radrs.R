@@ -70,6 +70,7 @@ radrs <- function(ADSL, # nolint
   if (!is.null(seed)) {
     set.seed(seed)
   }
+  study_duration_secs <- attr(ADSL, "study_duration_secs")
 
   ADRS <- split(ADSL, ADSL$USUBJID) %>% # nolint
     lapply(function(pinfo) {
@@ -96,19 +97,18 @@ radrs <- function(ADSL, # nolint
 
       avisit <- c("SCREENING", "BASELINE", "CYCLE 2 DAY 1", "CYCLE 4 DAY 1", "END OF INDUCTION", "FOLLOW UP")
 
-
       # meaningful date information
-      trtsdt_int <- as.numeric(as.Date(pinfo$TRTSDTM))
-      trtedt_int <- ifelse(
-        !is.na(pinfo$TRTEDTM), as.numeric(as.Date(pinfo$TRTEDTM)),
-        floor(trtsdt_int + (pinfo$study_duration_secs) / 86400)
-      )
-      scr_date <- as.POSIXct(((trtsdt_int - 100) * 86400), origin = "1970-01-01")
-      bs_date <- pinfo$TRTSDTM
-      flu_date <- as.POSIXct((sample(trtsdt_int:trtedt_int, size = 1) * 86400), origin = "1970-01-01")
-      eoi_date <- as.POSIXct((sample(trtsdt_int:trtedt_int, size = 1) * 86400), origin = "1970-01-01")
-      c2d1_date <- as.POSIXct((sample(trtsdt_int:trtedt_int, size = 1) * 86400), origin = "1970-01-01")
-      c4d1_date <- min(c2d1_date + 60 * 86400, pinfo$TRTEDTM)
+      TRTSTDT <- lubridate::date(pinfo$TRTSDTM)
+      TRTENDT <- lubridate::date(dplyr::if_else(
+        !is.na(pinfo$TRTEDTM), pinfo$TRTEDTM,
+        lubridate::floor_date(TRTSTDT + study_duration_secs, unit = "day")
+      ))
+      scr_date <- TRTSTDT - lubridate::days(100)
+      bs_date <- TRTSTDT
+      flu_date <- sample(seq(lubridate::as_datetime(TRTSTDT), lubridate::as_datetime(TRTENDT), by = "day"), size = 1)
+      eoi_date <- sample(seq(lubridate::as_datetime(TRTSTDT), lubridate::as_datetime(TRTENDT), by = "day"), size = 1)
+      c2d1_date <- sample(seq(lubridate::as_datetime(TRTSTDT), lubridate::as_datetime(TRTENDT), by = "day"), size = 1)
+      c4d1_date <- min(lubridate::date(c2d1_date + lubridate::days(60)), TRTENDT)
 
       tibble::tibble(
         STUDYID = pinfo$STUDYID,
