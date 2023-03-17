@@ -23,9 +23,9 @@
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' radtte(ADSL, seed = 2)
-radtte <- function(ADSL, # nolint
-                   event.descr = NULL, # nolint
-                   censor.descr = NULL, # nolint
+radtte <- function(ADSL,
+                   event.descr = NULL,
+                   censor.descr = NULL,
                    lookup = NULL,
                    seed = NULL,
                    na_percentage = 0,
@@ -48,7 +48,7 @@ radtte <- function(ADSL, # nolint
   }
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
-  lookup_TTE <- if (!is.null(lookup)) { # nolint
+  lookup_TTE <- if (!is.null(lookup)) {
     lookup
   } else {
     tibble::tribble(
@@ -91,8 +91,7 @@ radtte <- function(ADSL, # nolint
     )
   }
 
-  ADTTE <- split(ADSL, ADSL$USUBJID) %>% # nolint
-
+  ADTTE <- split(ADSL, ADSL$USUBJID) %>%
     lapply(FUN = function(pinfo) {
       lookup_TTE %>%
         dplyr::filter(.data$ARM == as.character(pinfo$ACTARMCD)) %>%
@@ -122,14 +121,14 @@ radtte <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier" # )
     )
 
-  ADTTE <- var_relabel( # nolint
+  ADTTE <- var_relabel(
     ADTTE,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add TTE date and study day variables
-  ADTTE <- dplyr::inner_join( # nolint
+  ADTTE <- dplyr::inner_join(
     dplyr::select(ADTTE, -"SITEID", -"ARM"),
     ADSL,
     by = c("STUDYID", "USUBJID")
@@ -149,7 +148,7 @@ radtte <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
-  ADTTE <- ADTTE %>% # nolint
+  ADTTE <- ADTTE %>%
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(TTESEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = .data$TTESEQ) %>%
@@ -165,19 +164,25 @@ radtte <- function(ADSL, # nolint
     )
 
   # adding adverse event counts and log follow-up time
-  ADTTE <- dplyr::bind_rows(ADTTE, data.frame(ADTTE %>% dplyr::group_by(.data$USUBJID) %>% # nolint
-    dplyr::slice_head(n = 1) %>%
-    dplyr::mutate(
-      PARAMCD = "TNE",
-      PARAM = "Total Number of Exacerbations",
-      AVAL = stats::rpois(1, 3),
-      AVALU = "COUNT",
-      lgTMATRSK = log(stats::rexp(1, rate = 3)),
-      dplyr::across(
-        c("ASEQ", "TTESEQ", "ADY", "ADTM", "EVNTDESC"),
-        ~NA
-      )
-    ))) %>%
+  ADTTE <- dplyr::bind_rows(
+    ADTTE,
+    data.frame(
+      ADTTE %>%
+        dplyr::group_by(.data$USUBJID) %>%
+        dplyr::slice_head(n = 1) %>%
+        dplyr::mutate(
+          PARAMCD = "TNE",
+          PARAM = "Total Number of Exacerbations",
+          AVAL = stats::rpois(1, 3),
+          AVALU = "COUNT",
+          lgTMATRSK = log(stats::rexp(1, rate = 3)),
+          dplyr::across(
+            c("ASEQ", "TTESEQ", "ADY", "ADTM", "EVNTDESC"),
+            ~NA
+          )
+        )
+    )
+  ) %>%
     dplyr::arrange(
       .data$STUDYID,
       .data$USUBJID,
@@ -187,11 +192,11 @@ radtte <- function(ADSL, # nolint
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADTTE <- mutate_na(ds = ADTTE, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    ADTTE <- mutate_na(ds = ADTTE, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADTTE <- apply_metadata(ADTTE, "metadata/ADTTE.yml") # nolint
+  ADTTE <- apply_metadata(ADTTE, "metadata/ADTTE.yml")
 
   return(ADTTE)
 }

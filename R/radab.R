@@ -15,8 +15,8 @@
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' ADPC <- radpc(ADSL, seed = 2, duration = 9 * 7)
 #' ADAB <- radab(ADSL, ADPC, seed = 2)
-radab <- function(ADSL, # nolint
-                  ADPC, # nolint
+radab <- function(ADSL,
+                  ADPC,
                   constants = c(D = 100, ka = 0.8, ke = 1),
                   paramcd = c(
                     "R1800000", "RESULT1", "R1800001", "RESULT2", "ADASTAT1", "INDUCD1", "ENHANC1",
@@ -72,8 +72,8 @@ radab <- function(ADSL, # nolint
   param_init_list <- relvar_init(param, paramcd)
   unit_init_list <- relvar_init(param, avalu)
 
-  ADPC <- ADPC %>% dplyr::filter(.data$ASMED == "PLASMA") # nolint
-  ADAB <- expand.grid( # nolint
+  ADPC <- ADPC %>% dplyr::filter(.data$ASMED == "PLASMA")
+  ADAB <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = unique(ADSL$USUBJID),
     VISIT = unique(ADPC$VISIT),
@@ -90,8 +90,8 @@ radab <- function(ADSL, # nolint
   aval_random <- stats::rnorm(nrow(unique(ADAB %>% dplyr::select(.data$USUBJID, .data$VISIT))), mean = 1, sd = 0.2)
   aval_random <- cbind(unique(ADAB %>% dplyr::select(.data$USUBJID, .data$VISIT)), AVAL1 = aval_random)
 
-  ADAB <- ADAB %>% dplyr::left_join(aval_random, by = c("USUBJID", "VISIT")) # nolint
-  ADAB <- ADAB %>% # nolint
+  ADAB <- ADAB %>% dplyr::left_join(aval_random, by = c("USUBJID", "VISIT"))
+  ADAB <- ADAB %>%
     dplyr::mutate(
       AVAL2 = ifelse(.data$AVAL1 >= 1, .data$AVAL1, NA),
       AVALC = dplyr::case_when(
@@ -108,21 +108,21 @@ radab <- function(ADSL, # nolint
     dplyr::select(-c(.data$AVAL1, .data$AVAL2))
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADAB <- ADAB %>% rel_var( # nolint
+  ADAB <- ADAB %>% rel_var(
     var_name = "PARAMCD",
     related_var = "PARAM",
     var_values = param_init_list$relvar2
   )
 
   # assign related variable values: PARAMxAVALU are related
-  ADAB <- ADAB %>% rel_var( # nolint
+  ADAB <- ADAB %>% rel_var(
     var_name = "AVALU",
     related_var = "PARAM",
     var_values = unit_init_list$relvar2
   )
 
   # retrieve other variables from ADPC
-  ADAB <- ADAB %>% # nolint
+  ADAB <- ADAB %>%
     dplyr::inner_join(ADPC %>% dplyr::select(
       .data$STUDYID,
       .data$USUBJID,
@@ -141,10 +141,10 @@ radab <- function(ADSL, # nolint
     dplyr::select(-.data$PCTPT)
 
   # mutate time from dose variables from ADPC to convert into Days
-  ADAB <- ADAB %>% dplyr::mutate_at(c("ARELTM1", "NRELTM1", "ARELTM2", "NRELTM2"), ~ . / 24) # nolint
-  ADAB <- ADAB %>% # nolint
-    dplyr::mutate( # nolint
-      RELTMU = "day", # nolint
+  ADAB <- ADAB %>% dplyr::mutate_at(c("ARELTM1", "NRELTM1", "ARELTM2", "NRELTM2"), ~ . / 24)
+  ADAB <- ADAB %>%
+    dplyr::mutate(
+      RELTMU = "day",
       ADABLFL = "Y",
       ADAPBLFL = ifelse(.data$ACTARM == "A: Drug X" | .data$ACTARM == "C: Combination", "Y",
         NA
@@ -213,11 +213,11 @@ radab <- function(ADSL, # nolint
     unique()
 
   # add flags to ADAB dataset
-  ADAB <- ADAB %>% # nolint
+  ADAB <- ADAB %>%
     dplyr::left_join(adab_subj, by = c("USUBJID", "NRELTM1"))
 
   # derive subject-level variables
-  ADAB[!(ADAB$PARAM %in% visit_lvl_params), ] <- ADAB %>% # nolint
+  ADAB[!(ADAB$PARAM %in% visit_lvl_params), ] <- ADAB %>%
     dplyr::filter(!(.data$PARAM %in% visit_lvl_params)) %>%
     dplyr::mutate(
       AVALC = dplyr::case_when(
@@ -296,7 +296,7 @@ radab <- function(ADSL, # nolint
     )
 
   # remove intermediate flag variables from ADAB
-  ADAB <- ADAB %>% # nolint
+  ADAB <- ADAB %>%
     dplyr::select(-c(
       .data$pos_bl,
       .data$pos_bl_nab,
@@ -311,8 +311,8 @@ radab <- function(ADSL, # nolint
     ))
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADAB <- mutate_na(ds = ADAB, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    ADAB <- mutate_na(ds = ADAB, na_vars = na_vars, na_percentage = na_percentage)
   }
 
-  ADAB <- apply_metadata(ADAB, "metadata/ADAB.yml") # nolint
+  ADAB <- apply_metadata(ADAB, "metadata/ADAB.yml")
 }
