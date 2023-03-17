@@ -2,7 +2,7 @@
 % Please edit documentation in R/radpc.R
 \name{radpc}
 \alias{radpc}
-\title{Pharmacokinetics Analysis Dataset}
+\title{Pharmacokinetics Analysis Dataset (ADPC)}
 \usage{
 radpc(
   ADSL,
@@ -41,14 +41,18 @@ equation for creating analysis values.}
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
 }
 \description{
-Pharmacokinetics Analysis Dataset
+Pharmacokinetics Analysis Dataset (ADPC)
 }
 \details{
 One record per per study per subject per parameter per time point
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-ADPC <- radpc(ADSL, seed = 2)
-ADPC <- radpc(ADSL, seed = 2, duration = 3)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+
+adpc <- radpc(adsl, seed = 2)
+adpc
+
+adpc <- radpc(adsl, seed = 2, duration = 3)
+adpc
 }

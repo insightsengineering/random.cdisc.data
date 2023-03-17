@@ -52,6 +52,8 @@ Keys: STUDYID USUBJID PARAMCD AVISITN ADT RSSEQ
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-radrs(ADSL, seed = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+
+adrs <- radrs(adsl, seed = 2)
+adrs
 }

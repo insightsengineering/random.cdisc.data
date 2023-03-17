@@ -25,7 +25,9 @@ a dataframe with EORTC QLQ-C30 V3 Analysis Dataset
 EORTC QLQ-C30 V3 Analysis Dataset (ADQLQC)
 }
 \examples{
-\dontrun{
-ADQLQC <- radqlqc(ADSL, seed = 1, percent = 80, number = 2)
-}
+library(random.cdisc.data)
+adsl <- radsl(N = 10, study_duration = 2, seed = 1)
+
+adqlqc <- radqlqc(adsl, seed = 1, percent = 80, number = 2)
+adqlqc
 }

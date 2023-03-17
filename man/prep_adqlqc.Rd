@@ -17,6 +17,8 @@ Prepare ADaM ADQLQC data, adding PARAMCD to SDTM QS data
 }
 \examples{
 \dontrun{
-adqlqc1 <- prep_adqlqc(df = QS)
+adqlqc1 <- prep_adqlqc(df = qs)
+adqlqc1
 }
 }
+\keyword{internal}

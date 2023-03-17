@@ -2,7 +2,7 @@
 % Please edit documentation in R/radab.R
 \name{radab}
 \alias{radab}
-\title{Anti-drug Antibody Analysis Dataset (ADAB)}
+\title{Anti-Drug Antibody Analysis Dataset (ADAB)}
 \usage{
 radab(
   ADSL,
@@ -61,14 +61,16 @@ radab(
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
 }
 \description{
-Anti-drug Antibody Analysis Dataset (ADAB)
+Anti-Drug Antibody Analysis Dataset (ADAB)
 }
 \details{
 One record per study per subject per parameter per time point
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-ADPC <- radpc(ADSL, seed = 2, duration = 9 * 7)
-ADAB <- radab(ADSL, ADPC, seed = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+adpc <- radpc(adsl, seed = 2, duration = 9 * 7)
+
+adab <- radab(adsl, adpc, seed = 2)
+adab
 }

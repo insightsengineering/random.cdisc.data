@@ -21,7 +21,10 @@ Function for generating random dates between 2 dates
 }
 \examples{
 \dontrun{
-df <- group_by(df, USUBJID) \%>\%
+df <- df \%>\%
+  group_by(USUBJID) \%>\%
   mutate(ADTM = get_random_dates_between(TRTSDTM, TRTEDTM, AVISITN))
+df
 }
 }
+\keyword{internal}

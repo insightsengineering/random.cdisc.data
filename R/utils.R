@@ -2,6 +2,7 @@
 #'
 #' Return data attached to package
 #'
+#' @noRd
 #' @keywords internal
 get_cached_data <- function(dataname) {
   checkmate::assert_string(dataname)

@@ -20,3 +20,4 @@ Scale calculation for ADQLQC data
 df <- calc_scales(adqlqc1)
 }
 }
+\keyword{internal}

@@ -21,6 +21,7 @@ Completion/Compliance data calculation
 }
 \examples{
 \dontrun{
-compliance_data <- comp_derv(ADQLQC, 80, 2)
+compliance_data <- comp_derv(adqlqc, 80, 2)
 }
 }
+\keyword{internal}

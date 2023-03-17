@@ -53,6 +53,9 @@ One record per each record in the corresponding SDTM domain.
 Keys: STUDYID USUBJID ASTDT DVTERM DVSEQ.
 }
 \examples{
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-raddv(ADSL, seed = 2)
+library(random.cdisc.data)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+
+addv <- raddv(adsl, seed = 2)
+addv
 }

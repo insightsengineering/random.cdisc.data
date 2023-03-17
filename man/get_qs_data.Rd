@@ -50,6 +50,8 @@ Function for generating random Questionnaires SDTM domain
 }
 \examples{
 \dontrun{
-QS <- get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1)
+qs <- get_qs_data(adsl, n_assessments = 5L, seed = 1, na_percentage = 0.1)
+qs
 }
 }
+\keyword{internal}

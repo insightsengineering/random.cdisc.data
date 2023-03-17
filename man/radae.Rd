@@ -53,8 +53,10 @@ Keys: STUDYID USUBJID ASTDTM AETERM AESEQ.
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
-radae(ADSL, seed = 2)
+adsl <- radsl(N = 10, study_duration = 2, seed = 1)
+
+adae <- radae(adsl, seed = 2)
+adae
 
 # Add metadata.
 aag <- utils::read.table(
@@ -71,7 +73,7 @@ aag <- utils::read.table(
   ), stringsAsFactors = FALSE
 )
 
-adae <- radae(ADSL, lookup_aag = aag)
+adae <- radae(adsl, lookup_aag = aag)
 
 with(
   adae,

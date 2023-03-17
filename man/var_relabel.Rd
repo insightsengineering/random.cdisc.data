@@ -21,3 +21,4 @@ random.cdisc.data:::var_relabel(ADSL,
   USUBJID = "Unique Subject Identifier"
 )
 }
+\keyword{internal}

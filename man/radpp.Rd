@@ -2,7 +2,7 @@
 % Please edit documentation in R/radpp.R
 \name{radpp}
 \alias{radpp}
-\title{Pharmacokinetics Parameters Dataset}
+\title{Pharmacokinetics Parameters Dataset (ADPP)}
 \usage{
 radpp(
   ADSL,
@@ -60,13 +60,15 @@ radpp(
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
 }
 \description{
-Pharmacokinetics Parameters Dataset
+Pharmacokinetics Parameters Dataset (ADPP)
 }
 \details{
 One record per per study per subject per parameter category per parameter per visit.
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-ADPP <- radpp(ADSL, seed = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+
+adpp <- radpp(adsl, seed = 2)
+adpp
 }

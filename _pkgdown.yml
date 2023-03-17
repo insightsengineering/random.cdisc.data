@@ -10,6 +10,9 @@ navbar:
       href: https://github.com/insightsengineering/random.cdisc.data/
 
 reference:
+  - title: Overview Page
+    contents:
+      - package
 
   - title: CDISC Domain Functions
     desc: These functions generate CDISC domains containing randomly
@@ -85,8 +88,3 @@ reference:
       - sample_fct
       - var_relabel
       - visit_schedule
-
-  - title: Package Build Related
-    desc: These files facilitate package build
-    contents:
-      - random.cdisc.data

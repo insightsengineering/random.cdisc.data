@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{rtpois}
 \alias{rtpois}
-\title{Zero-truncated Poisson Distribution}
+\title{Zero-Truncated Poisson Distribution}
 \usage{
 rtpois(n, lambda)
 }

@@ -17,6 +17,7 @@ Calculate Change from Baseline Category 1
 }
 \examples{
 \dontrun{
-ADQLQC <- derv_chgcat1(dataset = ADQLQC)
+adqlqc <- derv_chgcat1(dataset = adqlqc)
 }
 }
+\keyword{internal}

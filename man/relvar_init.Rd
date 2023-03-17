@@ -21,3 +21,4 @@ Verify and initialize related variable values
 random.cdisc.data:::relvar_init("Alanine Aminotransferase Measurement", "ALT")
 random.cdisc.data:::relvar_init("Alanine Aminotransferase Measurement", "U/L")
 }
+\keyword{internal}

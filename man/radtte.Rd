@@ -2,7 +2,7 @@
 % Please edit documentation in R/radtte.R
 \name{radtte}
 \alias{radtte}
-\title{Time-to-Event Analysis Dataset (ATE)}
+\title{Time-to-Event Analysis Dataset (ADTTE)}
 \usage{
 radtte(
   ADSL,
@@ -44,13 +44,15 @@ data.frame
 }
 \description{
 Function for generating random Time-to-Event Analysis Dataset for a given
-Subject-Level Analysis Dataset
+Subject-Level Analysis Dataset.
 }
 \details{
 Keys: STUDYID USUBJID PARAMCD
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-radtte(ADSL, seed = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+
+adtte <- radtte(adsl, seed = 2)
+adtte
 }

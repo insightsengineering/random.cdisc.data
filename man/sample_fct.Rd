@@ -25,3 +25,4 @@ Sample elements from x with replacing and build a factor
 random.cdisc.data:::sample_fct(letters[1:3], 10)
 random.cdisc.data:::sample_fct(iris$Species, 10)
 }
+\keyword{internal}

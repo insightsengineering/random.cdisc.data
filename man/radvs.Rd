@@ -64,9 +64,13 @@ Keys: STUDYID, USUBJID, PARAMCD, BASETYPE, AVISITN, ATPTN, DTYPE, ADTM, VSSEQ, A
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-radvs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+
+advs <- radvs(adsl, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+advs
+
+advs <- radvs(adsl, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
+advs
 }
 \author{
 npaszty

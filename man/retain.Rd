@@ -25,3 +25,4 @@ ADLB$BASE2 <- random.cdisc.data:::retain(
   event = ADLB$ABLFL2 == "Y"
 )
 }
+\keyword{internal}
