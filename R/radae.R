@@ -139,7 +139,7 @@ radae <- function(ADSL,
       AETOXGR %in% c(4, 5) ~ "SEVERE"
     ))
 
-  ADAE <- formatters::var_relabel(
+  ADAE <- var_relabel(
     ADAE,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
