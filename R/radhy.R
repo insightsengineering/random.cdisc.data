@@ -20,10 +20,10 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' adhy <- radhy(adsl, seed = 2)
-#' adhy
+#' ADHY <- radhy(ADSL, seed = 2)
+#' ADHY
 radhy <- function(ADSL, # nolint
                   param = c(
                     "TBILI <= 2 times ULN and ALT value category",

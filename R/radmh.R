@@ -20,10 +20,10 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
+#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
 #'
-#' admh <- radmh(adsl, seed = 2)
-#' admh
+#' ADMH <- radmh(ADSL, seed = 2)
+#' ADMH
 radmh <- function(ADSL, # nolint
                   max_n_mhs = 10L,
                   lookup = NULL,

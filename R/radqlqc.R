@@ -15,10 +15,10 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
+#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
 #'
-#' adqlqc <- radqlqc(adsl, seed = 1, percent = 80, number = 2)
-#' adqlqc
+#' ADQLQC <- radqlqc(ADSL, seed = 1, percent = 80, number = 2)
+#' ADQLQC
 radqlqc <- function(ADSL, # nolint
                     percent,
                     number,

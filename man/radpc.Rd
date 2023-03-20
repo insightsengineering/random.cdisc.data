@@ -48,11 +48,11 @@ One record per per study per subject per parameter per time point
 }
 \examples{
 library(random.cdisc.data)
-adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 
-adpc <- radpc(adsl, seed = 2)
-adpc
+ADPC <- radpc(ADSL, seed = 2)
+ADPC
 
-adpc <- radpc(adsl, seed = 2, duration = 3)
-adpc
+ADPC <- radpc(ADSL, seed = 2, duration = 3)
+ADPC
 }

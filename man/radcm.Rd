@@ -53,11 +53,11 @@ Keys: STUDYID USUBJID ASTDTM CMSEQ.
 }
 \examples{
 library(random.cdisc.data)
-adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 
-adcm <- radcm(adsl, seed = 2)
-adcm
+ADCM <- radcm(ADSL, seed = 2)
+ADCM
 
-adcm_who_coding <- radcm(adsl, seed = 2, who_coding = TRUE)
-adcm_who_coding
+ADCM_WHO <- radcm(ADSL, seed = 2, who_coding = TRUE)
+ADCM_WHO
 }

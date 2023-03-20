@@ -21,10 +21,10 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' adaette <- radaette(adsl, seed = 2)
-#' adaette
+#' ADAETTE <- radaette(ADSL, seed = 2)
+#' ADAETTE
 radaette <- function(ADSL, # nolint
                      event.descr = NULL, # nolint
                      censor.descr = NULL, # nolint

@@ -21,10 +21,10 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' adsl <- radsl(N = 5, seed = 1)
+#' ADSL <- radsl(N = 5, seed = 1)
 #'
-#' df_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = adsl)
-#' df_with_measurements
+#' DF_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = ADSL)
+#' DF_with_measurements
 h_anthropometrics_by_sex <- function(df,
                                      seed = 1,
                                      id_var = "USUBJID",
@@ -99,10 +99,10 @@ h_anthropometrics_by_sex <- function(df,
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' adsub <- radsub(adsl, seed = 2)
-#' adsub
+#' ADSUB <- radsub(ADSL, seed = 2)
+#' ADSUB
 radsub <- function(ADSL, # nolint
                    param = c(
                      "Baseline Weight",

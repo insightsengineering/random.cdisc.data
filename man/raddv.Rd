@@ -54,8 +54,8 @@ Keys: STUDYID USUBJID ASTDT DVTERM DVSEQ.
 }
 \examples{
 library(random.cdisc.data)
-adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 
-addv <- raddv(adsl, seed = 2)
-addv
+ADDV <- raddv(ADSL, seed = 2)
+ADDV
 }

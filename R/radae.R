@@ -22,13 +22,13 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
+#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
 #'
-#' adae <- radae(adsl, seed = 2)
-#' adae
+#' ADAE <- radae(ADSL, seed = 2)
+#' ADAE
 #'
 #' # Add metadata.
-#' aag <- utils::read.table(
+#' AAG <- utils::read.table(
 #'   sep = ",", header = TRUE,
 #'   text = paste(
 #'     "NAMVAR,SRCVAR,GRPTYPE,REFNAME,REFTERM,SCOPE",
@@ -42,10 +42,10 @@
 #'   ), stringsAsFactors = FALSE
 #' )
 #'
-#' adae <- radae(adsl, lookup_aag = aag)
+#' ADAE <- radae(ADSL, lookup_aag = AAG)
 #'
 #' with(
-#'   adae,
+#'   ADAE,
 #'   cbind(
 #'     table(AEDECOD, SMQ01NAM),
 #'     table(AEDECOD, CQ01NAM)

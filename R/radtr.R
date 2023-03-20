@@ -21,10 +21,10 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' adtr <- radtr(adsl, seed = 2)
-#' adtr
+#' ADTR <- radtr(ADSL, seed = 2)
+#' ADTR
 radtr <- function(ADSL, # nolint
                   param = c("Sum of Longest Diameter by Investigator"),
                   paramcd = c("SLDINV"),

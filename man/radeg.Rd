@@ -72,13 +72,13 @@ Keys: STUDYID, USUBJID, PARAMCD, BASETYPE, AVISITN, ATPTN, DTYPE, ADTM, EGSEQ, A
 }
 \examples{
 library(random.cdisc.data)
-adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 
-adeg <- radeg(adsl, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-adeg
+ADEG <- radeg(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+ADEG
 
-adeg <- radeg(adsl, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
-adeg
+ADEG <- radeg(ADSL, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
+ADEG
 }
 \author{
 tomlinsj, npaszty, Xuefeng Hou, dipietrc

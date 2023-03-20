@@ -77,8 +77,8 @@ EXDOSFRQ EXROUTE VISIT VISITDY EXSTDTC EXENDTC EXSTDY EXENDY
 }
 \examples{
 library(random.cdisc.data)
-adsl <- radsl(N = 10, study_duration = 2, seed = 1)
+ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
 
-adex <- radex(adsl, seed = 2)
-adex
+ADEX <- radex(ADSL, seed = 2)
+ADEX
 }

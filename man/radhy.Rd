@@ -61,10 +61,10 @@ Keys: STUDYID, USUBJID, PARAMCD, AVISITN, ADTM, SRCSEQ.
 }
 \examples{
 library(random.cdisc.data)
-adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 
-adhy <- radhy(adsl, seed = 2)
-adhy
+ADHY <- radhy(ADSL, seed = 2)
+ADHY
 }
 \author{
 wojciakw

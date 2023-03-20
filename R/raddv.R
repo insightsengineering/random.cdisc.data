@@ -21,10 +21,10 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' addv <- raddv(adsl, seed = 2)
-#' addv
+#' ADDV <- raddv(ADSL, seed = 2)
+#' ADDV
 raddv <- function(ADSL, # nolint
                   max_n_dv = 3L,
                   p_dv = 0.15,

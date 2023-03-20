@@ -12,11 +12,11 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
-#' adpc <- radpc(adsl, seed = 2, duration = 9 * 7)
+#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' ADPC <- radpc(ADSL, seed = 2, duration = 9 * 7)
 #'
-#' adab <- radab(adsl, adpc, seed = 2)
-#' adab
+#' ADAB <- radab(ADSL, adpc, seed = 2)
+#' ADAB
 radab <- function(ADSL, # nolint
                   ADPC, # nolint
                   constants = c(D = 100, ka = 0.8, ke = 1),
