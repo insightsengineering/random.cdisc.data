@@ -19,6 +19,7 @@ Depends:
 Imports:
     checkmate,
     dplyr,
+    lifecycle,
     lubridate,
     magrittr,
     rlang,
@@ -33,6 +34,8 @@ Suggests:
     testthat (>= 0.2)
 VignetteBuilder:
     knitr
+RdMacros:
+    lifecycle
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
