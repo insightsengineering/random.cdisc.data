@@ -14,30 +14,32 @@ radtr(
 )
 }
 \arguments{
-\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{param}{As character string. list of parameter values.}
+\item{param}{(`character vector`)\cr Parameter values.}
 
-\item{paramcd}{As character string. list of parameter code values.}
+\item{paramcd}{(`character vector`)\cr Parameter code values.}
 
-\item{seed}{Seed for random number generation.}
+\item{seed}{(`integer`)\cr Seed for reproducible random number generation.}
 
 \item{cached}{boolean whether the cached ADTR data \code{cadtr} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radtr} will be ignored.}
 
-\item{...}{parameters from \code{\link{radrs}}}
+\item{...}{Additional arguments to be passed to `radrs`.}
 }
 \value{
-data.frame
+`data.frame`
 }
 \description{
-Function for generating random dataset from Tumor Response Analysis Dataset for a given
+`r lifecycle::badge("stable")`
+
+Function for generating a random Tumor Response Analysis Dataset for a given
 Subject-Level Analysis Dataset.
 }
 \details{
 One record per subject per parameter per analysis visit per analysis date.
 
-Keys: STUDYID, USUBJID, PARAMCD, BASETYPE, AVISITN, DTYPE
+Keys: `STUDYID`, `USUBJID`, `PARAMCD`, `BASETYPE`, `AVISITN`, `DTYPE`
 }
 \examples{
 library(random.cdisc.data)

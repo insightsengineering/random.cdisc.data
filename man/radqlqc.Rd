@@ -7,22 +7,25 @@
 radqlqc(ADSL, percent, number, seed = NULL, cached = FALSE)
 }
 \arguments{
-\item{ADSL}{Subject-Level Analysis Dataset}
+\item{ADSL}{(`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{percent}{Completion - Completed at least y percent of questions, 1 record per visit}
+\item{percent}{(`numeric`)\cr Completion - Completed at least y percent of questions, 1 record per visit}
 
-\item{number}{Completion - Completed at least x question(s), 1 record per visit}
+\item{number}{(`numeric`)\cr Completion - Completed at least x question(s), 1 record per visit}
 
-\item{seed}{Seed for random number generation}
+\item{seed}{(`integer`)\cr Seed for reproducible random number generation.}
 
-\item{cached}{boolean whether the cached <%= toupper(data) %> data \code{c<%=data%>}
-should be returned or new data}
+\item{cached}{boolean whether the cached ADQLQC data \code{cadqlqc} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radqlqc} will be ignored.}
 }
 \value{
-a dataframe with EORTC QLQ-C30 V3 Analysis Dataset
+`data.frame`
 }
 \description{
-EORTC QLQ-C30 V3 Analysis Dataset (ADQLQC)
+`r lifecycle::badge("stable")`
+
+Function for generating a random EORTC QLQ-C30 V3 Analysis Dataset for a given
+Subject-Level Analysis Dataset.
 }
 \examples{
 library(random.cdisc.data)

@@ -1,22 +1,21 @@
 #' Protocol Deviations Analysis Dataset (ADDV)
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' Function for generating random Protocol Deviations Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per each record in the corresponding SDTM domain.
 #'
-#' Keys: STUDYID USUBJID ASTDT DVTERM DVSEQ.
+#' Keys: `STUDYID`, `USUBJID`, `ASTDT`, `DVTERM`, `DVSEQ`
 #'
-#' @template ADSL_params
-#' @template lookup_param
-#' @param max_n_dv Maximum number of deviations per patient.
-#' @param p_dv Probability of a patient to have protocol deviations.
-#' @inheritParams radsl
-#' @inheritParams mutate_na
-#'
-#' @templateVar data addv
+#' @inheritParams argument_convention
+#' @param max_n_dv (`integer`)\cr Maximum number of deviations per patient. Defaults to 3.
+#' @param p_dv (`proportion`)\cr Probability of a patient having protocol deviations.
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data addv
+#'
+#' @return `data.frame`
 #' @export
 #'
 #' @examples

@@ -1,22 +1,21 @@
 #' Previous and Concomitant Medications Analysis Dataset (ADCM)
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' Function for generating random Concomitant Medication Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per each record in the corresponding SDTM domain.
 #'
-#' Keys: STUDYID USUBJID ASTDTM CMSEQ.
+#' Keys: `STUDYID`, `USUBJID`, `ASTDTM`, `CMSEQ`
 #'
-#' @template ADSL_params
-#' @template lookup_param
-#' @param max_n_cms maximum number of concomitant medications per patient.
-#' @param who_coding (`flag`)\cr whether to use WHO coding (with multiple paths per medication) or not.
-#' @inheritParams radsl
-#' @inheritParams mutate_na
-#'
-#' @templateVar data adcm
+#' @inheritParams argument_convention
+#' @param max_n_cms (`integer`)\cr Maximum number of concomitant medications per patient. Defaults to 10.
+#' @param who_coding (`flag`)\cr Whether WHO coding (with multiple paths per medication) should be used.
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data adcm
+#'
+#' @return `data.frame`
 #' @export
 #'
 #' @examples

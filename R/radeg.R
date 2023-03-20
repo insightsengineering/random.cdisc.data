@@ -1,24 +1,21 @@
 #' ECG Analysis Dataset (ADEG)
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' Function for generating random dataset from ECG Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per subject per parameter per analysis visit per analysis date.
 #'
-#' Keys: STUDYID, USUBJID, PARAMCD, BASETYPE, AVISITN, ATPTN, DTYPE, ADTM, EGSEQ, ASPID.
+#' Keys: `STUDYID`, `USUBJID`, `PARAMCD`, `BASETYPE`, `AVISITN`, `ATPTN`, `DTYPE`, `ADTM`, `EGSEQ`, `ASPID`
 #'
-#' @template ADSL_params
-#' @template BDS_findings_params
-#' @param egcat As character vector of eg category values.
-#' @param paramu As character vector of parameter unit values.
-#' @param max_n_eg As numeric. maximum number of eg results.
-#' @param lookup control lookup process.
-#' @inheritParams radsl
-#' @inheritParams mutate_na
-#'
-#' @templateVar data adeg
+#' @inheritParams argument_convention
+#' @param egcat (`character vector`)\cr EG category values.
+#' @param max_n_eg (`integer`)\cr Maximum number of EG results per patient. Defaults to 10.
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data adeg
+#'
+#' @return `data.frame`
 #' @export
 #'
 #' @author tomlinsj, npaszty, Xuefeng Hou, dipietrc

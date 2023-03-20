@@ -16,38 +16,40 @@ radaette(
 )
 }
 \arguments{
-\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{event.descr}{Character vector with description of events.}
 
 \item{censor.descr}{Character vector with description of censors.}
 
-\item{lookup}{Data.frame containing additional parameters.}
+\item{lookup}{(`data.frame`)\cr Additional parameters.}
 
-\item{seed}{Seed for random number generation.}
+\item{seed}{(`integer`)\cr Seed for reproducible random number generation.}
 
-\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(`proportion`)\cr Default percentage of values to be replaced by `NA`.}
 
-\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
- element of this list should be a numeric vector with two elements
- \itemize{
-    \item{seed }{The seed to be used for this element - can be left NA}
-    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-    percentage is used. This will overwrite default percentage (percentage argument))}
+\item{na_vars}{(`list`)\cr A named list where the name of each element is a column name of `ds`. Each
+element of this list should be a numeric vector with two elements:
+\itemize{
+  \item{`seed` (`integer`)\cr The seed to be used for this element - can be `NA`.}
+  \item{`percentage` (`proportion`)\cr Percentage of elements to be replaced with `NA`.
+  If `NA`, `na_percentage` is used as a default.}
 }}
 
 \item{cached}{boolean whether the cached ADAETTE data \code{cadaette} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radaette} will be ignored.}
 }
 \value{
-data.frame
+`data.frame`
 }
 \description{
-Function to generate random time to AE dataset for a
-given subject-level analysis dataset.
+`r lifecycle::badge("stable")`
+
+Function to generate random Time-to-AE Dataset for a
+given Subject-Level Analysis Dataset.
 }
 \details{
-Keys: STUDYID USUBJID PARAMCD
+Keys: `STUDYID`, `USUBJID`, `PARAMCD`
 }
 \examples{
 library(random.cdisc.data)

@@ -7,13 +7,19 @@
 radsaftte(ADSL, ...)
 }
 \arguments{
-\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{...}{Additional argument to be passed to \code{radaette}}
+\item{...}{Additional arguments to be passed to `radaette`}
+
+\item{cached}{boolean whether the cached ADSAFTTE data \code{cadsaftte} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radsaftte} will be ignored.}
+}
+\value{
+`data.frame`
 }
 \description{
-Function to generate random time to safety event dataset for a
-given subject-level analysis dataset.
+Function to generate random Time-to-Safety Event Dataset for a
+given Subject-Level Analysis Dataset.
 }
 \examples{
 library(random.cdisc.data)

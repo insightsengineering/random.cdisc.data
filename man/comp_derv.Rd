@@ -2,22 +2,22 @@
 % Please edit documentation in R/radqlqc.R
 \name{comp_derv}
 \alias{comp_derv}
-\title{Completion/Compliance data calculation}
+\title{Completion/Compliance Data Calculation}
 \usage{
 comp_derv(dataset, percent, number)
 }
 \arguments{
-\item{dataset}{adam dataset}
+\item{dataset}{(`data.frame`)\cr dataset}
 
-\item{percent}{Completion - Completed at least y percent of questions, 1 record per visit}
+\item{percent}{(`numeric`)\cr Completion - Completed at least y percent of questions, 1 record per visit}
 
-\item{number}{Completion - Completed at least x question(s), 1 record per visit}
+\item{number}{(`numeric`)\cr Completion - Completed at least x question(s), 1 record per visit}
 }
 \value{
-data frame
+`data.frame`
 }
 \description{
-Completion/Compliance data calculation
+Completion/Compliance Data Calculation
 }
 \examples{
 \dontrun{

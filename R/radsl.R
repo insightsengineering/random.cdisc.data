@@ -1,5 +1,7 @@
 #' Subject-Level Analysis Dataset (ADSL)
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' The Subject-Level Analysis Data set (ADSL) is used to provide the variables
 #' that describe attributes of a subject. ADSL is a source for subject-level
 #' variables used in other analysis data sets, such as population flags and
@@ -9,18 +11,18 @@
 #'
 #' @details One record per subject.
 #'
-#' Keys: STUDYID USUBJID
+#' Keys: `STUDYID`, `USUBJID`
 #'
-#' @param N Number of patients.
-#' @param study_duration Duration of study in years.
-#' @param seed Seed for random number generation.
-#' @param with_trt02 If period 2 is needed, set duration of period 2 in years.
-#' @param ae_withdrawal_prob Probability that there is at least one Adverse Event
-#' leading to the withdrawal of a study drug.
-#' @inheritParams mutate_na
-#' @templateVar data adsl
+#' @inheritParams argument_convention
+#' @param N (`integer`)\cr Number of patients.
+#' @param study_duration (`integer`)\cr Duration of study in years.
+#' @param with_trt02 (`logical`)\cr Should period 2 be added.
+#' @param ae_withdrawal_prob (`proportion`)\cr Probability that there is at least one
+#' Adverse Event leading to the withdrawal of a study drug.
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data adsl
+#'
+#' @return `data.frame`
 #' @export
 #
 #' @examples

@@ -1,11 +1,14 @@
 #' Time to Safety Event Analysis Dataset (ADSAFTTE)
 #'
-#' Function to generate random time to safety event dataset for a
-#' given subject-level analysis dataset.
+#' Function to generate random Time-to-Safety Event Dataset for a
+#' given Subject-Level Analysis Dataset.
 #'
 #' @inheritParams radaette
-#' @param ... Additional argument to be passed to \code{radaette}
+#' @param ... Additional arguments to be passed to `radaette`
+#' @template param_cached
+#' @templateVar data adsaftte
 #'
+#' @return `data.frame`
 #' @export
 #'
 #' @examples

@@ -7,14 +7,14 @@
 get_random_dates_between(from, to, visit_id)
 }
 \arguments{
-\item{from}{start date/time variable}
+\item{from}{(`datetime vector`)\cr Start date/times.}
 
-\item{to}{end date/time variable}
+\item{to}{(`datetime vector`)\cr End date/times.}
 
-\item{visit_id}{visit number variable}
+\item{visit_id}{(`integer vector`)\cr Visit numbers.}
 }
 \value{
-data frame with new variable with random generated dates
+data frame with new randomly generated dates variable.
 }
 \description{
 Function for generating random dates between 2 dates

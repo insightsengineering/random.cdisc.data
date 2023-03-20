@@ -1,23 +1,20 @@
 #' Adverse Event Analysis Dataset (ADAE)
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' Function for generating random Adverse Event Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per each record in the corresponding SDTM domain.
 #'
-#' Keys: STUDYID USUBJID ASTDTM AETERM AESEQ.
+#' Keys: `STUDYID`, `USUBJID`, `ASTDTM`, `AETERM`, `AESEQ`
 #'
-#' @template ADSL_params
-#' @template lookup_param
-#' @template lookup_aag_param
-#' @param max_n_aes Maximum number of AEs per patient.
-#' @inheritParams radsl
-#' @inheritParams mutate_na
-#'
-#' @templateVar data adae
+#' @inheritParams argument_convention
+#' @param max_n_aes (`integer`)\cr Maximum number of AEs per patient. Defaults to 10.
 #' @template param_cached
-#' @template return_data.frame
-#' @importFrom rlang .data
+#' @templateVar data adae
+#'
+#' @return `data.frame`
 #' @export
 #'
 #' @examples

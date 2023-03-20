@@ -1,22 +1,20 @@
 #' Time-to-Event Analysis Dataset (ADTTE)
 #'
-#' Function for generating random Time-to-Event Analysis Dataset for a given
+#' @description `r lifecycle::badge("stable")`
+#'
+#' Function for generating a random Time-to-Event Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details
 #'
-#' Keys: STUDYID USUBJID PARAMCD
+#' Keys: `STUDYID`, `USUBJID`, `PARAMCD`
 #'
-#' @template ADSL_params
-#' @template lookup_param
-#' @param event.descr Character vector with description of events.
-#' @param censor.descr censor description.
-#' @inheritParams radsl
-#' @inheritParams mutate_na
-#'
-#' @templateVar data adtte
+#' @inheritParams argument_convention
+#' @inheritParams radaette
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data adtte
+#'
+#' @return `data.frame`
 #' @export
 #'
 #' @examples

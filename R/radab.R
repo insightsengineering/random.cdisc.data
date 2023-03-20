@@ -1,14 +1,20 @@
 #' Anti-Drug Antibody Analysis Dataset (ADAB)
 #'
-#' @param constants (`character vector`)\cr Constant parameters to be used for creating analysis values.
+#' @description `r lifecycle::badge("stable")`
+#'
+#' Function for generating a random Anti-Drug Antibody Analysis Dataset for a given
+#' Subject-Level Analysis Dataset and Pharmacokinetics Analysis Dataset.
+#'
+#' @inheritParams argument_convention
 #' @inheritParams radpc
-#' @param ADPC (`character`)\cr parameter code.
-#' @param paramcd (`character`)\cr parameter code.
-#' @param param (`character`)\cr parameters.
+#' @param ADPC (`data.frame`)\cr Pharmacokinetics Analysis Dataset.
+#' @template param_cached
+#' @templateVar data adab
 #'
-#' @details One record per study per subject per parameter per time point
-#'
+#' @return `data.frame`
 #' @export
+#'
+#' @details One record per study per subject per parameter per time point.
 #'
 #' @examples
 #' library(random.cdisc.data)

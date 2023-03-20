@@ -1,17 +1,19 @@
 #' EORTC QLQ-C30 V3 Analysis Dataset (ADQLQC)
 #'
-#' @param ADSL Subject-Level Analysis Dataset
-#' @param seed Seed for random number generation
-#' @param percent Completion - Completed at least y percent of questions, 1 record per visit
-#' @param number Completion - Completed at least x question(s), 1 record per visit
-#' @param cached boolean whether the cached <%= toupper(data) %> data \code{c<%=data%>}
-#' should be returned or new data
+#' @description `r lifecycle::badge("stable")`
+#'
+#' Function for generating a random EORTC QLQ-C30 V3 Analysis Dataset for a given
+#' Subject-Level Analysis Dataset.
+#'
+#' @inheritParams argument_convention
+#' @param percent (`numeric`)\cr Completion - Completed at least y percent of questions, 1 record per visit
+#' @param number (`numeric`)\cr Completion - Completed at least x question(s), 1 record per visit
+#' @template param_cached
 #' @templateVar data adqlqc
 #'
-#' @return a dataframe with EORTC QLQ-C30 V3 Analysis Dataset
-#'
-#' @import dplyr
+#' @return `data.frame`
 #' @export
+#' @import dplyr
 #'
 #' @examples
 #' library(random.cdisc.data)
@@ -254,26 +256,9 @@ radqlqc <- function(ADSL,
 #'
 #' Function for generating random Questionnaires SDTM domain
 #'
-#' @param ADSL ADSL dataset
-#' @param visit_format as character string. Valid values: WEEK, CYCLE.
-#' @param n_assessments number of assessments. Valid values: integer.
-#' @param n_days number of days for each cycle: Valid values: integer.
-#' @param lookup control lookup process.
-#' @param seed Seed for random number generation.
-#' @param na_percentage (\code{numeric}) Default percentage of values to be replaced by NA
-#' @param na_vars na_vars (\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
-#' element of this list should be a numeric vector with two elements
-#'  \itemize{
-#'     \item{seed }{The seed to be used for this element - can be left NA}
-#'     \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-#'     percentage is used. This will overwrite default percentage (percentage argument))}
-#' }
-#' @param cached boolean whether the cached <%= toupper(data) %> data \code{c<%=data%>} should be
-#' returned or new data
+#' @inheritParams argument_convention
 #'
 #' @return a dataframe with SDTM questionnaire data
-#'
-#' @import dplyr
 #' @keywords internal
 #'
 #' @examples
@@ -291,13 +276,7 @@ get_qs_data <- function(ADSL,
                         na_vars = list(
                           QSORRES = c(1234, 0.2),
                           QSSTRESC = c(1234, 0.2)
-                        ),
-                        cached = FALSE) {
-  checkmate::assert_flag(cached)
-  if (cached) {
-    return(get_cached_data("cqs"))
-  }
-
+                        )) {
   checkmate::assert_string(visit_format)
   checkmate::assert_integer(n_assessments, len = 1, any.missing = FALSE)
   checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
@@ -576,13 +555,12 @@ get_qs_data <- function(ADSL,
 
 #' Function for generating random dates between 2 dates
 #'
-#' @param from start date/time variable
-#' @param to end date/time variable
-#' @param visit_id visit number variable
+#' @param from (`datetime vector`)\cr Start date/times.
+#' @param to (`datetime vector`)\cr End date/times.
+#' @param visit_id (`integer vector`)\cr Visit numbers.
 #'
-#' @return data frame with new variable with random generated dates
+#' @return data frame with new randomly generated dates variable.
 #'
-#' @importFrom lubridate as_datetime days
 #' @keywords internal
 #'
 #' @examples
@@ -615,15 +593,12 @@ get_random_dates_between <- function(from, to, visit_id) {
   lubridate::as_datetime(out[match(visit_id, visit_ids)])
 }
 
-
 #' Prepare ADaM ADQLQC data, adding PARAMCD to SDTM QS data
 #'
-#' @param df SDTM QS
+#' @param df (`data.frame`)\cr SDTM QS dataset.
 #'
-#' @return data frame
+#' @return `data.frame`
 #'
-#' @importFrom stringr str_extract
-#' @importFrom dplyr select mutate left_join case_when
 #' @keywords internal
 #'
 #' @examples
@@ -633,7 +608,7 @@ get_random_dates_between <- function(from, to, visit_id) {
 #' }
 prep_adqlqc <- function(df) {
   # create PARAMCD from QSTESTCD
-  adqlqc <- mutate(
+  adqlqc <- dplyr::mutate(
     df,
     PARAMCD = case_when(
       QSTESTCD == "EOR0101" ~ "QS02801",
@@ -669,7 +644,7 @@ prep_adqlqc <- function(df) {
       TRUE ~ QSTESTCD
     )
   )
-  adqlqc1 <- left_join(
+  adqlqc1 <- dplyr::left_join(
     adqlqc,
     gdsr_param_adqlqc,
     by = "PARAMCD"
@@ -679,12 +654,10 @@ prep_adqlqc <- function(df) {
 
 #' Scale calculation for ADQLQC data
 #'
-#' @param adqlqc1 prepared data generated from the prep_adqlqc function
+#' @param adqlqc1 (`data.frame`)\cr Prepared data generated from the [prep_adqlqc()] function.
 #'
-#' @return dataframe
+#' @return `data.frame`
 #'
-#' @import dplyr
-#' @importFrom stringr str_extract str_detect
 #' @keywords internal
 #'
 #' @examples
@@ -963,9 +936,9 @@ calc_scales <- function(adqlqc1) {
 
 #' Calculate Change from Baseline Category 1
 #'
-#' @param dataset adam dataset
+#' @param dataset (`data.frame`)\cr ADaM dataset.
 #'
-#' @return dataframe
+#' @return `data.frame`
 #'
 #' @keywords internal
 #'
@@ -1127,13 +1100,13 @@ derv_chgcat1 <- function(dataset) {
   }
 }
 
-#' Completion/Compliance data calculation
-#' @param dataset adam dataset
-#' @param percent Completion - Completed at least y percent of questions, 1 record per visit
-#' @param number Completion - Completed at least x question(s), 1 record per visit
-#' @return data frame
+#' Completion/Compliance Data Calculation
 #'
-#' @import dplyr
+#' @inheritParams radqlqc
+#' @param dataset (`data.frame`)\cr dataset
+#'
+#' @return `data.frame`
+#'
 #' @keywords internal
 #'
 #' @examples

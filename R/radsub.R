@@ -19,6 +19,8 @@
 #'
 #' @return a dataframe with anthropometric measurements for each subject in analysis dataset.
 #'
+#' @keywords internal
+#'
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 5, seed = 1)
@@ -77,22 +79,20 @@ h_anthropometrics_by_sex <- function(df,
 
 #' Subcategory Analysis Dataset (ADSUB)
 #'
-#' Function for generating random dataset from Subcategory Analysis Dataset for a given
-#' Subject-Level Analysis Dataset
+#' @description `r lifecycle::badge("stable")`
 #'
-#' @details One record per subject
+#' Function for generating a random Subcategory Analysis Dataset for a given
+#' Subject-Level Analysis Dataset.
 #'
-#' Keys: STUDYID, USUBJID, PARAMCD, AVISITN, ADTM, SRCSEQ
+#' @details One record per subject.
 #'
-#' @template ADSL_params
-#' @param param param character vector with parameter value strings.
-#' @param paramcd paramcd character vector with parameter code values.
-#' @inheritParams radsl
-#' @inheritParams mutate_na
+#' Keys: `STUDYID`, `USUBJID`, `PARAMCD`, `AVISITN`, `ADTM`, `SRCSEQ`
 #'
-#' @templateVar data adsub
+#' @inheritParams argument_convention
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data adsub
+#'
+#' @return `data.frame`
 #' @export
 #'
 #' @author tomlinsj, npaszty, Xuefeng Hou, dipietrc

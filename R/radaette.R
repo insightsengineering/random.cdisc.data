@@ -1,20 +1,21 @@
 #' Time to Adverse Event Analysis Dataset (ADAETTE)
 #'
-#' Function to generate random time to AE dataset for a
-#' given subject-level analysis dataset.
+#' @description `r lifecycle::badge("stable")`
 #'
-#' Keys: STUDYID USUBJID PARAMCD
+#' Function to generate random Time-to-AE Dataset for a
+#' given Subject-Level Analysis Dataset.
 #'
-#' @template ADSL_params
-#' @template lookup_param
+#' @details
+#'
+#' Keys: `STUDYID`, `USUBJID`, `PARAMCD`
+#'
+#' @inheritParams argument_convention
 #' @param event.descr Character vector with description of events.
 #' @param censor.descr Character vector with description of censors.
-#' @inheritParams radsl
-#' @inheritParams mutate_na
-#'
-#' @templateVar data adaette
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data adaette
+#'
+#' @return `data.frame`
 #' @export
 #'
 #' @author Xiuting Mi

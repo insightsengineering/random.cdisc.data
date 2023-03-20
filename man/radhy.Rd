@@ -2,7 +2,7 @@
 % Please edit documentation in R/radhy.R
 \name{radhy}
 \alias{radhy}
-\title{Hys Law Analysis Dataset (ADHY)}
+\title{Hy's Law Analysis Dataset (ADHY)}
 \usage{
 radhy(
   ADSL,
@@ -36,28 +36,30 @@ radhy(
 )
 }
 \arguments{
-\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{param}{As character string. list of parameter values.}
+\item{param}{(`character vector`)\cr Parameter values.}
 
-\item{paramcd}{As character string. list of parameter code values.}
+\item{paramcd}{(`character vector`)\cr Parameter code values.}
 
-\item{seed}{Seed for random number generation.}
+\item{seed}{(`integer`)\cr Seed for reproducible random number generation.}
 
 \item{cached}{boolean whether the cached ADHY data \code{cadhy} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radhy} will be ignored.}
 }
 \value{
-data.frame
+`data.frame`
 }
 \description{
-Function for generating random dataset from Hys Law Analysis Dataset for a given
+`r lifecycle::badge("stable")`
+
+Function for generating a random Hy's Law Analysis Dataset for a given
 Subject-Level Analysis Dataset.
 }
 \details{
 One record per subject per parameter per analysis visit per analysis date.
 
-Keys: STUDYID, USUBJID, PARAMCD, AVISITN, ADTM, SRCSEQ.
+Keys: `STUDYID`, `USUBJID`, `PARAMCD`, `AVISITN`, `ADTM`, `SRCSEQ`
 }
 \examples{
 library(random.cdisc.data)

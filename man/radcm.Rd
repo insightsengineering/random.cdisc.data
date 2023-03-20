@@ -16,40 +16,42 @@ radcm(
 )
 }
 \arguments{
-\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{max_n_cms}{maximum number of concomitant medications per patient.}
+\item{max_n_cms}{(`integer`)\cr Maximum number of concomitant medications per patient. Defaults to 10.}
 
-\item{lookup}{Data.frame containing additional parameters.}
+\item{lookup}{(`data.frame`)\cr Additional parameters.}
 
-\item{seed}{Seed for random number generation.}
+\item{seed}{(`integer`)\cr Seed for reproducible random number generation.}
 
-\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(`proportion`)\cr Default percentage of values to be replaced by `NA`.}
 
-\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
- element of this list should be a numeric vector with two elements
- \itemize{
-    \item{seed }{The seed to be used for this element - can be left NA}
-    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-    percentage is used. This will overwrite default percentage (percentage argument))}
+\item{na_vars}{(`list`)\cr A named list where the name of each element is a column name of `ds`. Each
+element of this list should be a numeric vector with two elements:
+\itemize{
+  \item{`seed` (`integer`)\cr The seed to be used for this element - can be `NA`.}
+  \item{`percentage` (`proportion`)\cr Percentage of elements to be replaced with `NA`.
+  If `NA`, `na_percentage` is used as a default.}
 }}
 
-\item{who_coding}{(`flag`)\cr whether to use WHO coding (with multiple paths per medication) or not.}
+\item{who_coding}{(`flag`)\cr Whether WHO coding (with multiple paths per medication) should be used.}
 
 \item{cached}{boolean whether the cached ADCM data \code{cadcm} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radcm} will be ignored.}
 }
 \value{
-data.frame
+`data.frame`
 }
 \description{
+`r lifecycle::badge("stable")`
+
 Function for generating random Concomitant Medication Analysis Dataset for a given
 Subject-Level Analysis Dataset.
 }
 \details{
 One record per each record in the corresponding SDTM domain.
 
-Keys: STUDYID USUBJID ASTDTM CMSEQ.
+Keys: `STUDYID`, `USUBJID`, `ASTDTM`, `CMSEQ`
 }
 \examples{
 library(random.cdisc.data)

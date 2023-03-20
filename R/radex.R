@@ -1,26 +1,23 @@
 #' Exposure Analysis Dataset (ADEX)
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' Function for generating random Exposure Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per each record in the corresponding SDTM domain.
 #'
-#' Keys: STUDYID USUBJID EXSEQ PARAMCD PARCAT1 ASTDTM AENDTM ASTDY AENDY AVISITN
-#' EXDOSFRQ EXROUTE VISIT VISITDY EXSTDTC EXENDTC EXSTDY EXENDY
+#' Keys: `STUDYID`, `USUBJID`, `EXSEQ`, `PARAMCD`, `PARCAT1`, `ASTDTM`, `AENDTM`, `ASTDY`, `AENDY`,
+#' `AVISITN`, `EXDOSFRQ`, `EXROUTE`, `VISIT`, `VISITDY`, `EXSTDTC`, `EXENDTC`, `EXSTDY`, `EXENDY`
 #'
-#' @template ADSL_params
-#' @template BDS_findings_params
-#' @param paramu As character vector of parameter unit value
-#' @param parcat1 Individual/Overall dose amount
-#' @param parcat2 Type of drug received Drug A / Drug B
-#' @param max_n_exs As numeric. maximum number of exposures
-#' @param lookup control lookup process
-#' @inheritParams radsl
-#' @inheritParams mutate_na
-#'
-#' @templateVar data adex
+#' @inheritParams argument_convention
+#' @param parcat1 (`character vector`)\cr Dose amount categories. Defaults to "Individual" and "Overall".
+#' @param parcat2 (`character vector`)\cr Types of drug received. Defaults to "Drug A" and "Drug B".
+#' @param max_n_exs (`integer`)\cr Maximum number of exposures per patient. Defaults to 6.
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data adex
+#'
+#' @return `data.frame`
 #' @export
 #'
 #' @examples

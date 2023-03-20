@@ -4,6 +4,7 @@
 #'
 #' @name package
 #' @import magrittr
+#' @importFrom rlang .data
 #'
 "_PACKAGE"
 

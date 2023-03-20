@@ -33,38 +33,44 @@ radab(
 )
 }
 \arguments{
-\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{ADPC}{(`character`)\cr parameter code.}
+\item{ADPC}{(`data.frame`)\cr Pharmacokinetics Analysis Dataset.}
 
-\item{constants}{(`character vector`)\cr Constant parameters to be used for creating analysis values.}
+\item{constants}{(`character vector`)\cr Constant parameters to be used in formulas for creating analysis values.}
 
-\item{paramcd}{(`character`)\cr parameter code.}
+\item{paramcd}{(`character vector`)\cr Parameter code values.}
 
-\item{param}{(`character`)\cr parameters.}
+\item{param}{(`character vector`)\cr Parameter values.}
 
-\item{avalu}{(`string`)\cr Analysis value unit value}
+\item{avalu}{(`character`)\cr Analysis value units.}
 
-\item{seed}{Seed for random number generation.}
+\item{seed}{(`integer`)\cr Seed for reproducible random number generation.}
 
-\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(`proportion`)\cr Default percentage of values to be replaced by `NA`.}
 
-\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
- element of this list should be a numeric vector with two elements
- \itemize{
-    \item{seed }{The seed to be used for this element - can be left NA}
-    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-    percentage is used. This will overwrite default percentage (percentage argument))}
+\item{na_vars}{(`list`)\cr A named list where the name of each element is a column name of `ds`. Each
+element of this list should be a numeric vector with two elements:
+\itemize{
+  \item{`seed` (`integer`)\cr The seed to be used for this element - can be `NA`.}
+  \item{`percentage` (`proportion`)\cr Percentage of elements to be replaced with `NA`.
+  If `NA`, `na_percentage` is used as a default.}
 }}
 
-\item{cached}{boolean whether the cached ADSL data \code{cadsl} should be returned or new data
-should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
+\item{cached}{boolean whether the cached ADAB data \code{cadab} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radab} will be ignored.}
+}
+\value{
+`data.frame`
 }
 \description{
-Anti-Drug Antibody Analysis Dataset (ADAB)
+`r lifecycle::badge("stable")`
+
+Function for generating a random Anti-Drug Antibody Analysis Dataset for a given
+Subject-Level Analysis Dataset and Pharmacokinetics Analysis Dataset.
 }
 \details{
-One record per study per subject per parameter per time point
+One record per study per subject per parameter per time point.
 }
 \examples{
 library(random.cdisc.data)

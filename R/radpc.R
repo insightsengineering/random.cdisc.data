@@ -1,14 +1,20 @@
 #' Pharmacokinetics Analysis Dataset (ADPC)
 #'
-#' @template ADSL_params
-#' @param avalu (`string`)\cr Analysis value unit value
-#' @param constants (`character vector`)\cr Constant parameters to be used in the PK
-#' equation for creating analysis values.
+#' @description `r lifecycle::badge("stable")`
+#'
+#' Function for generating a random Pharmacokinetics Analysis Dataset for a given
+#' Subject-Level Analysis Dataset.
+#'
+#' @details One record per per study per subject per parameter per time point.
+#'
+#' @inheritParams argument_convention
+#' @param avalu (`character`)\cr Analysis value units.
+#' @param constants (`character vector`)\cr Constant parameters to be used in formulas for creating analysis values.
 #' @param duration (`numeric`)\cr Duration in number of days.
-#' @inheritParams radsl
+#' @template param_cached
+#' @templateVar data adpc
 #'
-#' @details One record per per study per subject per parameter per time point
-#'
+#' @return `data.frame`
 #' @export
 #'
 #' @examples

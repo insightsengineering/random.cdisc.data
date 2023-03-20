@@ -7,10 +7,10 @@
 derv_chgcat1(dataset)
 }
 \arguments{
-\item{dataset}{adam dataset}
+\item{dataset}{(`data.frame`)\cr ADaM dataset.}
 }
 \value{
-dataframe
+`data.frame`
 }
 \description{
 Calculate Change from Baseline Category 1

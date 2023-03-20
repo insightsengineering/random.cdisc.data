@@ -7,10 +7,10 @@
 calc_scales(adqlqc1)
 }
 \arguments{
-\item{adqlqc1}{prepared data generated from the prep_adqlqc function}
+\item{adqlqc1}{(`data.frame`)\cr Prepared data generated from the [prep_adqlqc()] function.}
 }
 \value{
-dataframe
+`data.frame`
 }
 \description{
 Scale calculation for ADQLQC data

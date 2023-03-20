@@ -54,3 +54,4 @@ ADSL <- radsl(N = 5, seed = 1)
 DF_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = ADSL)
 DF_with_measurements
 }
+\keyword{internal}

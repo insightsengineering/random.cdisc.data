@@ -21,46 +21,48 @@ radvs(
 )
 }
 \arguments{
-\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{param}{As character string. list of parameter values.}
+\item{param}{(`character vector`)\cr Parameter values.}
 
-\item{paramcd}{As character string. list of parameter code values.}
+\item{paramcd}{(`character vector`)\cr Parameter code values.}
 
-\item{paramu}{As character string. list of parameter unit values.}
+\item{paramu}{(`character vector`)\cr Parameter unit values.}
 
-\item{visit_format}{Type of visit either "WEEK" or "CYCLE".}
+\item{visit_format}{(`character`)\cr Type of visit. Options are "WEEK" and "CYCLE".}
 
-\item{n_assessments}{Number of weeks or cycles.}
+\item{n_assessments}{(`integer`)\cr Number of weeks or cycles.}
 
-\item{n_days}{Number of days within cycle.}
+\item{n_days}{(`integer`)\cr Number of days within cycle (only used if `visit_format` is "CYCLE").}
 
-\item{seed}{Seed for random number generation.}
+\item{seed}{(`integer`)\cr Seed for reproducible random number generation.}
 
-\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(`proportion`)\cr Default percentage of values to be replaced by `NA`.}
 
-\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
- element of this list should be a numeric vector with two elements
- \itemize{
-    \item{seed }{The seed to be used for this element - can be left NA}
-    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-    percentage is used. This will overwrite default percentage (percentage argument))}
+\item{na_vars}{(`list`)\cr A named list where the name of each element is a column name of `ds`. Each
+element of this list should be a numeric vector with two elements:
+\itemize{
+  \item{`seed` (`integer`)\cr The seed to be used for this element - can be `NA`.}
+  \item{`percentage` (`proportion`)\cr Percentage of elements to be replaced with `NA`.
+  If `NA`, `na_percentage` is used as a default.}
 }}
 
 \item{cached}{boolean whether the cached ADVS data \code{cadvs} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radvs} will be ignored.}
 }
 \value{
-data.frame
+`data.frame`
 }
 \description{
-Function for generating random dataset from Vital Signs Analysis Dataset for a given
+`r lifecycle::badge("stable")`
+
+Function for generating a random Vital Signs Analysis Dataset for a given
 Subject-Level Analysis Dataset.
 }
 \details{
 One record per subject per parameter per analysis visit per analysis date.
 
-Keys: STUDYID, USUBJID, PARAMCD, BASETYPE, AVISITN, ATPTN, DTYPE, ADTM, VSSEQ, ASPID.
+Keys: `STUDYID`, `USUBJID`, `PARAMCD`, `BASETYPE`, `AVISITN`, `ATPTN`, `DTYPE`, `ADTM`, `VSSEQ`, `ASPID`
 }
 \examples{
 library(random.cdisc.data)

@@ -1,6 +1,8 @@
-#' Tumor Response Analysis Data Set (ADRS)
+#' Tumor Response Analysis Dataset (ADRS)
 #'
-#' Function for generating random Tumor Response Analysis Data Set for a given
+#' @description `r lifecycle::badge("stable")`
+#'
+#' Function for generating a random Tumor Response Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details
@@ -8,17 +10,14 @@
 #' SDTM variables are populated on new records coming from other single records.
 #' Otherwise, SDTM variables are left blank.
 #'
-#' Keys: STUDYID USUBJID PARAMCD AVISITN ADT RSSEQ
+#' Keys: `STUDYID`, `USUBJID`, `PARAMCD`, `AVISITN`, `ADT`, `RSSEQ`
 #'
-#' @param avalc Vector of analysis value categories.
-#' @inheritParams radsl
-#' @inheritParams mutate_na
-#'
-#' @template ADSL_params
-#' @template lookup_param
-#' @templateVar data adrs
+#' @inheritParams argument_convention
+#' @param avalc (`character vector`)\cr Analysis value categories.
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data adrs
+#'
+#' @return `data.frame`
 #' @export
 #'
 #' @examples
