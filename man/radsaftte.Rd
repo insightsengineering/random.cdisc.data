@@ -10,9 +10,6 @@ radsaftte(ADSL, ...)
 \item{ADSL}{(`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{...}{Additional arguments to be passed to `radaette`}
-
-\item{cached}{boolean whether the cached ADSAFTTE data \code{cadsaftte} should be returned or new data
-should be generated. If set to \code{TRUE} then the other arguments to \code{radsaftte} will be ignored.}
 }
 \value{
 `data.frame`

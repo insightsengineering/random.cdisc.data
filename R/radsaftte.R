@@ -5,8 +5,6 @@
 #'
 #' @inheritParams radaette
 #' @param ... Additional arguments to be passed to `radaette`
-#' @template param_cached
-#' @templateVar data adsaftte
 #'
 #' @return `data.frame`
 #' @export
