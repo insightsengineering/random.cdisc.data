@@ -11,7 +11,7 @@ replace_na(v, percentage = 0.05, seed = NULL)
 
 \item{percentage}{(\code{proportion})\cr Value between 0 and 1 defining
 how much of the vector shall be replaced by \code{NA}. This number
-is randomized by +/- 5\\% to have full randomization.}
+is randomized by +/- 5\% to have full randomization.}
 
 \item{seed}{(\code{integer})\cr Seed for reproducible random number generation.}
 }

@@ -19,7 +19,6 @@ Depends:
 Imports:
     checkmate,
     dplyr,
-    lifecycle,
     lubridate,
     magrittr,
     rlang,
@@ -30,6 +29,7 @@ Imports:
 Suggests:
     diffdf,
     knitr,
+    lifecycle,
     rmarkdown,
     testthat (>= 0.2)
 VignetteBuilder:

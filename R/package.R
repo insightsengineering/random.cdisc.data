@@ -3,9 +3,11 @@
 #' Package to create random SDTM and ADAM datasets.
 #'
 #' @name package
-#' @import magrittr
 #' @import dplyr
+#' @import magrittr
+#' @importFrom lifecycle badge
 #' @importFrom rlang .data := !!
+#' @importFrom stringr str_detect
 #'
 "_PACKAGE"
 

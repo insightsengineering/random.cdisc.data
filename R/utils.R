@@ -329,7 +329,7 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
 #' @param v (`any`)\cr Vector of any type.
 #' @param percentage (`proportion`)\cr Value between 0 and 1 defining
 #'   how much of the vector shall be replaced by `NA`. This number
-#'   is randomized by +/- 5\% to have full randomization.
+#'   is randomized by +/- 5% to have full randomization.
 #'
 #' @return The input vector `v` where a certain number of values are replaced by `NA`.
 #'
