@@ -23,7 +23,7 @@
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' radhy(ADSL, seed = 2)
-radhy <- function(ADSL, # nolint
+radhy <- function(ADSL,
                   param = c(
                     "TBILI <= 2 times ULN and ALT value category",
                     "TBILI > 2 times ULN and AST value category",
@@ -93,7 +93,7 @@ radhy <- function(ADSL, # nolint
   }
 
   # create all combinations of unique values in STUDYID, USUBJID, PARAM, AVISIT
-  ADHY <- expand.grid( # nolint
+  ADHY <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
     PARAM = as.factor(param_init_list$relvar1),
@@ -103,18 +103,18 @@ radhy <- function(ADSL, # nolint
   )
 
   # remove records that are not needed and were created as a side product of expand.grid above
-  ADHY <- dplyr::filter(ADHY, !(.data$AVISIT == "BASELINE" & .data$APERIODC == "PERIOD 2")) # nolint
+  ADHY <- dplyr::filter(ADHY, !(.data$AVISIT == "BASELINE" & .data$APERIODC == "PERIOD 2"))
 
   # define TBILI ALT/AST params, period dependent parameters and the parameters that will be assigned values "Y" or "N"
-  paramcd_tbilialtast <- c("BLAL", "BGAS", "BGAL", "BLAS", "BA2AL", "BA2AS", "BA5AL", "BA5AS") # nolint
+  paramcd_tbilialtast <- c("BLAL", "BGAS", "BGAL", "BLAS", "BA2AL", "BA2AS", "BA5AL", "BA5AS")
   paramcd_by_period <- c("ALTPULN", "ASTPULN", "ALTASTPU", "ALTPBASE", "ASTPBASE", "ALTASTPB")
   paramcd_yn <- c(
     "BL2AL2CU", "BG2AS2CU", "BL2AS2CU", "BG2AL2CU", "BG2AL2CB", "BL2AL2CB", "BG2AS2CB", "BL2AS2CB",
     paramcd_by_period
-  ) # nolint
+  )
 
   # add other variables to ADHY
-  ADHY <- ADHY %>% # nolint
+  ADHY <- ADHY %>%
     rel_var(
       var_name = "PARAMCD",
       related_var = "PARAM",
@@ -155,10 +155,10 @@ radhy <- function(ADSL, # nolint
     )
 
   # remove records for parameters with period 2 and not in paramcd_by_period
-  ADHY <- dplyr::filter(ADHY, .data$PARAMCD %in% paramcd_by_period | .data$APERIODC == "PERIOD 1") # nolint
+  ADHY <- dplyr::filter(ADHY, .data$PARAMCD %in% paramcd_by_period | .data$APERIODC == "PERIOD 1")
 
   # add baseline variables
-  ADHY <- ADHY %>% # nolint
+  ADHY <- ADHY %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
     dplyr::mutate(
       BASEC = .data$AVALC[.data$AVISIT == "BASELINE"],
@@ -166,21 +166,21 @@ radhy <- function(ADSL, # nolint
     ) %>%
     dplyr::ungroup()
 
-  ADHY <- ADHY %>% # nolint
+  ADHY <- ADHY %>%
     var_relabel(
       STUDYID = attr(ADSL$STUDYID, "label"),
       USUBJID = attr(ADSL$USUBJID, "label")
     )
 
   # merge ADSL to be able to add analysis datetime and analysis relative day variables
-  ADHY <- dplyr::inner_join(ADHY, ADSL, by = c("STUDYID", "USUBJID")) # nolint
+  ADHY <- dplyr::inner_join(ADHY, ADSL, by = c("STUDYID", "USUBJID"))
 
   # define a simple helper function to create ADY variable
   add_ady <- function(x, avisit) {
     if (avisit == "BASELINE") {
       dplyr::mutate(
         x,
-        ADY = sample(x = -(1:14), size = dplyr::n(), replace = TRUE) # nolint
+        ADY = sample(x = -(1:14), size = dplyr::n(), replace = TRUE)
       )
     } else if (avisit == "POST-BASELINE") {
       dplyr::rowwise(x) %>%
@@ -199,17 +199,17 @@ radhy <- function(ADSL, # nolint
   }
 
   # add ADY and ADTM variables
-  ADHY <- ADHY %>% # nolint
+  ADHY <- ADHY %>%
     dplyr::group_by(.data$AVISIT, .add = FALSE) %>%
     dplyr::group_modify(~ add_ady(.x, .y$AVISIT)) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(ADTM = .data$TRTSDTM + .data$ADY)
 
   # `+` operation causes that tzone attribute is lost for POSIXct objects
-  attributes(ADHY$ADTM) <- attributes(ADSL$TRTSDTM) # nolint
+  attributes(ADHY$ADTM) <- attributes(ADSL$TRTSDTM)
 
   # order columns and arrange rows; column order follows ADaM_1.1 specification
-  ADHY <- # nolint
+  ADHY <-
     ADHY[, c(
       colnames(ADSL),
       "PARAM",
@@ -230,7 +230,7 @@ radhy <- function(ADSL, # nolint
       "ANL01FL"
     )]
 
-  ADHY <- ADHY %>% # nolint
+  ADHY <- ADHY %>%
     dplyr::arrange(
       .data$STUDYID,
       .data$USUBJID,
@@ -241,7 +241,7 @@ radhy <- function(ADSL, # nolint
     )
 
   # apply metadata
-  ADHY <- apply_metadata(ADHY, "metadata/ADHY.yml") # nolint
+  ADHY <- apply_metadata(ADHY, "metadata/ADHY.yml")
 
   return(ADHY)
 }

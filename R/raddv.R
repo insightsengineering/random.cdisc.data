@@ -25,7 +25,7 @@
 #' @examples
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' raddv(ADSL, seed = 2)
-raddv <- function(ADSL, # nolint
+raddv <- function(ADSL,
                   max_n_dv = 3L,
                   p_dv = 0.15,
                   lookup = NULL,
@@ -86,7 +86,7 @@ raddv <- function(ADSL, # nolint
   }
 
 
-  ADDV <- Map( # nolint
+  ADDV <- Map(
     function(id, sid) {
       n_dv <- stats::rbinom(1, 1, p_dv) * sample(c(1, seq_len(max_n_dv)), 1)
       i <- sample(seq_len(nrow(lookup_dv)), n_dv, TRUE)
@@ -102,14 +102,14 @@ raddv <- function(ADSL, # nolint
     Reduce(rbind, .) %>%
     dplyr::mutate(DVSCAT = .data$DVCAT)
 
-  ADDV <- var_relabel( # nolint
+  ADDV <- var_relabel(
     ADDV,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add deviation date and study day variables
-  ADDV <- dplyr::inner_join(ADDV, ADSL, by = c("STUDYID", "USUBJID")) %>% # nolint
+  ADDV <- dplyr::inner_join(ADDV, ADSL, by = c("STUDYID", "USUBJID")) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
     dplyr::mutate(trtedt_int = dplyr::case_when(
@@ -126,21 +126,21 @@ raddv <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDT, .data$DVTERM)
 
-  ADDV <- ADDV %>% # nolint
+  ADDV <- ADDV %>%
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(DVSEQ = seq_len(dplyr::n())) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDT, .data$DVTERM, .data$DVSEQ)
 
-  ADDV <- ADDV %>% # nolint
+  ADDV <- ADDV %>%
     dplyr::mutate(AEPRELFL = ifelse(.data$DVEPRELI == "Y", .data$DVEPRELI, ""))
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADDV <- mutate_na(ds = ADDV, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    ADDV <- mutate_na(ds = ADDV, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADDV <- apply_metadata(ADDV, "metadata/ADDV.yml") # nolint
+  ADDV <- apply_metadata(ADDV, "metadata/ADDV.yml")
 
   return(ADDV)
 }

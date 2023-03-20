@@ -37,7 +37,7 @@
 #'   )
 #' )
 #' radsl(N = 10, seed = 1, na_percentage = .1)
-radsl <- function(N = 400, # nolint
+radsl <- function(N = 400,
                   study_duration = 2,
                   seed = NULL,
                   with_trt02 = TRUE,
@@ -70,7 +70,7 @@ radsl <- function(N = 400, # nolint
   discons <- max(1, floor((N * .3)))
   country_site_prob <- c(.5, .121, .077, .077, .075, .052, .046, .025, .014, .003)
 
-  ADSL <- tibble::tibble( # nolint
+  ADSL <- tibble::tibble(
     STUDYID = rep("AB12345", N),
     COUNTRY = sample_fct(
       c("CHN", "USA", "BRA", "PAK", "NGA", "RUS", "JPN", "GBR", "CAN", "CHE"),
@@ -115,7 +115,7 @@ radsl <- function(N = 400, # nolint
     dplyr::mutate(SAFFL = factor("Y")) %>%
     dplyr::arrange(.data$st_posixn)
 
-  ADDS <- ADSL[sample(nrow(ADSL), discons), ] %>% # nolint
+  ADDS <- ADSL[sample(nrow(ADSL), discons), ] %>%
     dplyr::mutate(TRTEDTM_discon = as.POSIXct(
       sample(
         seq(from = max(.data$st_posixn), to = sys_dtm + study_duration_secs, by = 1),
@@ -127,39 +127,39 @@ radsl <- function(N = 400, # nolint
     dplyr::select("SUBJID", "st_posixn", "TRTEDTM_discon") %>%
     dplyr::arrange(.data$st_posixn)
 
-  ADSL <- dplyr::left_join(ADSL, ADDS, by = c("SUBJID", "st_posixn")) %>% # nolint
+  ADSL <- dplyr::left_join(ADSL, ADDS, by = c("SUBJID", "st_posixn")) %>%
     dplyr::mutate(TRTEDTM = dplyr::case_when(
       !is.na(TRTEDTM_discon) ~ as.POSIXct(TRTEDTM_discon, origin = "1970-01-01"),
       st_posixn >= quantile(st_posixn)[2] & st_posixn <= quantile(st_posixn)[3] ~ as.POSIXct(NA, origin = "1970-01-01"),
       TRUE ~ TRTEDTM
     )) %>%
-    dplyr::mutate( # nolint
-      TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01") # nolint
-    ) %>% # nolint
-    dplyr::select(-"TRTEDTM_discon") # nolint
+    dplyr::mutate(
+      TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01")
+    ) %>%
+    dplyr::select(-"TRTEDTM_discon")
 
   # add period 2 if needed
-  if (with_trt02) { # nolint
-    with_trt02 <- (31556952 * as.numeric(with_trt02)) # nolint
-    ADSL <- ADSL %>% # nolint
-      dplyr::mutate(TRT02P = sample(.data$ARM)) %>% # nolint
-      dplyr::mutate(TRT02A = sample(.data$ACTARM)) %>% # nolint
-      dplyr::mutate( # nolint
+  if (with_trt02) {
+    with_trt02 <- (31556952 * as.numeric(with_trt02))
+    ADSL <- ADSL %>%
+      dplyr::mutate(TRT02P = sample(.data$ARM)) %>%
+      dplyr::mutate(TRT02A = sample(.data$ACTARM)) %>%
+      dplyr::mutate(
         TRT01SDTM = .data$TRTSDTM,
         AP01SDTM = .data$TRT01SDTM,
         TRT01EDTM = .data$TRTEDTM,
         AP01EDTM = .data$TRT01EDTM,
         TRT02SDTM = .data$TRTEDTM,
         AP02SDTM = .data$TRT02SDTM,
-        st_posixn_2 = as.numeric(.data$TRT01EDTM), # nolint
+        st_posixn_2 = as.numeric(.data$TRT01EDTM),
         TRT02EDTM = as.POSIXct(.data$st_posixn_2 + with_trt02, origin = "1970-01-01"),
         AP02EDTM = .data$TRT02EDTM,
         TRTEDTM = .data$TRT02EDTM
-      ) %>% # nolint
-      dplyr::select(-"st_posixn_2") # nolint
+      ) %>%
+      dplyr::select(-"st_posixn_2")
   }
 
-  ADSL <- ADSL %>% # nolint
+  ADSL <- ADSL %>%
     dplyr::mutate(EOSDT = as.Date(.data$TRTEDTM)) %>%
     dplyr::mutate(EOSDY = as.numeric(ceiling(difftime(.data$TRTEDTM, .data$TRTSDTM, units = "days")))) %>%
     dplyr::mutate(EOSSTT = dplyr::case_when(
@@ -185,7 +185,7 @@ radsl <- function(N = 400, # nolint
     prob = c(.1, .3, .3, .2, .1)
   )
 
-  ADSL <- ADSL %>% # nolint
+  ADSL <- ADSL %>%
     dplyr::mutate(
       DCSREAS = ifelse(
         .data$EOSSTT == "DISCONTINUED",
@@ -235,7 +235,7 @@ radsl <- function(N = 400, # nolint
     dplyr::select(-"st_posixn")
 
   # add random ETHNIC (Ethnicity)
-  ADSL <- ADSL %>% # nolint
+  ADSL <- ADSL %>%
     dplyr::mutate(ETHNIC = sample(
       x = c("HISPANIC OR LATINO", "NOT HISPANIC OR LATINO", " NOT REPORTED", "UNKNOWN"),
       size = N, replace = TRUE, prob = c(.1, .8, .06, .04)
@@ -244,12 +244,12 @@ radsl <- function(N = 400, # nolint
   # associate DTHADY (Relative Day of Death) with Death date
   # Date of Death [ADSL.DTHDT] - date part of Date of First Exposure to Treatment [ADSL.TRTSDTM]
 
-  ADSL <- ADSL %>% # nolint
+  ADSL <- ADSL %>%
     dplyr::mutate(DTHADY = as.numeric(.data$DTHDT - as.Date(.data$TRTSDTM)))
 
 
   # associate sites with countries and regions
-  ADSL <- ADSL %>% # nolint
+  ADSL <- ADSL %>%
     dplyr::mutate(SITEID = paste0(.data$COUNTRY, "-", .data$SITEID)) %>%
     dplyr::mutate(REGION1 = dplyr::case_when(
       COUNTRY %in% c("NGA") ~ "Africa",
@@ -267,11 +267,11 @@ radsl <- function(N = 400, # nolint
 
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADSL <- mutate_na(ds = ADSL, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    ADSL <- mutate_na(ds = ADSL, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml", FALSE) # nolint
+  ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml", FALSE)
 
   return(ADSL)
 }

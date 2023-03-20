@@ -16,7 +16,7 @@
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' ADPC <- radpc(ADSL, seed = 2)
 #' ADPC <- radpc(ADSL, seed = 2, duration = 3)
-radpc <- function(ADSL, # nolint
+radpc <- function(ADSL,
                   avalu = "ug/mL",
                   constants = c(D = 100, ka = 0.8, ke = 1),
                   duration = 2,
@@ -45,8 +45,7 @@ radpc <- function(ADSL, # nolint
   }
 
   radpc_core <- function(day) {
-    adpc_day <- tidyr::expand_grid( # nolint
-      # nolint
+    adpc_day <- tidyr::expand_grid(
       data.frame(
         STUDYID = ADSL$STUDYID,
         USUBJID = ADSL$USUBJID,
@@ -100,20 +99,20 @@ radpc <- function(ADSL, # nolint
     return(adpc_day)
   }
 
-  ADPC <- list() # nolint
+  ADPC <- list()
 
   for (day in seq(duration)[seq(duration) <= 7 | ((seq(duration) - 1) %% 7 == 0)]) {
-    ADPC[[day]] <- radpc_core(day = day) # nolint
+    ADPC[[day]] <- radpc_core(day = day)
   }
 
-  ADPC <- do.call(rbind, ADPC) # nolint
+  ADPC <- do.call(rbind, ADPC)
 
-  ADPC <- dplyr::inner_join(ADPC, ADSL, by = c("STUDYID", "USUBJID", "ARMCD")) %>% # nolint
+  ADPC <- dplyr::inner_join(ADPC, ADSL, by = c("STUDYID", "USUBJID", "ARMCD")) %>%
     dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" & .data$PARAM == "Plasma Drug Y"))
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADPC <- mutate_na(ds = ADPC, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    ADPC <- mutate_na(ds = ADPC, na_vars = na_vars, na_percentage = na_percentage)
   }
 
-  ADPC <- apply_metadata(ADPC, "metadata/ADPC.yml") # nolint
+  ADPC <- apply_metadata(ADPC, "metadata/ADPC.yml")
 }
