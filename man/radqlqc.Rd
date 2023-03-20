@@ -13,7 +13,7 @@ radqlqc(ADSL, percent, number, seed = NULL, cached = FALSE)
 
 \item{number}{(\code{numeric})\cr Completion - Completed at least x question(s), 1 record per visit}
 
-\item{seed}{(\code{integer})\cr Seed for reproducible random number generation.}
+\item{seed}{(\code{integer})\cr Seed to use for reproducible random number generation.}
 
 \item{cached}{boolean whether the cached ADQLQC data \code{cadqlqc} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radqlqc} will be ignored.}
