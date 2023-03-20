@@ -30,7 +30,7 @@
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' radlb(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
 #' radlb(ADSL, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
-radlb <- function(ADSL, # nolint
+radlb <- function(ADSL,
                   lbcat = c("CHEMISTRY", "CHEMISTRY", "IMMUNOLOGY"),
                   param = c(
                     "Alanine Aminotransferase Measurement",
@@ -52,8 +52,7 @@ radlb <- function(ADSL, # nolint
                     BASE2 = c(NA, 0.1), BASE = c(NA, 0.1),
                     CHG2 = c(1235, 0.1), PCHG2 = c(1235, 0.1), CHG = c(1234, 0.1), PCHG = c(1234, 0.1)
                   ),
-                  cached = FALSE) { # nolint
-
+                  cached = FALSE) {
   checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadlb"))
@@ -83,7 +82,7 @@ radlb <- function(ADSL, # nolint
   }
   study_duration_secs <- attr(ADSL, "study_duration_secs")
 
-  ADLB <- expand.grid( # nolint
+  ADLB <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
     PARAM = as.factor(param_init_list$relvar1),
@@ -92,44 +91,44 @@ radlb <- function(ADSL, # nolint
   )
 
   # assign AVAL based on different tests
-  ADLB <- ADLB %>% mutate(AVAL = case_when( # nolint
+  ADLB <- ADLB %>% mutate(AVAL = case_when(
     .data$PARAM == param[1] ~ stats::rnorm(nrow(ADLB), mean = aval_mean[1], sd = 10),
     .data$PARAM == param[2] ~ stats::rnorm(nrow(ADLB), mean = aval_mean[2], sd = 1),
     .data$PARAM == param[3] ~ stats::rnorm(nrow(ADLB), mean = aval_mean[3], sd = 0.1)
   ))
 
   # assign related variable values: PARAMxLBCAT are related
-  ADLB <- ADLB %>% rel_var( # nolint
+  ADLB <- ADLB %>% rel_var(
     var_name = "LBCAT",
     related_var = "PARAM",
     var_values = lbcat_init_list$relvar2
   )
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADLB <- ADLB %>% rel_var( # nolint
+  ADLB <- ADLB %>% rel_var(
     var_name = "PARAMCD",
     related_var = "PARAM",
     var_values = param_init_list$relvar2
   )
 
-  ADLB <- ADLB %>% # nolint
+  ADLB <- ADLB %>%
     dplyr::mutate(LBTESTCD = .data$PARAMCD) %>%
     dplyr::mutate(LBTEST = .data$PARAM)
 
-  ADLB <- ADLB %>% dplyr::mutate(AVISITN = dplyr::case_when( # nolint
+  ADLB <- ADLB %>% dplyr::mutate(AVISITN = dplyr::case_when(
     AVISIT == "SCREENING" ~ -1,
     AVISIT == "BASELINE" ~ 0,
     (grepl("^WEEK", AVISIT) | grepl("^CYCLE", AVISIT)) ~ as.numeric(AVISIT) - 2,
     TRUE ~ NA_real_
   ))
 
-  ADLB <- ADLB %>% rel_var( # nolint
+  ADLB <- ADLB %>% rel_var(
     var_name = "AVALU",
     related_var = "PARAM",
     var_values = unit_init_list$relvar2
   )
 
-  ADLB <- ADLB %>% # nolint
+  ADLB <- ADLB %>%
     dplyr::mutate(AVISITN = dplyr::case_when(
       AVISIT == "SCREENING" ~ -1,
       AVISIT == "BASELINE" ~ 0,
@@ -138,22 +137,22 @@ radlb <- function(ADSL, # nolint
     ))
 
   # order to prepare for change from screening and baseline values
-  ADLB <- ADLB[order(ADLB$STUDYID, ADLB$USUBJID, ADLB$PARAMCD, ADLB$AVISITN), ] # nolint
+  ADLB <- ADLB[order(ADLB$STUDYID, ADLB$USUBJID, ADLB$PARAMCD, ADLB$AVISITN), ]
 
-  ADLB <- Reduce(rbind, lapply(split(ADLB, ADLB$USUBJID), function(x) { # nolint
-    x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])] # nolint
-    x$ABLFL2 <- ifelse(x$AVISIT == "SCREENING", "Y", "") # nolint
-    x$ABLFL <- ifelse(toupper(visit_format) == "WEEK" & x$AVISIT == "BASELINE", # nolint
+  ADLB <- Reduce(rbind, lapply(split(ADLB, ADLB$USUBJID), function(x) {
+    x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])]
+    x$ABLFL2 <- ifelse(x$AVISIT == "SCREENING", "Y", "")
+    x$ABLFL <- ifelse(toupper(visit_format) == "WEEK" & x$AVISIT == "BASELINE",
       "Y",
       ifelse(toupper(visit_format) == "CYCLE" & x$AVISIT == "CYCLE 1 DAY 1", "Y", "")
     )
     x
   }))
 
-  ADLB$BASE2 <- retain(ADLB, ADLB$AVAL, ADLB$ABLFL2 == "Y") # nolint
-  ADLB$BASE <- ifelse(ADLB$ABLFL2 != "Y", retain(ADLB, ADLB$AVAL, ADLB$ABLFL == "Y"), NA) # nolint
+  ADLB$BASE2 <- retain(ADLB, ADLB$AVAL, ADLB$ABLFL2 == "Y")
+  ADLB$BASE <- ifelse(ADLB$ABLFL2 != "Y", retain(ADLB, ADLB$AVAL, ADLB$ABLFL == "Y"), NA)
 
-  ADLB <- ADLB %>% # nolint
+  ADLB <- ADLB %>%
     dplyr::mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
     dplyr::mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
     dplyr::mutate(CHG = .data$AVAL - .data$BASE) %>%
@@ -295,16 +294,16 @@ radlb <- function(ADSL, # nolint
   )
 
   # merge grade_lookup onto ADLB
-  ADLB <- dplyr::left_join(ADLB, grade_lookup, by = "PARAMCD") # nolint
+  ADLB <- dplyr::left_join(ADLB, grade_lookup, by = "PARAMCD")
 
-  ADLB <- var_relabel( # nolint
+  ADLB <- var_relabel(
     ADLB,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add LB date and study day variables
-  ADLB <- dplyr::inner_join( # nolint
+  ADLB <- dplyr::inner_join(
     ADLB,
     ADSL,
     by = c("STUDYID", "USUBJID")
@@ -316,7 +315,7 @@ radlb <- function(ADSL, # nolint
     ))) %>%
     dplyr::ungroup()
 
-  ADLB <- ADLB %>% # nolint
+  ADLB <- ADLB %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::arrange(USUBJID, AVISITN) %>%
     dplyr::mutate(ADTM = rep(
@@ -331,7 +330,7 @@ radlb <- function(ADSL, # nolint
     dplyr::select(-TRTENDT) %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
-  ADLB <- ADLB %>% # nolint
+  ADLB <- ADLB %>%
     dplyr::mutate(ASPID = sample(seq_len(dplyr::n()))) %>%
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(LBSEQ = seq_len(dplyr::n())) %>%
@@ -350,7 +349,7 @@ radlb <- function(ADSL, # nolint
       .data$ASPID
     )
 
-  ADLB <- ADLB %>% dplyr::mutate(ONTRTFL = factor(dplyr::case_when( # nolint
+  ADLB <- ADLB %>% dplyr::mutate(ONTRTFL = factor(dplyr::case_when(
     !AVISIT %in% c("SCREENING", "BASELINE") ~ "Y",
     TRUE ~ ""
   )))
@@ -363,19 +362,19 @@ radlb <- function(ADSL, # nolint
       dplyr::mutate(row_check = seq_len(nrow(data)))
 
     data <- data_compare %>%
-      { # nolint
+      {
         if (apply_grouping == TRUE) {
-          dplyr::group_by(., .data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISIT) # nolint
+          dplyr::group_by(., .data$USUBJID, .data$PARAMCD, .data$BASETYPE, .data$AVISIT)
         } else {
           dplyr::group_by(., .data$USUBJID, .data$PARAMCD, .data$BASETYPE)
         }
       } %>%
       dplyr::arrange(.data$ADTM, .data$ASPID, .data$LBSEQ) %>%
-      { # nolint
+      {
         if (apply_filter == TRUE) {
-          dplyr::filter( # nolint
+          dplyr::filter(
             .,
-            (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") & # nolint
+            (.data$AVISIT != "BASELINE" & .data$AVISIT != "SCREENING") &
               (.data$ONTRTFL == "Y" | .data$ADTM <= .data$TRTSDTM)
           ) %>%
             dplyr::filter(.data$ATOXGR == max(as.numeric(as.character(.data$ATOXGR))))
@@ -396,7 +395,7 @@ radlb <- function(ADSL, # nolint
         }
       } %>%
       dplyr::slice(1) %>%
-      { # nolint
+      {
         if (apply_mutate == TRUE) {
           dplyr::mutate(., new_var = ifelse(is.na(.data$DTYPE), "Y", ""))
         } else {
@@ -412,13 +411,13 @@ radlb <- function(ADSL, # nolint
     return(data_compare)
   }
 
-  ADLB <- flag_variables(ADLB, TRUE, "ELSE", FALSE) %>% dplyr::rename(WORS01FL = "new_var") # nolint
-  ADLB <- flag_variables(ADLB, FALSE, TRUE, TRUE) %>% dplyr::rename(WGRHIFL = "new_var") # nolint
-  ADLB <- flag_variables(ADLB, FALSE, FALSE, TRUE) %>% dplyr::rename(WGRLOFL = "new_var") # nolint
-  ADLB <- flag_variables(ADLB, TRUE, TRUE, TRUE) %>% dplyr::rename(WGRHIVFL = "new_var") # nolint
-  ADLB <- flag_variables(ADLB, TRUE, FALSE, TRUE) %>% dplyr::rename(WGRLOVFL = "new_var") # nolint
+  ADLB <- flag_variables(ADLB, TRUE, "ELSE", FALSE) %>% dplyr::rename(WORS01FL = "new_var")
+  ADLB <- flag_variables(ADLB, FALSE, TRUE, TRUE) %>% dplyr::rename(WGRHIFL = "new_var")
+  ADLB <- flag_variables(ADLB, FALSE, FALSE, TRUE) %>% dplyr::rename(WGRLOFL = "new_var")
+  ADLB <- flag_variables(ADLB, TRUE, TRUE, TRUE) %>% dplyr::rename(WGRHIVFL = "new_var")
+  ADLB <- flag_variables(ADLB, TRUE, FALSE, TRUE) %>% dplyr::rename(WGRLOVFL = "new_var")
 
-  ADLB <- ADLB %>% dplyr::mutate(ANL01FL = ifelse( # nolint
+  ADLB <- ADLB %>% dplyr::mutate(ANL01FL = ifelse(
     (.data$ABLFL == "Y" | (.data$WORS01FL == "Y" & is.na(.data$DTYPE))) &
       (.data$AVISIT != "SCREENING"),
     "Y",
@@ -426,12 +425,12 @@ radlb <- function(ADSL, # nolint
   ))
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADLB <- mutate_na(ds = ADLB, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    ADLB <- mutate_na(ds = ADLB, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
 
-  ADLB <- apply_metadata(ADLB, "metadata/ADLB.yml") # nolint
+  ADLB <- apply_metadata(ADLB, "metadata/ADLB.yml")
 
   return(ADLB)
 }

@@ -26,9 +26,9 @@
 #' library(random.cdisc.data)
 #' ADSL <- suppressWarnings(radsl(N = 10, seed = 1, study_duration = 2))
 #' radaette(ADSL, seed = 2)
-radaette <- function(ADSL, # nolint
-                     event.descr = NULL, # nolint
-                     censor.descr = NULL, # nolint
+radaette <- function(ADSL,
+                     event.descr = NULL,
+                     censor.descr = NULL,
                      lookup = NULL,
                      seed = NULL,
                      na_percentage = 0,
@@ -47,7 +47,7 @@ radaette <- function(ADSL, # nolint
   checkmate::assert_true(na_percentage < 1)
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
-  lookup_ADAETTE <- if (!is.null(lookup)) { # nolint
+  lookup_ADAETTE <- if (!is.null(lookup)) {
     lookup
   } else {
     tibble::tribble(
@@ -121,7 +121,7 @@ radaette <- function(ADSL, # nolint
   adsl_hy <- dplyr::select(ADSL, "STUDYID", "USUBJID", "TRTSDTM", "SITEID", "ARM")
 
   # create all combinations of unique values in STUDYID, USUBJID, PARAM, AVISIT
-  adaette_hy <- expand.grid( # nolint
+  adaette_hy <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
     PARAM = as.factor(param_init_list$relvar1),
@@ -129,7 +129,7 @@ radaette <- function(ADSL, # nolint
   )
 
   # Add other variables to adaette_hy
-  adaette_hy <- dplyr::left_join(adaette_hy, adsl_hy, by = c("STUDYID", "USUBJID")) %>% # nolint
+  adaette_hy <- dplyr::left_join(adaette_hy, adsl_hy, by = c("STUDYID", "USUBJID")) %>%
     rel_var(
       var_name = "PARAMCD",
       related_var = "PARAM",
@@ -213,7 +213,7 @@ radaette <- function(ADSL, # nolint
     )
   }
 
-  ADAETTE <- split(ADSL, ADSL$USUBJID) %>% # nolint
+  ADAETTE <- split(ADSL, ADSL$USUBJID) %>%
     lapply(function(patient_info) {
       patient_data <- random_patient_data(patient_info)
       lookup_arm <- lookup_ADAETTE %>%
@@ -229,15 +229,15 @@ radaette <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier"
     )
 
-  ADAETTE <- var_relabel( # nolint
+  ADAETTE <- var_relabel(
     ADAETTE,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
-  ADAETTE <- rbind(ADAETTE, adaette_hy) # nolint
+  ADAETTE <- rbind(ADAETTE, adaette_hy)
 
-  ADAETTE <- dplyr::inner_join( # nolint
+  ADAETTE <- dplyr::inner_join(
     dplyr::select(ADAETTE, -"SITEID", -"ARM"),
     ADSL,
     by = c("STUDYID", "USUBJID")
@@ -258,11 +258,11 @@ radaette <- function(ADSL, # nolint
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADAETTE <- dplyr::mutate(ds = ADAETTE, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    ADAETTE <- dplyr::mutate(ds = ADAETTE, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADAETTE <- apply_metadata(ADAETTE, "metadata/ADAETTE.yml") # nolint.
+  ADAETTE <- apply_metadata(ADAETTE, "metadata/ADAETTE.yml")
 
   return(ADAETTE)
 }

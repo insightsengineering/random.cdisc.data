@@ -37,7 +37,7 @@
 #'   )
 #' )
 #' radsl(N = 10, seed = 1, na_percentage = .1)
-radsl <- function(N = 400, # nolint
+radsl <- function(N = 400,
                   study_duration = 2,
                   seed = NULL,
                   with_trt02 = TRUE,
@@ -69,7 +69,7 @@ radsl <- function(N = 400, # nolint
   discons <- max(1, floor((N * .3)))
   country_site_prob <- c(.5, .121, .077, .077, .075, .052, .046, .025, .014, .003)
 
-  ADSL <- tibble::tibble( # nolint
+  ADSL <- tibble::tibble(
     STUDYID = rep("AB12345", N),
     COUNTRY = sample_fct(
       c("CHN", "USA", "BRA", "PAK", "NGA", "RUS", "JPN", "GBR", "CAN", "CHE"),
@@ -110,7 +110,7 @@ radsl <- function(N = 400, # nolint
     dplyr::mutate(SAFFL = factor("Y")) %>%
     dplyr::arrange(TRTSDTM)
 
-  ADDS <- ADSL[sample(nrow(ADSL), discons), ] %>% # nolint
+  ADDS <- ADSL[sample(nrow(ADSL), discons), ] %>%
     dplyr::mutate(TRTEDTM_discon = sample(
       seq(from = max(TRTSDTM), to = sys_dtm + study_duration_secs, by = 1),
       size = discons,
@@ -119,21 +119,21 @@ radsl <- function(N = 400, # nolint
     dplyr::select(SUBJID, TRTSDTM, TRTEDTM_discon) %>%
     dplyr::arrange(TRTSDTM)
 
-  ADSL <- dplyr::left_join(ADSL, ADDS, by = c("SUBJID", "TRTSDTM")) %>% # nolint
+  ADSL <- dplyr::left_join(ADSL, ADDS, by = c("SUBJID", "TRTSDTM")) %>%
     dplyr::mutate(TRTEDTM = dplyr::case_when(
       !is.na(TRTEDTM_discon) ~ TRTEDTM_discon,
       TRTSDTM >= quantile(TRTSDTM)[2] & TRTSDTM <= quantile(TRTSDTM)[3] ~ lubridate::as_datetime(NA),
       TRUE ~ TRTEDTM
     )) %>%
-    dplyr::select(-"TRTEDTM_discon") # nolint
+    dplyr::select(-"TRTEDTM_discon")
 
   # add period 2 if needed
-  if (with_trt02) { # nolint
-    with_trt02 <- lubridate::seconds(lubridate::years(1)) # nolint
-    ADSL <- ADSL %>% # nolint
-      dplyr::mutate(TRT02P = sample(.data$ARM)) %>% # nolint
-      dplyr::mutate(TRT02A = sample(.data$ACTARM)) %>% # nolint
-      dplyr::mutate( # nolint
+  if (with_trt02) {
+    with_trt02 <- lubridate::seconds(lubridate::years(1))
+    ADSL <- ADSL %>%
+      dplyr::mutate(TRT02P = sample(.data$ARM)) %>%
+      dplyr::mutate(TRT02A = sample(.data$ACTARM)) %>%
+      dplyr::mutate(
         TRT01SDTM = .data$TRTSDTM,
         AP01SDTM = .data$TRT01SDTM,
         TRT01EDTM = .data$TRTEDTM,
@@ -146,7 +146,7 @@ radsl <- function(N = 400, # nolint
       )
   }
 
-  ADSL <- ADSL %>% # nolint
+  ADSL <- ADSL %>%
     dplyr::mutate(EOSDT = lubridate::date(TRTEDTM)) %>%
     dplyr::mutate(EOSDY = ceiling(difftime(TRTEDTM, TRTSDTM))) %>%
     dplyr::mutate(EOSSTT = dplyr::case_when(
@@ -172,7 +172,7 @@ radsl <- function(N = 400, # nolint
     prob = c(.1, .3, .3, .2, .1)
   )
 
-  ADSL <- ADSL %>% # nolint
+  ADSL <- ADSL %>%
     dplyr::mutate(
       DCSREAS = ifelse(
         .data$EOSSTT == "DISCONTINUED",
@@ -222,7 +222,7 @@ radsl <- function(N = 400, # nolint
     ))
 
   # add random ETHNIC (Ethnicity)
-  ADSL <- ADSL %>% # nolint
+  ADSL <- ADSL %>%
     dplyr::mutate(ETHNIC = sample(
       x = c("HISPANIC OR LATINO", "NOT HISPANIC OR LATINO", " NOT REPORTED", "UNKNOWN"),
       size = N, replace = TRUE, prob = c(.1, .8, .06, .04)
@@ -231,12 +231,12 @@ radsl <- function(N = 400, # nolint
   # associate DTHADY (Relative Day of Death) with Death date
   # Date of Death [ADSL.DTHDT] - date part of Date of First Exposure to Treatment [ADSL.TRTSDTM]
 
-  ADSL <- ADSL %>% # nolint
+  ADSL <- ADSL %>%
     dplyr::mutate(DTHADY = difftime(DTHDT, TRTSDTM, units = "days"))
 
 
   # associate sites with countries and regions
-  ADSL <- ADSL %>% # nolint
+  ADSL <- ADSL %>%
     dplyr::mutate(SITEID = paste0(.data$COUNTRY, "-", .data$SITEID)) %>%
     dplyr::mutate(REGION1 = dplyr::case_when(
       COUNTRY %in% c("NGA") ~ "Africa",
@@ -253,11 +253,11 @@ radsl <- function(N = 400, # nolint
 
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADSL <- mutate_na(ds = ADSL, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    ADSL <- mutate_na(ds = ADSL, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml", FALSE) # nolint
+  ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml", FALSE)
 
   attr(ADSL, "study_duration_secs") <- study_duration_secs # nolint
   return(ADSL)

@@ -52,7 +52,7 @@
 #'     table(AEDECOD, CQ01NAM)
 #'   )
 #' )
-radae <- function(ADSL, # nolint
+radae <- function(ADSL,
                   max_n_aes = 10L,
                   lookup = NULL,
                   lookup_aag = NULL,
@@ -96,7 +96,7 @@ radae <- function(ADSL, # nolint
   }
 
   checkmate::assert_data_frame(lookup_aag, null.ok = TRUE)
-  AAG <- if (!is.null(lookup_aag)) { # nolint
+  AAG <- if (!is.null(lookup_aag)) {
     lookup_aag
   } else {
     aag <- utils::read.table(
@@ -117,7 +117,7 @@ radae <- function(ADSL, # nolint
   if (!is.null(seed)) set.seed(seed)
   study_duration_secs <- attr(ADSL, "study_duration_secs")
 
-  ADAE <- Map( # nolint
+  ADAE <- Map(
     function(id, sid) {
       n_aes <- sample(c(0, seq_len(max_n_aes)), 1)
       i <- sample(seq_len(nrow(lookup_ae)), n_aes, TRUE)
@@ -139,14 +139,14 @@ radae <- function(ADSL, # nolint
       AETOXGR %in% c(4, 5) ~ "SEVERE"
     ))
 
-  ADAE <- var_relabel( # nolint
+  ADAE <- var_relabel(
     ADAE,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add AE date and study day variables
-  ADAE <- dplyr::inner_join(ADAE, ADSL, by = c("STUDYID", "USUBJID")) %>% # nolint
+  ADAE <- dplyr::inner_join(ADAE, ADSL, by = c("STUDYID", "USUBJID")) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
       is.na(.data$TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
@@ -172,7 +172,7 @@ radae <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$AETERM)
 
-  ADAE <- ADAE %>% # nolint
+  ADAE <- ADAE %>%
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(AESEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = .data$AESEQ) %>%
@@ -205,7 +205,7 @@ radae <- function(ADSL, # nolint
     "NOT EVALUABLE"
   )
 
-  ADAE <- ADAE %>% # nolint
+  ADAE <- ADAE %>%
     dplyr::mutate(AEOUT = factor(ifelse(
       .data$AETOXGR == "5",
       "FATAL",
@@ -227,7 +227,7 @@ radae <- function(ADSL, # nolint
     ) %>%
     dplyr::mutate(ANL01FL = ifelse(is.na(.data$ANL01FL), "", .data$ANL01FL))
 
-  ADAE <- ADAE %>% # nolint
+  ADAE <- ADAE %>%
     dplyr::mutate(AERELNST = sample(c("Y", "N"), prob = c(0.4, 0.6), size = dplyr::n(), replace = TRUE)) %>%
     dplyr::mutate(AEACNOTH = sample(
       x = c("MEDICATION", "PROCEDURE/SURGERY", "SUBJECT DISCONTINUED FROM STUDY", "NONE"),
@@ -237,30 +237,27 @@ radae <- function(ADSL, # nolint
     ))
 
   # Split metadata for AEs of special interest (AESI).
-  l_AAG <- split(AAG, interaction(AAG$NAMVAR, AAG$SRCVAR, AAG$GRPTYPE, drop = TRUE)) # nolint
+  l_AAG <- split(AAG, interaction(AAG$NAMVAR, AAG$SRCVAR, AAG$GRPTYPE, drop = TRUE))
 
   # Create AESI flags
-  l_AESI <- lapply(l_AAG, function(d_adag, d_adae) { # nolint
+  l_AESI <- lapply(l_AAG, function(d_adag, d_adae) {
+    names(d_adag)[names(d_adag) == "REFTERM"] <- d_adag$SRCVAR[1]
+    names(d_adag)[names(d_adag) == "REFNAME"] <- d_adag$NAMVAR[1]
 
-    names(d_adag)[names(d_adag) == "REFTERM"] <- d_adag$SRCVAR[1] # nolint
-    names(d_adag)[names(d_adag) == "REFNAME"] <- d_adag$NAMVAR[1] # nolint
-
-    if (d_adag$GRPTYPE[1] == "CUSTOM") { # nolint
-
-      d_adag <- d_adag[-which(names(d_adag) == "SCOPE")] # nolint
-    } else if (d_adag$GRPTYPE[1] == "SMQ") { # nolint
-
-      names(d_adag)[names(d_adag) == "SCOPE"] <- paste0(substr(d_adag$NAMVAR[1], 1, 5), "SC") # nolint
+    if (d_adag$GRPTYPE[1] == "CUSTOM") {
+      d_adag <- d_adag[-which(names(d_adag) == "SCOPE")]
+    } else if (d_adag$GRPTYPE[1] == "SMQ") {
+      names(d_adag)[names(d_adag) == "SCOPE"] <- paste0(substr(d_adag$NAMVAR[1], 1, 5), "SC")
     }
 
-    d_adag <- d_adag[-which(names(d_adag) %in% c("NAMVAR", "SRCVAR", "GRPTYPE"))] # nolint
+    d_adag <- d_adag[-which(names(d_adag) %in% c("NAMVAR", "SRCVAR", "GRPTYPE"))]
     d_new <- dplyr::left_join(x = d_adae, y = d_adag, by = intersect(names(d_adae), names(d_adag)))
     d_new[, dplyr::setdiff(names(d_new), names(d_adae)), drop = FALSE]
   }, ADAE)
 
-  ADAE <- dplyr::bind_cols(ADAE, l_AESI) # nolint
+  ADAE <- dplyr::bind_cols(ADAE, l_AESI)
 
-  ADAE <- dplyr::mutate(ADAE, AERELNST = sample( # nolint
+  ADAE <- dplyr::mutate(ADAE, AERELNST = sample(
     x = c("CONCURRENT ILLNESS", "OTHER", "DISEASE UNDER STUDY", "NONE"),
     prob = c(0.3, 0.3, 0.3, 0.1),
     size = dplyr::n(),
@@ -268,32 +265,32 @@ radae <- function(ADSL, # nolint
   ))
 
 
-  ADAE <- ADAE %>% # nolint
-    dplyr::mutate(AES_FLAG = sample( # nolint
+  ADAE <- ADAE %>%
+    dplyr::mutate(AES_FLAG = sample(
       x = c("AESLIFE", "AESHOSP", "AESDISAB", "AESCONG", "AESMIE"),
       prob = c(0.1, 0.2, 0.2, 0.2, 0.3),
       size = dplyr::n(),
       replace = TRUE
-    )) %>% # nolint
-    dplyr::mutate(AES_FLAG = dplyr::case_when( # nolint
+    )) %>%
+    dplyr::mutate(AES_FLAG = dplyr::case_when(
       AESDTH == "Y" ~ "AESDTH",
       TRUE ~ .data$AES_FLAG
-    )) %>% # nolint
-    dplyr::mutate( # nolint
+    )) %>%
+    dplyr::mutate(
       AESCONG = ifelse(.data$AES_FLAG == "AESCONG", "Y", "N"),
       AESDISAB = ifelse(.data$AES_FLAG == "AESDISAB", "Y", "N"),
       AESHOSP = ifelse(.data$AES_FLAG == "AESHOSP", "Y", "N"),
       AESLIFE = ifelse(.data$AES_FLAG == "AESLIFE", "Y", "N"),
       AESMIE = ifelse(.data$AES_FLAG == "AESMIE", "Y", "N")
-    ) %>% # nolint
-    dplyr::select(-"AES_FLAG") # nolint
+    ) %>%
+    dplyr::select(-"AES_FLAG")
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADAE <- mutate_na(ds = ADAE, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    ADAE <- mutate_na(ds = ADAE, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADAE <- apply_metadata(ADAE, "metadata/ADAE.yml") # nolint
+  ADAE <- apply_metadata(ADAE, "metadata/ADAE.yml")
 
   return(ADAE)
 }

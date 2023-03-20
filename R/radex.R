@@ -31,7 +31,7 @@
 #'
 #' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
 #' ADEX <- radex(ADSL, seed = 2)
-radex <- function(ADSL, # nolint
+radex <- function(ADSL,
                   param = c(
                     "Dose administered during constant dosing interval",
                     "Number of doses administered during constant dosing interval",

@@ -24,7 +24,7 @@
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' radtr(ADSL, seed = 2)
-radtr <- function(ADSL, # nolint
+radtr <- function(ADSL,
                   param = c("Sum of Longest Diameter by Investigator"),
                   paramcd = c("SLDINV"),
                   seed = NULL,
@@ -46,8 +46,8 @@ radtr <- function(ADSL, # nolint
   }
 
   # Make times consistent with ADRS at ADY and ADTM.
-  adrs <- radrs(ADSL, seed = seed, ...) %>% # nolint
-    dplyr::filter(.data$PARAMCD == "OVRINV") %>% # nolint
+  adrs <- radrs(ADSL, seed = seed, ...) %>%
+    dplyr::filter(.data$PARAMCD == "OVRINV") %>%
     dplyr::select(
       "STUDYID",
       "USUBJID",
@@ -57,22 +57,22 @@ radtr <- function(ADSL, # nolint
       "ADY"
     )
 
-  ADTR <- Map(function(parcd, par) { # nolint
+  ADTR <- Map(function(parcd, par) {
     df <- adrs
-    df$AVAL <- stats::rnorm(nrow(df), mean = 150, sd = 30) # nolint
-    df$PARAMCD <- parcd # nolint
-    df$PARAM <- par # nolint
+    df$AVAL <- stats::rnorm(nrow(df), mean = 150, sd = 30)
+    df$PARAMCD <- parcd
+    df$PARAM <- par
     df
   }, paramcd, param) %>%
     Reduce(rbind, .)
 
-  ADTR_base <- ADTR %>% # nolint
+  ADTR_base <- ADTR %>%
     dplyr::filter(.data$AVISITN == 0) %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
     dplyr::mutate(BASE = .data$AVAL) %>%
     dplyr::select("STUDYID", "USUBJID", "BASE", "PARAMCD")
 
-  ADTR_postbase <- ADTR %>% # nolint
+  ADTR_postbase <- ADTR %>%
     dplyr::filter(.data$AVISITN > 0) %>%
     dplyr::filter(!is.na(.data$AVAL)) %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
@@ -82,7 +82,7 @@ radtr <- function(ADSL, # nolint
     dplyr::mutate(DTYPE = "MINIMUM") %>%
     dplyr::ungroup()
 
-  ADTR_lastobs <- ADTR %>% # nolint
+  ADTR_lastobs <- ADTR %>%
     dplyr::filter(.data$AVISITN > 0) %>%
     dplyr::filter(!is.na(.data$AVAL)) %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
@@ -97,9 +97,9 @@ radtr <- function(ADSL, # nolint
       "LAST_VISIT"
     )
 
-  ADTR <- rbind(ADTR %>% dplyr::mutate(DTYPE = ""), ADTR_postbase) # nolint
+  ADTR <- rbind(ADTR %>% dplyr::mutate(DTYPE = ""), ADTR_postbase)
 
-  ADTR <- merge(ADTR, ADTR_base, by = c("STUDYID", "USUBJID", "PARAMCD")) %>% # nolint
+  ADTR <- merge(ADTR, ADTR_base, by = c("STUDYID", "USUBJID", "PARAMCD")) %>%
     dplyr::mutate(
       ABLFL = dplyr::case_when(.data$AVISIT == "BASELINE" ~ "Y", TRUE ~ ""),
       AVAL = dplyr::case_when(.data$AVISIT == "BASELINE" ~ NA_real_, TRUE ~ AVAL),
@@ -110,7 +110,7 @@ radtr <- function(ADSL, # nolint
     )
 
   # ensure PCHG does not exceed 200%, nor go below -100% (double in size, or complete remission of tumor).
-  ADTR <- ADTR %>% # nolint
+  ADTR <- ADTR %>%
     dplyr::mutate(
       PCHG_DUM = .data$PCHG,
       PCHG = dplyr::case_when(
@@ -131,10 +131,10 @@ radtr <- function(ADSL, # nolint
     ) %>%
     dplyr::select(-"PCHG_DUM")
 
-  ADTR <- merge(ADSL, ADTR, by = c("STUDYID", "USUBJID")) %>% # nolint
+  ADTR <- merge(ADSL, ADTR, by = c("STUDYID", "USUBJID")) %>%
     dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
     dplyr::mutate(
-      ONTRTFL = factor(dplyr::case_when( # nolint
+      ONTRTFL = factor(dplyr::case_when(
         !AVISIT %in% c("SCREENING", "BASELINE", "FOLLOW UP") ~ "Y",
         TRUE ~ ""
       )),
@@ -148,7 +148,7 @@ radtr <- function(ADSL, # nolint
         TRUE ~ ""
       )
     )
-  ADTR <- merge(ADTR, ADTR_lastobs, by = c("STUDYID", "USUBJID", "PARAMCD")) %>% # nolint
+  ADTR <- merge(ADTR, ADTR_lastobs, by = c("STUDYID", "USUBJID", "PARAMCD")) %>%
     dplyr::mutate(
       ANL02FL = dplyr::case_when(
         as.character(.data$AVISIT) == as.character(.data$LAST_VISIT) ~ "Y",
@@ -158,7 +158,7 @@ radtr <- function(ADSL, # nolint
     ) %>%
     dplyr::select(-"LAST_VISIT")
   # Adding variables that are in ADTR osprey but not RCD.
-  ADTR <- ADTR %>% # nolint
+  ADTR <- ADTR %>%
     dplyr::mutate(
       DCSREAS_GRP = ifelse(.data$DCSREAS == "ADVERSE EVENT", "Safety", "Non-Safety"),
       TRTDURD = ifelse(
@@ -170,6 +170,6 @@ radtr <- function(ADSL, # nolint
     )
 
   # apply metadata
-  ADTR <- apply_metadata(ADTR, "metadata/ADTR.yml") # nolint
+  ADTR <- apply_metadata(ADTR, "metadata/ADTR.yml")
   return(ADTR)
 }

@@ -26,7 +26,7 @@
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 #' radrs(ADSL, seed = 2)
-radrs <- function(ADSL, # nolint
+radrs <- function(ADSL,
                   avalc = NULL,
                   lookup = NULL,
                   seed = NULL,
@@ -51,7 +51,7 @@ radrs <- function(ADSL, # nolint
   }
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
-  lookup_ARS <- if (!is.null(lookup)) { # nolint
+  lookup_ARS <- if (!is.null(lookup)) {
     lookup
   } else {
     expand.grid(
@@ -72,7 +72,7 @@ radrs <- function(ADSL, # nolint
   }
   study_duration_secs <- attr(ADSL, "study_duration_secs")
 
-  ADRS <- split(ADSL, ADSL$USUBJID) %>% # nolint
+  ADRS <- split(ADSL, ADSL$USUBJID) %>%
     lapply(function(pinfo) {
       probs <- dplyr::filter(lookup_ARS, .data$ARM == as.character(pinfo$ACTARM))
 
@@ -151,7 +151,7 @@ radrs <- function(ADSL, # nolint
       USUBJID = "Unique Subject Identifier"
     )
 
-  ADRS <- var_relabel( # nolint
+  ADRS <- var_relabel(
     ADRS,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
@@ -160,13 +160,13 @@ radrs <- function(ADSL, # nolint
   # merge ADSL to be able to add RS date and study day variables
 
 
-  ADRS <- dplyr::inner_join( # nolint
+  ADRS <- dplyr::inner_join(
     dplyr::select(ADRS, -"SITEID"),
     ADSL,
     by = c("STUDYID", "USUBJID")
   )
 
-  ADRS <- ADRS %>% # nolint
+  ADRS <- ADRS %>%
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(RSSEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = .data$RSSEQ) %>%
@@ -181,11 +181,11 @@ radrs <- function(ADSL, # nolint
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADRS <- mutate_na(ds = ADRS, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    ADRS <- mutate_na(ds = ADRS, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADRS <- apply_metadata(ADRS, "metadata/ADRS.yml") # nolint
+  ADRS <- apply_metadata(ADRS, "metadata/ADRS.yml")
 
   return(ADRS)
 }
