@@ -139,7 +139,7 @@ radae <- function(ADSL,
       AETOXGR %in% c(4, 5) ~ "SEVERE"
     ))
 
-  ADAE <- var_relabel(
+  ADAE <- formatters::var_relabel(
     ADAE,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
@@ -167,7 +167,7 @@ radae <- function(ADSL,
       .data$TRTSDTM < .data$ASTDTM ~ lubridate::as_datetime(stats::runif(1, .data$TRTSDTM, .data$ASTDTM)),
       TRUE ~ .data$ASTDTM
     )) %>%
-    mutate(LDRELTM = as.numeric(difftime(.data$ASTDTM, .data$LDOSEDTM, units = "mins"))) %>%
+    dplyr::mutate(LDRELTM = as.numeric(difftime(.data$ASTDTM, .data$LDOSEDTM, units = "mins"))) %>%
     dplyr::select(-TRTENDT) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$AETERM)
