@@ -13,6 +13,7 @@
 
 # to avoid NOTEs from R CMD CHECK
 utils::globalVariables(c(
+  ".",
   "USUBJID",
   "AVISITN",
   "AVISIT",

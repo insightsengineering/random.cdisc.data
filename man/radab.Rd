@@ -77,6 +77,6 @@ library(random.cdisc.data)
 ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
 ADPC <- radpc(ADSL, seed = 2, duration = 9 * 7)
 
-ADAB <- radab(ADSL, adpc, seed = 2)
+ADAB <- radab(ADSL, ADPC, seed = 2)
 ADAB
 }
