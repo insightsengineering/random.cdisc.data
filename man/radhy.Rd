@@ -42,7 +42,7 @@ radhy(
 
 \item{paramcd}{(\verb{character vector})\cr Parameter code values.}
 
-\item{seed}{(\code{integer})\cr Seed for reproducible random number generation.}
+\item{seed}{(\code{numeric})\cr Seed to use for reproducible random number generation.}
 
 \item{cached}{boolean whether the cached ADHY data \code{cadhy} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radhy} will be ignored.}

@@ -14,8 +14,8 @@
 #' Keys: `STUDYID`, `USUBJID`
 #'
 #' @inheritParams argument_convention
-#' @param N (`integer`)\cr Number of patients.
-#' @param study_duration (`integer`)\cr Duration of study in years.
+#' @param N (`numeric`)\cr Number of patients.
+#' @param study_duration (`numeric`)\cr Duration of study in years.
 #' @param with_trt02 (`logical`)\cr Should period 2 be added.
 #' @param ae_withdrawal_prob (`proportion`)\cr Probability that there is at least one
 #' Adverse Event leading to the withdrawal of a study drug.

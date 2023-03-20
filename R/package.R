@@ -4,7 +4,7 @@
 #'
 #' @name package
 #' @import dplyr
-#' @import magrittr
+#' @importFrom magrittr %>%
 #' @importFrom lifecycle badge
 #' @importFrom rlang .data := !!
 #' @importFrom stringr str_detect

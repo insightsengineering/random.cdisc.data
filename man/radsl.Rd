@@ -17,11 +17,11 @@ radsl(
 )
 }
 \arguments{
-\item{N}{(\code{integer})\cr Number of patients.}
+\item{N}{(\code{numeric})\cr Number of patients.}
 
-\item{study_duration}{(\code{integer})\cr Duration of study in years.}
+\item{study_duration}{(\code{numeric})\cr Duration of study in years.}
 
-\item{seed}{(\code{integer})\cr Seed for reproducible random number generation.}
+\item{seed}{(\code{numeric})\cr Seed to use for reproducible random number generation.}
 
 \item{with_trt02}{(\code{logical})\cr Should period 2 be added.}
 
@@ -30,7 +30,7 @@ radsl(
 \item{na_vars}{(\code{list})\cr A named list where the name of each element is a column name of \code{ds}. Each
 element of this list should be a numeric vector with two elements:
 \itemize{
-\item{\code{seed} (\code{integer})\cr The seed to be used for this element - can be \code{NA}.}
+\item{\code{seed} (\code{numeric})\cr The seed to be used for this element - can be \code{NA}.}
 \item{\code{percentage} (\code{proportion})\cr Percentage of elements to be replaced with \code{NA}.
 If \code{NA}, \code{na_percentage} is used as a default.}
 }}

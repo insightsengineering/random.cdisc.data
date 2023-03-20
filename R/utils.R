@@ -22,7 +22,7 @@ get_cached_data <- function(dataname) {
 #'
 #' @param x (`character vector` or `factor`)\cr If character vector then it is also used
 #'   as levels of the returned factor. If factor then the levels are used as the new levels.
-#' @param N Number of items to choose.
+#' @param N (`numeric`)\cr Number of items to choose.
 #' @param ... Additional arguments to be passed to `sample`.
 #'
 #' @return A factor of length `N`.
@@ -132,9 +132,7 @@ rel_var <- function(df, var_name, related_var, var_values = NULL) {
 #'
 #' X number of visits, or X number of cycles and Y number of days.
 #'
-#' @param visit_format (`character`)\cr Visit format. Options are "WEEK" and "CYCLE".
-#' @param n_assessments (`integer`)\cr Number of assessments.
-#' @param n_days (`integer`)\cr Number of days in each cycle. If `visit_format` is "WEEK" this value is ignored.
+#' @inheritParams argument_convention
 #'
 #' @return A factor of length `n_assessments`.
 #' @keywords internal
@@ -436,7 +434,7 @@ rtpois <- function(n, lambda) {
 #' This can be derived from the quantile functions of the left- and right-truncated
 #' Exponential distributions.
 #'
-#' @param n (`integer`)\cr Number of random numbers.
+#' @param n (`numeric`)\cr Number of random numbers.
 #' @param rate (`numeric`)\cr Non-negative rate.
 #' @param l (`numeric`)\cr Positive left-hand truncation parameter.
 #' @param r (`numeric`)\cr Positive right-hand truncation parameter.

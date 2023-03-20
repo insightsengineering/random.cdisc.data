@@ -12,7 +12,7 @@ mutate_na(ds, na_vars = NULL, na_percentage = 0.05)
 \item{na_vars}{(\code{list})\cr A named list where the name of each element is a column name of \code{ds}. Each
 element of this list should be a numeric vector with two elements:
 \itemize{
-\item{\code{seed} (\code{integer})\cr The seed to be used for this element - can be \code{NA}.}
+\item{\code{seed} (\code{numeric})\cr The seed to be used for this element - can be \code{NA}.}
 \item{\code{percentage} (\code{proportion})\cr Percentage of elements to be replaced with \code{NA}.
 If \code{NA}, \code{na_percentage} is used as a default.}
 }}

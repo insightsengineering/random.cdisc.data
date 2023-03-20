@@ -10,8 +10,8 @@
 #' Keys: `STUDYID`, `USUBJID`, `PARAMCD`
 #'
 #' @inheritParams argument_convention
-#' @param event.descr Character vector with description of events.
-#' @param censor.descr Character vector with description of censors.
+#' @param event.descr (`character vector`)\cr Descriptions of events. Defaults to `NULL`.
+#' @param censor.descr (`character vector`)\cr Descriptions of censors. Defaults to `NULL`.
 #' @template param_cached
 #' @templateVar data adaette
 #'

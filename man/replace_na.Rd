@@ -13,7 +13,7 @@ replace_na(v, percentage = 0.05, seed = NULL)
 how much of the vector shall be replaced by \code{NA}. This number
 is randomized by +/- 5\% to have full randomization.}
 
-\item{seed}{(\code{integer})\cr Seed for reproducible random number generation.}
+\item{seed}{(\code{numeric})\cr Seed to use for reproducible random number generation.}
 }
 \value{
 The input vector \code{v} where a certain number of values are replaced by \code{NA}.

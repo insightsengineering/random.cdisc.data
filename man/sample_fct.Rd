@@ -10,7 +10,7 @@ sample_fct(x, N, ...)
 \item{x}{(\verb{character vector} or \code{factor})\cr If character vector then it is also used
 as levels of the returned factor. If factor then the levels are used as the new levels.}
 
-\item{N}{Number of items to choose.}
+\item{N}{(\code{numeric})\cr Number of items to choose.}
 
 \item{...}{Additional arguments to be passed to \code{sample}.}
 }

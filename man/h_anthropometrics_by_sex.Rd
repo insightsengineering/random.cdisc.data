@@ -2,7 +2,7 @@
 % Please edit documentation in R/radsub.R
 \name{h_anthropometrics_by_sex}
 \alias{h_anthropometrics_by_sex}
-\title{Generate anthropometric measurements for males and females.}
+\title{Generate Anthropometric Measurements for Males and Females.}
 \usage{
 h_anthropometrics_by_sex(
   df,
@@ -17,23 +17,23 @@ h_anthropometrics_by_sex(
 )
 }
 \arguments{
-\item{df}{(data frame)\cr analysis dataset.}
+\item{df}{(\code{data.frame})\cr Analysis dataset.}
 
-\item{seed}{Seed for random number generation.}
+\item{seed}{(\code{numeric})\cr Seed to use for reproducible random number generation.}
 
-\item{id_var}{(string)\cr patient identifier variable name.}
+\item{id_var}{(\code{character})\cr Patient identifier variable name.}
 
-\item{sex_var}{(string)\cr name of variable representing sex of patient.}
+\item{sex_var}{(\code{character})\cr Name of variable representing sex of patient.}
 
-\item{sex_var_level_male}{(string)\cr level of \code{sex_var} representing males.}
+\item{sex_var_level_male}{(\code{character})\cr Level of \code{sex_var} representing males.}
 
-\item{male_weight_in_kg}{(named list)\cr list of mean and sd of male weight in kilograms.}
+\item{male_weight_in_kg}{(named \code{list})\cr List of means and SDs of male weights in kilograms.}
 
-\item{female_weight_in_kg}{(named list)\cr list of mean and sd of female weight in kilograms.}
+\item{female_weight_in_kg}{(named \code{list})\cr List of means and SDs of female weights in kilograms.}
 
-\item{male_height_in_m}{(named list)\cr list of mean and sd of male height in metres.}
+\item{male_height_in_m}{(named \code{list})\cr List of means and SDs of male heights in metres.}
 
-\item{female_height_in_m}{(named list)\cr list of mean and sd of female height in metres.}
+\item{female_height_in_m}{(named \code{list})\cr list of means and SDs of female heights in metres.}
 }
 \value{
 a dataframe with anthropometric measurements for each subject in analysis dataset.
@@ -51,7 +51,7 @@ One record per subject.
 library(random.cdisc.data)
 ADSL <- radsl(N = 5, seed = 1)
 
-DF_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = ADSL)
-DF_with_measurements
+df_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = ADSL)
+df_with_measurements
 }
 \keyword{internal}

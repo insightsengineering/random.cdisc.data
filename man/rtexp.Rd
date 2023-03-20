@@ -7,7 +7,7 @@
 rtexp(n, rate, l = NULL, r = NULL)
 }
 \arguments{
-\item{n}{(\code{integer})\cr Number of random numbers.}
+\item{n}{(\code{numeric})\cr Number of random numbers.}
 
 \item{rate}{(\code{numeric})\cr Non-negative rate.}
 

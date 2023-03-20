@@ -565,7 +565,7 @@ get_qs_data <- function(ADSL,
 #'
 #' @param from (`datetime vector`)\cr Start date/times.
 #' @param to (`datetime vector`)\cr End date/times.
-#' @param visit_id (`integer vector`)\cr Visit numbers.
+#' @param visit_id (`vector`)\cr Visit identifiers.
 #'
 #' @return Data frame with new randomly generated dates variable.
 #' @keywords internal
