@@ -2,7 +2,7 @@
 #'
 #' @description `r lifecycle::badge("stable")`
 #'
-#' The Subject-Level Analysis Data set (ADSL) is used to provide the variables
+#' The Subject-Level Analysis Dataset (ADSL) is used to provide the variables
 #' that describe attributes of a subject. ADSL is a source for subject-level
 #' variables used in other analysis data sets, such as population flags and
 #' treatment variables. There is only one ADSL per study. ADSL and its related
