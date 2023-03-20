@@ -2,21 +2,21 @@
 % Please edit documentation in R/utils.R
 \name{retain}
 \alias{retain}
-\title{Primary keys: retain values}
+\title{Primary Keys: Retain Values}
 \usage{
 retain(df, value_var, event, outside = NA)
 }
 \arguments{
-\item{df}{data frame in which to apply the retain.}
+\item{df}{(`data.frame`)\cr Data frame in which to apply the retain.}
 
-\item{value_var}{variable containing the value to be retained.}
+\item{value_var}{(`any`)\cr Variable in `df` containing the value to be retained.}
 
-\item{event}{flag to trigger the retain.}
+\item{event}{(`expression`)\cr Expression returning a logical value to trigger the retain.}
 
-\item{outside}{value to.}
+\item{outside}{(`any`)\cr Additional value to retain. Defaults to `NA`.}
 }
 \description{
-Retain values within primary keys
+Retain values within primary keys.
 }
 \examples{
 ADLB <- radlb(radsl(N = 10, na_percentage = 0), na_vars = list())

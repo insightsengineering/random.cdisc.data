@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{apply_metadata}
 \alias{apply_metadata}
-\title{Metadata}
+\title{Apply Metadata}
 \usage{
 apply_metadata(
   df,
@@ -12,16 +12,16 @@ apply_metadata(
 )
 }
 \arguments{
-\item{df}{data frame to which metadata are applied.}
+\item{df}{(`data.frame`)\cr Data frame to which metadata is applied.}
 
-\item{filename}{\code{yaml} file containing domain metadata.}
+\item{filename}{(`yaml`)\cr File containing domain metadata.}
 
-\item{add_adsl}{logical to control merging of ADSL data to domain}
+\item{add_adsl}{(`logical`)\cr Should ADSL data be merged to domain.}
 
-\item{adsl_filename}{\code{yaml} file containing ADSL metadata.}
+\item{adsl_filename}{(`yaml`)\cr File containing ADSL metadata.}
 }
 \description{
-Apply label and variable ordering attributes to domains
+Apply label and variable ordering attributes to domains.
 }
 \examples{
 seed <- 1

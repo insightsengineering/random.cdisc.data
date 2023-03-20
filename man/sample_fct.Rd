@@ -2,24 +2,23 @@
 % Please edit documentation in R/utils.R
 \name{sample_fct}
 \alias{sample_fct}
-\title{Create a factor with random elements of x}
+\title{Create a Factor with Random Elements of x}
 \usage{
 sample_fct(x, N, ...)
 }
 \arguments{
-\item{x}{character vector or factor, if character vector then it is also used
-as levels of the returned factor, otherwise if it is a factor then the
-levels get used as the new levels}
+\item{x}{(`character vector` or `factor`)\cr If character vector then it is also used
+as levels of the returned factor. If factor then the levels are used as the new levels.}
 
-\item{N}{number of}
+\item{N}{Number of items to choose.}
 
-\item{...}{arguments passed on to \code{\link{sample}}}
+\item{...}{Additional arguments to be passed to `sample`.}
 }
 \value{
-a factor of length N
+A factor of length `N`.
 }
 \description{
-Sample elements from x with replacing and build a factor
+Sample elements from `x` with replacement to build a factor.
 }
 \examples{
 random.cdisc.data:::sample_fct(letters[1:3], 10)

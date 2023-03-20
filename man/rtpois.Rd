@@ -7,14 +7,16 @@
 rtpois(n, lambda)
 }
 \arguments{
-\item{n}{number of random numbers.}
+\item{n}{(`numeric`)\cr Number of random numbers.}
 
-\item{lambda}{non-negative mean(s).}
+\item{lambda}{(`numeric`)\cr Non-negative mean(s).}
 }
 \value{
 The random numbers.
 }
 \description{
+`r lifecycle::badge("stable")`
+
 This generates random numbers from a zero-truncated Poisson distribution,
 i.e. from `X | X > 0` when `X ~ Poisson(lambda)`. The advantage here is that
 we guarantee to return exactly `n` numbers and without using a loop internally.

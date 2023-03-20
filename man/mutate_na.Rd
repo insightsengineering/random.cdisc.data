@@ -2,23 +2,25 @@
 % Please edit documentation in R/utils.R
 \name{mutate_na}
 \alias{mutate_na}
-\title{NA: replace values}
+\title{Replace Values with NA}
 \usage{
 mutate_na(ds, na_vars = NULL, na_percentage = 0.05)
 }
 \arguments{
-\item{ds}{(\code{data.frame}) Any data set}
+\item{ds}{(`data.frame`)\cr Any data set.}
 
-\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
- element of this list should be a numeric vector with two elements
- \itemize{
-    \item{seed }{The seed to be used for this element - can be left NA}
-    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-    percentage is used. This will overwrite default percentage (percentage argument))}
+\item{na_vars}{(`list`)\cr A named list where the name of each element is a column name of `ds`. Each
+element of this list should be a numeric vector with two elements:
+\itemize{
+  \item{`seed` (`integer`)\cr The seed to be used for this element - can be `NA`.}
+  \item{`percentage` (`proportion`)\cr Percentage of elements to be replaced with `NA`.
+  If `NA`, `na_percentage` is used as a default.}
 }}
 
-\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(`proportion`)\cr Default percentage of values to be replaced by `NA`.}
 }
 \description{
-Replace column values with NAs
+`r lifecycle::badge("stable")`
+
+Replace column values with `NA`s.
 }

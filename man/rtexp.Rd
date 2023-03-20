@@ -7,19 +7,21 @@
 rtexp(n, rate, l = NULL, r = NULL)
 }
 \arguments{
-\item{n}{number of random numbers.}
+\item{n}{(`integer`)\cr Number of random numbers.}
 
-\item{rate}{non-negative rate.}
+\item{rate}{(`numeric`)\cr Non-negative rate.}
 
-\item{l}{positive left-hand truncation parameter.}
+\item{l}{(`numeric`)\cr Positive left-hand truncation parameter.}
 
-\item{r}{positive right-hand truncation parameter.}
+\item{r}{(`numeric`)\cr Positive right-hand truncation parameter.}
 }
 \value{
 The random numbers. If neither `l` nor `r` are provided then the usual Exponential
  distribution is used.
 }
 \description{
+`r lifecycle::badge("stable")`
+
 This generates random numbers from a truncated Exponential distribution,
 i.e. from `X | X > l` or `X | X < r` when `X ~ Exp(rate)`. The advantage here is that
 we guarantee to return exactly `n` numbers and without using a loop internally.

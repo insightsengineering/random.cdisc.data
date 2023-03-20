@@ -2,23 +2,24 @@
 % Please edit documentation in R/utils.R
 \name{replace_na}
 \alias{replace_na}
-\title{Replace values in a vector by NA}
+\title{Replace Values in a Vector by NA}
 \usage{
 replace_na(v, percentage = 0.05, seed = NULL)
 }
 \arguments{
-\item{v}{(\code{any}) vector of any type}
+\item{v}{(`any`)\cr Vector of any type.}
 
-\item{percentage}{(\code{numeric}) Value between 0 and 1 defining
-how much of the vector shall be replaced by NA. This number
-is randomized by plus minus 5 percent to have full randomization.}
+\item{percentage}{(`proportion`)\cr Value between 0 and 1 defining
+how much of the vector shall be replaced by `NA`. This number
+is randomized by +/- 5\% to have full randomization.}
 
-\item{seed}{(\code{numeric}) seed to set to make randomization reproducible}
+\item{seed}{(`integer`)\cr Seed for reproducible random number generation.}
 }
 \value{
-The input vector v where a certain number of values
-  is replaced by NA
+The input vector `v` where a certain number of values are replaced by `NA`.
 }
 \description{
-Randomized replacement of values by NA
+`r lifecycle::badge("stable")`
+
+Randomized replacement of values by `NA`.
 }
