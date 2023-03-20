@@ -13,7 +13,6 @@
 #'
 #' @return `data.frame`
 #' @export
-#' @import dplyr
 #'
 #' @examples
 #' library(random.cdisc.data)

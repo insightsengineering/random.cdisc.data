@@ -4,7 +4,8 @@
 #'
 #' @name package
 #' @import magrittr
-#' @importFrom rlang .data
+#' @import dplyr
+#' @importFrom rlang .data := !!
 #'
 "_PACKAGE"
 
