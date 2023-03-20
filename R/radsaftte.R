@@ -3,6 +3,10 @@
 #' Function to generate random Time-to-Safety Event Dataset for a
 #' given Subject-Level Analysis Dataset.
 #'
+#' @details
+#'
+#' Keys: `STUDYID`, `USUBJID`, `PARAMCD`
+#'
 #' @inheritParams radaette
 #' @param ... Additional arguments to be passed to `radaette`
 #'

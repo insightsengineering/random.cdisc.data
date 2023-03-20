@@ -27,6 +27,9 @@ should be generated. If set to \code{TRUE} then the other arguments to \code{rad
 Function for generating a random EORTC QLQ-C30 V3 Analysis Dataset for a given
 Subject-Level Analysis Dataset.
 }
+\details{
+Keys: `STUDYID`, `USUBJID`, `PARCAT1N`, `PARAMCD`, `BASETYPE`, `AVISITN`, `ATPTN`, `ADTM`, `QSSEQ`
+}
 \examples{
 library(random.cdisc.data)
 ADSL <- radsl(N = 10, study_duration = 2, seed = 1)

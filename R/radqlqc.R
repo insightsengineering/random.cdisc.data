@@ -5,6 +5,10 @@
 #' Function for generating a random EORTC QLQ-C30 V3 Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
+#' @details
+#'
+#' Keys: `STUDYID`, `USUBJID`, `PARCAT1N`, `PARAMCD`, `BASETYPE`, `AVISITN`, `ATPTN`, `ADTM`, `QSSEQ`
+#'
 #' @inheritParams argument_convention
 #' @param percent (`numeric`)\cr Completion - Completed at least y percent of questions, 1 record per visit
 #' @param number (`numeric`)\cr Completion - Completed at least x question(s), 1 record per visit

@@ -18,6 +18,9 @@ radsaftte(ADSL, ...)
 Function to generate random Time-to-Safety Event Dataset for a
 given Subject-Level Analysis Dataset.
 }
+\details{
+Keys: `STUDYID`, `USUBJID`, `PARAMCD`
+}
 \examples{
 library(random.cdisc.data)
 ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
