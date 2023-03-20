@@ -28,7 +28,7 @@
 #'
 #' ADCM_WHO <- radcm(ADSL, seed = 2, who_coding = TRUE)
 #' ADCM_WHO
-radcm <- function(ADSL, # nolint
+radcm <- function(ADSL,
                   max_n_cms = 10L,
                   lookup = NULL,
                   seed = NULL,
@@ -70,7 +70,7 @@ radcm <- function(ADSL, # nolint
     set.seed(seed)
   }
 
-  ADCM <- Map(function(id, sid) { # nolint
+  ADCM <- Map(function(id, sid) {
     n_cms <- sample(c(0, seq_len(max_n_cms)), 1)
     i <- sample(seq_len(nrow(lookup_cm)), n_cms, TRUE)
     dplyr::mutate(
@@ -83,14 +83,14 @@ radcm <- function(ADSL, # nolint
     `[`(c(4, 5, 1, 2, 3)) %>%
     dplyr::mutate(CMCAT = .data$CMCLAS)
 
-  ADCM <- var_relabel( # nolint
+  ADCM <- var_relabel(
     ADCM,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add CM date and study day variables
-  ADCM <- dplyr::inner_join( # nolint
+  ADCM <- dplyr::inner_join(
     ADCM,
     ADSL,
     by = c("STUDYID", "USUBJID")
@@ -118,7 +118,7 @@ radcm <- function(ADSL, # nolint
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)
 
-  ADCM <- ADCM %>% # nolint
+  ADCM <- ADCM %>%
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(CMSEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = .data$CMSEQ) %>%
@@ -169,7 +169,7 @@ radcm <- function(ADSL, # nolint
   if (who_coding) {
     n_cmdecod_path2 <- ceiling(nrow(lookup_cm) / 2)
     cmdecod_path2 <- sample(lookup_cm$CMDECOD, n_cmdecod_path2)
-    ADCM_path2 <- ADCM %>% # nolint
+    ADCM_path2 <- ADCM %>%
       dplyr::filter(.data$CMDECOD %in% cmdecod_path2) %>%
       dplyr::mutate(
         ATC1 = paste(.data$ATC1, "p2"),
@@ -180,7 +180,7 @@ radcm <- function(ADSL, # nolint
 
     n_cmdecod_path3 <- ceiling(length(cmdecod_path2) / 2)
     cmdecod_path3 <- sample(cmdecod_path2, n_cmdecod_path3)
-    ADCM_path3 <- ADCM %>% # nolint
+    ADCM_path3 <- ADCM %>%
       dplyr::filter(.data$CMDECOD %in% cmdecod_path3) %>%
       dplyr::mutate(
         ATC1 = paste(.data$ATC1, "p3"),
@@ -189,14 +189,14 @@ radcm <- function(ADSL, # nolint
         ATC4 = paste(.data$ATC4, "p3")
       )
 
-    ADCM <- dplyr::bind_rows( # nolint
+    ADCM <- dplyr::bind_rows(
       ADCM,
       ADCM_path2,
       ADCM_path3
     )
   }
 
-  ADCM <- ADCM %>% # nolint
+  ADCM <- ADCM %>%
     dplyr::mutate(
       ATC1CD = .data$ATC1,
       ATC2CD = .data$ATC2,
@@ -205,11 +205,11 @@ radcm <- function(ADSL, # nolint
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADCM <- mutate_na(ds = ADCM, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    ADCM <- mutate_na(ds = ADCM, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADCM <- apply_metadata(ADCM, "metadata/ADCM.yml") # nolint
+  ADCM <- apply_metadata(ADCM, "metadata/ADCM.yml")
 
   return(ADCM)
 }

@@ -14,7 +14,7 @@
 #'
 #' ADSAFTTE <- radsaftte(ADSL, seed = 2)
 #' ADSAFTTE
-radsaftte <- function(ADSL, # nolint
+radsaftte <- function(ADSL,
                       ...) {
   radaette(ADSL = ADSL, ...)
 }

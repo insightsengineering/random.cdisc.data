@@ -29,7 +29,7 @@
 #'
 #' ADVS <- radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
 #' ADVS
-radvs <- function(ADSL, # nolint
+radvs <- function(ADSL,
                   param = c(
                     "Diastolic Blood Pressure",
                     "Pulse Rate",
@@ -73,7 +73,7 @@ radvs <- function(ADSL, # nolint
     set.seed(seed)
   }
 
-  ADVS <- expand.grid( # nolint
+  ADVS <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
     PARAM = as.factor(param_init_list$relvar1),
@@ -81,7 +81,7 @@ radvs <- function(ADSL, # nolint
     stringsAsFactors = FALSE
   )
 
-  ADVS <- dplyr::mutate( # nolint
+  ADVS <- dplyr::mutate(
     ADVS,
     AVISITN = dplyr::case_when(
       AVISIT == "SCREENING" ~ -1,
@@ -91,27 +91,27 @@ radvs <- function(ADSL, # nolint
     )
   )
 
-  ADVS$VSCAT <- "VITAL SIGNS" # nolint
+  ADVS$VSCAT <- "VITAL SIGNS"
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADVS <- ADVS %>% rel_var( # nolint
+  ADVS <- ADVS %>% rel_var(
     var_name = "PARAMCD",
     related_var = "PARAM",
     var_values = param_init_list$relvar2
   )
 
   # assign related variable values: PARAMxAVALU are related
-  ADVS <- ADVS %>% rel_var( # nolint
+  ADVS <- ADVS %>% rel_var(
     var_name = "AVALU",
     related_var = "PARAM",
     var_values = unit_init_list$relvar2
   )
 
-  ADVS <- ADVS %>% # nolint
+  ADVS <- ADVS %>%
     dplyr::mutate(VSTESTCD = .data$PARAMCD) %>%
     dplyr::mutate(VSTEST = .data$PARAM)
 
-  ADVS <- ADVS %>% dplyr::mutate(AVAL = dplyr::case_when( # nolint
+  ADVS <- ADVS %>% dplyr::mutate(AVAL = dplyr::case_when(
     .data$PARAMCD == paramcd[1] ~ stats::rnorm(nrow(ADVS), mean = 100, sd = 20),
     .data$PARAMCD == paramcd[2] ~ stats::rnorm(nrow(ADVS), mean = 80, sd = 15),
     .data$PARAMCD == paramcd[3] ~ stats::rnorm(nrow(ADVS), mean = 16, sd = 5),
@@ -121,12 +121,12 @@ radvs <- function(ADSL, # nolint
   ))
 
   # order to prepare for change from screening and baseline values
-  ADVS <- ADVS[order(ADVS$STUDYID, ADVS$USUBJID, ADVS$PARAMCD, ADVS$AVISITN), ] # nolint
+  ADVS <- ADVS[order(ADVS$STUDYID, ADVS$USUBJID, ADVS$PARAMCD, ADVS$AVISITN), ]
 
-  ADVS <- Reduce(rbind, lapply(split(ADVS, ADVS$USUBJID), function(x) { # nolint
-    x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])] # nolint
-    x$ABLFL2 <- ifelse(x$AVISIT == "SCREENING", "Y", "") # nolint
-    x$ABLFL <- ifelse( # nolint
+  ADVS <- Reduce(rbind, lapply(split(ADVS, ADVS$USUBJID), function(x) {
+    x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])]
+    x$ABLFL2 <- ifelse(x$AVISIT == "SCREENING", "Y", "")
+    x$ABLFL <- ifelse(
       toupper(visit_format) == "WEEK" & x$AVISIT == "BASELINE",
       "Y",
       ifelse(
@@ -138,10 +138,10 @@ radvs <- function(ADSL, # nolint
     x
   }))
 
-  ADVS$BASE2 <- retain(ADVS, ADVS$AVAL, ADVS$ABLFL2 == "Y") # nolint
-  ADVS$BASE <- ifelse(ADVS$ABLFL2 != "Y", retain(ADVS, ADVS$AVAL, ADVS$ABLFL == "Y"), NA) # nolint
+  ADVS$BASE2 <- retain(ADVS, ADVS$AVAL, ADVS$ABLFL2 == "Y")
+  ADVS$BASE <- ifelse(ADVS$ABLFL2 != "Y", retain(ADVS, ADVS$AVAL, ADVS$ABLFL == "Y"), NA)
 
-  ADVS <- ADVS %>% # nolint
+  ADVS <- ADVS %>%
     dplyr::mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
     dplyr::mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
     dplyr::mutate(CHG = .data$AVAL - .data$BASE) %>%
@@ -191,14 +191,14 @@ radvs <- function(ADSL, # nolint
       STUDYID = attr(ADSL$STUDYID, "label")
     )
 
-  ADVS <- var_relabel( # nolint
+  ADVS <- var_relabel(
     ADVS,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add LB date and study day variables
-  ADVS <- dplyr::inner_join( # nolint
+  ADVS <- dplyr::inner_join(
     ADVS,
     ADSL,
     by = c("STUDYID", "USUBJID")
@@ -211,7 +211,7 @@ radvs <- function(ADSL, # nolint
     )) %>%
     dplyr::ungroup()
 
-  ADVS <- ADVS %>% # nolint
+  ADVS <- ADVS %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::arrange(USUBJID, AVISITN) %>%
     dplyr::mutate(ADTM = rep(
@@ -226,12 +226,12 @@ radvs <- function(ADSL, # nolint
     dplyr::select(-"trtsdt_int", -"trtedt_int") %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
-  ADVS <- ADVS %>% dplyr::mutate(ONTRTFL = factor(dplyr::case_when( # nolint
+  ADVS <- ADVS %>% dplyr::mutate(ONTRTFL = factor(dplyr::case_when(
     !AVISIT %in% c("SCREENING", "BASELINE") ~ "Y",
     TRUE ~ ""
   )))
 
-  ADVS <- ADVS %>% # nolint
+  ADVS <- ADVS %>%
     dplyr::mutate(ASPID = sample(seq_len(dplyr::n()))) %>%
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(VSSEQ = seq_len(dplyr::n())) %>%
@@ -251,11 +251,11 @@ radvs <- function(ADSL, # nolint
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADVS <- mutate_na(ds = ADVS, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    ADVS <- mutate_na(ds = ADVS, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADVS <- apply_metadata(ADVS, "metadata/ADVS.yml") # nolint
+  ADVS <- apply_metadata(ADVS, "metadata/ADVS.yml")
 
   return(ADVS)
 }

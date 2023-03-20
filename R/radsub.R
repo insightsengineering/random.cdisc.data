@@ -33,7 +33,7 @@ h_anthropometrics_by_sex <- function(df,
                                      male_weight_in_kg = list(mean = 90.6, sd = 44.9),
                                      female_weight_in_kg = list(mean = 77.5, sd = 46.2),
                                      male_height_in_m = list(mean = 1.75, sd = 0.14),
-                                     female_height_in_m = list(mean = 1.61, sd = 0.24)) { # nolint
+                                     female_height_in_m = list(mean = 1.61, sd = 0.24)) {
   checkmate::assert_data_frame(df)
   checkmate::assert_string(id_var)
   checkmate::assert_string(sex_var)
@@ -103,7 +103,7 @@ h_anthropometrics_by_sex <- function(df,
 #'
 #' ADSUB <- radsub(ADSL, seed = 2)
 #' ADSUB
-radsub <- function(ADSL, # nolint
+radsub <- function(ADSL,
                    param = c(
                      "Baseline Weight",
                      "Baseline Height",
@@ -135,7 +135,7 @@ radsub <- function(ADSL, # nolint
     set.seed(seed)
   }
 
-  ADSUB <- expand.grid( # nolint
+  ADSUB <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = ADSL$USUBJID,
     PARAM = as.factor(param_init_list$relvar1),
@@ -144,15 +144,15 @@ radsub <- function(ADSL, # nolint
   )
 
   # Assign related variable values: PARAM and PARAMCD are related.
-  ADSUB <- ADSUB %>% rel_var( # nolint
+  ADSUB <- ADSUB %>% rel_var(
     var_name = "PARAMCD",
     related_var = "PARAM",
     var_values = param_init_list$relvar2
   )
 
-  ADSUB <- ADSUB[order(ADSUB$STUDYID, ADSUB$USUBJID, ADSUB$PARAMCD), ] # nolint
+  ADSUB <- ADSUB[order(ADSUB$STUDYID, ADSUB$USUBJID, ADSUB$PARAMCD), ]
 
-  ADSUB <- var_relabel( # nolint
+  ADSUB <- var_relabel(
     ADSUB,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
@@ -160,7 +160,7 @@ radsub <- function(ADSL, # nolint
 
   # Merge ADSL to be able to add EG date and study day variables.
   # Sample ADTM to be a few days before TRTSDTM.
-  ADSUB <- dplyr::inner_join( # nolint
+  ADSUB <- dplyr::inner_join(
     ADSUB,
     ADSL,
     by = c("STUDYID", "USUBJID")
@@ -175,13 +175,13 @@ radsub <- function(ADSL, # nolint
 
   # Generate a dataset with height, weight and BMI measurements for each subject.
   if (!is.null(seed)) {
-    df_with_measurements <- h_anthropometrics_by_sex(ADSUB, seed = seed) # nolint
+    df_with_measurements <- h_anthropometrics_by_sex(ADSUB, seed = seed)
   } else {
-    df_with_measurements <- h_anthropometrics_by_sex(ADSUB) # nolint
+    df_with_measurements <- h_anthropometrics_by_sex(ADSUB)
   }
 
   # Add this to ADSUB and create other measurements.
-  ADSUB <- ADSUB %>% # nolint
+  ADSUB <- ADSUB %>%
     dplyr::group_by(.data$USUBJID) %>%
     dplyr::mutate(
       AVAL = dplyr::case_when(
@@ -202,7 +202,7 @@ radsub <- function(ADSL, # nolint
       TRUE ~ round(.data$AVAL)
     ))
 
-  ADSUB <- ADSUB %>% # nolint
+  ADSUB <- ADSUB %>%
     dplyr::mutate(
       AVALC = dplyr::case_when(
         .data$PARAMCD == "BBMRKR1" ~ dplyr::case_when(
@@ -241,11 +241,11 @@ radsub <- function(ADSL, # nolint
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADSUB <- mutate_na(ds = ADSUB, na_vars = na_vars, na_percentage = na_percentage) # nolint
+    ADSUB <- mutate_na(ds = ADSUB, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # Apply metadata.
-  ADSUB <- apply_metadata(ADSUB, "metadata/ADSUB.yml") # nolint
+  ADSUB <- apply_metadata(ADSUB, "metadata/ADSUB.yml")
 
   return(ADSUB)
 }

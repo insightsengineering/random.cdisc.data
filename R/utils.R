@@ -33,7 +33,7 @@ get_cached_data <- function(dataname) {
 #' @examples
 #' random.cdisc.data:::sample_fct(letters[1:3], 10)
 #' random.cdisc.data:::sample_fct(iris$Species, 10)
-sample_fct <- function(x, N, ...) { # nolint
+sample_fct <- function(x, N, ...) {
   checkmate::assert_number(N)
 
   factor(sample(x, N, replace = TRUE, ...), levels = if (is.factor(x)) levels(x) else x)
@@ -244,7 +244,7 @@ var_relabel <- function(x, ...) {
 #'   file.path(yaml_path, "ADSL.yml")
 #' )
 #' }
-apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metadata/ADSL.yml") { # nolint
+apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metadata/ADSL.yml") {
   checkmate::assert_data_frame(df)
   checkmate::assert_string(filename)
   checkmate::assert_flag(add_adsl)
