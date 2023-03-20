@@ -7,24 +7,24 @@
 rtexp(n, rate, l = NULL, r = NULL)
 }
 \arguments{
-\item{n}{(`integer`)\cr Number of random numbers.}
+\item{n}{(\code{integer})\cr Number of random numbers.}
 
-\item{rate}{(`numeric`)\cr Non-negative rate.}
+\item{rate}{(\code{numeric})\cr Non-negative rate.}
 
-\item{l}{(`numeric`)\cr Positive left-hand truncation parameter.}
+\item{l}{(\code{numeric})\cr Positive left-hand truncation parameter.}
 
-\item{r}{(`numeric`)\cr Positive right-hand truncation parameter.}
+\item{r}{(\code{numeric})\cr Positive right-hand truncation parameter.}
 }
 \value{
-The random numbers. If neither `l` nor `r` are provided then the usual Exponential
- distribution is used.
+The random numbers. If neither \code{l} nor \code{r} are provided then the usual Exponential
+distribution is used.
 }
 \description{
-`r lifecycle::badge("stable")`
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 This generates random numbers from a truncated Exponential distribution,
-i.e. from `X | X > l` or `X | X < r` when `X ~ Exp(rate)`. The advantage here is that
-we guarantee to return exactly `n` numbers and without using a loop internally.
+i.e. from \code{X | X > l} or \code{X | X < r} when \code{X ~ Exp(rate)}. The advantage here is that
+we guarantee to return exactly \code{n} numbers and without using a loop internally.
 This can be derived from the quantile functions of the left- and right-truncated
 Exponential distributions.
 }

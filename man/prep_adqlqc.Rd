@@ -7,10 +7,10 @@
 prep_adqlqc(df)
 }
 \arguments{
-\item{df}{(`data.frame`)\cr SDTM QS dataset.}
+\item{df}{(\code{data.frame})\cr SDTM QS dataset.}
 }
 \value{
-`data.frame`
+\code{data.frame}
 }
 \description{
 Prepare ADaM ADQLQC data, adding PARAMCD to SDTM QS data

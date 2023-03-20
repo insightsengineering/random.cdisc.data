@@ -7,9 +7,9 @@
 relvar_init(relvar1, relvar2)
 }
 \arguments{
-\item{relvar1}{(`list` of `character`)\cr List of n elements.}
+\item{relvar1}{(\code{list} of \code{character})\cr List of n elements.}
 
-\item{relvar2}{(`list` of `character`)\cr List of n elements.}
+\item{relvar2}{(\code{list} of \code{character})\cr List of n elements.}
 }
 \value{
 A vector of n elements.

@@ -7,21 +7,21 @@
 rtpois(n, lambda)
 }
 \arguments{
-\item{n}{(`numeric`)\cr Number of random numbers.}
+\item{n}{(\code{numeric})\cr Number of random numbers.}
 
-\item{lambda}{(`numeric`)\cr Non-negative mean(s).}
+\item{lambda}{(\code{numeric})\cr Non-negative mean(s).}
 }
 \value{
 The random numbers.
 }
 \description{
-`r lifecycle::badge("stable")`
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 This generates random numbers from a zero-truncated Poisson distribution,
-i.e. from `X | X > 0` when `X ~ Poisson(lambda)`. The advantage here is that
-we guarantee to return exactly `n` numbers and without using a loop internally.
+i.e. from \code{X | X > 0} when \code{X ~ Poisson(lambda)}. The advantage here is that
+we guarantee to return exactly \code{n} numbers and without using a loop internally.
 This solution was provided in a post by
-[Peter Dalgaard](https://stat.ethz.ch/pipermail/r-help/2005-May/070680.html).
+\href{https://stat.ethz.ch/pipermail/r-help/2005-May/070680.html}{Peter Dalgaard}.
 }
 \examples{
 x <- rpois(1e6, lambda = 5)

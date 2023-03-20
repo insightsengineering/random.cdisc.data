@@ -7,13 +7,13 @@
 retain(df, value_var, event, outside = NA)
 }
 \arguments{
-\item{df}{(`data.frame`)\cr Data frame in which to apply the retain.}
+\item{df}{(\code{data.frame})\cr Data frame in which to apply the retain.}
 
-\item{value_var}{(`any`)\cr Variable in `df` containing the value to be retained.}
+\item{value_var}{(\code{any})\cr Variable in \code{df} containing the value to be retained.}
 
-\item{event}{(`expression`)\cr Expression returning a logical value to trigger the retain.}
+\item{event}{(\code{expression})\cr Expression returning a logical value to trigger the retain.}
 
-\item{outside}{(`any`)\cr Additional value to retain. Defaults to `NA`.}
+\item{outside}{(\code{any})\cr Additional value to retain. Defaults to \code{NA}.}
 }
 \description{
 Retain values within primary keys.

@@ -12,13 +12,13 @@ apply_metadata(
 )
 }
 \arguments{
-\item{df}{(`data.frame`)\cr Data frame to which metadata is applied.}
+\item{df}{(\code{data.frame})\cr Data frame to which metadata is applied.}
 
-\item{filename}{(`yaml`)\cr File containing domain metadata.}
+\item{filename}{(\code{yaml})\cr File containing domain metadata.}
 
-\item{add_adsl}{(`logical`)\cr Should ADSL data be merged to domain.}
+\item{add_adsl}{(\code{logical})\cr Should ADSL data be merged to domain.}
 
-\item{adsl_filename}{(`yaml`)\cr File containing ADSL metadata.}
+\item{adsl_filename}{(\code{yaml})\cr File containing ADSL metadata.}
 }
 \description{
 Apply label and variable ordering attributes to domains.

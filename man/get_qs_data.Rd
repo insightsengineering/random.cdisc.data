@@ -16,26 +16,26 @@ get_qs_data(
 )
 }
 \arguments{
-\item{ADSL}{(`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{visit_format}{(`character`)\cr Type of visit. Options are "WEEK" and "CYCLE".}
+\item{visit_format}{(\code{character})\cr Type of visit. Options are "WEEK" and "CYCLE".}
 
-\item{n_assessments}{(`integer`)\cr Number of weeks or cycles.}
+\item{n_assessments}{(\code{integer})\cr Number of weeks or cycles.}
 
-\item{n_days}{(`integer`)\cr Number of days within cycle (only used if `visit_format` is "CYCLE").}
+\item{n_days}{(\code{integer})\cr Number of days within cycle (only used if \code{visit_format} is "CYCLE").}
 
-\item{lookup}{(`data.frame`)\cr Additional parameters.}
+\item{lookup}{(\code{data.frame})\cr Additional parameters.}
 
-\item{seed}{(`integer`)\cr Seed for reproducible random number generation.}
+\item{seed}{(\code{integer})\cr Seed for reproducible random number generation.}
 
-\item{na_percentage}{(`proportion`)\cr Default percentage of values to be replaced by `NA`.}
+\item{na_percentage}{(\code{proportion})\cr Default percentage of values to be replaced by \code{NA}.}
 
-\item{na_vars}{(`list`)\cr A named list where the name of each element is a column name of `ds`. Each
+\item{na_vars}{(\code{list})\cr A named list where the name of each element is a column name of \code{ds}. Each
 element of this list should be a numeric vector with two elements:
 \itemize{
-  \item{`seed` (`integer`)\cr The seed to be used for this element - can be `NA`.}
-  \item{`percentage` (`proportion`)\cr Percentage of elements to be replaced with `NA`.
-  If `NA`, `na_percentage` is used as a default.}
+\item{\code{seed} (\code{integer})\cr The seed to be used for this element - can be \code{NA}.}
+\item{\code{percentage} (\code{proportion})\cr Percentage of elements to be replaced with \code{NA}.
+If \code{NA}, \code{na_percentage} is used as a default.}
 }}
 }
 \value{

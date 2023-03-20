@@ -7,19 +7,19 @@
 radsaftte(ADSL, ...)
 }
 \arguments{
-\item{ADSL}{(`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{...}{Additional arguments to be passed to `radaette`}
+\item{...}{Additional arguments to be passed to \code{radaette}}
 }
 \value{
-`data.frame`
+\code{data.frame}
 }
 \description{
 Function to generate random Time-to-Safety Event Dataset for a
 given Subject-Level Analysis Dataset.
 }
 \details{
-Keys: `STUDYID`, `USUBJID`, `PARAMCD`
+Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}
 }
 \examples{
 library(random.cdisc.data)

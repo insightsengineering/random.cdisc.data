@@ -17,35 +17,35 @@ radsl(
 )
 }
 \arguments{
-\item{N}{(`integer`)\cr Number of patients.}
+\item{N}{(\code{integer})\cr Number of patients.}
 
-\item{study_duration}{(`integer`)\cr Duration of study in years.}
+\item{study_duration}{(\code{integer})\cr Duration of study in years.}
 
-\item{seed}{(`integer`)\cr Seed for reproducible random number generation.}
+\item{seed}{(\code{integer})\cr Seed for reproducible random number generation.}
 
-\item{with_trt02}{(`logical`)\cr Should period 2 be added.}
+\item{with_trt02}{(\code{logical})\cr Should period 2 be added.}
 
-\item{na_percentage}{(`proportion`)\cr Default percentage of values to be replaced by `NA`.}
+\item{na_percentage}{(\code{proportion})\cr Default percentage of values to be replaced by \code{NA}.}
 
-\item{na_vars}{(`list`)\cr A named list where the name of each element is a column name of `ds`. Each
+\item{na_vars}{(\code{list})\cr A named list where the name of each element is a column name of \code{ds}. Each
 element of this list should be a numeric vector with two elements:
 \itemize{
-  \item{`seed` (`integer`)\cr The seed to be used for this element - can be `NA`.}
-  \item{`percentage` (`proportion`)\cr Percentage of elements to be replaced with `NA`.
-  If `NA`, `na_percentage` is used as a default.}
+\item{\code{seed} (\code{integer})\cr The seed to be used for this element - can be \code{NA}.}
+\item{\code{percentage} (\code{proportion})\cr Percentage of elements to be replaced with \code{NA}.
+If \code{NA}, \code{na_percentage} is used as a default.}
 }}
 
-\item{ae_withdrawal_prob}{(`proportion`)\cr Probability that there is at least one
+\item{ae_withdrawal_prob}{(\code{proportion})\cr Probability that there is at least one
 Adverse Event leading to the withdrawal of a study drug.}
 
 \item{cached}{boolean whether the cached ADSL data \code{cadsl} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
 }
 \value{
-`data.frame`
+\code{data.frame}
 }
 \description{
-`r lifecycle::badge("stable")`
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The Subject-Level Analysis Dataset (ADSL) is used to provide the variables
 that describe attributes of a subject. ADSL is a source for subject-level
@@ -57,7 +57,7 @@ trial even if no other analysis data sets are submitted.
 \details{
 One record per subject.
 
-Keys: `STUDYID`, `USUBJID`
+Keys: \code{STUDYID}, \code{USUBJID}
 }
 \examples{
 library(random.cdisc.data)

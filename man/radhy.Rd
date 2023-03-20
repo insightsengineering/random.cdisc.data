@@ -36,22 +36,22 @@ radhy(
 )
 }
 \arguments{
-\item{ADSL}{(`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{param}{(`character vector`)\cr Parameter values.}
+\item{param}{(\verb{character vector})\cr Parameter values.}
 
-\item{paramcd}{(`character vector`)\cr Parameter code values.}
+\item{paramcd}{(\verb{character vector})\cr Parameter code values.}
 
-\item{seed}{(`integer`)\cr Seed for reproducible random number generation.}
+\item{seed}{(\code{integer})\cr Seed for reproducible random number generation.}
 
 \item{cached}{boolean whether the cached ADHY data \code{cadhy} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radhy} will be ignored.}
 }
 \value{
-`data.frame`
+\code{data.frame}
 }
 \description{
-`r lifecycle::badge("stable")`
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Function for generating a random Hy's Law Analysis Dataset for a given
 Subject-Level Analysis Dataset.
@@ -59,7 +59,7 @@ Subject-Level Analysis Dataset.
 \details{
 One record per subject per parameter per analysis visit per analysis date.
 
-Keys: `STUDYID`, `USUBJID`, `PARAMCD`, `AVISITN`, `ADTM`, `SRCSEQ`
+Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}, \code{AVISITN}, \code{ADTM}, \code{SRCSEQ}
 }
 \examples{
 library(random.cdisc.data)

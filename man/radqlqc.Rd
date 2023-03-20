@@ -7,28 +7,28 @@
 radqlqc(ADSL, percent, number, seed = NULL, cached = FALSE)
 }
 \arguments{
-\item{ADSL}{(`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{percent}{(`numeric`)\cr Completion - Completed at least y percent of questions, 1 record per visit}
+\item{percent}{(\code{numeric})\cr Completion - Completed at least y percent of questions, 1 record per visit}
 
-\item{number}{(`numeric`)\cr Completion - Completed at least x question(s), 1 record per visit}
+\item{number}{(\code{numeric})\cr Completion - Completed at least x question(s), 1 record per visit}
 
-\item{seed}{(`integer`)\cr Seed for reproducible random number generation.}
+\item{seed}{(\code{integer})\cr Seed for reproducible random number generation.}
 
 \item{cached}{boolean whether the cached ADQLQC data \code{cadqlqc} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radqlqc} will be ignored.}
 }
 \value{
-`data.frame`
+\code{data.frame}
 }
 \description{
-`r lifecycle::badge("stable")`
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Function for generating a random EORTC QLQ-C30 V3 Analysis Dataset for a given
 Subject-Level Analysis Dataset.
 }
 \details{
-Keys: `STUDYID`, `USUBJID`, `PARCAT1N`, `PARAMCD`, `BASETYPE`, `AVISITN`, `ATPTN`, `ADTM`, `QSSEQ`
+Keys: \code{STUDYID}, \code{USUBJID}, \code{PARCAT1N}, \code{PARAMCD}, \code{BASETYPE}, \code{AVISITN}, \code{ATPTN}, \code{ADTM}, \code{QSSEQ}
 }
 \examples{
 library(random.cdisc.data)

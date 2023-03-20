@@ -7,18 +7,18 @@
 sample_fct(x, N, ...)
 }
 \arguments{
-\item{x}{(`character vector` or `factor`)\cr If character vector then it is also used
+\item{x}{(\verb{character vector} or \code{factor})\cr If character vector then it is also used
 as levels of the returned factor. If factor then the levels are used as the new levels.}
 
 \item{N}{Number of items to choose.}
 
-\item{...}{Additional arguments to be passed to `sample`.}
+\item{...}{Additional arguments to be passed to \code{sample}.}
 }
 \value{
-A factor of length `N`.
+A factor of length \code{N}.
 }
 \description{
-Sample elements from `x` with replacement to build a factor.
+Sample elements from \code{x} with replacement to build a factor.
 }
 \examples{
 random.cdisc.data:::sample_fct(letters[1:3], 10)

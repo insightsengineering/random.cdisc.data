@@ -16,34 +16,34 @@ radae(
 )
 }
 \arguments{
-\item{ADSL}{(`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{max_n_aes}{(`integer`)\cr Maximum number of AEs per patient. Defaults to 10.}
+\item{max_n_aes}{(\code{integer})\cr Maximum number of AEs per patient. Defaults to 10.}
 
-\item{lookup}{(`data.frame`)\cr Additional parameters.}
+\item{lookup}{(\code{data.frame})\cr Additional parameters.}
 
-\item{lookup_aag}{(`data.frame`)\cr Additional metadata parameters.}
+\item{lookup_aag}{(\code{data.frame})\cr Additional metadata parameters.}
 
-\item{seed}{(`integer`)\cr Seed for reproducible random number generation.}
+\item{seed}{(\code{integer})\cr Seed for reproducible random number generation.}
 
-\item{na_percentage}{(`proportion`)\cr Default percentage of values to be replaced by `NA`.}
+\item{na_percentage}{(\code{proportion})\cr Default percentage of values to be replaced by \code{NA}.}
 
-\item{na_vars}{(`list`)\cr A named list where the name of each element is a column name of `ds`. Each
+\item{na_vars}{(\code{list})\cr A named list where the name of each element is a column name of \code{ds}. Each
 element of this list should be a numeric vector with two elements:
 \itemize{
-  \item{`seed` (`integer`)\cr The seed to be used for this element - can be `NA`.}
-  \item{`percentage` (`proportion`)\cr Percentage of elements to be replaced with `NA`.
-  If `NA`, `na_percentage` is used as a default.}
+\item{\code{seed} (\code{integer})\cr The seed to be used for this element - can be \code{NA}.}
+\item{\code{percentage} (\code{proportion})\cr Percentage of elements to be replaced with \code{NA}.
+If \code{NA}, \code{na_percentage} is used as a default.}
 }}
 
 \item{cached}{boolean whether the cached ADAE data \code{cadae} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radae} will be ignored.}
 }
 \value{
-`data.frame`
+\code{data.frame}
 }
 \description{
-`r lifecycle::badge("stable")`
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Function for generating random Adverse Event Analysis Dataset for a given
 Subject-Level Analysis Dataset.
@@ -51,7 +51,7 @@ Subject-Level Analysis Dataset.
 \details{
 One record per each record in the corresponding SDTM domain.
 
-Keys: `STUDYID`, `USUBJID`, `ASTDTM`, `AETERM`, `AESEQ`
+Keys: \code{STUDYID}, \code{USUBJID}, \code{ASTDTM}, \code{AETERM}, \code{AESEQ}
 }
 \examples{
 library(random.cdisc.data)

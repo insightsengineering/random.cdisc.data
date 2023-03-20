@@ -25,7 +25,7 @@ h_anthropometrics_by_sex(
 
 \item{sex_var}{(string)\cr name of variable representing sex of patient.}
 
-\item{sex_var_level_male}{(string)\cr level of `sex_var` representing males.}
+\item{sex_var_level_male}{(string)\cr level of \code{sex_var} representing males.}
 
 \item{male_weight_in_kg}{(named list)\cr list of mean and sd of male weight in kilograms.}
 

@@ -33,38 +33,38 @@ radab(
 )
 }
 \arguments{
-\item{ADSL}{(`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{ADPC}{(`data.frame`)\cr Pharmacokinetics Analysis Dataset.}
+\item{ADPC}{(\code{data.frame})\cr Pharmacokinetics Analysis Dataset.}
 
-\item{constants}{(`character vector`)\cr Constant parameters to be used in formulas for creating analysis values.}
+\item{constants}{(\verb{character vector})\cr Constant parameters to be used in formulas for creating analysis values.}
 
-\item{paramcd}{(`character vector`)\cr Parameter code values.}
+\item{paramcd}{(\verb{character vector})\cr Parameter code values.}
 
-\item{param}{(`character vector`)\cr Parameter values.}
+\item{param}{(\verb{character vector})\cr Parameter values.}
 
-\item{avalu}{(`character`)\cr Analysis value units.}
+\item{avalu}{(\code{character})\cr Analysis value units.}
 
-\item{seed}{(`integer`)\cr Seed for reproducible random number generation.}
+\item{seed}{(\code{integer})\cr Seed for reproducible random number generation.}
 
-\item{na_percentage}{(`proportion`)\cr Default percentage of values to be replaced by `NA`.}
+\item{na_percentage}{(\code{proportion})\cr Default percentage of values to be replaced by \code{NA}.}
 
-\item{na_vars}{(`list`)\cr A named list where the name of each element is a column name of `ds`. Each
+\item{na_vars}{(\code{list})\cr A named list where the name of each element is a column name of \code{ds}. Each
 element of this list should be a numeric vector with two elements:
 \itemize{
-  \item{`seed` (`integer`)\cr The seed to be used for this element - can be `NA`.}
-  \item{`percentage` (`proportion`)\cr Percentage of elements to be replaced with `NA`.
-  If `NA`, `na_percentage` is used as a default.}
+\item{\code{seed} (\code{integer})\cr The seed to be used for this element - can be \code{NA}.}
+\item{\code{percentage} (\code{proportion})\cr Percentage of elements to be replaced with \code{NA}.
+If \code{NA}, \code{na_percentage} is used as a default.}
 }}
 
 \item{cached}{boolean whether the cached ADAB data \code{cadab} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radab} will be ignored.}
 }
 \value{
-`data.frame`
+\code{data.frame}
 }
 \description{
-`r lifecycle::badge("stable")`
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 Function for generating a random Anti-Drug Antibody Analysis Dataset for a given
 Subject-Level Analysis Dataset and Pharmacokinetics Analysis Dataset.

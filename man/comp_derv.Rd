@@ -7,14 +7,14 @@
 comp_derv(dataset, percent, number)
 }
 \arguments{
-\item{dataset}{(`data.frame`)\cr dataset}
+\item{dataset}{(\code{data.frame})\cr dataset}
 
-\item{percent}{(`numeric`)\cr Completion - Completed at least y percent of questions, 1 record per visit}
+\item{percent}{(\code{numeric})\cr Completion - Completed at least y percent of questions, 1 record per visit}
 
-\item{number}{(`numeric`)\cr Completion - Completed at least x question(s), 1 record per visit}
+\item{number}{(\code{numeric})\cr Completion - Completed at least x question(s), 1 record per visit}
 }
 \value{
-`data.frame`
+\code{data.frame}
 }
 \description{
 Completion/Compliance Data Calculation

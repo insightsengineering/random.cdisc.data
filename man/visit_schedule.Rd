@@ -7,14 +7,14 @@
 visit_schedule(visit_format = "WEEK", n_assessments = 10L, n_days = 5L)
 }
 \arguments{
-\item{visit_format}{(`character`)\cr Visit format. Options are "WEEK" and "CYCLE".}
+\item{visit_format}{(\code{character})\cr Visit format. Options are "WEEK" and "CYCLE".}
 
-\item{n_assessments}{(`integer`)\cr Number of assessments.}
+\item{n_assessments}{(\code{integer})\cr Number of assessments.}
 
-\item{n_days}{(`integer`)\cr Number of days in each cycle. If `visit_format` is "WEEK" this value is ignored.}
+\item{n_days}{(\code{integer})\cr Number of days in each cycle. If \code{visit_format} is "WEEK" this value is ignored.}
 }
 \value{
-A factor of length `n_assessments`.
+A factor of length \code{n_assessments}.
 }
 \description{
 Create a visit schedule as a factor.
