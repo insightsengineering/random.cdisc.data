@@ -110,11 +110,11 @@ ADQLQC <- radqlqc(ADSL, seed = 1, percent = 80, number = 2)
 QS <- random.cdisc.data:::get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1)
 QS
 df <- dplyr::left_join(
-    ADSL,
-    QS,
-    by = c("STUDYID", "USUBJID"),
-    multiple = "all"
-  ) |>
+  ADSL,
+  QS,
+  by = c("STUDYID", "USUBJID"),
+  multiple = "all"
+) |>
   dplyr::mutate(
     AVISIT = VISIT,
     PARAMCD = QSTESTCD,
