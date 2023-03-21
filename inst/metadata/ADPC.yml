@@ -1,6 +1,6 @@
 domain:
   name: ADPC
-  label: PK Analysis Dataset
+  label: Pharmacokinetic Analysis Dataset
 
 variables:
  NRELTM1:

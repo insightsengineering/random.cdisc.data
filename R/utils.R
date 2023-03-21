@@ -251,6 +251,10 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
       df[[var]] <<- as.numeric(df[[var]])
     } else if (type == "logical" && !is.logical(df[[var]])) {
       df[[var]] <<- as.logical(df[[var]])
+    } else if (type == "datetime" && !lubridate::is.POSIXct(df[[var]])) {
+      df[[var]] <<- as.POSIXct(df[[var]])
+    } else if (type == "date" && !lubridate::is.Date(df[[var]])) {
+      df[[var]] <<- as.Date(df[[var]])
     }
   }
 

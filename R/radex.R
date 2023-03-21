@@ -77,6 +77,7 @@ radex <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
+  study_duration_secs <- attr(ADSL, "study_duration_secs")
 
   adex <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
@@ -227,22 +228,20 @@ radex <- function(ADSL,
   # merge ADSL to be able to add adex date and study day variables
   adex <- dplyr::inner_join(adex, ADSL, by = c("STUDYID", "USUBJID")) %>%
     dplyr::rowwise() %>%
-    dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-    dplyr::mutate(trtedt_int = dplyr::case_when(
-      !is.na(TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
-      is.na(TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
+    dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
+      is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
+      TRUE ~ TRTEDTM
+    ))) %>%
+    dplyr::mutate(ASTDTM = sample(
+      seq(lubridate::as_datetime(TRTSDTM), lubridate::as_datetime(TRTENDT), by = "day"),
+      size = 1
     )) %>%
-    dplyr::mutate(ASTDTM = as.POSIXct(
-      (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-      origin = "1970-01-01"
-    )) %>%
-    dplyr::mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
-    dplyr::mutate(AENDTM = as.POSIXct(
-      (sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
-      origin = "1970-01-01"
+    dplyr::mutate(AENDTM = sample(
+      seq(lubridate::as_datetime(ASTDTM), lubridate::as_datetime(TRTENDT + 1), by = "day"),
+      size = 1
     )) %>%
-    dplyr::select(-"trtsdt_int", -"trtedt_int", -"astdt_int") %>%
+    dplyr::select(-TRTENDT) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)
 
@@ -295,8 +294,8 @@ radex <- function(ADSL,
   # Exposure time stamps
   adex <- adex %>%
     dplyr::mutate(
-      EXSTDTC = lubridate::as_datetime(.data$TRTSDTM) + lubridate::days(.data$VISITDY),
-      EXENDTC = .data$EXSTDTC + lubridate::hours(1),
+      EXSTDTC = TRTSDTM + lubridate::days(VISITDY),
+      EXENDTC = EXSTDTC + lubridate::hours(1),
       EXSTDY = .data$VISITDY,
       EXENDY = .data$VISITDY
     )
@@ -304,14 +303,14 @@ radex <- function(ADSL,
   # Correcting last exposure to treatment
   adex <- adex %>%
     dplyr::group_by(.data$SUBJID) %>%
-    dplyr::mutate(TRTEDTM = max(.data$EXENDTC, na.rm = TRUE)) %>%
+    dplyr::mutate(TRTEDTM = lubridate::as_datetime(max(EXENDTC, na.rm = TRUE))) %>%
     dplyr::ungroup()
 
   # Fixing Date - to add into ADSL
   adex <- adex %>%
     dplyr::mutate(
-      TRTSDT = lubridate::as_date(.data$TRTSDTM),
-      TRTEDT = lubridate::as_date(.data$TRTEDTM)
+      TRTSDT = lubridate::date(TRTSDTM),
+      TRTEDT = lubridate::date(TRTEDTM)
     )
 
   # Fixing analysis time stamps

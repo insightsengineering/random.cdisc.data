@@ -83,6 +83,7 @@ variables:
     type: factor
   ADTM:
     label: Analysis Datetime
+    type: datetime
   ADY:
     label: Analysis Relative Day
     type: integer
@@ -143,4 +144,3 @@ variables:
   ATOXDSCH:
     label: Analysis Toxicity Description High
     type: character
-

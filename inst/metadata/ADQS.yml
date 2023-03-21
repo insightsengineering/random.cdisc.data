@@ -44,6 +44,7 @@ variables:
     type: numeric
   ADTM:
     label: Analysis Datetime
+    type: datetime
   ADY:
     label: Analysis Relative Day
     type: integer

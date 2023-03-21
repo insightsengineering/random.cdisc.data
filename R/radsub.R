@@ -167,7 +167,7 @@ radsub <- function(ADSL,
   ) %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(ADTM = rep(
-      as.POSIXct(as.Date(.data$TRTSDTM)[1] - sample(1:10, size = 1), origin = "1970-01-01"),
+      lubridate::date(.data$TRTSDTM)[1] - lubridate::days(sample(1:10, size = 1)),
       each = n()
     )) %>%
     dplyr::ungroup() %>%

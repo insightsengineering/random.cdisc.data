@@ -35,30 +35,43 @@ variables:
     type: factor
   ASTDTM:
     label: Analysis Start Datetime
+    type: datetime
   AENDTM:
     label: Analysis End Datetime
+    type: datetime
   ASTDY:
     label: Analysis Start Relative Day
+    type: integer
   AENDY:
     label: Analysis End Relative Day
+    type: integer
   EXDOSFRQ:
     label: Dosing Frequency per Interval
+    type: character
   EXROUTE:
     label: Route of Administration
+    type: character
   VISIT:
     label: Visit Name
+    type: character
   VISITDY:
     label: Planned Study Day of Visit
+    type: integer
   EXSTDTC:
     label: Start Date/Time of Treatment
+    type: datetime
   EXENDTC:
     label: End Date/Time of Treatment
+    type: datetime
   EXSTDY:
     label: Study Day of Start of Treatment
+    type: integer
   EXENDY:
     label: Study Day of End of Treatment
+    type: integer
   TRTSDT:
     label: Date of First Exposure to Treatment
+    type: date
   TRTEDT:
     label: Date of Last Exposure to Treatment
-
+    type: date

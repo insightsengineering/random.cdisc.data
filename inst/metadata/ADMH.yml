@@ -23,8 +23,10 @@ variables:
     type: factor
   ASTDTM:
     label: Analysis Start Datetime
+    type: datetime
   AENDTM:
     label: Analysis End Datetime
+    type: datetime
   ASTDY:
     label: Analysis Start Relative Day
     type: integer

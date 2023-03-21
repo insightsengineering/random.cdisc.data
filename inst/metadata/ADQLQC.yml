@@ -1,6 +1,6 @@
 domain:
   name: ADQLQC
-  label: Questionnaires Analysis Dataset
+  label: EORTC QLQ-C30 V3 Analysis Dataset
 
 variables:
   QSSEQ:
@@ -14,6 +14,7 @@ variables:
     type: factor
   QSDTC:
     label: Date/Time of Finding
+    type: datetime
   QSSTAT:
     label: Completion Status
     type: factor
@@ -88,6 +89,7 @@ variables:
     type: factor
   ADTM:
     label: Analysis Datetime
+    type: datetime
   ADY:
     label: Analysis Relative Day
     type: integer

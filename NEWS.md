@@ -30,6 +30,8 @@
 * Made `AVAL` values more realistic and updated derivations of `ANRIND`, `*STRESC`, and `LOQFL` to depend on value 
   of `PARAMCD` in `adlb` and `advs`.
 * Added tests to increase package test coverage.
+* Added "datetime" and "date" as valid variable types to apply in `apply_metadata`.
+* Implemented the `lubridate` package in all date/datetime variable derivations.
 
 ### Miscellaneous
 * Updated installation method and aligned with other packages.
