@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">random.cdisc.data</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.13.9048</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.13.9050</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,12 +30,6 @@
 <li class="active nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/random.cdisc.data/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -57,13 +51,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.3.13.9048" id="randomcdiscdata-03139048">random.cdisc.data 0.3.13.9048<a class="anchor" aria-label="anchor" href="#randomcdiscdata-03139048"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.3.13.9050" id="randomcdiscdata-03139050">random.cdisc.data 0.3.13.9050<a class="anchor" aria-label="anchor" href="#randomcdiscdata-03139050"></a></h2>
 <div class="section level4">
-<h4 id="new-features-0-3-13-9048">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-13-9048"></a></h4>
+<h4 id="new-features-0-3-13-9050">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-13-9050"></a></h4>
 <ul><li>Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (<code>radab</code>).</li>
 </ul></div>
 <div class="section level4">
-<h4 id="bug-fixes-0-3-13-9048">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-13-9048"></a></h4>
+<h4 id="bug-fixes-0-3-13-9050">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-13-9050"></a></h4>
 <ul><li>Updated all the <code>ANL01FL</code> <code>NA</code> values to <code>""</code> in <code>adae</code>.</li>
 <li>Updated <code>DVDECOD</code> and <code>DVSCAT</code> values in <code>addv</code>.</li>
 <li>Fixed <code>adtm</code> calculations so that records with same <code>AVISIT</code> have the same <code>ADTM</code> for each patient.</li>
@@ -71,7 +65,7 @@
 <li>Updated package for breaking changes in <code>tidyselect</code>.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="enhancements-0-3-13-9048">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-3-13-9048"></a></h4>
+<h4 id="enhancements-0-3-13-9050">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-3-13-9050"></a></h4>
 <ul><li>Added variables <code>ASTDY</code>, <code>AENDY</code>, <code>EXDOSFRQ</code>, <code>EXROUTE</code>, <code>VISIT</code>, <code>VISITDY</code>, <code>EXSTDTC</code>, <code>EXENDTC</code>, <code>EXSTDY</code>, <code>EXENDY</code>, <code>TRTSDT</code>, and <code>TRTEDT</code> to <code>adex</code>.</li>
 <li>Added more default <code>PARAM</code>s and new variables <code>PPSTINT</code>, <code>PPENINT</code>, <code>REGIMEN</code>, and <code>PKARMCD</code> to <code>adpp</code>.</li>
 <li>Added <code>TNE</code> to <code>PARAMCD</code>, <code>Total Number of Exacerbations</code> to <code>PARAM</code>, and new variable <code>lgTMATRSK</code> to <code>adtte</code>.</li>
@@ -85,9 +79,11 @@
 <li>Aligned logic for <code>ADTM</code>, <code>ADY</code>, and <code>ONTRTFL</code> variables with <code>AVISIT</code> where applicable within <code>adeg</code>, <code>adlb</code>, <code>adqs</code>, <code>adsub</code>, <code>adtr</code>, and <code>advs</code>.</li>
 <li>Made <code>AVAL</code> values more realistic and updated derivations of <code>ANRIND</code>, <code>*STRESC</code>, and <code>LOQFL</code> to depend on value of <code>PARAMCD</code> in <code>adlb</code> and <code>advs</code>.</li>
 <li>Added tests to increase package test coverage.</li>
+<li>Added “datetime” and “date” as valid variable types to apply in <code>apply_metadata</code>.</li>
+<li>Implemented the <code>lubridate</code> package in all date/datetime variable derivations.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="miscellaneous-0-3-13-9048">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-3-13-9048"></a></h4>
+<h4 id="miscellaneous-0-3-13-9050">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-3-13-9050"></a></h4>
 <ul><li>Updated installation method and aligned with other packages.</li>
 </ul></div>
 </div>
