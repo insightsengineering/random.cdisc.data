@@ -1,15 +1,15 @@
-#' random.cdisc.data Package
+#' `random.cdisc.data` Package
 #'
 #' Package to create random SDTM and ADAM datasets.
 #'
-#' @name package
+"_PACKAGE"
+
 #' @import dplyr
 #' @importFrom magrittr %>%
 #' @importFrom lifecycle badge
 #' @importFrom rlang .data := !!
 #' @importFrom stringr str_detect
-#'
-"_PACKAGE"
+NULL
 
 # to avoid NOTEs from R CMD CHECK
 utils::globalVariables(c(
