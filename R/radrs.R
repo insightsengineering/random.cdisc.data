@@ -58,7 +58,7 @@ radrs <- function(ADSL,
       ARM = c("A: Drug X", "B: Placebo", "C: Combination"),
       AVALC = names(param_codes)
     ) %>% dplyr::mutate(
-      AVAL = param_codes[.data$AVALC],
+      AVAL = param_codes[AVALC],
       p_scr = c(rep(0, 3), rep(0, 3), c(1, 1, 1), c(0, 0, 0), c(0, 0, 0)),
       p_bsl = c(rep(0, 3), rep(0, 3), c(1, 1, 1), c(0, 0, 0), c(0, 0, 0)),
       p_cycle = c(c(.4, .3, .5), c(.35, .25, .25), c(.1, .2, .08), c(.14, 0.15, 0.15), c(.01, 0.1, 0.02)),
@@ -74,7 +74,7 @@ radrs <- function(ADSL,
 
   ADRS <- split(ADSL, ADSL$USUBJID) %>%
     lapply(function(pinfo) {
-      probs <- dplyr::filter(lookup_ARS, .data$ARM == as.character(pinfo$ACTARM))
+      probs <- dplyr::filter(lookup_ARS, ARM == as.character(pinfo$ACTARM))
 
       # screening
       rsp_screen <- sample(probs$AVALC, 1, prob = probs$p_scr) %>% as.character()
@@ -116,7 +116,7 @@ radrs <- function(ADSL,
         USUBJID = pinfo$USUBJID,
         PARAMCD = as.factor(c(rep("OVRINV", 6), "BESRSPI", "INVET")),
         PARAM = as.factor(dplyr::recode(
-          .data$PARAMCD,
+          PARAMCD,
           OVRINV = "Overall Response by Investigator - by visit",
           OVRSPI = "Best Overall Response by Investigator (no confirmation required)",
           BESRSPI = "Best Confirmed Overall Response by Investigator",
@@ -127,7 +127,7 @@ radrs <- function(ADSL,
           names(param_codes)[best_rsp],
           rsp_eoi
         ),
-        AVAL = param_codes[.data$AVALC],
+        AVAL = param_codes[AVALC],
         AVISIT = factor(c(avisit, avisit[best_rsp_i], avisit[5]), levels = avisit)
       ) %>%
         merge(
@@ -138,14 +138,14 @@ radrs <- function(ADSL,
             TRTSDTM = pinfo$TRTSDTM
           ) %>%
             dplyr::mutate(
-              ADY = ceiling(difftime(.data$ADTM, .data$TRTSDTM, units = "days"))
+              ADY = ceiling(difftime(ADTM, TRTSDTM, units = "days"))
             ) %>%
             dplyr::select(-"TRTSDTM"),
           by = "AVISIT"
         )
     }) %>%
     Reduce(rbind, .) %>%
-    dplyr::mutate(AVALC = factor(.data$AVALC, levels = names(param_codes))) %>%
+    dplyr::mutate(AVALC = factor(AVALC, levels = names(param_codes))) %>%
     var_relabel(
       STUDYID = "Study Identifier",
       USUBJID = "Unique Subject Identifier"
@@ -167,17 +167,17 @@ radrs <- function(ADSL,
   )
 
   ADRS <- ADRS %>%
-    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::group_by(USUBJID) %>%
     dplyr::mutate(RSSEQ = seq_len(dplyr::n())) %>%
-    dplyr::mutate(ASEQ = .data$RSSEQ) %>%
+    dplyr::mutate(ASEQ = RSSEQ) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$PARAMCD,
-      .data$AVISITN,
-      .data$ADTM,
-      .data$RSSEQ
+      STUDYID,
+      USUBJID,
+      PARAMCD,
+      AVISITN,
+      ADTM,
+      RSSEQ
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {

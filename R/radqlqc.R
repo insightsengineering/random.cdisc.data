@@ -42,14 +42,14 @@ radqlqc <- function(ADSL,
   # derive AVAL and AVALC
   adqlqc1 <- mutate(
     adqlqc1,
-    AVAL = as.numeric(.data$QSSTRESC),
+    AVAL = as.numeric(QSSTRESC),
     AVALC = case_when(
-      .data$QSTESTCD == "QSALL" ~ .data$QSREASND,
-      TRUE ~ .data$QSORRES
+      QSTESTCD == "QSALL" ~ QSREASND,
+      TRUE ~ QSORRES
     ),
-    AVISIT = .data$VISIT,
-    AVISITN = .data$VISITNUM,
-    ADTM = .data$QSDTC
+    AVISIT = VISIT,
+    AVISITN = VISITNUM,
+    ADTM = QSDTC
   )
   # include scale calculation
   ADQLQCtmp <- calc_scales(adqlqc1)
@@ -101,10 +101,10 @@ radqlqc <- function(ADSL,
   )
 
   ADQLQCtmp <- ADQLQCtmp %>%
-    dplyr::mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
-    dplyr::mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
-    dplyr::mutate(CHG = .data$AVAL - .data$BASE) %>%
-    dplyr::mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
+    dplyr::mutate(CHG2 = AVAL - BASE2) %>%
+    dplyr::mutate(PCHG2 = 100 * (CHG2 / BASE2)) %>%
+    dplyr::mutate(CHG = AVAL - BASE) %>%
+    dplyr::mutate(PCHG = 100 * (CHG / BASE)) %>%
     var_relabel(
       STUDYID = attr(ADSL$STUDYID, "label"),
       USUBJID = attr(ADSL$USUBJID, "label")
@@ -120,8 +120,8 @@ radqlqc <- function(ADSL,
 
   ADQLQCtmp <- arrange(
     ADQLQCtmp,
-    .data$USUBJID,
-    .data$AVISITN
+    USUBJID,
+    AVISITN
   )
   # Merge ADSL --------------------------------------------------------------
   # adsl variables needed for ADQLQC
@@ -141,7 +141,7 @@ radqlqc <- function(ADSL,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::mutate(
-      ADY_der = ceiling(difftime(.data$ADTM, .data$TRTSDTM, units = "days")),
+      ADY_der = ceiling(difftime(ADTM, TRTSDTM, units = "days")),
       ADY = case_when(
         ADY_der >= 0 ~ ADY_der + 1,
         TRUE ~ ADY_der
@@ -167,25 +167,25 @@ radqlqc <- function(ADSL,
     compliance_data
   ) %>%
     arrange(
-      .data$USUBJID,
-      .data$AVISITN,
-      .data$QSTESTCD
+      USUBJID,
+      AVISITN,
+      QSTESTCD
     )
   # find first set of questionnaire observations
   ADQLQC_x <- arrange(
     ADQLQC,
-    .data$USUBJID,
-    .data$ADTM
+    USUBJID,
+    ADTM
   ) %>%
     filter(
-      .data$PARAMCD != "QSALL" &
-        !str_detect(.data$AVISIT, "SCREENING|UNSCHEDULED")
+      PARAMCD != "QSALL" &
+        !str_detect(AVISIT, "SCREENING|UNSCHEDULED")
     ) %>%
     group_by(
-      .data$USUBJID,
-      .data$ADTM
+      USUBJID,
+      ADTM
     ) %>%
-    summarise(first_date = first(.data$ADTM), .groups = "drop")
+    summarise(first_date = first(ADTM), .groups = "drop")
 
   ADQLQC <- left_join(
     ADQLQC,
@@ -196,21 +196,21 @@ radqlqc <- function(ADSL,
       ANL01FL = case_when(
         PARAMCD != "QSALL" & ABLFL == "Y" ~ "Y",
         PARAMCD != "QSALL" &
-          !str_detect(.data$AVISIT, "UNSCHEDULED") &
-          !is.na(.data$first_date) ~ "Y"
+          !str_detect(AVISIT, "UNSCHEDULED") &
+          !is.na(first_date) ~ "Y"
       )
     ) %>%
     select(-first_date)
 
   # final dataset -----------------------------------------------------------
   ADQLQC_final <- ADQLQC %>%
-    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::group_by(USUBJID) %>%
     dplyr::mutate(ASEQ = row_number()) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$AVISITN
+      STUDYID,
+      USUBJID,
+      AVISITN
     ) %>%
     select(
       -c("BASE2", "CHG2", "PCHG2", "ABLFL2")
@@ -238,10 +238,10 @@ radqlqc <- function(ADSL,
 
   ADQLQC_final <- relocate(ADQLQC_final, "QSEVLINT", .after = "QSTESTCD") %>%
     arrange(
-      .data$USUBJID,
-      .data$AVISITN,
-      .data$ASEQ,
-      .data$QSTESTCD
+      USUBJID,
+      AVISITN,
+      ASEQ,
+      QSTESTCD
     )
   # apply metadata
   ADQLQC_final <- apply_metadata(ADQLQC_final, "metadata/ADQLQC.yml")
@@ -307,8 +307,8 @@ get_qs_data <- function(ADSL,
   # get studyid, subject for QS generation
   QS <- select(
     ADSL,
-    .data$STUDYID,
-    .data$USUBJID
+    STUDYID,
+    USUBJID
   ) %>%
     mutate(
       DOMAIN = "QS"
@@ -319,8 +319,8 @@ get_qs_data <- function(ADSL,
   # QSTESTCD: EOR0101 to EOR0130
   eortc_qlq_c30_sub <- filter(
     eortc_qlq_c30,
-    as.numeric(str_extract(.data$QSTESTCD, "\\d+$")) >= 101 &
-      as.numeric(str_extract(.data$QSTESTCD, "\\d+$")) <= 130
+    as.numeric(str_extract(QSTESTCD, "\\d+$")) >= 101 &
+      as.numeric(str_extract(QSTESTCD, "\\d+$")) <= 130
   ) %>%
     select(-publication_name)
 
@@ -376,21 +376,21 @@ get_qs_data <- function(ADSL,
     VISITNUM = dplyr::case_when(
       VISIT == "SCREENING" ~ -1,
       VISIT == "BASELINE" ~ 0,
-      (grepl("^WEEK", .data$VISIT) | grepl("^CYCLE", .data$VISIT)) ~ as.numeric(.data$VISIT) - 2,
+      (grepl("^WEEK", VISIT) | grepl("^CYCLE", VISIT)) ~ as.numeric(VISIT) - 2,
       TRUE ~ NA_real_
     )
-  ) %>% arrange(.data$USUBJID)
+  ) %>% arrange(USUBJID)
 
 
   # # prep QSALL --------------------------------------------------------------
   # get last subject and visit for QSALL
-  last_subj_vis <- select(lookup_QS, .data$USUBJID, .data$VISIT) %>%
+  last_subj_vis <- select(lookup_QS, USUBJID, VISIT) %>%
     distinct() %>%
     slice(n())
   last_subj_vis_full <- filter(
     lookup_QS,
-    .data$USUBJID == last_subj_vis$USUBJID,
-    .data$VISIT == last_subj_vis$VISIT
+    USUBJID == last_subj_vis$USUBJID,
+    VISIT == last_subj_vis$VISIT
   )
 
   qsall_data1 <- tibble::tibble(
@@ -415,9 +415,9 @@ get_qs_data <- function(ADSL,
   set.seed(seed)
   lookup_QS_sub_x <- lookup_QS_sub %>%
     group_by(
-      .data$USUBJID,
-      .data$QSTESTCD,
-      .data$VISIT
+      USUBJID,
+      QSTESTCD,
+      VISIT
     ) %>%
     slice_sample(n = 1) %>%
     ungroup() %>%
@@ -425,17 +425,17 @@ get_qs_data <- function(ADSL,
 
   lookup_QS_sub_x <- arrange(
     lookup_QS_sub_x,
-    .data$USUBJID,
-    .data$VISITNUM
+    USUBJID,
+    VISITNUM
   )
 
   # add date: QSDTC ---------------------------------------------------------
   # get treatment dates from ADSL
   ADSL_trt <- select(
     ADSL,
-    .data$USUBJID,
-    .data$TRTSDTM,
-    .data$TRTEDTM
+    USUBJID,
+    TRTSDTM,
+    TRTEDTM
   )
   # use to derive QSDTC
   # if no treatment end date, create an arbituary one
@@ -447,35 +447,35 @@ get_qs_data <- function(ADSL,
     by = "USUBJID"
   ) %>%
     group_by(
-      .data$USUBJID
+      USUBJID
     ) %>%
     mutate(QSDTC = get_random_dates_between(
-      from = .data$TRTSDTM,
+      from = TRTSDTM,
       to = ifelse(
-        is.na(.data$TRTEDTM),
+        is.na(TRTEDTM),
         trt_end_date,
-        .data$TRTEDTM
+        TRTEDTM
       ),
-      visit_id = .data$VISITNUM
+      visit_id = VISITNUM
     )) %>%
     select(-c("TRTSDTM", "TRTEDTM"))
 
   # filter out subjects with missing dates
   lookup_QS_sub_x1 <- filter(
     lookup_QS_sub_x,
-    !is.na(.data$QSDTC)
+    !is.na(QSDTC)
   )
 
   # subjects with missing dates
   lookup_QS_sub_x2 <- filter(
     lookup_QS_sub_x,
-    is.na(.data$QSDTC)
+    is.na(QSDTC)
   ) %>%
     select(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$VISIT,
-      .data$VISITNUM
+      STUDYID,
+      USUBJID,
+      VISIT,
+      VISITNUM
     ) %>%
     distinct()
 
@@ -498,21 +498,21 @@ get_qs_data <- function(ADSL,
 
   QS_all <- lookup_QS_sub_all %>%
     arrange(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$VISITNUM
+      STUDYID,
+      USUBJID,
+      VISITNUM
     ) %>%
-    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::group_by(USUBJID) %>%
     dplyr::ungroup()
 
   # get first and second subject ids
-  first_second_subj <- select(QS_all, .data$USUBJID) %>%
+  first_second_subj <- select(QS_all, USUBJID) %>%
     distinct() %>%
     slice(1:2)
 
   QS1 <- filter(
     QS_all,
-    .data$USUBJID %in% first_second_subj$USUBJID
+    USUBJID %in% first_second_subj$USUBJID
   )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
@@ -523,7 +523,7 @@ get_qs_data <- function(ADSL,
   QS1 <- mutate(
     QS1,
     QSSTAT = case_when(
-      is.na(.data$QSORRES) & is.na(.data$QSSTRESC) ~ "NOT DONE"
+      is.na(QSORRES) & is.na(QSSTRESC) ~ "NOT DONE"
     )
   )
 
@@ -538,35 +538,35 @@ get_qs_data <- function(ADSL,
     QS1,
     QS2
   ) %>%
-    group_by(.data$USUBJID) %>%
+    group_by(USUBJID) %>%
     dplyr::mutate(QSSEQ = row_number()) %>%
     arrange(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$VISITNUM
+      STUDYID,
+      USUBJID,
+      VISITNUM
     ) %>%
     ungroup()
 
   # ordered variables as per gdsr
   final_QS <- select(
     final_QS,
-    .data$STUDYID,
-    .data$USUBJID,
-    .data$QSSEQ,
-    .data$QSTESTCD,
-    .data$QSTEST,
-    .data$QSCAT,
-    .data$QSSCAT,
-    .data$QSORRES,
-    .data$QSORRESU,
-    .data$QSSTRESC,
-    .data$QSSTRESU,
-    .data$QSSTAT,
-    .data$QSREASND,
-    .data$VISITNUM,
-    .data$VISIT,
-    .data$QSDTC,
-    .data$QSEVLINT
+    STUDYID,
+    USUBJID,
+    QSSEQ,
+    QSTESTCD,
+    QSTEST,
+    QSCAT,
+    QSSCAT,
+    QSORRES,
+    QSORRESU,
+    QSSTRESC,
+    QSSTRESU,
+    QSSTAT,
+    QSREASND,
+    VISITNUM,
+    VISIT,
+    QSDTC,
+    QSEVLINT
   )
   return(final_QS)
 }
@@ -692,27 +692,27 @@ calc_scales <- function(adqlqc1) {
 
   eortc_qlq_c30_sub <- filter(
     eortc_qlq_c30,
-    !(as.numeric(str_extract(.data$QSTESTCD, "\\d+$")) >= 101 &
-      as.numeric(str_extract(.data$QSTESTCD, "\\d+$")) <= 130)
+    !(as.numeric(str_extract(QSTESTCD, "\\d+$")) >= 101 &
+      as.numeric(str_extract(QSTESTCD, "\\d+$")) <= 130)
   ) %>%
     mutate(
       PARAMCD = case_when(
-        .data$QSTESTCD == "EOR0131" ~ "QS028QL2",
-        .data$QSTESTCD == "EOR0132" ~ "QS028PF2",
-        .data$QSTESTCD == "EOR0133" ~ "QS028RF2",
-        .data$QSTESTCD == "EOR0134" ~ "QS028EF",
-        .data$QSTESTCD == "EOR0135" ~ "QS028CF",
-        .data$QSTESTCD == "EOR0136" ~ "QS028SF",
-        .data$QSTESTCD == "EOR0137" ~ "QS028FA",
-        .data$QSTESTCD == "EOR0138" ~ "QS028NV",
-        .data$QSTESTCD == "EOR0139" ~ "QS028PA",
-        .data$QSTESTCD == "EOR0140" ~ "QS028DY",
-        .data$QSTESTCD == "EOR0141" ~ "QS028SL",
-        .data$QSTESTCD == "EOR0142" ~ "QS028AP",
-        .data$QSTESTCD == "EOR0143" ~ "QS028CO",
-        .data$QSTESTCD == "EOR0144" ~ "QS028DI",
-        .data$QSTESTCD == "EOR0145" ~ "QS028FI",
-        TRUE ~ .data$QSTESTCD
+        QSTESTCD == "EOR0131" ~ "QS028QL2",
+        QSTESTCD == "EOR0132" ~ "QS028PF2",
+        QSTESTCD == "EOR0133" ~ "QS028RF2",
+        QSTESTCD == "EOR0134" ~ "QS028EF",
+        QSTESTCD == "EOR0135" ~ "QS028CF",
+        QSTESTCD == "EOR0136" ~ "QS028SF",
+        QSTESTCD == "EOR0137" ~ "QS028FA",
+        QSTESTCD == "EOR0138" ~ "QS028NV",
+        QSTESTCD == "EOR0139" ~ "QS028PA",
+        QSTESTCD == "EOR0140" ~ "QS028DY",
+        QSTESTCD == "EOR0141" ~ "QS028SL",
+        QSTESTCD == "EOR0142" ~ "QS028AP",
+        QSTESTCD == "EOR0143" ~ "QS028CO",
+        QSTESTCD == "EOR0144" ~ "QS028DI",
+        QSTESTCD == "EOR0145" ~ "QS028FI",
+        TRUE ~ QSTESTCD
       )
     ) %>%
     select(-publication_name)
@@ -720,7 +720,7 @@ calc_scales <- function(adqlqc1) {
   # ADaM global health status and scales from gdsr
   gdsr_param_adqlqc <- gdsr_param_adqlqc %>%
     filter(
-      !str_detect(.data$PARCAT2, "Original Items|Completion")
+      !str_detect(PARCAT2, "Original Items|Completion")
     )
 
   ghs_scales <- left_join(
@@ -940,16 +940,16 @@ calc_scales <- function(adqlqc1) {
     )
   ) %>%
     mutate(
-      AVALC = ifelse(is.na(.data$AVALC), as.character(.data$AVAL), .data$AVALC),
-      PARCAT1 = ifelse(.data$PARAMCD == "EX028", expect$PARCAT1, .data$PARCAT1),
-      PARCAT1N = ifelse(.data$PARAMCD == "EX028", expect$PARCAT1N, .data$PARCAT1N)
+      AVALC = ifelse(is.na(AVALC), as.character(AVAL), AVALC),
+      PARCAT1 = ifelse(PARAMCD == "EX028", expect$PARCAT1, PARCAT1),
+      PARCAT1N = ifelse(PARAMCD == "EX028", expect$PARCAT1N, PARCAT1N)
     )
 
   ADQLQCtmp <- bind_rows(adqlqc1, df_saved1) %>%
     arrange(
-      .data$USUBJID,
-      .data$AVISITN,
-      .data$QSTESTCD
+      USUBJID,
+      AVISITN,
+      QSTESTCD
     )
   return(ADQLQCtmp)
 }
@@ -1135,12 +1135,12 @@ comp_derv <- function(dataset, percent, number) {
   # original items data
   orig_data <- filter(
     dataset,
-    .data$PARCAT2 == "Original Items"
+    PARCAT2 == "Original Items"
   )
   # total number of questionnaires
   comp_count_all <- select(
     orig_data,
-    .data$PARAMCD
+    PARAMCD
   ) %>%
     distinct() %>%
     count()
@@ -1148,37 +1148,37 @@ comp_derv <- function(dataset, percent, number) {
   # original items data count of questions answered
   orig_data_summ <- group_by(
     orig_data,
-    .data$STUDYID,
-    .data$USUBJID,
-    .data$PARCAT1,
-    .data$AVISIT,
-    .data$AVISITN,
-    .data$ADTM,
-    .data$ADY
+    STUDYID,
+    USUBJID,
+    PARCAT1,
+    AVISIT,
+    AVISITN,
+    ADTM,
+    ADY
   ) %>%
     summarise(
-      comp_count = sum(!is.na(.data$AVAL)),
+      comp_count = sum(!is.na(AVAL)),
       comp_count_all = comp_count_all,
       .groups = "drop"
     ) %>%
     mutate(
-      per_comp = trunc((.data$comp_count / .data$comp_count_all) * 100)
+      per_comp = trunc((comp_count / comp_count_all) * 100)
     )
   # expected data
   ex028_data <- filter(
     dataset,
-    .data$PARAMCD == "EX028",
-    .data$AVAL == 1
+    PARAMCD == "EX028",
+    AVAL == 1
   ) %>%
     select(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$PARCAT1,
-      .data$AVISIT,
-      .data$AVISITN,
-      .data$ADTM,
-      .data$ADY,
-      AVAL_ex028 = .data$AVAL
+      STUDYID,
+      USUBJID,
+      PARCAT1,
+      AVISIT,
+      AVISITN,
+      ADTM,
+      ADY,
+      AVAL_ex028 = AVAL
     ) %>%
     mutate(
       comp_count_all = comp_count_all
@@ -1200,8 +1200,8 @@ comp_derv <- function(dataset, percent, number) {
 
   joined <- rename(
     joined,
-    ADTM = .data$ADTM.y,
-    ADY = .data$ADY.y
+    ADTM = ADTM.y,
+    ADY = ADY.y
   )
   # CO028ALL
   co028all <- mutate(
@@ -1214,8 +1214,8 @@ comp_derv <- function(dataset, percent, number) {
       AVAL_ex028 == 1 & (is.na(comp_count) | comp_count < comp_count_all) ~ 0
     ),
     AVALC = case_when(
-      .data$AVAL == 1 ~ "Completed all questions",
-      .data$AVAL == 0 ~ "Did not complete all questions"
+      AVAL == 1 ~ "Completed all questions",
+      AVAL == 0 ~ "Did not complete all questions"
     )
   )
   # CO028<y>P

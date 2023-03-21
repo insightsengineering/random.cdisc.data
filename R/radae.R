@@ -132,7 +132,7 @@ radae <- function(ADSL,
   ) %>%
     Reduce(rbind, .) %>%
     `[`(c(10, 11, 1, 2, 3, 4, 5, 6, 7, 8, 9)) %>%
-    dplyr::mutate(AETERM = gsub("dcd", "trm", .data$AEDECOD)) %>%
+    dplyr::mutate(AETERM = gsub("dcd", "trm", AEDECOD)) %>%
     dplyr::mutate(AESEV = dplyr::case_when(
       AETOXGR == 1 ~ "MILD",
       AETOXGR %in% c(2, 3) ~ "MODERATE",
@@ -149,40 +149,40 @@ radae <- function(ADSL,
   ADAE <- dplyr::inner_join(ADAE, ADSL, by = c("STUDYID", "USUBJID")) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
-      is.na(.data$TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
-      TRUE ~ .data$TRTEDTM
+      is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
+      TRUE ~ TRTEDTM
     ))) %>%
     dplyr::mutate(ASTDTM = sample(
       seq(lubridate::as_datetime(TRTSDTM), lubridate::as_datetime(TRTENDT), by = "day"),
       size = 1
     )) %>%
-    dplyr::mutate(ASTDY = ceiling(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days"))) %>%
+    dplyr::mutate(ASTDY = ceiling(difftime(ASTDTM, TRTSDTM, units = "days"))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
     dplyr::mutate(AENDTM = sample(
       seq(lubridate::as_datetime(ASTDTM), lubridate::as_datetime(TRTENDT + 1), by = "day"),
       size = 1
     )) %>%
-    dplyr::mutate(AENDY = ceiling(difftime(.data$AENDTM, .data$TRTSDTM, units = "days"))) %>%
+    dplyr::mutate(AENDY = ceiling(difftime(AENDTM, TRTSDTM, units = "days"))) %>%
     dplyr::mutate(LDOSEDTM = dplyr::case_when(
-      .data$TRTSDTM < .data$ASTDTM ~ lubridate::as_datetime(stats::runif(1, .data$TRTSDTM, .data$ASTDTM)),
-      TRUE ~ .data$ASTDTM
+      TRTSDTM < ASTDTM ~ lubridate::as_datetime(stats::runif(1, TRTSDTM, ASTDTM)),
+      TRUE ~ ASTDTM
     )) %>%
-    dplyr::mutate(LDRELTM = as.numeric(difftime(.data$ASTDTM, .data$LDOSEDTM, units = "mins"))) %>%
+    dplyr::mutate(LDRELTM = as.numeric(difftime(ASTDTM, LDOSEDTM, units = "mins"))) %>%
     dplyr::select(-TRTENDT) %>%
     dplyr::ungroup() %>%
-    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$AETERM)
+    dplyr::arrange(STUDYID, USUBJID, ASTDTM, AETERM)
 
   ADAE <- ADAE %>%
-    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::group_by(USUBJID) %>%
     dplyr::mutate(AESEQ = seq_len(dplyr::n())) %>%
-    dplyr::mutate(ASEQ = .data$AESEQ) %>%
+    dplyr::mutate(ASEQ = AESEQ) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$ASTDTM,
-      .data$AETERM,
-      .data$AESEQ
+      STUDYID,
+      USUBJID,
+      ASTDTM,
+      AETERM,
+      AESEQ
     )
 
   outcomes <- c(
@@ -207,25 +207,25 @@ radae <- function(ADSL,
 
   ADAE <- ADAE %>%
     dplyr::mutate(AEOUT = factor(ifelse(
-      .data$AETOXGR == "5",
+      AETOXGR == "5",
       "FATAL",
       as.character(sample_fct(outcomes, nrow(ADAE), prob = c(0.1, 0.2, 0.1, 0.3, 0.3)))
     ))) %>%
     dplyr::mutate(AEACN = factor(ifelse(
-      .data$AETOXGR == "5",
+      AETOXGR == "5",
       "NOT EVALUABLE",
       as.character(sample_fct(actions, nrow(ADAE), prob = c(0.05, 0.05, 0.05, 0.01, 0.05, 0.1, 0.45, 0.1, 0.05)))
     ))) %>%
     dplyr::mutate(AESDTH = dplyr::case_when(
-      .data$AEOUT == "FATAL" ~ "Y",
+      AEOUT == "FATAL" ~ "Y",
       TRUE ~ "N"
     )) %>%
-    dplyr::mutate(TRTEMFL = ifelse(.data$ASTDTM >= .data$TRTSDTM, "Y", "")) %>%
+    dplyr::mutate(TRTEMFL = ifelse(ASTDTM >= TRTSDTM, "Y", "")) %>%
     dplyr::mutate(AECONTRT = sample(c("Y", "N"), prob = c(0.4, 0.6), size = dplyr::n(), replace = TRUE)) %>%
     dplyr::mutate(
-      ANL01FL = ifelse(.data$TRTEMFL == "Y" & .data$ASTDTM <= .data$TRTEDTM + lubridate::month(1), "Y", "")
+      ANL01FL = ifelse(TRTEMFL == "Y" & ASTDTM <= TRTEDTM + lubridate::month(1), "Y", "")
     ) %>%
-    dplyr::mutate(ANL01FL = ifelse(is.na(.data$ANL01FL), "", .data$ANL01FL))
+    dplyr::mutate(ANL01FL = ifelse(is.na(ANL01FL), "", ANL01FL))
 
   ADAE <- ADAE %>%
     dplyr::mutate(AERELNST = sample(c("Y", "N"), prob = c(0.4, 0.6), size = dplyr::n(), replace = TRUE)) %>%
@@ -274,14 +274,14 @@ radae <- function(ADSL,
     )) %>%
     dplyr::mutate(AES_FLAG = dplyr::case_when(
       AESDTH == "Y" ~ "AESDTH",
-      TRUE ~ .data$AES_FLAG
+      TRUE ~ AES_FLAG
     )) %>%
     dplyr::mutate(
-      AESCONG = ifelse(.data$AES_FLAG == "AESCONG", "Y", "N"),
-      AESDISAB = ifelse(.data$AES_FLAG == "AESDISAB", "Y", "N"),
-      AESHOSP = ifelse(.data$AES_FLAG == "AESHOSP", "Y", "N"),
-      AESLIFE = ifelse(.data$AES_FLAG == "AESLIFE", "Y", "N"),
-      AESMIE = ifelse(.data$AES_FLAG == "AESMIE", "Y", "N")
+      AESCONG = ifelse(AES_FLAG == "AESCONG", "Y", "N"),
+      AESDISAB = ifelse(AES_FLAG == "AESDISAB", "Y", "N"),
+      AESHOSP = ifelse(AES_FLAG == "AESHOSP", "Y", "N"),
+      AESLIFE = ifelse(AES_FLAG == "AESLIFE", "Y", "N"),
+      AESMIE = ifelse(AES_FLAG == "AESMIE", "Y", "N")
     ) %>%
     dplyr::select(-"AES_FLAG")
 

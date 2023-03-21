@@ -81,7 +81,7 @@ radmh <- function(ADSL,
   ) %>%
     Reduce(rbind, .) %>%
     `[`(c(4, 5, 1, 2, 3)) %>%
-    dplyr::mutate(MHTERM = .data$MHDECOD)
+    dplyr::mutate(MHTERM = MHDECOD)
 
   ADMH <- var_relabel(
     ADMH,
@@ -97,23 +97,23 @@ radmh <- function(ADSL,
   ) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
-      is.na(.data$TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
-      TRUE ~ .data$TRTEDTM
+      is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
+      TRUE ~ TRTEDTM
     ))) %>%
     dplyr::mutate(ASTDTM = sample(
       seq(lubridate::as_datetime(TRTSDTM), lubridate::as_datetime(TRTENDT), by = "day"),
       size = 1
     )) %>%
-    dplyr::mutate(ASTDY = ceiling(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days"))) %>%
+    dplyr::mutate(ASTDY = ceiling(difftime(ASTDTM, TRTSDTM, units = "days"))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
     dplyr::mutate(AENDTM = sample(
       seq(lubridate::as_datetime(ASTDTM), lubridate::as_datetime(TRTENDT + 1), by = "day"),
       size = 1
     )) %>%
-    dplyr::mutate(AENDY = ceiling(difftime(.data$AENDTM, .data$TRTSDTM, units = "days"))) %>%
+    dplyr::mutate(AENDY = ceiling(difftime(AENDTM, TRTSDTM, units = "days"))) %>%
     select(-TRTENDT) %>%
     dplyr::ungroup() %>%
-    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHTERM) %>%
+    dplyr::arrange(STUDYID, USUBJID, ASTDTM, MHTERM) %>%
     dplyr::mutate(MHDISTAT = sample(
       x = c("Resolved", "Ongoing with treatment", "Ongoing without treatment"),
       prob = c(0.6, 0.2, 0.2),
@@ -126,11 +126,11 @@ radmh <- function(ADSL,
     ))
 
   ADMH <- ADMH %>%
-    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::group_by(USUBJID) %>%
     dplyr::mutate(MHSEQ = seq_len(dplyr::n())) %>%
-    dplyr::mutate(ASEQ = .data$MHSEQ) %>%
+    dplyr::mutate(ASEQ = MHSEQ) %>%
     dplyr::ungroup() %>%
-    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$MHSEQ)
+    dplyr::arrange(STUDYID, USUBJID, ASTDTM, MHSEQ)
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
     ADMH <- mutate_na(ds = ADMH, na_vars = na_vars, na_percentage = na_percentage)

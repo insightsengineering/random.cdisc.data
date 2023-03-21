@@ -81,7 +81,7 @@ radcm <- function(ADSL,
   }, ADSL$USUBJID, ADSL$STUDYID) %>%
     Reduce(rbind, .) %>%
     `[`(c(4, 5, 1, 2, 3)) %>%
-    dplyr::mutate(CMCAT = .data$CMCLAS)
+    dplyr::mutate(CMCAT = CMCLAS)
 
   ADCM <- var_relabel(
     ADCM,
@@ -104,35 +104,35 @@ radcm <- function(ADSL,
       seq(lubridate::as_datetime(TRTSDTM), lubridate::as_datetime(TRTENDT), by = "day"),
       size = 1
     )) %>%
-    dplyr::mutate(ASTDY = ceiling(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days"))) %>%
+    dplyr::mutate(ASTDY = ceiling(difftime(ASTDTM, TRTSDTM, units = "days"))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
     dplyr::mutate(AENDTM = sample(
       seq(lubridate::as_datetime(ASTDTM), lubridate::as_datetime(TRTENDT + 1), by = "day"),
       size = 1
     )) %>%
-    dplyr::mutate(AENDY = ceiling(difftime(.data$AENDTM, .data$TRTSDTM, units = "days"))) %>%
+    dplyr::mutate(AENDY = ceiling(difftime(AENDTM, TRTSDTM, units = "days"))) %>%
     dplyr::select(-TRTENDT) %>%
     dplyr::ungroup() %>%
-    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)
+    dplyr::arrange(STUDYID, USUBJID, ASTDTM)
 
   ADCM <- ADCM %>%
-    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::group_by(USUBJID) %>%
     dplyr::mutate(CMSEQ = seq_len(dplyr::n())) %>%
-    dplyr::mutate(ASEQ = .data$CMSEQ) %>%
+    dplyr::mutate(ASEQ = CMSEQ) %>%
     dplyr::ungroup() %>%
-    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM, .data$CMSEQ) %>%
+    dplyr::arrange(STUDYID, USUBJID, ASTDTM, CMSEQ) %>%
     dplyr::mutate(
-      ATC1 = paste("ATCCLAS1", substr(.data$CMDECOD, 9, 9)),
-      ATC2 = paste("ATCCLAS2", substr(.data$CMDECOD, 9, 9)),
-      ATC3 = paste("ATCCLAS3", substr(.data$CMDECOD, 9, 9)),
-      ATC4 = paste("ATCCLAS4", substr(.data$CMDECOD, 9, 9))
+      ATC1 = paste("ATCCLAS1", substr(CMDECOD, 9, 9)),
+      ATC2 = paste("ATCCLAS2", substr(CMDECOD, 9, 9)),
+      ATC3 = paste("ATCCLAS3", substr(CMDECOD, 9, 9)),
+      ATC4 = paste("ATCCLAS4", substr(CMDECOD, 9, 9))
     ) %>%
     dplyr::mutate(CMINDC = sample(c(
       "Nausea", "Hypertension", "Urticaria", "Fever",
       "Asthma", "Infection", "Diabete", "Diarrhea", "Pneumonia"
     ), dplyr::n(), replace = TRUE)) %>%
     dplyr::mutate(CMDOSE = sample(1:99, dplyr::n(), replace = TRUE)) %>%
-    dplyr::mutate(CMTRT = substr(.data$CMDECOD, 9, 13)) %>%
+    dplyr::mutate(CMTRT = substr(CMDECOD, 9, 13)) %>%
     dplyr::mutate(CMDOSU = sample(c(
       "ug/mL", "ug/kg/day", "%", "uL", "DROP",
       "umol/L", "mg", "mg/breath", "ug"
@@ -157,7 +157,7 @@ radcm <- function(ADSL,
         EOSSTT == "ONGOING" ~ "ONGOING",
         is.na(EOSSTT) ~ "U"
       ),
-      ADURN = as.numeric(difftime(.data$ASTDTM, .data$AENDTM, units = "days")),
+      ADURN = as.numeric(difftime(ASTDTM, AENDTM, units = "days")),
       ADURU = "days"
     )
 
@@ -167,23 +167,23 @@ radcm <- function(ADSL,
     n_cmdecod_path2 <- ceiling(nrow(lookup_cm) / 2)
     cmdecod_path2 <- sample(lookup_cm$CMDECOD, n_cmdecod_path2)
     ADCM_path2 <- ADCM %>%
-      dplyr::filter(.data$CMDECOD %in% cmdecod_path2) %>%
+      dplyr::filter(CMDECOD %in% cmdecod_path2) %>%
       dplyr::mutate(
-        ATC1 = paste(.data$ATC1, "p2"),
-        ATC2 = paste(.data$ATC2, "p2"),
-        ATC3 = paste(.data$ATC3, "p2"),
-        ATC4 = paste(.data$ATC4, "p2")
+        ATC1 = paste(ATC1, "p2"),
+        ATC2 = paste(ATC2, "p2"),
+        ATC3 = paste(ATC3, "p2"),
+        ATC4 = paste(ATC4, "p2")
       )
 
     n_cmdecod_path3 <- ceiling(length(cmdecod_path2) / 2)
     cmdecod_path3 <- sample(cmdecod_path2, n_cmdecod_path3)
     ADCM_path3 <- ADCM %>%
-      dplyr::filter(.data$CMDECOD %in% cmdecod_path3) %>%
+      dplyr::filter(CMDECOD %in% cmdecod_path3) %>%
       dplyr::mutate(
-        ATC1 = paste(.data$ATC1, "p3"),
-        ATC2 = paste(.data$ATC2, "p3"),
-        ATC3 = paste(.data$ATC3, "p3"),
-        ATC4 = paste(.data$ATC4, "p3")
+        ATC1 = paste(ATC1, "p3"),
+        ATC2 = paste(ATC2, "p3"),
+        ATC3 = paste(ATC3, "p3"),
+        ATC4 = paste(ATC4, "p3")
       )
 
     ADCM <- dplyr::bind_rows(
@@ -195,10 +195,10 @@ radcm <- function(ADSL,
 
   ADCM <- ADCM %>%
     dplyr::mutate(
-      ATC1CD = .data$ATC1,
-      ATC2CD = .data$ATC2,
-      ATC3CD = .data$ATC3,
-      ATC4CD = .data$ATC4
+      ATC1CD = ATC1,
+      ATC2CD = ATC2,
+      ATC3CD = ATC3,
+      ATC4CD = ATC4
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
