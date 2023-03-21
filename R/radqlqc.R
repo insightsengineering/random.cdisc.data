@@ -572,11 +572,11 @@ get_qs_data <- function(ADSL,
 #'
 #' @examples
 #' df <- dplyr::left_join(
-#'     ADSL,
-#'     QS,
-#'     by = c("STUDYID", "USUBJID"),
-#'     multiple = "all"
-#'   ) |>
+#'   ADSL,
+#'   QS,
+#'   by = c("STUDYID", "USUBJID"),
+#'   multiple = "all"
+#' ) |>
 #'   dplyr::mutate(
 #'     AVISIT = VISIT,
 #'     PARAMCD = QSTESTCD,
