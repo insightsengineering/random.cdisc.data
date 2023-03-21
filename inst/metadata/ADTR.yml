@@ -26,6 +26,7 @@ variables:
     type: integer
   ADTM:
     label: Analysis Datetime
+    type: datetime
   ADY:
     label: Analysis Relative Day
     type: integer
@@ -65,4 +66,3 @@ variables:
   ANL03FL:
     label: Analysis Flag 03 Min Obs Within BType
     type: factor
-

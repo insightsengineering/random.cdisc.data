@@ -48,6 +48,7 @@ raddv <- function(ADSL,
   checkmate::assert_true(na_percentage < 1)
 
   if (!is.null(seed)) set.seed(seed)
+  study_duration_secs <- attr(ADSL, "study_duration_secs")
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
   lookup_dv <- if (!is.null(lookup)) {
@@ -110,18 +111,17 @@ raddv <- function(ADSL,
   # merge ADSL to be able to add deviation date and study day variables
   ADDV <- dplyr::inner_join(ADDV, ADSL, by = c("STUDYID", "USUBJID")) %>%
     dplyr::rowwise() %>%
-    dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-    dplyr::mutate(trtedt_int = dplyr::case_when(
-      !is.na(.data$TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
-      is.na(.data$TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
+    dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
+      is.na(.data$TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
+      TRUE ~ .data$TRTEDTM
+    ))) %>%
+    dplyr::mutate(ASTDTM = sample(
+      seq(lubridate::as_datetime(TRTSDTM), lubridate::as_datetime(TRTENDT), by = "day"),
+      size = 1
     )) %>%
-    dplyr::mutate(ASTDTM = as.POSIXct(
-      (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-      origin = "1970-01-01"
-    )) %>%
-    dplyr::mutate(ASTDT = as.Date(.data$ASTDTM)) %>%
-    dplyr::mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
-    dplyr::select(-"trtsdt_int", -"trtedt_int", -"ASTDTM") %>%
+    dplyr::mutate(ASTDT = lubridate::date(ASTDTM)) %>%
+    dplyr::mutate(ASTDY = ceiling(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days"))) %>%
+    dplyr::select(-TRTENDT, -ASTDTM) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDT, .data$DVTERM)
 

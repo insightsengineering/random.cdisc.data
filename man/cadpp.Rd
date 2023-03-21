@@ -5,7 +5,7 @@
 \alias{cadpp}
 \title{Cached ADPP}
 \format{
-An object of class \code{data.frame} with 26268 rows and 69 columns.
+An object of class \code{data.frame} with 26268 rows and 68 columns.
 }
 \usage{
 data(cadpp)

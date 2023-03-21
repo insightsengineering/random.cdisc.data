@@ -68,6 +68,7 @@ radcm <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
+  study_duration_secs <- attr(ADSL, "study_duration_secs")
 
   ADCM <- Map(function(id, sid) {
     n_cms <- sample(c(0, seq_len(max_n_cms)), 1)
@@ -95,25 +96,22 @@ radcm <- function(ADSL,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%
-    dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-    dplyr::mutate(trtedt_int = dplyr::case_when(
-      !is.na(TRTEDTM) ~ as.numeric(as.Date(.data$TRTEDTM)),
-      is.na(TRTEDTM) ~ floor(.data$trtsdt_int + (.data$study_duration_secs) / 86400)
+    dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
+      is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
+      TRUE ~ TRTEDTM
+    ))) %>%
+    dplyr::mutate(ASTDTM = sample(
+      seq(lubridate::as_datetime(TRTSDTM), lubridate::as_datetime(TRTENDT), by = "day"),
+      size = 1
     )) %>%
-    dplyr::mutate(ASTDTM = as.POSIXct(
-      (sample(.data$trtsdt_int:.data$trtedt_int, size = 1) * 86400),
-      origin = "1970-01-01"
-    )) %>%
-    dplyr::mutate(astdt_int = as.numeric(as.Date(.data$ASTDTM))) %>%
-    dplyr::mutate(ASTDY = ceiling(as.numeric(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days")))) %>%
+    dplyr::mutate(ASTDY = ceiling(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days"))) %>%
     # add 1 to end of range incase both values passed to sample() are the same
-    dplyr::mutate(AENDTM = as.POSIXct(
-      (
-        sample(.data$astdt_int:(.data$trtedt_int + 1), size = 1) * 86400),
-      origin = "1970-01-01"
+    dplyr::mutate(AENDTM = sample(
+      seq(lubridate::as_datetime(ASTDTM), lubridate::as_datetime(TRTENDT + 1), by = "day"),
+      size = 1
     )) %>%
-    dplyr::mutate(AENDY = ceiling(as.numeric(difftime(.data$AENDTM, .data$TRTSDTM, units = "days")))) %>%
-    dplyr::select(-"trtsdt_int", -"trtedt_int", -"astdt_int") %>%
+    dplyr::mutate(AENDY = ceiling(difftime(.data$AENDTM, .data$TRTSDTM, units = "days"))) %>%
+    dplyr::select(-TRTENDT) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)
 
@@ -159,7 +157,7 @@ radcm <- function(ADSL,
         EOSSTT == "ONGOING" ~ "ONGOING",
         is.na(EOSSTT) ~ "U"
       ),
-      ADURN = (.data$AENDTM - .data$ASTDTM) / 86400,
+      ADURN = as.numeric(difftime(.data$ASTDTM, .data$AENDTM, units = "days")),
       ADURU = "days"
     )
 

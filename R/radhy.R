@@ -92,6 +92,7 @@ radhy <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
+  study_duration_secs <- attr(ADSL, "study_duration_secs")
 
   # create all combinations of unique values in STUDYID, USUBJID, PARAM, AVISIT
   ADHY <- expand.grid(
@@ -186,10 +187,10 @@ radhy <- function(ADSL,
     } else if (avisit == "POST-BASELINE") {
       dplyr::rowwise(x) %>%
         dplyr::mutate(ADY = as.integer(sample(
-          x = ifelse(
+          dplyr::if_else(
             !is.na(.data$TRTEDTM),
-            difftime(.data$TRTEDTM, .data$TRTSDTM, units = "days"),
-            (.data$study_duration_secs) / 86400
+            as.numeric(difftime(.data$TRTEDTM, .data$TRTSDTM, units = "days")),
+            as.numeric(study_duration_secs, "days")
           ),
           size = 1,
           replace = TRUE
@@ -204,10 +205,7 @@ radhy <- function(ADSL,
     dplyr::group_by(.data$AVISIT, .add = FALSE) %>%
     dplyr::group_modify(~ add_ady(.x, .y$AVISIT)) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(ADTM = .data$TRTSDTM + .data$ADY)
-
-  # `+` operation causes that tzone attribute is lost for POSIXct objects
-  attributes(ADHY$ADTM) <- attributes(ADSL$TRTSDTM)
+    dplyr::mutate(ADTM = .data$TRTSDTM + lubridate::days(.data$ADY))
 
   # order columns and arrange rows; column order follows ADaM_1.1 specification
   ADHY <-

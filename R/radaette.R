@@ -67,6 +67,7 @@ radaette <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
+  study_duration_secs <- attr(ADSL, "study_duration_secs")
 
   evntdescr_sel <- if (!is.null(event.descr)) {
     event.descr
@@ -85,18 +86,15 @@ radaette <- function(ADSL,
   }
 
   random_patient_data <- function(patient_info) {
-    trtsdt_int <- as.numeric(as.Date(patient_info$TRTSDTM))
-    trtedt_int <- ifelse(
-      !is.na(patient_info$TRTEDTM),
-      as.numeric(as.Date(patient_info$TRTEDTM)),
-      floor(trtsdt_int + patient_info$study_duration_secs / 86400)
-    )
-    startdt <- as.Date(patient_info$TRTSDTM)
-    trtedtm <- as.POSIXct(trtedt_int * 86400, origin = "1970-01-01")
-    enddts <- c(as.Date(patient_info$EOSDT), as.Date(trtedtm))
+    startdt <- lubridate::date(patient_info$TRTSDTM)
+    trtedtm <- lubridate::floor_date(dplyr::case_when(
+      is.na(patient_info$TRTEDTM) ~ lubridate::date(patient_info$TRTSDTM) + study_duration_secs,
+      TRUE ~ lubridate::date(patient_info$TRTEDTM)
+    ), unit = "day")
+    enddts <- c(patient_info$EOSDT, lubridate::date(trtedtm))
     enddts_min_index <- which.min(enddts)
     adt <- enddts[enddts_min_index]
-    adtm <- as.POSIXct(adt)
+    adtm <- lubridate::as_datetime(adt)
     ady <- as.numeric(adt - startdt + 1)
     data.frame(
       ARM = patient_info$ARM,
@@ -106,7 +104,7 @@ radaette <- function(ADSL,
       PARAMCD = "AEREPTTE",
       PARAM = "Time to end of AE reporting period",
       CNSR = 0,
-      AVAL = ady / 365.25,
+      AVAL = lubridate::days(ady) / lubridate::years(1),
       AVALU = "YEARS",
       EVNTDESC = ifelse(enddts_min_index == 1, "Completion or Discontinuation", "End of AE Reporting Period"),
       CNSDTDSC = NA,
@@ -120,7 +118,7 @@ radaette <- function(ADSL,
   paramcd_hy <- c("HYSTTEUL", "HYSTTEBL")
   param_hy <- c("Time to Hy's Law Elevation in relation to ULN", "Time to Hy's Law Elevation in relation to Baseline")
   param_init_list <- relvar_init(param_hy, paramcd_hy)
-  adsl_hy <- dplyr::select(ADSL, "STUDYID", "USUBJID", "TRTSDTM", "SITEID", "ARM", "study_duration_secs")
+  adsl_hy <- dplyr::select(ADSL, "STUDYID", "USUBJID", "TRTSDTM", "SITEID", "ARM")
 
   # create all combinations of unique values in STUDYID, USUBJID, PARAM, AVISIT
   adaette_hy <- expand.grid(
@@ -154,20 +152,15 @@ radaette <- function(ADSL,
     dplyr::rowwise() %>%
     dplyr::mutate(ADTM = dplyr::case_when(
       .data$CNSDTDSC == "Treatment Start" ~ .data$TRTSDTM,
-      TRUE ~ as.POSIXct(
-        .data$TRTSDTM + sample(seq(0, .data$study_duration_secs), size = dplyr::n(), replace = TRUE),
-        origin = "1970-01-01"
-      )
+      TRUE ~ .data$TRTSDTM + sample(seq(0, study_duration_secs), size = dplyr::n(), replace = TRUE)
     )) %>%
     dplyr::mutate(
-      STARTDT = as.Date(.data$TRTSDTM),
-      ADT = as.Date(.data$ADTM),
-      ADY = as.numeric(.data$ADT - .data$STARTDT + 1),
-      AVAL = .data$ADY / 7,
+      ADY_int = lubridate::date(.data$ADTM) - lubridate::date(.data$TRTSDTM) + 1,
+      ADY = as.numeric(ADY_int),
+      AVAL = lubridate::days(ADY_int) / lubridate::weeks(1),
       AVALU = "WEEKS"
-    )
-
-  adaette_hy <- dplyr::select(adaette_hy, -"TRTSDTM", -"study_duration_secs", -"ADT", -"STARTDT")
+    ) %>%
+    dplyr::select(-TRTSDTM, -ADY_int)
 
   random_ae_data <- function(lookup_info, patient_info, patient_data) {
     cnsr <- sample(c(0, 1), 1, prob = c(1 - lookup_info$CNSR_P, lookup_info$CNSR_P))
@@ -211,11 +204,11 @@ radaette <- function(ADSL,
       ),
       stringsAsFactors = FALSE
     ) %>% dplyr::mutate(
-      ADY = dplyr::if_else(is.na(.data$AVALU), NA_real_, ceiling(.data$AVAL * 365.25)),
+      ADY = dplyr::if_else(is.na(.data$AVALU), NA_real_, ceiling(as.numeric(lubridate::dyears(.data$AVAL), "days"))),
       ADTM = dplyr::if_else(
         is.na(.data$AVALU),
-        as.POSIXct(NA),
-        as.POSIXct(patient_info$TRTSDTM) + as.difftime(.data$ADY, units = "days")
+        lubridate::as_datetime(NA),
+        patient_info$TRTSDTM + lubridate::days(.data$ADY)
       )
     )
   }

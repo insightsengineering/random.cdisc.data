@@ -70,6 +70,7 @@ radvs <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
+  study_duration_secs <- attr(ADSL, "study_duration_secs")
 
   ADVS <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
@@ -202,26 +203,25 @@ radvs <- function(ADSL,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%
-    dplyr::mutate(trtsdt_int = as.numeric(as.Date(.data$TRTSDTM))) %>%
-    dplyr::mutate(trtedt_int = dplyr::case_when(
-      !is.na(TRTEDTM) ~ as.numeric(as.Date(TRTEDTM)),
-      is.na(TRTEDTM) ~ floor(trtsdt_int + (study_duration_secs) / 86400)
-    )) %>%
+    dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
+      is.na(.data$TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
+      TRUE ~ .data$TRTEDTM
+    ))) %>%
     dplyr::ungroup()
 
   ADVS <- ADVS %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::arrange(USUBJID, AVISITN) %>%
     dplyr::mutate(ADTM = rep(
-      sort(as.POSIXct(
-        sample(.data$trtsdt_int[1]:.data$trtedt_int[1], size = nlevels(AVISIT)) * 86400,
-        origin = "1970-01-01"
+      sort(sample(
+        seq(lubridate::as_datetime(TRTSDTM[1]), lubridate::as_datetime(TRTENDT[1]), by = "day"),
+        size = nlevels(AVISIT)
       )),
       each = n() / nlevels(AVISIT)
     )) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(ADY = ceiling(as.numeric(difftime(.data$ADTM, .data$TRTSDTM, units = "days")))) %>%
-    dplyr::select(-"trtsdt_int", -"trtedt_int") %>%
+    dplyr::mutate(ADY = ceiling(difftime(.data$ADTM, .data$TRTSDTM, units = "days"))) %>%
+    dplyr::select(-TRTENDT) %>%
     dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
 
   ADVS <- ADVS %>% dplyr::mutate(ONTRTFL = factor(dplyr::case_when(

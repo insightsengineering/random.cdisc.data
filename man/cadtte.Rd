@@ -5,7 +5,7 @@
 \alias{cadtte}
 \title{Cached ADTTE}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2000 rows and 68 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2000 rows and 67 columns.
 }
 \usage{
 data(cadtte)

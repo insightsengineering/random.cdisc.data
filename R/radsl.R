@@ -60,7 +60,6 @@ radsl <- function(N = 400,
   }
 
   checkmate::assert_number(N)
-  checkmate::assert_number(study_duration)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
   checkmate::assert_number(study_duration, lower = 1)
@@ -71,8 +70,8 @@ radsl <- function(N = 400,
     set.seed(seed)
   }
 
-  study_duration_secs <- (31556952 * study_duration)
-  sys_dtm <- as.numeric(strptime("20/2/2019 11:16:16.683", "%d/%m/%Y %H:%M:%OS"))
+  study_duration_secs <- lubridate::seconds(lubridate::years(study_duration))
+  sys_dtm <- lubridate::fast_strptime("20/2/2019 11:16:16.683", "%d/%m/%Y %H:%M:%OS")
   discons <- max(1, floor((N * .3)))
   country_site_prob <- c(.5, .121, .077, .077, .075, .052, .046, .025, .014, .003)
 
@@ -94,13 +93,9 @@ radsl <- function(N = 400,
       "MULTIPLE", "NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER", "OTHER", "UNKNOWN"
     ) %>%
       sample_fct(N, prob = c(.55, .23, .16, .05, .004, .003, .002, .002)),
-    TRTSDTM = as.POSIXct(
-      sys_dtm + sample(seq(0, study_duration_secs), size = N, replace = TRUE),
-      origin = "1970-01-01"
-    ),
-    RANDDT = as.Date(.data$TRTSDTM) - floor(stats::runif(N, min = 0, max = 5)),
-    st_posixn = as.numeric(.data$TRTSDTM),
-    TRTEDTM = as.POSIXct(.data$st_posixn + study_duration_secs, origin = "1970-01-01"),
+    TRTSDTM = sys_dtm + sample(seq(0, study_duration_secs), size = N, replace = TRUE),
+    RANDDT = lubridate::date(TRTSDTM - lubridate::days(floor(stats::runif(N, min = 0, max = 5)))),
+    TRTEDTM = TRTSDTM + study_duration_secs,
     STRATA1 = c("A", "B", "C") %>% sample_fct(N),
     STRATA2 = c("S1", "S2") %>% sample_fct(N),
     BMRKR1 = stats::rchisq(N, 6),
@@ -119,34 +114,28 @@ radsl <- function(N = 400,
     dplyr::mutate(TRT01A = .data$ACTARM) %>%
     dplyr::mutate(ITTFL = factor("Y")) %>%
     dplyr::mutate(SAFFL = factor("Y")) %>%
-    dplyr::arrange(.data$st_posixn)
+    dplyr::arrange(TRTSDTM)
 
   ADDS <- ADSL[sample(nrow(ADSL), discons), ] %>%
-    dplyr::mutate(TRTEDTM_discon = as.POSIXct(
-      sample(
-        seq(from = max(.data$st_posixn), to = sys_dtm + study_duration_secs, by = 1),
-        size = discons,
-        replace = TRUE
-      ),
-      origin = "1970-01-01"
+    dplyr::mutate(TRTEDTM_discon = sample(
+      seq(from = max(TRTSDTM), to = sys_dtm + study_duration_secs, by = 1),
+      size = discons,
+      replace = TRUE
     )) %>%
-    dplyr::select("SUBJID", "st_posixn", "TRTEDTM_discon") %>%
-    dplyr::arrange(.data$st_posixn)
+    dplyr::select(SUBJID, TRTSDTM, TRTEDTM_discon) %>%
+    dplyr::arrange(TRTSDTM)
 
-  ADSL <- dplyr::left_join(ADSL, ADDS, by = c("SUBJID", "st_posixn")) %>%
+  ADSL <- dplyr::left_join(ADSL, ADDS, by = c("SUBJID", "TRTSDTM")) %>%
     dplyr::mutate(TRTEDTM = dplyr::case_when(
-      !is.na(TRTEDTM_discon) ~ as.POSIXct(TRTEDTM_discon, origin = "1970-01-01"),
-      st_posixn >= quantile(st_posixn)[2] & st_posixn <= quantile(st_posixn)[3] ~ as.POSIXct(NA, origin = "1970-01-01"),
+      !is.na(TRTEDTM_discon) ~ TRTEDTM_discon,
+      TRTSDTM >= quantile(TRTSDTM)[2] & TRTSDTM <= quantile(TRTSDTM)[3] ~ lubridate::as_datetime(NA),
       TRUE ~ TRTEDTM
     )) %>%
-    dplyr::mutate(
-      TRTEDTM = as.POSIXct(.data$TRTEDTM, origin = "1970-01-01")
-    ) %>%
     dplyr::select(-"TRTEDTM_discon")
 
   # add period 2 if needed
   if (with_trt02) {
-    with_trt02 <- (31556952 * as.numeric(with_trt02))
+    with_trt02 <- lubridate::seconds(lubridate::years(1))
     ADSL <- ADSL %>%
       dplyr::mutate(TRT02P = sample(.data$ARM)) %>%
       dplyr::mutate(TRT02A = sample(.data$ACTARM)) %>%
@@ -157,17 +146,15 @@ radsl <- function(N = 400,
         AP01EDTM = .data$TRT01EDTM,
         TRT02SDTM = .data$TRTEDTM,
         AP02SDTM = .data$TRT02SDTM,
-        st_posixn_2 = as.numeric(.data$TRT01EDTM),
-        TRT02EDTM = as.POSIXct(.data$st_posixn_2 + with_trt02, origin = "1970-01-01"),
+        TRT02EDTM = TRT01EDTM + with_trt02,
         AP02EDTM = .data$TRT02EDTM,
         TRTEDTM = .data$TRT02EDTM
-      ) %>%
-      dplyr::select(-"st_posixn_2")
+      )
   }
 
   ADSL <- ADSL %>%
-    dplyr::mutate(EOSDT = as.Date(.data$TRTEDTM)) %>%
-    dplyr::mutate(EOSDY = as.numeric(ceiling(difftime(.data$TRTEDTM, .data$TRTSDTM, units = "days")))) %>%
+    dplyr::mutate(EOSDT = lubridate::date(TRTEDTM)) %>%
+    dplyr::mutate(EOSDY = ceiling(difftime(TRTEDTM, TRTSDTM))) %>%
     dplyr::mutate(EOSSTT = dplyr::case_when(
       EOSDY == max(EOSDY, na.rm = TRUE) ~ "COMPLETED",
       EOSDY < max(EOSDY, na.rm = TRUE) ~ "DISCONTINUED",
@@ -226,9 +213,10 @@ radsl <- function(N = 400,
     # adding some random number of days post last treatment date so that death days from last trt admin
     # supports the LDDTHGR1 derivation below
     dplyr::mutate(DTHDT = dplyr::case_when(
-      DCSREAS == "DEATH" ~ as.Date(.data$TRTEDTM) + sample(0:50, size = N, replace = TRUE)
+      DCSREAS == "DEATH" ~ lubridate::date(TRTEDTM + lubridate::days(sample(0:50, size = N, replace = TRUE))),
+      TRUE ~ NA
     )) %>%
-    dplyr::mutate(LDDTHELD = as.numeric(.data$DTHDT - as.Date(.data$TRTEDTM))) %>%
+    dplyr::mutate(LDDTHELD = difftime(DTHDT, lubridate::date(TRTEDTM), units = "days")) %>%
     dplyr::mutate(LDDTHGR1 = dplyr::case_when(
       LDDTHELD <= 30 ~ "<=30",
       LDDTHELD > 30 ~ ">30",
@@ -236,9 +224,8 @@ radsl <- function(N = 400,
     )) %>%
     dplyr::mutate(LSTALVDT = dplyr::case_when(
       DCSREAS == "DEATH" ~ DTHDT,
-      TRUE ~ as.Date(.data$TRTEDTM) + floor(stats::runif(N, min = 10, max = 30))
-    )) %>%
-    dplyr::select(-"st_posixn")
+      TRUE ~ lubridate::date(TRTEDTM) + lubridate::days(floor(stats::runif(N, min = 10, max = 30)))
+    ))
 
   # add random ETHNIC (Ethnicity)
   ADSL <- ADSL %>%
@@ -251,7 +238,7 @@ radsl <- function(N = 400,
   # Date of Death [ADSL.DTHDT] - date part of Date of First Exposure to Treatment [ADSL.TRTSDTM]
 
   ADSL <- ADSL %>%
-    dplyr::mutate(DTHADY = as.numeric(.data$DTHDT - as.Date(.data$TRTSDTM)))
+    dplyr::mutate(DTHADY = difftime(DTHDT, TRTSDTM, units = "days"))
 
 
   # associate sites with countries and regions
@@ -268,8 +255,7 @@ radsl <- function(N = 400,
     )) %>%
     dplyr::mutate(INVID = paste("INV ID", .data$SITEID)) %>%
     dplyr::mutate(INVNAM = paste("Dr.", .data$SITEID, "Doe")) %>%
-    dplyr::mutate(USUBJID = paste(.data$STUDYID, .data$SITEID, .data$SUBJID, sep = "-")) %>%
-    dplyr::mutate(study_duration_secs = study_duration_secs)
+    dplyr::mutate(USUBJID = paste(.data$STUDYID, .data$SITEID, .data$SUBJID, sep = "-"))
 
 
   if (length(na_vars) > 0 && na_percentage > 0) {
@@ -279,5 +265,6 @@ radsl <- function(N = 400,
   # apply metadata
   ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml", FALSE)
 
+  attr(ADSL, "study_duration_secs") <- study_duration_secs # nolint
   return(ADSL)
 }

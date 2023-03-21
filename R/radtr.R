@@ -165,7 +165,7 @@ radtr <- function(ADSL,
       TRTDURD = ifelse(
         is.na(.data$TRTSDTM) | is.na(.data$TRTEDTM),
         NA,
-        .data$TRTEDTM - (.data$TRTSDTM + 1)
+        .data$TRTEDTM - (.data$TRTSDTM + lubridate::days(1))
       ),
       AGEGR1 = ifelse(.data$AGE < 65, "<65", ">=65")
     )
