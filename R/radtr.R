@@ -47,7 +47,7 @@ radtr <- function(ADSL,
 
   # Make times consistent with ADRS at ADY and ADTM.
   adrs <- radrs(ADSL, seed = seed, ...) %>%
-    dplyr::filter(.data$PARAMCD == "OVRINV") %>%
+    dplyr::filter(PARAMCD == "OVRINV") %>%
     dplyr::select(
       "STUDYID",
       "USUBJID",
@@ -67,28 +67,28 @@ radtr <- function(ADSL,
     Reduce(rbind, .)
 
   ADTR_base <- ADTR %>%
-    dplyr::filter(.data$AVISITN == 0) %>%
-    dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
-    dplyr::mutate(BASE = .data$AVAL) %>%
+    dplyr::filter(AVISITN == 0) %>%
+    dplyr::group_by(USUBJID, PARAMCD) %>%
+    dplyr::mutate(BASE = AVAL) %>%
     dplyr::select("STUDYID", "USUBJID", "BASE", "PARAMCD")
 
   ADTR_postbase <- ADTR %>%
-    dplyr::filter(.data$AVISITN > 0) %>%
-    dplyr::filter(!is.na(.data$AVAL)) %>%
-    dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
-    dplyr::filter(.data$AVAL == min(.data$AVAL)) %>%
+    dplyr::filter(AVISITN > 0) %>%
+    dplyr::filter(!is.na(AVAL)) %>%
+    dplyr::group_by(USUBJID, PARAMCD) %>%
+    dplyr::filter(AVAL == min(AVAL)) %>%
     dplyr::slice(1) %>%
     dplyr::mutate(AVISIT = "POST-BASELINE MINIMUM") %>%
     dplyr::mutate(DTYPE = "MINIMUM") %>%
     dplyr::ungroup()
 
   ADTR_lastobs <- ADTR %>%
-    dplyr::filter(.data$AVISITN > 0) %>%
-    dplyr::filter(!is.na(.data$AVAL)) %>%
-    dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
-    dplyr::filter(.data$ADTM == max(.data$ADTM, na.rm = TRUE)) %>%
+    dplyr::filter(AVISITN > 0) %>%
+    dplyr::filter(!is.na(AVAL)) %>%
+    dplyr::group_by(USUBJID, PARAMCD) %>%
+    dplyr::filter(ADTM == max(ADTM, na.rm = TRUE)) %>%
     dplyr::slice(1) %>%
-    dplyr::mutate(LAST_VISIT = .data$AVISIT) %>%
+    dplyr::mutate(LAST_VISIT = AVISIT) %>%
     dplyr::ungroup() %>%
     dplyr::select(
       "STUDYID",
@@ -101,58 +101,58 @@ radtr <- function(ADSL,
 
   ADTR <- merge(ADTR, ADTR_base, by = c("STUDYID", "USUBJID", "PARAMCD")) %>%
     dplyr::mutate(
-      ABLFL = dplyr::case_when(.data$AVISIT == "BASELINE" ~ "Y", TRUE ~ ""),
-      AVAL = dplyr::case_when(.data$AVISIT == "BASELINE" ~ NA_real_, TRUE ~ AVAL),
-      CHG = dplyr::case_when(.data$AVISITN > 0 ~ .data$AVAL - .data$BASE, TRUE ~ NA_real_),
-      PCHG = dplyr::case_when(.data$AVISITN > 0 ~ .data$CHG / .data$BASE * 100, TRUE ~ NA_real_),
-      AVALC = as.character(.data$AVAL),
+      ABLFL = dplyr::case_when(AVISIT == "BASELINE" ~ "Y", TRUE ~ ""),
+      AVAL = dplyr::case_when(AVISIT == "BASELINE" ~ NA_real_, TRUE ~ AVAL),
+      CHG = dplyr::case_when(AVISITN > 0 ~ AVAL - BASE, TRUE ~ NA_real_),
+      PCHG = dplyr::case_when(AVISITN > 0 ~ CHG / BASE * 100, TRUE ~ NA_real_),
+      AVALC = as.character(AVAL),
       AVALU = "mm"
     )
 
   # ensure PCHG does not exceed 200%, nor go below -100% (double in size, or complete remission of tumor).
   ADTR <- ADTR %>%
     dplyr::mutate(
-      PCHG_DUM = .data$PCHG,
+      PCHG_DUM = PCHG,
       PCHG = dplyr::case_when(
-        .data$PCHG_DUM > 200 ~ 200,
-        .data$PCHG_DUM < -100 ~ -100,
-        TRUE ~ .data$PCHG
+        PCHG_DUM > 200 ~ 200,
+        PCHG_DUM < -100 ~ -100,
+        TRUE ~ PCHG
       ),
       AVAL = dplyr::case_when(
-        .data$PCHG_DUM > 200 ~ 3 * .data$BASE,
-        .data$PCHG_DUM < -100 ~ 0,
-        TRUE ~ .data$AVAL
+        PCHG_DUM > 200 ~ 3 * BASE,
+        PCHG_DUM < -100 ~ 0,
+        TRUE ~ AVAL
       ),
       CHG = dplyr::case_when(
-        .data$PCHG_DUM > 200 ~ 2 * .data$BASE,
-        .data$PCHG_DUM < -100 ~ -.data$BASE,
-        TRUE ~ .data$CHG
+        PCHG_DUM > 200 ~ 2 * BASE,
+        PCHG_DUM < -100 ~ -BASE,
+        TRUE ~ CHG
       )
     ) %>%
     dplyr::select(-"PCHG_DUM")
 
   ADTR <- merge(ADSL, ADTR, by = c("STUDYID", "USUBJID")) %>%
-    dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
+    dplyr::group_by(USUBJID, PARAMCD) %>%
     dplyr::mutate(
       ONTRTFL = factor(dplyr::case_when(
         !AVISIT %in% c("SCREENING", "BASELINE", "FOLLOW UP") ~ "Y",
         TRUE ~ ""
       )),
       ANL01FL = dplyr::case_when(
-        .data$DTYPE == "" & .data$AVISITN > 0 ~ "Y",
+        DTYPE == "" & AVISITN > 0 ~ "Y",
         TRUE ~ ""
       ),
       ANL03FL = dplyr::case_when(
-        .data$DTYPE == "MINIMUM" ~ "Y",
-        .data$ABLFL == "Y" ~ "Y",
+        DTYPE == "MINIMUM" ~ "Y",
+        ABLFL == "Y" ~ "Y",
         TRUE ~ ""
       )
     )
   ADTR <- merge(ADTR, ADTR_lastobs, by = c("STUDYID", "USUBJID", "PARAMCD")) %>%
     dplyr::mutate(
       ANL02FL = dplyr::case_when(
-        as.character(.data$AVISIT) == as.character(.data$LAST_VISIT) ~ "Y",
-        .data$ABLFL == "Y" ~ "Y",
+        as.character(AVISIT) == as.character(LAST_VISIT) ~ "Y",
+        ABLFL == "Y" ~ "Y",
         TRUE ~ ""
       )
     ) %>%
@@ -160,13 +160,13 @@ radtr <- function(ADSL,
   # Adding variables that are in ADTR osprey but not RCD.
   ADTR <- ADTR %>%
     dplyr::mutate(
-      DCSREAS_GRP = ifelse(.data$DCSREAS == "ADVERSE EVENT", "Safety", "Non-Safety"),
+      DCSREAS_GRP = ifelse(DCSREAS == "ADVERSE EVENT", "Safety", "Non-Safety"),
       TRTDURD = ifelse(
-        is.na(.data$TRTSDTM) | is.na(.data$TRTEDTM),
+        is.na(TRTSDTM) | is.na(TRTEDTM),
         NA,
-        .data$TRTEDTM - (.data$TRTSDTM + lubridate::days(1))
+        TRTEDTM - (TRTSDTM + lubridate::days(1))
       ),
-      AGEGR1 = ifelse(.data$AGE < 65, "<65", ">=65")
+      AGEGR1 = ifelse(AGE < 65, "<65", ">=65")
     )
 
   # apply metadata

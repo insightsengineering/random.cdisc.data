@@ -95,24 +95,24 @@ radtte <- function(ADSL,
   ADTTE <- split(ADSL, ADSL$USUBJID) %>%
     lapply(FUN = function(pinfo) {
       lookup_TTE %>%
-        dplyr::filter(.data$ARM == as.character(pinfo$ACTARMCD)) %>%
+        dplyr::filter(ARM == as.character(pinfo$ACTARMCD)) %>%
         dplyr::rowwise() %>%
         dplyr::mutate(
           STUDYID = pinfo$STUDYID,
           SITEID = pinfo$SITEID,
           USUBJID = pinfo$USUBJID,
-          CNSR = sample(c(0, 1), 1, prob = c(1 - .data$CNSR_P, .data$CNSR_P)),
-          AVAL = stats::rexp(1, .data$LAMBDA),
+          CNSR = sample(c(0, 1), 1, prob = c(1 - CNSR_P, CNSR_P)),
+          AVAL = stats::rexp(1, LAMBDA),
           AVALU = "DAYS",
-          EVNTDESC = if (.data$CNSR == 1) {
+          EVNTDESC = if (CNSR == 1) {
             sample(evntdescr_sel[-c(1:2)], 1)
           } else {
-            ifelse(.data$PARAMCD == "OS",
+            ifelse(PARAMCD == "OS",
               sample(evntdescr_sel[1], 1),
               sample(evntdescr_sel[c(1:2)], 1)
             )
           },
-          CNSDTDSC = if (.data$CNSR == 1) sample(cnsdtdscr_sel, 1) else ""
+          CNSDTDSC = if (CNSR == 1) sample(cnsdtdscr_sel, 1) else ""
         ) %>%
         dplyr::select(-"LAMBDA", -"CNSR_P")
     }) %>%
@@ -136,31 +136,31 @@ radtte <- function(ADSL,
   ) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
-      is.na(.data$TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
-      TRUE ~ .data$TRTEDTM
+      is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
+      TRUE ~ TRTEDTM
     ))) %>%
     dplyr::mutate(ADTM = sample(
       seq(lubridate::as_datetime(TRTSDTM), lubridate::as_datetime(TRTENDT), by = "day"),
       size = 1
     )) %>%
-    dplyr::mutate(ADY = ceiling(difftime(.data$ADTM, .data$TRTSDTM, units = "days"))) %>%
+    dplyr::mutate(ADY = ceiling(difftime(ADTM, TRTSDTM, units = "days"))) %>%
     dplyr::select(-TRTENDT) %>%
     dplyr::ungroup() %>%
-    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
+    dplyr::arrange(STUDYID, USUBJID, ADTM)
 
   ADTTE <- ADTTE %>%
-    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::group_by(USUBJID) %>%
     dplyr::mutate(TTESEQ = seq_len(dplyr::n())) %>%
-    dplyr::mutate(ASEQ = .data$TTESEQ) %>%
-    dplyr::mutate(PARAM = as.factor(.data$PARAM)) %>%
-    dplyr::mutate(PARAMCD = as.factor(.data$PARAMCD)) %>%
+    dplyr::mutate(ASEQ = TTESEQ) %>%
+    dplyr::mutate(PARAM = as.factor(PARAM)) %>%
+    dplyr::mutate(PARAMCD = as.factor(PARAMCD)) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$PARAMCD,
-      .data$ADTM,
-      .data$TTESEQ
+      STUDYID,
+      USUBJID,
+      PARAMCD,
+      ADTM,
+      TTESEQ
     )
 
   # adding adverse event counts and log follow-up time
@@ -168,7 +168,7 @@ radtte <- function(ADSL,
     ADTTE,
     data.frame(
       ADTTE %>%
-        dplyr::group_by(.data$USUBJID) %>%
+        dplyr::group_by(USUBJID) %>%
         dplyr::slice_head(n = 1) %>%
         dplyr::mutate(
           PARAMCD = "TNE",
@@ -184,11 +184,11 @@ radtte <- function(ADSL,
     )
   ) %>%
     dplyr::arrange(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$PARAMCD,
-      .data$ADTM,
-      .data$TTESEQ
+      STUDYID,
+      USUBJID,
+      PARAMCD,
+      ADTM,
+      TTESEQ
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {

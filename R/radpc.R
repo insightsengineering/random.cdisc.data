@@ -59,38 +59,38 @@ radpc <- function(ADSL,
     )
     adpc_day <- adpc_day[!(grepl("Urine", adpc_day$PARAM) &
       adpc_day$PCTPTNUM %in% c(0.5, 1, 1.5, 2, 3)), ] %>%
-      dplyr::arrange(.data$USUBJID, .data$PARAM) %>%
+      dplyr::arrange(USUBJID, PARAM) %>%
       dplyr::mutate(
         VISITDY = day,
-        VISIT = ifelse(day <= 7, paste("Day", .data$VISITDY), paste("Week", (.data$VISITDY - 1) / 7)),
-        PCVOLU = ifelse(grepl("Urine", .data$PARAM), "mL", ""),
-        ASMED = ifelse(grepl("Urine", .data$PARAM), "URINE", "PLASMA"),
+        VISIT = ifelse(day <= 7, paste("Day", VISITDY), paste("Week", (VISITDY - 1) / 7)),
+        PCVOLU = ifelse(grepl("Urine", PARAM), "mL", ""),
+        ASMED = ifelse(grepl("Urine", PARAM), "URINE", "PLASMA"),
         PCTPT = factor(dplyr::case_when(
-          .data$PCTPTNUM == 0 ~ "Predose",
-          (day == 1 & grepl("Urine", .data$PARAM)) ~
-            paste0(lag(.data$PCTPTNUM), "H - ", .data$PCTPTNUM, "H"),
-          (day != 1 & grepl("Urine", .data$PARAM)) ~
-            paste0(as.numeric(.data$PCTPTNUM) - 24, "H - ", .data$PCTPTNUM, "H"),
-          TRUE ~ paste0(.data$PCTPTNUM, "H")
+          PCTPTNUM == 0 ~ "Predose",
+          (day == 1 & grepl("Urine", PARAM)) ~
+            paste0(lag(PCTPTNUM), "H - ", PCTPTNUM, "H"),
+          (day != 1 & grepl("Urine", PARAM)) ~
+            paste0(as.numeric(PCTPTNUM) - 24, "H - ", PCTPTNUM, "H"),
+          TRUE ~ paste0(PCTPTNUM, "H")
         )),
-        ARELTM1 = .data$PCTPTNUM,
-        NRELTM1 = .data$PCTPTNUM,
-        ARELTM2 = .data$ARELTM1 - (24 * (day - 1)),
-        NRELTM2 = .data$NRELTM1 - (24 * (day - 1)),
-        A0 = ifelse(.data$PARAM == "Plasma Drug Y", .data$A0, .data$A0 / 2),
+        ARELTM1 = PCTPTNUM,
+        NRELTM1 = PCTPTNUM,
+        ARELTM2 = ARELTM1 - (24 * (day - 1)),
+        NRELTM2 = NRELTM1 - (24 * (day - 1)),
+        A0 = ifelse(PARAM == "Plasma Drug Y", A0, A0 / 2),
         AVAL = round(
-          (.data$A0 * .data$ka * (
-            exp(-.data$ka * .data$ARELTM1) - exp(-.data$ke * .data$ARELTM1)
+          (A0 * ka * (
+            exp(-ka * ARELTM1) - exp(-ke * ARELTM1)
           ))
-          / (.data$ke - .data$ka),
+          / (ke - ka),
           digits = 3
         )
       ) %>%
       dplyr::mutate(
-        PCVOL = ifelse(.data$ASMED == "URINE", round(abs(((.data$PCTPTNUM - 1) %% 24) *
-          .data$A0 * .data$ka * exp(.data$PCTPTNUM %% 1.8 / 10)), 2), NA),
+        PCVOL = ifelse(ASMED == "URINE", round(abs(((PCTPTNUM - 1) %% 24) *
+          A0 * ka * exp(PCTPTNUM %% 1.8 / 10)), 2), NA),
         # PK Equation
-        AVALC = ifelse(.data$AVAL == 0, "BLQ", as.character(.data$AVAL)),
+        AVALC = ifelse(AVAL == 0, "BLQ", as.character(AVAL)),
         AVALU = avalu,
         RELTMU = "hr"
       ) %>%
@@ -108,7 +108,7 @@ radpc <- function(ADSL,
   ADPC <- do.call(rbind, ADPC)
 
   ADPC <- dplyr::inner_join(ADPC, ADSL, by = c("STUDYID", "USUBJID", "ARMCD")) %>%
-    dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" & .data$PARAM == "Plasma Drug Y"))
+    dplyr::filter(ACTARM != "B: Placebo", !(ACTARM == "A: Drug X" & PARAM == "Plasma Drug Y"))
 
   if (length(na_vars) > 0 && na_percentage > 0) {
     ADPC <- mutate_na(ds = ADPC, na_vars = na_vars, na_percentage = na_percentage)
