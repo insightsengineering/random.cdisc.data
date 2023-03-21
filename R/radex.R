@@ -229,8 +229,8 @@ radex <- function(ADSL,
   adex <- dplyr::inner_join(adex, ADSL, by = c("STUDYID", "USUBJID")) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
-      is.na(.data$TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
-      TRUE ~ .data$TRTEDTM
+      is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
+      TRUE ~ TRTEDTM
     ))) %>%
     dplyr::mutate(ASTDTM = sample(
       seq(lubridate::as_datetime(TRTSDTM), lubridate::as_datetime(TRTENDT), by = "day"),
