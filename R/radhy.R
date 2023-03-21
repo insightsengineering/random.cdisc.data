@@ -105,7 +105,7 @@ radhy <- function(ADSL,
   )
 
   # remove records that are not needed and were created as a side product of expand.grid above
-  ADHY <- dplyr::filter(ADHY, !(.data$AVISIT == "BASELINE" & .data$APERIODC == "PERIOD 2"))
+  ADHY <- dplyr::filter(ADHY, !(AVISIT == "BASELINE" & APERIODC == "PERIOD 2"))
 
   # define TBILI ALT/AST params, period dependent parameters and the parameters that will be assigned values "Y" or "N"
   paramcd_tbilialtast <- c("BLAL", "BGAS", "BGAL", "BLAS", "BA2AL", "BA2AS", "BA5AL", "BA5AS")
@@ -124,47 +124,47 @@ radhy <- function(ADSL,
     ) %>%
     dplyr::mutate(
       AVALC = dplyr::case_when(
-        .data$PARAMCD %in% paramcd_tbilialtast ~ sample(
+        PARAMCD %in% paramcd_tbilialtast ~ sample(
           x = c(">3-5ULN", ">5-10ULN", ">10-20ULN", ">20ULN", "Criteria not met"), size = dplyr::n(), replace = TRUE
         ),
-        .data$PARAMCD %in% paramcd_yn ~ sample(
+        PARAMCD %in% paramcd_yn ~ sample(
           x = c("Y", "N"), prob = c(0.1, 0.9), size = dplyr::n(), replace = TRUE
         )
       ),
       AVAL = dplyr::case_when(
-        .data$AVALC == ">3-5ULN" ~ 1,
-        .data$AVALC == ">5-10ULN" ~ 2,
-        .data$AVALC == ">10-20ULN" ~ 3,
-        .data$AVALC == ">20ULN" ~ 4,
-        .data$AVALC == "Y" ~ 1,
-        .data$AVALC == "N" ~ 0,
-        .data$AVALC == "Criteria not met" ~ 0
+        AVALC == ">3-5ULN" ~ 1,
+        AVALC == ">5-10ULN" ~ 2,
+        AVALC == ">10-20ULN" ~ 3,
+        AVALC == ">20ULN" ~ 4,
+        AVALC == "Y" ~ 1,
+        AVALC == "N" ~ 0,
+        AVALC == "Criteria not met" ~ 0
       ),
       AVISITN = dplyr::case_when(
-        .data$AVISIT == "BASELINE" ~ 0L,
-        .data$AVISIT == "POST-BASELINE" ~ 9995L,
+        AVISIT == "BASELINE" ~ 0L,
+        AVISIT == "POST-BASELINE" ~ 9995L,
         TRUE ~ NA_integer_
       ),
       APERIOD = dplyr::case_when(
-        .data$APERIODC == "PERIOD 1" ~ 1L,
-        .data$APERIODC == "PERIOD 2" ~ 2L,
+        APERIODC == "PERIOD 1" ~ 1L,
+        APERIODC == "PERIOD 2" ~ 2L,
         TRUE ~ NA_integer_
       ),
-      ABLFL = dplyr::if_else(.data$AVISIT == "BASELINE", "Y", NA_character_),
-      ONTRTFL = dplyr::if_else(.data$AVISIT == "POST-BASELINE", "Y", NA_character_),
+      ABLFL = dplyr::if_else(AVISIT == "BASELINE", "Y", NA_character_),
+      ONTRTFL = dplyr::if_else(AVISIT == "POST-BASELINE", "Y", NA_character_),
       ANL01FL = "Y",
       SRCSEQ = NA_integer_
     )
 
   # remove records for parameters with period 2 and not in paramcd_by_period
-  ADHY <- dplyr::filter(ADHY, .data$PARAMCD %in% paramcd_by_period | .data$APERIODC == "PERIOD 1")
+  ADHY <- dplyr::filter(ADHY, PARAMCD %in% paramcd_by_period | APERIODC == "PERIOD 1")
 
   # add baseline variables
   ADHY <- ADHY %>%
-    dplyr::group_by(.data$USUBJID, .data$PARAMCD) %>%
+    dplyr::group_by(USUBJID, PARAMCD) %>%
     dplyr::mutate(
-      BASEC = .data$AVALC[.data$AVISIT == "BASELINE"],
-      BASE = .data$AVAL[.data$AVISIT == "BASELINE"]
+      BASEC = AVALC[AVISIT == "BASELINE"],
+      BASE = AVAL[AVISIT == "BASELINE"]
     ) %>%
     dplyr::ungroup()
 
@@ -188,8 +188,8 @@ radhy <- function(ADSL,
       dplyr::rowwise(x) %>%
         dplyr::mutate(ADY = as.integer(sample(
           dplyr::if_else(
-            !is.na(.data$TRTEDTM),
-            as.numeric(difftime(.data$TRTEDTM, .data$TRTSDTM, units = "days")),
+            !is.na(TRTEDTM),
+            as.numeric(difftime(TRTEDTM, TRTSDTM, units = "days")),
             as.numeric(study_duration_secs, "days")
           ),
           size = 1,
@@ -202,10 +202,10 @@ radhy <- function(ADSL,
 
   # add ADY and ADTM variables
   ADHY <- ADHY %>%
-    dplyr::group_by(.data$AVISIT, .add = FALSE) %>%
+    dplyr::group_by(AVISIT, .add = FALSE) %>%
     dplyr::group_modify(~ add_ady(.x, .y$AVISIT)) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(ADTM = .data$TRTSDTM + lubridate::days(.data$ADY))
+    dplyr::mutate(ADTM = TRTSDTM + lubridate::days(ADY))
 
   # order columns and arrange rows; column order follows ADaM_1.1 specification
   ADHY <-
@@ -231,12 +231,12 @@ radhy <- function(ADSL,
 
   ADHY <- ADHY %>%
     dplyr::arrange(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$PARAMCD,
-      .data$AVISITN,
-      .data$ADTM,
-      .data$SRCSEQ
+      STUDYID,
+      USUBJID,
+      PARAMCD,
+      AVISITN,
+      ADTM,
+      SRCSEQ
     )
 
   # apply metadata

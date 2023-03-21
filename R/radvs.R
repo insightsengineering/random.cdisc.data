@@ -107,16 +107,16 @@ radvs <- function(ADSL,
   )
 
   ADVS <- ADVS %>%
-    dplyr::mutate(VSTESTCD = .data$PARAMCD) %>%
-    dplyr::mutate(VSTEST = .data$PARAM)
+    dplyr::mutate(VSTESTCD = PARAMCD) %>%
+    dplyr::mutate(VSTEST = PARAM)
 
   ADVS <- ADVS %>% dplyr::mutate(AVAL = dplyr::case_when(
-    .data$PARAMCD == paramcd[1] ~ stats::rnorm(nrow(ADVS), mean = 100, sd = 20),
-    .data$PARAMCD == paramcd[2] ~ stats::rnorm(nrow(ADVS), mean = 80, sd = 15),
-    .data$PARAMCD == paramcd[3] ~ stats::rnorm(nrow(ADVS), mean = 16, sd = 5),
-    .data$PARAMCD == paramcd[4] ~ stats::rnorm(nrow(ADVS), mean = 150, sd = 30),
-    .data$PARAMCD == paramcd[5] ~ stats::rnorm(nrow(ADVS), mean = 36.65, sd = 1),
-    .data$PARAMCD == paramcd[6] ~ stats::rnorm(nrow(ADVS), mean = 70, sd = 20)
+    PARAMCD == paramcd[1] ~ stats::rnorm(nrow(ADVS), mean = 100, sd = 20),
+    PARAMCD == paramcd[2] ~ stats::rnorm(nrow(ADVS), mean = 80, sd = 15),
+    PARAMCD == paramcd[3] ~ stats::rnorm(nrow(ADVS), mean = 16, sd = 5),
+    PARAMCD == paramcd[4] ~ stats::rnorm(nrow(ADVS), mean = 150, sd = 30),
+    PARAMCD == paramcd[5] ~ stats::rnorm(nrow(ADVS), mean = 36.65, sd = 1),
+    PARAMCD == paramcd[6] ~ stats::rnorm(nrow(ADVS), mean = 70, sd = 20)
   ))
 
   # order to prepare for change from screening and baseline values
@@ -141,38 +141,38 @@ radvs <- function(ADSL,
   ADVS$BASE <- ifelse(ADVS$ABLFL2 != "Y", retain(ADVS, ADVS$AVAL, ADVS$ABLFL == "Y"), NA)
 
   ADVS <- ADVS %>%
-    dplyr::mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
-    dplyr::mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
-    dplyr::mutate(CHG = .data$AVAL - .data$BASE) %>%
-    dplyr::mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
+    dplyr::mutate(CHG2 = AVAL - BASE2) %>%
+    dplyr::mutate(PCHG2 = 100 * (CHG2 / BASE2)) %>%
+    dplyr::mutate(CHG = AVAL - BASE) %>%
+    dplyr::mutate(PCHG = 100 * (CHG / BASE)) %>%
     dplyr::mutate(ANRLO = dplyr::case_when(
-      .data$PARAMCD == "DIABP" ~ 80,
-      .data$PARAMCD == "PULSE" ~ 60,
-      .data$PARAMCD == "RESP" ~ 12,
-      .data$PARAMCD == "SYSBP" ~ 120,
-      .data$PARAMCD == "TEMP" ~ 36.1,
-      .data$PARAMCD == "WEIGHT" ~ 40
+      PARAMCD == "DIABP" ~ 80,
+      PARAMCD == "PULSE" ~ 60,
+      PARAMCD == "RESP" ~ 12,
+      PARAMCD == "SYSBP" ~ 120,
+      PARAMCD == "TEMP" ~ 36.1,
+      PARAMCD == "WEIGHT" ~ 40
     )) %>%
     dplyr::mutate(ANRHI = dplyr::case_when(
-      .data$PARAMCD == "DIABP" ~ 120,
-      .data$PARAMCD == "PULSE" ~ 100,
-      .data$PARAMCD == "RESP" ~ 20,
-      .data$PARAMCD == "SYSBP" ~ 180,
-      .data$PARAMCD == "TEMP" ~ 37.2,
-      .data$PARAMCD == "WEIGHT" ~ 100
+      PARAMCD == "DIABP" ~ 120,
+      PARAMCD == "PULSE" ~ 100,
+      PARAMCD == "RESP" ~ 20,
+      PARAMCD == "SYSBP" ~ 180,
+      PARAMCD == "TEMP" ~ 37.2,
+      PARAMCD == "WEIGHT" ~ 100
     )) %>%
     dplyr::mutate(ANRIND = factor(dplyr::case_when(
-      .data$AVAL < .data$ANRLO ~ "LOW",
-      .data$AVAL > .data$ANRHI ~ "HIGH",
+      AVAL < ANRLO ~ "LOW",
+      AVAL > ANRHI ~ "HIGH",
       TRUE ~ "NORMAL"
     ))) %>%
     dplyr::mutate(VSSTRESC = dplyr::case_when(
-      .data$PARAMCD == "DIABP" ~ "<80",
-      .data$PARAMCD == "PULSE" ~ "<60",
-      .data$PARAMCD == "RESP" ~ ">20",
-      .data$PARAMCD == "SYSBP" ~ ">180",
-      .data$PARAMCD == "TEMP" ~ "<36.1",
-      .data$PARAMCD == "WEIGHT" ~ "<40"
+      PARAMCD == "DIABP" ~ "<80",
+      PARAMCD == "PULSE" ~ "<60",
+      PARAMCD == "RESP" ~ ">20",
+      PARAMCD == "SYSBP" ~ ">180",
+      PARAMCD == "TEMP" ~ "<36.1",
+      PARAMCD == "WEIGHT" ~ "<40"
     )) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(LOQFL = factor(
@@ -180,8 +180,8 @@ radvs <- function(ADSL,
     )) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(BASETYPE = "LAST") %>%
-    dplyr::group_by(.data$USUBJID, .data$PARAMCD, .data$BASETYPE) %>%
-    dplyr::mutate(BNRIND = .data$ANRIND[.data$ABLFL == "Y"]) %>%
+    dplyr::group_by(USUBJID, PARAMCD, BASETYPE) %>%
+    dplyr::mutate(BNRIND = ANRIND[ABLFL == "Y"]) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(ATPTN = 1) %>%
     dplyr::mutate(DTYPE = NA) %>%
@@ -204,8 +204,8 @@ radvs <- function(ADSL,
   ) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
-      is.na(.data$TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
-      TRUE ~ .data$TRTEDTM
+      is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
+      TRUE ~ TRTEDTM
     ))) %>%
     dplyr::ungroup()
 
@@ -220,9 +220,9 @@ radvs <- function(ADSL,
       each = n() / nlevels(AVISIT)
     )) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(ADY = ceiling(difftime(.data$ADTM, .data$TRTSDTM, units = "days"))) %>%
+    dplyr::mutate(ADY = ceiling(difftime(ADTM, TRTSDTM, units = "days"))) %>%
     dplyr::select(-TRTENDT) %>%
-    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
+    dplyr::arrange(STUDYID, USUBJID, ADTM)
 
   ADVS <- ADVS %>% dplyr::mutate(ONTRTFL = factor(dplyr::case_when(
     !AVISIT %in% c("SCREENING", "BASELINE") ~ "Y",
@@ -231,21 +231,21 @@ radvs <- function(ADSL,
 
   ADVS <- ADVS %>%
     dplyr::mutate(ASPID = sample(seq_len(dplyr::n()))) %>%
-    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::group_by(USUBJID) %>%
     dplyr::mutate(VSSEQ = seq_len(dplyr::n())) %>%
-    dplyr::mutate(ASEQ = .data$VSSEQ) %>%
+    dplyr::mutate(ASEQ = VSSEQ) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$PARAMCD,
-      .data$BASETYPE,
-      .data$AVISITN,
-      .data$ATPTN,
-      .data$DTYPE,
-      .data$ADTM,
-      .data$VSSEQ,
-      .data$ASPID
+      STUDYID,
+      USUBJID,
+      PARAMCD,
+      BASETYPE,
+      AVISITN,
+      ATPTN,
+      DTYPE,
+      ADTM,
+      VSSEQ,
+      ASPID
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {

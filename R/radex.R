@@ -106,19 +106,19 @@ radex <- function(ADSL,
   )
 
   ADEX <- ADEX %>%
-    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::group_by(USUBJID) %>%
     dplyr::mutate(PARCAT_ind = sample(c(1, 2), size = 1)) %>%
-    dplyr::mutate(PARCAT2 = ifelse(.data$PARCAT_ind == 1, parcat2[1], parcat2[2])) %>%
+    dplyr::mutate(PARCAT2 = ifelse(PARCAT_ind == 1, parcat2[1], parcat2[2])) %>%
     dplyr::select(-"PARCAT_ind")
 
   # Add in PARCAT1
   ADEX <- ADEX %>% dplyr::mutate(PARCAT1 = dplyr::case_when(
-    (.data$PARAMCD == "TNDOSE" | .data$PARAMCD == "TDOSE") ~ "OVERALL",
-    .data$PARAMCD == "DOSE" | .data$PARAMCD == "NDOSE" ~ "INDIVIDUAL"
+    (PARAMCD == "TNDOSE" | PARAMCD == "TDOSE") ~ "OVERALL",
+    PARAMCD == "DOSE" | PARAMCD == "NDOSE" ~ "INDIVIDUAL"
   ))
 
   ADEX_VISIT <- ADEX %>%
-    dplyr::filter(.data$PARAMCD == "DOSE" | .data$PARAMCD == "NDOSE") %>%
+    dplyr::filter(PARAMCD == "DOSE" | PARAMCD == "NDOSE") %>%
     dplyr::mutate(
       AVISIT = rep(visit_schedule(visit_format = visit_format, n_assessments = n_assessments, n_days = n_days), 2)
     )
@@ -126,24 +126,24 @@ radex <- function(ADSL,
   ADEX <- dplyr::left_join(
     ADEX %>%
       dplyr::group_by(
-        .data$USUBJID,
-        .data$STUDYID,
-        .data$PARAM,
-        .data$PARAMCD,
-        .data$AVALU,
-        .data$PARCAT1,
-        .data$PARCAT2
+        USUBJID,
+        STUDYID,
+        PARAM,
+        PARAMCD,
+        AVALU,
+        PARCAT1,
+        PARCAT2
       ) %>%
       dplyr::mutate(id = dplyr::row_number()),
     ADEX_VISIT %>%
       dplyr::group_by(
-        .data$USUBJID,
-        .data$STUDYID,
-        .data$PARAM,
-        .data$PARAMCD,
-        .data$AVALU,
-        .data$PARCAT1,
-        .data$PARCAT2
+        USUBJID,
+        STUDYID,
+        PARAM,
+        PARAMCD,
+        AVALU,
+        PARCAT1,
+        PARCAT2
       ) %>%
       dplyr::mutate(id = dplyr::row_number()),
     by = c("USUBJID", "STUDYID", "PARCAT1", "PARCAT2", "id", "PARAMCD", "PARAM", "AVALU")
@@ -162,35 +162,35 @@ radex <- function(ADSL,
   ADEX2 <- split(ADEX, ADEX$USUBJID) %>%
     lapply(function(pinfo) {
       pinfo %>%
-        dplyr::filter(.data$PARAMCD == "DOSE") %>%
-        dplyr::group_by(.data$USUBJID, .data$PARCAT2, .data$AVISIT) %>%
+        dplyr::filter(PARAMCD == "DOSE") %>%
+        dplyr::group_by(USUBJID, PARCAT2, AVISIT) %>%
         dplyr::mutate(changeind = dplyr::case_when(
-          .data$AVISIT == "SCREENING" ~ 0,
-          .data$AVISIT != "SCREENING" ~ sample(c(-1, 0, 1),
+          AVISIT == "SCREENING" ~ 0,
+          AVISIT != "SCREENING" ~ sample(c(-1, 0, 1),
             size = 1,
             prob = c(0.25, 0.5, 0.25),
             replace = TRUE
           )
         )) %>%
         dplyr::ungroup() %>%
-        dplyr::group_by(.data$USUBJID, .data$PARCAT2) %>%
+        dplyr::group_by(USUBJID, PARCAT2) %>%
         dplyr::mutate(
-          csum = cumsum(.data$changeind),
+          csum = cumsum(changeind),
           changeind = dplyr::case_when(
-            .data$csum <= -3 ~ sample(c(0, 1), size = 1, prob = c(0.5, 0.5)),
-            .data$csum >= 3 ~ sample(c(0, -1), size = 1, prob = c(0.5, 0.5)),
-            TRUE ~ .data$changeind
+            csum <= -3 ~ sample(c(0, 1), size = 1, prob = c(0.5, 0.5)),
+            csum >= 3 ~ sample(c(0, -1), size = 1, prob = c(0.5, 0.5)),
+            TRUE ~ changeind
           )
         ) %>%
-        dplyr::mutate(csum = cumsum(.data$changeind)) %>%
+        dplyr::mutate(csum = cumsum(changeind)) %>%
         dplyr::ungroup() %>%
-        dplyr::group_by(.data$USUBJID, .data$PARCAT2, .data$AVISIT) %>%
+        dplyr::group_by(USUBJID, PARCAT2, AVISIT) %>%
         dplyr::mutate(AVAL = dplyr::case_when(
-          .data$csum == -2 ~ 480,
-          .data$csum == -1 ~ 720,
-          .data$csum == 0 ~ 960,
-          .data$csum == 1 ~ 1200,
-          .data$csum == 2 ~ 1440
+          csum == -2 ~ 480,
+          csum == -1 ~ 720,
+          csum == 0 ~ 960,
+          csum == 1 ~ 1200,
+          csum == 2 ~ 1440
         )) %>%
         dplyr::select(-c("csum", "changeind")) %>%
         dplyr::ungroup()
@@ -199,19 +199,19 @@ radex <- function(ADSL,
 
   ADEXTMP <- dplyr::full_join(ADEX2, ADEX, by = names(ADEX))
   ADEX <- ADEXTMP %>%
-    dplyr::group_by(.data$USUBJID) %>%
-    dplyr::mutate(AVAL = ifelse(.data$PARAMCD == "NDOSE", 1, .data$AVAL)) %>%
+    dplyr::group_by(USUBJID) %>%
+    dplyr::mutate(AVAL = ifelse(PARAMCD == "NDOSE", 1, AVAL)) %>%
     dplyr::mutate(AVAL = ifelse(
-      .data$PARAMCD == "TNDOSE",
-      sum(.data$AVAL[.data$PARAMCD == "NDOSE"]),
-      .data$AVAL
+      PARAMCD == "TNDOSE",
+      sum(AVAL[PARAMCD == "NDOSE"]),
+      AVAL
     )) %>%
     dplyr::ungroup() %>%
-    dplyr::group_by(.data$USUBJID, .data$STUDYID, .data$PARCAT2) %>%
+    dplyr::group_by(USUBJID, STUDYID, PARCAT2) %>%
     dplyr::mutate(AVAL = ifelse(
-      .data$PARAMCD == "TDOSE",
-      sum(.data$AVAL[.data$PARAMCD == "DOSE"]),
-      .data$AVAL
+      PARAMCD == "TDOSE",
+      sum(AVAL[PARAMCD == "DOSE"]),
+      AVAL
     ))
 
   ADEX <- var_relabel(
@@ -238,21 +238,21 @@ radex <- function(ADSL,
     )) %>%
     dplyr::select(-TRTENDT) %>%
     dplyr::ungroup() %>%
-    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDTM)
+    dplyr::arrange(STUDYID, USUBJID, ASTDTM)
 
 
   ADEX <- ADEX %>%
-    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::group_by(USUBJID) %>%
     dplyr::mutate(EXSEQ = seq_len(dplyr::n())) %>%
-    dplyr::mutate(ASEQ = .data$EXSEQ) %>%
+    dplyr::mutate(ASEQ = EXSEQ) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$PARAMCD,
-      .data$ASTDTM,
-      .data$AVISITN,
-      .data$EXSEQ
+      STUDYID,
+      USUBJID,
+      PARAMCD,
+      ASTDTM,
+      AVISITN,
+      EXSEQ
     )
 
   # Adding EXDOSFRQ
@@ -275,7 +275,7 @@ radex <- function(ADSL,
 
   # Fix VISIT according to AVISIT
   ADEX <- ADEX %>%
-    dplyr::mutate(VISIT = .data$AVISIT)
+    dplyr::mutate(VISIT = AVISIT)
 
   # Hack for VISITDY - to fix in ADSL
   visit_levels <- str_extract(levels(ADEX$VISIT), pattern = "[0-9]+")
@@ -284,20 +284,20 @@ radex <- function(ADSL,
 
   # Adding VISITDY
   ADEX <- ADEX %>%
-    dplyr::mutate(VISITDY = as.numeric(as.character(factor(.data$VISIT, labels = vl_extracted))))
+    dplyr::mutate(VISITDY = as.numeric(as.character(factor(VISIT, labels = vl_extracted))))
 
   # Exposure time stamps
   ADEX <- ADEX %>%
     dplyr::mutate(
       EXSTDTC = TRTSDTM + lubridate::days(VISITDY),
       EXENDTC = EXSTDTC + lubridate::hours(1),
-      EXSTDY = .data$VISITDY,
-      EXENDY = .data$VISITDY
+      EXSTDY = VISITDY,
+      EXENDY = VISITDY
     )
 
   # Correcting last exposure to treatment
   ADEX <- ADEX %>%
-    dplyr::group_by(.data$SUBJID) %>%
+    dplyr::group_by(SUBJID) %>%
     dplyr::mutate(TRTEDTM = lubridate::as_datetime(max(EXENDTC, na.rm = TRUE))) %>%
     dplyr::ungroup()
 
@@ -311,10 +311,10 @@ radex <- function(ADSL,
   # Fixing analysis time stamps
   ADEX <- ADEX %>%
     dplyr::mutate(
-      ASTDY = .data$EXSTDY,
-      AENDY = .data$EXENDY,
-      ASTDTM = .data$EXSTDTC,
-      AENDTM = .data$EXENDTC
+      ASTDY = EXSTDY,
+      AENDY = EXENDY,
+      ASTDTM = EXSTDTC,
+      AENDTM = EXENDTC
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {

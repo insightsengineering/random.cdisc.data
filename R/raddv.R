@@ -100,7 +100,7 @@ raddv <- function(ADSL,
     ADSL$STUDYID
   ) %>%
     Reduce(rbind, .) %>%
-    dplyr::mutate(DVSCAT = .data$DVCAT)
+    dplyr::mutate(DVSCAT = DVCAT)
 
   ADDV <- var_relabel(
     ADDV,
@@ -112,27 +112,27 @@ raddv <- function(ADSL,
   ADDV <- dplyr::inner_join(ADDV, ADSL, by = c("STUDYID", "USUBJID")) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
-      is.na(.data$TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
-      TRUE ~ .data$TRTEDTM
+      is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
+      TRUE ~ TRTEDTM
     ))) %>%
     dplyr::mutate(ASTDTM = sample(
       seq(lubridate::as_datetime(TRTSDTM), lubridate::as_datetime(TRTENDT), by = "day"),
       size = 1
     )) %>%
     dplyr::mutate(ASTDT = lubridate::date(ASTDTM)) %>%
-    dplyr::mutate(ASTDY = ceiling(difftime(.data$ASTDTM, .data$TRTSDTM, units = "days"))) %>%
+    dplyr::mutate(ASTDY = ceiling(difftime(ASTDTM, TRTSDTM, units = "days"))) %>%
     dplyr::select(-TRTENDT, -ASTDTM) %>%
     dplyr::ungroup() %>%
-    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDT, .data$DVTERM)
+    dplyr::arrange(STUDYID, USUBJID, ASTDT, DVTERM)
 
   ADDV <- ADDV %>%
-    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::group_by(USUBJID) %>%
     dplyr::mutate(DVSEQ = seq_len(dplyr::n())) %>%
     dplyr::ungroup() %>%
-    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ASTDT, .data$DVTERM, .data$DVSEQ)
+    dplyr::arrange(STUDYID, USUBJID, ASTDT, DVTERM, DVSEQ)
 
   ADDV <- ADDV %>%
-    dplyr::mutate(AEPRELFL = ifelse(.data$DVEPRELI == "Y", .data$DVEPRELI, ""))
+    dplyr::mutate(AEPRELFL = ifelse(DVEPRELI == "Y", DVEPRELI, ""))
 
   if (length(na_vars) > 0 && na_percentage > 0) {
     ADDV <- mutate_na(ds = ADDV, na_vars = na_vars, na_percentage = na_percentage)

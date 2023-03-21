@@ -125,10 +125,10 @@ radqs <- function(ADSL,
   ADQS$BASE <- ifelse(ADQS$ABLFL2 != "Y", retain(ADQS, ADQS$AVAL, ADQS$ABLFL == "Y"), NA)
 
   ADQS <- ADQS %>%
-    dplyr::mutate(CHG2 = .data$AVAL - .data$BASE2) %>%
-    dplyr::mutate(PCHG2 = 100 * (.data$CHG2 / .data$BASE2)) %>%
-    dplyr::mutate(CHG = .data$AVAL - .data$BASE) %>%
-    dplyr::mutate(PCHG = 100 * (.data$CHG / .data$BASE)) %>%
+    dplyr::mutate(CHG2 = AVAL - BASE2) %>%
+    dplyr::mutate(PCHG2 = 100 * (CHG2 / BASE2)) %>%
+    dplyr::mutate(CHG = AVAL - BASE) %>%
+    dplyr::mutate(PCHG = 100 * (CHG / BASE)) %>%
     var_relabel(
       STUDYID = attr(ADSL$STUDYID, "label"),
       USUBJID = attr(ADSL$USUBJID, "label")
@@ -148,8 +148,8 @@ radqs <- function(ADSL,
   ) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
-      is.na(.data$TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
-      TRUE ~ .data$TRTEDTM
+      is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
+      TRUE ~ TRTEDTM
     ))) %>%
     ungroup()
 
@@ -164,22 +164,22 @@ radqs <- function(ADSL,
       each = n() / nlevels(AVISIT)
     )) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(ADY = ceiling(difftime(.data$ADTM, .data$TRTSDTM, units = "days"))) %>%
+    dplyr::mutate(ADY = ceiling(difftime(ADTM, TRTSDTM, units = "days"))) %>%
     dplyr::select(-TRTENDT) %>%
-    dplyr::arrange(.data$STUDYID, .data$USUBJID, .data$ADTM)
+    dplyr::arrange(STUDYID, USUBJID, ADTM)
 
   ADQS <- ADQS %>%
-    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::group_by(USUBJID) %>%
     dplyr::mutate(QSSEQ = seq_len(dplyr::n())) %>%
-    dplyr::mutate(ASEQ = .data$QSSEQ) %>%
+    dplyr::mutate(ASEQ = QSSEQ) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$PARAMCD,
-      .data$AVISITN,
-      .data$ADTM,
-      .data$QSSEQ
+      STUDYID,
+      USUBJID,
+      PARAMCD,
+      AVISITN,
+      ADTM,
+      QSSEQ
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {

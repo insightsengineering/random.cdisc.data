@@ -105,13 +105,13 @@ radsl <- function(N = 400,
     AEWITHFL = sample_fct(c("Y", "N"), N, prob = c(ae_withdrawal_prob, 1 - ae_withdrawal_prob))
   ) %>%
     dplyr::mutate(ARM = dplyr::recode(
-      .data$ARMCD,
+      ARMCD,
       "ARM A" = "A: Drug X", "ARM B" = "B: Placebo", "ARM C" = "C: Combination"
     )) %>%
-    dplyr::mutate(ACTARM = .data$ARM) %>%
-    dplyr::mutate(ACTARMCD = .data$ARMCD) %>%
-    dplyr::mutate(TRT01P = .data$ARM) %>%
-    dplyr::mutate(TRT01A = .data$ACTARM) %>%
+    dplyr::mutate(ACTARM = ARM) %>%
+    dplyr::mutate(ACTARMCD = ARMCD) %>%
+    dplyr::mutate(TRT01P = ARM) %>%
+    dplyr::mutate(TRT01A = ACTARM) %>%
     dplyr::mutate(ITTFL = factor("Y")) %>%
     dplyr::mutate(SAFFL = factor("Y")) %>%
     dplyr::arrange(TRTSDTM)
@@ -137,18 +137,18 @@ radsl <- function(N = 400,
   if (with_trt02) {
     with_trt02 <- lubridate::seconds(lubridate::years(1))
     ADSL <- ADSL %>%
-      dplyr::mutate(TRT02P = sample(.data$ARM)) %>%
-      dplyr::mutate(TRT02A = sample(.data$ACTARM)) %>%
+      dplyr::mutate(TRT02P = sample(ARM)) %>%
+      dplyr::mutate(TRT02A = sample(ACTARM)) %>%
       dplyr::mutate(
-        TRT01SDTM = .data$TRTSDTM,
-        AP01SDTM = .data$TRT01SDTM,
-        TRT01EDTM = .data$TRTEDTM,
-        AP01EDTM = .data$TRT01EDTM,
-        TRT02SDTM = .data$TRTEDTM,
-        AP02SDTM = .data$TRT02SDTM,
+        TRT01SDTM = TRTSDTM,
+        AP01SDTM = TRT01SDTM,
+        TRT01EDTM = TRTEDTM,
+        AP01EDTM = TRT01EDTM,
+        TRT02SDTM = TRTEDTM,
+        AP02SDTM = TRT02SDTM,
         TRT02EDTM = TRT01EDTM + with_trt02,
-        AP02EDTM = .data$TRT02EDTM,
-        TRTEDTM = .data$TRT02EDTM
+        AP02EDTM = TRT02EDTM,
+        TRTEDTM = TRT02EDTM
       )
   }
 
@@ -160,7 +160,7 @@ radsl <- function(N = 400,
       EOSDY < max(EOSDY, na.rm = TRUE) ~ "DISCONTINUED",
       is.na(TRTEDTM) ~ "ONGOING"
     )) %>%
-    dplyr::mutate(EOTSTT = .data$EOSSTT)
+    dplyr::mutate(EOTSTT = EOSSTT)
 
   # disposition related variables
   # using probability of 1 for the "DEATH" level to ensure at least one death record exists
@@ -181,7 +181,7 @@ radsl <- function(N = 400,
   ADSL <- ADSL %>%
     dplyr::mutate(
       DCSREAS = ifelse(
-        .data$EOSSTT == "DISCONTINUED",
+        EOSSTT == "DISCONTINUED",
         sample(x = l_dcsreas$choices, size = N, replace = TRUE, prob = l_dcsreas$prob),
         as.character(NA)
       )
@@ -192,7 +192,7 @@ radsl <- function(N = 400,
     )) %>%
     dplyr::mutate(
       DTHCAT = ifelse(
-        .data$DCSREAS == "DEATH",
+        DCSREAS == "DEATH",
         sample(x = c("ADVERSE EVENT", "PROGRESSIVE DISEASE", "OTHER"), size = N, replace = TRUE),
         as.character(NA)
       )
@@ -243,7 +243,7 @@ radsl <- function(N = 400,
 
   # associate sites with countries and regions
   ADSL <- ADSL %>%
-    dplyr::mutate(SITEID = paste0(.data$COUNTRY, "-", .data$SITEID)) %>%
+    dplyr::mutate(SITEID = paste0(COUNTRY, "-", SITEID)) %>%
     dplyr::mutate(REGION1 = dplyr::case_when(
       COUNTRY %in% c("NGA") ~ "Africa",
       COUNTRY %in% c("CHN", "JPN", "PAK") ~ "Asia",
@@ -253,9 +253,9 @@ radsl <- function(N = 400,
       COUNTRY %in% c("BRA") ~ "South America",
       TRUE ~ as.character(NA)
     )) %>%
-    dplyr::mutate(INVID = paste("INV ID", .data$SITEID)) %>%
-    dplyr::mutate(INVNAM = paste("Dr.", .data$SITEID, "Doe")) %>%
-    dplyr::mutate(USUBJID = paste(.data$STUDYID, .data$SITEID, .data$SUBJID, sep = "-"))
+    dplyr::mutate(INVID = paste("INV ID", SITEID)) %>%
+    dplyr::mutate(INVNAM = paste("Dr.", SITEID, "Doe")) %>%
+    dplyr::mutate(USUBJID = paste(STUDYID, SITEID, SUBJID, sep = "-"))
 
 
   if (length(na_vars) > 0 && na_percentage > 0) {

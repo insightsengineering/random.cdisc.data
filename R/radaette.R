@@ -138,11 +138,11 @@ radaette <- function(ADSL,
     dplyr::mutate(
       CNSR = sample(c(0, 1), prob = c(0.1, 0.9), size = dplyr::n(), replace = TRUE),
       EVNTDESC = dplyr::if_else(
-        .data$CNSR == 0,
+        CNSR == 0,
         "First Post-Baseline Raised ALT or AST Elevation Result",
         NA_character_
       ),
-      CNSDTDSC = dplyr::if_else(.data$CNSR == 0, NA_character_,
+      CNSDTDSC = dplyr::if_else(CNSR == 0, NA_character_,
         sample(c("Last Post-Baseline ALT or AST Result", "Treatment Start"),
           prob = c(0.9, 0.1),
           size = dplyr::n(), replace = TRUE
@@ -151,11 +151,11 @@ radaette <- function(ADSL,
     ) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(ADTM = dplyr::case_when(
-      .data$CNSDTDSC == "Treatment Start" ~ .data$TRTSDTM,
-      TRUE ~ .data$TRTSDTM + sample(seq(0, study_duration_secs), size = dplyr::n(), replace = TRUE)
+      CNSDTDSC == "Treatment Start" ~ TRTSDTM,
+      TRUE ~ TRTSDTM + sample(seq(0, study_duration_secs), size = dplyr::n(), replace = TRUE)
     )) %>%
     dplyr::mutate(
-      ADY_int = lubridate::date(.data$ADTM) - lubridate::date(.data$TRTSDTM) + 1,
+      ADY_int = lubridate::date(ADTM) - lubridate::date(TRTSDTM) + 1,
       ADY = as.numeric(ADY_int),
       AVAL = lubridate::days(ADY_int) / lubridate::weeks(1),
       AVALU = "WEEKS"
@@ -204,11 +204,11 @@ radaette <- function(ADSL,
       ),
       stringsAsFactors = FALSE
     ) %>% dplyr::mutate(
-      ADY = dplyr::if_else(is.na(.data$AVALU), NA_real_, ceiling(as.numeric(lubridate::dyears(.data$AVAL), "days"))),
+      ADY = dplyr::if_else(is.na(AVALU), NA_real_, ceiling(as.numeric(lubridate::dyears(AVAL), "days"))),
       ADTM = dplyr::if_else(
-        is.na(.data$AVALU),
+        is.na(AVALU),
         lubridate::as_datetime(NA),
-        patient_info$TRTSDTM + lubridate::days(.data$ADY)
+        patient_info$TRTSDTM + lubridate::days(ADY)
       )
     )
   }
@@ -217,7 +217,7 @@ radaette <- function(ADSL,
     lapply(function(patient_info) {
       patient_data <- random_patient_data(patient_info)
       lookup_arm <- lookup_ADAETTE %>%
-        dplyr::filter(.data$ARM == as.character(patient_info$ARMCD))
+        dplyr::filter(ARM == as.character(patient_info$ARMCD))
       ae_data <- split(lookup_arm, lookup_arm$CATCD) %>%
         lapply(random_ae_data, patient_data = patient_data, patient_info = patient_info) %>%
         Reduce(rbind, .)
@@ -242,19 +242,19 @@ radaette <- function(ADSL,
     ADSL,
     by = c("STUDYID", "USUBJID")
   ) %>%
-    dplyr::group_by(.data$USUBJID) %>%
-    dplyr::arrange(.data$ADTM) %>%
+    dplyr::group_by(USUBJID) %>%
+    dplyr::arrange(ADTM) %>%
     dplyr::mutate(TTESEQ = seq_len(dplyr::n())) %>%
-    dplyr::mutate(ASEQ = .data$TTESEQ) %>%
-    dplyr::mutate(PARAM = as.factor(.data$PARAM)) %>%
-    dplyr::mutate(PARAMCD = as.factor(.data$PARAMCD)) %>%
+    dplyr::mutate(ASEQ = TTESEQ) %>%
+    dplyr::mutate(PARAM = as.factor(PARAM)) %>%
+    dplyr::mutate(PARAMCD = as.factor(PARAMCD)) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$PARAMCD,
-      .data$ADTM,
-      .data$TTESEQ
+      STUDYID,
+      USUBJID,
+      PARAMCD,
+      ADTM,
+      TTESEQ
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {

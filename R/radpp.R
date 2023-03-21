@@ -90,7 +90,7 @@ radpp <- function(ADSL,
   ADPP <- ADPP %>%
     dplyr::mutate(AVAL = stats::rnorm(nrow(ADPP), mean = 1, sd = 0.2)) %>%
     dplyr::left_join(data.frame(PARAM = param, ADJUST = aval_mean), by = "PARAM") %>%
-    dplyr::mutate(AVAL = .data$AVAL * .data$ADJUST) %>%
+    dplyr::mutate(AVAL = AVAL * ADJUST) %>%
     dplyr::select(-"ADJUST")
 
   # assign related variable values: PARAMxPPSPEC are related
@@ -116,7 +116,7 @@ radpp <- function(ADSL,
 
   # derive AVISITN based AVISIT and AVALC based on AVAL
   ADPP <- ADPP %>%
-    dplyr::mutate(AVALC = as.character(.data$AVAL)) %>%
+    dplyr::mutate(AVALC = as.character(AVAL)) %>%
     dplyr::mutate(
       AVISITN = dplyr::case_when(
         AVISIT == "SCREENING" ~ 0,
@@ -138,8 +138,8 @@ radpp <- function(ADSL,
     dplyr::left_join(T1_T2, by = c("PARAMCD"), multiple = "all")
 
   ADPP <- dplyr::inner_join(ADPP, ADSL, by = c("STUDYID", "USUBJID")) %>%
-    dplyr::filter(.data$ACTARM != "B: Placebo", !(.data$ACTARM == "A: Drug X" &
-      (.data$PPCAT == "Plasma Drug Y" | .data$PPCAT == "Metabolite Drug Y")))
+    dplyr::filter(ACTARM != "B: Placebo", !(ACTARM == "A: Drug X" &
+      (PPCAT == "Plasma Drug Y" | PPCAT == "Metabolite Drug Y")))
 
   # derive PKARMCD column for creating more cohorts
   ADPP <- ADPP %>%

@@ -80,7 +80,7 @@ radab <- function(ADSL,
   param_init_list <- relvar_init(param, paramcd)
   unit_init_list <- relvar_init(param, avalu)
 
-  ADPC <- ADPC %>% dplyr::filter(.data$ASMED == "PLASMA")
+  ADPC <- ADPC %>% dplyr::filter(ASMED == "PLASMA")
   ADAB <- expand.grid(
     STUDYID = unique(ADSL$STUDYID),
     USUBJID = unique(ADSL$USUBJID),
@@ -95,13 +95,13 @@ radab <- function(ADSL,
     "Antibody titer units", "Neutralizing Antibody titer units",
     "ADA interpreted per sample result", "NAB interpreted per sample result"
   )
-  aval_random <- stats::rnorm(nrow(unique(ADAB %>% dplyr::select(.data$USUBJID, .data$VISIT))), mean = 1, sd = 0.2)
-  aval_random <- cbind(unique(ADAB %>% dplyr::select(.data$USUBJID, .data$VISIT)), AVAL1 = aval_random)
+  aval_random <- stats::rnorm(nrow(unique(ADAB %>% dplyr::select(USUBJID, VISIT))), mean = 1, sd = 0.2)
+  aval_random <- cbind(unique(ADAB %>% dplyr::select(USUBJID, VISIT)), AVAL1 = aval_random)
 
   ADAB <- ADAB %>% dplyr::left_join(aval_random, by = c("USUBJID", "VISIT"))
   ADAB <- ADAB %>%
     dplyr::mutate(
-      AVAL2 = ifelse(.data$AVAL1 >= 1, .data$AVAL1, NA),
+      AVAL2 = ifelse(AVAL1 >= 1, AVAL1, NA),
       AVALC = dplyr::case_when(
         !is.na(AVAL2) ~ "POSITIVE",
         is.na(AVAL2) ~ "NEGATIVE"
@@ -113,7 +113,7 @@ radab <- function(ADSL,
         TRUE ~ as.numeric(NA)
       )
     ) %>%
-    dplyr::select(-c(.data$AVAL1, .data$AVAL2))
+    dplyr::select(-c(AVAL1, AVAL2))
 
   # assign related variable values: PARAMxPARAMCD are related
   ADAB <- ADAB %>% rel_var(
@@ -132,21 +132,21 @@ radab <- function(ADSL,
   # retrieve other variables from ADPC
   ADAB <- ADAB %>%
     dplyr::inner_join(ADPC %>% dplyr::select(
-      .data$STUDYID,
-      .data$USUBJID,
-      .data$VISIT,
-      .data$PCTPT,
-      .data$ARM,
-      .data$ACTARM,
-      .data$VISITDY,
-      .data$ARELTM1,
-      .data$NRELTM1,
-      .data$ARELTM2,
-      .data$NRELTM2,
-      .data$RELTMU
+      STUDYID,
+      USUBJID,
+      VISIT,
+      PCTPT,
+      ARM,
+      ACTARM,
+      VISITDY,
+      ARELTM1,
+      NRELTM1,
+      ARELTM2,
+      NRELTM2,
+      RELTMU
     ) %>%
       unique(), by = c("STUDYID", "USUBJID", "VISIT", "PCTPT")) %>%
-    dplyr::select(-.data$PCTPT)
+    dplyr::select(-PCTPT)
 
   # mutate time from dose variables from ADPC to convert into Days
   ADAB <- ADAB %>% dplyr::mutate_at(c("ARELTM1", "NRELTM1", "ARELTM2", "NRELTM2"), ~ . / 24)
@@ -154,50 +154,50 @@ radab <- function(ADSL,
     dplyr::mutate(
       RELTMU = "day",
       ADABLFL = "Y",
-      ADAPBLFL = ifelse(.data$ACTARM == "A: Drug X" | .data$ACTARM == "C: Combination", "Y",
+      ADAPBLFL = ifelse(ACTARM == "A: Drug X" | ACTARM == "C: Combination", "Y",
         NA
       ),
-      ABLFL = ifelse(.data$NRELTM1 == 0, "Y", NA),
-      ISTPT = ifelse(.data$VISIT %in% c("Day 1", "Week 4", "Week 8", "Week 12", "Week 16", "Week 20") &
-        .data$ARELTM1 %% 1 == 0, "Predose", "")
+      ABLFL = ifelse(NRELTM1 == 0, "Y", NA),
+      ISTPT = ifelse(VISIT %in% c("Day 1", "Week 4", "Week 8", "Week 12", "Week 16", "Week 20") &
+        ARELTM1 %% 1 == 0, "Predose", "")
     ) %>%
-    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::group_by(USUBJID) %>%
     dplyr::mutate(ATACHAR = paste0(LETTERS[dplyr::cur_group_id() %% 10], "+")) %>%
     dplyr::ungroup()
 
   # create temporary flags to derive subject-level variables
   adab_subj <- ADAB %>%
-    dplyr::group_by(.data$USUBJID) %>%
+    dplyr::group_by(USUBJID) %>%
     dplyr::mutate(
-      pos_bl = any(.data$PARAM == "ADA interpreted per sample result" &
-        !is.na(.data$ABLFL) & .data$AVALC == "POSITIVE"),
-      pos_bl_nab = any(.data$PARAM == "NAB interpreted per sample result" &
-        !is.na(.data$ABLFL) & .data$AVALC == "POSITIVE"),
-      any_pos_postbl = any(.data$PARAM == "ADA interpreted per sample result" &
-        is.na(.data$ABLFL) & .data$AVALC == "POSITIVE"),
-      any_pos_postbl_nab = any(.data$PARAM == "NAB interpreted per sample result" &
-        is.na(.data$ABLFL) & .data$AVALC == "POSITIVE"),
-      pos_last_postbl = any(.data$PARAM == "ADA interpreted per sample result" &
-        .data$NRELTM1 == max(.data$NRELTM1) & .data$AVALC == "POSITIVE"),
-      ada_bl = .data$AVAL[.data$PARAM == "Antibody titer units" & !is.na(.data$ABLFL)],
-      nab_bl = .data$AVAL[.data$PARAM == "Neutralizing Antibody titer units" & !is.na(.data$ABLFL)]
+      pos_bl = any(PARAM == "ADA interpreted per sample result" &
+        !is.na(ABLFL) & AVALC == "POSITIVE"),
+      pos_bl_nab = any(PARAM == "NAB interpreted per sample result" &
+        !is.na(ABLFL) & AVALC == "POSITIVE"),
+      any_pos_postbl = any(PARAM == "ADA interpreted per sample result" &
+        is.na(ABLFL) & AVALC == "POSITIVE"),
+      any_pos_postbl_nab = any(PARAM == "NAB interpreted per sample result" &
+        is.na(ABLFL) & AVALC == "POSITIVE"),
+      pos_last_postbl = any(PARAM == "ADA interpreted per sample result" &
+        NRELTM1 == max(NRELTM1) & AVALC == "POSITIVE"),
+      ada_bl = AVAL[PARAM == "Antibody titer units" & !is.na(ABLFL)],
+      nab_bl = AVAL[PARAM == "Neutralizing Antibody titer units" & !is.na(ABLFL)]
     )
   pos_tots <- adab_subj %>%
     dplyr::summarise(
-      n_pos = sum(.data$PARAM == "ADA interpreted per sample result" & .data$AVALC == "POSITIVE"),
-      inc_postbl = sum(.data$PARAM == "ADA interpreted per sample result" &
-        is.na(.data$ABLFL) & (.data$AVAL - .data$ada_bl) > 0.60),
-      inc_postbl_nab = sum(.data$PARAM == "NAB interpreted per sample result" &
-        is.na(.data$ABLFL) & (.data$AVAL - .data$nab_bl) > 0.60),
-      onset_ada = if (any(.data$PARAM == "ADA interpreted per sample result" &
-        .data$AVALC == "POSITIVE")) {
-        min(.data$NRELTM1[.data$PARAM == "ADA interpreted per sample result" & .data$AVALC == "POSITIVE"])
+      n_pos = sum(PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"),
+      inc_postbl = sum(PARAM == "ADA interpreted per sample result" &
+        is.na(ABLFL) & (AVAL - ada_bl) > 0.60),
+      inc_postbl_nab = sum(PARAM == "NAB interpreted per sample result" &
+        is.na(ABLFL) & (AVAL - nab_bl) > 0.60),
+      onset_ada = if (any(PARAM == "ADA interpreted per sample result" &
+        AVALC == "POSITIVE")) {
+        min(NRELTM1[PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"])
       } else {
         NA
       },
-      last_ada = if (any(.data$PARAM == "ADA interpreted per sample result" &
-        .data$AVALC == "POSITIVE")) {
-        max(.data$NRELTM1[.data$PARAM == "ADA interpreted per sample result" & .data$AVALC == "POSITIVE"])
+      last_ada = if (any(PARAM == "ADA interpreted per sample result" &
+        AVALC == "POSITIVE")) {
+        max(NRELTM1[PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"])
       } else {
         NA
       }
@@ -205,18 +205,18 @@ radab <- function(ADSL,
   adab_subj <- adab_subj %>%
     dplyr::left_join(pos_tots, by = "USUBJID") %>%
     dplyr::select(
-      .data$USUBJID,
-      .data$NRELTM1,
-      .data$pos_bl,
-      .data$pos_bl_nab,
-      .data$any_pos_postbl,
-      .data$any_pos_postbl_nab,
-      .data$inc_postbl,
-      .data$inc_postbl_nab,
-      .data$pos_last_postbl,
-      .data$n_pos,
-      .data$onset_ada,
-      .data$last_ada
+      USUBJID,
+      NRELTM1,
+      pos_bl,
+      pos_bl_nab,
+      any_pos_postbl,
+      any_pos_postbl_nab,
+      inc_postbl,
+      inc_postbl_nab,
+      pos_last_postbl,
+      n_pos,
+      onset_ada,
+      last_ada
     ) %>%
     unique()
 
@@ -226,7 +226,7 @@ radab <- function(ADSL,
 
   # derive subject-level variables
   ADAB[!(ADAB$PARAM %in% visit_lvl_params), ] <- ADAB %>%
-    dplyr::filter(!(.data$PARAM %in% visit_lvl_params)) %>%
+    dplyr::filter(!(PARAM %in% visit_lvl_params)) %>%
     dplyr::mutate(
       AVALC = dplyr::case_when(
         (PARAM == "ADA Status of a patient" & any_pos_postbl) ~ "POSITIVE",
@@ -306,16 +306,16 @@ radab <- function(ADSL,
   # remove intermediate flag variables from ADAB
   ADAB <- ADAB %>%
     dplyr::select(-c(
-      .data$pos_bl,
-      .data$pos_bl_nab,
-      .data$any_pos_postbl,
-      .data$any_pos_postbl_nab,
-      .data$pos_last_postbl,
-      .data$inc_postbl,
-      .data$inc_postbl_nab,
-      .data$n_pos,
-      .data$onset_ada,
-      .data$last_ada
+      pos_bl,
+      pos_bl_nab,
+      any_pos_postbl,
+      any_pos_postbl_nab,
+      pos_last_postbl,
+      inc_postbl,
+      inc_postbl_nab,
+      n_pos,
+      onset_ada,
+      last_ada
     ))
 
   if (length(na_vars) > 0 && na_percentage > 0) {
