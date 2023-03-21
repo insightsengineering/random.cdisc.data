@@ -98,8 +98,8 @@ radrs <- function(ADSL,
       avisit <- c("SCREENING", "BASELINE", "CYCLE 2 DAY 1", "CYCLE 4 DAY 1", "END OF INDUCTION", "FOLLOW UP")
 
       # meaningful date information
-      TRTSTDT <- lubridate::date(pinfo$TRTSDTM) # nolint
-      TRTENDT <- lubridate::date(dplyr::if_else( # nolint
+      TRTSTDT <- lubridate::date(pinfo$TRTSDTM)
+      TRTENDT <- lubridate::date(dplyr::if_else(
         !is.na(pinfo$TRTEDTM), pinfo$TRTEDTM,
         lubridate::floor_date(TRTSTDT + study_duration_secs, unit = "day")
       ))
