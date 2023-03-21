@@ -12,7 +12,7 @@ navbar:
 reference:
   - title: Overview Page
     contents:
-      - package
+      - random.cdisc.data-package
 
   - title: CDISC Domain Functions
     desc: These functions generate CDISC domains containing randomly assigned data.
