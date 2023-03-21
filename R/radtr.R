@@ -1,21 +1,20 @@
 #' Tumor Response Analysis Dataset (ADTR)
 #'
-#' Function for generating random dataset from Tumor Response Analysis Dataset for a given
+#' @description `r lifecycle::badge("stable")`
+#'
+#' Function for generating a random Tumor Response Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per subject per parameter per analysis visit per analysis date.
 #'
-#' Keys: STUDYID, USUBJID, PARAMCD, BASETYPE, AVISITN, DTYPE
+#' Keys: `STUDYID`, `USUBJID`, `PARAMCD`, `BASETYPE`, `AVISITN`, `DTYPE`
 #'
-#' @template ADSL_params
-#' @param param As character string. list of parameter values.
-#' @param paramcd As character string. list of parameter code values.
-#' @param ... parameters from \code{\link{radrs}}
-#'
-#' @templateVar data adtr
+#' @inheritParams argument_convention
+#' @param ... Additional arguments to be passed to `radrs`.
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data adtr
 #'
+#' @return `data.frame`
 #' @export
 #'
 #' @author tomlinsj, npaszty, Xuefeng Hou, dipietrc
@@ -23,7 +22,9 @@
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' radtr(ADSL, seed = 2)
+#'
+#' ADTR <- radtr(ADSL, seed = 2)
+#' ADTR
 radtr <- function(ADSL,
                   param = c("Sum of Longest Diameter by Investigator"),
                   paramcd = c("SLDINV"),

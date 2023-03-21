@@ -10,10 +10,12 @@ navbar:
       href: https://github.com/insightsengineering/random.cdisc.data/
 
 reference:
+  - title: Overview Page
+    contents:
+      - package
 
   - title: CDISC Domain Functions
-    desc: These functions generate CDISC domains containing randomly
-          assigned data
+    desc: These functions generate CDISC domains containing randomly assigned data.
     contents:
       - radae
       - radab
@@ -40,8 +42,8 @@ reference:
   - title: Cached Datasets
     desc: These datasets are attached in order speed up the example sections of
           the dependent packages.
-          Note you can also use the `cached` option in thre respection `r*`
-          function to retrieve these cached datasets.
+          Note you can also use the `cached` option in the corresponding `r*`
+          functions to retrieve these cached datasets.
     contents:
       - cadae
       - cadab
@@ -65,7 +67,7 @@ reference:
       - cadvs
 
   - title: Utility Functions
-    desc: These functions are not exported but are documented for developers
+    desc: These functions are not exported but are documented for developers.
     contents:
       - apply_metadata
       - calc_scales
@@ -85,8 +87,3 @@ reference:
       - sample_fct
       - var_relabel
       - visit_schedule
-
-  - title: Package Build Related
-    desc: These files facilitate package build
-    contents:
-      - random.cdisc.data

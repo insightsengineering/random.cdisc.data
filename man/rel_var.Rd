@@ -2,24 +2,25 @@
 % Please edit documentation in R/utils.R
 \name{rel_var}
 \alias{rel_var}
-\title{Related variables: assign}
+\title{Related Variables: Assign}
 \usage{
 rel_var(df, var_name, related_var, var_values = NULL)
 }
 \arguments{
-\item{df}{data frame containing the related variables.}
+\item{df}{(\code{data.frame})\cr Data frame containing the related variables.}
 
-\item{var_name}{name of variable related to `rel_var` to add to `df`}
+\item{var_name}{(\code{character})\cr Name of variable related to \code{rel_var} to add to \code{df}.}
 
-\item{related_var}{name of variable within `df` with values to which values of `var_name` must relate.}
+\item{related_var}{(\code{character})\cr Name of variable within \code{df} with values to which values
+of \code{var_name} must relate.}
 
-\item{var_values}{values related to values of `related_var`.}
+\item{var_values}{(\code{any})\cr Vector of values related to values of \code{related_var}.}
 }
 \value{
-`df` with added factor variable `var_name` containing `var_values` corresponding to `related_var`.
+\code{df} with added factor variable \code{var_name} containing \code{var_values} corresponding to \code{related_var}.
 }
 \description{
-Assign values to a related variable within a domain
+Assign values to a related variable within a domain.
 }
 \examples{
 # Example with data.frame.
@@ -53,3 +54,4 @@ random.cdisc.data:::rel_var(
   related_var = "PARAM"
 )
 }
+\keyword{internal}

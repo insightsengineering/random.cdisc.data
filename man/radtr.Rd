@@ -14,35 +14,39 @@ radtr(
 )
 }
 \arguments{
-\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{param}{As character string. list of parameter values.}
+\item{param}{(\verb{character vector})\cr Parameter values.}
 
-\item{paramcd}{As character string. list of parameter code values.}
+\item{paramcd}{(\verb{character vector})\cr Parameter code values.}
 
-\item{seed}{Seed for random number generation.}
+\item{seed}{(\code{numeric})\cr Seed to use for reproducible random number generation.}
 
 \item{cached}{boolean whether the cached ADTR data \code{cadtr} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radtr} will be ignored.}
 
-\item{...}{parameters from \code{\link{radrs}}}
+\item{...}{Additional arguments to be passed to \code{radrs}.}
 }
 \value{
-data.frame
+\code{data.frame}
 }
 \description{
-Function for generating random dataset from Tumor Response Analysis Dataset for a given
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
+Function for generating a random Tumor Response Analysis Dataset for a given
 Subject-Level Analysis Dataset.
 }
 \details{
 One record per subject per parameter per analysis visit per analysis date.
 
-Keys: STUDYID, USUBJID, PARAMCD, BASETYPE, AVISITN, DTYPE
+Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}, \code{BASETYPE}, \code{AVISITN}, \code{DTYPE}
 }
 \examples{
 library(random.cdisc.data)
 ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-radtr(ADSL, seed = 2)
+
+ADTR <- radtr(ADSL, seed = 2)
+ADTR
 }
 \author{
 tomlinsj, npaszty, Xuefeng Hou, dipietrc

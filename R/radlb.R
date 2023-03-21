@@ -1,26 +1,21 @@
 #' Laboratory Data Analysis Dataset (ADLB)
 #'
-#' Function for generating random dataset from Laboratory Data Analysis Dataset for a given
+#' @description `r lifecycle::badge("stable")`
+#'
+#' Function for generating a random Laboratory Data Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per subject per parameter per analysis visit per analysis date.
 #'
-#' Keys: STUDYID, USUBJID, PARAMCD, BASETYPE, AVISITN, ATPTN, DTYPE, ADTM, LBSEQ, ASPID.
+#' Keys: `STUDYID`, `USUBJID`, `PARAMCD`, `BASETYPE`, `AVISITN`, `ATPTN`, `DTYPE`, `ADTM`, `LBSEQ`, `ASPID`
 #
-#' @template ADSL_params
-#' @template BDS_findings_params
-#' @param lbcat As character vector of lb category values.
-#' @param paramu As character vector of parameter unit values.
-#' @param aval_mean As numerical vector of appropriate mean values for each lab test.
-#' @param max_n_lbs As numeric. maximum number of labs.
-#' @param lookup control lookup process.
-#' @inheritParams radsl
-#' @inheritParams mutate_na
-#'
-#' @templateVar data adlb
+#' @inheritParams argument_convention
+#' @param lbcat (`character vector`)\cr LB category values.
+#' @param max_n_lbs (`integer`)\cr Maximum number of labs per patient. Defaults to 10.
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data adlb
 #'
+#' @return `data.frame`
 #' @export
 #'
 #' @author tomlinsj, npaszty, Xuefeng Hou
@@ -28,8 +23,12 @@
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' radlb(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-#' radlb(ADSL, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
+#'
+#' ADLB <- radlb(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+#' ADLB
+#'
+#' ADLB <- radlb(ADSL, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
+#' ADLB
 radlb <- function(ADSL,
                   lbcat = c("CHEMISTRY", "CHEMISTRY", "IMMUNOLOGY"),
                   param = c(

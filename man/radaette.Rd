@@ -16,43 +16,47 @@ radaette(
 )
 }
 \arguments{
-\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{event.descr}{Character vector with description of events.}
+\item{event.descr}{(\verb{character vector})\cr Descriptions of events. Defaults to \code{NULL}.}
 
-\item{censor.descr}{Character vector with description of censors.}
+\item{censor.descr}{(\verb{character vector})\cr Descriptions of censors. Defaults to \code{NULL}.}
 
-\item{lookup}{Data.frame containing additional parameters.}
+\item{lookup}{(\code{data.frame})\cr Additional parameters.}
 
-\item{seed}{Seed for random number generation.}
+\item{seed}{(\code{numeric})\cr Seed to use for reproducible random number generation.}
 
-\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(\code{proportion})\cr Default percentage of values to be replaced by \code{NA}.}
 
-\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
- element of this list should be a numeric vector with two elements
- \itemize{
-    \item{seed }{The seed to be used for this element - can be left NA}
-    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-    percentage is used. This will overwrite default percentage (percentage argument))}
+\item{na_vars}{(\code{list})\cr A named list where the name of each element is a column name of \code{ds}. Each
+element of this list should be a numeric vector with two elements:
+\itemize{
+\item{\code{seed} (\code{numeric})\cr The seed to be used for this element - can be \code{NA}.}
+\item{\code{percentage} (\code{proportion})\cr Percentage of elements to be replaced with \code{NA}.
+If \code{NA}, \code{na_percentage} is used as a default.}
 }}
 
 \item{cached}{boolean whether the cached ADAETTE data \code{cadaette} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radaette} will be ignored.}
 }
 \value{
-data.frame
+\code{data.frame}
 }
 \description{
-Function to generate random time to AE dataset for a
-given subject-level analysis dataset.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
+Function to generate random Time-to-AE Dataset for a
+given Subject-Level Analysis Dataset.
 }
 \details{
-Keys: STUDYID USUBJID PARAMCD
+Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- suppressWarnings(radsl(N = 10, seed = 1, study_duration = 2))
-radaette(ADSL, seed = 2)
+ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+
+ADAETTE <- radaette(ADSL, seed = 2)
+ADAETTE
 }
 \author{
 Xiuting Mi

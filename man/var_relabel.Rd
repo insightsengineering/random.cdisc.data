@@ -2,17 +2,18 @@
 % Please edit documentation in R/utils.R
 \name{var_relabel}
 \alias{var_relabel}
-\title{Primary keys: labels}
+\title{Primary Keys: Labels}
 \usage{
 var_relabel(x, ...)
 }
 \arguments{
-\item{x}{data frame containing variables to which labels are applied.}
+\item{x}{(\code{data.frame})\cr Data frame containing variables to which labels are applied.}
 
-\item{...}{ellipsis.}
+\item{...}{(\verb{named character})\cr Name-Value pairs, where name corresponds to a variable
+name in \code{x} and the value to the new variable label.}
 }
 \description{
-Apply labels to ADSL primary key variables
+Relabel a subset of variables in a data set.
 }
 \examples{
 ADSL <- radsl()
@@ -21,3 +22,4 @@ random.cdisc.data:::var_relabel(ADSL,
   USUBJID = "Unique Subject Identifier"
 )
 }
+\keyword{internal}

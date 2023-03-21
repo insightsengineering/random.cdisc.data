@@ -2,27 +2,28 @@
 % Please edit documentation in R/utils.R
 \name{visit_schedule}
 \alias{visit_schedule}
-\title{Create visit schedule}
+\title{Create Visit Schedule}
 \usage{
 visit_schedule(visit_format = "WEEK", n_assessments = 10L, n_days = 5L)
 }
 \arguments{
-\item{visit_format}{as character string. Valid values: WEEK, CYCLE.}
+\item{visit_format}{(\code{character})\cr Type of visit. Options are "WEEK" and "CYCLE".}
 
-\item{n_assessments}{number of assessments. Valid values: integer.}
+\item{n_assessments}{(\code{integer})\cr Number of weeks or cycles.}
 
-\item{n_days}{number of days for each cycle: Valid values: integer.}
+\item{n_days}{(\code{integer})\cr Number of days in each cycle (only used if \code{visit_format} is "CYCLE").}
 }
 \value{
-a factor of length n_assessments
+A factor of length \code{n_assessments}.
 }
 \description{
-Create a visit schedule as factor.
+Create a visit schedule as a factor.
 }
 \details{
-X number of visits or X number of cycles and Y number of days.
+X number of visits, or X number of cycles and Y number of days.
 }
 \examples{
 random.cdisc.data:::visit_schedule(visit_format = "WEeK", n_assessments = 10L)
 random.cdisc.data:::visit_schedule(visit_format = "CyCLE", n_assessments = 5L, n_days = 2L)
 }
+\keyword{internal}

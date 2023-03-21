@@ -16,48 +16,52 @@ radae(
 )
 }
 \arguments{
-\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{max_n_aes}{Maximum number of AEs per patient.}
+\item{max_n_aes}{(\code{integer})\cr Maximum number of AEs per patient. Defaults to 10.}
 
-\item{lookup}{Data.frame containing additional parameters.}
+\item{lookup}{(\code{data.frame})\cr Additional parameters.}
 
-\item{lookup_aag}{Data.frame containing additional metadata parameters.}
+\item{lookup_aag}{(\code{data.frame})\cr Additional metadata parameters.}
 
-\item{seed}{Seed for random number generation.}
+\item{seed}{(\code{numeric})\cr Seed to use for reproducible random number generation.}
 
-\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(\code{proportion})\cr Default percentage of values to be replaced by \code{NA}.}
 
-\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
- element of this list should be a numeric vector with two elements
- \itemize{
-    \item{seed }{The seed to be used for this element - can be left NA}
-    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-    percentage is used. This will overwrite default percentage (percentage argument))}
+\item{na_vars}{(\code{list})\cr A named list where the name of each element is a column name of \code{ds}. Each
+element of this list should be a numeric vector with two elements:
+\itemize{
+\item{\code{seed} (\code{numeric})\cr The seed to be used for this element - can be \code{NA}.}
+\item{\code{percentage} (\code{proportion})\cr Percentage of elements to be replaced with \code{NA}.
+If \code{NA}, \code{na_percentage} is used as a default.}
 }}
 
 \item{cached}{boolean whether the cached ADAE data \code{cadae} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radae} will be ignored.}
 }
 \value{
-data.frame
+\code{data.frame}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Function for generating random Adverse Event Analysis Dataset for a given
 Subject-Level Analysis Dataset.
 }
 \details{
 One record per each record in the corresponding SDTM domain.
 
-Keys: STUDYID USUBJID ASTDTM AETERM AESEQ.
+Keys: \code{STUDYID}, \code{USUBJID}, \code{ASTDTM}, \code{AETERM}, \code{AESEQ}
 }
 \examples{
 library(random.cdisc.data)
 ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
-radae(ADSL, seed = 2)
+
+ADAE <- radae(ADSL, seed = 2)
+ADAE
 
 # Add metadata.
-aag <- utils::read.table(
+AAG <- utils::read.table(
   sep = ",", header = TRUE,
   text = paste(
     "NAMVAR,SRCVAR,GRPTYPE,REFNAME,REFTERM,SCOPE",
@@ -71,10 +75,10 @@ aag <- utils::read.table(
   ), stringsAsFactors = FALSE
 )
 
-adae <- radae(ADSL, lookup_aag = aag)
+ADAE <- radae(ADSL, lookup_aag = AAG)
 
 with(
-  adae,
+  ADAE,
   cbind(
     table(AEDECOD, SMQ01NAM),
     table(AEDECOD, CQ01NAM)

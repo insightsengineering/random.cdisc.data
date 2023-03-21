@@ -1,28 +1,28 @@
-#' Time-to-Event Analysis Dataset (ATE)
+#' Time-to-Event Analysis Dataset (ADTTE)
 #'
-#' Function for generating random Time-to-Event Analysis Dataset for a given
-#' Subject-Level Analysis Dataset
+#' @description `r lifecycle::badge("stable")`
+#'
+#' Function for generating a random Time-to-Event Analysis Dataset for a given
+#' Subject-Level Analysis Dataset.
 #'
 #' @details
-#' Keys: STUDYID USUBJID PARAMCD
 #'
-#' @template ADSL_params
-#' @template lookup_param
-#' @param event.descr Character vector with description of events.
-#' @param censor.descr censor description.
-#' @inheritParams radsl
-#' @inheritParams mutate_na
+#' Keys: `STUDYID`, `USUBJID`, `PARAMCD`
 #'
-#' @templateVar data adtte
+#' @inheritParams argument_convention
+#' @inheritParams radaette
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data adtte
 #'
+#' @return `data.frame`
 #' @export
 #'
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' radtte(ADSL, seed = 2)
+#'
+#' ADTTE <- radtte(ADSL, seed = 2)
+#' ADTTE
 radtte <- function(ADSL,
                    event.descr = NULL,
                    censor.descr = NULL,

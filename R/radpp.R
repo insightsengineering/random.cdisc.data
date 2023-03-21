@@ -1,24 +1,27 @@
-#' Pharmacokinetics Parameters Dataset
+#' Pharmacokinetics Parameters Dataset (ADPP)
 #'
-#' @template ADSL_params
-#' @param ppcat (`character`)\cr category of parameter.
-#' @param ppspec (`string`)\cr specimen material type.
-#' @param paramcd (`character`)\cr parameter code.
-#' @param param (`character`)\cr parameters.
-#' @param paramu (`character`)\cr Analysis value unit value.
-#' @param aval_mean (`vector`)\cr the mean for corresponding parameter.
-#' @param visit_format (`string`)\cr the visit format to produce AVISIT in the dataset.
-#' @param n_days (`integer`)\cr the number days that will be included to produce AVISIT in the dataset.
-#' @inheritParams radsl
+#' @description `r lifecycle::badge("stable")`
+#'
+#' Function for generating a random Pharmacokinetics Parameters Dataset for a given
+#' Subject-Level Analysis Dataset.
 #'
 #' @details One record per per study per subject per parameter category per parameter per visit.
 #'
+#' @inheritParams argument_convention
+#' @param ppcat (`character vector`)\cr Categories of parameters.
+#' @param ppspec (`character vector`)\cr Specimen material types.
+#' @template param_cached
+#' @templateVar data adpp
+#'
+#' @return `data.frame`
 #' @export
 #'
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#'
 #' ADPP <- radpp(ADSL, seed = 2)
+#' ADPP
 radpp <- function(ADSL,
                   ppcat = c("Plasma Drug X", "Plasma Drug Y", "Metabolite Drug X", "Metabolite Drug Y"),
                   ppspec = c(

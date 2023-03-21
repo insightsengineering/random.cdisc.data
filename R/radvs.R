@@ -1,22 +1,19 @@
 #' Vital Signs Analysis Dataset (ADVS)
 #'
-#' Function for generating random dataset from Vital Signs Analysis Dataset for a given
+#' @description `r lifecycle::badge("stable")`
+#'
+#' Function for generating a random Vital Signs Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per subject per parameter per analysis visit per analysis date.
 #'
-#' Keys: STUDYID, USUBJID, PARAMCD, BASETYPE, AVISITN, ATPTN, DTYPE, ADTM, VSSEQ, ASPID.
+#' Keys: `STUDYID`, `USUBJID`, `PARAMCD`, `BASETYPE`, `AVISITN`, `ATPTN`, `DTYPE`, `ADTM`, `VSSEQ`, `ASPID`
 #'
-#' @template ADSL_params
-#' @template BDS_findings_params
-#' @param paramu As character string. list of parameter unit values.
-#' @inheritParams radsl
-#' @inheritParams mutate_na
-#'
-#' @templateVar data advs
+#' @inheritParams argument_convention
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data advs
 #'
+#' @return `data.frame`
 #' @export
 #'
 #' @author npaszty
@@ -24,8 +21,12 @@
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' radvs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-#' radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
+#'
+#' ADVS <- radvs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+#' ADVS
+#'
+#' ADVS <- radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
+#' ADVS
 radvs <- function(ADSL,
                   param = c(
                     "Diastolic Blood Pressure",

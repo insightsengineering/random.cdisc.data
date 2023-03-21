@@ -7,25 +7,33 @@
 radqlqc(ADSL, percent, number, seed = NULL, cached = FALSE)
 }
 \arguments{
-\item{ADSL}{Subject-Level Analysis Dataset}
+\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{percent}{Completion - Completed at least y percent of questions, 1 record per visit}
+\item{percent}{(\code{numeric})\cr Completion - Completed at least y percent of questions, 1 record per visit}
 
-\item{number}{Completion - Completed at least x question(s), 1 record per visit}
+\item{number}{(\code{numeric})\cr Completion - Completed at least x question(s), 1 record per visit}
 
-\item{seed}{Seed for random number generation}
+\item{seed}{(\code{numeric})\cr Seed to use for reproducible random number generation.}
 
-\item{cached}{boolean whether the cached <%= toupper(data) %> data \code{c<%=data%>}
-should be returned or new data}
+\item{cached}{boolean whether the cached ADQLQC data \code{cadqlqc} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radqlqc} will be ignored.}
 }
 \value{
-a dataframe with EORTC QLQ-C30 V3 Analysis Dataset
+\code{data.frame}
 }
 \description{
-EORTC QLQ-C30 V3 Analysis Dataset (ADQLQC)
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
+Function for generating a random EORTC QLQ-C30 V3 Analysis Dataset for a given
+Subject-Level Analysis Dataset.
+}
+\details{
+Keys: \code{STUDYID}, \code{USUBJID}, \code{PARCAT1N}, \code{PARAMCD}, \code{BASETYPE}, \code{AVISITN}, \code{ATPTN}, \code{ADTM}, \code{QSSEQ}
 }
 \examples{
-\dontrun{
+library(random.cdisc.data)
+ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+
 ADQLQC <- radqlqc(ADSL, seed = 1, percent = 80, number = 2)
-}
+ADQLQC
 }
