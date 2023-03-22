@@ -48,7 +48,7 @@ raddv <- function(ADSL,
   checkmate::assert_true(na_percentage < 1)
 
   if (!is.null(seed)) set.seed(seed)
-  study_duration_secs <- attr(ADSL, "study_duration_secs")
+  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
   lookup_dv <- if (!is.null(lookup)) {

@@ -92,7 +92,7 @@ radhy <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- attr(ADSL, "study_duration_secs")
+  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
 
   # create all combinations of unique values in STUDYID, USUBJID, PARAM, AVISIT
   ADHY <- expand.grid(

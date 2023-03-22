@@ -63,7 +63,7 @@ radmh <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- attr(ADSL, "study_duration_secs")
+  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
 
   ADMH <- Map(
     function(id, sid) {
