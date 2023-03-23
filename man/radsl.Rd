@@ -17,35 +17,37 @@ radsl(
 )
 }
 \arguments{
-\item{N}{Number of patients.}
+\item{N}{(\code{numeric})\cr Number of patients.}
 
-\item{study_duration}{Duration of study in years.}
+\item{study_duration}{(\code{numeric})\cr Duration of study in years.}
 
-\item{seed}{Seed for random number generation.}
+\item{seed}{(\code{numeric})\cr Seed to use for reproducible random number generation.}
 
-\item{with_trt02}{If period 2 is needed, set duration of period 2 in years.}
+\item{with_trt02}{(\code{logical})\cr Should period 2 be added.}
 
-\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(\code{proportion})\cr Default percentage of values to be replaced by \code{NA}.}
 
-\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
- element of this list should be a numeric vector with two elements
- \itemize{
-    \item{seed }{The seed to be used for this element - can be left NA}
-    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-    percentage is used. This will overwrite default percentage (percentage argument))}
+\item{na_vars}{(\code{list})\cr A named list where the name of each element is a column name of \code{ds}. Each
+element of this list should be a numeric vector with two elements:
+\itemize{
+\item{\code{seed} (\code{numeric})\cr The seed to be used for this element - can be \code{NA}.}
+\item{\code{percentage} (\code{proportion})\cr Percentage of elements to be replaced with \code{NA}.
+If \code{NA}, \code{na_percentage} is used as a default.}
 }}
 
-\item{ae_withdrawal_prob}{Probability that there is at least one Adverse Event
-leading to the withdrawal of a study drug.}
+\item{ae_withdrawal_prob}{(\code{proportion})\cr Probability that there is at least one
+Adverse Event leading to the withdrawal of a study drug.}
 
 \item{cached}{boolean whether the cached ADSL data \code{cadsl} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
 }
 \value{
-data.frame
+\code{data.frame}
 }
 \description{
-The Subject-Level Analysis Data set (ADSL) is used to provide the variables
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
+The Subject-Level Analysis Dataset (ADSL) is used to provide the variables
 that describe attributes of a subject. ADSL is a source for subject-level
 variables used in other analysis data sets, such as population flags and
 treatment variables. There is only one ADSL per study. ADSL and its related
@@ -55,12 +57,15 @@ trial even if no other analysis data sets are submitted.
 \details{
 One record per subject.
 
-Keys: STUDYID USUBJID
+Keys: \code{STUDYID}, \code{USUBJID}
 }
 \examples{
 library(random.cdisc.data)
-radsl(N = 10, study_duration = 2, seed = 1)
-radsl(
+
+ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+ADSL
+
+ADSL <- radsl(
   N = 10, seed = 1,
   na_percentage = 0.1,
   na_vars = list(
@@ -68,5 +73,8 @@ radsl(
     LSTALVDT = c(seed = 1234, percentage = 0.1)
   )
 )
-radsl(N = 10, seed = 1, na_percentage = .1)
+ADSL
+
+ADSL <- radsl(N = 10, seed = 1, na_percentage = .1)
+ADSL
 }

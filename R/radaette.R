@@ -1,31 +1,31 @@
 #' Time to Adverse Event Analysis Dataset (ADAETTE)
 #'
-#' Function to generate random time to AE dataset for a
-#' given subject-level analysis dataset.
+#' @description `r lifecycle::badge("stable")`
 #'
-#' Keys: STUDYID USUBJID PARAMCD
+#' Function to generate random Time-to-AE Dataset for a
+#' given Subject-Level Analysis Dataset.
 #'
-#' @template ADSL_params
-#' @template lookup_param
-#' @param event.descr Character vector with description of events.
-#' @param censor.descr Character vector with description of censors.
-#' @inheritParams radsl
-#' @inheritParams mutate_na
+#' @details
 #'
-#' @templateVar data adaette
+#' Keys: `STUDYID`, `USUBJID`, `PARAMCD`
+#'
+#' @inheritParams argument_convention
+#' @param event.descr (`character vector`)\cr Descriptions of events. Defaults to `NULL`.
+#' @param censor.descr (`character vector`)\cr Descriptions of censors. Defaults to `NULL`.
 #' @template param_cached
+#' @templateVar data adaette
 #'
-#' @template return_data.frame
-#'
-#'
+#' @return `data.frame`
 #' @export
 #'
 #' @author Xiuting Mi
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- suppressWarnings(radsl(N = 10, seed = 1, study_duration = 2))
-#' radaette(ADSL, seed = 2)
+#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#'
+#' ADAETTE <- radaette(ADSL, seed = 2)
+#' ADAETTE
 radaette <- function(ADSL,
                      event.descr = NULL,
                      censor.descr = NULL,

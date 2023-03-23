@@ -1,29 +1,28 @@
 #' Medical History Analysis Dataset (ADMH)
 #'
-#' Function for generating random Medical History Analysis Dataset for a given
+#' @description `r lifecycle::badge("stable")`
+#'
+#' Function for generating a random Medical History Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per each record in the corresponding SDTM domain.
 #'
-#' Keys: STUDYID USUBJID ASTDTM MHSEQ.
+#' Keys: `STUDYID`, `USUBJID`, `ASTDTM`, `MHSEQ`
 #'
-#' @template ADSL_params
-#' @template lookup_param
-#' @param max_n_mhs Maximum number of MHs per patient.
-#' @inheritParams radsl
-#' @inheritParams mutate_na
-#'
-#' @templateVar data admh
+#' @inheritParams argument_convention
+#' @param max_n_mhs (`integer`)\cr Maximum number of MHs per patient. Defaults to 10.
 #' @template param_cached
+#' @templateVar data admh
 #'
-#' @template return_data.frame
-#'
+#' @return `data.frame`
 #' @export
 #'
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
-#' radmh(ADSL, seed = 2)
+#'
+#' ADMH <- radmh(ADSL, seed = 2)
+#' ADMH
 radmh <- function(ADSL,
                   max_n_mhs = 10L,
                   lookup = NULL,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/radpp.R
 \name{radpp}
 \alias{radpp}
-\title{Pharmacokinetics Parameters Dataset}
+\title{Pharmacokinetics Parameters Dataset (ADPP)}
 \usage{
 radpp(
   ADSL,
@@ -26,47 +26,55 @@ radpp(
 )
 }
 \arguments{
-\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{ppcat}{(`character`)\cr category of parameter.}
+\item{ppcat}{(\verb{character vector})\cr Categories of parameters.}
 
-\item{ppspec}{(`string`)\cr specimen material type.}
+\item{ppspec}{(\verb{character vector})\cr Specimen material types.}
 
-\item{paramcd}{(`character`)\cr parameter code.}
+\item{paramcd}{(\verb{character vector})\cr Parameter code values.}
 
-\item{param}{(`character`)\cr parameters.}
+\item{param}{(\verb{character vector})\cr Parameter values.}
 
-\item{paramu}{(`character`)\cr Analysis value unit value.}
+\item{paramu}{(\verb{character vector})\cr Parameter unit values.}
 
-\item{aval_mean}{(`vector`)\cr the mean for corresponding parameter.}
+\item{aval_mean}{(\verb{numeric vector})\cr Mean values corresponding to each parameter.}
 
-\item{visit_format}{(`string`)\cr the visit format to produce AVISIT in the dataset.}
+\item{visit_format}{(\code{character})\cr Type of visit. Options are "WEEK" and "CYCLE".}
 
-\item{n_days}{(`integer`)\cr the number days that will be included to produce AVISIT in the dataset.}
+\item{n_days}{(\code{integer})\cr Number of days in each cycle (only used if \code{visit_format} is "CYCLE").}
 
-\item{seed}{Seed for random number generation.}
+\item{seed}{(\code{numeric})\cr Seed to use for reproducible random number generation.}
 
-\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(\code{proportion})\cr Default percentage of values to be replaced by \code{NA}.}
 
-\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
- element of this list should be a numeric vector with two elements
- \itemize{
-    \item{seed }{The seed to be used for this element - can be left NA}
-    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-    percentage is used. This will overwrite default percentage (percentage argument))}
+\item{na_vars}{(\code{list})\cr A named list where the name of each element is a column name of \code{ds}. Each
+element of this list should be a numeric vector with two elements:
+\itemize{
+\item{\code{seed} (\code{numeric})\cr The seed to be used for this element - can be \code{NA}.}
+\item{\code{percentage} (\code{proportion})\cr Percentage of elements to be replaced with \code{NA}.
+If \code{NA}, \code{na_percentage} is used as a default.}
 }}
 
-\item{cached}{boolean whether the cached ADSL data \code{cadsl} should be returned or new data
-should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
+\item{cached}{boolean whether the cached ADPP data \code{cadpp} should be returned or new data
+should be generated. If set to \code{TRUE} then the other arguments to \code{radpp} will be ignored.}
+}
+\value{
+\code{data.frame}
 }
 \description{
-Pharmacokinetics Parameters Dataset
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
+Function for generating a random Pharmacokinetics Parameters Dataset for a given
+Subject-Level Analysis Dataset.
 }
 \details{
-One record per per study per subject per parameter category per parameter per visit.
+One record per study, subject, parameter category, parameter and visit.
 }
 \examples{
 library(random.cdisc.data)
 ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+
 ADPP <- radpp(ADSL, seed = 2)
+ADPP
 }

@@ -1,4 +1,4 @@
-#' Generate anthropometric measurements for males and females.
+#' Generate Anthropometric Measurements for Males and Females.
 #'
 #' Anthropometric measurements are randomly generated using normal approximation.
 #' The default mean and standard deviation values used are based on US National Health
@@ -7,22 +7,23 @@
 #'
 #' @details One record per subject.
 #'
-#' @param df (data frame)\cr analysis dataset.
-#' @param seed Seed for random number generation.
-#' @param id_var (string)\cr patient identifier variable name.
-#' @param sex_var (string)\cr name of variable representing sex of patient.
-#' @param sex_var_level_male (string)\cr level of `sex_var` representing males.
-#' @param male_weight_in_kg (named list)\cr list of mean and sd of male weight in kilograms.
-#' @param female_weight_in_kg (named list)\cr list of mean and sd of female weight in kilograms.
-#' @param male_height_in_m (named list)\cr list of mean and sd of male height in metres.
-#' @param female_height_in_m (named list)\cr list of mean and sd of female height in metres.
+#' @inheritParams argument_convention
+#' @param df (`data.frame`)\cr Analysis dataset.
+#' @param id_var (`character`)\cr Patient identifier variable name.
+#' @param sex_var (`character`)\cr Name of variable representing sex of patient.
+#' @param sex_var_level_male (`character`)\cr Level of `sex_var` representing males.
+#' @param male_weight_in_kg (named `list`)\cr List of means and SDs of male weights in kilograms.
+#' @param female_weight_in_kg (named `list`)\cr List of means and SDs of female weights in kilograms.
+#' @param male_height_in_m (named `list`)\cr List of means and SDs of male heights in metres.
+#' @param female_height_in_m (named `list`)\cr list of means and SDs of female heights in metres.
 #'
 #' @return a dataframe with anthropometric measurements for each subject in analysis dataset.
+#' @keywords internal
 #'
 #' @examples
 #' library(random.cdisc.data)
-#'
 #' ADSL <- radsl(N = 5, seed = 1)
+#'
 #' df_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = ADSL)
 #' df_with_measurements
 h_anthropometrics_by_sex <- function(df,
@@ -75,26 +76,22 @@ h_anthropometrics_by_sex <- function(df,
   return(df_with_measurements)
 }
 
-
 #' Subcategory Analysis Dataset (ADSUB)
 #'
-#' Function for generating random dataset from Subcategory Analysis Dataset for a given
-#' Subject-Level Analysis Dataset
+#' @description `r lifecycle::badge("stable")`
 #'
-#' @details One record per subject
+#' Function for generating a random Subcategory Analysis Dataset for a given
+#' Subject-Level Analysis Dataset.
 #'
-#' Keys: STUDYID, USUBJID, PARAMCD, AVISITN, ADTM, SRCSEQ
+#' @details One record per subject.
 #'
-#' @template ADSL_params
-#' @param param param character vector with parameter value strings.
-#' @param paramcd paramcd character vector with parameter code values.
-#' @inheritParams radsl
-#' @inheritParams mutate_na
+#' Keys: `STUDYID`, `USUBJID`, `PARAMCD`, `AVISITN`, `ADTM`, `SRCSEQ`
 #'
-#' @templateVar data adsub
+#' @inheritParams argument_convention
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data adsub
 #'
+#' @return `data.frame`
 #' @export
 #'
 #' @author tomlinsj, npaszty, Xuefeng Hou, dipietrc
@@ -102,7 +99,9 @@ h_anthropometrics_by_sex <- function(df,
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' radsub(ADSL, seed = 2)
+#'
+#' ADSUB <- radsub(ADSL, seed = 2)
+#' ADSUB
 radsub <- function(ADSL,
                    param = c(
                      "Baseline Weight",

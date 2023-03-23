@@ -25,60 +25,62 @@ radex(
 )
 }
 \arguments{
-\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{param}{As character string. list of parameter values.}
+\item{param}{(\verb{character vector})\cr Parameter values.}
 
-\item{paramcd}{As character string. list of parameter code values.}
+\item{paramcd}{(\verb{character vector})\cr Parameter code values.}
 
-\item{paramu}{As character vector of parameter unit value}
+\item{paramu}{(\verb{character vector})\cr Parameter unit values.}
 
-\item{parcat1}{Individual/Overall dose amount}
+\item{parcat1}{(\verb{character vector})\cr Dose amount categories. Defaults to "Individual" and "Overall".}
 
-\item{parcat2}{Type of drug received Drug A / Drug B}
+\item{parcat2}{(\verb{character vector})\cr Types of drug received. Defaults to "Drug A" and "Drug B".}
 
-\item{visit_format}{Type of visit either "WEEK" or "CYCLE".}
+\item{visit_format}{(\code{character})\cr Type of visit. Options are "WEEK" and "CYCLE".}
 
-\item{n_assessments}{Number of weeks or cycles.}
+\item{n_assessments}{(\code{integer})\cr Number of weeks or cycles.}
 
-\item{n_days}{Number of days within cycle.}
+\item{n_days}{(\code{integer})\cr Number of days in each cycle (only used if \code{visit_format} is "CYCLE").}
 
-\item{max_n_exs}{As numeric. maximum number of exposures}
+\item{max_n_exs}{(\code{integer})\cr Maximum number of exposures per patient. Defaults to 6.}
 
-\item{lookup}{control lookup process}
+\item{lookup}{(\code{data.frame})\cr Additional parameters.}
 
-\item{seed}{Seed for random number generation.}
+\item{seed}{(\code{numeric})\cr Seed to use for reproducible random number generation.}
 
-\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(\code{proportion})\cr Default percentage of values to be replaced by \code{NA}.}
 
-\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
- element of this list should be a numeric vector with two elements
- \itemize{
-    \item{seed }{The seed to be used for this element - can be left NA}
-    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-    percentage is used. This will overwrite default percentage (percentage argument))}
+\item{na_vars}{(\code{list})\cr A named list where the name of each element is a column name of \code{ds}. Each
+element of this list should be a numeric vector with two elements:
+\itemize{
+\item{\code{seed} (\code{numeric})\cr The seed to be used for this element - can be \code{NA}.}
+\item{\code{percentage} (\code{proportion})\cr Percentage of elements to be replaced with \code{NA}.
+If \code{NA}, \code{na_percentage} is used as a default.}
 }}
 
 \item{cached}{boolean whether the cached ADEX data \code{cadex} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radex} will be ignored.}
 }
 \value{
-data.frame
+\code{data.frame}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Function for generating random Exposure Analysis Dataset for a given
 Subject-Level Analysis Dataset.
 }
 \details{
 One record per each record in the corresponding SDTM domain.
 
-Keys: STUDYID USUBJID EXSEQ PARAMCD PARCAT1 ASTDTM AENDTM ASTDY AENDY AVISITN
-EXDOSFRQ EXROUTE VISIT VISITDY EXSTDTC EXENDTC EXSTDY EXENDY
+Keys: \code{STUDYID}, \code{USUBJID}, \code{EXSEQ}, \code{PARAMCD}, \code{PARCAT1}, \code{ASTDTM}, \code{AENDTM}, \code{ASTDY}, \code{AENDY},
+\code{AVISITN}, \code{EXDOSFRQ}, \code{EXROUTE}, \code{VISIT}, \code{VISITDY}, \code{EXSTDTC}, \code{EXENDTC}, \code{EXSTDY}, \code{EXENDY}
 }
 \examples{
 library(random.cdisc.data)
-library(dplyr)
-
 ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+
 ADEX <- radex(ADSL, seed = 2)
+ADEX
 }

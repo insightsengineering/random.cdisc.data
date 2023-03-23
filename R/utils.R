@@ -1,7 +1,8 @@
-#' Load cached data
+#' Load Cached Data
 #'
-#' Return data attached to package
+#' Return data attached to package.
 #'
+#' @keywords internal
 #' @noRd
 get_cached_data <- function(dataname) {
   checkmate::assert_string(dataname)
@@ -15,17 +16,17 @@ get_cached_data <- function(dataname) {
   }
 }
 
-#' Create a factor with random elements of x
+#' Create a Factor with Random Elements of x
 #'
-#' Sample elements from x with replacing and build a factor
+#' Sample elements from `x` with replacement to build a factor.
 #'
-#' @param x character vector or factor, if character vector then it is also used
-#'   as levels of the returned factor, otherwise if it is a factor then the
-#'   levels get used as the new levels
-#' @param N number of
-#' @param ... arguments passed on to \code{\link{sample}}
+#' @param x (`character vector` or `factor`)\cr If character vector then it is also used
+#'   as levels of the returned factor. If factor then the levels are used as the new levels.
+#' @param N (`numeric`)\cr Number of items to choose.
+#' @param ... Additional arguments to be passed to `sample`.
 #'
-#' @return a factor of length N
+#' @return A factor of length `N`.
+#' @keywords internal
 #'
 #' @examples
 #' random.cdisc.data:::sample_fct(letters[1:3], 10)
@@ -36,14 +37,16 @@ sample_fct <- function(x, N, ...) {
   factor(sample(x, N, replace = TRUE, ...), levels = if (is.factor(x)) levels(x) else x)
 }
 
-#' Related variables: initialize
+#' Related Variables: Initialize
 #'
-#' Verify and initialize related variable values
+#' Verify and initialize related variable values.
 #'
-#' @param relvar1 as character string. list of n elements.
-#' @param relvar2 as character string. list of n elements.
+#' @param relvar1 (`list` of `character`)\cr List of n elements.
+#' @param relvar2 (`list` of `character`)\cr List of n elements.
 #'
-#' @return a vector of n elements
+#' @return A vector of n elements.
+#'
+#' @keywords internal
 #'
 #' @examples
 #' random.cdisc.data:::relvar_init("Alanine Aminotransferase Measurement", "ALT")
@@ -61,16 +64,18 @@ relvar_init <- function(relvar1, relvar2) {
   return(list("relvar1" = relvar1, "relvar2" = relvar2))
 }
 
-#' Related variables: assign
+#' Related Variables: Assign
 #'
-#' Assign values to a related variable within a domain
+#' Assign values to a related variable within a domain.
 #'
-#' @param df data frame containing the related variables.
-#' @param var_name name of variable related to `rel_var` to add to `df`
-#' @param var_values values related to values of `related_var`.
-#' @param related_var name of variable within `df` with values to which values of `var_name` must relate.
+#' @param df (`data.frame`)\cr Data frame containing the related variables.
+#' @param var_name (`character`)\cr Name of variable related to `rel_var` to add to `df`.
+#' @param var_values (`any`)\cr Vector of values related to values of `related_var`.
+#' @param related_var (`character`)\cr Name of variable within `df` with values to which values
+#' of `var_name` must relate.
 #'
 #' @return `df` with added factor variable `var_name` containing `var_values` corresponding to `related_var`.
+#' @keywords internal
 #'
 #' @examples
 #' # Example with data.frame.
@@ -121,17 +126,16 @@ rel_var <- function(df, var_name, related_var, var_values = NULL) {
   return(df)
 }
 
-#' Create visit schedule
+#' Create Visit Schedule
 #'
-#' Create a visit schedule as factor.
+#' Create a visit schedule as a factor.
 #'
-#' X number of visits or X number of cycles and Y number of days.
+#' X number of visits, or X number of cycles and Y number of days.
 #'
-#' @param visit_format as character string. Valid values: WEEK, CYCLE.
-#' @param n_assessments number of assessments. Valid values: integer.
-#' @param n_days number of days for each cycle: Valid values: integer.
+#' @inheritParams argument_convention
 #'
-#' @return a factor of length n_assessments
+#' @return A factor of length `n_assessments`.
+#' @keywords internal
 #'
 #' @examples
 #' random.cdisc.data:::visit_schedule(visit_format = "WEeK", n_assessments = 10L)
@@ -161,14 +165,16 @@ visit_schedule <- function(visit_format = "WEEK",
   visit_values <- stats::reorder(factor(visit_values), assessments_ord)
 }
 
-#' Primary keys: retain values
+#' Primary Keys: Retain Values
 #'
-#' Retain values within primary keys
+#' Retain values within primary keys.
 #'
-#' @param df data frame in which to apply the retain.
-#' @param value_var variable containing the value to be retained.
-#' @param event flag to trigger the retain.
-#' @param outside value to.
+#' @param df (`data.frame`)\cr Data frame in which to apply the retain.
+#' @param value_var (`any`)\cr Variable in `df` containing the value to be retained.
+#' @param event (`expression`)\cr Expression returning a logical value to trigger the retain.
+#' @param outside (`any`)\cr Additional value to retain. Defaults to `NA`.
+#'
+#' @keywords internal
 #'
 #' @examples
 #' ADLB <- radlb(radsl(N = 10, na_percentage = 0), na_vars = list())
@@ -182,12 +188,16 @@ retain <- function(df, value_var, event, outside = NA) {
   rep(values, diff(indices))
 }
 
-#' Primary keys: labels
+#' Primary Keys: Labels
 #'
-#' Apply labels to ADSL primary key variables
+#' Relabel a subset of variables in a data set.
 #'
-#' @param x data frame containing variables to which labels are applied.
-#' @param ... ellipsis.
+#' @param x (`data.frame`)\cr Data frame containing variables to which labels are applied.
+#' @param ... (`named character`)\cr Name-Value pairs, where name corresponds to a variable
+#' name in `x` and the value to the new variable label.
+#'
+#' @keywords internal
+#'
 #' @examples
 #' ADSL <- radsl()
 #' random.cdisc.data:::var_relabel(ADSL,
@@ -207,19 +217,20 @@ var_relabel <- function(x, ...) {
   x
 }
 
-#' Metadata
+#' Apply Metadata
 #'
-#' Apply label and variable ordering attributes to domains
+#' Apply label and variable ordering attributes to domains.
 #'
-#' @param df data frame to which metadata are applied.
-#' @param filename \code{yaml} file containing domain metadata.
-#' @param add_adsl logical to control merging of ADSL data to domain
-#' @param adsl_filename \code{yaml} file containing ADSL metadata.
+#' @param df (`data.frame`)\cr Data frame to which metadata is applied.
+#' @param filename (`yaml`)\cr File containing domain metadata.
+#' @param add_adsl (`logical`)\cr Should ADSL data be merged to domain.
+#' @param adsl_filename (`yaml`)\cr File containing ADSL metadata.
 #'
+#' @keywords internal
 #'
 #' @examples
 #' seed <- 1
-#' ADSL <- suppressWarnings(radsl(seed = seed))
+#' ADSL <- radsl(seed = seed)
 #' ADLB <- radlb(ADSL, seed = seed)
 #' \dontrun{
 #' yaml_path <- file.path(path.package("random.cdisc.data"), "inst", "metadata")
@@ -229,7 +240,6 @@ var_relabel <- function(x, ...) {
 #'   file.path(yaml_path, "ADSL.yml")
 #' )
 #' }
-#'
 apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metadata/ADSL.yml") {
   checkmate::assert_data_frame(df)
   checkmate::assert_string(filename)
@@ -311,18 +321,19 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
   df
 }
 
-#' Replace values in a vector by NA
+#' Replace Values in a Vector by NA
 #'
-#' Randomized replacement of values by NA
+#' @description `r lifecycle::badge("stable")`
 #'
-#' @param v (\code{any}) vector of any type
-#' @param percentage (\code{numeric}) Value between 0 and 1 defining
-#'   how much of the vector shall be replaced by NA. This number
-#'   is randomized by plus minus 5 percent to have full randomization.
-#' @param seed (\code{numeric}) seed to set to make randomization reproducible
+#' Randomized replacement of values by `NA`.
 #'
-#' @return The input vector v where a certain number of values
-#'   is replaced by NA
+#' @inheritParams argument_convention
+#' @param v (`any`)\cr Vector of any type.
+#' @param percentage (`proportion`)\cr Value between 0 and 1 defining
+#'   how much of the vector shall be replaced by `NA`. This number
+#'   is randomized by +/- 5% to have full randomization.
+#'
+#' @return The input vector `v` where a certain number of values are replaced by `NA`.
 #'
 #' @export
 replace_na <- function(v, percentage = 0.05, seed = NULL) {
@@ -344,21 +355,16 @@ replace_na <- function(v, percentage = 0.05, seed = NULL) {
   return(v)
 }
 
-#' NA: replace values
+#' Replace Values with NA
 #'
-#' Replace column values with NAs
+#' @description `r lifecycle::badge("stable")`
 #'
-#' @param ds (\code{data.frame}) Any data set
-#' @param na_vars (\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
-#'  element of this list should be a numeric vector with two elements
-#'  \itemize{
-#'     \item{seed }{The seed to be used for this element - can be left NA}
-#'     \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-#'     percentage is used. This will overwrite default percentage (percentage argument))}
-#' }
-#' @param na_percentage (\code{numeric}) Default percentage of values to be replaced by NA
+#' Replace column values with `NA`s.
 #'
-#' @importFrom rlang := !!
+#' @inheritParams argument_convention
+#' @param ds (`data.frame`)\cr Any data set.
+#'
+#' @export
 mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {
   if (!is.null(na_vars)) {
     stopifnot(is.list(na_vars)) # any list is OK; as values can be left NA
@@ -395,8 +401,9 @@ ungroup_rowwise_df <- function(x) {
   return(x)
 }
 
-
-#' Zero-truncated Poisson Distribution
+#' Zero-Truncated Poisson Distribution
+#'
+#' @description `r lifecycle::badge("stable")`
 #'
 #' This generates random numbers from a zero-truncated Poisson distribution,
 #' i.e. from `X | X > 0` when `X ~ Poisson(lambda)`. The advantage here is that
@@ -404,8 +411,8 @@ ungroup_rowwise_df <- function(x) {
 #' This solution was provided in a post by
 #' [Peter Dalgaard](https://stat.ethz.ch/pipermail/r-help/2005-May/070680.html).
 #'
-#' @param n number of random numbers.
-#' @param lambda non-negative mean(s).
+#' @param n (`numeric`)\cr Number of random numbers.
+#' @param lambda (`numeric`)\cr Non-negative mean(s).
 #'
 #' @return The random numbers.
 #' @export
@@ -423,16 +430,18 @@ rtpois <- function(n, lambda) {
 
 #' Truncated Exponential Distribution
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' This generates random numbers from a truncated Exponential distribution,
 #' i.e. from `X | X > l` or `X | X < r` when `X ~ Exp(rate)`. The advantage here is that
 #' we guarantee to return exactly `n` numbers and without using a loop internally.
 #' This can be derived from the quantile functions of the left- and right-truncated
 #' Exponential distributions.
 #'
-#' @param n number of random numbers.
-#' @param rate non-negative rate.
-#' @param l positive left-hand truncation parameter.
-#' @param r positive right-hand truncation parameter.
+#' @param n (`numeric`)\cr Number of random numbers.
+#' @param rate (`numeric`)\cr Non-negative rate.
+#' @param l (`numeric`)\cr Positive left-hand truncation parameter.
+#' @param r (`numeric`)\cr Positive right-hand truncation parameter.
 #'
 #' @return The random numbers. If neither `l` nor `r` are provided then the usual Exponential
 #'  distribution is used.

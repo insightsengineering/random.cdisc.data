@@ -24,7 +24,7 @@ The random datasets available to create are:
 
 - `radsl`: Subject-Level Analysis Dataset (ADSL)
 
-- `radab`: Anti-drug Antibody Analysis Dataset (ADAB)
+- `radab`: Anti-Drug Antibody Analysis Dataset (ADAB)
 - `radae`: Adverse Event Analysis Dataset (ADAE)
 - `radaette`: Time to Adverse Event Analysis Dataset (ADAETTE)
 - `radcm`: Previous and Concomitant Medications Analysis Dataset (ADCM)

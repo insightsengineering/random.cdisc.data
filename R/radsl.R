@@ -1,6 +1,8 @@
 #' Subject-Level Analysis Dataset (ADSL)
 #'
-#' The Subject-Level Analysis Data set (ADSL) is used to provide the variables
+#' @description `r lifecycle::badge("stable")`
+#'
+#' The Subject-Level Analysis Dataset (ADSL) is used to provide the variables
 #' that describe attributes of a subject. ADSL is a source for subject-level
 #' variables used in other analysis data sets, such as population flags and
 #' treatment variables. There is only one ADSL per study. ADSL and its related
@@ -9,26 +11,27 @@
 #'
 #' @details One record per subject.
 #'
-#' Keys: STUDYID USUBJID
+#' Keys: `STUDYID`, `USUBJID`
 #'
-#' @param N Number of patients.
-#' @param study_duration Duration of study in years.
-#' @param seed Seed for random number generation.
-#' @param with_trt02 If period 2 is needed, set duration of period 2 in years.
-#' @param ae_withdrawal_prob Probability that there is at least one Adverse Event
-#' leading to the withdrawal of a study drug.
-#' @inheritParams mutate_na
-#' @templateVar data adsl
+#' @inheritParams argument_convention
+#' @param N (`numeric`)\cr Number of patients.
+#' @param study_duration (`numeric`)\cr Duration of study in years.
+#' @param with_trt02 (`logical`)\cr Should period 2 be added.
+#' @param ae_withdrawal_prob (`proportion`)\cr Probability that there is at least one
+#' Adverse Event leading to the withdrawal of a study drug.
 #' @template param_cached
+#' @templateVar data adsl
 #'
-#' @template return_data.frame
-#'
+#' @return `data.frame`
 #' @export
 #
 #' @examples
 #' library(random.cdisc.data)
-#' radsl(N = 10, study_duration = 2, seed = 1)
-#' radsl(
+#'
+#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+#' ADSL
+#'
+#' ADSL <- radsl(
 #'   N = 10, seed = 1,
 #'   na_percentage = 0.1,
 #'   na_vars = list(
@@ -36,7 +39,10 @@
 #'     LSTALVDT = c(seed = 1234, percentage = 0.1)
 #'   )
 #' )
-#' radsl(N = 10, seed = 1, na_percentage = .1)
+#' ADSL
+#'
+#' ADSL <- radsl(N = 10, seed = 1, na_percentage = .1)
+#' ADSL
 radsl <- function(N = 400,
                   study_duration = 2,
                   seed = NULL,

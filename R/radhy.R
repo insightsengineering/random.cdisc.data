@@ -1,20 +1,19 @@
 #' Hy's Law Analysis Dataset (ADHY)
 #'
-#' Function for generating random dataset from Hy's Law Analysis Dataset for a given
+#' @description `r lifecycle::badge("stable")`
+#'
+#' Function for generating a random Hy's Law Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per subject per parameter per analysis visit per analysis date.
 #'
-#' Keys: STUDYID, USUBJID, PARAMCD, AVISITN, ADTM, SRCSEQ.
+#' Keys: `STUDYID`, `USUBJID`, `PARAMCD`, `AVISITN`, `ADTM`, `SRCSEQ`
 #
-#' @template ADSL_params
-#' @param param As character string. list of parameter values.
-#' @param paramcd As character string. list of parameter code values.
-#'
-#' @templateVar data adhy
+#' @inheritParams argument_convention
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data adhy
 #'
+#' @return `data.frame`
 #' @export
 #'
 #' @author wojciakw
@@ -22,7 +21,9 @@
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' radhy(ADSL, seed = 2)
+#'
+#' ADHY <- radhy(ADSL, seed = 2)
+#' ADHY
 radhy <- function(ADSL,
                   param = c(
                     "TBILI <= 2 times ULN and ALT value category",

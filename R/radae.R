@@ -1,35 +1,31 @@
 #' Adverse Event Analysis Dataset (ADAE)
 #'
+#' @description `r lifecycle::badge("stable")`
+#'
 #' Function for generating random Adverse Event Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per each record in the corresponding SDTM domain.
 #'
-#' Keys: STUDYID USUBJID ASTDTM AETERM AESEQ.
+#' Keys: `STUDYID`, `USUBJID`, `ASTDTM`, `AETERM`, `AESEQ`
 #'
-#' @template ADSL_params
-#' @template lookup_param
-#' @template lookup_aag_param
-#' @param max_n_aes Maximum number of AEs per patient.
-#' @inheritParams radsl
-#' @inheritParams mutate_na
-#'
-#' @templateVar data adae
+#' @inheritParams argument_convention
+#' @param max_n_aes (`integer`)\cr Maximum number of AEs per patient. Defaults to 10.
 #' @template param_cached
+#' @templateVar data adae
 #'
-#' @template return_data.frame
-#'
-#' @importFrom rlang .data
-#'
+#' @return `data.frame`
 #' @export
 #'
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
-#' radae(ADSL, seed = 2)
+#'
+#' ADAE <- radae(ADSL, seed = 2)
+#' ADAE
 #'
 #' # Add metadata.
-#' aag <- utils::read.table(
+#' AAG <- utils::read.table(
 #'   sep = ",", header = TRUE,
 #'   text = paste(
 #'     "NAMVAR,SRCVAR,GRPTYPE,REFNAME,REFTERM,SCOPE",
@@ -43,10 +39,10 @@
 #'   ), stringsAsFactors = FALSE
 #' )
 #'
-#' adae <- radae(ADSL, lookup_aag = aag)
+#' ADAE <- radae(ADSL, lookup_aag = AAG)
 #'
 #' with(
-#'   adae,
+#'   ADAE,
 #'   cbind(
 #'     table(AEDECOD, SMQ01NAM),
 #'     table(AEDECOD, CQ01NAM)

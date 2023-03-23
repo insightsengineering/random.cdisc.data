@@ -1,21 +1,19 @@
 #' Questionnaires Analysis Dataset (ADQS)
 #'
-#' Function for generating random Questionnaires Analysis Dataset for a given
+#' @description `r lifecycle::badge("stable")`
+#'
+#' Function for generating a random Questionnaires Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
 #' @details One record per subject per parameter per analysis visit per analysis date.
 #'
-#' Keys: STUDYID USUBJID PARAMCD AVISITN.
+#' Keys: `STUDYID`, `USUBJID`, `PARAMCD`, `AVISITN`
 #'
-#' @inheritParams radsl
-#' @inheritParams mutate_na
-#'
-#' @template ADSL_params
-#' @template BDS_findings_params
-#' @templateVar data adqs
+#' @inheritParams argument_convention
 #' @template param_cached
-#' @template return_data.frame
+#' @templateVar data adqs
 #'
+#' @return `data.frame`
 #' @export
 #'
 #' @author npaszty
@@ -23,8 +21,12 @@
 #' @examples
 #' library(random.cdisc.data)
 #' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' radqs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-#' radqs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
+#'
+#' ADQS <- radqs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+#' ADQS
+#'
+#' ADQS <- radqs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
+#' ADQS
 radqs <- function(ADSL,
                   param = c(
                     "BFI All Questions",

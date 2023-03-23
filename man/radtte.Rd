@@ -2,7 +2,7 @@
 % Please edit documentation in R/radtte.R
 \name{radtte}
 \alias{radtte}
-\title{Time-to-Event Analysis Dataset (ATE)}
+\title{Time-to-Event Analysis Dataset (ADTTE)}
 \usage{
 radtte(
   ADSL,
@@ -16,41 +16,45 @@ radtte(
 )
 }
 \arguments{
-\item{ADSL}{Subject-Level Analysis Dataset (ADSL).}
+\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{event.descr}{Character vector with description of events.}
+\item{event.descr}{(\verb{character vector})\cr Descriptions of events. Defaults to \code{NULL}.}
 
-\item{censor.descr}{censor description.}
+\item{censor.descr}{(\verb{character vector})\cr Descriptions of censors. Defaults to \code{NULL}.}
 
-\item{lookup}{Data.frame containing additional parameters.}
+\item{lookup}{(\code{data.frame})\cr Additional parameters.}
 
-\item{seed}{Seed for random number generation.}
+\item{seed}{(\code{numeric})\cr Seed to use for reproducible random number generation.}
 
-\item{na_percentage}{(\code{numeric}) Default percentage of values to be replaced by NA}
+\item{na_percentage}{(\code{proportion})\cr Default percentage of values to be replaced by \code{NA}.}
 
-\item{na_vars}{(\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
- element of this list should be a numeric vector with two elements
- \itemize{
-    \item{seed }{The seed to be used for this element - can be left NA}
-    \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-    percentage is used. This will overwrite default percentage (percentage argument))}
+\item{na_vars}{(\code{list})\cr A named list where the name of each element is a column name of \code{ds}. Each
+element of this list should be a numeric vector with two elements:
+\itemize{
+\item{\code{seed} (\code{numeric})\cr The seed to be used for this element - can be \code{NA}.}
+\item{\code{percentage} (\code{proportion})\cr Percentage of elements to be replaced with \code{NA}.
+If \code{NA}, \code{na_percentage} is used as a default.}
 }}
 
 \item{cached}{boolean whether the cached ADTTE data \code{cadtte} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radtte} will be ignored.}
 }
 \value{
-data.frame
+\code{data.frame}
 }
 \description{
-Function for generating random Time-to-Event Analysis Dataset for a given
-Subject-Level Analysis Dataset
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
+Function for generating a random Time-to-Event Analysis Dataset for a given
+Subject-Level Analysis Dataset.
 }
 \details{
-Keys: STUDYID USUBJID PARAMCD
+Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}
 }
 \examples{
 library(random.cdisc.data)
 ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-radtte(ADSL, seed = 2)
+
+ADTTE <- radtte(ADSL, seed = 2)
+ADTTE
 }

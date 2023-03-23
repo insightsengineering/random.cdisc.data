@@ -1,22 +1,29 @@
 #' EORTC QLQ-C30 V3 Analysis Dataset (ADQLQC)
 #'
-#' @param ADSL Subject-Level Analysis Dataset
-#' @param seed Seed for random number generation
-#' @param percent Completion - Completed at least y percent of questions, 1 record per visit
-#' @param number Completion - Completed at least x question(s), 1 record per visit
-#' @param cached boolean whether the cached <%= toupper(data) %> data \code{c<%=data%>}
-#' should be returned or new data
+#' @description `r lifecycle::badge("stable")`
+#'
+#' Function for generating a random EORTC QLQ-C30 V3 Analysis Dataset for a given
+#' Subject-Level Analysis Dataset.
+#'
+#' @details
+#'
+#' Keys: `STUDYID`, `USUBJID`, `PARCAT1N`, `PARAMCD`, `BASETYPE`, `AVISITN`, `ATPTN`, `ADTM`, `QSSEQ`
+#'
+#' @inheritParams argument_convention
+#' @param percent (`numeric`)\cr Completion - Completed at least y percent of questions, 1 record per visit
+#' @param number (`numeric`)\cr Completion - Completed at least x question(s), 1 record per visit
+#' @template param_cached
 #' @templateVar data adqlqc
 #'
-#' @return a dataframe with EORTC QLQ-C30 V3 Analysis Dataset
-#'
-#' @import dplyr
+#' @return `data.frame`
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' library(random.cdisc.data)
+#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+#'
 #' ADQLQC <- radqlqc(ADSL, seed = 1, percent = 80, number = 2)
-#' }
+#' ADQLQC
 radqlqc <- function(ADSL,
                     percent,
                     number,
@@ -248,36 +255,30 @@ radqlqc <- function(ADSL,
   return(ADQLQC_final)
 }
 
-#' Questionnaires EORTC QLQ-C30 V3.0 SDTM (QS)
+#' Helper Functions for Constructing ADQLQC
 #'
-#' Function for generating random Questionnaires SDTM domain
-#' @param ADSL ADSL dataset
-#' @param visit_format as character string. Valid values: WEEK, CYCLE.
-#' @param n_assessments number of assessments. Valid values: integer.
-#' @param n_days number of days for each cycle: Valid values: integer.
-#' @param lookup control lookup process.
-#' @param seed Seed for random number generation.
-#' @param na_percentage (\code{numeric}) Default percentage of values to be replaced by NA
-#' @param na_vars na_vars (\code{list}) A named list where the name of each element is a column name of \code{ds}. Each
-#' element of this list should be a numeric vector with two elements
-#'  \itemize{
-#'     \item{seed }{The seed to be used for this element - can be left NA}
-#'     \item{percentage }{How many element should be replaced. 0 is 0 \% 1 is 100 \%, can be left NA and default
-#'     percentage is used. This will overwrite default percentage (percentage argument))}
-#' }
-#' @param cached boolean whether the cached <%= toupper(data) %> data \code{c<%=data%>} should be
-#' returned or new data
+#' Internal functions used by `radqlqc`.
 #'
-#' @return a dataframe with SDTM questionnaire data
-#'
-#' @import dplyr
-#'
-#' @export
+#' @inheritParams argument_convention
+#' @inheritParams radqlqc
 #'
 #' @examples
-#' \dontrun{
-#' QS <- get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1)
-#' }
+#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+#' ADQLQC <- radqlqc(ADSL, seed = 1, percent = 80, number = 2)
+#'
+#' @name h_adqlqc
+NULL
+
+#' @describeIn h_adqlqc Questionnaires EORTC QLQ-C30 V3.0 SDTM (QS)
+#'
+#' Function for generating random Questionnaires SDTM domain
+#'
+#' @return a dataframe with SDTM questionnaire data
+#' @keywords internal
+#'
+#' @examples
+#' QS <- random.cdisc.data:::get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1)
+#' QS
 get_qs_data <- function(ADSL,
                         visit_format = "CYCLE",
                         n_assessments = 5L,
@@ -288,13 +289,7 @@ get_qs_data <- function(ADSL,
                         na_vars = list(
                           QSORRES = c(1234, 0.2),
                           QSSTRESC = c(1234, 0.2)
-                        ),
-                        cached = FALSE) {
-  checkmate::assert_flag(cached)
-  if (cached) {
-    return(get_cached_data("cqs"))
-  }
-
+                        )) {
   checkmate::assert_string(visit_format)
   checkmate::assert_integer(n_assessments, len = 1, any.missing = FALSE)
   checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
@@ -330,13 +325,11 @@ get_qs_data <- function(ADSL,
     unique(eortc_qlq_c30_sub$QSTESTCD)
   )
 
-
   if (!is.null(seed)) {
     set.seed(seed)
   }
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
-
 
   lookup_QS <- if (!is.null(lookup)) {
     lookup
@@ -381,7 +374,6 @@ get_qs_data <- function(ADSL,
     )
   ) %>% arrange(USUBJID)
 
-
   # # prep QSALL --------------------------------------------------------------
   # get last subject and visit for QSALL
   last_subj_vis <- select(lookup_QS, USUBJID, VISIT) %>%
@@ -410,7 +402,6 @@ get_qs_data <- function(ADSL,
     last_subj_vis_full,
     by = c("USUBJID", "VISIT")
   )
-
 
   set.seed(seed)
   lookup_QS_sub_x <- lookup_QS_sub %>%
@@ -487,7 +478,6 @@ get_qs_data <- function(ADSL,
     QSSTAT = "NOT DONE",
     QSREASND = "SUBJECT REFUSED"
   )
-
 
   # add qsall data to original item data
   lookup_QS_sub_all <- bind_rows(
@@ -571,21 +561,29 @@ get_qs_data <- function(ADSL,
   return(final_QS)
 }
 
-#' Function for generating random dates between 2 dates
+#' @describeIn h_adqlqc Function for generating random dates between 2 dates
 #'
-#' @param from start date/time variable
-#' @param to end date/time variable
-#' @param visit_id visit number variable
+#' @param from (`datetime vector`)\cr Start date/times.
+#' @param to (`datetime vector`)\cr End date/times.
+#' @param visit_id (`vector`)\cr Visit identifiers.
 #'
-#' @return data frame with new variable with random generated dates
-#'
-#' @importFrom lubridate as_datetime days
+#' @return Data frame with new randomly generated dates variable.
+#' @keywords internal
 #'
 #' @examples
-#' \dontrun{
-#' df <- group_by(df, USUBJID) %>%
-#'   mutate(ADTM = get_random_dates_between(TRTSDTM, TRTEDTM, AVISITN))
-#' }
+#' df <- dplyr::left_join(
+#'   ADSL,
+#'   QS,
+#'   by = c("STUDYID", "USUBJID"),
+#'   multiple = "all"
+#' ) |>
+#'   dplyr::mutate(
+#'     AVISIT = VISIT,
+#'     PARAMCD = QSTESTCD,
+#'     AVISITN = VISITNUM
+#'   ) |>
+#'   dplyr::mutate(ADTM = random.cdisc.data:::get_random_dates_between(TRTSDTM, TRTEDTM, AVISITN))
+#' df
 get_random_dates_between <- function(from, to, visit_id) {
   min_date <- min(lubridate::as_datetime(from), na.rm = TRUE)
   max_date <- max(lubridate::as_datetime(to), na.rm = TRUE)
@@ -609,23 +607,19 @@ get_random_dates_between <- function(from, to, visit_id) {
   lubridate::as_datetime(out[match(visit_id, visit_ids)])
 }
 
-
-#' Prepare ADaM ADQLQC data, adding PARAMCD to SDTM QS data
+#' @describeIn h_adqlqc Prepare ADaM ADQLQC data, adding PARAMCD to SDTM QS data
 #'
-#' @param df SDTM QS
+#' @param df (`data.frame`)\cr SDTM QS dataset.
 #'
-#' @return data frame
-#'
-#' @importFrom stringr str_extract
-#' @importFrom dplyr select mutate left_join case_when
+#' @return `data.frame`
+#' @keywords internal
 #'
 #' @examples
-#' \dontrun{
-#' adqlqc1 <- prep_adqlqc(df = QS)
-#' }
+#' ADQLQC1 <- random.cdisc.data:::prep_adqlqc(df = QS)
+#' ADQLQC1
 prep_adqlqc <- function(df) {
   # create PARAMCD from QSTESTCD
-  adqlqc <- mutate(
+  adqlqc <- dplyr::mutate(
     df,
     PARAMCD = case_when(
       QSTESTCD == "EOR0101" ~ "QS02801",
@@ -661,7 +655,7 @@ prep_adqlqc <- function(df) {
       TRUE ~ QSTESTCD
     )
   )
-  adqlqc1 <- left_join(
+  adqlqc1 <- dplyr::left_join(
     adqlqc,
     gdsr_param_adqlqc,
     by = "PARAMCD"
@@ -669,21 +663,16 @@ prep_adqlqc <- function(df) {
   return(adqlqc1)
 }
 
-#' Scale calculation for ADQLQC data
+#' @describeIn h_adqlqc Scale calculation for ADQLQC data
 #'
-#' @param adqlqc1 prepared data generated from the prep_adqlqc function
+#' @param adqlqc1 (`data.frame`)\cr Prepared data generated from the [prep_adqlqc()] function.
 #'
-#' @return dataframe
-#'
-#' @import dplyr
-#' @importFrom stringr str_extract str_detect
-#'
-#'
+#' @return `data.frame`
+#' @keywords internal
 #'
 #' @examples
-#' \dontrun{
-#' df <- calc_scales(adqlqc1)
-#' }
+#' df_scales <- random.cdisc.data:::calc_scales(df)
+#' df_scales
 calc_scales <- function(adqlqc1) {
   # Prep scale data ---------------------------------------------------------
   # parcat2 = scales or global health status
@@ -954,18 +943,16 @@ calc_scales <- function(adqlqc1) {
   return(ADQLQCtmp)
 }
 
-#' Calculate Change from Baseline Category 1
+#' @describeIn h_adqlqc Calculate Change from Baseline Category 1
 #'
-#' @param dataset adam dataset
+#' @param dataset (`data.frame`)\cr ADaM dataset.
 #'
-#'
-#' @return dataframe
-#'
+#' @return `data.frame`
+#' @keywords internal
 #'
 #' @examples
-#' \dontrun{
-#' ADQLQC <- derv_chgcat1(dataset = ADQLQC)
-#' }
+#' ADQLQC <- random.cdisc.data:::derv_chgcat1(dataset = ADQLQC |> dplyr::select(-CHGCAT1))
+#' ADQLQC
 derv_chgcat1 <- function(dataset) {
   # derivation of CHGCAT1
   check_vars <- c("PARCAT2", "CHG")
@@ -1120,17 +1107,16 @@ derv_chgcat1 <- function(dataset) {
   }
 }
 
-#' Completion/Compliance data calculation
-#' @param dataset adam dataset
-#' @param percent Completion - Completed at least y percent of questions, 1 record per visit
-#' @param number Completion - Completed at least x question(s), 1 record per visit
-#' @return data frame
+#' @describeIn h_adqlqc Completion/Compliance Data Calculation
 #'
-#' @import dplyr
+#' @param dataset (`data.frame`)\cr Dataset.
+#'
+#' @return `data.frame`
+#' @keywords internal
+#'
 #' @examples
-#' \dontrun{
-#' compliance_data <- comp_derv(ADQLQC, 80, 2)
-#' }
+#' compliance_data <- random.cdisc.data:::comp_derv(ADQLQC, 80, 2)
+#' compliance_data
 comp_derv <- function(dataset, percent, number) {
   # original items data
   orig_data <- filter(
