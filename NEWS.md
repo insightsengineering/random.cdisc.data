@@ -36,6 +36,11 @@
 ### Miscellaneous
 * Updated installation method and aligned with other packages.
 * Updated tests to use `testthat` 3rd edition and added snapshot testing for random rows.
+* Implemented `lifecycle` package with stable badge for exported functions, and tagged internal functions.
+* Combined ADQLQC helper functions into the same documentation file.
+* Improved usability of examples.
+* Renamed `random.cdisc.data.R` file to `package.R` and cleaned up contents.
+* Added more detailed documentation for function parameters.
 
 # random.cdisc.data 0.3.13
 
