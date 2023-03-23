@@ -59,16 +59,18 @@ test_that("visit_schedule works with WEEK visit_format", {
   result <- random.cdisc.data:::visit_schedule(visit_format = "WEEK", n_assessments = 2L)
   expected <- factor(
     c("SCREENING", "BASELINE", "WEEK 1 DAY 8", "WEEK 2 DAY 15"),
+    levels = c("SCREENING", "BASELINE", "WEEK 1 DAY 8", "WEEK 2 DAY 15")
   )
-  expect_equal(result, expected, check.attributes = FALSE)
+  expect_equal(result, expected, ignore_attr = TRUE)
 })
 
 test_that("visit_schedule works with CycLe visit_format", {
   result <- random.cdisc.data:::visit_schedule(visit_format = "CycLe", n_assessments = 2L, n_days = 2L)
   expected <- factor(
-    c("SCREENING", "CYCLE 1 DAY 1", "CYCLE 1 DAY 2", "CYCLE 2 DAY 1", "CYCLE 2 DAY 2")
+    c("SCREENING", "CYCLE 1 DAY 1", "CYCLE 1 DAY 2", "CYCLE 2 DAY 1", "CYCLE 2 DAY 2"),
+    levels = c("SCREENING", "CYCLE 1 DAY 1", "CYCLE 1 DAY 2", "CYCLE 2 DAY 1", "CYCLE 2 DAY 2")
   )
-  expect_equal(result, expected, check.attributes = FALSE)
+  expect_equal(result, expected, ignore_attr = TRUE)
 })
 
 test_that("retain works as expected", {
@@ -107,13 +109,14 @@ test_that("replace_na works as expected", {
 test_that("mutate_na works as expected", {
   df <- data.frame(letters = letters[1:10], numbers = 1:10)
 
-  result <- expect_warning(random.cdisc.data:::mutate_na(
+  suppressWarnings(expect_warning(result <- random.cdisc.data:::mutate_na(
     df,
     na_vars = list(
       letters = c(1, 0.5),
       test = c(1, 1)
     )
-  ), "test not in column names")
+  ), "test not in column names"))
+
   expected <- c(NA, NA, "c", NA, "e", "f", NA, "h", NA, "j")
   expect_identical(result$letters, expected)
   expect_identical(result$numbers, 1:10)
@@ -133,7 +136,7 @@ test_that("rtexp works as expected", {
   set.seed(1)
   result <- rtexp(3, 5)
   expected <- c(0.15103637, 0.23632856, 0.02914135)
-  expect_equal(result, expected)
+  expect_equal(result, expected, tolerance = 1e-7)
 
   result <- rtexp(3, 5, l = 0.5)
   expected <- c(0.9776456, 0.5450496, 0.9573220)

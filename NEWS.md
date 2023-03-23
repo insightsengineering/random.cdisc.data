@@ -1,4 +1,4 @@
-# random.cdisc.data 0.3.13.9053
+# random.cdisc.data 0.3.13.9054
 
 ### New features
 * Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (`radab`).
@@ -35,6 +35,7 @@
 
 ### Miscellaneous
 * Updated installation method and aligned with other packages.
+* Updated tests to use `testthat` 3rd edition and added snapshot testing for random rows.
 
 # random.cdisc.data 0.3.13
 
