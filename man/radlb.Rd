@@ -11,7 +11,7 @@ radlb(
     "Immunoglobulin A Measurement"),
   paramcd = c("ALT", "CRP", "IGA"),
   paramu = c("U/L", "mg/L", "g/L"),
-  aval_mean = c(18, 9, 2.2),
+  aval_mean = c(18, 9, 2.9),
   visit_format = "WEEK",
   n_assessments = 5L,
   n_days = 5L,
