@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">random.cdisc.data</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.13.9054</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.13.9055</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,12 +30,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/random.cdisc.data/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -56,9 +50,25 @@
     </div>
 
     <div class="section level2">
+      <h2 id="overview-page">Overview Page<a class="anchor" aria-label="anchor" href="#overview-page"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="random.cdisc.data-package.html">random.cdisc.data</a></code> <code><a href="random.cdisc.data-package.html">random.cdisc.data-package</a></code> 
+        </dt>
+        <dd><code>random.cdisc.data</code> Package</dd>
+      </dl></div><div class="section level2">
       <h2 id="cdisc-domain-functions">CDISC Domain Functions<a class="anchor" aria-label="anchor" href="#cdisc-domain-functions"></a></h2>
       
-      <p class="section-desc"></p><p>These functions generate CDISC domains containing randomly assigned data</p>
+      <p class="section-desc"></p><p>These functions generate CDISC domains containing randomly assigned data.</p>
 
       
     </div><div id="" class="section level2">
@@ -75,7 +85,7 @@
           
           <code><a href="radab.html">radab()</a></code> 
         </dt>
-        <dd>Anti-drug Antibody Analysis Dataset (ADAB)</dd>
+        <dd>Anti-Drug Antibody Analysis Dataset (ADAB)</dd>
       </dl><dl><dt>
           
           <code><a href="radaette.html">radaette()</a></code> 
@@ -120,12 +130,12 @@
           
           <code><a href="radpc.html">radpc()</a></code> 
         </dt>
-        <dd>Pharmacokinetics Analysis Dataset</dd>
+        <dd>Pharmacokinetics Analysis Dataset (ADPC)</dd>
       </dl><dl><dt>
           
           <code><a href="radpp.html">radpp()</a></code> 
         </dt>
-        <dd>Pharmacokinetics Parameters Dataset</dd>
+        <dd>Pharmacokinetics Parameters Dataset (ADPP)</dd>
       </dl><dl><dt>
           
           <code><a href="radqlqc.html">radqlqc()</a></code> 
@@ -140,7 +150,7 @@
           
           <code><a href="radrs.html">radrs()</a></code> 
         </dt>
-        <dd>Tumor Response Analysis Data Set (ADRS)</dd>
+        <dd>Tumor Response Analysis Dataset (ADRS)</dd>
       </dl><dl><dt>
           
           <code><a href="radsaftte.html">radsaftte()</a></code> 
@@ -165,7 +175,7 @@
           
           <code><a href="radtte.html">radtte()</a></code> 
         </dt>
-        <dd>Time-to-Event Analysis Dataset (ATE)</dd>
+        <dd>Time-to-Event Analysis Dataset (ADTTE)</dd>
       </dl><dl><dt>
           
           <code><a href="radvs.html">radvs()</a></code> 
@@ -174,7 +184,7 @@
       </dl></div><div class="section level2">
       <h2 id="cached-datasets">Cached Datasets<a class="anchor" aria-label="anchor" href="#cached-datasets"></a></h2>
       
-      <p class="section-desc"></p><p>These datasets are attached in order speed up the example sections of the dependent packages. Note you can also use the <code>cached</code> option in thre respection <code>r*</code> function to retrieve these cached datasets.</p>
+      <p class="section-desc"></p><p>These datasets are attached in order speed up the example sections of the dependent packages. Note you can also use the <code>cached</code> option in the corresponding <code>r*</code> functions to retrieve these cached datasets.</p>
 
       
     </div><div id="" class="section level2">
@@ -285,7 +295,7 @@
       </dl></div><div class="section level2">
       <h2 id="utility-functions">Utility Functions<a class="anchor" aria-label="anchor" href="#utility-functions"></a></h2>
       
-      <p class="section-desc"></p><p>These functions are not exported but are documented for developers</p>
+      <p class="section-desc"></p><p>These functions are not exported but are documented for developers.</p>
 
       
     </div><div id="" class="section level2">
@@ -297,67 +307,42 @@
           
           <code><a href="apply_metadata.html">apply_metadata()</a></code> 
         </dt>
-        <dd>Metadata</dd>
+        <dd>Apply Metadata</dd>
       </dl><dl><dt>
           
-          <code><a href="calc_scales.html">calc_scales()</a></code> 
+          <code><a href="h_adqlqc.html">get_qs_data()</a></code> <code><a href="h_adqlqc.html">get_random_dates_between()</a></code> <code><a href="h_adqlqc.html">prep_adqlqc()</a></code> <code><a href="h_adqlqc.html">calc_scales()</a></code> <code><a href="h_adqlqc.html">derv_chgcat1()</a></code> <code><a href="h_adqlqc.html">comp_derv()</a></code> 
         </dt>
-        <dd>Scale calculation for ADQLQC data</dd>
-      </dl><dl><dt>
-          
-          <code><a href="comp_derv.html">comp_derv()</a></code> 
-        </dt>
-        <dd>Completion/Compliance data calculation</dd>
-      </dl><dl><dt>
-          
-          <code><a href="derv_chgcat1.html">derv_chgcat1()</a></code> 
-        </dt>
-        <dd>Calculate Change from Baseline Category 1</dd>
-      </dl><dl><dt>
-          
-          <code><a href="get_qs_data.html">get_qs_data()</a></code> 
-        </dt>
-        <dd>Questionnaires EORTC QLQ-C30 V3.0 SDTM (QS)</dd>
-      </dl><dl><dt>
-          
-          <code><a href="get_random_dates_between.html">get_random_dates_between()</a></code> 
-        </dt>
-        <dd>Function for generating random dates between 2 dates</dd>
+        <dd>Helper Functions for Constructing ADQLQC</dd>
       </dl><dl><dt>
           
           <code><a href="h_anthropometrics_by_sex.html">h_anthropometrics_by_sex()</a></code> 
         </dt>
-        <dd>Generate anthropometric measurements for males and females.</dd>
+        <dd>Generate Anthropometric Measurements for Males and Females.</dd>
       </dl><dl><dt>
           
           <code><a href="mutate_na.html">mutate_na()</a></code> 
         </dt>
-        <dd>NA: replace values</dd>
-      </dl><dl><dt>
-          
-          <code><a href="prep_adqlqc.html">prep_adqlqc()</a></code> 
-        </dt>
-        <dd>Prepare ADaM ADQLQC data, adding PARAMCD to SDTM QS data</dd>
+        <dd>Replace Values with NA</dd>
       </dl><dl><dt>
           
           <code><a href="rel_var.html">rel_var()</a></code> 
         </dt>
-        <dd>Related variables: assign</dd>
+        <dd>Related Variables: Assign</dd>
       </dl><dl><dt>
           
           <code><a href="relvar_init.html">relvar_init()</a></code> 
         </dt>
-        <dd>Related variables: initialize</dd>
+        <dd>Related Variables: Initialize</dd>
       </dl><dl><dt>
           
           <code><a href="replace_na.html">replace_na()</a></code> 
         </dt>
-        <dd>Replace values in a vector by NA</dd>
+        <dd>Replace Values in a Vector by NA</dd>
       </dl><dl><dt>
           
           <code><a href="retain.html">retain()</a></code> 
         </dt>
-        <dd>Primary keys: retain values</dd>
+        <dd>Primary Keys: Retain Values</dd>
       </dl><dl><dt>
           
           <code><a href="rtexp.html">rtexp()</a></code> 
@@ -367,38 +352,22 @@
           
           <code><a href="rtpois.html">rtpois()</a></code> 
         </dt>
-        <dd>Zero-truncated Poisson Distribution</dd>
+        <dd>Zero-Truncated Poisson Distribution</dd>
       </dl><dl><dt>
           
           <code><a href="sample_fct.html">sample_fct()</a></code> 
         </dt>
-        <dd>Create a factor with random elements of x</dd>
+        <dd>Create a Factor with Random Elements of x</dd>
       </dl><dl><dt>
           
           <code><a href="var_relabel.html">var_relabel()</a></code> 
         </dt>
-        <dd>Primary keys: labels</dd>
+        <dd>Primary Keys: Labels</dd>
       </dl><dl><dt>
           
           <code><a href="visit_schedule.html">visit_schedule()</a></code> 
         </dt>
-        <dd>Create visit schedule</dd>
-      </dl></div><div class="section level2">
-      <h2 id="package-build-related">Package Build Related<a class="anchor" aria-label="anchor" href="#package-build-related"></a></h2>
-      
-      <p class="section-desc"></p><p>These files facilitate package build</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="random.cdisc.data.html">random.cdisc.data</a></code> 
-        </dt>
-        <dd>Create Random SDTM and ADAM Datasets</dd>
+        <dd>Create Visit Schedule</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

@@ -37,6 +37,9 @@
     <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/apply_metadata.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/argument_convention.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/cadab.html</loc>
   </url>
   <url>
@@ -97,19 +100,7 @@
     <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/cadvs.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/calc_scales.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/comp_derv.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/derv_chgcat1.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/get_qs_data.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/get_random_dates_between.html</loc>
+    <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/h_adqlqc.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/h_anthropometrics_by_sex.html</loc>
@@ -119,9 +110,6 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/mutate_na.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/prep_adqlqc.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/radab.html</loc>
@@ -187,7 +175,7 @@
     <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/radvs.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/random.cdisc.data.html</loc>
+    <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/random.cdisc.data-package.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/random.cdisc.data/main/reference/rel_var.html</loc>
