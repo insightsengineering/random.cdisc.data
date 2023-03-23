@@ -69,7 +69,7 @@ Function for generating a random Pharmacokinetics Parameters Dataset for a given
 Subject-Level Analysis Dataset.
 }
 \details{
-One record per per study per subject per parameter category per parameter per visit.
+One record per study, subject, parameter category, parameter and visit.
 }
 \examples{
 library(random.cdisc.data)

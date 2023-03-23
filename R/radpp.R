@@ -5,7 +5,7 @@
 #' Function for generating a random Pharmacokinetics Parameters Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
-#' @details One record per per study per subject per parameter category per parameter per visit.
+#' @details One record per study, subject, parameter category, parameter and visit.
 #'
 #' @inheritParams argument_convention
 #' @param ppcat (`character vector`)\cr Categories of parameters.

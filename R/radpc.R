@@ -5,7 +5,7 @@
 #' Function for generating a random Pharmacokinetics Analysis Dataset for a given
 #' Subject-Level Analysis Dataset.
 #'
-#' @details One record per per study per subject per parameter per time point.
+#' @details One record per study, subject, parameter, and time point.
 #'
 #' @inheritParams argument_convention
 #' @param avalu (`character`)\cr Analysis value units.

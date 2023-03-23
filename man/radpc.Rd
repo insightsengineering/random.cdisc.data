@@ -49,7 +49,7 @@ Function for generating a random Pharmacokinetics Analysis Dataset for a given
 Subject-Level Analysis Dataset.
 }
 \details{
-One record per per study per subject per parameter per time point.
+One record per study, subject, parameter, and time point.
 }
 \examples{
 library(random.cdisc.data)
