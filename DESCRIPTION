@@ -30,10 +30,11 @@ Suggests:
     diffdf,
     knitr,
     rmarkdown,
-    testthat (>= 0.2)
+    testthat (>= 3.0)
 VignetteBuilder:
     knitr
 Config/Needs/website: insightsengineering/nesttemplate
+Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
 LazyData: true
