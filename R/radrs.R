@@ -22,11 +22,11 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADRS <- radrs(ADSL, seed = 2)
+#' ADRS <- radrs(adsl, seed = 2)
 #' ADRS
-radrs <- function(ADSL,
+radrs <- function(adsl,
                   avalc = NULL,
                   lookup = NULL,
                   seed = NULL,
@@ -38,7 +38,7 @@ radrs <- function(ADSL,
     return(get_cached_data("cadrs"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_vector(avalc, null.ok = TRUE)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
@@ -70,9 +70,9 @@ radrs <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
-  ADRS <- split(ADSL, ADSL$USUBJID) %>%
+  ADRS <- split(adsl, adsl$USUBJID) %>%
     lapply(function(pinfo) {
       probs <- dplyr::filter(lookup_ARS, ARM == as.character(pinfo$ACTARM))
 
@@ -162,7 +162,7 @@ radrs <- function(ADSL,
 
   ADRS <- dplyr::inner_join(
     dplyr::select(ADRS, -"SITEID"),
-    ADSL,
+    adsl,
     by = c("STUDYID", "USUBJID")
   )
 

@@ -28,10 +28,10 @@
 #' @examples
 #' library(random.cdisc.data)
 #'
-#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
-#' ADSL
+#' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
+#' adsl
 #'
-#' ADSL <- radsl(
+#' adsl <- radsl(
 #'   N = 10, seed = 1,
 #'   na_percentage = 0.1,
 #'   na_vars = list(
@@ -39,10 +39,10 @@
 #'     LSTALVDT = c(seed = 1234, percentage = 0.1)
 #'   )
 #' )
-#' ADSL
+#' adsl
 #'
-#' ADSL <- radsl(N = 10, seed = 1, na_percentage = .1)
-#' ADSL
+#' adsl <- radsl(N = 10, seed = 1, na_percentage = .1)
+#' adsl
 radsl <- function(N = 400,
                   study_duration = 2,
                   seed = NULL,
@@ -75,7 +75,7 @@ radsl <- function(N = 400,
   discons <- max(1, floor((N * .3)))
   country_site_prob <- c(.5, .121, .077, .077, .075, .052, .046, .025, .014, .003)
 
-  ADSL <- tibble::tibble(
+  adsl <- tibble::tibble(
     STUDYID = rep("AB12345", N),
     COUNTRY = sample_fct(
       c("CHN", "USA", "BRA", "PAK", "NGA", "RUS", "JPN", "GBR", "CAN", "CHE"),
@@ -116,7 +116,7 @@ radsl <- function(N = 400,
     dplyr::mutate(SAFFL = factor("Y")) %>%
     dplyr::arrange(TRTSDTM)
 
-  ADDS <- ADSL[sample(nrow(ADSL), discons), ] %>%
+  ADDS <- adsl[sample(nrow(adsl), discons), ] %>%
     dplyr::mutate(TRTEDTM_discon = sample(
       seq(from = max(TRTSDTM), to = sys_dtm + study_duration_secs, by = 1),
       size = discons,
@@ -125,7 +125,7 @@ radsl <- function(N = 400,
     dplyr::select(SUBJID, TRTSDTM, TRTEDTM_discon) %>%
     dplyr::arrange(TRTSDTM)
 
-  ADSL <- dplyr::left_join(ADSL, ADDS, by = c("SUBJID", "TRTSDTM")) %>%
+  adsl <- dplyr::left_join(adsl, ADDS, by = c("SUBJID", "TRTSDTM")) %>%
     dplyr::mutate(TRTEDTM = dplyr::case_when(
       !is.na(TRTEDTM_discon) ~ TRTEDTM_discon,
       TRTSDTM >= quantile(TRTSDTM)[2] & TRTSDTM <= quantile(TRTSDTM)[3] ~ lubridate::as_datetime(NA),
@@ -136,7 +136,7 @@ radsl <- function(N = 400,
   # add period 2 if needed
   if (with_trt02) {
     with_trt02 <- lubridate::seconds(lubridate::years(1))
-    ADSL <- ADSL %>%
+    adsl <- adsl %>%
       dplyr::mutate(TRT02P = sample(ARM)) %>%
       dplyr::mutate(TRT02A = sample(ACTARM)) %>%
       dplyr::mutate(
@@ -152,7 +152,7 @@ radsl <- function(N = 400,
       )
   }
 
-  ADSL <- ADSL %>%
+  adsl <- adsl %>%
     dplyr::mutate(EOSDT = lubridate::date(TRTEDTM)) %>%
     dplyr::mutate(EOSDY = ceiling(difftime(TRTEDTM, TRTSDTM))) %>%
     dplyr::mutate(EOSSTT = dplyr::case_when(
@@ -178,7 +178,7 @@ radsl <- function(N = 400,
     prob = c(.1, .3, .3, .2, .1)
   )
 
-  ADSL <- ADSL %>%
+  adsl <- adsl %>%
     dplyr::mutate(
       DCSREAS = ifelse(
         EOSSTT == "DISCONTINUED",
@@ -228,21 +228,21 @@ radsl <- function(N = 400,
     ))
 
   # add random ETHNIC (Ethnicity)
-  ADSL <- ADSL %>%
+  adsl <- adsl %>%
     dplyr::mutate(ETHNIC = sample(
       x = c("HISPANIC OR LATINO", "NOT HISPANIC OR LATINO", " NOT REPORTED", "UNKNOWN"),
       size = N, replace = TRUE, prob = c(.1, .8, .06, .04)
     ))
 
   # associate DTHADY (Relative Day of Death) with Death date
-  # Date of Death [ADSL.DTHDT] - date part of Date of First Exposure to Treatment [ADSL.TRTSDTM]
+  # Date of Death [adsl.DTHDT] - date part of Date of First Exposure to Treatment [adsl.TRTSDTM]
 
-  ADSL <- ADSL %>%
+  adsl <- adsl %>%
     dplyr::mutate(DTHADY = difftime(DTHDT, TRTSDTM, units = "days"))
 
 
   # associate sites with countries and regions
-  ADSL <- ADSL %>%
+  adsl <- adsl %>%
     dplyr::mutate(SITEID = paste0(COUNTRY, "-", SITEID)) %>%
     dplyr::mutate(REGION1 = dplyr::case_when(
       COUNTRY %in% c("NGA") ~ "Africa",
@@ -259,12 +259,12 @@ radsl <- function(N = 400,
 
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADSL <- mutate_na(ds = ADSL, na_vars = na_vars, na_percentage = na_percentage)
+    adsl <- mutate_na(ds = adsl, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADSL <- apply_metadata(ADSL, "metadata/ADSL.yml", FALSE)
+  adsl <- apply_metadata(adsl, "metadata/ADSL.yml", FALSE)
 
-  attr(ADSL, "study_duration_secs") <- as.numeric(study_duration_secs) # nolint
-  return(ADSL)
+  attr(adsl, "study_duration_secs") <- as.numeric(study_duration_secs) # nolint
+  return(adsl)
 }

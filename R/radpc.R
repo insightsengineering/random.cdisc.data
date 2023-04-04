@@ -19,14 +19,14 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADPC <- radpc(ADSL, seed = 2)
+#' ADPC <- radpc(adsl, seed = 2)
 #' ADPC
 #'
-#' ADPC <- radpc(ADSL, seed = 2, duration = 3)
+#' ADPC <- radpc(adsl, seed = 2, duration = 3)
 #' ADPC
-radpc <- function(ADSL,
+radpc <- function(adsl,
                   avalu = "ug/mL",
                   constants = c(D = 100, ka = 0.8, ke = 1),
                   duration = 2,
@@ -41,7 +41,7 @@ radpc <- function(ADSL,
     return(get_cached_data("cadpc"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_character(avalu, len = 1, any.missing = FALSE)
   checkmate::assert_subset(names(constants), c("D", "ka", "ke"))
   checkmate::assert_numeric(x = duration, max.len = 1)
@@ -57,12 +57,12 @@ radpc <- function(ADSL,
   radpc_core <- function(day) {
     adpc_day <- tidyr::expand_grid(
       data.frame(
-        STUDYID = ADSL$STUDYID,
-        USUBJID = ADSL$USUBJID,
-        ARMCD = ADSL$ARMCD,
+        STUDYID = adsl$STUDYID,
+        USUBJID = adsl$USUBJID,
+        ARMCD = adsl$ARMCD,
         A0 = unname(constants["D"]),
-        ka = unname(constants["ka"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2),
-        ke = unname(constants["ke"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2)
+        ka = unname(constants["ka"]) - stats::runif(length(adsl$USUBJID), -0.2, 0.2),
+        ke = unname(constants["ke"]) - stats::runif(length(adsl$USUBJID), -0.2, 0.2)
       ),
       PCTPTNUM = if (day == 1) c(0, 0.5, 1, 1.5, 2, 3, 4, 8, 12) else 24 * (day - 1),
       PARAM = factor(c("Plasma Drug X", "Urine Drug X", "Plasma Drug Y", "Urine Drug Y"))
@@ -117,7 +117,7 @@ radpc <- function(ADSL,
 
   ADPC <- do.call(rbind, ADPC)
 
-  ADPC <- dplyr::inner_join(ADPC, ADSL, by = c("STUDYID", "USUBJID", "ARMCD")) %>%
+  ADPC <- dplyr::inner_join(ADPC, adsl, by = c("STUDYID", "USUBJID", "ARMCD")) %>%
     dplyr::filter(ACTARM != "B: Placebo", !(ACTARM == "A: Drug X" & PARAM == "Plasma Drug Y"))
 
   if (length(na_vars) > 0 && na_percentage > 0) {

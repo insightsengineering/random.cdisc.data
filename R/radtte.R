@@ -19,11 +19,11 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADTTE <- radtte(ADSL, seed = 2)
+#' ADTTE <- radtte(adsl, seed = 2)
 #' ADTTE
-radtte <- function(ADSL,
+radtte <- function(adsl,
                    event.descr = NULL,
                    censor.descr = NULL,
                    lookup = NULL,
@@ -36,7 +36,7 @@ radtte <- function(ADSL,
     return(get_cached_data("cadtte"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_character(censor.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(event.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
@@ -46,7 +46,7 @@ radtte <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
   lookup_TTE <- if (!is.null(lookup)) {
@@ -92,7 +92,7 @@ radtte <- function(ADSL,
     )
   }
 
-  ADTTE <- split(ADSL, ADSL$USUBJID) %>%
+  ADTTE <- split(adsl, adsl$USUBJID) %>%
     lapply(FUN = function(pinfo) {
       lookup_TTE %>%
         dplyr::filter(ARM == as.character(pinfo$ACTARMCD)) %>%
@@ -131,7 +131,7 @@ radtte <- function(ADSL,
   # merge ADSL to be able to add TTE date and study day variables
   ADTTE <- dplyr::inner_join(
     dplyr::select(ADTTE, -"SITEID", -"ARM"),
-    ADSL,
+    adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%

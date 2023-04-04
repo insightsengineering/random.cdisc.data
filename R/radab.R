@@ -18,12 +18,12 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-#' ADPC <- radpc(ADSL, seed = 2, duration = 9 * 7)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+#' ADPC <- radpc(adsl, seed = 2, duration = 9 * 7)
 #'
-#' ADAB <- radab(ADSL, ADPC, seed = 2)
+#' ADAB <- radab(adsl, ADPC, seed = 2)
 #' ADAB
-radab <- function(ADSL,
+radab <- function(adsl,
                   ADPC,
                   constants = c(D = 100, ka = 0.8, ke = 1),
                   paramcd = c(
@@ -82,8 +82,8 @@ radab <- function(ADSL,
 
   ADPC <- ADPC %>% dplyr::filter(ASMED == "PLASMA")
   ADAB <- expand.grid(
-    STUDYID = unique(ADSL$STUDYID),
-    USUBJID = unique(ADSL$USUBJID),
+    STUDYID = unique(adsl$STUDYID),
+    USUBJID = unique(adsl$USUBJID),
     VISIT = unique(ADPC$VISIT),
     PARAM = as.factor(param_init_list$relvar1),
     PARCAT1 = "A: Drug X Antibody",

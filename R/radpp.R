@@ -18,11 +18,11 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADPP <- radpp(ADSL, seed = 2)
+#' ADPP <- radpp(adsl, seed = 2)
 #' ADPP
-radpp <- function(ADSL,
+radpp <- function(adsl,
                   ppcat = c("Plasma Drug X", "Plasma Drug Y", "Metabolite Drug X", "Metabolite Drug Y"),
                   ppspec = c(
                     "Plasma", "Plasma", "Plasma", "Matrix of PD", "Matrix of PD",
@@ -80,8 +80,8 @@ radpp <- function(ADSL,
   unit_init_list <- relvar_init(param, paramu)
 
   ADPP <- expand.grid(
-    STUDYID = unique(ADSL$STUDYID),
-    USUBJID = ADSL$USUBJID,
+    STUDYID = unique(adsl$STUDYID),
+    USUBJID = adsl$USUBJID,
     PPCAT = as.factor(ppcat),
     PARAM = as.factor(param_init_list$relvar1),
     AVISIT = visit_schedule(visit_format = visit_format, n_assessments = 1L, n_days = n_days),
@@ -137,7 +137,7 @@ radpp <- function(ADSL,
   ADPP <- ADPP %>%
     dplyr::left_join(T1_T2, by = c("PARAMCD"), multiple = "all")
 
-  ADPP <- dplyr::inner_join(ADPP, ADSL, by = c("STUDYID", "USUBJID")) %>%
+  ADPP <- dplyr::inner_join(ADPP, adsl, by = c("STUDYID", "USUBJID")) %>%
     dplyr::filter(ACTARM != "B: Placebo", !(ACTARM == "A: Drug X" &
       (PPCAT == "Plasma Drug Y" | PPCAT == "Metabolite Drug Y")))
 

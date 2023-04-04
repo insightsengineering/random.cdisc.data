@@ -21,11 +21,11 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADTR <- radtr(ADSL, seed = 2)
+#' ADTR <- radtr(adsl, seed = 2)
 #' ADTR
-radtr <- function(ADSL,
+radtr <- function(adsl,
                   param = c("Sum of Longest Diameter by Investigator"),
                   paramcd = c("SLDINV"),
                   seed = NULL,
@@ -35,7 +35,7 @@ radtr <- function(ADSL,
   if (cached) {
     return(get_cached_data("cadtr"))
   }
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
@@ -47,7 +47,7 @@ radtr <- function(ADSL,
   }
 
   # Make times consistent with ADRS at ADY and ADTM.
-  adrs <- radrs(ADSL, seed = seed, ...) %>%
+  adrs <- radrs(adsl, seed = seed, ...) %>%
     dplyr::filter(PARAMCD == "OVRINV") %>%
     dplyr::select(
       "STUDYID",
@@ -132,7 +132,7 @@ radtr <- function(ADSL,
     ) %>%
     dplyr::select(-"PCHG_DUM")
 
-  ADTR <- merge(ADSL, ADTR, by = c("STUDYID", "USUBJID")) %>%
+  ADTR <- merge(adsl, ADTR, by = c("STUDYID", "USUBJID")) %>%
     dplyr::group_by(USUBJID, PARAMCD) %>%
     dplyr::mutate(
       ONTRTFL = factor(dplyr::case_when(

@@ -19,9 +19,9 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+#' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 #'
-#' ADAE <- radae(ADSL, seed = 2)
+#' ADAE <- radae(adsl, seed = 2)
 #' ADAE
 #'
 #' # Add metadata.
@@ -39,7 +39,7 @@
 #'   ), stringsAsFactors = FALSE
 #' )
 #'
-#' ADAE <- radae(ADSL, lookup_aag = AAG)
+#' ADAE <- radae(adsl, lookup_aag = AAG)
 #'
 #' with(
 #'   ADAE,
@@ -48,7 +48,7 @@
 #'     table(AEDECOD, CQ01NAM)
 #'   )
 #' )
-radae <- function(ADSL,
+radae <- function(adsl,
                   max_n_aes = 10L,
                   lookup = NULL,
                   lookup_aag = NULL,
@@ -65,7 +65,7 @@ radae <- function(ADSL,
     return(get_cached_data("cadae"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_integer(max_n_aes, len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
@@ -111,7 +111,7 @@ radae <- function(ADSL,
   }
 
   if (!is.null(seed)) set.seed(seed)
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
   ADAE <- Map(
     function(id, sid) {
@@ -123,8 +123,8 @@ radae <- function(ADSL,
         STUDYID = sid
       )
     },
-    ADSL$USUBJID,
-    ADSL$STUDYID
+    adsl$USUBJID,
+    adsl$STUDYID
   ) %>%
     Reduce(rbind, .) %>%
     `[`(c(10, 11, 1, 2, 3, 4, 5, 6, 7, 8, 9)) %>%
@@ -141,8 +141,8 @@ radae <- function(ADSL,
     USUBJID = "Unique Subject Identifier"
   )
 
-  # merge ADSL to be able to add AE date and study day variables
-  ADAE <- dplyr::inner_join(ADAE, ADSL, by = c("STUDYID", "USUBJID")) %>%
+  # merge adsl to be able to add AE date and study day variables
+  ADAE <- dplyr::inner_join(ADAE, adsl, by = c("STUDYID", "USUBJID")) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
       is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),

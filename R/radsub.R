@@ -22,9 +22,9 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 5, seed = 1)
+#' adsl <- radsl(N = 5, seed = 1)
 #'
-#' df_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = ADSL)
+#' df_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = adsl)
 #' df_with_measurements
 h_anthropometrics_by_sex <- function(df,
                                      seed = 1,
@@ -98,11 +98,11 @@ h_anthropometrics_by_sex <- function(df,
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADSUB <- radsub(ADSL, seed = 2)
+#' ADSUB <- radsub(adsl, seed = 2)
 #' ADSUB
-radsub <- function(ADSL,
+radsub <- function(adsl,
                    param = c(
                      "Baseline Weight",
                      "Baseline Height",
@@ -120,7 +120,7 @@ radsub <- function(ADSL,
     return(get_cached_data("cadsub"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
@@ -135,8 +135,8 @@ radsub <- function(ADSL,
   }
 
   ADSUB <- expand.grid(
-    STUDYID = unique(ADSL$STUDYID),
-    USUBJID = ADSL$USUBJID,
+    STUDYID = unique(adsl$STUDYID),
+    USUBJID = adsl$USUBJID,
     PARAM = as.factor(param_init_list$relvar1),
     AVISIT = "BASELINE",
     stringsAsFactors = FALSE
@@ -161,7 +161,7 @@ radsub <- function(ADSL,
   # Sample ADTM to be a few days before TRTSDTM.
   ADSUB <- dplyr::inner_join(
     ADSUB,
-    ADSL,
+    adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::group_by(USUBJID) %>%

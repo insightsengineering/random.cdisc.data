@@ -20,14 +20,14 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADCM <- radcm(ADSL, seed = 2)
+#' ADCM <- radcm(adsl, seed = 2)
 #' ADCM
 #'
-#' ADCM_WHO <- radcm(ADSL, seed = 2, who_coding = TRUE)
+#' ADCM_WHO <- radcm(adsl, seed = 2, who_coding = TRUE)
 #' ADCM_WHO
-radcm <- function(ADSL,
+radcm <- function(adsl,
                   max_n_cms = 10L,
                   lookup = NULL,
                   seed = NULL,
@@ -40,7 +40,7 @@ radcm <- function(ADSL,
     return(get_cached_data("cadcm"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_integer(max_n_cms, len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
@@ -68,7 +68,7 @@ radcm <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
   ADCM <- Map(function(id, sid) {
     n_cms <- sample(c(0, seq_len(max_n_cms)), 1)
@@ -78,7 +78,7 @@ radcm <- function(ADSL,
       USUBJID = id,
       STUDYID = sid
     )
-  }, ADSL$USUBJID, ADSL$STUDYID) %>%
+  }, adsl$USUBJID, adsl$STUDYID) %>%
     Reduce(rbind, .) %>%
     `[`(c(4, 5, 1, 2, 3)) %>%
     dplyr::mutate(CMCAT = CMCLAS)
@@ -92,7 +92,7 @@ radcm <- function(ADSL,
   # merge ADSL to be able to add CM date and study day variables
   ADCM <- dplyr::inner_join(
     ADCM,
-    ADSL,
+    adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%

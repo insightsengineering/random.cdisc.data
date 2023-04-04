@@ -22,11 +22,11 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADAETTE <- radaette(ADSL, seed = 2)
+#' ADAETTE <- radaette(adsl, seed = 2)
 #' ADAETTE
-radaette <- function(ADSL,
+radaette <- function(adsl,
                      event.descr = NULL,
                      censor.descr = NULL,
                      lookup = NULL,
@@ -39,7 +39,7 @@ radaette <- function(ADSL,
     return(get_cached_data("cadaette"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_character(censor.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(event.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
@@ -67,7 +67,7 @@ radaette <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
   evntdescr_sel <- if (!is.null(event.descr)) {
     event.descr
@@ -118,12 +118,12 @@ radaette <- function(ADSL,
   paramcd_hy <- c("HYSTTEUL", "HYSTTEBL")
   param_hy <- c("Time to Hy's Law Elevation in relation to ULN", "Time to Hy's Law Elevation in relation to Baseline")
   param_init_list <- relvar_init(param_hy, paramcd_hy)
-  adsl_hy <- dplyr::select(ADSL, "STUDYID", "USUBJID", "TRTSDTM", "SITEID", "ARM")
+  adsl_hy <- dplyr::select(adsl, "STUDYID", "USUBJID", "TRTSDTM", "SITEID", "ARM")
 
   # create all combinations of unique values in STUDYID, USUBJID, PARAM, AVISIT
   adaette_hy <- expand.grid(
-    STUDYID = unique(ADSL$STUDYID),
-    USUBJID = ADSL$USUBJID,
+    STUDYID = unique(adsl$STUDYID),
+    USUBJID = adsl$USUBJID,
     PARAM = as.factor(param_init_list$relvar1),
     stringsAsFactors = FALSE
   )
@@ -213,7 +213,7 @@ radaette <- function(ADSL,
     )
   }
 
-  ADAETTE <- split(ADSL, ADSL$USUBJID) %>%
+  ADAETTE <- split(adsl, adsl$USUBJID) %>%
     lapply(function(patient_info) {
       patient_data <- random_patient_data(patient_info)
       lookup_arm <- lookup_ADAETTE %>%
@@ -239,7 +239,7 @@ radaette <- function(ADSL,
 
   ADAETTE <- dplyr::inner_join(
     dplyr::select(ADAETTE, -"SITEID", -"ARM"),
-    ADSL,
+    adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::group_by(USUBJID) %>%

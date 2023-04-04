@@ -20,14 +20,14 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADVS <- radvs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+#' ADVS <- radvs(adsl, visit_format = "WEEK", n_assessments = 7L, seed = 2)
 #' ADVS
 #'
-#' ADVS <- radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
+#' ADVS <- radvs(adsl, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
 #' ADVS
-radvs <- function(ADSL,
+radvs <- function(adsl,
                   param = c(
                     "Diastolic Blood Pressure",
                     "Pulse Rate",
@@ -52,7 +52,7 @@ radvs <- function(ADSL,
     return(get_cached_data("cadvs"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(paramu, min.len = 1, any.missing = FALSE)
@@ -70,11 +70,11 @@ radvs <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
   ADVS <- expand.grid(
-    STUDYID = unique(ADSL$STUDYID),
-    USUBJID = ADSL$USUBJID,
+    STUDYID = unique(adsl$STUDYID),
+    USUBJID = adsl$USUBJID,
     PARAM = as.factor(param_init_list$relvar1),
     AVISIT = visit_schedule(visit_format = visit_format, n_assessments = n_assessments),
     stringsAsFactors = FALSE
@@ -123,7 +123,7 @@ radvs <- function(ADSL,
   ADVS <- ADVS[order(ADVS$STUDYID, ADVS$USUBJID, ADVS$PARAMCD, ADVS$AVISITN), ]
 
   ADVS <- Reduce(rbind, lapply(split(ADVS, ADVS$USUBJID), function(x) {
-    x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])]
+    x$STUDYID <- adsl$STUDYID[which(adsl$USUBJID == x$USUBJID[1])]
     x$ABLFL2 <- ifelse(x$AVISIT == "SCREENING", "Y", "")
     x$ABLFL <- ifelse(
       toupper(visit_format) == "WEEK" & x$AVISIT == "BASELINE",
@@ -186,8 +186,8 @@ radvs <- function(ADSL,
     dplyr::mutate(ATPTN = 1) %>%
     dplyr::mutate(DTYPE = NA) %>%
     var_relabel(
-      USUBJID = attr(ADSL$USUBJID, "label"),
-      STUDYID = attr(ADSL$STUDYID, "label")
+      USUBJID = attr(adsl$USUBJID, "label"),
+      STUDYID = attr(adsl$STUDYID, "label")
     )
 
   ADVS <- var_relabel(
@@ -199,7 +199,7 @@ radvs <- function(ADSL,
   # merge ADSL to be able to add LB date and study day variables
   ADVS <- dplyr::inner_join(
     ADVS,
-    ADSL,
+    adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%

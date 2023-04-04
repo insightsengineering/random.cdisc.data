@@ -22,11 +22,11 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+#' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 #'
-#' ADEX <- radex(ADSL, seed = 2)
+#' ADEX <- radex(adsl, seed = 2)
 #' ADEX
-radex <- function(ADSL,
+radex <- function(adsl,
                   param = c(
                     "Dose administered during constant dosing interval",
                     "Number of doses administered during constant dosing interval",
@@ -51,7 +51,7 @@ radex <- function(ADSL,
     return(get_cached_data("cadex"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(parcat1, min.len = 1, any.missing = FALSE)
@@ -72,11 +72,11 @@ radex <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
   ADEX <- expand.grid(
-    STUDYID = unique(ADSL$STUDYID),
-    USUBJID = ADSL$USUBJID,
+    STUDYID = unique(adsl$STUDYID),
+    USUBJID = adsl$USUBJID,
     PARAM = c(
       rep(
         param_init_list$relvar1[1],
@@ -221,7 +221,7 @@ radex <- function(ADSL,
   )
 
   # merge ADSL to be able to add ADEX date and study day variables
-  ADEX <- dplyr::inner_join(ADEX, ADSL, by = c("STUDYID", "USUBJID")) %>%
+  ADEX <- dplyr::inner_join(ADEX, adsl, by = c("STUDYID", "USUBJID")) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
       is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),

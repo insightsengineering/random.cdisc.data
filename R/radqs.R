@@ -20,14 +20,14 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADQS <- radqs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+#' ADQS <- radqs(adsl, visit_format = "WEEK", n_assessments = 7L, seed = 2)
 #' ADQS
 #'
-#' ADQS <- radqs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
+#' ADQS <- radqs(adsl, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
 #' ADQS
-radqs <- function(ADSL,
+radqs <- function(adsl,
                   param = c(
                     "BFI All Questions",
                     "Fatigue Interference",
@@ -51,7 +51,7 @@ radqs <- function(ADSL,
     return(get_cached_data("cadqs"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
   checkmate::assert_string(visit_format)
@@ -67,11 +67,11 @@ radqs <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
   ADQS <- expand.grid(
-    STUDYID = unique(ADSL$STUDYID),
-    USUBJID = ADSL$USUBJID,
+    STUDYID = unique(adsl$STUDYID),
+    USUBJID = adsl$USUBJID,
     PARAM = param_init_list$relvar1,
     AVISIT = visit_schedule(visit_format = visit_format, n_assessments = n_assessments, n_days = n_days),
     stringsAsFactors = FALSE
@@ -104,7 +104,7 @@ radqs <- function(ADSL,
     lapply(
       split(ADQS, ADQS$USUBJID),
       function(x) {
-        x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])]
+        x$STUDYID <- adsl$STUDYID[which(adsl$USUBJID == x$USUBJID[1])]
         x$ABLFL2 <- ifelse(x$AVISIT == "SCREENING", "Y", "")
         x$ABLFL <- ifelse(
           toupper(visit_format) == "WEEK" & x$AVISIT == "BASELINE",
@@ -130,8 +130,8 @@ radqs <- function(ADSL,
     dplyr::mutate(CHG = AVAL - BASE) %>%
     dplyr::mutate(PCHG = 100 * (CHG / BASE)) %>%
     var_relabel(
-      STUDYID = attr(ADSL$STUDYID, "label"),
-      USUBJID = attr(ADSL$USUBJID, "label")
+      STUDYID = attr(adsl$STUDYID, "label"),
+      USUBJID = attr(adsl$USUBJID, "label")
     )
 
   ADQS <- var_relabel(
@@ -143,7 +143,7 @@ radqs <- function(ADSL,
   # merge ADSL to be able to add QS date and study day variables
   ADQS <- dplyr::inner_join(
     ADQS,
-    ADSL,
+    adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%

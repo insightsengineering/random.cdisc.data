@@ -20,11 +20,11 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+#' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 #'
-#' ADQLQC <- radqlqc(ADSL, seed = 1, percent = 80, number = 2)
+#' ADQLQC <- radqlqc(adsl, seed = 1, percent = 80, number = 2)
 #' ADQLQC
-radqlqc <- function(ADSL,
+radqlqc <- function(adsl,
                     percent,
                     number,
                     seed = NULL,
@@ -34,7 +34,7 @@ radqlqc <- function(ADSL,
     return(get_cached_data("cadqlqc"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_number(percent, lower = 1, upper = 100)
   checkmate::assert_number(number, lower = 1)
 
@@ -43,7 +43,7 @@ radqlqc <- function(ADSL,
   }
 
   # ADQLQC data -------------------------------------------------------------
-  QS <- get_qs_data(ADSL, n_assessments = 5L, seed = seed, na_percentage = 0.1)
+  QS <- get_qs_data(adsl, n_assessments = 5L, seed = seed, na_percentage = 0.1)
   # prepare ADaM adqlqc data
   adqlqc1 <- prep_adqlqc(df = QS)
   # derive AVAL and AVALC
@@ -68,7 +68,7 @@ radqlqc <- function(ADSL,
     lapply(
       split(ADQLQCtmp, ADQLQCtmp$USUBJID),
       function(x) {
-        x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])]
+        x$STUDYID <- adsl$STUDYID[which(adsl$USUBJID == x$USUBJID[1])]
         x$ABLFL2 <- ifelse(x$AVISIT == "SCREENING", "Y", "")
         x$ABLFL <- ifelse(
           x$AVISIT == "BASELINE" &
@@ -113,8 +113,8 @@ radqlqc <- function(ADSL,
     dplyr::mutate(CHG = AVAL - BASE) %>%
     dplyr::mutate(PCHG = 100 * (CHG / BASE)) %>%
     var_relabel(
-      STUDYID = attr(ADSL$STUDYID, "label"),
-      USUBJID = attr(ADSL$USUBJID, "label")
+      STUDYID = attr(adsl$STUDYID, "label"),
+      USUBJID = attr(adsl$USUBJID, "label")
     )
   # derive CHGCAT1 ----------------------------------------------------------
   ADQLQCtmp <- derv_chgcat1(dataset = ADQLQCtmp)
@@ -138,13 +138,13 @@ radqlqc <- function(ADSL,
     "SEX", "RACE", "ITTFL", "SAFFL", "PPROTFL", "TRT01P", "TRT01A",
     "TRTSEQP", "TRTSEQA", "TRTSDTM", "TRTSDT", "TRTEDTM", "TRTEDT", "DCUTDT"
   )
-  ADSL <- select(
-    ADSL,
+  adsl <- select(
+    adsl,
     any_of(adsl_vars)
   )
   ADQLQC <- dplyr::inner_join(
     ADQLQCtmp,
-    ADSL,
+    adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::mutate(
@@ -165,7 +165,7 @@ radqlqc <- function(ADSL,
   # add ADSL variables
   compliance_data <- left_join(
     compliance_data,
-    ADSL,
+    adsl,
     by = c("STUDYID", "USUBJID")
   )
   # add completion to ADQLQC
@@ -263,8 +263,8 @@ radqlqc <- function(ADSL,
 #' @inheritParams radqlqc
 #'
 #' @examples
-#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
-#' ADQLQC <- radqlqc(ADSL, seed = 1, percent = 80, number = 2)
+#' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
+#' ADQLQC <- radqlqc(adsl, seed = 1, percent = 80, number = 2)
 #'
 #' @name h_adqlqc
 NULL
@@ -277,9 +277,9 @@ NULL
 #' @keywords internal
 #'
 #' @examples
-#' QS <- random.cdisc.data:::get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1)
+#' QS <- random.cdisc.data:::get_qs_data(adsl, n_assessments = 5L, seed = 1, na_percentage = 0.1)
 #' QS
-get_qs_data <- function(ADSL,
+get_qs_data <- function(adsl,
                         visit_format = "CYCLE",
                         n_assessments = 5L,
                         n_days = 1L,
@@ -301,7 +301,7 @@ get_qs_data <- function(ADSL,
   # get subjects for QS data from ADSL
   # get studyid, subject for QS generation
   QS <- select(
-    ADSL,
+    adsl,
     STUDYID,
     USUBJID
   ) %>%
@@ -422,19 +422,19 @@ get_qs_data <- function(ADSL,
 
   # add date: QSDTC ---------------------------------------------------------
   # get treatment dates from ADSL
-  ADSL_trt <- select(
-    ADSL,
+  adsl_trt <- select(
+    adsl,
     USUBJID,
     TRTSDTM,
     TRTEDTM
   )
   # use to derive QSDTC
   # if no treatment end date, create an arbituary one
-  trt_end_date <- max(ADSL_trt$TRTEDTM, na.rm = TRUE)
+  trt_end_date <- max(adsl_trt$TRTEDTM, na.rm = TRUE)
 
   lookup_QS_sub_x <- left_join(
     lookup_QS_sub_x,
-    ADSL_trt,
+    adsl_trt,
     by = "USUBJID"
   ) %>%
     group_by(
@@ -572,7 +572,7 @@ get_qs_data <- function(ADSL,
 #'
 #' @examples
 #' df <- dplyr::left_join(
-#'   ADSL,
+#'   adsl,
 #'   QS,
 #'   by = c("STUDYID", "USUBJID"),
 #'   multiple = "all"

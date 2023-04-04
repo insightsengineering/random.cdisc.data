@@ -20,11 +20,11 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADHY <- radhy(ADSL, seed = 2)
+#' ADHY <- radhy(adsl, seed = 2)
 #' ADHY
-radhy <- function(ADSL,
+radhy <- function(adsl,
                   param = c(
                     "TBILI <= 2 times ULN and ALT value category",
                     "TBILI > 2 times ULN and AST value category",
@@ -81,7 +81,7 @@ radhy <- function(ADSL,
     return(get_cached_data("cadhy"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
@@ -92,12 +92,12 @@ radhy <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
   # create all combinations of unique values in STUDYID, USUBJID, PARAM, AVISIT
   ADHY <- expand.grid(
-    STUDYID = unique(ADSL$STUDYID),
-    USUBJID = ADSL$USUBJID,
+    STUDYID = unique(adsl$STUDYID),
+    USUBJID = adsl$USUBJID,
     PARAM = as.factor(param_init_list$relvar1),
     AVISIT = as.factor(c("BASELINE", "POST-BASELINE")),
     APERIODC = as.factor(c("PERIOD 1", "PERIOD 2")),
@@ -170,12 +170,12 @@ radhy <- function(ADSL,
 
   ADHY <- ADHY %>%
     var_relabel(
-      STUDYID = attr(ADSL$STUDYID, "label"),
-      USUBJID = attr(ADSL$USUBJID, "label")
+      STUDYID = attr(adsl$STUDYID, "label"),
+      USUBJID = attr(adsl$USUBJID, "label")
     )
 
   # merge ADSL to be able to add analysis datetime and analysis relative day variables
-  ADHY <- dplyr::inner_join(ADHY, ADSL, by = c("STUDYID", "USUBJID"))
+  ADHY <- dplyr::inner_join(ADHY, adsl, by = c("STUDYID", "USUBJID"))
 
   # define a simple helper function to create ADY variable
   add_ady <- function(x, avisit) {
@@ -210,7 +210,7 @@ radhy <- function(ADSL,
   # order columns and arrange rows; column order follows ADaM_1.1 specification
   ADHY <-
     ADHY[, c(
-      colnames(ADSL),
+      colnames(adsl),
       "PARAM",
       "PARAMCD",
       "AVAL",

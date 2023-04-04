@@ -12,7 +12,7 @@
 #'   \item{`percentage` (`proportion`)\cr Percentage of elements to be replaced with `NA`.
 #'   If `NA`, `na_percentage` is used as a default.}
 #' }
-#' @param ADSL (`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).
+#' @param adsl (`data.frame`)\cr Subject-Level Analysis Dataset (ADSL).
 #' @param lookup (`data.frame`)\cr Additional parameters.
 #' @param lookup_aag (`data.frame`)\cr Additional metadata parameters.
 #' @param param (`character vector`)\cr Parameter values.

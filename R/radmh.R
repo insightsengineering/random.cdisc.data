@@ -19,11 +19,11 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+#' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 #'
-#' ADMH <- radmh(ADSL, seed = 2)
+#' ADMH <- radmh(adsl, seed = 2)
 #' ADMH
-radmh <- function(ADSL,
+radmh <- function(adsl,
                   max_n_mhs = 10L,
                   lookup = NULL,
                   seed = NULL,
@@ -35,7 +35,7 @@ radmh <- function(ADSL,
     return(get_cached_data("cadmh"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_integer(max_n_mhs, len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
@@ -63,7 +63,7 @@ radmh <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
   ADMH <- Map(
     function(id, sid) {
@@ -75,8 +75,8 @@ radmh <- function(ADSL,
         STUDYID = sid
       )
     },
-    ADSL$USUBJID,
-    ADSL$STUDYID
+    adsl$USUBJID,
+    adsl$STUDYID
   ) %>%
     Reduce(rbind, .) %>%
     `[`(c(4, 5, 1, 2, 3)) %>%
@@ -91,7 +91,7 @@ radmh <- function(ADSL,
   # merge ADSL to be able to add MH date and study day variables
   ADMH <- dplyr::inner_join(
     ADMH,
-    ADSL,
+    adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%
