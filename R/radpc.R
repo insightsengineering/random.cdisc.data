@@ -21,11 +21,11 @@
 #' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADPC <- radpc(adsl, seed = 2)
-#' ADPC
+#' adpc <- radpc(adsl, seed = 2)
+#' adpc
 #'
-#' ADPC <- radpc(adsl, seed = 2, duration = 3)
-#' ADPC
+#' adpc <- radpc(adsl, seed = 2, duration = 3)
+#' adpc
 radpc <- function(adsl,
                   avalu = "ug/mL",
                   constants = c(D = 100, ka = 0.8, ke = 1),
@@ -109,20 +109,20 @@ radpc <- function(adsl,
     return(adpc_day)
   }
 
-  ADPC <- list()
+  adpc <- list()
 
   for (day in seq(duration)[seq(duration) <= 7 | ((seq(duration) - 1) %% 7 == 0)]) {
-    ADPC[[day]] <- radpc_core(day = day)
+    adpc[[day]] <- radpc_core(day = day)
   }
 
-  ADPC <- do.call(rbind, ADPC)
+  adpc <- do.call(rbind, adpc)
 
-  ADPC <- dplyr::inner_join(ADPC, adsl, by = c("STUDYID", "USUBJID", "ARMCD")) %>%
+  adpc <- dplyr::inner_join(adpc, adsl, by = c("STUDYID", "USUBJID", "ARMCD")) %>%
     dplyr::filter(ACTARM != "B: Placebo", !(ACTARM == "A: Drug X" & PARAM == "Plasma Drug Y"))
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADPC <- mutate_na(ds = ADPC, na_vars = na_vars, na_percentage = na_percentage)
+    adpc <- mutate_na(ds = adpc, na_vars = na_vars, na_percentage = na_percentage)
   }
 
-  ADPC <- apply_metadata(ADPC, "metadata/ADPC.yml")
+  adpc <- apply_metadata(adpc, "metadata/adpc.yml")
 }

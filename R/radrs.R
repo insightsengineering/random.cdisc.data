@@ -24,8 +24,8 @@
 #' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADRS <- radrs(adsl, seed = 2)
-#' ADRS
+#' adrs <- radrs(adsl, seed = 2)
+#' adrs
 radrs <- function(adsl,
                   avalc = NULL,
                   lookup = NULL,
@@ -51,7 +51,7 @@ radrs <- function(adsl,
   }
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
-  lookup_ARS <- if (!is.null(lookup)) {
+  lookup_ars <- if (!is.null(lookup)) {
     lookup
   } else {
     expand.grid(
@@ -72,9 +72,9 @@ radrs <- function(adsl,
   }
   study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
-  ADRS <- split(adsl, adsl$USUBJID) %>%
+  adrs <- split(adsl, adsl$USUBJID) %>%
     lapply(function(pinfo) {
-      probs <- dplyr::filter(lookup_ARS, ARM == as.character(pinfo$ACTARM))
+      probs <- dplyr::filter(lookup_ars, ARM == as.character(pinfo$ACTARM))
 
       # screening
       rsp_screen <- sample(probs$AVALC, 1, prob = probs$p_scr) %>% as.character()
@@ -151,8 +151,8 @@ radrs <- function(adsl,
       USUBJID = "Unique Subject Identifier"
     )
 
-  ADRS <- var_relabel(
-    ADRS,
+  adrs <- var_relabel(
+    adrs,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
@@ -160,13 +160,13 @@ radrs <- function(adsl,
   # merge ADSL to be able to add RS date and study day variables
 
 
-  ADRS <- dplyr::inner_join(
-    dplyr::select(ADRS, -"SITEID"),
+  adrs <- dplyr::inner_join(
+    dplyr::select(adrs, -"SITEID"),
     adsl,
     by = c("STUDYID", "USUBJID")
   )
 
-  ADRS <- ADRS %>%
+  adrs <- adrs %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(RSSEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = RSSEQ) %>%
@@ -181,11 +181,11 @@ radrs <- function(adsl,
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADRS <- mutate_na(ds = ADRS, na_vars = na_vars, na_percentage = na_percentage)
+    adrs <- mutate_na(ds = adrs, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADRS <- apply_metadata(ADRS, "metadata/ADRS.yml")
+  adrs <- apply_metadata(adrs, "metadata/adrs.yml")
 
-  return(ADRS)
+  return(adrs)
 }

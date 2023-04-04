@@ -24,8 +24,8 @@
 #' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADAETTE <- radaette(adsl, seed = 2)
-#' ADAETTE
+#' adaette <- radaette(adsl, seed = 2)
+#' adaette
 radaette <- function(adsl,
                      event.descr = NULL,
                      censor.descr = NULL,
@@ -47,7 +47,7 @@ radaette <- function(adsl,
   checkmate::assert_true(na_percentage < 1)
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
-  lookup_ADAETTE <- if (!is.null(lookup)) {
+  lookup_adaette <- if (!is.null(lookup)) {
     lookup
   } else {
     tibble::tribble(
@@ -213,10 +213,10 @@ radaette <- function(adsl,
     )
   }
 
-  ADAETTE <- split(adsl, adsl$USUBJID) %>%
+  adaette <- split(adsl, adsl$USUBJID) %>%
     lapply(function(patient_info) {
       patient_data <- random_patient_data(patient_info)
-      lookup_arm <- lookup_ADAETTE %>%
+      lookup_arm <- lookup_adaette %>%
         dplyr::filter(ARM == as.character(patient_info$ARMCD))
       ae_data <- split(lookup_arm, lookup_arm$CATCD) %>%
         lapply(random_ae_data, patient_data = patient_data, patient_info = patient_info) %>%
@@ -229,16 +229,16 @@ radaette <- function(adsl,
       USUBJID = "Unique Subject Identifier"
     )
 
-  ADAETTE <- var_relabel(
-    ADAETTE,
+  adaette <- var_relabel(
+    adaette,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
-  ADAETTE <- rbind(ADAETTE, adaette_hy)
+  adaette <- rbind(adaette, adaette_hy)
 
-  ADAETTE <- dplyr::inner_join(
-    dplyr::select(ADAETTE, -"SITEID", -"ARM"),
+  adaette <- dplyr::inner_join(
+    dplyr::select(adaette, -"SITEID", -"ARM"),
     adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
@@ -258,11 +258,11 @@ radaette <- function(adsl,
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADAETTE <- dplyr::mutate(ds = ADAETTE, na_vars = na_vars, na_percentage = na_percentage)
+    adaette <- dplyr::mutate(ds = adaette, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADAETTE <- apply_metadata(ADAETTE, "metadata/ADAETTE.yml")
+  adaette <- apply_metadata(adaette, "metadata/adaette.yml")
 
-  return(ADAETTE)
+  return(adaette)
 }

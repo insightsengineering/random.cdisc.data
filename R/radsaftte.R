@@ -17,8 +17,8 @@
 #' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADSAFTTE <- radsaftte(adsl, seed = 2)
-#' ADSAFTTE
+#' adsaftte <- radsaftte(adsl, seed = 2)
+#' adsaftte
 radsaftte <- function(adsl,
                       ...) {
   radaette(adsl = adsl, ...)

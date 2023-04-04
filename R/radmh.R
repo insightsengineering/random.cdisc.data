@@ -21,8 +21,8 @@
 #' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 #'
-#' ADMH <- radmh(adsl, seed = 2)
-#' ADMH
+#' admh <- radmh(adsl, seed = 2)
+#' admh
 radmh <- function(adsl,
                   max_n_mhs = 10L,
                   lookup = NULL,
@@ -65,7 +65,7 @@ radmh <- function(adsl,
   }
   study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
-  ADMH <- Map(
+  admh <- Map(
     function(id, sid) {
       n_mhs <- sample(0:max_n_mhs, 1)
       i <- sample(seq_len(nrow(lookup_mh)), n_mhs, TRUE)
@@ -82,15 +82,15 @@ radmh <- function(adsl,
     `[`(c(4, 5, 1, 2, 3)) %>%
     dplyr::mutate(MHTERM = MHDECOD)
 
-  ADMH <- var_relabel(
-    ADMH,
+  admh <- var_relabel(
+    admh,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add MH date and study day variables
-  ADMH <- dplyr::inner_join(
-    ADMH,
+  admh <- dplyr::inner_join(
+    admh,
     adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
@@ -124,7 +124,7 @@ radmh <- function(adsl,
       (AENDTM >= TRTSDTM | (is.na(AENDTM) & grepl("Ongoing", MHDISTAT))) ~ "PRIOR_CONCOMITANT"
     ))
 
-  ADMH <- ADMH %>%
+  admh <- admh %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(MHSEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = MHSEQ) %>%
@@ -132,11 +132,11 @@ radmh <- function(adsl,
     dplyr::arrange(STUDYID, USUBJID, ASTDTM, MHSEQ)
 
   if (length(na_vars) > 0 && na_percentage > 0 && na_percentage <= 1) {
-    ADMH <- mutate_na(ds = ADMH, na_vars = na_vars, na_percentage = na_percentage)
+    admh <- mutate_na(ds = admh, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADMH <- apply_metadata(ADMH, "metadata/ADMH.yml")
+  admh <- apply_metadata(admh, "metadata/admh.yml")
 
-  return(ADMH)
+  return(admh)
 }

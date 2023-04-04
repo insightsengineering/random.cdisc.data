@@ -23,8 +23,8 @@
 #' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADTR <- radtr(adsl, seed = 2)
-#' ADTR
+#' adtr <- radtr(adsl, seed = 2)
+#' adtr
 radtr <- function(adsl,
                   param = c("Sum of Longest Diameter by Investigator"),
                   paramcd = c("SLDINV"),
@@ -58,7 +58,7 @@ radtr <- function(adsl,
       "ADY"
     )
 
-  ADTR <- Map(function(parcd, par) {
+  adtr <- Map(function(parcd, par) {
     df <- adrs
     df$AVAL <- stats::rnorm(nrow(df), mean = 150, sd = 30)
     df$PARAMCD <- parcd
@@ -67,13 +67,13 @@ radtr <- function(adsl,
   }, paramcd, param) %>%
     Reduce(rbind, .)
 
-  ADTR_base <- ADTR %>%
+  adtr_base <- adtr %>%
     dplyr::filter(AVISITN == 0) %>%
     dplyr::group_by(USUBJID, PARAMCD) %>%
     dplyr::mutate(BASE = AVAL) %>%
     dplyr::select("STUDYID", "USUBJID", "BASE", "PARAMCD")
 
-  ADTR_postbase <- ADTR %>%
+  adtr_postbase <- adtr %>%
     dplyr::filter(AVISITN > 0) %>%
     dplyr::filter(!is.na(AVAL)) %>%
     dplyr::group_by(USUBJID, PARAMCD) %>%
@@ -83,7 +83,7 @@ radtr <- function(adsl,
     dplyr::mutate(DTYPE = "MINIMUM") %>%
     dplyr::ungroup()
 
-  ADTR_lastobs <- ADTR %>%
+  adtr_lastobs <- adtr %>%
     dplyr::filter(AVISITN > 0) %>%
     dplyr::filter(!is.na(AVAL)) %>%
     dplyr::group_by(USUBJID, PARAMCD) %>%
@@ -98,9 +98,9 @@ radtr <- function(adsl,
       "LAST_VISIT"
     )
 
-  ADTR <- rbind(ADTR %>% dplyr::mutate(DTYPE = ""), ADTR_postbase)
+  adtr <- rbind(adtr %>% dplyr::mutate(DTYPE = ""), adtr_postbase)
 
-  ADTR <- merge(ADTR, ADTR_base, by = c("STUDYID", "USUBJID", "PARAMCD")) %>%
+  adtr <- merge(adtr, adtr_base, by = c("STUDYID", "USUBJID", "PARAMCD")) %>%
     dplyr::mutate(
       ABLFL = dplyr::case_when(AVISIT == "BASELINE" ~ "Y", TRUE ~ ""),
       AVAL = dplyr::case_when(AVISIT == "BASELINE" ~ NA_real_, TRUE ~ AVAL),
@@ -111,7 +111,7 @@ radtr <- function(adsl,
     )
 
   # ensure PCHG does not exceed 200%, nor go below -100% (double in size, or complete remission of tumor).
-  ADTR <- ADTR %>%
+  adtr <- adtr %>%
     dplyr::mutate(
       PCHG_DUM = PCHG,
       PCHG = dplyr::case_when(
@@ -132,7 +132,7 @@ radtr <- function(adsl,
     ) %>%
     dplyr::select(-"PCHG_DUM")
 
-  ADTR <- merge(adsl, ADTR, by = c("STUDYID", "USUBJID")) %>%
+  adtr <- merge(adsl, adtr, by = c("STUDYID", "USUBJID")) %>%
     dplyr::group_by(USUBJID, PARAMCD) %>%
     dplyr::mutate(
       ONTRTFL = factor(dplyr::case_when(
@@ -149,7 +149,7 @@ radtr <- function(adsl,
         TRUE ~ ""
       )
     )
-  ADTR <- merge(ADTR, ADTR_lastobs, by = c("STUDYID", "USUBJID", "PARAMCD")) %>%
+  adtr <- merge(adtr, adtr_lastobs, by = c("STUDYID", "USUBJID", "PARAMCD")) %>%
     dplyr::mutate(
       ANL02FL = dplyr::case_when(
         as.character(AVISIT) == as.character(LAST_VISIT) ~ "Y",
@@ -159,7 +159,7 @@ radtr <- function(adsl,
     ) %>%
     dplyr::select(-"LAST_VISIT")
   # Adding variables that are in ADTR osprey but not RCD.
-  ADTR <- ADTR %>%
+  adtr <- adtr %>%
     dplyr::mutate(
       DCSREAS_GRP = ifelse(DCSREAS == "ADVERSE EVENT", "Safety", "Non-Safety"),
       TRTDURD = ifelse(
@@ -171,6 +171,6 @@ radtr <- function(adsl,
     )
 
   # apply metadata
-  ADTR <- apply_metadata(ADTR, "metadata/ADTR.yml")
-  return(ADTR)
+  adtr <- apply_metadata(adtr, "metadata/adtr.yml")
+  return(adtr)
 }

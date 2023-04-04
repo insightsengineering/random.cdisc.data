@@ -116,7 +116,7 @@ radsl <- function(N = 400,
     dplyr::mutate(SAFFL = factor("Y")) %>%
     dplyr::arrange(TRTSDTM)
 
-  ADDS <- adsl[sample(nrow(adsl), discons), ] %>%
+  adds <- adsl[sample(nrow(adsl), discons), ] %>%
     dplyr::mutate(TRTEDTM_discon = sample(
       seq(from = max(TRTSDTM), to = sys_dtm + study_duration_secs, by = 1),
       size = discons,
@@ -125,7 +125,7 @@ radsl <- function(N = 400,
     dplyr::select(SUBJID, TRTSDTM, TRTEDTM_discon) %>%
     dplyr::arrange(TRTSDTM)
 
-  adsl <- dplyr::left_join(adsl, ADDS, by = c("SUBJID", "TRTSDTM")) %>%
+  adsl <- dplyr::left_join(adsl, adds, by = c("SUBJID", "TRTSDTM")) %>%
     dplyr::mutate(TRTEDTM = dplyr::case_when(
       !is.na(TRTEDTM_discon) ~ TRTEDTM_discon,
       TRTSDTM >= quantile(TRTSDTM)[2] & TRTSDTM <= quantile(TRTSDTM)[3] ~ lubridate::as_datetime(NA),
@@ -263,7 +263,7 @@ radsl <- function(N = 400,
   }
 
   # apply metadata
-  adsl <- apply_metadata(adsl, "metadata/ADSL.yml", FALSE)
+  adsl <- apply_metadata(adsl, "metadata/adsl.yml", FALSE)
 
   attr(adsl, "study_duration_secs") <- as.numeric(study_duration_secs) # nolint
   return(adsl)

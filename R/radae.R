@@ -21,11 +21,11 @@
 #' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 #'
-#' ADAE <- radae(adsl, seed = 2)
-#' ADAE
+#' adae <- radae(adsl, seed = 2)
+#' adae
 #'
 #' # Add metadata.
-#' AAG <- utils::read.table(
+#' aag <- utils::read.table(
 #'   sep = ",", header = TRUE,
 #'   text = paste(
 #'     "NAMVAR,SRCVAR,GRPTYPE,REFNAME,REFTERM,SCOPE",
@@ -39,10 +39,10 @@
 #'   ), stringsAsFactors = FALSE
 #' )
 #'
-#' ADAE <- radae(adsl, lookup_aag = AAG)
+#' adae <- radae(adsl, lookup_aag = aag)
 #'
 #' with(
-#'   ADAE,
+#'   adae,
 #'   cbind(
 #'     table(AEDECOD, SMQ01NAM),
 #'     table(AEDECOD, CQ01NAM)
@@ -92,7 +92,7 @@ radae <- function(adsl,
   }
 
   checkmate::assert_data_frame(lookup_aag, null.ok = TRUE)
-  AAG <- if (!is.null(lookup_aag)) {
+  aag <- if (!is.null(lookup_aag)) {
     lookup_aag
   } else {
     aag <- utils::read.table(
@@ -113,7 +113,7 @@ radae <- function(adsl,
   if (!is.null(seed)) set.seed(seed)
   study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
-  ADAE <- Map(
+  adae <- Map(
     function(id, sid) {
       n_aes <- sample(c(0, seq_len(max_n_aes)), 1)
       i <- sample(seq_len(nrow(lookup_ae)), n_aes, TRUE)
@@ -135,14 +135,14 @@ radae <- function(adsl,
       AETOXGR %in% c(4, 5) ~ "SEVERE"
     ))
 
-  ADAE <- var_relabel(
-    ADAE,
+  adae <- var_relabel(
+    adae,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge adsl to be able to add AE date and study day variables
-  ADAE <- dplyr::inner_join(ADAE, adsl, by = c("STUDYID", "USUBJID")) %>%
+  adae <- dplyr::inner_join(adae, adsl, by = c("STUDYID", "USUBJID")) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
       is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
@@ -168,7 +168,7 @@ radae <- function(adsl,
     dplyr::ungroup() %>%
     dplyr::arrange(STUDYID, USUBJID, ASTDTM, AETERM)
 
-  ADAE <- ADAE %>%
+  adae <- adae %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(AESEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = AESEQ) %>%
@@ -201,16 +201,16 @@ radae <- function(adsl,
     "NOT EVALUABLE"
   )
 
-  ADAE <- ADAE %>%
+  adae <- adae %>%
     dplyr::mutate(AEOUT = factor(ifelse(
       AETOXGR == "5",
       "FATAL",
-      as.character(sample_fct(outcomes, nrow(ADAE), prob = c(0.1, 0.2, 0.1, 0.3, 0.3)))
+      as.character(sample_fct(outcomes, nrow(adae), prob = c(0.1, 0.2, 0.1, 0.3, 0.3)))
     ))) %>%
     dplyr::mutate(AEACN = factor(ifelse(
       AETOXGR == "5",
       "NOT EVALUABLE",
-      as.character(sample_fct(actions, nrow(ADAE), prob = c(0.05, 0.05, 0.05, 0.01, 0.05, 0.1, 0.45, 0.1, 0.05)))
+      as.character(sample_fct(actions, nrow(adae), prob = c(0.05, 0.05, 0.05, 0.01, 0.05, 0.1, 0.45, 0.1, 0.05)))
     ))) %>%
     dplyr::mutate(AESDTH = dplyr::case_when(
       AEOUT == "FATAL" ~ "Y",
@@ -223,7 +223,7 @@ radae <- function(adsl,
     ) %>%
     dplyr::mutate(ANL01FL = ifelse(is.na(ANL01FL), "", ANL01FL))
 
-  ADAE <- ADAE %>%
+  adae <- adae %>%
     dplyr::mutate(AERELNST = sample(c("Y", "N"), prob = c(0.4, 0.6), size = dplyr::n(), replace = TRUE)) %>%
     dplyr::mutate(AEACNOTH = sample(
       x = c("MEDICATION", "PROCEDURE/SURGERY", "SUBJECT DISCONTINUED FROM STUDY", "NONE"),
@@ -233,10 +233,10 @@ radae <- function(adsl,
     ))
 
   # Split metadata for AEs of special interest (AESI).
-  l_AAG <- split(AAG, interaction(AAG$NAMVAR, AAG$SRCVAR, AAG$GRPTYPE, drop = TRUE))
+  l_aag <- split(aag, interaction(aag$NAMVAR, aag$SRCVAR, aag$GRPTYPE, drop = TRUE))
 
   # Create AESI flags
-  l_AESI <- lapply(l_AAG, function(d_adag, d_adae) {
+  l_aesi <- lapply(l_aag, function(d_adag, d_adae) {
     names(d_adag)[names(d_adag) == "REFTERM"] <- d_adag$SRCVAR[1]
     names(d_adag)[names(d_adag) == "REFNAME"] <- d_adag$NAMVAR[1]
 
@@ -249,11 +249,11 @@ radae <- function(adsl,
     d_adag <- d_adag[-which(names(d_adag) %in% c("NAMVAR", "SRCVAR", "GRPTYPE"))]
     d_new <- dplyr::left_join(x = d_adae, y = d_adag, by = intersect(names(d_adae), names(d_adag)))
     d_new[, dplyr::setdiff(names(d_new), names(d_adae)), drop = FALSE]
-  }, ADAE)
+  }, adae)
 
-  ADAE <- dplyr::bind_cols(ADAE, l_AESI)
+  adae <- dplyr::bind_cols(adae, l_aesi)
 
-  ADAE <- dplyr::mutate(ADAE, AERELNST = sample(
+  adae <- dplyr::mutate(adae, AERELNST = sample(
     x = c("CONCURRENT ILLNESS", "OTHER", "DISEASE UNDER STUDY", "NONE"),
     prob = c(0.3, 0.3, 0.3, 0.1),
     size = dplyr::n(),
@@ -261,7 +261,7 @@ radae <- function(adsl,
   ))
 
 
-  ADAE <- ADAE %>%
+  adae <- adae %>%
     dplyr::mutate(AES_FLAG = sample(
       x = c("AESLIFE", "AESHOSP", "AESDISAB", "AESCONG", "AESMIE"),
       prob = c(0.1, 0.2, 0.2, 0.2, 0.3),
@@ -282,11 +282,11 @@ radae <- function(adsl,
     dplyr::select(-"AES_FLAG")
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADAE <- mutate_na(ds = ADAE, na_vars = na_vars, na_percentage = na_percentage)
+    adae <- mutate_na(ds = adae, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADAE <- apply_metadata(ADAE, "metadata/ADAE.yml")
+  adae <- apply_metadata(adae, "metadata/adae.yml")
 
-  return(ADAE)
+  return(adae)
 }

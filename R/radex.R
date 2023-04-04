@@ -24,8 +24,8 @@
 #' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 #'
-#' ADEX <- radex(adsl, seed = 2)
-#' ADEX
+#' adex <- radex(adsl, seed = 2)
+#' adex
 radex <- function(adsl,
                   param = c(
                     "Dose administered during constant dosing interval",
@@ -74,7 +74,7 @@ radex <- function(adsl,
   }
   study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
-  ADEX <- expand.grid(
+  adex <- expand.grid(
     STUDYID = unique(adsl$STUDYID),
     USUBJID = adsl$USUBJID,
     PARAM = c(
@@ -92,39 +92,39 @@ radex <- function(adsl,
   )
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADEX <- ADEX %>% rel_var(
+  adex <- adex %>% rel_var(
     var_name = "PARAMCD",
     related_var = "PARAM",
     var_values = param_init_list$relvar2
   )
 
   # assign related variable values: AVALUxPARAM are related
-  ADEX <- ADEX %>% rel_var(
+  adex <- adex %>% rel_var(
     var_name = "AVALU",
     related_var = "PARAM",
     var_values = unit_init_list$relvar2
   )
 
-  ADEX <- ADEX %>%
+  adex <- adex %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(PARCAT_ind = sample(c(1, 2), size = 1)) %>%
     dplyr::mutate(PARCAT2 = ifelse(PARCAT_ind == 1, parcat2[1], parcat2[2])) %>%
     dplyr::select(-"PARCAT_ind")
 
   # Add in PARCAT1
-  ADEX <- ADEX %>% dplyr::mutate(PARCAT1 = dplyr::case_when(
+  adex <- adex %>% dplyr::mutate(PARCAT1 = dplyr::case_when(
     (PARAMCD == "TNDOSE" | PARAMCD == "TDOSE") ~ "OVERALL",
     PARAMCD == "DOSE" | PARAMCD == "NDOSE" ~ "INDIVIDUAL"
   ))
 
-  ADEX_VISIT <- ADEX %>%
+  adex_visit <- adex %>%
     dplyr::filter(PARAMCD == "DOSE" | PARAMCD == "NDOSE") %>%
     dplyr::mutate(
       AVISIT = rep(visit_schedule(visit_format = visit_format, n_assessments = n_assessments, n_days = n_days), 2)
     )
 
-  ADEX <- dplyr::left_join(
-    ADEX %>%
+  adex <- dplyr::left_join(
+    adex %>%
       dplyr::group_by(
         USUBJID,
         STUDYID,
@@ -135,7 +135,7 @@ radex <- function(adsl,
         PARCAT2
       ) %>%
       dplyr::mutate(id = dplyr::row_number()),
-    ADEX_VISIT %>%
+    adex_visit %>%
       dplyr::group_by(
         USUBJID,
         STUDYID,
@@ -151,7 +151,7 @@ radex <- function(adsl,
     dplyr::select(-"id")
 
   # Visit numbers
-  ADEX <- ADEX %>% dplyr::mutate(AVISITN = dplyr::case_when(
+  adex <- adex %>% dplyr::mutate(AVISITN = dplyr::case_when(
     AVISIT == "SCREENING" ~ -1,
     AVISIT == "BASELINE" ~ 0,
     (grepl("^WEEK", AVISIT) | grepl("^CYCLE", AVISIT)) ~ as.numeric(AVISIT) - 2,
@@ -159,7 +159,7 @@ radex <- function(adsl,
   ))
 
 
-  ADEX2 <- split(ADEX, ADEX$USUBJID) %>%
+  adex2 <- split(adex, adex$USUBJID) %>%
     lapply(function(pinfo) {
       pinfo %>%
         dplyr::filter(PARAMCD == "DOSE") %>%
@@ -197,8 +197,8 @@ radex <- function(adsl,
     }) %>%
     Reduce(rbind, .)
 
-  ADEXTMP <- dplyr::full_join(ADEX2, ADEX, by = names(ADEX))
-  ADEX <- ADEXTMP %>%
+  adex_tmp <- dplyr::full_join(adex2, adex, by = names(adex))
+  adex <- adex_tmp %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(AVAL = ifelse(PARAMCD == "NDOSE", 1, AVAL)) %>%
     dplyr::mutate(AVAL = ifelse(
@@ -214,14 +214,14 @@ radex <- function(adsl,
       AVAL
     ))
 
-  ADEX <- var_relabel(
-    ADEX,
+  adex <- var_relabel(
+    adex,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add ADEX date and study day variables
-  ADEX <- dplyr::inner_join(ADEX, adsl, by = c("STUDYID", "USUBJID")) %>%
+  adex <- dplyr::inner_join(adex, adsl, by = c("STUDYID", "USUBJID")) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
       is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
@@ -241,7 +241,7 @@ radex <- function(adsl,
     dplyr::arrange(STUDYID, USUBJID, ASTDTM)
 
 
-  ADEX <- ADEX %>%
+  adex <- adex %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(EXSEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = EXSEQ) %>%
@@ -256,17 +256,17 @@ radex <- function(adsl,
     )
 
   # Adding EXDOSFRQ
-  ADEX <- ADEX %>%
+  adex <- adex %>%
     dplyr::mutate(EXDOSFRQ = dplyr::case_when(
       PARCAT1 == "INDIVIDUAL" ~ "ONCE",
       TRUE ~ ""
     ))
 
   # Adding EXROUTE
-  ADEX <- ADEX %>%
+  adex <- adex %>%
     dplyr::mutate(EXROUTE = dplyr::case_when(
       PARCAT1 == "INDIVIDUAL" ~ sample(c("INTRAVENOUS", "SUBCUTANEOUS"),
-        nrow(ADEX),
+        nrow(adex),
         replace = TRUE,
         prob = c(0.9, 0.1)
       ),
@@ -274,20 +274,20 @@ radex <- function(adsl,
     ))
 
   # Fix VISIT according to AVISIT
-  ADEX <- ADEX %>%
+  adex <- adex %>%
     dplyr::mutate(VISIT = AVISIT)
 
   # Hack for VISITDY - to fix in ADSL
-  visit_levels <- str_extract(levels(ADEX$VISIT), pattern = "[0-9]+")
+  visit_levels <- str_extract(levels(adex$VISIT), pattern = "[0-9]+")
   vl_extracted <- vapply(visit_levels, function(x) as.numeric(x[2]), numeric(1))
   vl_extracted <- c(-1, 1, vl_extracted[!is.na(vl_extracted)])
 
   # Adding VISITDY
-  ADEX <- ADEX %>%
+  adex <- adex %>%
     dplyr::mutate(VISITDY = as.numeric(as.character(factor(VISIT, labels = vl_extracted))))
 
   # Exposure time stamps
-  ADEX <- ADEX %>%
+  adex <- adex %>%
     dplyr::mutate(
       EXSTDTC = TRTSDTM + lubridate::days(VISITDY),
       EXENDTC = EXSTDTC + lubridate::hours(1),
@@ -296,20 +296,20 @@ radex <- function(adsl,
     )
 
   # Correcting last exposure to treatment
-  ADEX <- ADEX %>%
+  adex <- adex %>%
     dplyr::group_by(SUBJID) %>%
     dplyr::mutate(TRTEDTM = lubridate::as_datetime(max(EXENDTC, na.rm = TRUE))) %>%
     dplyr::ungroup()
 
   # Fixing Date - to add into ADSL
-  ADEX <- ADEX %>%
+  adex <- adex %>%
     dplyr::mutate(
       TRTSDT = lubridate::date(TRTSDTM),
       TRTEDT = lubridate::date(TRTEDTM)
     )
 
   # Fixing analysis time stamps
-  ADEX <- ADEX %>%
+  adex <- adex %>%
     dplyr::mutate(
       ASTDY = EXSTDY,
       AENDY = EXENDY,
@@ -318,11 +318,11 @@ radex <- function(adsl,
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADEX <- mutate_na(ds = ADEX, na_vars = na_vars, na_percentage = na_percentage)
+    adex <- mutate_na(ds = adex, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADEX <- apply_metadata(ADEX, "metadata/ADEX.yml")
+  adex <- apply_metadata(adex, "metadata/adex.yml")
 }
 
 # Equivalent of stringr::str_extract_all()

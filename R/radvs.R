@@ -22,11 +22,11 @@
 #' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADVS <- radvs(adsl, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-#' ADVS
+#' advs <- radvs(adsl, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+#' advs
 #'
-#' ADVS <- radvs(adsl, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
-#' ADVS
+#' advs <- radvs(adsl, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
+#' advs
 radvs <- function(adsl,
                   param = c(
                     "Diastolic Blood Pressure",
@@ -72,7 +72,7 @@ radvs <- function(adsl,
   }
   study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
-  ADVS <- expand.grid(
+  advs <- expand.grid(
     STUDYID = unique(adsl$STUDYID),
     USUBJID = adsl$USUBJID,
     PARAM = as.factor(param_init_list$relvar1),
@@ -80,8 +80,8 @@ radvs <- function(adsl,
     stringsAsFactors = FALSE
   )
 
-  ADVS <- dplyr::mutate(
-    ADVS,
+  advs <- dplyr::mutate(
+    advs,
     AVISITN = dplyr::case_when(
       AVISIT == "SCREENING" ~ -1,
       AVISIT == "BASELINE" ~ 0,
@@ -90,39 +90,39 @@ radvs <- function(adsl,
     )
   )
 
-  ADVS$VSCAT <- "VITAL SIGNS"
+  advs$VSCAT <- "VITAL SIGNS"
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADVS <- ADVS %>% rel_var(
+  advs <- advs %>% rel_var(
     var_name = "PARAMCD",
     related_var = "PARAM",
     var_values = param_init_list$relvar2
   )
 
   # assign related variable values: PARAMxAVALU are related
-  ADVS <- ADVS %>% rel_var(
+  advs <- advs %>% rel_var(
     var_name = "AVALU",
     related_var = "PARAM",
     var_values = unit_init_list$relvar2
   )
 
-  ADVS <- ADVS %>%
+  advs <- advs %>%
     dplyr::mutate(VSTESTCD = PARAMCD) %>%
     dplyr::mutate(VSTEST = PARAM)
 
-  ADVS <- ADVS %>% dplyr::mutate(AVAL = dplyr::case_when(
-    PARAMCD == paramcd[1] ~ stats::rnorm(nrow(ADVS), mean = 100, sd = 20),
-    PARAMCD == paramcd[2] ~ stats::rnorm(nrow(ADVS), mean = 80, sd = 15),
-    PARAMCD == paramcd[3] ~ stats::rnorm(nrow(ADVS), mean = 16, sd = 5),
-    PARAMCD == paramcd[4] ~ stats::rnorm(nrow(ADVS), mean = 150, sd = 30),
-    PARAMCD == paramcd[5] ~ stats::rnorm(nrow(ADVS), mean = 36.65, sd = 1),
-    PARAMCD == paramcd[6] ~ stats::rnorm(nrow(ADVS), mean = 70, sd = 20)
+  advs <- advs %>% dplyr::mutate(AVAL = dplyr::case_when(
+    PARAMCD == paramcd[1] ~ stats::rnorm(nrow(advs), mean = 100, sd = 20),
+    PARAMCD == paramcd[2] ~ stats::rnorm(nrow(advs), mean = 80, sd = 15),
+    PARAMCD == paramcd[3] ~ stats::rnorm(nrow(advs), mean = 16, sd = 5),
+    PARAMCD == paramcd[4] ~ stats::rnorm(nrow(advs), mean = 150, sd = 30),
+    PARAMCD == paramcd[5] ~ stats::rnorm(nrow(advs), mean = 36.65, sd = 1),
+    PARAMCD == paramcd[6] ~ stats::rnorm(nrow(advs), mean = 70, sd = 20)
   ))
 
   # order to prepare for change from screening and baseline values
-  ADVS <- ADVS[order(ADVS$STUDYID, ADVS$USUBJID, ADVS$PARAMCD, ADVS$AVISITN), ]
+  advs <- advs[order(advs$STUDYID, advs$USUBJID, advs$PARAMCD, advs$AVISITN), ]
 
-  ADVS <- Reduce(rbind, lapply(split(ADVS, ADVS$USUBJID), function(x) {
+  advs <- Reduce(rbind, lapply(split(advs, advs$USUBJID), function(x) {
     x$STUDYID <- adsl$STUDYID[which(adsl$USUBJID == x$USUBJID[1])]
     x$ABLFL2 <- ifelse(x$AVISIT == "SCREENING", "Y", "")
     x$ABLFL <- ifelse(
@@ -137,10 +137,10 @@ radvs <- function(adsl,
     x
   }))
 
-  ADVS$BASE2 <- retain(ADVS, ADVS$AVAL, ADVS$ABLFL2 == "Y")
-  ADVS$BASE <- ifelse(ADVS$ABLFL2 != "Y", retain(ADVS, ADVS$AVAL, ADVS$ABLFL == "Y"), NA)
+  advs$BASE2 <- retain(advs, advs$AVAL, advs$ABLFL2 == "Y")
+  advs$BASE <- ifelse(advs$ABLFL2 != "Y", retain(advs, advs$AVAL, advs$ABLFL == "Y"), NA)
 
-  ADVS <- ADVS %>%
+  advs <- advs %>%
     dplyr::mutate(CHG2 = AVAL - BASE2) %>%
     dplyr::mutate(PCHG2 = 100 * (CHG2 / BASE2)) %>%
     dplyr::mutate(CHG = AVAL - BASE) %>%
@@ -190,15 +190,15 @@ radvs <- function(adsl,
       STUDYID = attr(adsl$STUDYID, "label")
     )
 
-  ADVS <- var_relabel(
-    ADVS,
+  advs <- var_relabel(
+    advs,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add LB date and study day variables
-  ADVS <- dplyr::inner_join(
-    ADVS,
+  advs <- dplyr::inner_join(
+    advs,
     adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
@@ -209,7 +209,7 @@ radvs <- function(adsl,
     ))) %>%
     dplyr::ungroup()
 
-  ADVS <- ADVS %>%
+  advs <- advs %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::arrange(USUBJID, AVISITN) %>%
     dplyr::mutate(ADTM = rep(
@@ -224,12 +224,12 @@ radvs <- function(adsl,
     dplyr::select(-TRTENDT) %>%
     dplyr::arrange(STUDYID, USUBJID, ADTM)
 
-  ADVS <- ADVS %>% dplyr::mutate(ONTRTFL = factor(dplyr::case_when(
+  advs <- advs %>% dplyr::mutate(ONTRTFL = factor(dplyr::case_when(
     !AVISIT %in% c("SCREENING", "BASELINE") ~ "Y",
     TRUE ~ ""
   )))
 
-  ADVS <- ADVS %>%
+  advs <- advs %>%
     dplyr::mutate(ASPID = sample(seq_len(dplyr::n()))) %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(VSSEQ = seq_len(dplyr::n())) %>%
@@ -249,11 +249,11 @@ radvs <- function(adsl,
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADVS <- mutate_na(ds = ADVS, na_vars = na_vars, na_percentage = na_percentage)
+    advs <- mutate_na(ds = advs, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADVS <- apply_metadata(ADVS, "metadata/ADVS.yml")
+  advs <- apply_metadata(advs, "metadata/advs.yml")
 
-  return(ADVS)
+  return(advs)
 }

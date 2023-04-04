@@ -22,8 +22,8 @@
 #' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 #'
-#' ADQLQC <- radqlqc(adsl, seed = 1, percent = 80, number = 2)
-#' ADQLQC
+#' adqlqc <- radqlqc(adsl, seed = 1, percent = 80, number = 2)
+#' adqlqc
 radqlqc <- function(adsl,
                     percent,
                     number,
@@ -43,9 +43,9 @@ radqlqc <- function(adsl,
   }
 
   # ADQLQC data -------------------------------------------------------------
-  QS <- get_qs_data(adsl, n_assessments = 5L, seed = seed, na_percentage = 0.1)
-  # prepare ADaM adqlqc data
-  adqlqc1 <- prep_adqlqc(df = QS)
+  qs <- get_qs_data(adsl, n_assessments = 5L, seed = seed, na_percentage = 0.1)
+  # prepare ADaM ADQLQC data
+  adqlqc1 <- prep_adqlqc(df = qs)
   # derive AVAL and AVALC
   adqlqc1 <- mutate(
     adqlqc1,
@@ -59,14 +59,14 @@ radqlqc <- function(adsl,
     ADTM = QSDTC
   )
   # include scale calculation
-  ADQLQCtmp <- calc_scales(adqlqc1)
+  adqlqc_tmp <- calc_scales(adqlqc1)
   # order to prepare for change from screening and baseline values
-  ADQLQCtmp <- ADQLQCtmp[order(ADQLQCtmp$STUDYID, ADQLQCtmp$USUBJID, ADQLQCtmp$PARAMCD, ADQLQCtmp$AVISITN), ]
+  adqlqc_tmp <- adqlqc_tmp[order(adqlqc_tmp$STUDYID, adqlqc_tmp$USUBJID, adqlqc_tmp$PARAMCD, adqlqc_tmp$AVISITN), ]
 
-  ADQLQCtmp <- Reduce(
+  adqlqc_tmp <- Reduce(
     rbind,
     lapply(
-      split(ADQLQCtmp, ADQLQCtmp$USUBJID),
+      split(adqlqc_tmp, adqlqc_tmp$USUBJID),
       function(x) {
         x$STUDYID <- adsl$STUDYID[which(adsl$USUBJID == x$USUBJID[1])]
         x$ABLFL2 <- ifelse(x$AVISIT == "SCREENING", "Y", "")
@@ -86,28 +86,28 @@ radqlqc <- function(adsl,
     )
   )
 
-  ADQLQCtmp$BASE2 <- ifelse(
-    str_detect(ADQLQCtmp$PARCAT2, "Completion", negate = TRUE),
+  adqlqc_tmp$BASE2 <- ifelse(
+    str_detect(adqlqc_tmp$PARCAT2, "Completion", negate = TRUE),
     retain(
-      df = ADQLQCtmp,
-      value_var = ADQLQCtmp$AVAL,
-      event = ADQLQCtmp$ABLFL2 == "Y"
+      df = adqlqc_tmp,
+      value_var = adqlqc_tmp$AVAL,
+      event = adqlqc_tmp$ABLFL2 == "Y"
     ),
     NA
   )
 
-  ADQLQCtmp$BASE <- ifelse(
-    ADQLQCtmp$ABLFL2 != "Y" &
-      str_detect(ADQLQCtmp$PARCAT2, "Completion", negate = TRUE),
+  adqlqc_tmp$BASE <- ifelse(
+    adqlqc_tmp$ABLFL2 != "Y" &
+      str_detect(adqlqc_tmp$PARCAT2, "Completion", negate = TRUE),
     retain(
-      ADQLQCtmp,
-      ADQLQCtmp$AVAL,
-      ADQLQCtmp$ABLFL == "Y"
+      adqlqc_tmp,
+      adqlqc_tmp$AVAL,
+      adqlqc_tmp$ABLFL == "Y"
     ),
     NA
   )
 
-  ADQLQCtmp <- ADQLQCtmp %>%
+  adqlqc_tmp <- adqlqc_tmp %>%
     dplyr::mutate(CHG2 = AVAL - BASE2) %>%
     dplyr::mutate(PCHG2 = 100 * (CHG2 / BASE2)) %>%
     dplyr::mutate(CHG = AVAL - BASE) %>%
@@ -117,21 +117,21 @@ radqlqc <- function(adsl,
       USUBJID = attr(adsl$USUBJID, "label")
     )
   # derive CHGCAT1 ----------------------------------------------------------
-  ADQLQCtmp <- derv_chgcat1(dataset = ADQLQCtmp)
+  adqlqc_tmp <- derv_chgcat1(dataset = adqlqc_tmp)
 
-  ADQLQCtmp <- var_relabel(
-    ADQLQCtmp,
+  adqlqc_tmp <- var_relabel(
+    adqlqc_tmp,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
-  ADQLQCtmp <- arrange(
-    ADQLQCtmp,
+  adqlqc_tmp <- arrange(
+    adqlqc_tmp,
     USUBJID,
     AVISITN
   )
   # Merge ADSL --------------------------------------------------------------
-  # adsl variables needed for ADQLQC
+  # ADSL variables needed for ADQLQC
   adsl_vars <- c(
     "STUDYID", "USUBJID", "SUBJID", "SITEID", "REGION1", "COUNTRY", "ETHNIC", "AGE",
     "AGEU", "AAGE", "AAGEU", "AGEGR1", "AGEGR2", "AGEGR3", "STRATwNM", "STRATw", "STRATwV",
@@ -142,8 +142,8 @@ radqlqc <- function(adsl,
     adsl,
     any_of(adsl_vars)
   )
-  ADQLQC <- dplyr::inner_join(
-    ADQLQCtmp,
+  adqlqc <- dplyr::inner_join(
+    adqlqc_tmp,
     adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
@@ -158,7 +158,7 @@ radqlqc <- function(adsl,
 
   # get compliance data ---------------------------------------------------
   compliance_data <- comp_derv(
-    dataset = ADQLQC,
+    dataset = adqlqc,
     percent = percent,
     number = number
   )
@@ -169,8 +169,8 @@ radqlqc <- function(adsl,
     by = c("STUDYID", "USUBJID")
   )
   # add completion to ADQLQC
-  ADQLQC <- bind_rows(
-    ADQLQC,
+  adqlqc <- bind_rows(
+    adqlqc,
     compliance_data
   ) %>%
     arrange(
@@ -179,8 +179,8 @@ radqlqc <- function(adsl,
       QSTESTCD
     )
   # find first set of questionnaire observations
-  ADQLQC_x <- arrange(
-    ADQLQC,
+  adqlqc_x <- arrange(
+    adqlqc,
     USUBJID,
     ADTM
   ) %>%
@@ -194,9 +194,9 @@ radqlqc <- function(adsl,
     ) %>%
     summarise(first_date = first(ADTM), .groups = "drop")
 
-  ADQLQC <- left_join(
-    ADQLQC,
-    ADQLQC_x,
+  adqlqc <- left_join(
+    adqlqc,
+    adqlqc_x,
     by = c("USUBJID", "ADTM")
   ) %>%
     mutate(
@@ -210,7 +210,7 @@ radqlqc <- function(adsl,
     select(-first_date)
 
   # final dataset -----------------------------------------------------------
-  ADQLQC_final <- ADQLQC %>%
+  adqlqc_final <- adqlqc %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(ASEQ = row_number()) %>%
     dplyr::ungroup() %>%
@@ -236,14 +236,14 @@ radqlqc <- function(adsl,
     "ANL04FL", "CGCAT1NX"
   )
   # order variables in mapped qs by variables in adam_vars
-  adqlqc_name_ordered <- names(ADQLQC_final)[order(match(names(ADQLQC_final), adam_vars))]
+  adqlqc_name_ordered <- names(adqlqc_final)[order(match(names(adqlqc_final), adam_vars))]
   # adqlqc with variables ordered per gdsr
-  ADQLQC_final <- ADQLQC_final %>%
+  adqlqc_final <- adqlqc_final %>%
     select(
       any_of(adqlqc_name_ordered)
     )
 
-  ADQLQC_final <- relocate(ADQLQC_final, "QSEVLINT", .after = "QSTESTCD") %>%
+  adqlqc_final <- relocate(adqlqc_final, "QSEVLINT", .after = "QSTESTCD") %>%
     arrange(
       USUBJID,
       AVISITN,
@@ -251,8 +251,8 @@ radqlqc <- function(adsl,
       QSTESTCD
     )
   # apply metadata
-  ADQLQC_final <- apply_metadata(ADQLQC_final, "metadata/ADQLQC.yml")
-  return(ADQLQC_final)
+  adqlqc_final <- apply_metadata(adqlqc_final, "metadata/adqlqc.yml")
+  return(adqlqc_final)
 }
 
 #' Helper Functions for Constructing ADQLQC
@@ -264,7 +264,7 @@ radqlqc <- function(adsl,
 #'
 #' @examples
 #' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
-#' ADQLQC <- radqlqc(adsl, seed = 1, percent = 80, number = 2)
+#' adqlqc <- radqlqc(adsl, seed = 1, percent = 80, number = 2)
 #'
 #' @name h_adqlqc
 NULL
@@ -277,8 +277,8 @@ NULL
 #' @keywords internal
 #'
 #' @examples
-#' QS <- random.cdisc.data:::get_qs_data(adsl, n_assessments = 5L, seed = 1, na_percentage = 0.1)
-#' QS
+#' qs <- random.cdisc.data:::get_qs_data(adsl, n_assessments = 5L, seed = 1, na_percentage = 0.1)
+#' qs
 get_qs_data <- function(adsl,
                         visit_format = "CYCLE",
                         n_assessments = 5L,
@@ -300,7 +300,7 @@ get_qs_data <- function(adsl,
 
   # get subjects for QS data from ADSL
   # get studyid, subject for QS generation
-  QS <- select(
+  qs <- select(
     adsl,
     STUDYID,
     USUBJID
@@ -331,12 +331,12 @@ get_qs_data <- function(adsl,
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
 
-  lookup_QS <- if (!is.null(lookup)) {
+  lookup_qs <- if (!is.null(lookup)) {
     lookup
   } else {
     expand.grid(
-      STUDYID = unique(QS$STUDYID),
-      USUBJID = QS$USUBJID,
+      STUDYID = unique(qs$STUDYID),
+      USUBJID = qs$USUBJID,
       QSTEST = qstest_init_list$relvar1,
       VISIT = visit_schedule(
         visit_format = visit_format,
@@ -348,14 +348,14 @@ get_qs_data <- function(adsl,
   }
 
   # assign related variable values: QSTESTxQSTESTCD are related
-  lookup_QS <- lookup_QS %>% rel_var(
+  lookup_qs <- lookup_qs %>% rel_var(
     var_name = "QSTESTCD",
     related_var = "QSTEST",
     var_values = qstest_init_list$relvar2
   )
 
-  lookup_QS <- left_join(
-    lookup_QS,
+  lookup_qs <- left_join(
+    lookup_qs,
     eortc_qlq_c30_sub,
     by = c(
       "QSTEST",
@@ -364,8 +364,8 @@ get_qs_data <- function(adsl,
     multiple = "all"
   )
 
-  lookup_QS <- dplyr::mutate(
-    lookup_QS,
+  lookup_qs <- dplyr::mutate(
+    lookup_qs,
     VISITNUM = dplyr::case_when(
       VISIT == "SCREENING" ~ -1,
       VISIT == "BASELINE" ~ 0,
@@ -376,11 +376,11 @@ get_qs_data <- function(adsl,
 
   # # prep QSALL --------------------------------------------------------------
   # get last subject and visit for QSALL
-  last_subj_vis <- select(lookup_QS, USUBJID, VISIT) %>%
+  last_subj_vis <- select(lookup_qs, USUBJID, VISIT) %>%
     distinct() %>%
     slice(n())
   last_subj_vis_full <- filter(
-    lookup_QS,
+    lookup_qs,
     USUBJID == last_subj_vis$USUBJID,
     VISIT == last_subj_vis$VISIT
   )
@@ -397,14 +397,14 @@ get_qs_data <- function(adsl,
   )
 
   # remove last subject and visit from main data
-  lookup_QS_sub <- anti_join(
-    lookup_QS,
+  lookup_qs_sub <- anti_join(
+    lookup_qs,
     last_subj_vis_full,
     by = c("USUBJID", "VISIT")
   )
 
   set.seed(seed)
-  lookup_QS_sub_x <- lookup_QS_sub %>%
+  lookup_qs_sub_x <- lookup_qs_sub %>%
     group_by(
       USUBJID,
       QSTESTCD,
@@ -414,8 +414,8 @@ get_qs_data <- function(adsl,
     ungroup() %>%
     as.data.frame()
 
-  lookup_QS_sub_x <- arrange(
-    lookup_QS_sub_x,
+  lookup_qs_sub_x <- arrange(
+    lookup_qs_sub_x,
     USUBJID,
     VISITNUM
   )
@@ -432,8 +432,8 @@ get_qs_data <- function(adsl,
   # if no treatment end date, create an arbituary one
   trt_end_date <- max(adsl_trt$TRTEDTM, na.rm = TRUE)
 
-  lookup_QS_sub_x <- left_join(
-    lookup_QS_sub_x,
+  lookup_qs_sub_x <- left_join(
+    lookup_qs_sub_x,
     adsl_trt,
     by = "USUBJID"
   ) %>%
@@ -452,14 +452,14 @@ get_qs_data <- function(adsl,
     select(-c("TRTSDTM", "TRTEDTM"))
 
   # filter out subjects with missing dates
-  lookup_QS_sub_x1 <- filter(
-    lookup_QS_sub_x,
+  lookup_qs_sub_x1 <- filter(
+    lookup_qs_sub_x,
     !is.na(QSDTC)
   )
 
   # subjects with missing dates
-  lookup_QS_sub_x2 <- filter(
-    lookup_QS_sub_x,
+  lookup_qs_sub_x2 <- filter(
+    lookup_qs_sub_x,
     is.na(QSDTC)
   ) %>%
     select(
@@ -472,7 +472,7 @@ get_qs_data <- function(adsl,
 
   # generate QSALL for subjects with missing dates
   qsall_data2 <- mutate(
-    lookup_QS_sub_x2,
+    lookup_qs_sub_x2,
     QSTESTCD = "QSALL",
     QSTEST = "Questionnaires",
     QSSTAT = "NOT DONE",
@@ -480,13 +480,13 @@ get_qs_data <- function(adsl,
   )
 
   # add qsall data to original item data
-  lookup_QS_sub_all <- bind_rows(
-    lookup_QS_sub_x1,
+  lookup_qs_sub_all <- bind_rows(
+    lookup_qs_sub_x1,
     qsall_data1,
     qsall_data2
   )
 
-  QS_all <- lookup_QS_sub_all %>%
+  qs_all <- lookup_qs_sub_all %>%
     arrange(
       STUDYID,
       USUBJID,
@@ -496,37 +496,37 @@ get_qs_data <- function(adsl,
     dplyr::ungroup()
 
   # get first and second subject ids
-  first_second_subj <- select(QS_all, USUBJID) %>%
+  first_second_subj <- select(qs_all, USUBJID) %>%
     distinct() %>%
     slice(1:2)
 
-  QS1 <- filter(
-    QS_all,
+  qs1 <- filter(
+    qs_all,
     USUBJID %in% first_second_subj$USUBJID
   )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    QS1 <- mutate_na(ds = QS1, na_vars = na_vars, na_percentage = na_percentage)
+    qs1 <- mutate_na(ds = qs1, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # QSSTAT = NOT DONE
-  QS1 <- mutate(
-    QS1,
+  qs1 <- mutate(
+    qs1,
     QSSTAT = case_when(
       is.na(QSORRES) & is.na(QSSTRESC) ~ "NOT DONE"
     )
   )
 
   # remove first and second subjects from main data
-  QS2 <- anti_join(
-    QS_all,
-    QS1,
+  qs2 <- anti_join(
+    qs_all,
+    qs1,
     by = c("USUBJID")
   )
 
-  final_QS <- rbind(
-    QS1,
-    QS2
+  final_qs <- rbind(
+    qs1,
+    qs2
   ) %>%
     group_by(USUBJID) %>%
     dplyr::mutate(QSSEQ = row_number()) %>%
@@ -538,8 +538,8 @@ get_qs_data <- function(adsl,
     ungroup()
 
   # ordered variables as per gdsr
-  final_QS <- select(
-    final_QS,
+  final_qs <- select(
+    final_qs,
     STUDYID,
     USUBJID,
     QSSEQ,
@@ -558,7 +558,7 @@ get_qs_data <- function(adsl,
     QSDTC,
     QSEVLINT
   )
-  return(final_QS)
+  return(final_qs)
 }
 
 #' @describeIn h_adqlqc Function for generating random dates between 2 dates
@@ -573,7 +573,7 @@ get_qs_data <- function(adsl,
 #' @examples
 #' df <- dplyr::left_join(
 #'   adsl,
-#'   QS,
+#'   qs,
 #'   by = c("STUDYID", "USUBJID"),
 #'   multiple = "all"
 #' ) |>
@@ -615,8 +615,8 @@ get_random_dates_between <- function(from, to, visit_id) {
 #' @keywords internal
 #'
 #' @examples
-#' ADQLQC1 <- random.cdisc.data:::prep_adqlqc(df = QS)
-#' ADQLQC1
+#' adqlqc1 <- random.cdisc.data:::prep_adqlqc(df = qs)
+#' adqlqc1
 prep_adqlqc <- function(df) {
   # create PARAMCD from QSTESTCD
   adqlqc <- dplyr::mutate(
@@ -934,13 +934,13 @@ calc_scales <- function(adqlqc1) {
       PARCAT1N = ifelse(PARAMCD == "EX028", expect$PARCAT1N, PARCAT1N)
     )
 
-  ADQLQCtmp <- bind_rows(adqlqc1, df_saved1) %>%
+  adqlqc_tmp <- bind_rows(adqlqc1, df_saved1) %>%
     arrange(
       USUBJID,
       AVISITN,
       QSTESTCD
     )
-  return(ADQLQCtmp)
+  return(adqlqc_tmp)
 }
 
 #' @describeIn h_adqlqc Calculate Change from Baseline Category 1
@@ -951,8 +951,8 @@ calc_scales <- function(adqlqc1) {
 #' @keywords internal
 #'
 #' @examples
-#' ADQLQC <- random.cdisc.data:::derv_chgcat1(dataset = ADQLQC |> dplyr::select(-CHGCAT1))
-#' ADQLQC
+#' adqlqc <- random.cdisc.data:::derv_chgcat1(dataset = adqlqc |> dplyr::select(-CHGCAT1))
+#' adqlqc
 derv_chgcat1 <- function(dataset) {
   # derivation of CHGCAT1
   check_vars <- c("PARCAT2", "CHG")
@@ -1115,7 +1115,7 @@ derv_chgcat1 <- function(dataset) {
 #' @keywords internal
 #'
 #' @examples
-#' compliance_data <- random.cdisc.data:::comp_derv(ADQLQC, 80, 2)
+#' compliance_data <- random.cdisc.data:::comp_derv(adqlqc, 80, 2)
 #' compliance_data
 comp_derv <- function(dataset, percent, number) {
   # original items data

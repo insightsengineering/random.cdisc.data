@@ -7,7 +7,7 @@
 #'
 #' @inheritParams argument_convention
 #' @inheritParams radpc
-#' @param ADPC (`data.frame`)\cr Pharmacokinetics Analysis Dataset.
+#' @param adpc (`data.frame`)\cr Pharmacokinetics Analysis Dataset.
 #' @template param_cached
 #' @templateVar data adab
 #'
@@ -19,12 +19,12 @@
 #' @examples
 #' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
-#' ADPC <- radpc(adsl, seed = 2, duration = 9 * 7)
+#' adpc <- radpc(adsl, seed = 2, duration = 9 * 7)
 #'
-#' ADAB <- radab(adsl, ADPC, seed = 2)
-#' ADAB
+#' adab <- radab(adsl, adpc, seed = 2)
+#' adab
 radab <- function(adsl,
-                  ADPC,
+                  adpc,
                   constants = c(D = 100, ka = 0.8, ke = 1),
                   paramcd = c(
                     "R1800000", "RESULT1", "R1800001", "RESULT2", "ADASTAT1", "INDUCD1", "ENHANC1",
@@ -61,7 +61,7 @@ radab <- function(adsl,
     return(get_cached_data("cadpc"))
   }
 
-  checkmate::assert_data_frame(ADPC)
+  checkmate::assert_data_frame(adpc)
   checkmate::assert_subset(names(constants), c("D", "ka", "ke"))
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
@@ -80,14 +80,14 @@ radab <- function(adsl,
   param_init_list <- relvar_init(param, paramcd)
   unit_init_list <- relvar_init(param, avalu)
 
-  ADPC <- ADPC %>% dplyr::filter(ASMED == "PLASMA")
-  ADAB <- expand.grid(
+  adpc <- adpc %>% dplyr::filter(ASMED == "PLASMA")
+  adab <- expand.grid(
     STUDYID = unique(adsl$STUDYID),
     USUBJID = unique(adsl$USUBJID),
-    VISIT = unique(ADPC$VISIT),
+    VISIT = unique(adpc$VISIT),
     PARAM = as.factor(param_init_list$relvar1),
     PARCAT1 = "A: Drug X Antibody",
-    PCTPT = unique(ADPC$PCTPT),
+    PCTPT = unique(adpc$PCTPT),
     stringsAsFactors = FALSE
   )
 
@@ -95,11 +95,11 @@ radab <- function(adsl,
     "Antibody titer units", "Neutralizing Antibody titer units",
     "ADA interpreted per sample result", "NAB interpreted per sample result"
   )
-  aval_random <- stats::rnorm(nrow(unique(ADAB %>% dplyr::select(USUBJID, VISIT))), mean = 1, sd = 0.2)
-  aval_random <- cbind(unique(ADAB %>% dplyr::select(USUBJID, VISIT)), AVAL1 = aval_random)
+  aval_random <- stats::rnorm(nrow(unique(adab %>% dplyr::select(USUBJID, VISIT))), mean = 1, sd = 0.2)
+  aval_random <- cbind(unique(adab %>% dplyr::select(USUBJID, VISIT)), AVAL1 = aval_random)
 
-  ADAB <- ADAB %>% dplyr::left_join(aval_random, by = c("USUBJID", "VISIT"))
-  ADAB <- ADAB %>%
+  adab <- adab %>% dplyr::left_join(aval_random, by = c("USUBJID", "VISIT"))
+  adab <- adab %>%
     dplyr::mutate(
       AVAL2 = ifelse(AVAL1 >= 1, AVAL1, NA),
       AVALC = dplyr::case_when(
@@ -116,22 +116,22 @@ radab <- function(adsl,
     dplyr::select(-c(AVAL1, AVAL2))
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADAB <- ADAB %>% rel_var(
+  adab <- adab %>% rel_var(
     var_name = "PARAMCD",
     related_var = "PARAM",
     var_values = param_init_list$relvar2
   )
 
   # assign related variable values: PARAMxAVALU are related
-  ADAB <- ADAB %>% rel_var(
+  adab <- adab %>% rel_var(
     var_name = "AVALU",
     related_var = "PARAM",
     var_values = unit_init_list$relvar2
   )
 
-  # retrieve other variables from ADPC
-  ADAB <- ADAB %>%
-    dplyr::inner_join(ADPC %>% dplyr::select(
+  # retrieve other variables from adpc
+  adab <- adab %>%
+    dplyr::inner_join(adpc %>% dplyr::select(
       STUDYID,
       USUBJID,
       VISIT,
@@ -148,12 +148,12 @@ radab <- function(adsl,
       unique(), by = c("STUDYID", "USUBJID", "VISIT", "PCTPT")) %>%
     dplyr::select(-PCTPT)
 
-  # mutate time from dose variables from ADPC to convert into Days
-  ADAB <- ADAB %>% dplyr::mutate_at(c("ARELTM1", "NRELTM1", "ARELTM2", "NRELTM2"), ~ . / 24)
-  ADAB <- ADAB %>%
+  # mutate time from dose variables from adpc to convert into Days
+  adab <- adab %>% dplyr::mutate_at(c("ARELTM1", "NRELTM1", "ARELTM2", "NRELTM2"), ~ . / 24)
+  adab <- adab %>%
     dplyr::mutate(
       RELTMU = "day",
-      ADABLFL = "Y",
+      adabLFL = "Y",
       ADAPBLFL = ifelse(ACTARM == "A: Drug X" | ACTARM == "C: Combination", "Y",
         NA
       ),
@@ -166,7 +166,7 @@ radab <- function(adsl,
     dplyr::ungroup()
 
   # create temporary flags to derive subject-level variables
-  adab_subj <- ADAB %>%
+  adab_subj <- adab %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(
       pos_bl = any(PARAM == "ADA interpreted per sample result" &
@@ -221,11 +221,11 @@ radab <- function(adsl,
     unique()
 
   # add flags to ADAB dataset
-  ADAB <- ADAB %>%
+  adab <- adab %>%
     dplyr::left_join(adab_subj, by = c("USUBJID", "NRELTM1"))
 
   # derive subject-level variables
-  ADAB[!(ADAB$PARAM %in% visit_lvl_params), ] <- ADAB %>%
+  adab[!(adab$PARAM %in% visit_lvl_params), ] <- adab %>%
     dplyr::filter(!(PARAM %in% visit_lvl_params)) %>%
     dplyr::mutate(
       AVALC = dplyr::case_when(
@@ -303,8 +303,8 @@ radab <- function(adsl,
       )
     )
 
-  # remove intermediate flag variables from ADAB
-  ADAB <- ADAB %>%
+  # remove intermediate flag variables from adab
+  adab <- adab %>%
     dplyr::select(-c(
       pos_bl,
       pos_bl_nab,
@@ -319,8 +319,8 @@ radab <- function(adsl,
     ))
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADAB <- mutate_na(ds = ADAB, na_vars = na_vars, na_percentage = na_percentage)
+    adab <- mutate_na(ds = adab, na_vars = na_vars, na_percentage = na_percentage)
   }
 
-  ADAB <- apply_metadata(ADAB, "metadata/ADAB.yml")
+  adab <- apply_metadata(adab, "metadata/adab.yml")
 }

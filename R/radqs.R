@@ -22,11 +22,11 @@
 #' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADQS <- radqs(adsl, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-#' ADQS
+#' adqs <- radqs(adsl, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+#' adqs
 #'
-#' ADQS <- radqs(adsl, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
-#' ADQS
+#' adqs <- radqs(adsl, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
+#' adqs
 radqs <- function(adsl,
                   param = c(
                     "BFI All Questions",
@@ -69,7 +69,7 @@ radqs <- function(adsl,
   }
   study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
-  ADQS <- expand.grid(
+  adqs <- expand.grid(
     STUDYID = unique(adsl$STUDYID),
     USUBJID = adsl$USUBJID,
     PARAM = param_init_list$relvar1,
@@ -77,8 +77,8 @@ radqs <- function(adsl,
     stringsAsFactors = FALSE
   )
 
-  ADQS <- dplyr::mutate(
-    ADQS,
+  adqs <- dplyr::mutate(
+    adqs,
     AVISITN = dplyr::case_when(
       AVISIT == "SCREENING" ~ -1,
       AVISIT == "BASELINE" ~ 0,
@@ -88,21 +88,21 @@ radqs <- function(adsl,
   )
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADQS <- ADQS %>% rel_var(
+  adqs <- adqs %>% rel_var(
     var_name = "PARAMCD",
     related_var = "PARAM",
     var_values = param_init_list$relvar2
   )
 
-  ADQS$AVAL <- stats::rnorm(nrow(ADQS), mean = 50, sd = 8) + ADQS$AVISITN * stats::rnorm(nrow(ADQS), mean = 5, sd = 2)
+  adqs$AVAL <- stats::rnorm(nrow(adqs), mean = 50, sd = 8) + adqs$AVISITN * stats::rnorm(nrow(adqs), mean = 5, sd = 2)
 
   # order to prepare for change from screening and baseline values
-  ADQS <- ADQS[order(ADQS$STUDYID, ADQS$USUBJID, ADQS$PARAMCD, ADQS$AVISITN), ]
+  adqs <- adqs[order(adqs$STUDYID, adqs$USUBJID, adqs$PARAMCD, adqs$AVISITN), ]
 
-  ADQS <- Reduce(
+  adqs <- Reduce(
     rbind,
     lapply(
-      split(ADQS, ADQS$USUBJID),
+      split(adqs, adqs$USUBJID),
       function(x) {
         x$STUDYID <- adsl$STUDYID[which(adsl$USUBJID == x$USUBJID[1])]
         x$ABLFL2 <- ifelse(x$AVISIT == "SCREENING", "Y", "")
@@ -121,10 +121,10 @@ radqs <- function(adsl,
     )
   )
 
-  ADQS$BASE2 <- retain(ADQS, ADQS$AVAL, ADQS$ABLFL2 == "Y")
-  ADQS$BASE <- ifelse(ADQS$ABLFL2 != "Y", retain(ADQS, ADQS$AVAL, ADQS$ABLFL == "Y"), NA)
+  adqs$BASE2 <- retain(adqs, adqs$AVAL, adqs$ABLFL2 == "Y")
+  adqs$BASE <- ifelse(adqs$ABLFL2 != "Y", retain(adqs, adqs$AVAL, adqs$ABLFL == "Y"), NA)
 
-  ADQS <- ADQS %>%
+  adqs <- adqs %>%
     dplyr::mutate(CHG2 = AVAL - BASE2) %>%
     dplyr::mutate(PCHG2 = 100 * (CHG2 / BASE2)) %>%
     dplyr::mutate(CHG = AVAL - BASE) %>%
@@ -134,15 +134,15 @@ radqs <- function(adsl,
       USUBJID = attr(adsl$USUBJID, "label")
     )
 
-  ADQS <- var_relabel(
-    ADQS,
+  adqs <- var_relabel(
+    adqs,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add QS date and study day variables
-  ADQS <- dplyr::inner_join(
-    ADQS,
+  adqs <- dplyr::inner_join(
+    adqs,
     adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
@@ -153,7 +153,7 @@ radqs <- function(adsl,
     ))) %>%
     ungroup()
 
-  ADQS <- ADQS %>%
+  adqs <- adqs %>%
     group_by(USUBJID) %>%
     arrange(USUBJID, AVISITN) %>%
     dplyr::mutate(ADTM = rep(
@@ -168,7 +168,7 @@ radqs <- function(adsl,
     dplyr::select(-TRTENDT) %>%
     dplyr::arrange(STUDYID, USUBJID, ADTM)
 
-  ADQS <- ADQS %>%
+  adqs <- adqs %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(QSSEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = QSSEQ) %>%
@@ -183,11 +183,11 @@ radqs <- function(adsl,
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADQS <- mutate_na(ds = ADQS, na_vars = na_vars, na_percentage = na_percentage)
+    adqs <- mutate_na(ds = adqs, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADQS <- apply_metadata(ADQS, "metadata/ADQS.yml")
+  adqs <- apply_metadata(adqs, "metadata/adqs.yml")
 
-  return(ADQS)
+  return(adqs)
 }

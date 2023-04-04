@@ -22,8 +22,8 @@
 #' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADDV <- raddv(adsl, seed = 2)
-#' ADDV
+#' addv <- raddv(adsl, seed = 2)
+#' addv
 raddv <- function(adsl,
                   max_n_dv = 3L,
                   p_dv = 0.15,
@@ -86,7 +86,7 @@ raddv <- function(adsl,
   }
 
 
-  ADDV <- Map(
+  addv <- Map(
     function(id, sid) {
       n_dv <- stats::rbinom(1, 1, p_dv) * sample(c(1, seq_len(max_n_dv)), 1)
       i <- sample(seq_len(nrow(lookup_dv)), n_dv, TRUE)
@@ -102,14 +102,14 @@ raddv <- function(adsl,
     Reduce(rbind, .) %>%
     dplyr::mutate(DVSCAT = DVCAT)
 
-  ADDV <- var_relabel(
-    ADDV,
+  addv <- var_relabel(
+    addv,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add deviation date and study day variables
-  ADDV <- dplyr::inner_join(ADDV, adsl, by = c("STUDYID", "USUBJID")) %>%
+  addv <- dplyr::inner_join(addv, adsl, by = c("STUDYID", "USUBJID")) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
       is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
@@ -125,21 +125,21 @@ raddv <- function(adsl,
     dplyr::ungroup() %>%
     dplyr::arrange(STUDYID, USUBJID, ASTDT, DVTERM)
 
-  ADDV <- ADDV %>%
+  addv <- addv %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(DVSEQ = seq_len(dplyr::n())) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(STUDYID, USUBJID, ASTDT, DVTERM, DVSEQ)
 
-  ADDV <- ADDV %>%
+  addv <- addv %>%
     dplyr::mutate(AEPRELFL = ifelse(DVEPRELI == "Y", DVEPRELI, ""))
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADDV <- mutate_na(ds = ADDV, na_vars = na_vars, na_percentage = na_percentage)
+    addv <- mutate_na(ds = addv, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADDV <- apply_metadata(ADDV, "metadata/ADDV.yml")
+  addv <- apply_metadata(addv, "metadata/addv.yml")
 
-  return(ADDV)
+  return(addv)
 }

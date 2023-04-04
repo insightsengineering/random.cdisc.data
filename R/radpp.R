@@ -20,8 +20,8 @@
 #' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADPP <- radpp(adsl, seed = 2)
-#' ADPP
+#' adpp <- radpp(adsl, seed = 2)
+#' adpp
 radpp <- function(adsl,
                   ppcat = c("Plasma Drug X", "Plasma Drug Y", "Metabolite Drug X", "Metabolite Drug Y"),
                   ppspec = c(
@@ -79,7 +79,7 @@ radpp <- function(adsl,
   param_init_list <- relvar_init(param, paramcd)
   unit_init_list <- relvar_init(param, paramu)
 
-  ADPP <- expand.grid(
+  adpp <- expand.grid(
     STUDYID = unique(adsl$STUDYID),
     USUBJID = adsl$USUBJID,
     PPCAT = as.factor(ppcat),
@@ -87,35 +87,35 @@ radpp <- function(adsl,
     AVISIT = visit_schedule(visit_format = visit_format, n_assessments = 1L, n_days = n_days),
     stringsAsFactors = FALSE
   )
-  ADPP <- ADPP %>%
-    dplyr::mutate(AVAL = stats::rnorm(nrow(ADPP), mean = 1, sd = 0.2)) %>%
+  adpp <- adpp %>%
+    dplyr::mutate(AVAL = stats::rnorm(nrow(adpp), mean = 1, sd = 0.2)) %>%
     dplyr::left_join(data.frame(PARAM = param, ADJUST = aval_mean), by = "PARAM") %>%
     dplyr::mutate(AVAL = AVAL * ADJUST) %>%
     dplyr::select(-"ADJUST")
 
   # assign related variable values: PARAMxPPSPEC are related
-  ADPP <- ADPP %>% rel_var(
+  adpp <- adpp %>% rel_var(
     var_name = "PPSPEC",
     related_var = "PARAM",
     var_values = ppspec_init_list$relvar2
   )
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADPP <- ADPP %>% rel_var(
+  adpp <- adpp %>% rel_var(
     var_name = "PARAMCD",
     related_var = "PARAM",
     var_values = param_init_list$relvar2
   )
 
   # assign related variable values: PARAMxAVALU are related
-  ADPP <- ADPP %>% rel_var(
+  adpp <- adpp %>% rel_var(
     var_name = "AVALU",
     related_var = "PARAM",
     var_values = unit_init_list$relvar2
   )
 
   # derive AVISITN based AVISIT and AVALC based on AVAL
-  ADPP <- ADPP %>%
+  adpp <- adpp %>%
     dplyr::mutate(AVALC = as.character(AVAL)) %>%
     dplyr::mutate(
       AVISITN = dplyr::case_when(
@@ -126,7 +126,7 @@ radpp <- function(adsl,
     )
 
   # derive REGIMEN variable
-  ADPP <- ADPP %>% dplyr::mutate(REGIMEN = "BID")
+  adpp <- adpp %>% dplyr::mutate(REGIMEN = "BID")
 
   # derive PPSTINT and PPENINT based on PARAMCD
   T1_T2 <- data.frame(
@@ -134,24 +134,24 @@ radpp <- function(adsl,
     PPSTINT = c("P0H", "P0H", "P0H", "P0H"),
     PPENINT = c("P12H", "P24H", "P12H", "P24H")
   )
-  ADPP <- ADPP %>%
+  adpp <- adpp %>%
     dplyr::left_join(T1_T2, by = c("PARAMCD"), multiple = "all")
 
-  ADPP <- dplyr::inner_join(ADPP, adsl, by = c("STUDYID", "USUBJID")) %>%
+  adpp <- dplyr::inner_join(adpp, adsl, by = c("STUDYID", "USUBJID")) %>%
     dplyr::filter(ACTARM != "B: Placebo", !(ACTARM == "A: Drug X" &
       (PPCAT == "Plasma Drug Y" | PPCAT == "Metabolite Drug Y")))
 
   # derive PKARMCD column for creating more cohorts
-  ADPP <- ADPP %>%
-    dplyr::mutate(PKARMCD = factor(1 + (seq_len(nrow(ADPP)) - 1) %/% (nrow(ADPP) / 10), labels = c(
+  adpp <- adpp %>%
+    dplyr::mutate(PKARMCD = factor(1 + (seq_len(nrow(adpp)) - 1) %/% (nrow(adpp) / 10), labels = c(
       "Drug A", "Drug B", "Drug C", "Drug D", "Drug E", "Drug F", "Drug G", "Drug H",
       "Drug I", "Drug J"
     )))
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADPP <- mutate_na(ds = ADPP, na_vars = na_vars, na_percentage = na_percentage)
+    adpp <- mutate_na(ds = adpp, na_vars = na_vars, na_percentage = na_percentage)
   }
 
-  ADPP <- apply_metadata(ADPP, "metadata/ADPP.yml")
-  return(ADPP)
+  adpp <- apply_metadata(adpp, "metadata/adpp.yml")
+  return(adpp)
 }
