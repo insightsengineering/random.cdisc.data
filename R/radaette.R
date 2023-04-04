@@ -10,8 +10,8 @@
 #' Keys: `STUDYID`, `USUBJID`, `PARAMCD`
 #'
 #' @inheritParams argument_convention
-#' @param event.descr (`character vector`)\cr Descriptions of events. Defaults to `NULL`.
-#' @param censor.descr (`character vector`)\cr Descriptions of censors. Defaults to `NULL`.
+#' @param event_descr (`character vector`)\cr Descriptions of events. Defaults to `NULL`.
+#' @param censor_descr (`character vector`)\cr Descriptions of censors. Defaults to `NULL`.
 #' @template param_cached
 #' @templateVar data adaette
 #'
@@ -27,8 +27,8 @@
 #' adaette <- radaette(adsl, seed = 2)
 #' adaette
 radaette <- function(adsl,
-                     event.descr = NULL,
-                     censor.descr = NULL,
+                     event_descr = NULL,
+                     censor_descr = NULL,
                      lookup = NULL,
                      seed = NULL,
                      na_percentage = 0,
@@ -40,8 +40,8 @@ radaette <- function(adsl,
   }
 
   checkmate::assert_data_frame(adsl)
-  checkmate::assert_character(censor.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
-  checkmate::assert_character(event.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(censor_descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(event_descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
   checkmate::assert_true(na_percentage < 1)
@@ -69,14 +69,14 @@ radaette <- function(adsl,
   }
   study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
-  evntdescr_sel <- if (!is.null(event.descr)) {
-    event.descr
+  evntdescr_sel <- if (!is.null(event_descr)) {
+    event_descr
   } else {
     "Preferred Term"
   }
 
-  cnsdtdscr_sel <- if (!is.null(censor.descr)) {
-    censor.descr
+  cnsdtdscr_sel <- if (!is.null(censor_descr)) {
+    censor_descr
   } else {
     c(
       "Clinical Cut Off",

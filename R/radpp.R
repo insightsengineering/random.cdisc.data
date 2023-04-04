@@ -129,13 +129,13 @@ radpp <- function(adsl,
   adpp <- adpp %>% dplyr::mutate(REGIMEN = "BID")
 
   # derive PPSTINT and PPENINT based on PARAMCD
-  T1_T2 <- data.frame(
+  t1_t2 <- data.frame(
     PARAMCD = c("RCAMINT", "RCAMINT", "RCPCINT", "RCPCINT"),
     PPSTINT = c("P0H", "P0H", "P0H", "P0H"),
     PPENINT = c("P12H", "P24H", "P12H", "P24H")
   )
   adpp <- adpp %>%
-    dplyr::left_join(T1_T2, by = c("PARAMCD"), multiple = "all")
+    dplyr::left_join(t1_t2, by = c("PARAMCD"), multiple = "all")
 
   adpp <- dplyr::inner_join(adpp, adsl, by = c("STUDYID", "USUBJID")) %>%
     dplyr::filter(ACTARM != "B: Placebo", !(ACTARM == "A: Drug X" &

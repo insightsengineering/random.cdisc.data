@@ -805,24 +805,24 @@ calc_scales <- function(adqlqc1) {
     "1"
   )
   df$equation <- list(
-    "newValue = (1 - ((tempVal/varLength)-1)/3)*100.0",
-    "newValue = ((tempVal/varLength-1)/3)*100.0",
-    "newValue = ((tempVal/varLength-1)/3)*100.0",
-    "newValue = (1 - ((tempVal/varLength)-1)/3)*100.0",
-    "newValue = ((tempVal/varLength-1)/3)*100.0",
-    "newValue = ((tempVal/varLength-1)/3)*100.0",
-    "newValue = ((tempVal/varLength-1)/3)*100.0",
-    "newValue = ((tempVal/varLength-1)/3)*100.0",
-    "newValue = (1 - ((tempVal/varLength)-1)/3)*100.0",
-    "newValue = ((tempVal/varLength-1)/6)*100.0",
-    "newValue = ((tempVal/varLength-1)/3)*100.0",
-    "newValue = (1 - ((tempVal/varLength)-1)/3)*100.0",
-    "newValue = ((tempVal/varLength-1)/3)*100.0",
-    "newValue = (1 - ((tempVal/varLength)-1)/3)*100.0",
-    "newValue = ((tempVal/varLength-1)/3)*100.0"
+    "new_value = (1 - ((temp_val/var_length)-1)/3)*100.0",
+    "new_value = ((temp_val/var_length-1)/3)*100.0",
+    "new_value = ((temp_val/var_length-1)/3)*100.0",
+    "new_value = (1 - ((temp_val/var_length)-1)/3)*100.0",
+    "new_value = ((temp_val/var_length-1)/3)*100.0",
+    "new_value = ((temp_val/var_length-1)/3)*100.0",
+    "new_value = ((temp_val/var_length-1)/3)*100.0",
+    "new_value = ((temp_val/var_length-1)/3)*100.0",
+    "new_value = (1 - ((temp_val/var_length)-1)/3)*100.0",
+    "new_value = ((temp_val/var_length-1)/6)*100.0",
+    "new_value = ((temp_val/var_length-1)/3)*100.0",
+    "new_value = (1 - ((temp_val/var_length)-1)/3)*100.0",
+    "new_value = ((temp_val/var_length-1)/3)*100.0",
+    "new_value = (1 - ((temp_val/var_length)-1)/3)*100.0",
+    "new_value = ((temp_val/var_length-1)/3)*100.0"
   )
 
-  expectData <- data.frame(
+  expect_data <- data.frame(
     PARAM = expect$PARAM,
     PARAMCD = expect$PARAMCD,
     PARCAT2 = expect$PARCAT2,
@@ -836,52 +836,52 @@ calc_scales <- function(adqlqc1) {
 
   df_saved <- data.frame()
 
-  uniqueID <- unique(adqlqc1$USUBJID)
+  unique_id <- unique(adqlqc1$USUBJID)
 
-  for (id in uniqueID) {
-    idData <- adqlqc1[adqlqc1$USUBJID == id, ]
-    uniqueAvisit <- unique(idData$AVISIT)
-    for (visit in uniqueAvisit) {
+  for (id in unique_id) {
+    id_data <- adqlqc1[adqlqc1$USUBJID == id, ]
+    unique_avisit <- unique(id_data$AVISIT)
+    for (visit in unique_avisit) {
       if (is.na(visit)) {
         next
       }
-      idData_at_visit <- idData[idData$AVISIT == visit, ]
+      id_data_at_visit <- id_data[id_data$AVISIT == visit, ]
 
-      if (any(idData_at_visit$PARAMCD != "QSALL")) {
+      if (any(id_data_at_visit$PARAMCD != "QSALL")) {
         for (idx in seq_along(df$index)) {
-          previousNames <- df$previous[idx]
-          currentName <- df$newName[idx]
-          currentNamelabel <- df$newNamelabel[idx]
-          currentNameCategory <- df$newNameCategory[idx]
+          previous_names <- df$previous[idx]
+          current_name <- df$newName[idx]
+          current_name_label <- df$newNamelabel[idx]
+          current_name_category <- df$newNameCategory[idx]
           eqn <- df$equation[idx]
-          tempVal <- 0
-          varLength <- 0
-          for (paramName in previousNames[[1]]) {
-            if (paramName %in% idData_at_visit$PARAMCD) { ####
-              currentVal <- as.numeric(as.character(idData_at_visit$AVAL[idData_at_visit$PARAMCD == paramName]))
-              if (!is.na(currentVal)) {
-                tempVal <- tempVal + currentVal ###
-                varLength <- varLength + 1
+          temp_val <- 0
+          var_length <- 0
+          for (param_name in previous_names[[1]]) {
+            if (param_name %in% id_data_at_visit$PARAMCD) { ####
+              current_val <- as.numeric(as.character(id_data_at_visit$AVAL[id_data_at_visit$PARAMCD == param_name]))
+              if (!is.na(current_val)) {
+                temp_val <- temp_val + current_val ###
+                var_length <- var_length + 1
               }
             } # if
-          } # paramName
+          } # param_name
           # eval
-          if (varLength >= as.numeric(df$num_param[idx])) {
+          if (var_length >= as.numeric(df$num_param[idx])) {
             eval(parse(text = eqn)) #####
           } else {
-            newValue <- NA
+            new_value <- NA
           }
 
           new_data_row <- data.frame(
             study = str_extract(id, "[A-Z]+[0-9]+"),
             id,
             visit,
-            idData_at_visit$AVISITN[1],
-            idData_at_visit$QSDTC[1],
-            currentNameCategory,
-            currentNamelabel,
-            currentName,
-            newValue,
+            id_data_at_visit$AVISITN[1],
+            id_data_at_visit$QSDTC[1],
+            current_name_category,
+            current_name_label,
+            current_name,
+            new_value,
             NA,
             stringsAsFactors = FALSE
           )
@@ -894,20 +894,20 @@ calc_scales <- function(adqlqc1) {
         } # idx
       }
       # add expect data
-      expectValue <- sample(expectData$AVAL, 1, prob = c(0.10, 0.90))
-      expectValueC <- expectData$AVALC[expectData$AVAL == expectValue]
+      expect_value <- sample(expect_data$AVAL, 1, prob = c(0.10, 0.90))
+      expect_valuec <- expect_data$AVALC[expect_data$AVAL == expect_value]
 
       new_data_row <- data.frame(
         study = str_extract(id, "[A-Z]+[0-9]+"),
         id,
         visit,
-        idData_at_visit$AVISITN[1],
+        id_data_at_visit$AVISITN[1],
         datetime = NA,
-        expectData$PARCAT2[1],
-        expectData$PARAM[1],
-        expectData$PARAMCD[1],
-        expectValue,
-        expectValueC,
+        expect_data$PARCAT2[1],
+        expect_data$PARAM[1],
+        expect_data$PARAMCD[1],
+        expect_value,
+        expect_valuec,
         stringsAsFactors = FALSE
       )
       colnames(new_data_row) <- c(

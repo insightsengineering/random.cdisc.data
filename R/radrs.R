@@ -98,17 +98,17 @@ radrs <- function(adsl,
       avisit <- c("SCREENING", "BASELINE", "CYCLE 2 DAY 1", "CYCLE 4 DAY 1", "END OF INDUCTION", "FOLLOW UP")
 
       # meaningful date information
-      TRTSTDT <- lubridate::date(pinfo$TRTSDTM)
-      TRTENDT <- lubridate::date(dplyr::if_else(
+      trtstdt <- lubridate::date(pinfo$TRTSDTM)
+      trtendt <- lubridate::date(dplyr::if_else(
         !is.na(pinfo$TRTEDTM), pinfo$TRTEDTM,
-        lubridate::floor_date(TRTSTDT + study_duration_secs, unit = "day")
+        lubridate::floor_date(trtstdt + study_duration_secs, unit = "day")
       ))
-      scr_date <- TRTSTDT - lubridate::days(100)
-      bs_date <- TRTSTDT
-      flu_date <- sample(seq(lubridate::as_datetime(TRTSTDT), lubridate::as_datetime(TRTENDT), by = "day"), size = 1)
-      eoi_date <- sample(seq(lubridate::as_datetime(TRTSTDT), lubridate::as_datetime(TRTENDT), by = "day"), size = 1)
-      c2d1_date <- sample(seq(lubridate::as_datetime(TRTSTDT), lubridate::as_datetime(TRTENDT), by = "day"), size = 1)
-      c4d1_date <- min(lubridate::date(c2d1_date + lubridate::days(60)), TRTENDT)
+      scr_date <- trtstdt - lubridate::days(100)
+      bs_date <- trtstdt
+      flu_date <- sample(seq(lubridate::as_datetime(trtstdt), lubridate::as_datetime(trtendt), by = "day"), size = 1)
+      eoi_date <- sample(seq(lubridate::as_datetime(trtstdt), lubridate::as_datetime(trtendt), by = "day"), size = 1)
+      c2d1_date <- sample(seq(lubridate::as_datetime(trtstdt), lubridate::as_datetime(trtendt), by = "day"), size = 1)
+      c4d1_date <- min(lubridate::date(c2d1_date + lubridate::days(60)), trtendt)
 
       tibble::tibble(
         STUDYID = pinfo$STUDYID,

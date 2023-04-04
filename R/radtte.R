@@ -24,8 +24,8 @@
 #' adtte <- radtte(adsl, seed = 2)
 #' adtte
 radtte <- function(adsl,
-                   event.descr = NULL,
-                   censor.descr = NULL,
+                   event_descr = NULL,
+                   censor_descr = NULL,
                    lookup = NULL,
                    seed = NULL,
                    na_percentage = 0,
@@ -37,8 +37,8 @@ radtte <- function(adsl,
   }
 
   checkmate::assert_data_frame(adsl)
-  checkmate::assert_character(censor.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
-  checkmate::assert_character(event.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(censor_descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(event_descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
   checkmate::assert_true(na_percentage < 1)
@@ -69,8 +69,8 @@ radtte <- function(adsl,
     )
   }
 
-  evntdescr_sel <- if (!is.null(event.descr)) {
-    event.descr
+  evntdescr_sel <- if (!is.null(event_descr)) {
+    event_descr
   } else {
     c(
       "Death",
@@ -81,8 +81,8 @@ radtte <- function(adsl,
     )
   }
 
-  cnsdtdscr_sel <- if (!is.null(censor.descr)) {
-    censor.descr
+  cnsdtdscr_sel <- if (!is.null(censor_descr)) {
+    censor_descr
   } else {
     c(
       "Preferred Term",

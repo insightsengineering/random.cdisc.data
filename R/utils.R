@@ -31,7 +31,7 @@ get_cached_data <- function(dataname) {
 #' @examples
 #' random.cdisc.data:::sample_fct(letters[1:3], 10)
 #' random.cdisc.data:::sample_fct(iris$Species, 10)
-sample_fct <- function(x, N, ...) {
+sample_fct <- function(x, N, ...) { # nolint
   checkmate::assert_number(N)
 
   factor(sample(x, N, replace = TRUE, ...), levels = if (is.factor(x)) levels(x) else x)

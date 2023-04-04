@@ -43,7 +43,7 @@
 #'
 #' adsl <- radsl(N = 10, seed = 1, na_percentage = .1)
 #' adsl
-radsl <- function(N = 400,
+radsl <- function(N = 400, # nolint
                   study_duration = 2,
                   seed = NULL,
                   with_trt02 = TRUE,
