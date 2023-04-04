@@ -41,6 +41,7 @@
 * Improved usability of examples.
 * Renamed `random.cdisc.data.R` file to `package.R` and cleaned up contents.
 * Added more detailed documentation for function parameters.
+* Converted all dataset names to lowercase/snake case for consistency with other NEST packages.
 
 # random.cdisc.data 0.3.13
 
