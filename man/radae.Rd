@@ -5,7 +5,7 @@
 \title{Adverse Event Analysis Dataset (ADAE)}
 \usage{
 radae(
-  ADSL,
+  adsl,
   max_n_aes = 10L,
   lookup = NULL,
   lookup_aag = NULL,
@@ -16,7 +16,7 @@ radae(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{max_n_aes}{(\code{integer})\cr Maximum number of AEs per patient. Defaults to 10.}
 
@@ -55,13 +55,13 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{ASTDTM}, \code{AETERM}, \code{AESEQ}
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 
-ADAE <- radae(ADSL, seed = 2)
-ADAE
+adae <- radae(adsl, seed = 2)
+adae
 
 # Add metadata.
-AAG <- utils::read.table(
+aag <- utils::read.table(
   sep = ",", header = TRUE,
   text = paste(
     "NAMVAR,SRCVAR,GRPTYPE,REFNAME,REFTERM,SCOPE",
@@ -75,10 +75,10 @@ AAG <- utils::read.table(
   ), stringsAsFactors = FALSE
 )
 
-ADAE <- radae(ADSL, lookup_aag = AAG)
+adae <- radae(adsl, lookup_aag = aag)
 
 with(
-  ADAE,
+  adae,
   cbind(
     table(AEDECOD, SMQ01NAM),
     table(AEDECOD, CQ01NAM)

@@ -251,7 +251,7 @@ radqlqc <- function(adsl,
       QSTESTCD
     )
   # apply metadata
-  adqlqc_final <- apply_metadata(adqlqc_final, "metadata/adqlqc.yml")
+  adqlqc_final <- apply_metadata(adqlqc_final, "metadata/ADQLQC.yml")
   return(adqlqc_final)
 }
 

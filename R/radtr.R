@@ -171,6 +171,6 @@ radtr <- function(adsl,
     )
 
   # apply metadata
-  adtr <- apply_metadata(adtr, "metadata/adtr.yml")
+  adtr <- apply_metadata(adtr, "metadata/ADTR.yml")
   return(adtr)
 }

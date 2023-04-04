@@ -153,7 +153,7 @@ radab <- function(adsl,
   adab <- adab %>%
     dplyr::mutate(
       RELTMU = "day",
-      adabLFL = "Y",
+      ADABLFL = "Y",
       ADAPBLFL = ifelse(ACTARM == "A: Drug X" | ACTARM == "C: Combination", "Y",
         NA
       ),
@@ -322,5 +322,5 @@ radab <- function(adsl,
     adab <- mutate_na(ds = adab, na_vars = na_vars, na_percentage = na_percentage)
   }
 
-  adab <- apply_metadata(adab, "metadata/adab.yml")
+  adab <- apply_metadata(adab, "metadata/ADAB.yml")
 }

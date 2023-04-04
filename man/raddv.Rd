@@ -5,7 +5,7 @@
 \title{Protocol Deviations Analysis Dataset (ADDV)}
 \usage{
 raddv(
-  ADSL,
+  adsl,
   max_n_dv = 3L,
   p_dv = 0.15,
   lookup = NULL,
@@ -17,7 +17,7 @@ raddv(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{max_n_dv}{(\code{integer})\cr Maximum number of deviations per patient. Defaults to 3.}
 
@@ -56,8 +56,8 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{ASTDT}, \code{DVTERM}, \code{DVSEQ}
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
-ADDV <- raddv(ADSL, seed = 2)
-ADDV
+addv <- raddv(adsl, seed = 2)
+addv
 }

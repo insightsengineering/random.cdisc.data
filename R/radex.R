@@ -322,7 +322,7 @@ radex <- function(adsl,
   }
 
   # apply metadata
-  adex <- apply_metadata(adex, "metadata/adex.yml")
+  adex <- apply_metadata(adex, "metadata/ADEX.yml")
 }
 
 # Equivalent of stringr::str_extract_all()

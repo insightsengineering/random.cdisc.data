@@ -206,7 +206,7 @@ radcm <- function(adsl,
   }
 
   # apply metadata
-  adcm <- apply_metadata(adcm, "metadata/adcm.yml")
+  adcm <- apply_metadata(adcm, "metadata/ADCM.yml")
 
   return(adcm)
 }

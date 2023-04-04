@@ -196,7 +196,7 @@ radtte <- function(adsl,
   }
 
   # apply metadata
-  adtte <- apply_metadata(adtte, "metadata/adtte.yml")
+  adtte <- apply_metadata(adtte, "metadata/ADTTE.yml")
 
   return(adtte)
 }

@@ -253,7 +253,7 @@ radvs <- function(adsl,
   }
 
   # apply metadata
-  advs <- apply_metadata(advs, "metadata/advs.yml")
+  advs <- apply_metadata(advs, "metadata/ADVS.yml")
 
   return(advs)
 }

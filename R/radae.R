@@ -286,7 +286,7 @@ radae <- function(adsl,
   }
 
   # apply metadata
-  adae <- apply_metadata(adae, "metadata/adae.yml")
+  adae <- apply_metadata(adae, "metadata/ADAE.yml")
 
   return(adae)
 }

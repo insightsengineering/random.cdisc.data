@@ -136,7 +136,7 @@ radmh <- function(adsl,
   }
 
   # apply metadata
-  admh <- apply_metadata(admh, "metadata/admh.yml")
+  admh <- apply_metadata(admh, "metadata/ADMH.yml")
 
   return(admh)
 }

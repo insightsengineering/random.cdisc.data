@@ -185,7 +185,7 @@ radrs <- function(adsl,
   }
 
   # apply metadata
-  adrs <- apply_metadata(adrs, "metadata/adrs.yml")
+  adrs <- apply_metadata(adrs, "metadata/ADRS.yml")
 
   return(adrs)
 }

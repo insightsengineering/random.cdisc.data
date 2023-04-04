@@ -5,9 +5,9 @@
 \title{Time-to-Event Analysis Dataset (ADTTE)}
 \usage{
 radtte(
-  ADSL,
-  event.descr = NULL,
-  censor.descr = NULL,
+  adsl,
+  event_descr = NULL,
+  censor_descr = NULL,
   lookup = NULL,
   seed = NULL,
   na_percentage = 0,
@@ -16,11 +16,11 @@ radtte(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{event.descr}{(\verb{character vector})\cr Descriptions of events. Defaults to \code{NULL}.}
+\item{event_descr}{(\verb{character vector})\cr Descriptions of events. Defaults to \code{NULL}.}
 
-\item{censor.descr}{(\verb{character vector})\cr Descriptions of censors. Defaults to \code{NULL}.}
+\item{censor_descr}{(\verb{character vector})\cr Descriptions of censors. Defaults to \code{NULL}.}
 
 \item{lookup}{(\code{data.frame})\cr Additional parameters.}
 
@@ -53,8 +53,8 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
-ADTTE <- radtte(ADSL, seed = 2)
-ADTTE
+adtte <- radtte(adsl, seed = 2)
+adtte
 }

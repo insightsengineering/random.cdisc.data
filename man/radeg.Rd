@@ -5,7 +5,7 @@
 \title{ECG Analysis Dataset (ADEG)}
 \usage{
 radeg(
-  ADSL,
+  adsl,
   egcat = c("INTERVAL", "INTERVAL", "MEASUREMENT", "FINDING"),
   param = c("QT Duration", "RR Duration", "Heart Rate", "ECG Interpretation"),
   paramcd = c("QT", "RR", "HR", "ECGINTP"),
@@ -23,7 +23,7 @@ radeg(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{egcat}{(\verb{character vector})\cr EG category values.}
 
@@ -74,13 +74,13 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}, \code{BASETYPE}, \code{AVI
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
-ADEG <- radeg(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-ADEG
+adeg <- radeg(adsl, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+adeg
 
-ADEG <- radeg(ADSL, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
-ADEG
+adeg <- radeg(adsl, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
+adeg
 }
 \author{
 tomlinsj, npaszty, Xuefeng Hou, dipietrc

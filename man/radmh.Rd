@@ -5,7 +5,7 @@
 \title{Medical History Analysis Dataset (ADMH)}
 \usage{
 radmh(
-  ADSL,
+  adsl,
   max_n_mhs = 10L,
   lookup = NULL,
   seed = NULL,
@@ -15,7 +15,7 @@ radmh(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{max_n_mhs}{(\code{integer})\cr Maximum number of MHs per patient. Defaults to 10.}
 
@@ -52,8 +52,8 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{ASTDTM}, \code{MHSEQ}
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 
-ADMH <- radmh(ADSL, seed = 2)
-ADMH
+admh <- radmh(adsl, seed = 2)
+admh
 }

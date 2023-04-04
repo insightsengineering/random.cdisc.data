@@ -262,7 +262,7 @@ radaette <- function(adsl,
   }
 
   # apply metadata
-  adaette <- apply_metadata(adaette, "metadata/adaette.yml")
+  adaette <- apply_metadata(adaette, "metadata/ADAETTE.yml")
 
   return(adaette)
 }

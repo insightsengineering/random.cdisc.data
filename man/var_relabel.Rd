@@ -16,8 +16,8 @@ name in \code{x} and the value to the new variable label.}
 Relabel a subset of variables in a data set.
 }
 \examples{
-ADSL <- radsl()
-random.cdisc.data:::var_relabel(ADSL,
+adsl <- radsl()
+random.cdisc.data:::var_relabel(adsl,
   STUDYID = "Study Identifier",
   USUBJID = "Unique Subject Identifier"
 )

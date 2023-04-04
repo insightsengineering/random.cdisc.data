@@ -372,7 +372,7 @@ radeg <- function(adsl,
   }
 
   # apply metadata
-  adeg <- apply_metadata(adeg, "metadata/adeg.yml")
+  adeg <- apply_metadata(adeg, "metadata/ADEG.yml")
 
   return(adeg)
 }

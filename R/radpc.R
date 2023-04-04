@@ -124,5 +124,5 @@ radpc <- function(adsl,
     adpc <- mutate_na(ds = adpc, na_vars = na_vars, na_percentage = na_percentage)
   }
 
-  adpc <- apply_metadata(adpc, "metadata/adpc.yml")
+  adpc <- apply_metadata(adpc, "metadata/ADPC.yml")
 }

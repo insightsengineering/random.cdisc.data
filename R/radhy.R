@@ -240,7 +240,7 @@ radhy <- function(adsl,
     )
 
   # apply metadata
-  adhy <- apply_metadata(adhy, "metadata/adhy.yml")
+  adhy <- apply_metadata(adhy, "metadata/ADHY.yml")
 
   return(adhy)
 }

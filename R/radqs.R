@@ -187,7 +187,7 @@ radqs <- function(adsl,
   }
 
   # apply metadata
-  adqs <- apply_metadata(adqs, "metadata/adqs.yml")
+  adqs <- apply_metadata(adqs, "metadata/ADQS.yml")
 
   return(adqs)
 }

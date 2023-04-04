@@ -234,13 +234,13 @@ var_relabel <- function(x, ...) {
 #' adlb <- radlb(adsl, seed = seed)
 #' \dontrun{
 #' yaml_path <- file.path(path.package("random.cdisc.data"), "inst", "metadata")
-#' adsl <- random.cdisc.data:::apply_metadata(adsl, file.path(yaml_path, "adsl.yml"), FALSE)
+#' adsl <- random.cdisc.data:::apply_metadata(adsl, file.path(yaml_path, "ADSL.yml"), FALSE)
 #' adlb <- random.cdisc.data:::apply_metadata(
-#'   adlb, file.path(yaml_path, "adlb.yml"), TRUE,
-#'   file.path(yaml_path, "adsl.yml")
+#'   adlb, file.path(yaml_path, "ADLB.yml"), TRUE,
+#'   file.path(yaml_path, "ADSL.yml")
 #' )
 #' }
-apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metadata/adsl.yml") {
+apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metadata/ADSL.yml") {
   checkmate::assert_data_frame(df)
   checkmate::assert_string(filename)
   checkmate::assert_flag(add_adsl)

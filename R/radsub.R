@@ -244,7 +244,7 @@ radsub <- function(adsl,
   }
 
   # Apply metadata.
-  adsub <- apply_metadata(adsub, "metadata/adsub.yml")
+  adsub <- apply_metadata(adsub, "metadata/ADSUB.yml")
 
   return(adsub)
 }

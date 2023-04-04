@@ -139,7 +139,7 @@ raddv <- function(adsl,
   }
 
   # apply metadata
-  addv <- apply_metadata(addv, "metadata/addv.yml")
+  addv <- apply_metadata(addv, "metadata/ADDV.yml")
 
   return(addv)
 }

@@ -5,7 +5,7 @@
 \title{Pharmacokinetics Analysis Dataset (ADPC)}
 \usage{
 radpc(
-  ADSL,
+  adsl,
   avalu = "ug/mL",
   constants = c(D = 100, ka = 0.8, ke = 1),
   duration = 2,
@@ -16,7 +16,7 @@ radpc(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{avalu}{(\code{character})\cr Analysis value units.}
 
@@ -53,11 +53,11 @@ One record per study, subject, parameter, and time point.
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
-ADPC <- radpc(ADSL, seed = 2)
-ADPC
+adpc <- radpc(adsl, seed = 2)
+adpc
 
-ADPC <- radpc(ADSL, seed = 2, duration = 3)
-ADPC
+adpc <- radpc(adsl, seed = 2, duration = 3)
+adpc
 }

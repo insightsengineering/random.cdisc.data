@@ -429,7 +429,7 @@ radlb <- function(adsl,
 
   # apply metadata
 
-  adlb <- apply_metadata(adlb, "metadata/adlb.yml")
+  adlb <- apply_metadata(adlb, "metadata/ADLB.yml")
 
   return(adlb)
 }

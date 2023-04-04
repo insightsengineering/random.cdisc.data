@@ -152,6 +152,6 @@ radpp <- function(adsl,
     adpp <- mutate_na(ds = adpp, na_vars = na_vars, na_percentage = na_percentage)
   }
 
-  adpp <- apply_metadata(adpp, "metadata/adpp.yml")
+  adpp <- apply_metadata(adpp, "metadata/ADPP.yml")
   return(adpp)
 }

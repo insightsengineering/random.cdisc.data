@@ -263,7 +263,7 @@ radsl <- function(N = 400, # nolint
   }
 
   # apply metadata
-  adsl <- apply_metadata(adsl, "metadata/adsl.yml", FALSE)
+  adsl <- apply_metadata(adsl, "metadata/ADSL.yml", FALSE)
 
   attr(adsl, "study_duration_secs") <- as.numeric(study_duration_secs) # nolint
   return(adsl)
