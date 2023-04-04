@@ -42,6 +42,8 @@
 * Renamed `random.cdisc.data.R` file to `package.R` and cleaned up contents.
 * Added more detailed documentation for function parameters.
 * Converted all dataset names to lowercase/snake case for consistency with other NEST packages.
+* Converted `ADSL` argument to `adsl`, `ADPC` to `adpc`, `event.descr` to `event_descr`, 
+  and `censor.descr` to `censor_descr` for all applicable rdata functions.
 
 # random.cdisc.data 0.3.13
 
