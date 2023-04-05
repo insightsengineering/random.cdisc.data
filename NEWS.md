@@ -1,5 +1,11 @@
 # random.cdisc.data 0.3.13.9056
 
+### Breaking changes
+* Renamed `ADSL` argument to `adsl` in `radab`, `radae`, `radaette`, `radcm`, `raddv`, `radeg`, `radex`, `radhy`, `radlb`,
+  `radmh`, `radpc`, `radpp`, `radqlqc`, `radqs`, `radrs`, `radsaftte`, `radsub`, `radtr`, `radtte`, `radvs`, and `get_qs_data`.
+* Renamed `ADPC` argument to `adpc` in `radab`.
+* Renamed `event.descr` argument `event_descr` and `censor.descr` argument to `censor_descr` in `radaette` and `adtte`.
+
 ### New features
 * Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (`radab`).
 
@@ -42,8 +48,6 @@
 * Renamed `random.cdisc.data.R` file to `package.R` and cleaned up contents.
 * Added more detailed documentation for function parameters.
 * Converted all dataset names to lowercase/snake case for consistency with other NEST packages.
-* Converted `ADSL` argument to `adsl`, `ADPC` to `adpc`, `event.descr` to `event_descr`, 
-  and `censor.descr` to `censor_descr` for all applicable rdata functions.
 
 # random.cdisc.data 0.3.13
 
