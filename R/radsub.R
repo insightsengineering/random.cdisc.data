@@ -22,9 +22,9 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 5, seed = 1)
+#' adsl <- radsl(N = 5, seed = 1)
 #'
-#' df_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = ADSL)
+#' df_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = adsl)
 #' df_with_measurements
 h_anthropometrics_by_sex <- function(df,
                                      seed = 1,
@@ -98,11 +98,11 @@ h_anthropometrics_by_sex <- function(df,
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADSUB <- radsub(ADSL, seed = 2)
-#' ADSUB
-radsub <- function(ADSL,
+#' adsub <- radsub(adsl, seed = 2)
+#' adsub
+radsub <- function(adsl,
                    param = c(
                      "Baseline Weight",
                      "Baseline Height",
@@ -120,7 +120,7 @@ radsub <- function(ADSL,
     return(get_cached_data("cadsub"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
@@ -134,34 +134,34 @@ radsub <- function(ADSL,
     set.seed(seed)
   }
 
-  ADSUB <- expand.grid(
-    STUDYID = unique(ADSL$STUDYID),
-    USUBJID = ADSL$USUBJID,
+  adsub <- expand.grid(
+    STUDYID = unique(adsl$STUDYID),
+    USUBJID = adsl$USUBJID,
     PARAM = as.factor(param_init_list$relvar1),
     AVISIT = "BASELINE",
     stringsAsFactors = FALSE
   )
 
   # Assign related variable values: PARAM and PARAMCD are related.
-  ADSUB <- ADSUB %>% rel_var(
+  adsub <- adsub %>% rel_var(
     var_name = "PARAMCD",
     related_var = "PARAM",
     var_values = param_init_list$relvar2
   )
 
-  ADSUB <- ADSUB[order(ADSUB$STUDYID, ADSUB$USUBJID, ADSUB$PARAMCD), ]
+  adsub <- adsub[order(adsub$STUDYID, adsub$USUBJID, adsub$PARAMCD), ]
 
-  ADSUB <- var_relabel(
-    ADSUB,
+  adsub <- var_relabel(
+    adsub,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # Merge ADSL to be able to add EG date and study day variables.
   # Sample ADTM to be a few days before TRTSDTM.
-  ADSUB <- dplyr::inner_join(
-    ADSUB,
-    ADSL,
+  adsub <- dplyr::inner_join(
+    adsub,
+    adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::group_by(USUBJID) %>%
@@ -174,13 +174,13 @@ radsub <- function(ADSL,
 
   # Generate a dataset with height, weight and BMI measurements for each subject.
   if (!is.null(seed)) {
-    df_with_measurements <- h_anthropometrics_by_sex(ADSUB, seed = seed)
+    df_with_measurements <- h_anthropometrics_by_sex(adsub, seed = seed)
   } else {
-    df_with_measurements <- h_anthropometrics_by_sex(ADSUB)
+    df_with_measurements <- h_anthropometrics_by_sex(adsub)
   }
 
-  # Add this to ADSUB and create other measurements.
-  ADSUB <- ADSUB %>%
+  # Add this to adsub and create other measurements.
+  adsub <- adsub %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(
       AVAL = dplyr::case_when(
@@ -201,7 +201,7 @@ radsub <- function(ADSL,
       TRUE ~ round(AVAL)
     ))
 
-  ADSUB <- ADSUB %>%
+  adsub <- adsub %>%
     dplyr::mutate(
       AVALC = dplyr::case_when(
         PARAMCD == "BBMRKR1" ~ dplyr::case_when(
@@ -240,11 +240,11 @@ radsub <- function(ADSL,
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADSUB <- mutate_na(ds = ADSUB, na_vars = na_vars, na_percentage = na_percentage)
+    adsub <- mutate_na(ds = adsub, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # Apply metadata.
-  ADSUB <- apply_metadata(ADSUB, "metadata/ADSUB.yml")
+  adsub <- apply_metadata(adsub, "metadata/ADSUB.yml")
 
-  return(ADSUB)
+  return(adsub)
 }

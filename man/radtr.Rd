@@ -5,7 +5,7 @@
 \title{Tumor Response Analysis Dataset (ADTR)}
 \usage{
 radtr(
-  ADSL,
+  adsl,
   param = c("Sum of Longest Diameter by Investigator"),
   paramcd = c("SLDINV"),
   seed = NULL,
@@ -14,7 +14,7 @@ radtr(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{param}{(\verb{character vector})\cr Parameter values.}
 
@@ -43,10 +43,10 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}, \code{BASETYPE}, \code{AVI
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
-ADTR <- radtr(ADSL, seed = 2)
-ADTR
+adtr <- radtr(adsl, seed = 2)
+adtr
 }
 \author{
 tomlinsj, npaszty, Xuefeng Hou, dipietrc

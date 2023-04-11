@@ -4,10 +4,10 @@
 \alias{radqlqc}
 \title{EORTC QLQ-C30 V3 Analysis Dataset (ADQLQC)}
 \usage{
-radqlqc(ADSL, percent, number, seed = NULL, cached = FALSE)
+radqlqc(adsl, percent, number, seed = NULL, cached = FALSE)
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{percent}{(\code{numeric})\cr Completion - Completed at least y percent of questions, 1 record per visit}
 
@@ -32,8 +32,8 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{PARCAT1N}, \code{PARAMCD}, \code{BAS
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 
-ADQLQC <- radqlqc(ADSL, seed = 1, percent = 80, number = 2)
-ADQLQC
+adqlqc <- radqlqc(adsl, seed = 1, percent = 80, number = 2)
+adqlqc
 }

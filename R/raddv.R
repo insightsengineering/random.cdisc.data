@@ -20,11 +20,11 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADDV <- raddv(ADSL, seed = 2)
-#' ADDV
-raddv <- function(ADSL,
+#' addv <- raddv(adsl, seed = 2)
+#' addv
+raddv <- function(adsl,
                   max_n_dv = 3L,
                   p_dv = 0.15,
                   lookup = NULL,
@@ -40,7 +40,7 @@ raddv <- function(ADSL,
     return(get_cached_data("caddv"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_integer(max_n_dv, len = 1, lower = 1, any.missing = FALSE)
   checkmate::assert_number(p_dv, lower = .Machine$double.xmin, upper = 1)
   checkmate::assert_number(seed, null.ok = TRUE)
@@ -48,7 +48,7 @@ raddv <- function(ADSL,
   checkmate::assert_true(na_percentage < 1)
 
   if (!is.null(seed)) set.seed(seed)
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
   lookup_dv <- if (!is.null(lookup)) {
@@ -86,7 +86,7 @@ raddv <- function(ADSL,
   }
 
 
-  ADDV <- Map(
+  addv <- Map(
     function(id, sid) {
       n_dv <- stats::rbinom(1, 1, p_dv) * sample(c(1, seq_len(max_n_dv)), 1)
       i <- sample(seq_len(nrow(lookup_dv)), n_dv, TRUE)
@@ -96,20 +96,20 @@ raddv <- function(ADSL,
         STUDYID = sid
       )
     },
-    ADSL$USUBJID,
-    ADSL$STUDYID
+    adsl$USUBJID,
+    adsl$STUDYID
   ) %>%
     Reduce(rbind, .) %>%
     dplyr::mutate(DVSCAT = DVCAT)
 
-  ADDV <- var_relabel(
-    ADDV,
+  addv <- var_relabel(
+    addv,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add deviation date and study day variables
-  ADDV <- dplyr::inner_join(ADDV, ADSL, by = c("STUDYID", "USUBJID")) %>%
+  addv <- dplyr::inner_join(addv, adsl, by = c("STUDYID", "USUBJID")) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(TRTENDT = lubridate::date(dplyr::case_when(
       is.na(TRTEDTM) ~ lubridate::floor_date(lubridate::date(TRTSDTM) + study_duration_secs, unit = "day"),
@@ -125,21 +125,21 @@ raddv <- function(ADSL,
     dplyr::ungroup() %>%
     dplyr::arrange(STUDYID, USUBJID, ASTDT, DVTERM)
 
-  ADDV <- ADDV %>%
+  addv <- addv %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(DVSEQ = seq_len(dplyr::n())) %>%
     dplyr::ungroup() %>%
     dplyr::arrange(STUDYID, USUBJID, ASTDT, DVTERM, DVSEQ)
 
-  ADDV <- ADDV %>%
+  addv <- addv %>%
     dplyr::mutate(AEPRELFL = ifelse(DVEPRELI == "Y", DVEPRELI, ""))
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADDV <- mutate_na(ds = ADDV, na_vars = na_vars, na_percentage = na_percentage)
+    addv <- mutate_na(ds = addv, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADDV <- apply_metadata(ADDV, "metadata/ADDV.yml")
+  addv <- apply_metadata(addv, "metadata/ADDV.yml")
 
-  return(ADDV)
+  return(addv)
 }

@@ -5,7 +5,7 @@
 \title{Previous and Concomitant Medications Analysis Dataset (ADCM)}
 \usage{
 radcm(
-  ADSL,
+  adsl,
   max_n_cms = 10L,
   lookup = NULL,
   seed = NULL,
@@ -16,7 +16,7 @@ radcm(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{max_n_cms}{(\code{integer})\cr Maximum number of concomitant medications per patient. Defaults to 10.}
 
@@ -55,11 +55,11 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{ASTDTM}, \code{CMSEQ}
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
-ADCM <- radcm(ADSL, seed = 2)
-ADCM
+adcm <- radcm(adsl, seed = 2)
+adcm
 
-ADCM_WHO <- radcm(ADSL, seed = 2, who_coding = TRUE)
-ADCM_WHO
+adcm_who <- radcm(adsl, seed = 2, who_coding = TRUE)
+adcm_who
 }

@@ -5,7 +5,7 @@
 \title{Questionnaires Analysis Dataset (ADQS)}
 \usage{
 radqs(
-  ADSL,
+  adsl,
   param = c("BFI All Questions", "Fatigue Interference",
     "Function/Well-Being (GF1,GF3,GF7)", "Treatment Side Effects (GP2,C5,GP5)",
     "FKSI-19 All Questions"),
@@ -21,7 +21,7 @@ radqs(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{param}{(\verb{character vector})\cr Parameter values.}
 
@@ -64,13 +64,13 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}, \code{AVISITN}
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
-ADQS <- radqs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-ADQS
+adqs <- radqs(adsl, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+adqs
 
-ADQS <- radqs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
-ADQS
+adqs <- radqs(adsl, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
+adqs
 }
 \author{
 npaszty

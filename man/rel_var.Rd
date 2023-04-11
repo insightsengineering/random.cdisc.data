@@ -25,7 +25,7 @@ Assign values to a related variable within a domain.
 \examples{
 # Example with data.frame.
 params <- c("Level A", "Level B", "Level C")
-ADLB_df <- data.frame(
+adlb_df <- data.frame(
   ID = 1:9,
   PARAM = factor(
     rep(c("Level A", "Level B", "Level C"), 3),
@@ -33,14 +33,14 @@ ADLB_df <- data.frame(
   )
 )
 random.cdisc.data:::rel_var(
-  df = ADLB_df,
+  df = adlb_df,
   var_name = "PARAMCD",
   var_values = c("A", "B", "C"),
   related_var = "PARAM"
 )
 
 # Example with tibble.
-ADLB_tbl <- tibble::tibble(
+adlb_tbl <- tibble::tibble(
   ID = 1:9,
   PARAM = factor(
     rep(c("Level A", "Level B", "Level C"), 3),
@@ -48,7 +48,7 @@ ADLB_tbl <- tibble::tibble(
   )
 )
 random.cdisc.data:::rel_var(
-  df = ADLB_tbl,
+  df = adlb_tbl,
   var_name = "PARAMCD",
   var_values = c("A", "B", "C"),
   related_var = "PARAM"

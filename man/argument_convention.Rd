@@ -16,7 +16,7 @@ element of this list should be a numeric vector with two elements:
 If \code{NA}, \code{na_percentage} is used as a default.}
 }}
 
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{lookup}{(\code{data.frame})\cr Additional parameters.}
 

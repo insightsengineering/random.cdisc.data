@@ -5,8 +5,8 @@
 \title{Anti-Drug Antibody Analysis Dataset (ADAB)}
 \usage{
 radab(
-  ADSL,
-  ADPC,
+  adsl,
+  adpc,
   constants = c(D = 100, ka = 0.8, ke = 1),
   paramcd = c("R1800000", "RESULT1", "R1800001", "RESULT2", "ADASTAT1", "INDUCD1",
     "ENHANC1", "TRUNAFF1", "EMERNEG1", "EMERPOS1", "PERSADA1", "TRANADA1", "BFLAG1",
@@ -33,9 +33,9 @@ radab(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
-\item{ADPC}{(\code{data.frame})\cr Pharmacokinetics Analysis Dataset.}
+\item{adpc}{(\code{data.frame})\cr Pharmacokinetics Analysis Dataset.}
 
 \item{constants}{(\verb{character vector})\cr Constant parameters to be used in formulas for creating analysis values.}
 
@@ -74,9 +74,9 @@ One record per study per subject per parameter per time point.
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
-ADPC <- radpc(ADSL, seed = 2, duration = 9 * 7)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
+adpc <- radpc(adsl, seed = 2, duration = 9 * 7)
 
-ADAB <- radab(ADSL, ADPC, seed = 2)
-ADAB
+adab <- radab(adsl, adpc, seed = 2)
+adab
 }

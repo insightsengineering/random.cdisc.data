@@ -5,7 +5,7 @@
 \title{Subcategory Analysis Dataset (ADSUB)}
 \usage{
 radsub(
-  ADSL,
+  adsl,
   param = c("Baseline Weight", "Baseline Height", "Baseline BMI", "Baseline ECOG",
     "Baseline Biomarker Mutation"),
   paramcd = c("BWGHTSI", "BHGHTSI", "BBMISI", "BECOG", "BBMRKR1"),
@@ -16,7 +16,7 @@ radsub(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{param}{(\verb{character vector})\cr Parameter values.}
 
@@ -53,10 +53,10 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}, \code{AVISITN}, \code{ADTM
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
-ADSUB <- radsub(ADSL, seed = 2)
-ADSUB
+adsub <- radsub(adsl, seed = 2)
+adsub
 }
 \author{
 tomlinsj, npaszty, Xuefeng Hou, dipietrc

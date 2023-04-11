@@ -5,7 +5,7 @@
 \title{Exposure Analysis Dataset (ADEX)}
 \usage{
 radex(
-  ADSL,
+  adsl,
   param = c("Dose administered during constant dosing interval",
     "Number of doses administered during constant dosing interval",
     "Total dose administered", "Total number of doses administered"),
@@ -25,7 +25,7 @@ radex(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{param}{(\verb{character vector})\cr Parameter values.}
 
@@ -79,8 +79,8 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{EXSEQ}, \code{PARAMCD}, \code{PARCAT
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
+adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 
-ADEX <- radex(ADSL, seed = 2)
-ADEX
+adex <- radex(adsl, seed = 2)
+adex
 }
