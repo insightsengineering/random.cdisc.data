@@ -14,7 +14,7 @@ Subject-Level Analysis Dataset."><!-- mathjax --><script src="https://cdnjs.clou
     
     <a class="navbar-brand me-2" href="../index.html">random.cdisc.data</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.13.9055</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.13.9056</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,12 +34,6 @@ Subject-Level Analysis Dataset."><!-- mathjax --><script src="https://cdnjs.clou
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/random.cdisc.data/main">main</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -70,7 +64,7 @@ Subject-Level Analysis Dataset.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">radqs</span><span class="op">(</span></span>
-<span>  <span class="va">ADSL</span>,</span>
+<span>  <span class="va">adsl</span>,</span>
 <span>  param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BFI All Questions"</span>, <span class="st">"Fatigue Interference"</span>,</span>
 <span>    <span class="st">"Function/Well-Being (GF1,GF3,GF7)"</span>, <span class="st">"Treatment Side Effects (GP2,C5,GP5)"</span>,</span>
 <span>    <span class="st">"FKSI-19 All Questions"</span><span class="op">)</span>,</span>
@@ -88,7 +82,7 @@ Subject-Level Analysis Dataset.</p>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>ADSL</dt>
+    <dl><dt>adsl</dt>
 <dd><p>(<code>data.frame</code>)<br> Subject-Level Analysis Dataset (ADSL).</p></dd>
 
 
@@ -154,10 +148,10 @@ should be generated. If set to <code>TRUE</code> then the other arguments to <co
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">random.cdisc.data</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ADSL</span> <span class="op">&lt;-</span> <span class="fu"><a href="radsl.html">radsl</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fl">10</span>, seed <span class="op">=</span> <span class="fl">1</span>, study_duration <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">adsl</span> <span class="op">&lt;-</span> <span class="fu"><a href="radsl.html">radsl</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fl">10</span>, seed <span class="op">=</span> <span class="fl">1</span>, study_duration <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">ADQS</span> <span class="op">&lt;-</span> <span class="fu">radqs</span><span class="op">(</span><span class="va">ADSL</span>, visit_format <span class="op">=</span> <span class="st">"WEEK"</span>, n_assessments <span class="op">=</span> <span class="fl">7L</span>, seed <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ADQS</span></span></span>
+<span class="r-in"><span><span class="va">adqs</span> <span class="op">&lt;-</span> <span class="fu">radqs</span><span class="op">(</span><span class="va">adsl</span>, visit_format <span class="op">=</span> <span class="st">"WEEK"</span>, n_assessments <span class="op">=</span> <span class="fl">7L</span>, seed <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">adqs</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 450 × 73</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    STUDYID USUBJID    SUBJID SITEID   AGE AGEU  SEX   RACE  ETHNIC COUNTRY DTHFL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span></span>
@@ -179,8 +173,8 @@ should be generated. If set to <code>TRUE</code> then the other arguments to <co
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   AEWITHFL &lt;fct&gt;, RANDDT &lt;date&gt;, TRTSDTM &lt;dttm&gt;, TRTEDTM &lt;dttm&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   TRT01SDTM &lt;dttm&gt;, TRT01EDTM &lt;dttm&gt;, TRT02SDTM &lt;dttm&gt;, TRT02EDTM &lt;dttm&gt;, …</span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">ADQS</span> <span class="op">&lt;-</span> <span class="fu">radqs</span><span class="op">(</span><span class="va">ADSL</span>, visit_format <span class="op">=</span> <span class="st">"CYCLE"</span>, n_assessments <span class="op">=</span> <span class="fl">3L</span>, seed <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ADQS</span></span></span>
+<span class="r-in"><span><span class="va">adqs</span> <span class="op">&lt;-</span> <span class="fu">radqs</span><span class="op">(</span><span class="va">adsl</span>, visit_format <span class="op">=</span> <span class="st">"CYCLE"</span>, n_assessments <span class="op">=</span> <span class="fl">3L</span>, seed <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">adqs</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 800 × 73</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    STUDYID USUBJID    SUBJID SITEID   AGE AGEU  SEX   RACE  ETHNIC COUNTRY DTHFL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span></span>
