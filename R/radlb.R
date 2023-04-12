@@ -91,9 +91,9 @@ radlb <- function(adsl,
 
   # assign AVAL based on different tests
   adlb <- adlb %>% mutate(AVAL = case_when(
-    PARAM == param[1] ~ stats::rnorm(nrow(adlb), mean = aval_mean[1], sd = 10),
-    PARAM == param[2] ~ stats::rnorm(nrow(adlb), mean = aval_mean[2], sd = 1),
-    PARAM == param[3] ~ stats::rnorm(nrow(adlb), mean = aval_mean[3], sd = 0.1)
+    PARAM == param[1] ~ abs(stats::rnorm(nrow(adlb), mean = aval_mean[1], sd = 10)),
+    PARAM == param[2] ~ abs(stats::rnorm(nrow(adlb), mean = aval_mean[2], sd = 1)),
+    PARAM == param[3] ~ abs(stats::rnorm(nrow(adlb), mean = aval_mean[3], sd = 0.1))
   ))
 
   # assign related variable values: PARAMxLBCAT are related

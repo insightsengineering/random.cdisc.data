@@ -361,7 +361,8 @@ get_qs_data <- function(adsl,
       "QSTEST",
       "QSTESTCD"
     ),
-    multiple = "all"
+    multiple = "all",
+    relationship = "many-to-many"
   )
 
   lookup_qs <- dplyr::mutate(
