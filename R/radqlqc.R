@@ -197,8 +197,7 @@ radqlqc <- function(adsl,
   adqlqc <- left_join(
     adqlqc,
     adqlqc_x,
-    by = c("USUBJID", "ADTM"),
-    relationship = "many-to-many"
+    by = c("USUBJID", "ADTM")
   ) %>%
     mutate(
       ANL01FL = case_when(
@@ -362,7 +361,8 @@ get_qs_data <- function(adsl,
       "QSTEST",
       "QSTESTCD"
     ),
-    multiple = "all"
+    multiple = "all",
+    relationship = "many-to-many"
   )
 
   lookup_qs <- dplyr::mutate(
