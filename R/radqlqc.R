@@ -197,7 +197,8 @@ radqlqc <- function(adsl,
   adqlqc <- left_join(
     adqlqc,
     adqlqc_x,
-    by = c("USUBJID", "ADTM")
+    by = c("USUBJID", "ADTM"),
+    relationship = "many-to-many"
   ) %>%
     mutate(
       ANL01FL = case_when(

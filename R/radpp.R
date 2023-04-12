@@ -135,7 +135,7 @@ radpp <- function(adsl,
     PPENINT = c("P12H", "P24H", "P12H", "P24H")
   )
   adpp <- adpp %>%
-    dplyr::left_join(t1_t2, by = c("PARAMCD"), multiple = "all")
+    dplyr::left_join(t1_t2, by = c("PARAMCD"), multiple = "all", relationship = "many-to-many")
 
   adpp <- dplyr::inner_join(adpp, adsl, by = c("STUDYID", "USUBJID")) %>%
     dplyr::filter(ACTARM != "B: Placebo", !(ACTARM == "A: Drug X" &
