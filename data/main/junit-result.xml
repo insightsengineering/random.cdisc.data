@@ -1,159 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="metadata" timestamp="2023-04-12T17:49:04Z" hostname="a8037dc85876" tests="20" skipped="0" failures="0" errors="0" time="13.173">
-    <testcase time="0.498" classname="metadata" name="metadata_matches_radsl"/>
-    <testcase time="0.509" classname="metadata" name="metadata_matches_radab"/>
-    <testcase time="0.566" classname="metadata" name="metadata_matches_radae"/>
-    <testcase time="0.561" classname="metadata" name="metadata_matches_radaette"/>
-    <testcase time="0.425" classname="metadata" name="metadata_matches_radcm"/>
-    <testcase time="0.339" classname="metadata" name="metadata_matches_raddv"/>
-    <testcase time="1.009" classname="metadata" name="metadata_matches_radeg"/>
-    <testcase time="0.986" classname="metadata" name="metadata_matches_radex"/>
+  <testsuite name="metadata" timestamp="2023-04-17T07:42:30Z" hostname="1950c21a16ee" tests="20" skipped="0" failures="0" errors="0" time="13.322">
+    <testcase time="0.49" classname="metadata" name="metadata_matches_radsl"/>
+    <testcase time="0.515" classname="metadata" name="metadata_matches_radab"/>
+    <testcase time="0.563" classname="metadata" name="metadata_matches_radae"/>
+    <testcase time="0.555" classname="metadata" name="metadata_matches_radaette"/>
+    <testcase time="0.427" classname="metadata" name="metadata_matches_radcm"/>
+    <testcase time="0.328" classname="metadata" name="metadata_matches_raddv"/>
+    <testcase time="1.017" classname="metadata" name="metadata_matches_radeg"/>
+    <testcase time="0.998" classname="metadata" name="metadata_matches_radex"/>
     <testcase time="0.428" classname="metadata" name="metadata_matches_radhy"/>
-    <testcase time="0.929" classname="metadata" name="metadata_matches_radlb"/>
-    <testcase time="0.457" classname="metadata" name="metadata_matches_radmh"/>
-    <testcase time="0.304" classname="metadata" name="metadata_matches_radpc"/>
-    <testcase time="0.286" classname="metadata" name="metadata_matches_radpp"/>
-    <testcase time="2.39" classname="metadata" name="metadata_matches_radqlqc"/>
-    <testcase time="0.726000000000001" classname="metadata" name="metadata_matches_radqs"/>
-    <testcase time="0.523" classname="metadata" name="metadata_matches_radrs"/>
-    <testcase time="0.328000000000001" classname="metadata" name="metadata_matches_radsub"/>
-    <testcase time="0.673999999999999" classname="metadata" name="metadata_matches_radtr"/>
-    <testcase time="0.443" classname="metadata" name="metadata_matches_radtte"/>
-    <testcase time="0.792" classname="metadata" name="metadata_matches_radvs"/>
+    <testcase time="0.939" classname="metadata" name="metadata_matches_radlb"/>
+    <testcase time="0.449" classname="metadata" name="metadata_matches_radmh"/>
+    <testcase time="0.294" classname="metadata" name="metadata_matches_radpc"/>
+    <testcase time="0.267999999999999" classname="metadata" name="metadata_matches_radpp"/>
+    <testcase time="2.522" classname="metadata" name="metadata_matches_radqlqc"/>
+    <testcase time="0.74" classname="metadata" name="metadata_matches_radqs"/>
+    <testcase time="0.508000000000001" classname="metadata" name="metadata_matches_radrs"/>
+    <testcase time="0.315" classname="metadata" name="metadata_matches_radsub"/>
+    <testcase time="0.655000000000001" classname="metadata" name="metadata_matches_radtr"/>
+    <testcase time="0.465999999999999" classname="metadata" name="metadata_matches_radtte"/>
+    <testcase time="0.845000000000001" classname="metadata" name="metadata_matches_radvs"/>
   </testsuite>
-  <testsuite name="rdata" timestamp="2023-04-12T17:49:18Z" hostname="a8037dc85876" tests="44" skipped="0" failures="0" errors="0" time="15.721">
-    <testcase time="0.169" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.307" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.317" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.183" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.0909999999999993" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.785" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.722" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.185000000000002" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.715999999999998" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.218" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.0480000000000018" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.145" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.032" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="2.269" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.502000000000002" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.234999999999999" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.334" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.0719999999999992" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.347999999999999" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.293000000000003" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.681999999999999" classname="rdata" name="r_data_functions_work"/>
-    <testcase time="0.022000000000002" classname="rdata" name="r_data_with_cached_TRUE"/>
-    <testcase time="0.00799999999999912" classname="rdata" name="r_data_with_cached_TRUE"/>
+  <testsuite name="rdata" timestamp="2023-04-17T07:42:43Z" hostname="1950c21a16ee" tests="44" skipped="0" failures="0" errors="0" time="16.649">
+    <testcase time="0.176" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.33" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.334999999999999" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.195" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.0969999999999995" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.837000000000002" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.765000000000001" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.189999999999998" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.759999999999998" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.225000000000001" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.0509999999999984" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.154" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.0340000000000025" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="2.394" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.541" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.244" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.352" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.0779999999999994" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.356999999999999" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.309000000000001" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.725000000000001" classname="rdata" name="r_data_functions_work"/>
+    <testcase time="0.0249999999999986" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0100000000000016" classname="rdata" name="r_data_with_cached_TRUE"/>
     <testcase time="0.00999999999999801" classname="rdata" name="r_data_with_cached_TRUE"/>
     <testcase time="0.0120000000000005" classname="rdata" name="r_data_with_cached_TRUE"/>
-    <testcase time="0.00400000000000134" classname="rdata" name="r_data_with_cached_TRUE"/>
-    <testcase time="0.0389999999999979" classname="rdata" name="r_data_with_cached_TRUE"/>
-    <testcase time="0.0200000000000031" classname="rdata" name="r_data_with_cached_TRUE"/>
-    <testcase time="0.041999999999998" classname="rdata" name="r_data_with_cached_TRUE"/>
-    <testcase time="0.0289999999999999" classname="rdata" name="r_data_with_cached_TRUE"/>
-    <testcase time="0.00799999999999912" classname="rdata" name="r_data_with_cached_TRUE"/>
     <testcase time="0.00300000000000011" classname="rdata" name="r_data_with_cached_TRUE"/>
-    <testcase time="0.00200000000000244" classname="rdata" name="r_data_with_cached_TRUE"/>
-    <testcase time="0.154" classname="rdata" name="r_data_with_cached_TRUE"/>
-    <testcase time="0.0340000000000025" classname="rdata" name="r_data_with_cached_TRUE"/>
-    <testcase time="0.00999999999999801" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0420000000000016" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0229999999999997" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0470000000000006" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.032" classname="rdata" name="r_data_with_cached_TRUE"/>
     <testcase time="0.00900000000000034" classname="rdata" name="r_data_with_cached_TRUE"/>
-    <testcase time="0.0130000000000017" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.00300000000000011" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.00199999999999889" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.175999999999998" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0380000000000003" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0120000000000005" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0100000000000016" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.0139999999999993" classname="rdata" name="r_data_with_cached_TRUE"/>
     <testcase time="0.00900000000000034" classname="rdata" name="r_data_with_cached_TRUE"/>
-    <testcase time="0.0459999999999994" classname="rdata" name="r_data_with_cached_TRUE"/>
-    <testcase time="0.224" classname="rdata" name="seed_works"/>
-    <testcase time="1.712" classname="rdata" name="radsl_works_with_large_N"/>
-    <testcase time="0.00999999999999801" classname="rdata" name="radsl_has_no_LSTALVDT_greater_than_DTHDT"/>
-    <testcase time="4.648" classname="rdata" name="radcm_works_with_who_coding_TRUE"/>
+    <testcase time="0.0519999999999996" classname="rdata" name="r_data_with_cached_TRUE"/>
+    <testcase time="0.231000000000002" classname="rdata" name="seed_works"/>
+    <testcase time="1.744" classname="rdata" name="radsl_works_with_large_N"/>
+    <testcase time="0.0109999999999992" classname="rdata" name="radsl_has_no_LSTALVDT_greater_than_DTHDT"/>
+    <testcase time="4.985" classname="rdata" name="radcm_works_with_who_coding_TRUE"/>
   </testsuite>
-  <testsuite name="row_values" timestamp="2023-04-12T17:49:34Z" hostname="a8037dc85876" tests="21" skipped="21" failures="0" errors="0" time="10.069">
-    <testcase time="0.474" classname="row_values" name="radsl_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:7:3')"/>
+  <testsuite name="row_values" timestamp="2023-04-17T07:43:00Z" hostname="1950c21a16ee" tests="21" skipped="21" failures="0" errors="0" time="13.372">
+    <testcase time="0.602999999999998" classname="row_values" name="radsl_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:9:3')"/>
     </testcase>
-    <testcase time="0.398" classname="row_values" name="radae_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:17:3')"/>
+    <testcase time="0.582000000000001" classname="row_values" name="radae_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:19:3')"/>
     </testcase>
-    <testcase time="0.402000000000001" classname="row_values" name="radaette_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:27:3')"/>
+    <testcase time="0.531000000000002" classname="row_values" name="radaette_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:29:3')"/>
     </testcase>
-    <testcase time="0.257000000000001" classname="row_values" name="radcm_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:37:3')"/>
+    <testcase time="0.409999999999997" classname="row_values" name="radcm_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:39:3')"/>
     </testcase>
-    <testcase time="0.154" classname="row_values" name="raddv_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:47:3')"/>
+    <testcase time="0.292000000000002" classname="row_values" name="raddv_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:49:3')"/>
     </testcase>
-    <testcase time="0.847000000000001" classname="row_values" name="radeg_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:57:3')"/>
+    <testcase time="1.201" classname="row_values" name="radeg_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:59:3')"/>
     </testcase>
-    <testcase time="0.908000000000001" classname="row_values" name="radex_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:67:3')"/>
+    <testcase time="0.955999999999996" classname="row_values" name="radex_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:69:3')"/>
     </testcase>
-    <testcase time="0.242999999999995" classname="row_values" name="radhy_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:77:3')"/>
+    <testcase time="0.383000000000003" classname="row_values" name="radhy_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:79:3')"/>
     </testcase>
-    <testcase time="0.754000000000005" classname="row_values" name="radlb_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:87:3')"/>
+    <testcase time="0.997999999999998" classname="row_values" name="radlb_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:89:3')"/>
     </testcase>
-    <testcase time="0.266999999999996" classname="row_values" name="radmh_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:97:3')"/>
+    <testcase time="0.385000000000005" classname="row_values" name="radmh_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:99:3')"/>
     </testcase>
-    <testcase time="0.0750000000000028" classname="row_values" name="radpc_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:105:3')"/>
+    <testcase time="0.207999999999998" classname="row_values" name="radpc_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:107:3')"/>
     </testcase>
-    <testcase time="0.184999999999995" classname="row_values" name="radab_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:115:3')"/>
+    <testcase time="0.298000000000002" classname="row_values" name="radab_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:117:3')"/>
     </testcase>
-    <testcase time="0.0579999999999998" classname="row_values" name="radpp_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:125:3')"/>
+    <testcase time="0.070999999999998" classname="row_values" name="radpp_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:127:3')"/>
     </testcase>
-    <testcase time="2.216" classname="row_values" name="radqlqc_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:135:3')"/>
+    <testcase time="2.665" classname="row_values" name="radqlqc_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:137:3')"/>
     </testcase>
-    <testcase time="0.550000000000004" classname="row_values" name="radqs_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:145:3')"/>
+    <testcase time="0.738999999999997" classname="row_values" name="radqs_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:147:3')"/>
     </testcase>
-    <testcase time="0.297999999999995" classname="row_values" name="radrs_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:155:3')"/>
+    <testcase time="0.429000000000002" classname="row_values" name="radrs_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:157:3')"/>
     </testcase>
-    <testcase time="0.393000000000001" classname="row_values" name="radsaftte_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:165:3')"/>
+    <testcase time="0.517000000000003" classname="row_values" name="radsaftte_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:167:3')"/>
     </testcase>
-    <testcase time="0.143000000000001" classname="row_values" name="radsub_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:175:3')"/>
+    <testcase time="0.262" classname="row_values" name="radsub_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:177:3')"/>
     </testcase>
-    <testcase time="0.352000000000004" classname="row_values" name="radtr_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:185:3')"/>
+    <testcase time="0.356999999999999" classname="row_values" name="radtr_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:187:3')"/>
     </testcase>
-    <testcase time="0.347000000000001" classname="row_values" name="radtte_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:195:3')"/>
+    <testcase time="0.481999999999999" classname="row_values" name="radtte_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:197:3')"/>
     </testcase>
-    <testcase time="0.747999999999998" classname="row_values" name="radvs_produces_expected_values">
-      <skipped message="Reason: On CRAN ('test-row_values.R:205:3')"/>
+    <testcase time="1.003" classname="row_values" name="radvs_produces_expected_values">
+      <skipped message="Reason: On CRAN ('test-row_values.R:207:3')"/>
     </testcase>
   </testsuite>
-  <testsuite name="utils" timestamp="2023-04-12T17:49:43Z" hostname="a8037dc85876" tests="21" skipped="0" failures="0" errors="0" time="0.335">
-    <testcase time="0.0330000000000013" classname="utils" name="get_cached_data_returns_correct_error_message"/>
-    <testcase time="0.0129999999999981" classname="utils" name="sample_fct_works_as_expected"/>
-    <testcase time="0.00800000000000267" classname="utils" name="relvar_init_works_as_expected"/>
-    <testcase time="0.00900000000000034" classname="utils" name="relvar_init_returns_correct_error_message"/>
-    <testcase time="0.00799999999999557" classname="utils" name="rel_var_works_as_expected"/>
+  <testsuite name="utils" timestamp="2023-04-17T07:43:13Z" hostname="1950c21a16ee" tests="21" skipped="0" failures="0" errors="0" time="0.399">
+    <testcase time="0.0499999999999972" classname="utils" name="get_cached_data_returns_correct_error_message"/>
+    <testcase time="0.0140000000000029" classname="utils" name="sample_fct_works_as_expected"/>
+    <testcase time="0.0069999999999979" classname="utils" name="relvar_init_works_as_expected"/>
+    <testcase time="0.0320000000000036" classname="utils" name="relvar_init_returns_correct_error_message"/>
+    <testcase time="0.0109999999999957" classname="utils" name="rel_var_works_as_expected"/>
     <testcase time="0.00500000000000256" classname="utils" name="rel_var_works_as_expected"/>
-    <testcase time="0.00799999999999557" classname="utils" name="visit_schedule_works_with_WEEK_visit_format"/>
-    <testcase time="0.007000000000005" classname="utils" name="visit_schedule_works_with_CycLe_visit_format"/>
-    <testcase time="0.166999999999994" classname="utils" name="retain_works_as_expected"/>
-    <testcase time="0.00800000000000267" classname="utils" name="var_relabel_works_as_expected"/>
-    <testcase time="0.00999999999999801" classname="utils" name="var_relabel_returns_correct_error_message"/>
-    <testcase time="0.007000000000005" classname="utils" name="replace_na_works_as_expected"/>
-    <testcase time="0.00399999999999778" classname="utils" name="replace_na_works_as_expected"/>
+    <testcase time="0.00900000000000034" classname="utils" name="visit_schedule_works_with_WEEK_visit_format"/>
+    <testcase time="0.00900000000000034" classname="utils" name="visit_schedule_works_with_CycLe_visit_format"/>
+    <testcase time="0.167999999999999" classname="utils" name="retain_works_as_expected"/>
+    <testcase time="0.00799999999999557" classname="utils" name="var_relabel_works_as_expected"/>
+    <testcase time="0.0190000000000055" classname="utils" name="var_relabel_returns_correct_error_message"/>
+    <testcase time="0.00999999999999801" classname="utils" name="replace_na_works_as_expected"/>
+    <testcase time="0.00600000000000023" classname="utils" name="replace_na_works_as_expected"/>
     <testcase time="0.0120000000000005" classname="utils" name="mutate_na_works_as_expected"/>
     <testcase time="0.00399999999999778" classname="utils" name="mutate_na_works_as_expected"/>
-    <testcase time="0.00400000000000489" classname="utils" name="mutate_na_works_as_expected"/>
+    <testcase time="0.00500000000000256" classname="utils" name="mutate_na_works_as_expected"/>
     <testcase time="0.00399999999999778" classname="utils" name="mutate_na_works_as_expected"/>
-    <testcase time="0.0069999999999979" classname="utils" name="rtpois_works_as_expected"/>
-    <testcase time="0.00800000000000267" classname="utils" name="rtexp_works_as_expected"/>
-    <testcase time="0.00399999999999778" classname="utils" name="rtexp_works_as_expected"/>
+    <testcase time="0.00800000000000267" classname="utils" name="rtpois_works_as_expected"/>
+    <testcase time="0.00799999999999557" classname="utils" name="rtexp_works_as_expected"/>
+    <testcase time="0.00500000000000256" classname="utils" name="rtexp_works_as_expected"/>
     <testcase time="0.00500000000000256" classname="utils" name="rtexp_works_as_expected"/>
   </testsuite>
 </testsuites>
