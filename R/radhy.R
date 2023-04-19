@@ -20,11 +20,11 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADHY <- radhy(ADSL, seed = 2)
-#' ADHY
-radhy <- function(ADSL,
+#' adhy <- radhy(adsl, seed = 2)
+#' adhy
+radhy <- function(adsl,
                   param = c(
                     "TBILI <= 2 times ULN and ALT value category",
                     "TBILI > 2 times ULN and AST value category",
@@ -81,7 +81,7 @@ radhy <- function(ADSL,
     return(get_cached_data("cadhy"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
@@ -92,12 +92,12 @@ radhy <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
   # create all combinations of unique values in STUDYID, USUBJID, PARAM, AVISIT
-  ADHY <- expand.grid(
-    STUDYID = unique(ADSL$STUDYID),
-    USUBJID = ADSL$USUBJID,
+  adhy <- expand.grid(
+    STUDYID = unique(adsl$STUDYID),
+    USUBJID = adsl$USUBJID,
     PARAM = as.factor(param_init_list$relvar1),
     AVISIT = as.factor(c("BASELINE", "POST-BASELINE")),
     APERIODC = as.factor(c("PERIOD 1", "PERIOD 2")),
@@ -105,7 +105,7 @@ radhy <- function(ADSL,
   )
 
   # remove records that are not needed and were created as a side product of expand.grid above
-  ADHY <- dplyr::filter(ADHY, !(AVISIT == "BASELINE" & APERIODC == "PERIOD 2"))
+  adhy <- dplyr::filter(adhy, !(AVISIT == "BASELINE" & APERIODC == "PERIOD 2"))
 
   # define TBILI ALT/AST params, period dependent parameters and the parameters that will be assigned values "Y" or "N"
   paramcd_tbilialtast <- c("BLAL", "BGAS", "BGAL", "BLAS", "BA2AL", "BA2AS", "BA5AL", "BA5AS")
@@ -115,8 +115,8 @@ radhy <- function(ADSL,
     paramcd_by_period
   )
 
-  # add other variables to ADHY
-  ADHY <- ADHY %>%
+  # add other variables to adhy
+  adhy <- adhy %>%
     rel_var(
       var_name = "PARAMCD",
       related_var = "PARAM",
@@ -157,10 +157,10 @@ radhy <- function(ADSL,
     )
 
   # remove records for parameters with period 2 and not in paramcd_by_period
-  ADHY <- dplyr::filter(ADHY, PARAMCD %in% paramcd_by_period | APERIODC == "PERIOD 1")
+  adhy <- dplyr::filter(adhy, PARAMCD %in% paramcd_by_period | APERIODC == "PERIOD 1")
 
   # add baseline variables
-  ADHY <- ADHY %>%
+  adhy <- adhy %>%
     dplyr::group_by(USUBJID, PARAMCD) %>%
     dplyr::mutate(
       BASEC = AVALC[AVISIT == "BASELINE"],
@@ -168,14 +168,14 @@ radhy <- function(ADSL,
     ) %>%
     dplyr::ungroup()
 
-  ADHY <- ADHY %>%
+  adhy <- adhy %>%
     var_relabel(
-      STUDYID = attr(ADSL$STUDYID, "label"),
-      USUBJID = attr(ADSL$USUBJID, "label")
+      STUDYID = attr(adsl$STUDYID, "label"),
+      USUBJID = attr(adsl$USUBJID, "label")
     )
 
   # merge ADSL to be able to add analysis datetime and analysis relative day variables
-  ADHY <- dplyr::inner_join(ADHY, ADSL, by = c("STUDYID", "USUBJID"))
+  adhy <- dplyr::inner_join(adhy, adsl, by = c("STUDYID", "USUBJID"))
 
   # define a simple helper function to create ADY variable
   add_ady <- function(x, avisit) {
@@ -201,16 +201,16 @@ radhy <- function(ADSL,
   }
 
   # add ADY and ADTM variables
-  ADHY <- ADHY %>%
+  adhy <- adhy %>%
     dplyr::group_by(AVISIT, .add = FALSE) %>%
     dplyr::group_modify(~ add_ady(.x, .y$AVISIT)) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(ADTM = TRTSDTM + lubridate::days(ADY))
 
   # order columns and arrange rows; column order follows ADaM_1.1 specification
-  ADHY <-
-    ADHY[, c(
-      colnames(ADSL),
+  adhy <-
+    adhy[, c(
+      colnames(adsl),
       "PARAM",
       "PARAMCD",
       "AVAL",
@@ -229,7 +229,7 @@ radhy <- function(ADSL,
       "ANL01FL"
     )]
 
-  ADHY <- ADHY %>%
+  adhy <- adhy %>%
     dplyr::arrange(
       STUDYID,
       USUBJID,
@@ -240,7 +240,7 @@ radhy <- function(ADSL,
     )
 
   # apply metadata
-  ADHY <- apply_metadata(ADHY, "metadata/ADHY.yml")
+  adhy <- apply_metadata(adhy, "metadata/ADHY.yml")
 
-  return(ADHY)
+  return(adhy)
 }

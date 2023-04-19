@@ -19,10 +19,10 @@ retain(df, value_var, event, outside = NA)
 Retain values within primary keys.
 }
 \examples{
-ADLB <- radlb(radsl(N = 10, na_percentage = 0), na_vars = list())
-ADLB$BASE2 <- random.cdisc.data:::retain(
-  df = ADLB, value_var = ADLB$AVAL,
-  event = ADLB$ABLFL2 == "Y"
+adlb <- radlb(radsl(N = 10, na_percentage = 0), na_vars = list())
+adlb$BASE2 <- random.cdisc.data:::retain(
+  df = adlb, value_var = adlb$AVAL,
+  event = adlb$ABLFL2 == "Y"
 )
 }
 \keyword{internal}

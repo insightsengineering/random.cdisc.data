@@ -11,7 +11,7 @@
 \title{Helper Functions for Constructing ADQLQC}
 \usage{
 get_qs_data(
-  ADSL,
+  adsl,
   visit_format = "CYCLE",
   n_assessments = 5L,
   n_days = 1L,
@@ -32,7 +32,7 @@ derv_chgcat1(dataset)
 comp_derv(dataset, percent, number)
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{visit_format}{(\code{character})\cr Type of visit. Options are "WEEK" and "CYCLE".}
 
@@ -104,14 +104,14 @@ Function for generating random Questionnaires SDTM domain
 
 }}
 \examples{
-ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
-ADQLQC <- radqlqc(ADSL, seed = 1, percent = 80, number = 2)
+adsl <- radsl(N = 10, study_duration = 2, seed = 1)
+adqlqc <- radqlqc(adsl, seed = 1, percent = 80, number = 2)
 
-QS <- random.cdisc.data:::get_qs_data(ADSL, n_assessments = 5L, seed = 1, na_percentage = 0.1)
-QS
+qs <- random.cdisc.data:::get_qs_data(adsl, n_assessments = 5L, seed = 1, na_percentage = 0.1)
+qs
 df <- dplyr::left_join(
-  ADSL,
-  QS,
+  adsl,
+  qs,
   by = c("STUDYID", "USUBJID"),
   multiple = "all"
 ) |>
@@ -122,13 +122,13 @@ df <- dplyr::left_join(
   ) |>
   dplyr::mutate(ADTM = random.cdisc.data:::get_random_dates_between(TRTSDTM, TRTEDTM, AVISITN))
 df
-ADQLQC1 <- random.cdisc.data:::prep_adqlqc(df = QS)
-ADQLQC1
+adqlqc1 <- random.cdisc.data:::prep_adqlqc(df = qs)
+adqlqc1
 df_scales <- random.cdisc.data:::calc_scales(df)
 df_scales
-ADQLQC <- random.cdisc.data:::derv_chgcat1(dataset = ADQLQC |> dplyr::select(-CHGCAT1))
-ADQLQC
-compliance_data <- random.cdisc.data:::comp_derv(ADQLQC, 80, 2)
+adqlqc <- random.cdisc.data:::derv_chgcat1(dataset = adqlqc |> dplyr::select(-CHGCAT1))
+adqlqc
+compliance_data <- random.cdisc.data:::comp_derv(adqlqc, 80, 2)
 compliance_data
 }
 \keyword{internal}

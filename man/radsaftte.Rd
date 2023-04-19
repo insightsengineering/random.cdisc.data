@@ -4,10 +4,10 @@
 \alias{radsaftte}
 \title{Time to Safety Event Analysis Dataset (ADSAFTTE)}
 \usage{
-radsaftte(ADSL, ...)
+radsaftte(adsl, ...)
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{...}{Additional arguments to be passed to \code{radaette}}
 }
@@ -23,8 +23,8 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
-ADSAFTTE <- radsaftte(ADSL, seed = 2)
-ADSAFTTE
+adsaftte <- radsaftte(adsl, seed = 2)
+adsaftte
 }

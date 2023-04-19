@@ -15,11 +15,11 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADSAFTTE <- radsaftte(ADSL, seed = 2)
-#' ADSAFTTE
-radsaftte <- function(ADSL,
+#' adsaftte <- radsaftte(adsl, seed = 2)
+#' adsaftte
+radsaftte <- function(adsl,
                       ...) {
-  radaette(ADSL = ADSL, ...)
+  radaette(adsl = adsl, ...)
 }

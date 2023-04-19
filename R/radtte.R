@@ -19,13 +19,13 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADTTE <- radtte(ADSL, seed = 2)
-#' ADTTE
-radtte <- function(ADSL,
-                   event.descr = NULL,
-                   censor.descr = NULL,
+#' adtte <- radtte(adsl, seed = 2)
+#' adtte
+radtte <- function(adsl,
+                   event_descr = NULL,
+                   censor_descr = NULL,
                    lookup = NULL,
                    seed = NULL,
                    na_percentage = 0,
@@ -36,9 +36,9 @@ radtte <- function(ADSL,
     return(get_cached_data("cadtte"))
   }
 
-  checkmate::assert_data_frame(ADSL)
-  checkmate::assert_character(censor.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
-  checkmate::assert_character(event.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
+  checkmate::assert_data_frame(adsl)
+  checkmate::assert_character(censor_descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(event_descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
   checkmate::assert_true(na_percentage < 1)
@@ -46,10 +46,10 @@ radtte <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
-  lookup_TTE <- if (!is.null(lookup)) {
+  lookup_tte <- if (!is.null(lookup)) {
     lookup
   } else {
     tibble::tribble(
@@ -69,8 +69,8 @@ radtte <- function(ADSL,
     )
   }
 
-  evntdescr_sel <- if (!is.null(event.descr)) {
-    event.descr
+  evntdescr_sel <- if (!is.null(event_descr)) {
+    event_descr
   } else {
     c(
       "Death",
@@ -81,8 +81,8 @@ radtte <- function(ADSL,
     )
   }
 
-  cnsdtdscr_sel <- if (!is.null(censor.descr)) {
-    censor.descr
+  cnsdtdscr_sel <- if (!is.null(censor_descr)) {
+    censor_descr
   } else {
     c(
       "Preferred Term",
@@ -92,9 +92,9 @@ radtte <- function(ADSL,
     )
   }
 
-  ADTTE <- split(ADSL, ADSL$USUBJID) %>%
+  adtte <- split(adsl, adsl$USUBJID) %>%
     lapply(FUN = function(pinfo) {
-      lookup_TTE %>%
+      lookup_tte %>%
         dplyr::filter(ARM == as.character(pinfo$ACTARMCD)) %>%
         dplyr::rowwise() %>%
         dplyr::mutate(
@@ -122,16 +122,16 @@ radtte <- function(ADSL,
       USUBJID = "Unique Subject Identifier" # )
     )
 
-  ADTTE <- var_relabel(
-    ADTTE,
+  adtte <- var_relabel(
+    adtte,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add TTE date and study day variables
-  ADTTE <- dplyr::inner_join(
-    dplyr::select(ADTTE, -"SITEID", -"ARM"),
-    ADSL,
+  adtte <- dplyr::inner_join(
+    dplyr::select(adtte, -"SITEID", -"ARM"),
+    adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%
@@ -148,7 +148,7 @@ radtte <- function(ADSL,
     dplyr::ungroup() %>%
     dplyr::arrange(STUDYID, USUBJID, ADTM)
 
-  ADTTE <- ADTTE %>%
+  adtte <- adtte %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(TTESEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = TTESEQ) %>%
@@ -164,10 +164,10 @@ radtte <- function(ADSL,
     )
 
   # adding adverse event counts and log follow-up time
-  ADTTE <- dplyr::bind_rows(
-    ADTTE,
+  adtte <- dplyr::bind_rows(
+    adtte,
     data.frame(
-      ADTTE %>%
+      adtte %>%
         dplyr::group_by(USUBJID) %>%
         dplyr::slice_head(n = 1) %>%
         dplyr::mutate(
@@ -192,11 +192,11 @@ radtte <- function(ADSL,
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADTTE <- mutate_na(ds = ADTTE, na_vars = na_vars, na_percentage = na_percentage)
+    adtte <- mutate_na(ds = adtte, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADTTE <- apply_metadata(ADTTE, "metadata/ADTTE.yml")
+  adtte <- apply_metadata(adtte, "metadata/ADTTE.yml")
 
-  return(ADTTE)
+  return(adtte)
 }

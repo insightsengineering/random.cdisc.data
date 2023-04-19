@@ -20,14 +20,14 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADCM <- radcm(ADSL, seed = 2)
-#' ADCM
+#' adcm <- radcm(adsl, seed = 2)
+#' adcm
 #'
-#' ADCM_WHO <- radcm(ADSL, seed = 2, who_coding = TRUE)
-#' ADCM_WHO
-radcm <- function(ADSL,
+#' adcm_who <- radcm(adsl, seed = 2, who_coding = TRUE)
+#' adcm_who
+radcm <- function(adsl,
                   max_n_cms = 10L,
                   lookup = NULL,
                   seed = NULL,
@@ -40,7 +40,7 @@ radcm <- function(ADSL,
     return(get_cached_data("cadcm"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_integer(max_n_cms, len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
@@ -68,9 +68,9 @@ radcm <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
-  ADCM <- Map(function(id, sid) {
+  adcm <- Map(function(id, sid) {
     n_cms <- sample(c(0, seq_len(max_n_cms)), 1)
     i <- sample(seq_len(nrow(lookup_cm)), n_cms, TRUE)
     dplyr::mutate(
@@ -78,21 +78,21 @@ radcm <- function(ADSL,
       USUBJID = id,
       STUDYID = sid
     )
-  }, ADSL$USUBJID, ADSL$STUDYID) %>%
+  }, adsl$USUBJID, adsl$STUDYID) %>%
     Reduce(rbind, .) %>%
     `[`(c(4, 5, 1, 2, 3)) %>%
     dplyr::mutate(CMCAT = CMCLAS)
 
-  ADCM <- var_relabel(
-    ADCM,
+  adcm <- var_relabel(
+    adcm,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add CM date and study day variables
-  ADCM <- dplyr::inner_join(
-    ADCM,
-    ADSL,
+  adcm <- dplyr::inner_join(
+    adcm,
+    adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%
@@ -115,7 +115,7 @@ radcm <- function(ADSL,
     dplyr::ungroup() %>%
     dplyr::arrange(STUDYID, USUBJID, ASTDTM)
 
-  ADCM <- ADCM %>%
+  adcm <- adcm %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(CMSEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = CMSEQ) %>%
@@ -166,7 +166,7 @@ radcm <- function(ADSL,
   if (who_coding) {
     n_cmdecod_path2 <- ceiling(nrow(lookup_cm) / 2)
     cmdecod_path2 <- sample(lookup_cm$CMDECOD, n_cmdecod_path2)
-    ADCM_path2 <- ADCM %>%
+    adcm_path2 <- adcm %>%
       dplyr::filter(CMDECOD %in% cmdecod_path2) %>%
       dplyr::mutate(
         ATC1 = paste(ATC1, "p2"),
@@ -177,7 +177,7 @@ radcm <- function(ADSL,
 
     n_cmdecod_path3 <- ceiling(length(cmdecod_path2) / 2)
     cmdecod_path3 <- sample(cmdecod_path2, n_cmdecod_path3)
-    ADCM_path3 <- ADCM %>%
+    adcm_path3 <- adcm %>%
       dplyr::filter(CMDECOD %in% cmdecod_path3) %>%
       dplyr::mutate(
         ATC1 = paste(ATC1, "p3"),
@@ -186,14 +186,14 @@ radcm <- function(ADSL,
         ATC4 = paste(ATC4, "p3")
       )
 
-    ADCM <- dplyr::bind_rows(
-      ADCM,
-      ADCM_path2,
-      ADCM_path3
+    adcm <- dplyr::bind_rows(
+      adcm,
+      adcm_path2,
+      adcm_path3
     )
   }
 
-  ADCM <- ADCM %>%
+  adcm <- adcm %>%
     dplyr::mutate(
       ATC1CD = ATC1,
       ATC2CD = ATC2,
@@ -202,11 +202,11 @@ radcm <- function(ADSL,
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADCM <- mutate_na(ds = ADCM, na_vars = na_vars, na_percentage = na_percentage)
+    adcm <- mutate_na(ds = adcm, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADCM <- apply_metadata(ADCM, "metadata/ADCM.yml")
+  adcm <- apply_metadata(adcm, "metadata/ADCM.yml")
 
-  return(ADCM)
+  return(adcm)
 }

@@ -35,7 +35,7 @@ library(dplyr)
 library(random.cdisc.data)
 library(diffdf)
 
-# call function to be able to match randome number generation from previous R versions
+# call function to be able to match random number generation from previous R versions
 RNGkind(sample.kind = "Rounding")
 
 # create the new cached data sets

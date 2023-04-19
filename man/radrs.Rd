@@ -5,7 +5,7 @@
 \title{Tumor Response Analysis Dataset (ADRS)}
 \usage{
 radrs(
-  ADSL,
+  adsl,
   avalc = NULL,
   lookup = NULL,
   seed = NULL,
@@ -15,7 +15,7 @@ radrs(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{avalc}{(\verb{character vector})\cr Analysis value categories.}
 
@@ -54,8 +54,8 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}, \code{AVISITN}, \code{ADT}
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
-ADRS <- radrs(ADSL, seed = 2)
-ADRS
+adrs <- radrs(adsl, seed = 2)
+adrs
 }

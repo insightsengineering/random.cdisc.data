@@ -5,7 +5,7 @@
 \title{Vital Signs Analysis Dataset (ADVS)}
 \usage{
 radvs(
-  ADSL,
+  adsl,
   param = c("Diastolic Blood Pressure", "Pulse Rate", "Respiratory Rate",
     "Systolic Blood Pressure", "Temperature", "Weight"),
   paramcd = c("DIABP", "PULSE", "RESP", "SYSBP", "TEMP", "WEIGHT"),
@@ -21,7 +21,7 @@ radvs(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{param}{(\verb{character vector})\cr Parameter values.}
 
@@ -66,13 +66,13 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}, \code{BASETYPE}, \code{AVI
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
-ADVS <- radvs(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-ADVS
+advs <- radvs(adsl, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+advs
 
-ADVS <- radvs(ADSL, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
-ADVS
+advs <- radvs(adsl, visit_format = "CYCLE", n_assessments = 3L, seed = 2)
+advs
 }
 \author{
 npaszty

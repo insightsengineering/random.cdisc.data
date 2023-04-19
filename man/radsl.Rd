@@ -62,10 +62,10 @@ Keys: \code{STUDYID}, \code{USUBJID}
 \examples{
 library(random.cdisc.data)
 
-ADSL <- radsl(N = 10, study_duration = 2, seed = 1)
-ADSL
+adsl <- radsl(N = 10, study_duration = 2, seed = 1)
+adsl
 
-ADSL <- radsl(
+adsl <- radsl(
   N = 10, seed = 1,
   na_percentage = 0.1,
   na_vars = list(
@@ -73,8 +73,8 @@ ADSL <- radsl(
     LSTALVDT = c(seed = 1234, percentage = 0.1)
   )
 )
-ADSL
+adsl
 
-ADSL <- radsl(N = 10, seed = 1, na_percentage = .1)
-ADSL
+adsl <- radsl(N = 10, seed = 1, na_percentage = .1)
+adsl
 }

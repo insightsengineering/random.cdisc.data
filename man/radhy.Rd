@@ -5,7 +5,7 @@
 \title{Hy's Law Analysis Dataset (ADHY)}
 \usage{
 radhy(
-  ADSL,
+  adsl,
   param = c("TBILI <= 2 times ULN and ALT value category",
     "TBILI > 2 times ULN and AST value category",
     "TBILI > 2 times ULN and ALT value category",
@@ -36,7 +36,7 @@ radhy(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{param}{(\verb{character vector})\cr Parameter values.}
 
@@ -63,10 +63,10 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}, \code{AVISITN}, \code{ADTM
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
-ADHY <- radhy(ADSL, seed = 2)
-ADHY
+adhy <- radhy(adsl, seed = 2)
+adhy
 }
 \author{
 wojciakw

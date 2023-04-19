@@ -31,7 +31,7 @@ get_cached_data <- function(dataname) {
 #' @examples
 #' random.cdisc.data:::sample_fct(letters[1:3], 10)
 #' random.cdisc.data:::sample_fct(iris$Species, 10)
-sample_fct <- function(x, N, ...) {
+sample_fct <- function(x, N, ...) { # nolint
   checkmate::assert_number(N)
 
   factor(sample(x, N, replace = TRUE, ...), levels = if (is.factor(x)) levels(x) else x)
@@ -80,7 +80,7 @@ relvar_init <- function(relvar1, relvar2) {
 #' @examples
 #' # Example with data.frame.
 #' params <- c("Level A", "Level B", "Level C")
-#' ADLB_df <- data.frame(
+#' adlb_df <- data.frame(
 #'   ID = 1:9,
 #'   PARAM = factor(
 #'     rep(c("Level A", "Level B", "Level C"), 3),
@@ -88,14 +88,14 @@ relvar_init <- function(relvar1, relvar2) {
 #'   )
 #' )
 #' random.cdisc.data:::rel_var(
-#'   df = ADLB_df,
+#'   df = adlb_df,
 #'   var_name = "PARAMCD",
 #'   var_values = c("A", "B", "C"),
 #'   related_var = "PARAM"
 #' )
 #'
 #' # Example with tibble.
-#' ADLB_tbl <- tibble::tibble(
+#' adlb_tbl <- tibble::tibble(
 #'   ID = 1:9,
 #'   PARAM = factor(
 #'     rep(c("Level A", "Level B", "Level C"), 3),
@@ -103,7 +103,7 @@ relvar_init <- function(relvar1, relvar2) {
 #'   )
 #' )
 #' random.cdisc.data:::rel_var(
-#'   df = ADLB_tbl,
+#'   df = adlb_tbl,
 #'   var_name = "PARAMCD",
 #'   var_values = c("A", "B", "C"),
 #'   related_var = "PARAM"
@@ -177,10 +177,10 @@ visit_schedule <- function(visit_format = "WEEK",
 #' @keywords internal
 #'
 #' @examples
-#' ADLB <- radlb(radsl(N = 10, na_percentage = 0), na_vars = list())
-#' ADLB$BASE2 <- random.cdisc.data:::retain(
-#'   df = ADLB, value_var = ADLB$AVAL,
-#'   event = ADLB$ABLFL2 == "Y"
+#' adlb <- radlb(radsl(N = 10, na_percentage = 0), na_vars = list())
+#' adlb$BASE2 <- random.cdisc.data:::retain(
+#'   df = adlb, value_var = adlb$AVAL,
+#'   event = adlb$ABLFL2 == "Y"
 #' )
 retain <- function(df, value_var, event, outside = NA) {
   indices <- c(1, which(event == TRUE), nrow(df) + 1)
@@ -199,8 +199,8 @@ retain <- function(df, value_var, event, outside = NA) {
 #' @keywords internal
 #'
 #' @examples
-#' ADSL <- radsl()
-#' random.cdisc.data:::var_relabel(ADSL,
+#' adsl <- radsl()
+#' random.cdisc.data:::var_relabel(adsl,
 #'   STUDYID = "Study Identifier",
 #'   USUBJID = "Unique Subject Identifier"
 #' )
@@ -230,13 +230,13 @@ var_relabel <- function(x, ...) {
 #'
 #' @examples
 #' seed <- 1
-#' ADSL <- radsl(seed = seed)
-#' ADLB <- radlb(ADSL, seed = seed)
+#' adsl <- radsl(seed = seed)
+#' adlb <- radlb(adsl, seed = seed)
 #' \dontrun{
 #' yaml_path <- file.path(path.package("random.cdisc.data"), "inst", "metadata")
-#' ADSL <- random.cdisc.data:::apply_metadata(ADSL, file.path(yaml_path, "ADSL.yml"), FALSE)
-#' ADLB <- random.cdisc.data:::apply_metadata(
-#'   ADLB, file.path(yaml_path, "ADLB.yml"), TRUE,
+#' adsl <- random.cdisc.data:::apply_metadata(adsl, file.path(yaml_path, "ADSL.yml"), FALSE)
+#' adlb <- random.cdisc.data:::apply_metadata(
+#'   adlb, file.path(yaml_path, "ADLB.yml"), TRUE,
 #'   file.path(yaml_path, "ADSL.yml")
 #' )
 #' }

@@ -22,11 +22,11 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADRS <- radrs(ADSL, seed = 2)
-#' ADRS
-radrs <- function(ADSL,
+#' adrs <- radrs(adsl, seed = 2)
+#' adrs
+radrs <- function(adsl,
                   avalc = NULL,
                   lookup = NULL,
                   seed = NULL,
@@ -38,7 +38,7 @@ radrs <- function(ADSL,
     return(get_cached_data("cadrs"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_vector(avalc, null.ok = TRUE)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
@@ -51,7 +51,7 @@ radrs <- function(ADSL,
   }
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
-  lookup_ARS <- if (!is.null(lookup)) {
+  lookup_ars <- if (!is.null(lookup)) {
     lookup
   } else {
     expand.grid(
@@ -70,11 +70,11 @@ radrs <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
-  ADRS <- split(ADSL, ADSL$USUBJID) %>%
+  adrs <- split(adsl, adsl$USUBJID) %>%
     lapply(function(pinfo) {
-      probs <- dplyr::filter(lookup_ARS, ARM == as.character(pinfo$ACTARM))
+      probs <- dplyr::filter(lookup_ars, ARM == as.character(pinfo$ACTARM))
 
       # screening
       rsp_screen <- sample(probs$AVALC, 1, prob = probs$p_scr) %>% as.character()
@@ -98,17 +98,17 @@ radrs <- function(ADSL,
       avisit <- c("SCREENING", "BASELINE", "CYCLE 2 DAY 1", "CYCLE 4 DAY 1", "END OF INDUCTION", "FOLLOW UP")
 
       # meaningful date information
-      TRTSTDT <- lubridate::date(pinfo$TRTSDTM)
-      TRTENDT <- lubridate::date(dplyr::if_else(
+      trtstdt <- lubridate::date(pinfo$TRTSDTM)
+      trtendt <- lubridate::date(dplyr::if_else(
         !is.na(pinfo$TRTEDTM), pinfo$TRTEDTM,
-        lubridate::floor_date(TRTSTDT + study_duration_secs, unit = "day")
+        lubridate::floor_date(trtstdt + study_duration_secs, unit = "day")
       ))
-      scr_date <- TRTSTDT - lubridate::days(100)
-      bs_date <- TRTSTDT
-      flu_date <- sample(seq(lubridate::as_datetime(TRTSTDT), lubridate::as_datetime(TRTENDT), by = "day"), size = 1)
-      eoi_date <- sample(seq(lubridate::as_datetime(TRTSTDT), lubridate::as_datetime(TRTENDT), by = "day"), size = 1)
-      c2d1_date <- sample(seq(lubridate::as_datetime(TRTSTDT), lubridate::as_datetime(TRTENDT), by = "day"), size = 1)
-      c4d1_date <- min(lubridate::date(c2d1_date + lubridate::days(60)), TRTENDT)
+      scr_date <- trtstdt - lubridate::days(100)
+      bs_date <- trtstdt
+      flu_date <- sample(seq(lubridate::as_datetime(trtstdt), lubridate::as_datetime(trtendt), by = "day"), size = 1)
+      eoi_date <- sample(seq(lubridate::as_datetime(trtstdt), lubridate::as_datetime(trtendt), by = "day"), size = 1)
+      c2d1_date <- sample(seq(lubridate::as_datetime(trtstdt), lubridate::as_datetime(trtendt), by = "day"), size = 1)
+      c4d1_date <- min(lubridate::date(c2d1_date + lubridate::days(60)), trtendt)
 
       tibble::tibble(
         STUDYID = pinfo$STUDYID,
@@ -151,8 +151,8 @@ radrs <- function(ADSL,
       USUBJID = "Unique Subject Identifier"
     )
 
-  ADRS <- var_relabel(
-    ADRS,
+  adrs <- var_relabel(
+    adrs,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
@@ -160,13 +160,13 @@ radrs <- function(ADSL,
   # merge ADSL to be able to add RS date and study day variables
 
 
-  ADRS <- dplyr::inner_join(
-    dplyr::select(ADRS, -"SITEID"),
-    ADSL,
+  adrs <- dplyr::inner_join(
+    dplyr::select(adrs, -"SITEID"),
+    adsl,
     by = c("STUDYID", "USUBJID")
   )
 
-  ADRS <- ADRS %>%
+  adrs <- adrs %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(RSSEQ = seq_len(dplyr::n())) %>%
     dplyr::mutate(ASEQ = RSSEQ) %>%
@@ -181,11 +181,11 @@ radrs <- function(ADSL,
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADRS <- mutate_na(ds = ADRS, na_vars = na_vars, na_percentage = na_percentage)
+    adrs <- mutate_na(ds = adrs, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADRS <- apply_metadata(ADRS, "metadata/ADRS.yml")
+  adrs <- apply_metadata(adrs, "metadata/ADRS.yml")
 
-  return(ADRS)
+  return(adrs)
 }

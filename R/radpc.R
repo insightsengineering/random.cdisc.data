@@ -19,14 +19,14 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADPC <- radpc(ADSL, seed = 2)
-#' ADPC
+#' adpc <- radpc(adsl, seed = 2)
+#' adpc
 #'
-#' ADPC <- radpc(ADSL, seed = 2, duration = 3)
-#' ADPC
-radpc <- function(ADSL,
+#' adpc <- radpc(adsl, seed = 2, duration = 3)
+#' adpc
+radpc <- function(adsl,
                   avalu = "ug/mL",
                   constants = c(D = 100, ka = 0.8, ke = 1),
                   duration = 2,
@@ -41,7 +41,7 @@ radpc <- function(ADSL,
     return(get_cached_data("cadpc"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_character(avalu, len = 1, any.missing = FALSE)
   checkmate::assert_subset(names(constants), c("D", "ka", "ke"))
   checkmate::assert_numeric(x = duration, max.len = 1)
@@ -57,12 +57,12 @@ radpc <- function(ADSL,
   radpc_core <- function(day) {
     adpc_day <- tidyr::expand_grid(
       data.frame(
-        STUDYID = ADSL$STUDYID,
-        USUBJID = ADSL$USUBJID,
-        ARMCD = ADSL$ARMCD,
+        STUDYID = adsl$STUDYID,
+        USUBJID = adsl$USUBJID,
+        ARMCD = adsl$ARMCD,
         A0 = unname(constants["D"]),
-        ka = unname(constants["ka"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2),
-        ke = unname(constants["ke"]) - stats::runif(length(ADSL$USUBJID), -0.2, 0.2)
+        ka = unname(constants["ka"]) - stats::runif(length(adsl$USUBJID), -0.2, 0.2),
+        ke = unname(constants["ke"]) - stats::runif(length(adsl$USUBJID), -0.2, 0.2)
       ),
       PCTPTNUM = if (day == 1) c(0, 0.5, 1, 1.5, 2, 3, 4, 8, 12) else 24 * (day - 1),
       PARAM = factor(c("Plasma Drug X", "Urine Drug X", "Plasma Drug Y", "Urine Drug Y"))
@@ -109,20 +109,20 @@ radpc <- function(ADSL,
     return(adpc_day)
   }
 
-  ADPC <- list()
+  adpc <- list()
 
   for (day in seq(duration)[seq(duration) <= 7 | ((seq(duration) - 1) %% 7 == 0)]) {
-    ADPC[[day]] <- radpc_core(day = day)
+    adpc[[day]] <- radpc_core(day = day)
   }
 
-  ADPC <- do.call(rbind, ADPC)
+  adpc <- do.call(rbind, adpc)
 
-  ADPC <- dplyr::inner_join(ADPC, ADSL, by = c("STUDYID", "USUBJID", "ARMCD")) %>%
+  adpc <- dplyr::inner_join(adpc, adsl, by = c("STUDYID", "USUBJID", "ARMCD")) %>%
     dplyr::filter(ACTARM != "B: Placebo", !(ACTARM == "A: Drug X" & PARAM == "Plasma Drug Y"))
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADPC <- mutate_na(ds = ADPC, na_vars = na_vars, na_percentage = na_percentage)
+    adpc <- mutate_na(ds = adpc, na_vars = na_vars, na_percentage = na_percentage)
   }
 
-  ADPC <- apply_metadata(ADPC, "metadata/ADPC.yml")
+  adpc <- apply_metadata(adpc, "metadata/ADPC.yml")
 }

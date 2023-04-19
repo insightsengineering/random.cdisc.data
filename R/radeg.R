@@ -22,14 +22,14 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADEG <- radeg(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-#' ADEG
+#' adeg <- radeg(adsl, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+#' adeg
 #'
-#' ADEG <- radeg(ADSL, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
-#' ADEG
-radeg <- function(ADSL,
+#' adeg <- radeg(adsl, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
+#' adeg
+radeg <- function(adsl,
                   egcat = c("INTERVAL", "INTERVAL", "MEASUREMENT", "FINDING"),
                   param = c(
                     "QT Duration",
@@ -56,7 +56,7 @@ radeg <- function(ADSL,
     return(get_cached_data("cadeg"))
   }
 
-  checkmate::assert_data_frame(ADSL)
+  checkmate::assert_data_frame(adsl)
   checkmate::assert_character(egcat, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(param, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(paramcd, min.len = 1, any.missing = FALSE)
@@ -78,59 +78,59 @@ radeg <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
-  ADEG <- expand.grid(
-    STUDYID = unique(ADSL$STUDYID),
-    USUBJID = ADSL$USUBJID,
+  adeg <- expand.grid(
+    STUDYID = unique(adsl$STUDYID),
+    USUBJID = adsl$USUBJID,
     PARAM = as.factor(param_init_list$relvar1),
     AVISIT = visit_schedule(visit_format = visit_format, n_assessments = n_assessments, n_days = n_days),
     stringsAsFactors = FALSE
   )
 
   # assign related variable values: PARAMxEGCAT are related
-  ADEG <- ADEG %>% rel_var(
+  adeg <- adeg %>% rel_var(
     var_name = "EGCAT",
     related_var = "PARAM",
     var_values = egcat_init_list$relvar2
   )
 
   # assign related variable values: PARAMxPARAMCD are related
-  ADEG <- ADEG %>% rel_var(
+  adeg <- adeg %>% rel_var(
     var_name = "PARAMCD",
     related_var = "PARAM",
     var_values = param_init_list$relvar2
   )
 
-  ADEG <- ADEG %>% dplyr::mutate(AVAL = dplyr::case_when(
-    PARAMCD == "QT" ~ stats::rnorm(nrow(ADEG), mean = 350, sd = 100),
-    PARAMCD == "RR" ~ stats::rnorm(nrow(ADEG), mean = 1050, sd = 300),
-    PARAMCD == "HR" ~ stats::rnorm(nrow(ADEG), mean = 70, sd = 20),
+  adeg <- adeg %>% dplyr::mutate(AVAL = dplyr::case_when(
+    PARAMCD == "QT" ~ stats::rnorm(nrow(adeg), mean = 350, sd = 100),
+    PARAMCD == "RR" ~ stats::rnorm(nrow(adeg), mean = 1050, sd = 300),
+    PARAMCD == "HR" ~ stats::rnorm(nrow(adeg), mean = 70, sd = 20),
     PARAMCD == "ECGINTP" ~ NA_real_
   ))
 
-  ADEG <- ADEG %>%
+  adeg <- adeg %>%
     dplyr::mutate(EGTESTCD = PARAMCD) %>%
     dplyr::mutate(EGTEST = PARAM)
 
-  ADEG <- ADEG %>% dplyr::mutate(AVISITN = dplyr::case_when(
+  adeg <- adeg %>% dplyr::mutate(AVISITN = dplyr::case_when(
     AVISIT == "SCREENING" ~ -1,
     AVISIT == "BASELINE" ~ 0,
     (grepl("^WEEK", AVISIT) | grepl("^CYCLE", AVISIT)) ~ as.numeric(AVISIT) - 2,
     TRUE ~ NA_real_
   ))
 
-  ADEG <- ADEG %>% rel_var(
+  adeg <- adeg %>% rel_var(
     var_name = "AVALU",
     related_var = "PARAM",
     var_values = unit_init_list$relvar2
   )
 
   # order to prepare for change from screening and baseline values
-  ADEG <- ADEG[order(ADEG$STUDYID, ADEG$USUBJID, ADEG$PARAMCD, ADEG$AVISITN), ]
+  adeg <- adeg[order(adeg$STUDYID, adeg$USUBJID, adeg$PARAMCD, adeg$AVISITN), ]
 
-  ADEG <- Reduce(rbind, lapply(split(ADEG, ADEG$USUBJID), function(x) {
-    x$STUDYID <- ADSL$STUDYID[which(ADSL$USUBJID == x$USUBJID[1])]
+  adeg <- Reduce(rbind, lapply(split(adeg, adeg$USUBJID), function(x) {
+    x$STUDYID <- adsl$STUDYID[which(adsl$USUBJID == x$USUBJID[1])]
     x$ABLFL <- ifelse(toupper(visit_format) == "WEEK" & x$AVISIT == "BASELINE",
       "Y",
       ifelse(toupper(visit_format) == "CYCLE" & x$AVISIT == "CYCLE 1 DAY 1", "Y", "")
@@ -138,29 +138,29 @@ radeg <- function(ADSL,
     x
   }))
 
-  ADEG$BASE <- ifelse(ADEG$AVISITN >= 0, retain(ADEG, ADEG$AVAL, ADEG$ABLFL == "Y"), ADEG$AVAL)
+  adeg$BASE <- ifelse(adeg$AVISITN >= 0, retain(adeg, adeg$AVAL, adeg$ABLFL == "Y"), adeg$AVAL)
 
-  ADEG <- ADEG %>% dplyr::mutate(ANRLO = dplyr::case_when(
+  adeg <- adeg %>% dplyr::mutate(ANRLO = dplyr::case_when(
     PARAMCD == "QT" ~ 200,
     PARAMCD == "RR" ~ 600,
     PARAMCD == "HR" ~ 40,
     PARAMCD == "ECGINTP" ~ NA_real_
   ))
 
-  ADEG <- ADEG %>% dplyr::mutate(ANRHI = dplyr::case_when(
+  adeg <- adeg %>% dplyr::mutate(ANRHI = dplyr::case_when(
     PARAMCD == "QT" ~ 500,
     PARAMCD == "RR" ~ 1500,
     PARAMCD == "HR" ~ 100,
     PARAMCD == "ECGINTP" ~ NA_real_
   ))
 
-  ADEG <- ADEG %>% dplyr::mutate(ANRIND = factor(dplyr::case_when(
+  adeg <- adeg %>% dplyr::mutate(ANRIND = factor(dplyr::case_when(
     AVAL < ANRLO ~ "LOW",
     AVAL >= ANRLO & AVAL <= ANRHI ~ "NORMAL",
     AVAL > ANRHI ~ "HIGH"
   )))
 
-  ADEG <- ADEG %>%
+  adeg <- adeg %>%
     dplyr::mutate(CHG = ifelse(AVISITN > 0, AVAL - BASE, NA)) %>%
     dplyr::mutate(PCHG = ifelse(AVISITN > 0, 100 * (CHG / BASE), NA)) %>%
     dplyr::mutate(BASETYPE = "LAST") %>%
@@ -170,23 +170,23 @@ radeg <- function(ADSL,
     dplyr::mutate(ATPTN = 1) %>%
     dplyr::mutate(DTYPE = NA) %>%
     var_relabel(
-      STUDYID = attr(ADEG$STUDYID, "label"),
-      USUBJID = attr(ADEG$USUBJID, "label")
+      STUDYID = attr(adeg$STUDYID, "label"),
+      USUBJID = attr(adeg$USUBJID, "label")
     )
 
-  ADEG$ANRIND <- factor(ADEG$ANRIND, levels = c("LOW", "NORMAL", "HIGH"))
-  ADEG$BNRIND <- factor(ADEG$BNRIND, levels = c("LOW", "NORMAL", "HIGH"))
+  adeg$ANRIND <- factor(adeg$ANRIND, levels = c("LOW", "NORMAL", "HIGH"))
+  adeg$BNRIND <- factor(adeg$BNRIND, levels = c("LOW", "NORMAL", "HIGH"))
 
-  ADEG <- var_relabel(
-    ADEG,
+  adeg <- var_relabel(
+    adeg,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
   # merge ADSL to be able to add EG date and study day variables
-  ADEG <- dplyr::inner_join(
-    ADEG,
-    ADSL,
+  adeg <- dplyr::inner_join(
+    adeg,
+    adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::rowwise() %>%
@@ -196,7 +196,7 @@ radeg <- function(ADSL,
     ))) %>%
     dplyr::ungroup()
 
-  ADEG <- ADEG %>%
+  adeg <- adeg %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::arrange(USUBJID, AVISITN) %>%
     dplyr::mutate(ADTM = rep(
@@ -211,7 +211,7 @@ radeg <- function(ADSL,
     dplyr::select(-TRTENDT) %>%
     dplyr::arrange(STUDYID, USUBJID, ADTM)
 
-  ADEG <- ADEG %>%
+  adeg <- adeg %>%
     dplyr::mutate(ASPID = sample(seq_len(dplyr::n()))) %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(EGSEQ = seq_len(dplyr::n())) %>%
@@ -230,21 +230,21 @@ radeg <- function(ADSL,
       ASPID
     )
 
-  ADEG <- ADEG %>% dplyr::mutate(ONTRTFL = factor(dplyr::case_when(
+  adeg <- adeg %>% dplyr::mutate(ONTRTFL = factor(dplyr::case_when(
     !AVISIT %in% c("SCREENING", "BASELINE") ~ "Y",
     TRUE ~ ""
   )))
 
-  ADEG <- ADEG %>% dplyr::mutate(AVALC = ifelse(
+  adeg <- adeg %>% dplyr::mutate(AVALC = ifelse(
     PARAMCD == "ECGINTP",
-    as.character(sample_fct(c("ABNORMAL", "NORMAL"), nrow(ADEG), prob = c(0.25, 0.75))),
+    as.character(sample_fct(c("ABNORMAL", "NORMAL"), nrow(adeg), prob = c(0.25, 0.75))),
     as.character(AVAL)
   ))
 
   # Temporarily creating a row_check column to easily match newly created
   # observations with their row correct arrangement.
-  ADEG <- ADEG %>%
-    dplyr::mutate(row_check = seq_len(nrow(ADEG)))
+  adeg <- adeg %>%
+    dplyr::mutate(row_check = seq_len(nrow(adeg)))
 
   # Created function to add in new observations for DTYPE, "MINIMUM" & "MAXIMUM" in this case.
   get_groups <- function(data,
@@ -272,14 +272,14 @@ radeg <- function(ADSL,
   }
 
   # Binding the new observations to the dataset from the function above and rearranging in the correct order.
-  ADEG <- rbind(ADEG, get_groups(ADEG, TRUE), get_groups(ADEG, FALSE)) %>%
+  adeg <- rbind(adeg, get_groups(adeg, TRUE), get_groups(adeg, FALSE)) %>%
     dplyr::arrange(row_check) %>%
     dplyr::group_by(USUBJID, PARAMCD, BASETYPE) %>%
     dplyr::arrange(AVISIT, .by_group = TRUE) %>%
     dplyr::ungroup()
 
   # Dropping the "row_check" column created above.
-  ADEG <- ADEG[, -which(names(ADEG) %in% c("row_check"))]
+  adeg <- adeg[, -which(names(adeg) %in% c("row_check"))]
 
   # Created function to easily match rows which comply to ONTRTFL derivation
   flag_variables <- function(data, worst_obs) {
@@ -338,17 +338,17 @@ radeg <- function(ADSL,
     return(data_compare)
   }
 
-  ADEG <- flag_variables(ADEG, FALSE) %>% dplyr::rename(WORS01FL = "new_var")
-  ADEG <- flag_variables(ADEG, TRUE) %>% dplyr::rename(WORS02FL = "new_var")
+  adeg <- flag_variables(adeg, FALSE) %>% dplyr::rename(WORS01FL = "new_var")
+  adeg <- flag_variables(adeg, TRUE) %>% dplyr::rename(WORS02FL = "new_var")
 
-  ADEG <- ADEG %>% dplyr::mutate(ANL01FL = factor(ifelse(
+  adeg <- adeg %>% dplyr::mutate(ANL01FL = factor(ifelse(
     (ABLFL == "Y" | (is.na(DTYPE) & WORS01FL == "Y")) &
       (AVISIT != "SCREENING"),
     "Y",
     ""
   )))
 
-  ADEG <- ADEG %>%
+  adeg <- adeg %>%
     dplyr::group_by(USUBJID, PARAMCD, BASETYPE) %>%
     dplyr::mutate(BASEC = ifelse(
       PARAMCD == "ECGINTP",
@@ -368,11 +368,11 @@ radeg <- function(ADSL,
     dplyr::ungroup()
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADEG <- mutate_na(ds = ADEG, na_vars = na_vars, na_percentage = na_percentage)
+    adeg <- mutate_na(ds = adeg, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADEG <- apply_metadata(ADEG, "metadata/ADEG.yml")
+  adeg <- apply_metadata(adeg, "metadata/ADEG.yml")
 
-  return(ADEG)
+  return(adeg)
 }

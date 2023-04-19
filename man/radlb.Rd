@@ -5,7 +5,7 @@
 \title{Laboratory Data Analysis Dataset (ADLB)}
 \usage{
 radlb(
-  ADSL,
+  adsl,
   lbcat = c("CHEMISTRY", "CHEMISTRY", "IMMUNOLOGY"),
   param = c("Alanine Aminotransferase Measurement", "C-Reactive Protein Measurement",
     "Immunoglobulin A Measurement"),
@@ -26,7 +26,7 @@ radlb(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{lbcat}{(\verb{character vector})\cr LB category values.}
 
@@ -79,13 +79,13 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}, \code{BASETYPE}, \code{AVI
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
-ADLB <- radlb(ADSL, visit_format = "WEEK", n_assessments = 7L, seed = 2)
-ADLB
+adlb <- radlb(adsl, visit_format = "WEEK", n_assessments = 7L, seed = 2)
+adlb
 
-ADLB <- radlb(ADSL, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
-ADLB
+adlb <- radlb(adsl, visit_format = "CYCLE", n_assessments = 2L, seed = 2)
+adlb
 }
 \author{
 tomlinsj, npaszty, Xuefeng Hou

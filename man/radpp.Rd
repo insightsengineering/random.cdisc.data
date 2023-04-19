@@ -5,7 +5,7 @@
 \title{Pharmacokinetics Parameters Dataset (ADPP)}
 \usage{
 radpp(
-  ADSL,
+  adsl,
   ppcat = c("Plasma Drug X", "Plasma Drug Y", "Metabolite Drug X", "Metabolite Drug Y"),
   ppspec = c("Plasma", "Plasma", "Plasma", "Matrix of PD", "Matrix of PD", "Urine",
     "Urine", "Urine", "Urine"),
@@ -26,7 +26,7 @@ radpp(
 )
 }
 \arguments{
-\item{ADSL}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
 
 \item{ppcat}{(\verb{character vector})\cr Categories of parameters.}
 
@@ -73,8 +73,8 @@ One record per study, subject, parameter category, parameter and visit.
 }
 \examples{
 library(random.cdisc.data)
-ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
-ADPP <- radpp(ADSL, seed = 2)
-ADPP
+adpp <- radpp(adsl, seed = 2)
+adpp
 }

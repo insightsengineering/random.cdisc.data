@@ -10,8 +10,8 @@
 #' Keys: `STUDYID`, `USUBJID`, `PARAMCD`
 #'
 #' @inheritParams argument_convention
-#' @param event.descr (`character vector`)\cr Descriptions of events. Defaults to `NULL`.
-#' @param censor.descr (`character vector`)\cr Descriptions of censors. Defaults to `NULL`.
+#' @param event_descr (`character vector`)\cr Descriptions of events. Defaults to `NULL`.
+#' @param censor_descr (`character vector`)\cr Descriptions of censors. Defaults to `NULL`.
 #' @template param_cached
 #' @templateVar data adaette
 #'
@@ -22,13 +22,13 @@
 #'
 #' @examples
 #' library(random.cdisc.data)
-#' ADSL <- radsl(N = 10, seed = 1, study_duration = 2)
+#' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
-#' ADAETTE <- radaette(ADSL, seed = 2)
-#' ADAETTE
-radaette <- function(ADSL,
-                     event.descr = NULL,
-                     censor.descr = NULL,
+#' adaette <- radaette(adsl, seed = 2)
+#' adaette
+radaette <- function(adsl,
+                     event_descr = NULL,
+                     censor_descr = NULL,
                      lookup = NULL,
                      seed = NULL,
                      na_percentage = 0,
@@ -39,15 +39,15 @@ radaette <- function(ADSL,
     return(get_cached_data("cadaette"))
   }
 
-  checkmate::assert_data_frame(ADSL)
-  checkmate::assert_character(censor.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
-  checkmate::assert_character(event.descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
+  checkmate::assert_data_frame(adsl)
+  checkmate::assert_character(censor_descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(event_descr, null.ok = TRUE, min.len = 1, any.missing = FALSE)
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
   checkmate::assert_true(na_percentage < 1)
 
   checkmate::assert_data_frame(lookup, null.ok = TRUE)
-  lookup_ADAETTE <- if (!is.null(lookup)) {
+  lookup_adaette <- if (!is.null(lookup)) {
     lookup
   } else {
     tibble::tribble(
@@ -67,16 +67,16 @@ radaette <- function(ADSL,
   if (!is.null(seed)) {
     set.seed(seed)
   }
-  study_duration_secs <- lubridate::seconds(attr(ADSL, "study_duration_secs"))
+  study_duration_secs <- lubridate::seconds(attr(adsl, "study_duration_secs"))
 
-  evntdescr_sel <- if (!is.null(event.descr)) {
-    event.descr
+  evntdescr_sel <- if (!is.null(event_descr)) {
+    event_descr
   } else {
     "Preferred Term"
   }
 
-  cnsdtdscr_sel <- if (!is.null(censor.descr)) {
-    censor.descr
+  cnsdtdscr_sel <- if (!is.null(censor_descr)) {
+    censor_descr
   } else {
     c(
       "Clinical Cut Off",
@@ -118,12 +118,12 @@ radaette <- function(ADSL,
   paramcd_hy <- c("HYSTTEUL", "HYSTTEBL")
   param_hy <- c("Time to Hy's Law Elevation in relation to ULN", "Time to Hy's Law Elevation in relation to Baseline")
   param_init_list <- relvar_init(param_hy, paramcd_hy)
-  adsl_hy <- dplyr::select(ADSL, "STUDYID", "USUBJID", "TRTSDTM", "SITEID", "ARM")
+  adsl_hy <- dplyr::select(adsl, "STUDYID", "USUBJID", "TRTSDTM", "SITEID", "ARM")
 
   # create all combinations of unique values in STUDYID, USUBJID, PARAM, AVISIT
   adaette_hy <- expand.grid(
-    STUDYID = unique(ADSL$STUDYID),
-    USUBJID = ADSL$USUBJID,
+    STUDYID = unique(adsl$STUDYID),
+    USUBJID = adsl$USUBJID,
     PARAM = as.factor(param_init_list$relvar1),
     stringsAsFactors = FALSE
   )
@@ -213,10 +213,10 @@ radaette <- function(ADSL,
     )
   }
 
-  ADAETTE <- split(ADSL, ADSL$USUBJID) %>%
+  adaette <- split(adsl, adsl$USUBJID) %>%
     lapply(function(patient_info) {
       patient_data <- random_patient_data(patient_info)
-      lookup_arm <- lookup_ADAETTE %>%
+      lookup_arm <- lookup_adaette %>%
         dplyr::filter(ARM == as.character(patient_info$ARMCD))
       ae_data <- split(lookup_arm, lookup_arm$CATCD) %>%
         lapply(random_ae_data, patient_data = patient_data, patient_info = patient_info) %>%
@@ -229,17 +229,17 @@ radaette <- function(ADSL,
       USUBJID = "Unique Subject Identifier"
     )
 
-  ADAETTE <- var_relabel(
-    ADAETTE,
+  adaette <- var_relabel(
+    adaette,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
   )
 
-  ADAETTE <- rbind(ADAETTE, adaette_hy)
+  adaette <- rbind(adaette, adaette_hy)
 
-  ADAETTE <- dplyr::inner_join(
-    dplyr::select(ADAETTE, -"SITEID", -"ARM"),
-    ADSL,
+  adaette <- dplyr::inner_join(
+    dplyr::select(adaette, -"SITEID", -"ARM"),
+    adsl,
     by = c("STUDYID", "USUBJID")
   ) %>%
     dplyr::group_by(USUBJID) %>%
@@ -258,11 +258,11 @@ radaette <- function(ADSL,
     )
 
   if (length(na_vars) > 0 && na_percentage > 0) {
-    ADAETTE <- dplyr::mutate(ds = ADAETTE, na_vars = na_vars, na_percentage = na_percentage)
+    adaette <- dplyr::mutate(ds = adaette, na_vars = na_vars, na_percentage = na_percentage)
   }
 
   # apply metadata
-  ADAETTE <- apply_metadata(ADAETTE, "metadata/ADAETTE.yml")
+  adaette <- apply_metadata(adaette, "metadata/ADAETTE.yml")
 
-  return(ADAETTE)
+  return(adaette)
 }
