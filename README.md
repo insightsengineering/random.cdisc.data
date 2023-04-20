@@ -1,9 +1,9 @@
 # random.cdisc.data
 
 <!-- start badges -->
-[![Check 🛠](https://github.com/insightsengineering/random.cdisc.data/actions/workflows/check.yaml/badge.svg)](https://github.com/insightsengineering/random.cdisc.data/actions/workflows/check.yaml)
+[![Check 🛠](https://github.com/insightsengineering/random.cdisc.data/actions/workflows/check.yaml/badge.svg)](https://insightsengineering.github.io/random.cdisc.data/main/unit-test-report/)
 [![Docs 📚](https://github.com/insightsengineering/random.cdisc.data/actions/workflows/docs.yaml/badge.svg)](https://insightsengineering.github.io/random.cdisc.data/)
-[![Code Coverage 📔](https://raw.githubusercontent.com/insightsengineering/random.cdisc.data/_xml_coverage_reports/data/main/badge.svg)](https://raw.githubusercontent.com/insightsengineering/random.cdisc.data/_xml_coverage_reports/data/main/coverage.xml)
+[![Code Coverage 📔](https://raw.githubusercontent.com/insightsengineering/random.cdisc.data/_xml_coverage_reports/data/main/badge.svg)](https://insightsengineering.github.io/random.cdisc.data/main/coverage-report/)
 
 ![GitHub forks](https://img.shields.io/github/forks/insightsengineering/random.cdisc.data?style=social)
 ![GitHub Repo stars](https://img.shields.io/github/stars/insightsengineering/random.cdisc.data?style=social)
