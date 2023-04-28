@@ -163,7 +163,7 @@ radtte <- function(adsl,
     split_df$AVAL <- NA
     for (i in 1:nrow(split_df)) { # nolint
       if (i == 1) {
-        split_df$AVAL[i] <- runif(1, 15, 100)
+        split_df$AVAL[i] <- stats::runif(1, 15, 100)
       } else if (i != 1 & any(grepl("Death", split_df[1:i - 1, "EVNTDESC"]))) {
         # Check if there are any death values before the current row
         # Set the AVAL to the value of the row that has the "Death" value
@@ -171,11 +171,11 @@ radtte <- function(adsl,
         death_position <- match("Death", split_df[1:i - 1, "EVNTDESC"][[1]])
         split_df$AVAL[i] <- split_df$AVAL[death_position]
       } else if (i == 2) {
-        split_df$AVAL[i] <- runif(1, 100, 200)
+        split_df$AVAL[i] <- stats::runif(1, 100, 200)
       } else if (i == 3) {
-        split_df$AVAL[i] <- runif(1, 200, 300)
+        split_df$AVAL[i] <- stats::runif(1, 200, 300)
       } else if (i == 4) {
-        split_df$AVAL[i] <- runif(1, 300, 500)
+        split_df$AVAL[i] <- stats::runif(1, 300, 500)
       }
     }
     split_df
