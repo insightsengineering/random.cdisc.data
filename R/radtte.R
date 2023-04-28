@@ -115,42 +115,42 @@ radtte <- function(adsl,
   adtte_split <- split(adtte, adtte$USUBJID)
 
   # Add EVNTDESC column
-  adtte_lst <- lapply(adtte_split, function(split_df){
+  adtte_lst <- lapply(adtte_split, function(split_df) {
     # First create an empty EVNTDESC variable to populate
     split_df$EVNTDESC <- NA
-    for(i in 1:nrow(split_df)){
+    for (i in 1:nrow(split_df)) { # nolint
       # If this is the first row then create a random value from evntdescr_sel for EVNTDESC
-      if(i == 1){
+      if (i == 1) {
         split_df$EVNTDESC[i] <- sample(evntdescr_sel[c(1:4)], 1, prob = c(0.1, 0.3, 0.4, 0.2))
-      } else if(i != 1 & i != nrow(split_df)){
+      } else if (i != 1 & i != nrow(split_df)) {
         # First check to see if "Death" has been entered in the as a previous value
         # If so we need to make the rest of the EVNTDESC values "Death" to make sense
         # The patient cannot die and then come back to life
-        if(any(grepl("Death", split_df$EVNTDESC))){ # If previous value has "Death" the following need to be "Death"
+        if (any(grepl("Death", split_df$EVNTDESC))) { # If previous value has "Death" the following need to be "Death"
           split_df$EVNTDESC[i] <- "Death"
-        } else{ # If there are no "Death" values randomly select another value
+        } else { # If there are no "Death" values randomly select another value
           split_df$EVNTDESC[i] <- sample(evntdescr_sel[c(1:4)], 1)
         }
-      } else{ # This is for processing OS as this can only be "Death" or "Alive"
-        if(any(grepl( "Death", split_df$EVNTDESC))){ # If previous value has "Death" the following need to be "Death"
+      } else { # This is for processing OS as this can only be "Death" or "Alive"
+        if (any(grepl("Death", split_df$EVNTDESC))) { # If previous value has "Death" the following need to be "Death"
           split_df$EVNTDESC[i] <- "Death"
-        } else{ # If there are no "Death" values randomly select another value
+        } else { # If there are no "Death" values randomly select another value
           split_df$EVNTDESC[i] <- "Alive"
         }
       }
     }
-  split_df
+    split_df
   })
 
   # Add CNSR column
-  adtte_lst <- lapply(adtte_lst, function(split_df){
+  adtte_lst <- lapply(adtte_lst, function(split_df) {
     # First create an empty CNSR variable to populate
     split_df$CNSR <- NA
-    for(i in 1:nrow(split_df)){
+    for (i in 1:nrow(split_df)) { # nolint
       # If this is the first row then create a random value from evntdescr_sel for EVNTDESC
-      if(split_df$EVNTDESC[i] == "Death" | split_df$EVNTDESC[i] == "Disease Progression"){
+      if (split_df$EVNTDESC[i] == "Death" | split_df$EVNTDESC[i] == "Disease Progression") {
         split_df$CNSR[i] <- 0
-      } else{
+      } else {
         split_df$CNSR[i] <- 1
       }
     }
@@ -158,21 +158,23 @@ radtte <- function(adsl,
   })
 
   # Add AVAL column
-  adtte_lst <- lapply(adtte_lst, function(split_df){
+  adtte_lst <- lapply(adtte_lst, function(split_df) {
     # First create an empty CNSR variable to populate
     split_df$AVAL <- NA
-    for(i in 1:nrow(split_df)){
-      if(i == 1){
+    for (i in 1:nrow(split_df)) { # nolint
+      if (i == 1) {
         split_df$AVAL[i] <- runif(1, 15, 100)
-      } else if(i != 1 & any(grepl("Death", split_df[1:i - 1, "EVNTDESC"]))){ # Check if there are any death values before the current row
-        # Set the AVAL to the value of the row that has the "Death" value as the patient cannot live longer than this value
+      } else if (i != 1 & any(grepl("Death", split_df[1:i - 1, "EVNTDESC"]))) {
+        # Check if there are any death values before the current row
+        # Set the AVAL to the value of the row that has the "Death" value
+        # as the patient cannot live longer than this value
         death_position <- match("Death", split_df[1:i - 1, "EVNTDESC"][[1]])
         split_df$AVAL[i] <- split_df$AVAL[death_position]
-      } else if(i == 2){
+      } else if (i == 2) {
         split_df$AVAL[i] <- runif(1, 100, 200)
-      } else if(i == 3){
+      } else if (i == 3) {
         split_df$AVAL[i] <- runif(1, 200, 300)
-      } else if(i == 4){
+      } else if (i == 4) {
         split_df$AVAL[i] <- runif(1, 300, 500)
       }
     }
@@ -180,15 +182,15 @@ radtte <- function(adsl,
   })
 
   # Add CNSDTDSC column
-  adtte_lst <- lapply(adtte_lst, function(split_df){
+  adtte_lst <- lapply(adtte_lst, function(split_df) {
     # First create an empty CNSDTDSC variable to populate
     split_df$CNSDTDSC <- NA
-    for(i in 1:nrow(split_df)){
-      if(split_df$CNSR[i] == 1 & split_df$EVNTDESC[i] == "Last Tumor Assessment"){
+    for (i in 1:nrow(split_df)) { # nolint
+      if (split_df$CNSR[i] == 1 & split_df$EVNTDESC[i] == "Last Tumor Assessment") {
         split_df$CNSDTDSC[i] <- "Completion or Discontinuation"
-      } else if(split_df$CNSR[i] == 1 & split_df$EVNTDESC[i] == "Adverse Event"){
+      } else if (split_df$CNSR[i] == 1 & split_df$EVNTDESC[i] == "Adverse Event") {
         split_df$CNSDTDSC[i] <- "Preferred Term"
-      } else if(split_df$CNSR[i] == 1 & split_df$EVNTDESC[i] == "Alive"){
+      } else if (split_df$CNSR[i] == 1 & split_df$EVNTDESC[i] == "Alive") {
         split_df$CNSDTDSC[i] <- "Alive During Study"
       } else {
         split_df$CNSDTDSC[i] <- ""
