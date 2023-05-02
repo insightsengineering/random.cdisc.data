@@ -123,7 +123,7 @@ radtte <- function(adsl,
       if (i == 1) {
         split_df$EVNTDESC[i] <- sample(evntdescr_sel[c(1:4)], 1, prob = c(0.1, 0.3, 0.4, 0.2))
       } else if (i != 1 & i != nrow(split_df)) {
-        # First check to see if "Death" has been entered in the as a previous value
+        # First check to see if "Death" has been entered in as a previous value
         # If so we need to make the rest of the EVNTDESC values "Death" to make sense
         # The patient cannot die and then come back to life
         if (any(grepl("Death", split_df$EVNTDESC))) { # If previous value has "Death" the following need to be "Death"
