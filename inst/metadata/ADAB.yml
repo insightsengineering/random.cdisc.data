@@ -30,20 +30,17 @@ variables:
  PARCAT1:
     label: Parameter Category 1
     type: factor
- ADABLFL:
-    label: Baseline ADA Evaluable Pts
+ ADABLPFL:
+    label: Baseline ADA Eval. Param-Level Flag
     type: factor
- ADAPBLFL:
-    label: Post-Baseline ADA Evaluable Pts
+ ADPBLPFL:
+    label: Post-Baseline ADA Eval. Param-Level Flag
     type: factor
  ABLFL:
     label: Baseline Record Flag
     type: factor
  RELTMU:
     label: Relative Actual/Nominal Time Units
-    type: factor
- ATACHAR:
-    label: ATA characterization
     type: factor
  NRELTM1:
     label: Nominal Relative Time from First Dose

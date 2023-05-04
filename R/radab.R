@@ -14,7 +14,7 @@
 #' @return `data.frame`
 #' @export
 #'
-#' @details One record per study per subject per parameter per time point: "R1800000", "RESULT1", "R1800001", "RESULT2":
+#' @details One record per study per subject per parameter per time point: "R1800000", "RESULT1", "R1800001", "RESULT2".
 #'
 #' @examples
 #' library(random.cdisc.data)
@@ -136,7 +136,7 @@ radab <- function(adsl,
         unique(),
       by = c("STUDYID", "USUBJID", "VISIT")
     ) %>%
-    rename(ISPTP = PCTPT)
+    rename(ISTPT = PCTPT)
 
   # mutate time from dose variables from adpc to convert into Days
   adab_visit <- adab_visit %>% dplyr::mutate_at(c("ARELTM1", "NRELTM1", "ARELTM2", "NRELTM2"), ~ . / 24)

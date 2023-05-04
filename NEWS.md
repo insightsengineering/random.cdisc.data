@@ -1,7 +1,7 @@
 # random.cdisc.data 0.3.13.9060
 
 ### Enhancements
-* Refactor `abab` parameters and visits to be align with `adpc`.
+* Refactor `abab` parameters and visits to align with `adpc`.
 
 ### Breaking changes
 * Renamed `ADSL` argument to `adsl` in `radab`, `radae`, `radaette`, `radcm`, `raddv`, `radeg`, `radex`, `radhy`, `radlb`,
