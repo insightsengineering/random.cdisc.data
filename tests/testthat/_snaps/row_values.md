@@ -10177,14 +10177,14 @@
       8 Overall Response by Investigator - by visit     OVRINV      3 SD   
         ADTM                  ADY AVISIT           AVISITN
         <dttm>              <int> <fct>              <int>
-      1 2021-10-12 20:00:00   269 CYCLE 2 DAY 1          2
-      2 2021-11-10 19:00:00   298 END OF INDUCTION     999
-      3 2020-10-08 20:00:00  -100 SCREENING             -1
-      4 2021-01-16 19:00:00     0 BASELINE               0
-      5 2021-10-12 20:00:00   269 CYCLE 2 DAY 1          2
-      6 2021-12-11 19:00:00   329 CYCLE 4 DAY 1          4
-      7 2021-11-10 19:00:00   298 END OF INDUCTION     999
-      8 2022-05-01 20:00:00   470 FOLLOW UP            999
+      1 2021-10-13 00:00:00   269 CYCLE 2 DAY 1          2
+      2 2021-11-11 00:00:00   298 END OF INDUCTION     999
+      3 2020-10-09 00:00:00  -100 SCREENING             -1
+      4 2021-01-17 00:00:00     0 BASELINE               0
+      5 2021-10-13 00:00:00   269 CYCLE 2 DAY 1          2
+      6 2021-12-12 00:00:00   329 CYCLE 4 DAY 1          4
+      7 2021-11-11 00:00:00   298 END OF INDUCTION     999
+      8 2022-05-02 00:00:00   470 FOLLOW UP            999
 
 ---
 
@@ -10338,16 +10338,16 @@
       10 Overall Response by Investigator - by visit     OVRINV      3 SD   
          ADTM                  ADY AVISIT           AVISITN
          <dttm>              <int> <fct>              <int>
-       1 2021-04-27 20:00:00   361 CYCLE 2 DAY 1          2
-       2 2021-06-20 20:00:00   613 CYCLE 2 DAY 1          2
-       3 2021-07-08 20:00:00   377 END OF INDUCTION     999
-       4 2021-12-31 19:00:00   491 END OF INDUCTION     999
-       5 2020-08-27 20:00:00     0 BASELINE               0
-       6 2019-06-13 20:00:00  -100 SCREENING             -1
-       7 2021-08-31 20:00:00   888 END OF INDUCTION     999
-       8 2020-12-14 19:00:00   329 END OF INDUCTION     999
-       9 2021-10-12 20:00:00   269 CYCLE 2 DAY 1          2
-      10 2020-03-18 20:00:00  -100 SCREENING             -1
+       1 2021-04-28 00:00:00   361 CYCLE 2 DAY 1          2
+       2 2021-06-21 00:00:00   613 CYCLE 2 DAY 1          2
+       3 2021-07-09 00:00:00   377 END OF INDUCTION     999
+       4 2022-01-01 00:00:00   491 END OF INDUCTION     999
+       5 2020-08-28 00:00:00     0 BASELINE               0
+       6 2019-06-14 00:00:00  -100 SCREENING             -1
+       7 2021-09-01 00:00:00   888 END OF INDUCTION     999
+       8 2020-12-15 00:00:00   329 END OF INDUCTION     999
+       9 2021-10-13 00:00:00   269 CYCLE 2 DAY 1          2
+      10 2020-03-19 00:00:00  -100 SCREENING             -1
 
 # radsaftte produces expected values
 
@@ -10752,11 +10752,11 @@
       5 2024-02-10     NA <NA>    Baseline Biomarker Mutation BBMRKR1   1   WILD TYPE
         AVALU   AVALCAT1 ADTM                AVISIT   AVISITN SRCSEQ
         <fct>   <chr>    <dttm>              <fct>      <int>  <int>
-      1 "kg"    ""       2021-01-07 19:00:00 BASELINE       0      1
-      2 "m"     ""       2021-01-07 19:00:00 BASELINE       0      1
-      3 "kg/m2" ">30"    2021-01-07 19:00:00 BASELINE       0      1
-      4 ""      "4-5"    2021-01-07 19:00:00 BASELINE       0      1
-      5 ""      ""       2021-01-07 19:00:00 BASELINE       0      1
+      1 "kg"    ""       2021-01-08 00:00:00 BASELINE       0      1
+      2 "m"     ""       2021-01-08 00:00:00 BASELINE       0      1
+      3 "kg/m2" ">30"    2021-01-08 00:00:00 BASELINE       0      1
+      4 ""      "4-5"    2021-01-08 00:00:00 BASELINE       0      1
+      5 ""      ""       2021-01-08 00:00:00 BASELINE       0      1
 
 ---
 
@@ -10898,16 +10898,16 @@
       10 Baseline ECOG               BECOG     0   0         ""      "0-1"   
          ADTM                AVISIT   AVISITN SRCSEQ
          <dttm>              <fct>      <int>  <int>
-       1 2019-09-19 20:00:00 BASELINE       0      1
-       2 2020-10-24 20:00:00 BASELINE       0      1
-       3 2019-03-25 20:00:00 BASELINE       0      1
-       4 2019-09-19 20:00:00 BASELINE       0      1
-       5 2020-08-24 20:00:00 BASELINE       0      1
-       6 2020-02-24 19:00:00 BASELINE       0      1
-       7 2020-01-16 19:00:00 BASELINE       0      1
-       8 2020-08-24 20:00:00 BASELINE       0      1
-       9 2019-03-25 20:00:00 BASELINE       0      1
-      10 2020-02-24 19:00:00 BASELINE       0      1
+       1 2019-09-20 00:00:00 BASELINE       0      1
+       2 2020-10-25 00:00:00 BASELINE       0      1
+       3 2019-03-26 00:00:00 BASELINE       0      1
+       4 2019-09-20 00:00:00 BASELINE       0      1
+       5 2020-08-25 00:00:00 BASELINE       0      1
+       6 2020-02-25 00:00:00 BASELINE       0      1
+       7 2020-01-17 00:00:00 BASELINE       0      1
+       8 2020-08-25 00:00:00 BASELINE       0      1
+       9 2019-03-26 00:00:00 BASELINE       0      1
+      10 2020-02-25 00:00:00 BASELINE       0      1
 
 # radtr produces expected values
 
@@ -11002,22 +11002,22 @@
       5 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 2 DAY 1       2
       6 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 4 DAY 1       4
       7 Sum of Longest Diameter by Investigator  SLDINV      END OF INDUCTION     999
-                       ADTM  ADY   DTYPE     AVAL            AVALC AVALU    BASE
-      1 2022-05-01 20:00:00  470         145.9484 145.948361883575    mm 209.412
-      2 2021-12-11 19:00:00  329 MINIMUM 118.6760 118.675961210504    mm 209.412
-      3 2020-10-08 20:00:00 -100         192.9907 192.990711051031    mm 209.412
-      4 2021-01-16 19:00:00    0               NA             <NA>    mm 209.412
-      5 2021-10-12 20:00:00  269         138.9834 138.983355706005    mm 209.412
-      6 2021-12-11 19:00:00  329         118.6760 118.675961210504    mm 209.412
-      7 2021-11-10 19:00:00  298         167.0916 167.091588823272    mm 209.412
-        ABLFL       CHG      PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
-      1       -63.46364 -30.30563               Y       Y        
-      2       -90.73604 -43.32896       Y                       Y
-      3              NA        NA                                
-      4     Y        NA        NA                       Y       Y
-      5       -70.42864 -33.63162       Y       Y                
-      6       -90.73604 -43.32896       Y       Y                
-      7       -42.32041 -20.20916       Y       Y                
+              ADTM  ADY   DTYPE     AVAL            AVALC AVALU    BASE ABLFL
+      1 2022-05-02  470         145.9484 145.948361883575    mm 209.412      
+      2 2021-12-12  329 MINIMUM 118.6760 118.675961210504    mm 209.412      
+      3 2020-10-09 -100         192.9907 192.990711051031    mm 209.412      
+      4 2021-01-17    0               NA             <NA>    mm 209.412     Y
+      5 2021-10-13  269         138.9834 138.983355706005    mm 209.412      
+      6 2021-12-12  329         118.6760 118.675961210504    mm 209.412      
+      7 2021-11-11  298         167.0916 167.091588823272    mm 209.412      
+              CHG      PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
+      1 -63.46364 -30.30563               Y       Y        
+      2 -90.73604 -43.32896       Y                       Y
+      3        NA        NA                                
+      4        NA        NA                       Y       Y
+      5 -70.42864 -33.63162       Y       Y                
+      6 -90.73604 -43.32896       Y       Y                
+      7 -42.32041 -20.20916       Y       Y                
 
 ---
 
@@ -11156,28 +11156,28 @@
       2  Sum of Longest Diameter by Investigator  SLDINV POST-BASELINE MINIMUM
       1  Sum of Longest Diameter by Investigator  SLDINV             FOLLOW UP
       3  Sum of Longest Diameter by Investigator  SLDINV             SCREENING
-         AVISITN                ADTM  ADY   DTYPE     AVAL            AVALC AVALU
-      32     999 2021-08-31 20:00:00  888         104.2930 104.292995987107    mm
-      39       0 2020-06-26 20:00:00    0               NA             <NA>    mm
-      37     999 2021-07-08 20:00:00  377         158.0130 158.012963723167    mm
-      12       0 2020-01-20 19:00:00    0               NA             <NA>    mm
-      14      -1 2019-10-12 20:00:00 -100         222.0485 222.048532815143    mm
-      16     999 2021-02-14 19:00:00  289 MINIMUM 128.7016 128.701607072346    mm
-      15       4 2021-06-26 20:00:00  421         215.1784 215.178350110865    mm
-      2        4 2021-12-11 19:00:00  329 MINIMUM 118.6760 118.675961210504    mm
-      1      999 2022-05-01 20:00:00  470         145.9484 145.948361883575    mm
-      3       -1 2020-10-08 20:00:00 -100         192.9907 192.990711051031    mm
-             BASE ABLFL        CHG       PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
-      32 132.3144       -28.021376 -21.177878       Y       Y       Y        
-      39 159.9885     Y         NA         NA                       Y       Y
-      37 159.9885        -1.975547  -1.234806       Y       Y       Y        
-      12 148.8228     Y         NA         NA                       Y       Y
-      14 148.8228               NA         NA                                
-      16 193.9666       -65.265039 -33.647558       Y                       Y
-      15 193.9666        21.211704  10.935748       Y       Y       Y        
-      2  209.4120       -90.736036 -43.328958       Y                       Y
-      1  209.4120       -63.463635 -30.305635               Y       Y        
-      3  209.4120               NA         NA                                
+         AVISITN       ADTM  ADY   DTYPE     AVAL            AVALC AVALU     BASE
+      32     999 2021-09-01  888         104.2930 104.292995987107    mm 132.3144
+      39       0 2020-06-27    0               NA             <NA>    mm 159.9885
+      37     999 2021-07-09  377         158.0130 158.012963723167    mm 159.9885
+      12       0 2020-01-21    0               NA             <NA>    mm 148.8228
+      14      -1 2019-10-13 -100         222.0485 222.048532815143    mm 148.8228
+      16     999 2021-02-15  289 MINIMUM 128.7016 128.701607072346    mm 193.9666
+      15       4 2021-06-27  421         215.1784 215.178350110865    mm 193.9666
+      2        4 2021-12-12  329 MINIMUM 118.6760 118.675961210504    mm 209.4120
+      1      999 2022-05-02  470         145.9484 145.948361883575    mm 209.4120
+      3       -1 2020-10-09 -100         192.9907 192.990711051031    mm 209.4120
+         ABLFL        CHG       PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
+      32       -28.021376 -21.177878       Y       Y       Y        
+      39     Y         NA         NA                       Y       Y
+      37        -1.975547  -1.234806       Y       Y       Y        
+      12     Y         NA         NA                       Y       Y
+      14               NA         NA                                
+      16       -65.265039 -33.647558       Y                       Y
+      15        21.211704  10.935748       Y       Y       Y        
+      2        -90.736036 -43.328958       Y                       Y
+      1        -63.463635 -30.305635               Y       Y        
+      3                NA         NA                                
 
 # radtte produces expected values
 
@@ -11250,25 +11250,25 @@
       5 COMPLETED 2024-01-18  1096 <NA>    NA     <NA>    <NA>         NA <NA>    
         LSTALVDT   DTHADY ADTHAUT  ASEQ TTESEQ PARAM                          PARAMCD
         <date>      <int> <fct>   <int>  <int> <fct>                          <fct>  
-      1 2024-02-10     NA <NA>        2      2 Duration of Confirmed Response CRSD   
-      2 2024-02-10     NA <NA>        1      1 Event Free Survival            EFS    
+      1 2024-02-10     NA <NA>        4      4 Duration of Confirmed Response CRSD   
+      2 2024-02-10     NA <NA>        2      2 Event Free Survival            EFS    
       3 2024-02-10     NA <NA>        3      3 Overall Survival               OS     
-      4 2024-02-10     NA <NA>        4      4 Progression Free Survival      PFS    
+      4 2024-02-10     NA <NA>        1      1 Progression Free Survival      PFS    
       5 2024-02-10     NA <NA>       NA     NA Total Number of Exacerbations  TNE    
-          AVAL AVALU ADTM                  ADY  CNSR EVNTDESC           
-         <dbl> <fct> <dttm>              <int> <int> <chr>              
-      1  760.  DAYS  2023-02-13 22:43:53   757     1 Adverse Event      
-      2   90.5 DAYS  2022-01-12 22:43:53   360     0 Disease Progression
-      3 1053.  DAYS  2023-04-08 22:43:53   811     0 Death              
-      4  161.  DAYS  2023-12-25 22:43:53  1072     0 Death              
-      5    2   COUNT NA                     NA     1 <NA>               
-        CNSDTDSC           lgTMATRSK
-        <chr>                  <dbl>
-      1 "Clinical Cut Off"    NA    
-      2 ""                    NA    
-      3 ""                    NA    
-      4 ""                    NA    
-      5 "Clinical Cut Off"    -0.287
+         AVAL AVALU ADTM                  ADY  CNSR EVNTDESC             
+        <dbl> <fct> <dttm>              <int> <int> <chr>                
+      1 127.  DAYS  2022-08-21 22:43:53   581     1 Adverse Event        
+      2  25.7 DAYS  2021-12-25 22:43:53   342     1 Last Tumor Assessment
+      3 303.  DAYS  2022-07-07 22:43:53   536     1 Alive                
+      4 239.  DAYS  2021-02-25 22:43:53    39     1 Last Tumor Assessment
+      5   1   COUNT NA                     NA     1 <NA>                 
+        CNSDTDSC                      lgTMATRSK
+        <chr>                             <dbl>
+      1 Preferred Term                    NA   
+      2 Completion or Discontinuation     NA   
+      3 Alive During Study                NA   
+      4 Completion or Discontinuation     NA   
+      5 Preferred Term                    -2.35
 
 ---
 
@@ -11278,148 +11278,160 @@
       # A tibble: 10 x 67
          STUDYID USUBJID             SUBJID SITEID   AGE AGEU  SEX  
          <chr>   <chr>               <chr>  <chr>  <int> <fct> <fct>
-       1 AB12345 AB12345-RUS-1-id-6  id-6   RUS-1     36 YEARS F    
-       2 AB12345 AB12345-USA-13-id-3 id-3   USA-13    35 YEARS F    
-       3 AB12345 AB12345-USA-13-id-3 id-3   USA-13    35 YEARS F    
-       4 AB12345 AB12345-CHN-3-id-10 id-10  CHN-3     35 YEARS M    
-       5 AB12345 AB12345-CHN-3-id-10 id-10  CHN-3     35 YEARS M    
-       6 AB12345 AB12345-RUS-1-id-4  id-4   RUS-1     36 YEARS M    
-       7 AB12345 AB12345-CHN-11-id-2 id-2   CHN-11    35 YEARS M    
-       8 AB12345 AB12345-CHN-3-id-5  id-5   CHN-3     36 YEARS F    
-       9 AB12345 AB12345-CHN-3-id-5  id-5   CHN-3     36 YEARS F    
-      10 AB12345 AB12345-BRA-1-id-9  id-9   BRA-1     35 YEARS F    
+       1 AB12345 AB12345-CHN-3-id-10 id-10  CHN-3     35 YEARS M    
+       2 AB12345 AB12345-BRA-9-id-8  id-8   BRA-9     31 YEARS F    
+       3 AB12345 AB12345-CHN-3-id-5  id-5   CHN-3     36 YEARS F    
+       4 AB12345 AB12345-RUS-1-id-6  id-6   RUS-1     36 YEARS F    
+       5 AB12345 AB12345-RUS-1-id-4  id-4   RUS-1     36 YEARS M    
+       6 AB12345 AB12345-BRA-1-id-9  id-9   BRA-1     35 YEARS F    
+       7 AB12345 AB12345-USA-13-id-3 id-3   USA-13    35 YEARS F    
+       8 AB12345 AB12345-JPN-4-id-7  id-7   JPN-4     30 YEARS F    
+       9 AB12345 AB12345-BRA-9-id-8  id-8   BRA-9     31 YEARS F    
+      10 AB12345 AB12345-RUS-1-id-6  id-6   RUS-1     36 YEARS F    
          RACE                             ETHNIC                 COUNTRY DTHFL
          <fct>                            <fct>                  <fct>   <fct>
-       1 ASIAN                            NOT HISPANIC OR LATINO RUS     N    
-       2 AMERICAN INDIAN OR ALASKA NATIVE NOT HISPANIC OR LATINO USA     N    
-       3 AMERICAN INDIAN OR ALASKA NATIVE NOT HISPANIC OR LATINO USA     N    
-       4 ASIAN                            NOT HISPANIC OR LATINO CHN     N    
-       5 ASIAN                            NOT HISPANIC OR LATINO CHN     N    
-       6 BLACK OR AFRICAN AMERICAN        NOT HISPANIC OR LATINO RUS     N    
-       7 BLACK OR AFRICAN AMERICAN        NOT HISPANIC OR LATINO CHN     N    
-       8 ASIAN                            NOT HISPANIC OR LATINO CHN     N    
-       9 ASIAN                            NOT HISPANIC OR LATINO CHN     N    
-      10 BLACK OR AFRICAN AMERICAN        UNKNOWN                BRA     N    
+       1 ASIAN                            NOT HISPANIC OR LATINO CHN     N    
+       2 ASIAN                            NOT HISPANIC OR LATINO BRA     Y    
+       3 ASIAN                            NOT HISPANIC OR LATINO CHN     N    
+       4 ASIAN                            NOT HISPANIC OR LATINO RUS     N    
+       5 BLACK OR AFRICAN AMERICAN        NOT HISPANIC OR LATINO RUS     N    
+       6 BLACK OR AFRICAN AMERICAN        UNKNOWN                BRA     N    
+       7 AMERICAN INDIAN OR ALASKA NATIVE NOT HISPANIC OR LATINO USA     N    
+       8 ASIAN                            NOT HISPANIC OR LATINO JPN     N    
+       9 ASIAN                            NOT HISPANIC OR LATINO BRA     Y    
+      10 ASIAN                            NOT HISPANIC OR LATINO RUS     N    
          INVID         INVNAM         ARM            ARMCD ACTARM         ACTARMCD
          <chr>         <chr>          <fct>          <fct> <fct>          <fct>   
-       1 INV ID RUS-1  Dr. RUS-1 Doe  A: Drug X      ARM A A: Drug X      ARM A   
-       2 INV ID USA-13 Dr. USA-13 Doe A: Drug X      ARM A A: Drug X      ARM A   
-       3 INV ID USA-13 Dr. USA-13 Doe A: Drug X      ARM A A: Drug X      ARM A   
-       4 INV ID CHN-3  Dr. CHN-3 Doe  B: Placebo     ARM B B: Placebo     ARM B   
-       5 INV ID CHN-3  Dr. CHN-3 Doe  B: Placebo     ARM B B: Placebo     ARM B   
-       6 INV ID RUS-1  Dr. RUS-1 Doe  B: Placebo     ARM B B: Placebo     ARM B   
-       7 INV ID CHN-11 Dr. CHN-11 Doe A: Drug X      ARM A A: Drug X      ARM A   
-       8 INV ID CHN-3  Dr. CHN-3 Doe  A: Drug X      ARM A A: Drug X      ARM A   
-       9 INV ID CHN-3  Dr. CHN-3 Doe  A: Drug X      ARM A A: Drug X      ARM A   
-      10 INV ID BRA-1  Dr. BRA-1 Doe  C: Combination ARM C C: Combination ARM C   
+       1 INV ID CHN-3  Dr. CHN-3 Doe  B: Placebo     ARM B B: Placebo     ARM B   
+       2 INV ID BRA-9  Dr. BRA-9 Doe  A: Drug X      ARM A A: Drug X      ARM A   
+       3 INV ID CHN-3  Dr. CHN-3 Doe  A: Drug X      ARM A A: Drug X      ARM A   
+       4 INV ID RUS-1  Dr. RUS-1 Doe  A: Drug X      ARM A A: Drug X      ARM A   
+       5 INV ID RUS-1  Dr. RUS-1 Doe  B: Placebo     ARM B B: Placebo     ARM B   
+       6 INV ID BRA-1  Dr. BRA-1 Doe  C: Combination ARM C C: Combination ARM C   
+       7 INV ID USA-13 Dr. USA-13 Doe A: Drug X      ARM A A: Drug X      ARM A   
+       8 INV ID JPN-4  Dr. JPN-4 Doe  A: Drug X      ARM A A: Drug X      ARM A   
+       9 INV ID BRA-9  Dr. BRA-9 Doe  A: Drug X      ARM A A: Drug X      ARM A   
+      10 INV ID RUS-1  Dr. RUS-1 Doe  A: Drug X      ARM A A: Drug X      ARM A   
          TRT01P         TRT01A         TRT02P         TRT02A         REGION1      
          <fct>          <fct>          <fct>          <fct>          <fct>        
-       1 A: Drug X      A: Drug X      C: Combination A: Drug X      Eurasia      
-       2 A: Drug X      A: Drug X      B: Placebo     A: Drug X      North America
-       3 A: Drug X      A: Drug X      B: Placebo     A: Drug X      North America
-       4 B: Placebo     B: Placebo     A: Drug X      A: Drug X      Asia         
-       5 B: Placebo     B: Placebo     A: Drug X      A: Drug X      Asia         
-       6 B: Placebo     B: Placebo     A: Drug X      A: Drug X      Eurasia      
-       7 A: Drug X      A: Drug X      A: Drug X      A: Drug X      Asia         
-       8 A: Drug X      A: Drug X      A: Drug X      C: Combination Asia         
-       9 A: Drug X      A: Drug X      A: Drug X      C: Combination Asia         
-      10 C: Combination C: Combination A: Drug X      C: Combination South America
+       1 B: Placebo     B: Placebo     A: Drug X      A: Drug X      Asia         
+       2 A: Drug X      A: Drug X      A: Drug X      A: Drug X      South America
+       3 A: Drug X      A: Drug X      A: Drug X      C: Combination Asia         
+       4 A: Drug X      A: Drug X      C: Combination A: Drug X      Eurasia      
+       5 B: Placebo     B: Placebo     A: Drug X      A: Drug X      Eurasia      
+       6 C: Combination C: Combination A: Drug X      C: Combination South America
+       7 A: Drug X      A: Drug X      B: Placebo     A: Drug X      North America
+       8 A: Drug X      A: Drug X      C: Combination B: Placebo     Asia         
+       9 A: Drug X      A: Drug X      A: Drug X      A: Drug X      South America
+      10 A: Drug X      A: Drug X      C: Combination A: Drug X      Eurasia      
          STRATA1 STRATA2 BMRKR1 BMRKR2 ITTFL SAFFL BMEASIFL BEP01FL AEWITHFL
          <fct>   <fct>    <dbl> <fct>  <fct> <fct> <fct>    <fct>   <fct>   
-       1 B       S1        9.34 MEDIUM Y     Y     N        N       N       
-       2 C       S1        7.25 LOW    Y     Y     Y        N       N       
-       3 C       S1        7.25 LOW    Y     Y     Y        N       N       
-       4 A       S1        1.78 LOW    Y     Y     N        Y       N       
-       5 A       S1        1.78 LOW    Y     Y     N        Y       N       
-       6 A       S1        9.95 MEDIUM Y     Y     Y        N       N       
-       7 C       S2        4.08 HIGH   Y     Y     Y        Y       N       
-       8 A       S2        2.62 LOW    Y     Y     Y        N       N       
-       9 A       S2        2.62 LOW    Y     Y     Y        N       N       
-      10 A       S1        6.92 HIGH   Y     Y     Y        N       N       
+       1 A       S1        1.78 LOW    Y     Y     N        Y       N       
+       2 B       S2       11.3  MEDIUM Y     Y     Y        Y       N       
+       3 A       S2        2.62 LOW    Y     Y     Y        N       N       
+       4 B       S1        9.34 MEDIUM Y     Y     N        N       N       
+       5 A       S1        9.95 MEDIUM Y     Y     Y        N       N       
+       6 A       S1        6.92 HIGH   Y     Y     Y        N       N       
+       7 C       S1        7.25 LOW    Y     Y     Y        N       N       
+       8 B       S1        7.46 MEDIUM Y     Y     Y        N       N       
+       9 B       S2       11.3  MEDIUM Y     Y     Y        Y       N       
+      10 B       S1        9.34 MEDIUM Y     Y     N        N       N       
          RANDDT     TRTSDTM             TRTEDTM             TRT01SDTM          
          <date>     <dttm>              <dttm>              <dttm>             
-       1 2020-10-24 2020-10-26 22:16:26 2023-10-27 16:16:26 2020-10-26 22:16:26
-       2 2019-10-16 2019-10-17 17:56:02 2022-10-17 11:56:02 2019-10-17 17:56:02
-       3 2019-10-16 2019-10-17 17:56:02 2022-10-17 11:56:02 2019-10-17 17:56:02
-       4 2019-03-24 2019-03-28 12:07:16 2022-03-28 06:07:16 2019-03-28 12:07:16
-       5 2019-03-24 2019-03-28 12:07:16 2022-03-28 06:07:16 2019-03-28 12:07:16
-       6 2020-08-27 2020-08-28 20:42:09 2022-01-23 08:46:48 2020-08-28 20:42:09
-       7 2020-02-23 2020-02-26 18:15:59 NA                  2020-02-26 18:15:59
-       8 2020-06-24 2020-06-27 04:48:00 2023-06-27 22:48:00 2020-06-27 04:48:00
-       9 2020-06-24 2020-06-27 04:48:00 2023-06-27 22:48:00 2020-06-27 04:48:00
-      10 2021-01-17 2021-01-17 22:43:53 2024-01-18 16:43:53 2021-01-17 22:43:53
+       1 2019-03-24 2019-03-28 12:07:16 2022-03-28 06:07:16 2019-03-28 12:07:16
+       2 2020-01-18 2020-01-21 10:19:08 2021-10-16 19:37:36 2020-01-21 10:19:08
+       3 2020-06-24 2020-06-27 04:48:00 2023-06-27 22:48:00 2020-06-27 04:48:00
+       4 2020-10-24 2020-10-26 22:16:26 2023-10-27 16:16:26 2020-10-26 22:16:26
+       5 2020-08-27 2020-08-28 20:42:09 2022-01-23 08:46:48 2020-08-28 20:42:09
+       6 2021-01-17 2021-01-17 22:43:53 2024-01-18 16:43:53 2021-01-17 22:43:53
+       7 2019-10-16 2019-10-17 17:56:02 2022-10-17 11:56:02 2019-10-17 17:56:02
+       8 2019-09-22 2019-09-22 02:25:18 2022-09-21 20:25:18 2019-09-22 02:25:18
+       9 2020-01-18 2020-01-21 10:19:08 2021-10-16 19:37:36 2020-01-21 10:19:08
+      10 2020-10-24 2020-10-26 22:16:26 2023-10-27 16:16:26 2020-10-26 22:16:26
          TRT01EDTM           TRT02SDTM           TRT02EDTM          
          <dttm>              <dttm>              <dttm>             
-       1 2022-10-27 10:16:26 2022-10-27 10:16:26 2023-10-27 16:16:26
-       2 2021-10-17 05:56:02 2021-10-17 05:56:02 2022-10-17 11:56:02
-       3 2021-10-17 05:56:02 2021-10-17 05:56:02 2022-10-17 11:56:02
-       4 2021-03-28 00:07:16 2021-03-28 00:07:16 2022-03-28 06:07:16
-       5 2021-03-28 00:07:16 2021-03-28 00:07:16 2022-03-28 06:07:16
-       6 2021-01-23 02:46:48 2021-01-23 02:46:48 2022-01-23 08:46:48
-       7 NA                  NA                  NA                 
-       8 2022-06-27 16:48:00 2022-06-27 16:48:00 2023-06-27 22:48:00
-       9 2022-06-27 16:48:00 2022-06-27 16:48:00 2023-06-27 22:48:00
-      10 2023-01-18 10:43:53 2023-01-18 10:43:53 2024-01-18 16:43:53
+       1 2021-03-28 00:07:16 2021-03-28 00:07:16 2022-03-28 06:07:16
+       2 2020-10-16 13:37:36 2020-10-16 13:37:36 2021-10-16 19:37:36
+       3 2022-06-27 16:48:00 2022-06-27 16:48:00 2023-06-27 22:48:00
+       4 2022-10-27 10:16:26 2022-10-27 10:16:26 2023-10-27 16:16:26
+       5 2021-01-23 02:46:48 2021-01-23 02:46:48 2022-01-23 08:46:48
+       6 2023-01-18 10:43:53 2023-01-18 10:43:53 2024-01-18 16:43:53
+       7 2021-10-17 05:56:02 2021-10-17 05:56:02 2022-10-17 11:56:02
+       8 2021-09-21 14:25:18 2021-09-21 14:25:18 2022-09-21 20:25:18
+       9 2020-10-16 13:37:36 2020-10-16 13:37:36 2021-10-16 19:37:36
+      10 2022-10-27 10:16:26 2022-10-27 10:16:26 2023-10-27 16:16:26
          AP01SDTM            AP01EDTM            AP02SDTM           
          <dttm>              <dttm>              <dttm>             
-       1 2020-10-26 22:16:26 2022-10-27 10:16:26 2022-10-27 10:16:26
-       2 2019-10-17 17:56:02 2021-10-17 05:56:02 2021-10-17 05:56:02
-       3 2019-10-17 17:56:02 2021-10-17 05:56:02 2021-10-17 05:56:02
-       4 2019-03-28 12:07:16 2021-03-28 00:07:16 2021-03-28 00:07:16
-       5 2019-03-28 12:07:16 2021-03-28 00:07:16 2021-03-28 00:07:16
-       6 2020-08-28 20:42:09 2021-01-23 02:46:48 2021-01-23 02:46:48
-       7 2020-02-26 18:15:59 NA                  NA                 
-       8 2020-06-27 04:48:00 2022-06-27 16:48:00 2022-06-27 16:48:00
-       9 2020-06-27 04:48:00 2022-06-27 16:48:00 2022-06-27 16:48:00
-      10 2021-01-17 22:43:53 2023-01-18 10:43:53 2023-01-18 10:43:53
+       1 2019-03-28 12:07:16 2021-03-28 00:07:16 2021-03-28 00:07:16
+       2 2020-01-21 10:19:08 2020-10-16 13:37:36 2020-10-16 13:37:36
+       3 2020-06-27 04:48:00 2022-06-27 16:48:00 2022-06-27 16:48:00
+       4 2020-10-26 22:16:26 2022-10-27 10:16:26 2022-10-27 10:16:26
+       5 2020-08-28 20:42:09 2021-01-23 02:46:48 2021-01-23 02:46:48
+       6 2021-01-17 22:43:53 2023-01-18 10:43:53 2023-01-18 10:43:53
+       7 2019-10-17 17:56:02 2021-10-17 05:56:02 2021-10-17 05:56:02
+       8 2019-09-22 02:25:18 2021-09-21 14:25:18 2021-09-21 14:25:18
+       9 2020-01-21 10:19:08 2020-10-16 13:37:36 2020-10-16 13:37:36
+      10 2020-10-26 22:16:26 2022-10-27 10:16:26 2022-10-27 10:16:26
          AP02EDTM            EOSSTT       EOTSTT       EOSDT      EOSDY DCSREAS      
          <dttm>              <fct>        <fct>        <date>     <int> <fct>        
-       1 2023-10-27 16:16:26 COMPLETED    COMPLETED    2023-10-27  1096 <NA>         
-       2 2022-10-17 11:56:02 COMPLETED    COMPLETED    2022-10-17  1096 <NA>         
-       3 2022-10-17 11:56:02 COMPLETED    COMPLETED    2022-10-17  1096 <NA>         
-       4 2022-03-28 06:07:16 COMPLETED    COMPLETED    2022-03-28  1096 <NA>         
-       5 2022-03-28 06:07:16 COMPLETED    COMPLETED    2022-03-28  1096 <NA>         
-       6 2022-01-23 08:46:48 DISCONTINUED DISCONTINUED 2022-01-23   513 ADVERSE EVENT
-       7 NA                  ONGOING      ONGOING      NA            NA <NA>         
-       8 2023-06-27 22:48:00 COMPLETED    COMPLETED    2023-06-27  1096 <NA>         
-       9 2023-06-27 22:48:00 COMPLETED    COMPLETED    2023-06-27  1096 <NA>         
-      10 2024-01-18 16:43:53 COMPLETED    COMPLETED    2024-01-18  1096 <NA>         
-         DTHDT  DTHCAUS DTHCAT LDDTHELD LDDTHGR1 LSTALVDT   DTHADY ADTHAUT  ASEQ
-         <date> <fct>   <fct>     <int> <fct>    <date>      <int> <fct>   <int>
-       1 NA     <NA>    <NA>         NA <NA>     2023-11-13     NA <NA>        2
-       2 NA     <NA>    <NA>         NA <NA>     2022-10-30     NA <NA>        2
-       3 NA     <NA>    <NA>         NA <NA>     2022-10-30     NA <NA>       NA
-       4 NA     <NA>    <NA>         NA <NA>     2022-04-14     NA <NA>        3
-       5 NA     <NA>    <NA>         NA <NA>     2022-04-14     NA <NA>        2
-       6 NA     <NA>    <NA>         NA <NA>     2022-02-12     NA <NA>        1
-       7 NA     <NA>    <NA>         NA <NA>     NA             NA <NA>        1
-       8 NA     <NA>    <NA>         NA <NA>     2023-07-10     NA <NA>       NA
-       9 NA     <NA>    <NA>         NA <NA>     2023-07-10     NA <NA>        2
-      10 NA     <NA>    <NA>         NA <NA>     2024-02-10     NA <NA>        1
-         TTESEQ PARAM                          PARAMCD  AVAL AVALU ADTM               
-          <int> <fct>                          <fct>   <dbl> <fct> <dttm>             
-       1      2 Event Free Survival            EFS     429.  DAYS  2021-03-14 22:16:26
-       2      2 Duration of Confirmed Response CRSD    924.  DAYS  2021-05-15 17:56:02
-       3     NA Total Number of Exacerbations  TNE       3   COUNT NA                 
-       4      3 Progression Free Survival      PFS     299.  DAYS  2020-03-20 12:07:16
-       5      2 Event Free Survival            EFS     475.  DAYS  2019-07-10 12:07:16
-       6      1 Overall Survival               OS      360.  DAYS  2021-01-12 20:42:09
-       7      1 Duration of Confirmed Response CRSD    581.  DAYS  2020-07-04 18:15:59
-       8     NA Total Number of Exacerbations  TNE       4   COUNT NA                 
-       9      2 Progression Free Survival      PFS     222.  DAYS  2021-08-18 04:48:00
-      10      1 Event Free Survival            EFS      90.5 DAYS  2022-01-12 22:43:53
-           ADY  CNSR EVNTDESC            CNSDTDSC                     lgTMATRSK
-         <int> <int> <chr>               <chr>                            <dbl>
-       1   139     0 Death               ""                               NA   
-       2   576     0 Death               ""                               NA   
-       3    NA     0 <NA>                ""                               -2.52
-       4   358     1 Adverse Event       "End of AE Reporting Period"     NA   
-       5   104     0 Death               ""                               NA   
-       6   137     1 Adverse Event       "End of AE Reporting Period"     NA   
-       7   129     0 Disease Progression ""                               NA   
-       8    NA     1 <NA>                "End of AE Reporting Period"     -2.00
-       9   417     0 Death               ""                               NA   
-      10   360     0 Disease Progression ""                               NA   
+       1 2022-03-28 06:07:16 COMPLETED    COMPLETED    2022-03-28  1096 <NA>         
+       2 2021-10-16 19:37:36 DISCONTINUED DISCONTINUED 2021-10-16   635 DEATH        
+       3 2023-06-27 22:48:00 COMPLETED    COMPLETED    2023-06-27  1096 <NA>         
+       4 2023-10-27 16:16:26 COMPLETED    COMPLETED    2023-10-27  1096 <NA>         
+       5 2022-01-23 08:46:48 DISCONTINUED DISCONTINUED 2022-01-23   513 ADVERSE EVENT
+       6 2024-01-18 16:43:53 COMPLETED    COMPLETED    2024-01-18  1096 <NA>         
+       7 2022-10-17 11:56:02 COMPLETED    COMPLETED    2022-10-17  1096 <NA>         
+       8 2022-09-21 20:25:18 COMPLETED    COMPLETED    2022-09-21  1096 <NA>         
+       9 2021-10-16 19:37:36 DISCONTINUED DISCONTINUED 2021-10-16   635 DEATH        
+      10 2023-10-27 16:16:26 COMPLETED    COMPLETED    2023-10-27  1096 <NA>         
+         DTHDT      DTHCAUS             DTHCAT              LDDTHELD LDDTHGR1
+         <date>     <fct>               <fct>                  <int> <fct>   
+       1 NA         <NA>                <NA>                      NA <NA>    
+       2 2021-11-23 DISEASE PROGRESSION PROGRESSIVE DISEASE       38 >30     
+       3 NA         <NA>                <NA>                      NA <NA>    
+       4 NA         <NA>                <NA>                      NA <NA>    
+       5 NA         <NA>                <NA>                      NA <NA>    
+       6 NA         <NA>                <NA>                      NA <NA>    
+       7 NA         <NA>                <NA>                      NA <NA>    
+       8 NA         <NA>                <NA>                      NA <NA>    
+       9 2021-11-23 DISEASE PROGRESSION PROGRESSIVE DISEASE       38 >30     
+      10 NA         <NA>                <NA>                      NA <NA>    
+         LSTALVDT   DTHADY ADTHAUT  ASEQ TTESEQ PARAM                          PARAMCD
+         <date>      <int> <fct>   <int>  <int> <fct>                          <fct>  
+       1 2022-04-14     NA <NA>        4      4 Event Free Survival            EFS    
+       2 2021-11-23    671 Yes         2      2 Duration of Confirmed Response CRSD   
+       3 2023-07-10     NA <NA>        4      4 Overall Survival               OS     
+       4 2023-11-13     NA <NA>        3      3 Duration of Confirmed Response CRSD   
+       5 2022-02-12     NA <NA>        3      3 Event Free Survival            EFS    
+       6 2024-02-10     NA <NA>        3      3 Overall Survival               OS     
+       7 2022-10-30     NA <NA>       NA     NA Total Number of Exacerbations  TNE    
+       8 2022-10-09     NA <NA>       NA     NA Total Number of Exacerbations  TNE    
+       9 2021-11-23    671 Yes         3      3 Event Free Survival            EFS    
+      10 2023-11-13     NA <NA>        4      4 Overall Survival               OS     
+          AVAL AVALU ADTM                  ADY  CNSR EVNTDESC             
+         <dbl> <fct> <dttm>              <int> <int> <chr>                
+       1  66.0 DAYS  2022-02-28 12:07:16  1068     0 Disease Progression  
+       2  47.5 DAYS  2020-09-24 10:19:08   247     0 Death                
+       3 211.  DAYS  2023-03-19 04:48:00   995     0 Death                
+       4 179.  DAYS  2023-02-27 22:16:26   854     1 Last Tumor Assessment
+       5  84.8 DAYS  2021-06-27 20:42:09   303     0 Disease Progression  
+       6 303.  DAYS  2022-07-07 22:43:53   536     1 Alive                
+       7   0   COUNT NA                     NA     0 <NA>                 
+       8   3   COUNT NA                     NA     0 <NA>                 
+       9  47.5 DAYS  2021-01-29 10:19:08   374     0 Death                
+      10 202.  DAYS  2023-03-02 22:16:26   857     0 Death                
+         CNSDTDSC                        lgTMATRSK
+         <chr>                               <dbl>
+       1 ""                                NA     
+       2 ""                                NA     
+       3 ""                                NA     
+       4 "Completion or Discontinuation"   NA     
+       5 ""                                NA     
+       6 "Alive During Study"              NA     
+       7 ""                                -1.30  
+       8 ""                                -0.0837
+       9 ""                                NA     
+      10 ""                                NA     
 
 # radvs produces expected values
 
