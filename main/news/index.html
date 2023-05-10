@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">random.cdisc.data</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.13.9059</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.13.9060</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,12 +30,6 @@
 <li class="active nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/random.cdisc.data/main">main</a> </div></li>
-<!-- end dropdown for versions -->
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-reports">
@@ -64,27 +58,28 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.3.13.9059" id="randomcdiscdata-03139059">random.cdisc.data 0.3.13.9059<a class="anchor" aria-label="anchor" href="#randomcdiscdata-03139059"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.3.13.9060" id="randomcdiscdata-03139060">random.cdisc.data 0.3.13.9060<a class="anchor" aria-label="anchor" href="#randomcdiscdata-03139060"></a></h2>
 <div class="section level4">
-<h4 id="breaking-changes-0-3-13-9059">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-3-13-9059"></a></h4>
+<h4 id="breaking-changes-0-3-13-9060">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-3-13-9060"></a></h4>
 <ul><li>Renamed <code>ADSL</code> argument to <code>adsl</code> in <code>radab</code>, <code>radae</code>, <code>radaette</code>, <code>radcm</code>, <code>raddv</code>, <code>radeg</code>, <code>radex</code>, <code>radhy</code>, <code>radlb</code>, <code>radmh</code>, <code>radpc</code>, <code>radpp</code>, <code>radqlqc</code>, <code>radqs</code>, <code>radrs</code>, <code>radsaftte</code>, <code>radsub</code>, <code>radtr</code>, <code>radtte</code>, <code>radvs</code>, and <code>get_qs_data</code>.</li>
 <li>Renamed <code>ADPC</code> argument to <code>adpc</code> in <code>radab</code>.</li>
 <li>Renamed <code>event.descr</code> argument <code>event_descr</code> and <code>censor.descr</code> argument to <code>censor_descr</code> in <code>radaette</code> and <code>adtte</code>.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="new-features-0-3-13-9059">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-13-9059"></a></h4>
+<h4 id="new-features-0-3-13-9060">New features<a class="anchor" aria-label="anchor" href="#new-features-0-3-13-9060"></a></h4>
 <ul><li>Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (<code>radab</code>).</li>
 </ul></div>
 <div class="section level4">
-<h4 id="bug-fixes-0-3-13-9059">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-13-9059"></a></h4>
+<h4 id="bug-fixes-0-3-13-9060">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-13-9060"></a></h4>
 <ul><li>Updated all the <code>ANL01FL</code> <code>NA</code> values to <code>""</code> in <code>adae</code>.</li>
 <li>Updated <code>DVDECOD</code> and <code>DVSCAT</code> values in <code>addv</code>.</li>
 <li>Fixed <code>adtm</code> calculations so that records with same <code>AVISIT</code> have the same <code>ADTM</code> for each patient.</li>
 <li>Fixed checks for <code>na_percentage</code> argument that is in most datasets.</li>
 <li>Updated package for breaking changes in <code>tidyselect</code>.</li>
+<li>Updated <code>adtte</code> so that the events, analysis values and censor values make logical sense.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="enhancements-0-3-13-9059">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-3-13-9059"></a></h4>
+<h4 id="enhancements-0-3-13-9060">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-3-13-9060"></a></h4>
 <ul><li>Added variables <code>ASTDY</code>, <code>AENDY</code>, <code>EXDOSFRQ</code>, <code>EXROUTE</code>, <code>VISIT</code>, <code>VISITDY</code>, <code>EXSTDTC</code>, <code>EXENDTC</code>, <code>EXSTDY</code>, <code>EXENDY</code>, <code>TRTSDT</code>, and <code>TRTEDT</code> to <code>adex</code>.</li>
 <li>Added more default <code>PARAM</code>s and new variables <code>PPSTINT</code>, <code>PPENINT</code>, <code>REGIMEN</code>, and <code>PKARMCD</code> to <code>adpp</code>.</li>
 <li>Added <code>TNE</code> to <code>PARAMCD</code>, <code>Total Number of Exacerbations</code> to <code>PARAM</code>, and new variable <code>lgTMATRSK</code> to <code>adtte</code>.</li>
@@ -102,7 +97,7 @@
 <li>Implemented the <code>lubridate</code> package in all date/datetime variable derivations.</li>
 </ul></div>
 <div class="section level4">
-<h4 id="miscellaneous-0-3-13-9059">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-3-13-9059"></a></h4>
+<h4 id="miscellaneous-0-3-13-9060">Miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-0-3-13-9060"></a></h4>
 <ul><li>Updated installation method and aligned with other packages.</li>
 <li>Updated tests to use <code>testthat</code> 3rd edition and added snapshot testing for random rows.</li>
 <li>Implemented <code>lifecycle</code> package with stable badge for exported functions, and tagged internal functions.</li>
