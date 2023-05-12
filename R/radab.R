@@ -230,7 +230,6 @@ radab <- function(adsl,
   adab <- adab %>%
     dplyr::mutate(
       RELTMU = "day",
-      ADABLFL = "Y",
       ABLFL = ifelse(!is.na(NRELTM1) & NRELTM1 == 0, "Y", NA) # Baseline Record Flag
       ,
       ADABLPFL = ifelse(PARAMCD == "RESULT1" & !is.na(NRELTM1) & NRELTM1 == 0, "Y", NA)

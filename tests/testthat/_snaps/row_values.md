@@ -4655,1172 +4655,202 @@
     Code
       first_pt_rows
     Output
-      # A tibble: 220 x 22
-          STUDYID USUBJID            ARM       ACTARM    ISTPT      AVAL
-          <chr>   <chr>              <fct>     <fct>     <fct>     <dbl>
-        1 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 1.04 
-        2 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 1    
-        3 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 1.04 
-        4 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 1    
-        5 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 1    
-        6 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 0    
-        7 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 0    
-        8 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 1    
-        9 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 1    
-       10 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 0    
-       11 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 1    
-       12 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 1    
-       13 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 1    
-       14 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 0    
-       15 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 0.143
-       16 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 1    
-       17 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 0    
-       18 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 0    
-       19 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 1    
-       20 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 0    
-       21 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 1    
-       22 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X "Predose" 1    
-       23 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-       24 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       25 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-       26 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       27 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       28 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       29 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       30 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       31 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       32 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       33 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       34 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       35 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       36 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       37 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0.143
-       38 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       39 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       40 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       41 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       42 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       43 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       44 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       45 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-       46 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       47 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-       48 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       49 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       50 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       51 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       52 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       53 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       54 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       55 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       56 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       57 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       58 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       59 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0.143
-       60 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       61 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       62 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       63 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       64 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       65 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       66 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       67 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-       68 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       69 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-       70 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       71 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       72 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       73 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       74 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       75 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       76 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       77 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       78 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       79 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       80 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       81 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0.143
-       82 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       83 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       84 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       85 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       86 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       87 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       88 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       89 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-       90 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       91 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-       92 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       93 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       94 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       95 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       96 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       97 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-       98 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-       99 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      100 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      101 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      102 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      103 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0.143
-      104 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      105 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      106 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      107 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      108 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      109 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      110 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      111 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-      112 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      113 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-      114 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      115 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      116 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      117 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      118 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      119 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      120 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      121 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      122 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      123 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      124 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      125 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0.143
-      126 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      127 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      128 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      129 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      130 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      131 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      132 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      133 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-      134 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      135 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-      136 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      137 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      138 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      139 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      140 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      141 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      142 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      143 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      144 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      145 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      146 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      147 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0.143
-      148 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      149 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      150 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      151 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      152 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      153 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      154 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      155 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-      156 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      157 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-      158 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      159 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      160 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      161 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      162 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      163 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      164 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      165 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      166 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      167 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      168 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      169 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0.143
-      170 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      171 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      172 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      173 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      174 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      175 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      176 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      177 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-      178 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      179 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.04 
-      180 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      181 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      182 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      183 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      184 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      185 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      186 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      187 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      188 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      189 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      190 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      191 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0.143
-      192 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      193 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      194 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      195 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      196 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      197 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      198 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      199 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.08 
-      200 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      201 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1.08 
-      202 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      203 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      204 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      205 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      206 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      207 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      208 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      209 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      210 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      211 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      212 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      213 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0.143
-      214 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      215 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      216 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      217 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      218 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        0    
-      219 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-      220 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X ""        1    
-          AVALC             AVALU  
-          <chr>             <fct>  
-        1 POSITIVE          "titer"
-        2 POSITIVE          ""     
-        3 POSITIVE          "titer"
-        4 POSITIVE          ""     
-        5 POSITIVE          ""     
-        6 N                 ""     
-        7 N                 ""     
-        8 Y                 ""     
-        9 Y                 ""     
-       10 N                 ""     
-       11 Y                 ""     
-       12 Y                 ""     
-       13 POSITIVE          ""     
-       14 0                 "weeks"
-       15 0.142857142857143 "weeks"
-       16 POSITIVE          ""     
-       17 N                 ""     
-       18 N                 ""     
-       19 Y                 ""     
-       20 N                 ""     
-       21 POSITIVE          ""     
-       22 Y                 ""     
-       23 POSITIVE          "titer"
-       24 POSITIVE          ""     
-       25 POSITIVE          "titer"
-       26 POSITIVE          ""     
-       27 POSITIVE          ""     
-       28 N                 ""     
-       29 N                 ""     
-       30 Y                 ""     
-       31 Y                 ""     
-       32 N                 ""     
-       33 Y                 ""     
-       34 Y                 ""     
-       35 POSITIVE          ""     
-       36 0                 "weeks"
-       37 0.142857142857143 "weeks"
-       38 POSITIVE          ""     
-       39 N                 ""     
-       40 N                 ""     
-       41 Y                 ""     
-       42 N                 ""     
-       43 POSITIVE          ""     
-       44 Y                 ""     
-       45 POSITIVE          "titer"
-       46 POSITIVE          ""     
-       47 POSITIVE          "titer"
-       48 POSITIVE          ""     
-       49 POSITIVE          ""     
-       50 N                 ""     
-       51 N                 ""     
-       52 Y                 ""     
-       53 Y                 ""     
-       54 N                 ""     
-       55 Y                 ""     
-       56 Y                 ""     
-       57 POSITIVE          ""     
-       58 0                 "weeks"
-       59 0.142857142857143 "weeks"
-       60 POSITIVE          ""     
-       61 N                 ""     
-       62 N                 ""     
-       63 Y                 ""     
-       64 N                 ""     
-       65 POSITIVE          ""     
-       66 Y                 ""     
-       67 POSITIVE          "titer"
-       68 POSITIVE          ""     
-       69 POSITIVE          "titer"
-       70 POSITIVE          ""     
-       71 POSITIVE          ""     
-       72 N                 ""     
-       73 N                 ""     
-       74 Y                 ""     
-       75 Y                 ""     
-       76 N                 ""     
-       77 Y                 ""     
-       78 Y                 ""     
-       79 POSITIVE          ""     
-       80 0                 "weeks"
-       81 0.142857142857143 "weeks"
-       82 POSITIVE          ""     
-       83 N                 ""     
-       84 N                 ""     
-       85 Y                 ""     
-       86 N                 ""     
-       87 POSITIVE          ""     
-       88 Y                 ""     
-       89 POSITIVE          "titer"
-       90 POSITIVE          ""     
-       91 POSITIVE          "titer"
-       92 POSITIVE          ""     
-       93 POSITIVE          ""     
-       94 N                 ""     
-       95 N                 ""     
-       96 Y                 ""     
-       97 Y                 ""     
-       98 N                 ""     
-       99 Y                 ""     
-      100 Y                 ""     
-      101 POSITIVE          ""     
-      102 0                 "weeks"
-      103 0.142857142857143 "weeks"
-      104 POSITIVE          ""     
-      105 N                 ""     
-      106 N                 ""     
-      107 Y                 ""     
-      108 N                 ""     
-      109 POSITIVE          ""     
-      110 Y                 ""     
-      111 POSITIVE          "titer"
-      112 POSITIVE          ""     
-      113 POSITIVE          "titer"
-      114 POSITIVE          ""     
-      115 POSITIVE          ""     
-      116 N                 ""     
-      117 N                 ""     
-      118 Y                 ""     
-      119 Y                 ""     
-      120 N                 ""     
-      121 Y                 ""     
-      122 Y                 ""     
-      123 POSITIVE          ""     
-      124 0                 "weeks"
-      125 0.142857142857143 "weeks"
-      126 POSITIVE          ""     
-      127 N                 ""     
-      128 N                 ""     
-      129 Y                 ""     
-      130 N                 ""     
-      131 POSITIVE          ""     
-      132 Y                 ""     
-      133 POSITIVE          "titer"
-      134 POSITIVE          ""     
-      135 POSITIVE          "titer"
-      136 POSITIVE          ""     
-      137 POSITIVE          ""     
-      138 N                 ""     
-      139 N                 ""     
-      140 Y                 ""     
-      141 Y                 ""     
-      142 N                 ""     
-      143 Y                 ""     
-      144 Y                 ""     
-      145 POSITIVE          ""     
-      146 0                 "weeks"
-      147 0.142857142857143 "weeks"
-      148 POSITIVE          ""     
-      149 N                 ""     
-      150 N                 ""     
-      151 Y                 ""     
-      152 N                 ""     
-      153 POSITIVE          ""     
-      154 Y                 ""     
-      155 POSITIVE          "titer"
-      156 POSITIVE          ""     
-      157 POSITIVE          "titer"
-      158 POSITIVE          ""     
-      159 POSITIVE          ""     
-      160 N                 ""     
-      161 N                 ""     
-      162 Y                 ""     
-      163 Y                 ""     
-      164 N                 ""     
-      165 Y                 ""     
-      166 Y                 ""     
-      167 POSITIVE          ""     
-      168 0                 "weeks"
-      169 0.142857142857143 "weeks"
-      170 POSITIVE          ""     
-      171 N                 ""     
-      172 N                 ""     
-      173 Y                 ""     
-      174 N                 ""     
-      175 POSITIVE          ""     
-      176 Y                 ""     
-      177 POSITIVE          "titer"
-      178 POSITIVE          ""     
-      179 POSITIVE          "titer"
-      180 POSITIVE          ""     
-      181 POSITIVE          ""     
-      182 N                 ""     
-      183 N                 ""     
-      184 Y                 ""     
-      185 Y                 ""     
-      186 N                 ""     
-      187 Y                 ""     
-      188 Y                 ""     
-      189 POSITIVE          ""     
-      190 0                 "weeks"
-      191 0.142857142857143 "weeks"
-      192 POSITIVE          ""     
-      193 N                 ""     
-      194 N                 ""     
-      195 Y                 ""     
-      196 N                 ""     
-      197 POSITIVE          ""     
-      198 Y                 ""     
-      199 POSITIVE          "titer"
-      200 POSITIVE          ""     
-      201 POSITIVE          "titer"
-      202 POSITIVE          ""     
-      203 POSITIVE          ""     
-      204 N                 ""     
-      205 N                 ""     
-      206 Y                 ""     
-      207 Y                 ""     
-      208 N                 ""     
-      209 Y                 ""     
-      210 Y                 ""     
-      211 POSITIVE          ""     
-      212 0                 "weeks"
-      213 0.142857142857143 "weeks"
-      214 POSITIVE          ""     
-      215 N                 ""     
-      216 N                 ""     
-      217 Y                 ""     
-      218 N                 ""     
-      219 POSITIVE          ""     
-      220 Y                 ""     
-          PARAM                                                PARAMCD  VISIT VISITDY
-          <fct>                                                <fct>    <fct>   <int>
-        1 Antibody titer units                                 R1800000 Day 1       1
-        2 ADA interpreted per sample result                    RESULT1  Day 1       1
-        3 Neutralizing Antibody titer units                    R1800001 Day 1       1
-        4 NAB interpreted per sample result                    RESULT2  Day 1       1
-        5 ADA Status of a patient                              ADASTAT1 Day 1       1
-        6 Treatment induced ADA                                INDUCD1  Day 1       1
-        7 Treatment enhanced ADA                               ENHANC1  Day 1       1
-        8 Treatment unaffected                                 TRUNAFF1 Day 1       1
-        9 Treatment Emergent - Negative                        EMERNEG1 Day 1       1
-       10 Treatment Emergent - Positive                        EMERPOS1 Day 1       1
-       11 Persistent ADA                                       PERSADA1 Day 1       1
-       12 Transient ADA                                        TRANADA1 Day 1       1
-       13 Baseline                                             BFLAG1   Day 1       1
-       14 Time to onset of ADA                                 TIMADA1  Day 1       1
-       15 ADA Duration                                         ADADUR1  Day 1       1
-       16 NAB Status of a patient                              ADASTAT2 Day 1       1
-       17 Treatment induced ADA, Neutralizing Antibody         INDUCD2  Day 1       1
-       18 Treatment enhanced ADA, Neutralizing Antibody        ENHANC2  Day 1       1
-       19 Treatment Emergent - Negative, Neutralizing Antibody EMERNEG2 Day 1       1
-       20 Treatment Emergent - Positive, Neutralizing Antibody EMERPOS2 Day 1       1
-       21 Baseline, Neutralizing Antibody                      BFLAG2   Day 1       1
-       22 Treatment unaffected, Neutralizing Antibody          TRUNAFF2 Day 1       1
-       23 Antibody titer units                                 R1800000 Day 1       1
-       24 ADA interpreted per sample result                    RESULT1  Day 1       1
-       25 Neutralizing Antibody titer units                    R1800001 Day 1       1
-       26 NAB interpreted per sample result                    RESULT2  Day 1       1
-       27 ADA Status of a patient                              ADASTAT1 Day 1       1
-       28 Treatment induced ADA                                INDUCD1  Day 1       1
-       29 Treatment enhanced ADA                               ENHANC1  Day 1       1
-       30 Treatment unaffected                                 TRUNAFF1 Day 1       1
-       31 Treatment Emergent - Negative                        EMERNEG1 Day 1       1
-       32 Treatment Emergent - Positive                        EMERPOS1 Day 1       1
-       33 Persistent ADA                                       PERSADA1 Day 1       1
-       34 Transient ADA                                        TRANADA1 Day 1       1
-       35 Baseline                                             BFLAG1   Day 1       1
-       36 Time to onset of ADA                                 TIMADA1  Day 1       1
-       37 ADA Duration                                         ADADUR1  Day 1       1
-       38 NAB Status of a patient                              ADASTAT2 Day 1       1
-       39 Treatment induced ADA, Neutralizing Antibody         INDUCD2  Day 1       1
-       40 Treatment enhanced ADA, Neutralizing Antibody        ENHANC2  Day 1       1
-       41 Treatment Emergent - Negative, Neutralizing Antibody EMERNEG2 Day 1       1
-       42 Treatment Emergent - Positive, Neutralizing Antibody EMERPOS2 Day 1       1
-       43 Baseline, Neutralizing Antibody                      BFLAG2   Day 1       1
-       44 Treatment unaffected, Neutralizing Antibody          TRUNAFF2 Day 1       1
-       45 Antibody titer units                                 R1800000 Day 1       1
-       46 ADA interpreted per sample result                    RESULT1  Day 1       1
-       47 Neutralizing Antibody titer units                    R1800001 Day 1       1
-       48 NAB interpreted per sample result                    RESULT2  Day 1       1
-       49 ADA Status of a patient                              ADASTAT1 Day 1       1
-       50 Treatment induced ADA                                INDUCD1  Day 1       1
-       51 Treatment enhanced ADA                               ENHANC1  Day 1       1
-       52 Treatment unaffected                                 TRUNAFF1 Day 1       1
-       53 Treatment Emergent - Negative                        EMERNEG1 Day 1       1
-       54 Treatment Emergent - Positive                        EMERPOS1 Day 1       1
-       55 Persistent ADA                                       PERSADA1 Day 1       1
-       56 Transient ADA                                        TRANADA1 Day 1       1
-       57 Baseline                                             BFLAG1   Day 1       1
-       58 Time to onset of ADA                                 TIMADA1  Day 1       1
-       59 ADA Duration                                         ADADUR1  Day 1       1
-       60 NAB Status of a patient                              ADASTAT2 Day 1       1
-       61 Treatment induced ADA, Neutralizing Antibody         INDUCD2  Day 1       1
-       62 Treatment enhanced ADA, Neutralizing Antibody        ENHANC2  Day 1       1
-       63 Treatment Emergent - Negative, Neutralizing Antibody EMERNEG2 Day 1       1
-       64 Treatment Emergent - Positive, Neutralizing Antibody EMERPOS2 Day 1       1
-       65 Baseline, Neutralizing Antibody                      BFLAG2   Day 1       1
-       66 Treatment unaffected, Neutralizing Antibody          TRUNAFF2 Day 1       1
-       67 Antibody titer units                                 R1800000 Day 1       1
-       68 ADA interpreted per sample result                    RESULT1  Day 1       1
-       69 Neutralizing Antibody titer units                    R1800001 Day 1       1
-       70 NAB interpreted per sample result                    RESULT2  Day 1       1
-       71 ADA Status of a patient                              ADASTAT1 Day 1       1
-       72 Treatment induced ADA                                INDUCD1  Day 1       1
-       73 Treatment enhanced ADA                               ENHANC1  Day 1       1
-       74 Treatment unaffected                                 TRUNAFF1 Day 1       1
-       75 Treatment Emergent - Negative                        EMERNEG1 Day 1       1
-       76 Treatment Emergent - Positive                        EMERPOS1 Day 1       1
-       77 Persistent ADA                                       PERSADA1 Day 1       1
-       78 Transient ADA                                        TRANADA1 Day 1       1
-       79 Baseline                                             BFLAG1   Day 1       1
-       80 Time to onset of ADA                                 TIMADA1  Day 1       1
-       81 ADA Duration                                         ADADUR1  Day 1       1
-       82 NAB Status of a patient                              ADASTAT2 Day 1       1
-       83 Treatment induced ADA, Neutralizing Antibody         INDUCD2  Day 1       1
-       84 Treatment enhanced ADA, Neutralizing Antibody        ENHANC2  Day 1       1
-       85 Treatment Emergent - Negative, Neutralizing Antibody EMERNEG2 Day 1       1
-       86 Treatment Emergent - Positive, Neutralizing Antibody EMERPOS2 Day 1       1
-       87 Baseline, Neutralizing Antibody                      BFLAG2   Day 1       1
-       88 Treatment unaffected, Neutralizing Antibody          TRUNAFF2 Day 1       1
-       89 Antibody titer units                                 R1800000 Day 1       1
-       90 ADA interpreted per sample result                    RESULT1  Day 1       1
-       91 Neutralizing Antibody titer units                    R1800001 Day 1       1
-       92 NAB interpreted per sample result                    RESULT2  Day 1       1
-       93 ADA Status of a patient                              ADASTAT1 Day 1       1
-       94 Treatment induced ADA                                INDUCD1  Day 1       1
-       95 Treatment enhanced ADA                               ENHANC1  Day 1       1
-       96 Treatment unaffected                                 TRUNAFF1 Day 1       1
-       97 Treatment Emergent - Negative                        EMERNEG1 Day 1       1
-       98 Treatment Emergent - Positive                        EMERPOS1 Day 1       1
-       99 Persistent ADA                                       PERSADA1 Day 1       1
-      100 Transient ADA                                        TRANADA1 Day 1       1
-      101 Baseline                                             BFLAG1   Day 1       1
-      102 Time to onset of ADA                                 TIMADA1  Day 1       1
-      103 ADA Duration                                         ADADUR1  Day 1       1
-      104 NAB Status of a patient                              ADASTAT2 Day 1       1
-      105 Treatment induced ADA, Neutralizing Antibody         INDUCD2  Day 1       1
-      106 Treatment enhanced ADA, Neutralizing Antibody        ENHANC2  Day 1       1
-      107 Treatment Emergent - Negative, Neutralizing Antibody EMERNEG2 Day 1       1
-      108 Treatment Emergent - Positive, Neutralizing Antibody EMERPOS2 Day 1       1
-      109 Baseline, Neutralizing Antibody                      BFLAG2   Day 1       1
-      110 Treatment unaffected, Neutralizing Antibody          TRUNAFF2 Day 1       1
-      111 Antibody titer units                                 R1800000 Day 1       1
-      112 ADA interpreted per sample result                    RESULT1  Day 1       1
-      113 Neutralizing Antibody titer units                    R1800001 Day 1       1
-      114 NAB interpreted per sample result                    RESULT2  Day 1       1
-      115 ADA Status of a patient                              ADASTAT1 Day 1       1
-      116 Treatment induced ADA                                INDUCD1  Day 1       1
-      117 Treatment enhanced ADA                               ENHANC1  Day 1       1
-      118 Treatment unaffected                                 TRUNAFF1 Day 1       1
-      119 Treatment Emergent - Negative                        EMERNEG1 Day 1       1
-      120 Treatment Emergent - Positive                        EMERPOS1 Day 1       1
-      121 Persistent ADA                                       PERSADA1 Day 1       1
-      122 Transient ADA                                        TRANADA1 Day 1       1
-      123 Baseline                                             BFLAG1   Day 1       1
-      124 Time to onset of ADA                                 TIMADA1  Day 1       1
-      125 ADA Duration                                         ADADUR1  Day 1       1
-      126 NAB Status of a patient                              ADASTAT2 Day 1       1
-      127 Treatment induced ADA, Neutralizing Antibody         INDUCD2  Day 1       1
-      128 Treatment enhanced ADA, Neutralizing Antibody        ENHANC2  Day 1       1
-      129 Treatment Emergent - Negative, Neutralizing Antibody EMERNEG2 Day 1       1
-      130 Treatment Emergent - Positive, Neutralizing Antibody EMERPOS2 Day 1       1
-      131 Baseline, Neutralizing Antibody                      BFLAG2   Day 1       1
-      132 Treatment unaffected, Neutralizing Antibody          TRUNAFF2 Day 1       1
-      133 Antibody titer units                                 R1800000 Day 1       1
-      134 ADA interpreted per sample result                    RESULT1  Day 1       1
-      135 Neutralizing Antibody titer units                    R1800001 Day 1       1
-      136 NAB interpreted per sample result                    RESULT2  Day 1       1
-      137 ADA Status of a patient                              ADASTAT1 Day 1       1
-      138 Treatment induced ADA                                INDUCD1  Day 1       1
-      139 Treatment enhanced ADA                               ENHANC1  Day 1       1
-      140 Treatment unaffected                                 TRUNAFF1 Day 1       1
-      141 Treatment Emergent - Negative                        EMERNEG1 Day 1       1
-      142 Treatment Emergent - Positive                        EMERPOS1 Day 1       1
-      143 Persistent ADA                                       PERSADA1 Day 1       1
-      144 Transient ADA                                        TRANADA1 Day 1       1
-      145 Baseline                                             BFLAG1   Day 1       1
-      146 Time to onset of ADA                                 TIMADA1  Day 1       1
-      147 ADA Duration                                         ADADUR1  Day 1       1
-      148 NAB Status of a patient                              ADASTAT2 Day 1       1
-      149 Treatment induced ADA, Neutralizing Antibody         INDUCD2  Day 1       1
-      150 Treatment enhanced ADA, Neutralizing Antibody        ENHANC2  Day 1       1
-      151 Treatment Emergent - Negative, Neutralizing Antibody EMERNEG2 Day 1       1
-      152 Treatment Emergent - Positive, Neutralizing Antibody EMERPOS2 Day 1       1
-      153 Baseline, Neutralizing Antibody                      BFLAG2   Day 1       1
-      154 Treatment unaffected, Neutralizing Antibody          TRUNAFF2 Day 1       1
-      155 Antibody titer units                                 R1800000 Day 1       1
-      156 ADA interpreted per sample result                    RESULT1  Day 1       1
-      157 Neutralizing Antibody titer units                    R1800001 Day 1       1
-      158 NAB interpreted per sample result                    RESULT2  Day 1       1
-      159 ADA Status of a patient                              ADASTAT1 Day 1       1
-      160 Treatment induced ADA                                INDUCD1  Day 1       1
-      161 Treatment enhanced ADA                               ENHANC1  Day 1       1
-      162 Treatment unaffected                                 TRUNAFF1 Day 1       1
-      163 Treatment Emergent - Negative                        EMERNEG1 Day 1       1
-      164 Treatment Emergent - Positive                        EMERPOS1 Day 1       1
-      165 Persistent ADA                                       PERSADA1 Day 1       1
-      166 Transient ADA                                        TRANADA1 Day 1       1
-      167 Baseline                                             BFLAG1   Day 1       1
-      168 Time to onset of ADA                                 TIMADA1  Day 1       1
-      169 ADA Duration                                         ADADUR1  Day 1       1
-      170 NAB Status of a patient                              ADASTAT2 Day 1       1
-      171 Treatment induced ADA, Neutralizing Antibody         INDUCD2  Day 1       1
-      172 Treatment enhanced ADA, Neutralizing Antibody        ENHANC2  Day 1       1
-      173 Treatment Emergent - Negative, Neutralizing Antibody EMERNEG2 Day 1       1
-      174 Treatment Emergent - Positive, Neutralizing Antibody EMERPOS2 Day 1       1
-      175 Baseline, Neutralizing Antibody                      BFLAG2   Day 1       1
-      176 Treatment unaffected, Neutralizing Antibody          TRUNAFF2 Day 1       1
-      177 Antibody titer units                                 R1800000 Day 1       1
-      178 ADA interpreted per sample result                    RESULT1  Day 1       1
-      179 Neutralizing Antibody titer units                    R1800001 Day 1       1
-      180 NAB interpreted per sample result                    RESULT2  Day 1       1
-      181 ADA Status of a patient                              ADASTAT1 Day 1       1
-      182 Treatment induced ADA                                INDUCD1  Day 1       1
-      183 Treatment enhanced ADA                               ENHANC1  Day 1       1
-      184 Treatment unaffected                                 TRUNAFF1 Day 1       1
-      185 Treatment Emergent - Negative                        EMERNEG1 Day 1       1
-      186 Treatment Emergent - Positive                        EMERPOS1 Day 1       1
-      187 Persistent ADA                                       PERSADA1 Day 1       1
-      188 Transient ADA                                        TRANADA1 Day 1       1
-      189 Baseline                                             BFLAG1   Day 1       1
-      190 Time to onset of ADA                                 TIMADA1  Day 1       1
-      191 ADA Duration                                         ADADUR1  Day 1       1
-      192 NAB Status of a patient                              ADASTAT2 Day 1       1
-      193 Treatment induced ADA, Neutralizing Antibody         INDUCD2  Day 1       1
-      194 Treatment enhanced ADA, Neutralizing Antibody        ENHANC2  Day 1       1
-      195 Treatment Emergent - Negative, Neutralizing Antibody EMERNEG2 Day 1       1
-      196 Treatment Emergent - Positive, Neutralizing Antibody EMERPOS2 Day 1       1
-      197 Baseline, Neutralizing Antibody                      BFLAG2   Day 1       1
-      198 Treatment unaffected, Neutralizing Antibody          TRUNAFF2 Day 1       1
-      199 Antibody titer units                                 R1800000 Day 2       2
-      200 ADA interpreted per sample result                    RESULT1  Day 2       2
-      201 Neutralizing Antibody titer units                    R1800001 Day 2       2
-      202 NAB interpreted per sample result                    RESULT2  Day 2       2
-      203 ADA Status of a patient                              ADASTAT1 Day 2       2
-      204 Treatment induced ADA                                INDUCD1  Day 2       2
-      205 Treatment enhanced ADA                               ENHANC1  Day 2       2
-      206 Treatment unaffected                                 TRUNAFF1 Day 2       2
-      207 Treatment Emergent - Negative                        EMERNEG1 Day 2       2
-      208 Treatment Emergent - Positive                        EMERPOS1 Day 2       2
-      209 Persistent ADA                                       PERSADA1 Day 2       2
-      210 Transient ADA                                        TRANADA1 Day 2       2
-      211 Baseline                                             BFLAG1   Day 2       2
-      212 Time to onset of ADA                                 TIMADA1  Day 2       2
-      213 ADA Duration                                         ADADUR1  Day 2       2
-      214 NAB Status of a patient                              ADASTAT2 Day 2       2
-      215 Treatment induced ADA, Neutralizing Antibody         INDUCD2  Day 2       2
-      216 Treatment enhanced ADA, Neutralizing Antibody        ENHANC2  Day 2       2
-      217 Treatment Emergent - Negative, Neutralizing Antibody EMERNEG2 Day 2       2
-      218 Treatment Emergent - Positive, Neutralizing Antibody EMERPOS2 Day 2       2
-      219 Baseline, Neutralizing Antibody                      BFLAG2   Day 2       2
-      220 Treatment unaffected, Neutralizing Antibody          TRUNAFF2 Day 2       2
-          PARCAT1                         ADABLFL ADAPBLFL ABLFL RELTMU ATACHAR
-          <fct>                           <fct>   <fct>    <fct> <fct>  <fct>  
-        1 A: Drug X Antibody              Y       Y        Y     day    F+     
-        2 A: Drug X Antibody              Y       Y        Y     day    F+     
-        3 A: Drug X Antibody              Y       Y        Y     day    F+     
-        4 A: Drug X Antibody              Y       Y        Y     day    F+     
-        5 A: Drug X Antibody              Y       Y        Y     day    F+     
-        6 A: Drug X Antibody              Y       Y        Y     day    F+     
-        7 A: Drug X Antibody              Y       Y        Y     day    F+     
-        8 A: Drug X Antibody              Y       Y        Y     day    F+     
-        9 A: Drug X Antibody              Y       Y        Y     day    F+     
-       10 A: Drug X Antibody              Y       Y        Y     day    F+     
-       11 A: Drug X Antibody              Y       Y        Y     day    F+     
-       12 A: Drug X Antibody              Y       Y        Y     day    F+     
-       13 A: Drug X Antibody              Y       Y        Y     day    F+     
-       14 A: Drug X Antibody              Y       Y        Y     day    F+     
-       15 A: Drug X Antibody              Y       Y        Y     day    F+     
-       16 A: Drug X Neutralizing Antibody Y       Y        Y     day    F+     
-       17 A: Drug X Neutralizing Antibody Y       Y        Y     day    F+     
-       18 A: Drug X Neutralizing Antibody Y       Y        Y     day    F+     
-       19 A: Drug X Neutralizing Antibody Y       Y        Y     day    F+     
-       20 A: Drug X Neutralizing Antibody Y       Y        Y     day    F+     
-       21 A: Drug X Antibody              Y       Y        Y     day    F+     
-       22 A: Drug X Neutralizing Antibody Y       Y        Y     day    F+     
-       23 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       24 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       25 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       26 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       27 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       28 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       29 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       30 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       31 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       32 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       33 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       34 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       35 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       36 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       37 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       38 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       39 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       40 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       41 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       42 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       43 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       44 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       45 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       46 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       47 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       48 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       49 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       50 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       51 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       52 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       53 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       54 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       55 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       56 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       57 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       58 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       59 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       60 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       61 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       62 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       63 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       64 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       65 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       66 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       67 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       68 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       69 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       70 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       71 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       72 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       73 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       74 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       75 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       76 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       77 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       78 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       79 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       80 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       81 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       82 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       83 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       84 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       85 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       86 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       87 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       88 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-       89 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       90 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       91 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       92 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       93 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       94 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       95 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       96 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       97 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       98 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-       99 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      100 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      101 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      102 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      103 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      104 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      105 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      106 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      107 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      108 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      109 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      110 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      111 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      112 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      113 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      114 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      115 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      116 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      117 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      118 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      119 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      120 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      121 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      122 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      123 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      124 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      125 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      126 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      127 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      128 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      129 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      130 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      131 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      132 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      133 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      134 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      135 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      136 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      137 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      138 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      139 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      140 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      141 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      142 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      143 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      144 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      145 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      146 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      147 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      148 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      149 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      150 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      151 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      152 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      153 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      154 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      155 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      156 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      157 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      158 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      159 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      160 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      161 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      162 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      163 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      164 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      165 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      166 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      167 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      168 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      169 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      170 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      171 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      172 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      173 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      174 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      175 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      176 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      177 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      178 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      179 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      180 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      181 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      182 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      183 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      184 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      185 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      186 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      187 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      188 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      189 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      190 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      191 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      192 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      193 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      194 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      195 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      196 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      197 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      198 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      199 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      200 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      201 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      202 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      203 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      204 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      205 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      206 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      207 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      208 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      209 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      210 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      211 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      212 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      213 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      214 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      215 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      216 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      217 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      218 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-      219 A: Drug X Antibody              Y       Y        <NA>  day    F+     
-      220 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    F+     
-          NRELTM1 ARELTM1 NRELTM2 ARELTM2
-            <dbl>   <dbl>   <dbl>   <dbl>
-        1  0       0       0       0     
-        2  0       0       0       0     
-        3  0       0       0       0     
-        4  0       0       0       0     
-        5  0       0       0       0     
-        6  0       0       0       0     
-        7  0       0       0       0     
-        8  0       0       0       0     
-        9  0       0       0       0     
-       10  0       0       0       0     
-       11  0       0       0       0     
-       12  0       0       0       0     
-       13  0       0       0       0     
-       14  0       0       0       0     
-       15  0       0       0       0     
-       16  0       0       0       0     
-       17  0       0       0       0     
-       18  0       0       0       0     
-       19  0       0       0       0     
-       20  0       0       0       0     
-       21  0       0       0       0     
-       22  0       0       0       0     
-       23  0.0208  0.0208  0.0208  0.0208
-       24  0.0208  0.0208  0.0208  0.0208
-       25  0.0208  0.0208  0.0208  0.0208
-       26  0.0208  0.0208  0.0208  0.0208
-       27  0.0208  0.0208  0.0208  0.0208
-       28  0.0208  0.0208  0.0208  0.0208
-       29  0.0208  0.0208  0.0208  0.0208
-       30  0.0208  0.0208  0.0208  0.0208
-       31  0.0208  0.0208  0.0208  0.0208
-       32  0.0208  0.0208  0.0208  0.0208
-       33  0.0208  0.0208  0.0208  0.0208
-       34  0.0208  0.0208  0.0208  0.0208
-       35  0.0208  0.0208  0.0208  0.0208
-       36  0.0208  0.0208  0.0208  0.0208
-       37  0.0208  0.0208  0.0208  0.0208
-       38  0.0208  0.0208  0.0208  0.0208
-       39  0.0208  0.0208  0.0208  0.0208
-       40  0.0208  0.0208  0.0208  0.0208
-       41  0.0208  0.0208  0.0208  0.0208
-       42  0.0208  0.0208  0.0208  0.0208
-       43  0.0208  0.0208  0.0208  0.0208
-       44  0.0208  0.0208  0.0208  0.0208
-       45  0.0417  0.0417  0.0417  0.0417
-       46  0.0417  0.0417  0.0417  0.0417
-       47  0.0417  0.0417  0.0417  0.0417
-       48  0.0417  0.0417  0.0417  0.0417
-       49  0.0417  0.0417  0.0417  0.0417
-       50  0.0417  0.0417  0.0417  0.0417
-       51  0.0417  0.0417  0.0417  0.0417
-       52  0.0417  0.0417  0.0417  0.0417
-       53  0.0417  0.0417  0.0417  0.0417
-       54  0.0417  0.0417  0.0417  0.0417
-       55  0.0417  0.0417  0.0417  0.0417
-       56  0.0417  0.0417  0.0417  0.0417
-       57  0.0417  0.0417  0.0417  0.0417
-       58  0.0417  0.0417  0.0417  0.0417
-       59  0.0417  0.0417  0.0417  0.0417
-       60  0.0417  0.0417  0.0417  0.0417
-       61  0.0417  0.0417  0.0417  0.0417
-       62  0.0417  0.0417  0.0417  0.0417
-       63  0.0417  0.0417  0.0417  0.0417
-       64  0.0417  0.0417  0.0417  0.0417
-       65  0.0417  0.0417  0.0417  0.0417
-       66  0.0417  0.0417  0.0417  0.0417
-       67  0.0625  0.0625  0.0625  0.0625
-       68  0.0625  0.0625  0.0625  0.0625
-       69  0.0625  0.0625  0.0625  0.0625
-       70  0.0625  0.0625  0.0625  0.0625
-       71  0.0625  0.0625  0.0625  0.0625
-       72  0.0625  0.0625  0.0625  0.0625
-       73  0.0625  0.0625  0.0625  0.0625
-       74  0.0625  0.0625  0.0625  0.0625
-       75  0.0625  0.0625  0.0625  0.0625
-       76  0.0625  0.0625  0.0625  0.0625
-       77  0.0625  0.0625  0.0625  0.0625
-       78  0.0625  0.0625  0.0625  0.0625
-       79  0.0625  0.0625  0.0625  0.0625
-       80  0.0625  0.0625  0.0625  0.0625
-       81  0.0625  0.0625  0.0625  0.0625
-       82  0.0625  0.0625  0.0625  0.0625
-       83  0.0625  0.0625  0.0625  0.0625
-       84  0.0625  0.0625  0.0625  0.0625
-       85  0.0625  0.0625  0.0625  0.0625
-       86  0.0625  0.0625  0.0625  0.0625
-       87  0.0625  0.0625  0.0625  0.0625
-       88  0.0625  0.0625  0.0625  0.0625
-       89  0.0833  0.0833  0.0833  0.0833
-       90  0.0833  0.0833  0.0833  0.0833
-       91  0.0833  0.0833  0.0833  0.0833
-       92  0.0833  0.0833  0.0833  0.0833
-       93  0.0833  0.0833  0.0833  0.0833
-       94  0.0833  0.0833  0.0833  0.0833
-       95  0.0833  0.0833  0.0833  0.0833
-       96  0.0833  0.0833  0.0833  0.0833
-       97  0.0833  0.0833  0.0833  0.0833
-       98  0.0833  0.0833  0.0833  0.0833
-       99  0.0833  0.0833  0.0833  0.0833
-      100  0.0833  0.0833  0.0833  0.0833
-      101  0.0833  0.0833  0.0833  0.0833
-      102  0.0833  0.0833  0.0833  0.0833
-      103  0.0833  0.0833  0.0833  0.0833
-      104  0.0833  0.0833  0.0833  0.0833
-      105  0.0833  0.0833  0.0833  0.0833
-      106  0.0833  0.0833  0.0833  0.0833
-      107  0.0833  0.0833  0.0833  0.0833
-      108  0.0833  0.0833  0.0833  0.0833
-      109  0.0833  0.0833  0.0833  0.0833
-      110  0.0833  0.0833  0.0833  0.0833
-      111  0.125   0.125   0.125   0.125 
-      112  0.125   0.125   0.125   0.125 
-      113  0.125   0.125   0.125   0.125 
-      114  0.125   0.125   0.125   0.125 
-      115  0.125   0.125   0.125   0.125 
-      116  0.125   0.125   0.125   0.125 
-      117  0.125   0.125   0.125   0.125 
-      118  0.125   0.125   0.125   0.125 
-      119  0.125   0.125   0.125   0.125 
-      120  0.125   0.125   0.125   0.125 
-      121  0.125   0.125   0.125   0.125 
-      122  0.125   0.125   0.125   0.125 
-      123  0.125   0.125   0.125   0.125 
-      124  0.125   0.125   0.125   0.125 
-      125  0.125   0.125   0.125   0.125 
-      126  0.125   0.125   0.125   0.125 
-      127  0.125   0.125   0.125   0.125 
-      128  0.125   0.125   0.125   0.125 
-      129  0.125   0.125   0.125   0.125 
-      130  0.125   0.125   0.125   0.125 
-      131  0.125   0.125   0.125   0.125 
-      132  0.125   0.125   0.125   0.125 
-      133  0.167   0.167   0.167   0.167 
-      134  0.167   0.167   0.167   0.167 
-      135  0.167   0.167   0.167   0.167 
-      136  0.167   0.167   0.167   0.167 
-      137  0.167   0.167   0.167   0.167 
-      138  0.167   0.167   0.167   0.167 
-      139  0.167   0.167   0.167   0.167 
-      140  0.167   0.167   0.167   0.167 
-      141  0.167   0.167   0.167   0.167 
-      142  0.167   0.167   0.167   0.167 
-      143  0.167   0.167   0.167   0.167 
-      144  0.167   0.167   0.167   0.167 
-      145  0.167   0.167   0.167   0.167 
-      146  0.167   0.167   0.167   0.167 
-      147  0.167   0.167   0.167   0.167 
-      148  0.167   0.167   0.167   0.167 
-      149  0.167   0.167   0.167   0.167 
-      150  0.167   0.167   0.167   0.167 
-      151  0.167   0.167   0.167   0.167 
-      152  0.167   0.167   0.167   0.167 
-      153  0.167   0.167   0.167   0.167 
-      154  0.167   0.167   0.167   0.167 
-      155  0.333   0.333   0.333   0.333 
-      156  0.333   0.333   0.333   0.333 
-      157  0.333   0.333   0.333   0.333 
-      158  0.333   0.333   0.333   0.333 
-      159  0.333   0.333   0.333   0.333 
-      160  0.333   0.333   0.333   0.333 
-      161  0.333   0.333   0.333   0.333 
-      162  0.333   0.333   0.333   0.333 
-      163  0.333   0.333   0.333   0.333 
-      164  0.333   0.333   0.333   0.333 
-      165  0.333   0.333   0.333   0.333 
-      166  0.333   0.333   0.333   0.333 
-      167  0.333   0.333   0.333   0.333 
-      168  0.333   0.333   0.333   0.333 
-      169  0.333   0.333   0.333   0.333 
-      170  0.333   0.333   0.333   0.333 
-      171  0.333   0.333   0.333   0.333 
-      172  0.333   0.333   0.333   0.333 
-      173  0.333   0.333   0.333   0.333 
-      174  0.333   0.333   0.333   0.333 
-      175  0.333   0.333   0.333   0.333 
-      176  0.333   0.333   0.333   0.333 
-      177  0.5     0.5     0.5     0.5   
-      178  0.5     0.5     0.5     0.5   
-      179  0.5     0.5     0.5     0.5   
-      180  0.5     0.5     0.5     0.5   
-      181  0.5     0.5     0.5     0.5   
-      182  0.5     0.5     0.5     0.5   
-      183  0.5     0.5     0.5     0.5   
-      184  0.5     0.5     0.5     0.5   
-      185  0.5     0.5     0.5     0.5   
-      186  0.5     0.5     0.5     0.5   
-      187  0.5     0.5     0.5     0.5   
-      188  0.5     0.5     0.5     0.5   
-      189  0.5     0.5     0.5     0.5   
-      190  0.5     0.5     0.5     0.5   
-      191  0.5     0.5     0.5     0.5   
-      192  0.5     0.5     0.5     0.5   
-      193  0.5     0.5     0.5     0.5   
-      194  0.5     0.5     0.5     0.5   
-      195  0.5     0.5     0.5     0.5   
-      196  0.5     0.5     0.5     0.5   
-      197  0.5     0.5     0.5     0.5   
-      198  0.5     0.5     0.5     0.5   
-      199  1       1       0       0     
-      200  1       1       0       0     
-      201  1       1       0       0     
-      202  1       1       0       0     
-      203  1       1       0       0     
-      204  1       1       0       0     
-      205  1       1       0       0     
-      206  1       1       0       0     
-      207  1       1       0       0     
-      208  1       1       0       0     
-      209  1       1       0       0     
-      210  1       1       0       0     
-      211  1       1       0       0     
-      212  1       1       0       0     
-      213  1       1       0       0     
-      214  1       1       0       0     
-      215  1       1       0       0     
-      216  1       1       0       0     
-      217  1       1       0       0     
-      218  1       1       0       0     
-      219  1       1       0       0     
-      220  1       1       0       0     
+      # A tibble: 26 x 21
+         STUDYID USUBJID            ARM       ACTARM    ISTPT    AVAL
+         <chr>   <chr>              <fct>     <fct>     <fct>   <dbl>
+       1 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X Predose 1.04 
+       2 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X 24H     1.08 
+       3 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X Predose 1    
+       4 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X 24H     1    
+       5 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X Predose 1.04 
+       6 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X 24H     1.08 
+       7 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X Predose 1    
+       8 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X 24H     1    
+       9 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
+      10 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
+      11 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
+      12 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
+      13 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
+      14 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
+      15 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
+      16 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
+      17 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
+      18 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
+      19 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
+      20 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
+      21 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
+      22 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
+      23 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
+      24 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
+      25 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
+      26 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0.143
+         AVALC             AVALU  
+         <chr>             <fct>  
+       1 POSITIVE          "titer"
+       2 POSITIVE          "titer"
+       3 POSITIVE          ""     
+       4 POSITIVE          ""     
+       5 POSITIVE          "titer"
+       6 POSITIVE          "titer"
+       7 POSITIVE          ""     
+       8 POSITIVE          ""     
+       9 POSITIVE          ""     
+      10 N                 ""     
+      11 N                 ""     
+      12 Y                 ""     
+      13 Y                 ""     
+      14 N                 ""     
+      15 N                 ""     
+      16 Y                 ""     
+      17 POSITIVE          ""     
+      18 POSITIVE          "weeks"
+      19 N                 "weeks"
+      20 N                 ""     
+      21 Y                 ""     
+      22 N                 ""     
+      23 POSITIVE          ""     
+      24 Y                 ""     
+      25 0                 ""     
+      26 0.142857142857143 ""     
+         PARAM                                                PARAMCD  VISIT VISITDY
+         <fct>                                                <fct>    <fct>   <int>
+       1 Antibody titer units                                 R1800000 Day 1       1
+       2 Antibody titer units                                 R1800000 Day 2       2
+       3 ADA interpreted per sample result                    RESULT1  Day 1       1
+       4 ADA interpreted per sample result                    RESULT1  Day 2       2
+       5 Neutralizing Antibody titer units                    R1800001 Day 1       1
+       6 Neutralizing Antibody titer units                    R1800001 Day 2       2
+       7 NAB interpreted per sample result                    RESULT2  Day 1       1
+       8 NAB interpreted per sample result                    RESULT2  Day 2       2
+       9 ADA Status of a patient                              ADASTAT1 <NA>       NA
+      10 Treatment induced ADA                                INDUCD1  <NA>       NA
+      11 Treatment enhanced ADA                               ENHANC1  <NA>       NA
+      12 Treatment unaffected                                 TRUNAFF1 <NA>       NA
+      13 Treatment Emergent - Negative                        EMERNEG1 <NA>       NA
+      14 Treatment Emergent - Positive                        EMERPOS1 <NA>       NA
+      15 Persistent ADA                                       PERSADA1 <NA>       NA
+      16 Transient ADA                                        TRANADA1 <NA>       NA
+      17 Baseline                                             BFLAG1   <NA>       NA
+      18 NAB Status of a patient                              TIMADA1  <NA>       NA
+      19 Treatment induced ADA, Neutralizing Antibody         ADADUR1  <NA>       NA
+      20 Treatment enhanced ADA, Neutralizing Antibody        ADASTAT2 <NA>       NA
+      21 Treatment Emergent - Negative, Neutralizing Antibody INDUCD2  <NA>       NA
+      22 Treatment Emergent - Positive, Neutralizing Antibody ENHANC2  <NA>       NA
+      23 Baseline, Neutralizing Antibody                      EMERNEG2 <NA>       NA
+      24 Treatment unaffected, Neutralizing Antibody          EMERPOS2 <NA>       NA
+      25 Time to onset of ADA                                 BFLAG2   <NA>       NA
+      26 ADA Duration                                         TRUNAFF2 <NA>       NA
+         PARCAT1                         ADABLPFL ADPBLPFL ABLFL RELTMU NRELTM1
+         <fct>                           <fct>    <fct>    <fct> <fct>    <dbl>
+       1 A: Drug X Antibody              <NA>     <NA>     Y     day          0
+       2 A: Drug X Antibody              <NA>     <NA>     <NA>  day          1
+       3 A: Drug X Antibody              Y        <NA>     Y     day          0
+       4 A: Drug X Antibody              <NA>     Y        <NA>  day          1
+       5 A: Drug X Antibody              <NA>     <NA>     Y     day          0
+       6 A: Drug X Antibody              <NA>     <NA>     <NA>  day          1
+       7 A: Drug X Antibody              <NA>     <NA>     Y     day          0
+       8 A: Drug X Antibody              <NA>     <NA>     <NA>  day          1
+       9 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
+      10 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
+      11 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
+      12 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
+      13 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
+      14 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
+      15 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
+      16 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
+      17 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
+      18 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day         NA
+      19 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day         NA
+      20 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day         NA
+      21 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day         NA
+      22 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day         NA
+      23 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
+      24 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day         NA
+      25 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
+      26 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
+         ARELTM1 NRELTM2 ARELTM2
+           <dbl>   <dbl>   <dbl>
+       1       0       0       0
+       2       1       0       0
+       3       0       0       0
+       4       1       0       0
+       5       0       0       0
+       6       1       0       0
+       7       0       0       0
+       8       1       0       0
+       9      NA      NA      NA
+      10      NA      NA      NA
+      11      NA      NA      NA
+      12      NA      NA      NA
+      13      NA      NA      NA
+      14      NA      NA      NA
+      15      NA      NA      NA
+      16      NA      NA      NA
+      17      NA      NA      NA
+      18      NA      NA      NA
+      19      NA      NA      NA
+      20      NA      NA      NA
+      21      NA      NA      NA
+      22      NA      NA      NA
+      23      NA      NA      NA
+      24      NA      NA      NA
+      25      NA      NA      NA
+      26      NA      NA      NA
 
 ---
 
     Code
       rand_rows
     Output
-      # A tibble: 10 x 22
-         STUDYID USUBJID             ARM       ACTARM    ISTPT      AVAL AVALC   
-         <chr>   <chr>               <fct>     <fct>     <fct>     <dbl> <chr>   
-       1 AB12345 AB12345-USA-13-id-3 A: Drug X A: Drug X ""         0    NEGATIVE
-       2 AB12345 AB12345-CHN-3-id-5  A: Drug X A: Drug X ""         1    POSITIVE
-       3 AB12345 AB12345-RUS-1-id-6  A: Drug X A: Drug X "Predose"  0    0       
-       4 AB12345 AB12345-CHN-11-id-2 A: Drug X A: Drug X ""         1.07 POSITIVE
-       5 AB12345 AB12345-CHN-11-id-2 A: Drug X A: Drug X ""         1.07 POSITIVE
-       6 AB12345 AB12345-USA-13-id-3 A: Drug X A: Drug X ""         0    NEGATIVE
-       7 AB12345 AB12345-CHN-11-id-2 A: Drug X A: Drug X ""         1    POSITIVE
-       8 AB12345 AB12345-JPN-4-id-7  A: Drug X A: Drug X ""         1    POSITIVE
-       9 AB12345 AB12345-RUS-1-id-6  A: Drug X A: Drug X ""         1    POSITIVE
-      10 AB12345 AB12345-CHN-3-id-5  A: Drug X A: Drug X ""         0    N       
-         AVALU   PARAM                             PARAMCD  VISIT VISITDY
-         <fct>   <fct>                             <fct>    <fct>   <int>
-       1 ""      NAB interpreted per sample result RESULT2  Day 1       1
-       2 ""      ADA Status of a patient           ADASTAT1 Day 1       1
-       3 "weeks" Time to onset of ADA              TIMADA1  Day 1       1
-       4 "titer" Neutralizing Antibody titer units R1800001 Day 1       1
-       5 "titer" Antibody titer units              R1800000 Day 1       1
-       6 ""      NAB Status of a patient           ADASTAT2 Day 1       1
-       7 ""      NAB interpreted per sample result RESULT2  Day 1       1
-       8 ""      ADA interpreted per sample result RESULT1  Day 1       1
-       9 ""      Baseline, Neutralizing Antibody   BFLAG2   Day 1       1
-      10 ""      Treatment enhanced ADA            ENHANC1  Day 1       1
-         PARCAT1                         ADABLFL ADAPBLFL ABLFL RELTMU ATACHAR NRELTM1
-         <fct>                           <fct>   <fct>    <fct> <fct>  <fct>     <dbl>
-       1 A: Drug X Antibody              Y       Y        <NA>  day    H+       0.0625
-       2 A: Drug X Antibody              Y       Y        <NA>  day    E+       0.5   
-       3 A: Drug X Antibody              Y       Y        Y     day    G+       0     
-       4 A: Drug X Antibody              Y       Y        <NA>  day    D+       0.5   
-       5 A: Drug X Antibody              Y       Y        <NA>  day    D+       0.0625
-       6 A: Drug X Neutralizing Antibody Y       Y        <NA>  day    H+       0.5   
-       7 A: Drug X Antibody              Y       Y        <NA>  day    D+       0.0625
-       8 A: Drug X Antibody              Y       Y        <NA>  day    F+       0.125 
-       9 A: Drug X Antibody              Y       Y        <NA>  day    G+       0.0208
-      10 A: Drug X Antibody              Y       Y        <NA>  day    E+       0.0625
-         ARELTM1 NRELTM2 ARELTM2
-           <dbl>   <dbl>   <dbl>
-       1  0.0625  0.0625  0.0625
-       2  0.5     0.5     0.5   
-       3  0       0       0     
-       4  0.5     0.5     0.5   
-       5  0.0625  0.0625  0.0625
-       6  0.5     0.5     0.5   
-       7  0.0625  0.0625  0.0625
-       8  0.125   0.125   0.125 
-       9  0.0208  0.0208  0.0208
-      10  0.0625  0.0625  0.0625
+      # A tibble: 10 x 21
+         STUDYID USUBJID             ARM            ACTARM         ISTPT     AVAL
+         <chr>   <chr>               <fct>          <fct>          <fct>    <dbl>
+       1 AB12345 AB12345-USA-13-id-3 <NA>           <NA>           <NA>     0    
+       2 AB12345 AB12345-CHN-3-id-5  A: Drug X      A: Drug X      24H     NA    
+       3 AB12345 AB12345-BRA-9-id-8  <NA>           <NA>           <NA>     1    
+       4 AB12345 AB12345-CHN-11-id-1 C: Combination C: Combination 24H     NA    
+       5 AB12345 AB12345-BRA-9-id-8  <NA>           <NA>           <NA>     0    
+       6 AB12345 AB12345-CHN-3-id-5  A: Drug X      A: Drug X      Predose  1    
+       7 AB12345 AB12345-BRA-1-id-9  <NA>           <NA>           <NA>     0.143
+       8 AB12345 AB12345-CHN-11-id-1 <NA>           <NA>           <NA>     0    
+       9 AB12345 AB12345-USA-13-id-3 <NA>           <NA>           <NA>     1    
+      10 AB12345 AB12345-JPN-4-id-7  <NA>           <NA>           <NA>     1    
+         AVALC             AVALU   PARAM                                        
+         <chr>             <fct>   <fct>                                        
+       1 N                 ""      Treatment enhanced ADA, Neutralizing Antibody
+       2 NEGATIVE          "titer" Antibody titer units                         
+       3 POSITIVE          ""      Baseline                                     
+       4 NEGATIVE          "titer" Neutralizing Antibody titer units            
+       5 N                 "weeks" Treatment induced ADA, Neutralizing Antibody 
+       6 POSITIVE          ""      ADA interpreted per sample result            
+       7 0.142857142857143 ""      Time to onset of ADA                         
+       8 N                 ""      Persistent ADA                               
+       9 Y                 ""      Treatment Emergent - Negative                
+      10 POSITIVE          ""      ADA Status of a patient                      
+         PARAMCD  VISIT VISITDY PARCAT1                         ADABLPFL ADPBLPFL
+         <fct>    <fct>   <int> <fct>                           <fct>    <fct>   
+       1 ADASTAT2 <NA>       NA A: Drug X Neutralizing Antibody <NA>     <NA>    
+       2 R1800000 Day 2       2 A: Drug X Antibody              <NA>     <NA>    
+       3 BFLAG1   <NA>       NA A: Drug X Antibody              <NA>     <NA>    
+       4 R1800001 Day 2       2 A: Drug X Antibody              <NA>     <NA>    
+       5 ADADUR1  <NA>       NA A: Drug X Neutralizing Antibody <NA>     <NA>    
+       6 RESULT1  Day 1       1 A: Drug X Antibody              Y        <NA>    
+       7 BFLAG2   <NA>       NA A: Drug X Antibody              <NA>     <NA>    
+       8 PERSADA1 <NA>       NA A: Drug X Antibody              <NA>     <NA>    
+       9 EMERNEG1 <NA>       NA A: Drug X Antibody              <NA>     <NA>    
+      10 ADASTAT1 <NA>       NA A: Drug X Antibody              <NA>     <NA>    
+         ABLFL RELTMU NRELTM1 ARELTM1 NRELTM2 ARELTM2
+         <fct> <fct>    <dbl>   <dbl>   <dbl>   <dbl>
+       1 <NA>  day         NA      NA      NA      NA
+       2 <NA>  day          1       1       0       0
+       3 <NA>  day         NA      NA      NA      NA
+       4 <NA>  day          1       1       0       0
+       5 <NA>  day         NA      NA      NA      NA
+       6 Y     day          0       0       0       0
+       7 <NA>  day         NA      NA      NA      NA
+       8 <NA>  day         NA      NA      NA      NA
+       9 <NA>  day         NA      NA      NA      NA
+      10 <NA>  day         NA      NA      NA      NA
 
 # radpp produces expected values
 
@@ -10177,14 +9207,14 @@
       8 Overall Response by Investigator - by visit     OVRINV      3 SD   
         ADTM                  ADY AVISIT           AVISITN
         <dttm>              <int> <fct>              <int>
-      1 2021-10-13 00:00:00   269 CYCLE 2 DAY 1          2
-      2 2021-11-11 00:00:00   298 END OF INDUCTION     999
-      3 2020-10-09 00:00:00  -100 SCREENING             -1
-      4 2021-01-17 00:00:00     0 BASELINE               0
-      5 2021-10-13 00:00:00   269 CYCLE 2 DAY 1          2
-      6 2021-12-12 00:00:00   329 CYCLE 4 DAY 1          4
-      7 2021-11-11 00:00:00   298 END OF INDUCTION     999
-      8 2022-05-02 00:00:00   470 FOLLOW UP            999
+      1 2021-10-13 02:00:00   269 CYCLE 2 DAY 1          2
+      2 2021-11-11 01:00:00   298 END OF INDUCTION     999
+      3 2020-10-09 02:00:00  -100 SCREENING             -1
+      4 2021-01-17 01:00:00     0 BASELINE               0
+      5 2021-10-13 02:00:00   269 CYCLE 2 DAY 1          2
+      6 2021-12-12 01:00:00   329 CYCLE 4 DAY 1          4
+      7 2021-11-11 01:00:00   298 END OF INDUCTION     999
+      8 2022-05-02 02:00:00   470 FOLLOW UP            999
 
 ---
 
@@ -10338,16 +9368,16 @@
       10 Overall Response by Investigator - by visit     OVRINV      3 SD   
          ADTM                  ADY AVISIT           AVISITN
          <dttm>              <int> <fct>              <int>
-       1 2021-04-28 00:00:00   361 CYCLE 2 DAY 1          2
-       2 2021-06-21 00:00:00   613 CYCLE 2 DAY 1          2
-       3 2021-07-09 00:00:00   377 END OF INDUCTION     999
-       4 2022-01-01 00:00:00   491 END OF INDUCTION     999
-       5 2020-08-28 00:00:00     0 BASELINE               0
-       6 2019-06-14 00:00:00  -100 SCREENING             -1
-       7 2021-09-01 00:00:00   888 END OF INDUCTION     999
-       8 2020-12-15 00:00:00   329 END OF INDUCTION     999
-       9 2021-10-13 00:00:00   269 CYCLE 2 DAY 1          2
-      10 2020-03-19 00:00:00  -100 SCREENING             -1
+       1 2021-04-28 02:00:00   361 CYCLE 2 DAY 1          2
+       2 2021-06-21 02:00:00   613 CYCLE 2 DAY 1          2
+       3 2021-07-09 02:00:00   377 END OF INDUCTION     999
+       4 2022-01-01 01:00:00   491 END OF INDUCTION     999
+       5 2020-08-28 02:00:00     0 BASELINE               0
+       6 2019-06-14 02:00:00  -100 SCREENING             -1
+       7 2021-09-01 02:00:00   888 END OF INDUCTION     999
+       8 2020-12-15 01:00:00   329 END OF INDUCTION     999
+       9 2021-10-13 02:00:00   269 CYCLE 2 DAY 1          2
+      10 2020-03-19 01:00:00  -100 SCREENING             -1
 
 # radsaftte produces expected values
 
@@ -10752,11 +9782,11 @@
       5 2024-02-10     NA <NA>    Baseline Biomarker Mutation BBMRKR1   1   WILD TYPE
         AVALU   AVALCAT1 ADTM                AVISIT   AVISITN SRCSEQ
         <fct>   <chr>    <dttm>              <fct>      <int>  <int>
-      1 "kg"    ""       2021-01-08 00:00:00 BASELINE       0      1
-      2 "m"     ""       2021-01-08 00:00:00 BASELINE       0      1
-      3 "kg/m2" ">30"    2021-01-08 00:00:00 BASELINE       0      1
-      4 ""      "4-5"    2021-01-08 00:00:00 BASELINE       0      1
-      5 ""      ""       2021-01-08 00:00:00 BASELINE       0      1
+      1 "kg"    ""       2021-01-08 01:00:00 BASELINE       0      1
+      2 "m"     ""       2021-01-08 01:00:00 BASELINE       0      1
+      3 "kg/m2" ">30"    2021-01-08 01:00:00 BASELINE       0      1
+      4 ""      "4-5"    2021-01-08 01:00:00 BASELINE       0      1
+      5 ""      ""       2021-01-08 01:00:00 BASELINE       0      1
 
 ---
 
@@ -10898,16 +9928,16 @@
       10 Baseline ECOG               BECOG     0   0         ""      "0-1"   
          ADTM                AVISIT   AVISITN SRCSEQ
          <dttm>              <fct>      <int>  <int>
-       1 2019-09-20 00:00:00 BASELINE       0      1
-       2 2020-10-25 00:00:00 BASELINE       0      1
-       3 2019-03-26 00:00:00 BASELINE       0      1
-       4 2019-09-20 00:00:00 BASELINE       0      1
-       5 2020-08-25 00:00:00 BASELINE       0      1
-       6 2020-02-25 00:00:00 BASELINE       0      1
-       7 2020-01-17 00:00:00 BASELINE       0      1
-       8 2020-08-25 00:00:00 BASELINE       0      1
-       9 2019-03-26 00:00:00 BASELINE       0      1
-      10 2020-02-25 00:00:00 BASELINE       0      1
+       1 2019-09-20 02:00:00 BASELINE       0      1
+       2 2020-10-25 02:00:00 BASELINE       0      1
+       3 2019-03-26 01:00:00 BASELINE       0      1
+       4 2019-09-20 02:00:00 BASELINE       0      1
+       5 2020-08-25 02:00:00 BASELINE       0      1
+       6 2020-02-25 01:00:00 BASELINE       0      1
+       7 2020-01-17 01:00:00 BASELINE       0      1
+       8 2020-08-25 02:00:00 BASELINE       0      1
+       9 2019-03-26 01:00:00 BASELINE       0      1
+      10 2020-02-25 01:00:00 BASELINE       0      1
 
 # radtr produces expected values
 
@@ -11002,22 +10032,22 @@
       5 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 2 DAY 1       2
       6 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 4 DAY 1       4
       7 Sum of Longest Diameter by Investigator  SLDINV      END OF INDUCTION     999
-              ADTM  ADY   DTYPE     AVAL            AVALC AVALU    BASE ABLFL
-      1 2022-05-02  470         145.9484 145.948361883575    mm 209.412      
-      2 2021-12-12  329 MINIMUM 118.6760 118.675961210504    mm 209.412      
-      3 2020-10-09 -100         192.9907 192.990711051031    mm 209.412      
-      4 2021-01-17    0               NA             <NA>    mm 209.412     Y
-      5 2021-10-13  269         138.9834 138.983355706005    mm 209.412      
-      6 2021-12-12  329         118.6760 118.675961210504    mm 209.412      
-      7 2021-11-11  298         167.0916 167.091588823272    mm 209.412      
-              CHG      PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
-      1 -63.46364 -30.30563               Y       Y        
-      2 -90.73604 -43.32896       Y                       Y
-      3        NA        NA                                
-      4        NA        NA                       Y       Y
-      5 -70.42864 -33.63162       Y       Y                
-      6 -90.73604 -43.32896       Y       Y                
-      7 -42.32041 -20.20916       Y       Y                
+                       ADTM  ADY   DTYPE     AVAL            AVALC AVALU    BASE
+      1 2022-05-02 02:00:00  470         145.9484 145.948361883575    mm 209.412
+      2 2021-12-12 01:00:00  329 MINIMUM 118.6760 118.675961210504    mm 209.412
+      3 2020-10-09 02:00:00 -100         192.9907 192.990711051031    mm 209.412
+      4 2021-01-17 01:00:00    0               NA             <NA>    mm 209.412
+      5 2021-10-13 02:00:00  269         138.9834 138.983355706005    mm 209.412
+      6 2021-12-12 01:00:00  329         118.6760 118.675961210504    mm 209.412
+      7 2021-11-11 01:00:00  298         167.0916 167.091588823272    mm 209.412
+        ABLFL       CHG      PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
+      1       -63.46364 -30.30563               Y       Y        
+      2       -90.73604 -43.32896       Y                       Y
+      3              NA        NA                                
+      4     Y        NA        NA                       Y       Y
+      5       -70.42864 -33.63162       Y       Y                
+      6       -90.73604 -43.32896       Y       Y                
+      7       -42.32041 -20.20916       Y       Y                
 
 ---
 
@@ -11156,28 +10186,28 @@
       2  Sum of Longest Diameter by Investigator  SLDINV POST-BASELINE MINIMUM
       1  Sum of Longest Diameter by Investigator  SLDINV             FOLLOW UP
       3  Sum of Longest Diameter by Investigator  SLDINV             SCREENING
-         AVISITN       ADTM  ADY   DTYPE     AVAL            AVALC AVALU     BASE
-      32     999 2021-09-01  888         104.2930 104.292995987107    mm 132.3144
-      39       0 2020-06-27    0               NA             <NA>    mm 159.9885
-      37     999 2021-07-09  377         158.0130 158.012963723167    mm 159.9885
-      12       0 2020-01-21    0               NA             <NA>    mm 148.8228
-      14      -1 2019-10-13 -100         222.0485 222.048532815143    mm 148.8228
-      16     999 2021-02-15  289 MINIMUM 128.7016 128.701607072346    mm 193.9666
-      15       4 2021-06-27  421         215.1784 215.178350110865    mm 193.9666
-      2        4 2021-12-12  329 MINIMUM 118.6760 118.675961210504    mm 209.4120
-      1      999 2022-05-02  470         145.9484 145.948361883575    mm 209.4120
-      3       -1 2020-10-09 -100         192.9907 192.990711051031    mm 209.4120
-         ABLFL        CHG       PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
-      32       -28.021376 -21.177878       Y       Y       Y        
-      39     Y         NA         NA                       Y       Y
-      37        -1.975547  -1.234806       Y       Y       Y        
-      12     Y         NA         NA                       Y       Y
-      14               NA         NA                                
-      16       -65.265039 -33.647558       Y                       Y
-      15        21.211704  10.935748       Y       Y       Y        
-      2        -90.736036 -43.328958       Y                       Y
-      1        -63.463635 -30.305635               Y       Y        
-      3                NA         NA                                
+         AVISITN                ADTM  ADY   DTYPE     AVAL            AVALC AVALU
+      32     999 2021-09-01 02:00:00  888         104.2930 104.292995987107    mm
+      39       0 2020-06-27 02:00:00    0               NA             <NA>    mm
+      37     999 2021-07-09 02:00:00  377         158.0130 158.012963723167    mm
+      12       0 2020-01-21 01:00:00    0               NA             <NA>    mm
+      14      -1 2019-10-13 02:00:00 -100         222.0485 222.048532815143    mm
+      16     999 2021-02-15 01:00:00  289 MINIMUM 128.7016 128.701607072346    mm
+      15       4 2021-06-27 02:00:00  421         215.1784 215.178350110865    mm
+      2        4 2021-12-12 01:00:00  329 MINIMUM 118.6760 118.675961210504    mm
+      1      999 2022-05-02 02:00:00  470         145.9484 145.948361883575    mm
+      3       -1 2020-10-09 02:00:00 -100         192.9907 192.990711051031    mm
+             BASE ABLFL        CHG       PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
+      32 132.3144       -28.021376 -21.177878       Y       Y       Y        
+      39 159.9885     Y         NA         NA                       Y       Y
+      37 159.9885        -1.975547  -1.234806       Y       Y       Y        
+      12 148.8228     Y         NA         NA                       Y       Y
+      14 148.8228               NA         NA                                
+      16 193.9666       -65.265039 -33.647558       Y                       Y
+      15 193.9666        21.211704  10.935748       Y       Y       Y        
+      2  209.4120       -90.736036 -43.328958       Y                       Y
+      1  209.4120       -63.463635 -30.305635               Y       Y        
+      3  209.4120               NA         NA                                
 
 # radtte produces expected values
 
