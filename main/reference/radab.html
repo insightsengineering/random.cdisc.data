@@ -34,12 +34,6 @@ Subject-Level Analysis Dataset and Pharmacokinetics Analysis Dataset."><!-- math
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/random.cdisc.data/main">main</a> </div></li>
-<!-- end dropdown for versions -->
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-reports">
@@ -162,7 +156,7 @@ should be generated. If set to <code>TRUE</code> then the other arguments to <co
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>One record per study per subject per parameter per time point.</p>
+    <p>One record per study per subject per parameter per time point: "R1800000", "RESULT1", "R1800001", "RESULT2".</p>
     </div>
 
     <div class="section level2">
@@ -173,23 +167,23 @@ should be generated. If set to <code>TRUE</code> then the other arguments to <co
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">adab</span> <span class="op">&lt;-</span> <span class="fu">radab</span><span class="op">(</span><span class="va">adsl</span>, <span class="va">adpc</span>, seed <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">adab</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4,048 × 22</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 208 × 21</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    STUDYID USUBJID      ARM   ACTARM ISTPT  AVAL AVALC AVALU PARAM PARAMCD VISIT</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AB12345 AB12345-JPN… A: D… A: Dr… Pred…  1.04 POSI… <span style="color: #949494;">"</span>tit… Anti… R18000… Day 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AB12345 AB12345-USA… A: D… A: Dr… Pred…  1.32 POSI… <span style="color: #949494;">"</span>tit… Anti… R18000… Day 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AB12345 AB12345-BRA… A: D… A: Dr… Pred… <span style="color: #BB0000;">NA</span>    NEGA… <span style="color: #949494;">"</span>tit… Anti… R18000… Day 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AB12345 AB12345-CHN… A: D… A: Dr… Pred… <span style="color: #BB0000;">NA</span>    NEGA… <span style="color: #949494;">"</span>tit… Anti… R18000… Day 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AB12345 AB12345-CHN… C: C… C: Co… Pred…  1.03 POSI… <span style="color: #949494;">"</span>tit… Anti… R18000… Day 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AB12345 AB12345-CHN… A: D… A: Dr… Pred…  1.14 POSI… <span style="color: #949494;">"</span>tit… Anti… R18000… Day 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AB12345 AB12345-RUS… A: D… A: Dr… Pred…  1.40 POSI… <span style="color: #949494;">"</span>tit… Anti… R18000… Day 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AB12345 AB12345-BRA… C: C… C: Co… Pred… <span style="color: #BB0000;">NA</span>    NEGA… <span style="color: #949494;">"</span>tit… Anti… R18000… Day 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AB12345 AB12345-JPN… A: D… A: Dr… Pred…  1    POSI… <span style="color: #949494;">""</span>    ADA … RESULT1 Day 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AB12345 AB12345-USA… A: D… A: Dr… Pred…  1    POSI… <span style="color: #949494;">""</span>    ADA … RESULT1 Day 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 4,038 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 11 more variables: VISITDY &lt;int&gt;, PARCAT1 &lt;fct&gt;, ADABLFL &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ADAPBLFL &lt;fct&gt;, ABLFL &lt;fct&gt;, RELTMU &lt;fct&gt;, ATACHAR &lt;fct&gt;, NRELTM1 &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ARELTM1 &lt;dbl&gt;, NRELTM2 &lt;dbl&gt;, ARELTM2 &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AB12345 AB12345-JPN… A: D… A: Dr… Pred…  1.04 POSI… titer Anti… R18000… Day 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AB12345 AB12345-USA… A: D… A: Dr… Pred…  1.32 POSI… titer Anti… R18000… Day 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AB12345 AB12345-BRA… A: D… A: Dr… Pred… <span style="color: #BB0000;">NA</span>    NEGA… titer Anti… R18000… Day 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AB12345 AB12345-CHN… A: D… A: Dr… Pred… <span style="color: #BB0000;">NA</span>    NEGA… titer Anti… R18000… Day 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AB12345 AB12345-CHN… C: C… C: Co… Pred…  1.03 POSI… titer Anti… R18000… Day 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AB12345 AB12345-CHN… A: D… A: Dr… Pred…  1.14 POSI… titer Anti… R18000… Day 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AB12345 AB12345-RUS… A: D… A: Dr… Pred…  1.40 POSI… titer Anti… R18000… Day 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AB12345 AB12345-BRA… C: C… C: Co… Pred… <span style="color: #BB0000;">NA</span>    NEGA… titer Anti… R18000… Day 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AB12345 AB12345-JPN… A: D… A: Dr… 24H    1.20 POSI… titer Anti… R18000… Day 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AB12345 AB12345-USA… A: D… A: Dr… 24H   <span style="color: #BB0000;">NA</span>    NEGA… titer Anti… R18000… Day 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 198 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 10 more variables: VISITDY &lt;int&gt;, PARCAT1 &lt;fct&gt;, ADABLPFL &lt;fct&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ADPBLPFL &lt;fct&gt;, ABLFL &lt;fct&gt;, RELTMU &lt;fct&gt;, NRELTM1 &lt;dbl&gt;, ARELTM1 &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   NRELTM2 &lt;dbl&gt;, ARELTM2 &lt;dbl&gt;</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
