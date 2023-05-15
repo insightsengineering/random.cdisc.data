@@ -14,7 +14,7 @@
 #' @return `data.frame`
 #' @export
 #'
-#' @details One record per study per subject per parameter per time point.
+#' @details One record per study per subject per parameter per time point: "R1800000", "RESULT1", "R1800001", "RESULT2".
 #'
 #' @examples
 #' library(random.cdisc.data)
@@ -81,25 +81,24 @@ radab <- function(adsl,
   unit_init_list <- relvar_init(param, avalu)
 
   adpc <- adpc %>% dplyr::filter(ASMED == "PLASMA")
-  adab <- expand.grid(
+  adab0 <- expand.grid(
     STUDYID = unique(adsl$STUDYID),
     USUBJID = unique(adsl$USUBJID),
     VISIT = unique(adpc$VISIT),
-    PARAM = as.factor(param_init_list$relvar1),
+    PARAM = as.factor(param_init_list$relvar1[c(1:4)]),
     PARCAT1 = "A: Drug X Antibody",
-    PCTPT = unique(adpc$PCTPT),
     stringsAsFactors = FALSE
   )
-
+  # Set random values for observations
   visit_lvl_params <- c(
     "Antibody titer units", "Neutralizing Antibody titer units",
     "ADA interpreted per sample result", "NAB interpreted per sample result"
   )
-  aval_random <- stats::rnorm(nrow(unique(adab %>% dplyr::select(USUBJID, VISIT))), mean = 1, sd = 0.2)
-  aval_random <- cbind(unique(adab %>% dplyr::select(USUBJID, VISIT)), AVAL1 = aval_random)
+  aval_random <- stats::rnorm(nrow(unique(adab0 %>% dplyr::select(USUBJID, VISIT))), mean = 1, sd = 0.2)
+  aval_random <- cbind(unique(adab0 %>% dplyr::select(USUBJID, VISIT)), AVAL1 = aval_random)
 
-  adab <- adab %>% dplyr::left_join(aval_random, by = c("USUBJID", "VISIT"))
-  adab <- adab %>%
+  adab_visit <- adab0 %>% dplyr::left_join(aval_random, by = c("USUBJID", "VISIT"))
+  adab_visit <- adab_visit %>%
     dplyr::mutate(
       AVAL2 = ifelse(AVAL1 >= 1, AVAL1, NA),
       AVALC = dplyr::case_when(
@@ -115,6 +114,104 @@ radab <- function(adsl,
     ) %>%
     dplyr::select(-c(AVAL1, AVAL2))
 
+  # retrieve other variables from adpc
+  adab_visit <- adab_visit %>%
+    dplyr::inner_join(
+      adpc %>%
+        dplyr::filter(PCTPT %in% c("Predose", "24H")) %>%
+        dplyr::select(
+          STUDYID,
+          USUBJID,
+          VISIT,
+          PCTPT,
+          ARM,
+          ACTARM,
+          VISITDY,
+          ARELTM1,
+          NRELTM1,
+          ARELTM2,
+          NRELTM2,
+          RELTMU
+        ) %>%
+        unique(),
+      by = c("STUDYID", "USUBJID", "VISIT")
+    ) %>%
+    rename(ISTPT = PCTPT)
+
+  # mutate time from dose variables from adpc to convert into Days
+  adab_visit <- adab_visit %>% dplyr::mutate_at(c("ARELTM1", "NRELTM1", "ARELTM2", "NRELTM2"), ~ . / 24)
+
+
+
+  # Set random values for subject level paramaters (Y/N)
+
+  adab1 <- expand.grid(
+    STUDYID = unique(adsl$STUDYID),
+    USUBJID = unique(adpc$USUBJID),
+    VISIT = NA,
+    PARAM = as.factor(param_init_list$relvar1[c(5:13, 16:22)]),
+    PARCAT1 = "A: Drug X Antibody",
+    stringsAsFactors = FALSE
+  )
+
+  sub_lvl_params <- c(
+    "ADA Status of a patient", "Treatment induced ADA", "Treatment enhanced ADA",
+    "Treatment unaffected", "Treatment Emergent - Negative",
+    "Treatment Emergent - Positive", "Persistent ADA", "Transient ADA", "Baseline",
+    # "Time to onset of ADA", "ADA Duration",
+    "NAB Status of a patient",
+    "Treatment induced ADA, Neutralizing Antibody",
+    "Treatment enhanced ADA, Neutralizing Antibody",
+    "Treatment Emergent - Negative, Neutralizing Antibody",
+    "Treatment Emergent - Positive, Neutralizing Antibody",
+    "Baseline, Neutralizing Antibody",
+    "Treatment unaffected, Neutralizing Antibody"
+  )
+
+  aval_random_sub <- stats::rbinom(nrow(unique(adab1 %>% dplyr::select(USUBJID))), 1, 0.5)
+  aval_random_sub <- cbind(unique(adab1 %>% dplyr::select(USUBJID)), AVAL1 = aval_random_sub)
+
+  adab_sub <- adab1 %>% dplyr::left_join(aval_random_sub, by = c("USUBJID"))
+  adab_sub <- adab_sub %>%
+    dplyr::mutate(
+      AVAL = AVAL1,
+      AVALC = dplyr::case_when(
+        PARAM %in% c("ADA Status of a patient", "NAB Status of a patient") & AVAL1 == 1 ~ "POSITIVE",
+        PARAM %in% c("ADA Status of a patient", "NAB Status of a patient") & AVAL1 == 0 ~ "NEGATIVE",
+        !(PARAM %in% c("ADA Status of a patient", "NAB Status of a patient")) & AVAL1 == 1 ~ "Y",
+        !(PARAM %in% c("ADA Status of a patient", "NAB Status of a patient")) & AVAL1 == 0 ~ "N"
+      )
+    ) %>%
+    dplyr::select(-c(AVAL1))
+
+  # Set random values for subject level paramaters (numeric)
+
+  adab2 <- expand.grid(
+    STUDYID = unique(adsl$STUDYID),
+    USUBJID = unique(adpc$USUBJID),
+    VISIT = NA,
+    PARAM = as.factor(param_init_list$relvar1[c(14, 15)]),
+    PARCAT1 = "A: Drug X Antibody",
+    stringsAsFactors = FALSE
+  )
+
+  sub_lvl_params_num <- c("Time to onset of ADA", "ADA Duration")
+
+  aval_random_sub_num <- stats::rnorm(nrow(unique(adab2 %>% dplyr::select(USUBJID))), mean = 1, sd = 1)
+  aval_random_sub_num <- cbind(unique(adab2 %>% dplyr::select(USUBJID)), AVAL1 = aval_random_sub_num)
+
+  adab_sub_num <- adab2 %>% dplyr::left_join(aval_random_sub_num, by = c("USUBJID"))
+  adab_sub_num <- adab_sub_num %>%
+    dplyr::mutate(
+      AVAL = ifelse(AVAL1 >= 1, round(AVAL1, 2), NA),
+      AVALC = as.character(AVAL)
+    ) %>%
+    dplyr::select(-c(AVAL1))
+
+
+  adab <- bind_rows(adab_visit, adab_sub, adab_sub_num)
+
+
   # assign related variable values: PARAMxPARAMCD are related
   adab <- adab %>% rel_var(
     var_name = "PARAMCD",
@@ -129,40 +226,19 @@ radab <- function(adsl,
     var_values = unit_init_list$relvar2
   )
 
-  # retrieve other variables from adpc
-  adab <- adab %>%
-    dplyr::inner_join(adpc %>% dplyr::select(
-      STUDYID,
-      USUBJID,
-      VISIT,
-      PCTPT,
-      ARM,
-      ACTARM,
-      VISITDY,
-      ARELTM1,
-      NRELTM1,
-      ARELTM2,
-      NRELTM2,
-      RELTMU
-    ) %>%
-      unique(), by = c("STUDYID", "USUBJID", "VISIT", "PCTPT")) %>%
-    dplyr::select(-PCTPT)
 
-  # mutate time from dose variables from adpc to convert into Days
-  adab <- adab %>% dplyr::mutate_at(c("ARELTM1", "NRELTM1", "ARELTM2", "NRELTM2"), ~ . / 24)
   adab <- adab %>%
     dplyr::mutate(
       RELTMU = "day",
-      ADABLFL = "Y",
-      ADAPBLFL = ifelse(ACTARM == "A: Drug X" | ACTARM == "C: Combination", "Y",
-        NA
-      ),
-      ABLFL = ifelse(NRELTM1 == 0, "Y", NA),
-      ISTPT = ifelse(VISIT %in% c("Day 1", "Week 4", "Week 8", "Week 12", "Week 16", "Week 20") &
-        ARELTM1 %% 1 == 0, "Predose", "")
+      ABLFL = ifelse(!is.na(NRELTM1) & NRELTM1 == 0, "Y", NA) # Baseline Record Flag
+      ,
+      ADABLPFL = ifelse(PARAMCD == "RESULT1" & !is.na(NRELTM1) & NRELTM1 == 0, "Y", NA)
+      # Baseline ADA Eval. Param-Level Flag, only populate for ADA, not for NAB
+      ,
+      ADPBLPFL = ifelse(PARAMCD == "RESULT1" & !is.na(NRELTM1) & NRELTM1 > 0 & !is.na(AVAL), "Y", NA)
+      # Post-Baseline ADA Eval. Param-Level Flag, only populate for ADA, not for NAB
     ) %>%
     dplyr::group_by(USUBJID) %>%
-    dplyr::mutate(ATACHAR = paste0(LETTERS[dplyr::cur_group_id() %% 10], "+")) %>%
     dplyr::ungroup()
 
   # create temporary flags to derive subject-level variables

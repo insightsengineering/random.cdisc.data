@@ -70,7 +70,7 @@ Function for generating a random Anti-Drug Antibody Analysis Dataset for a given
 Subject-Level Analysis Dataset and Pharmacokinetics Analysis Dataset.
 }
 \details{
-One record per study per subject per parameter per time point.
+One record per study per subject per parameter per time point: "R1800000", "RESULT1", "R1800001", "RESULT2".
 }
 \examples{
 library(random.cdisc.data)

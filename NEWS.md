@@ -1,5 +1,8 @@
 # random.cdisc.data 0.3.13.9060
 
+### Enhancements
+* Refactor `abab` parameters and visits to align with `adpc`.
+
 ### Breaking changes
 * Renamed `ADSL` argument to `adsl` in `radab`, `radae`, `radaette`, `radcm`, `raddv`, `radeg`, `radex`, `radhy`, `radlb`,
   `radmh`, `radpc`, `radpp`, `radqlqc`, `radqs`, `radrs`, `radsaftte`, `radsub`, `radtr`, `radtte`, `radvs`, and `get_qs_data`.
