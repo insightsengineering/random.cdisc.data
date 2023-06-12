@@ -30,7 +30,7 @@ Imports:
 Suggests:
     diffdf,
     knitr (>= 1.42),
-    testthat (>= 3.0)
+    testthat (>= 3.0.4)
 VignetteBuilder:
     knitr
 RdMacros:
