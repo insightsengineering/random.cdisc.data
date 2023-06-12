@@ -20,12 +20,12 @@ Imports:
     checkmate (>= 2.0.0),
     dplyr (>= 1.1.2),
     lifecycle (>= 1.0.3),
-    lubridate (>= 1.5.0),
+    lubridate (>= 1.6.0),
     magrittr (>= 1.5),
     rlang (>= 1.1.0),
-    stringr (>= 0.4),
+    stringr (>= 1.4.0),
     tibble (>= 3.2.0),
-    tidyr,
+    tidyr (>= 1.0.0),
     yaml (>= 2.1.19)
 Suggests:
     diffdf,
