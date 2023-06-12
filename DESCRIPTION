@@ -19,18 +19,17 @@ Depends:
 Imports:
     checkmate (>= 2.0.0),
     dplyr (>= 1.1.2),
-    lifecycle,
+    lifecycle (>= 1.0.3),
     lubridate,
-    magrittr,
-    rlang,
+    magrittr (>= 1.5),
+    rlang (>= 1.1.0),
     stringr,
-    tibble,
+    tibble (>= 3.2.0),
     tidyr,
-    yaml
+    yaml (>= 2.1.19)
 Suggests:
     diffdf,
-    knitr,
-    rmarkdown,
+    knitr (>= 1.42),
     testthat (>= 3.0)
 VignetteBuilder:
     knitr
@@ -49,7 +48,6 @@ Config/Needs/verdepcheck:
     yaml=vubiostat/r-yaml,
     gowerc/diffdf,
     yihui/knitr,
-    rstudio/rmarkdown,
     r-lib/testthat
 Config/Needs/website: insightsengineering/nesttemplate
 Config/testthat/edition: 3
