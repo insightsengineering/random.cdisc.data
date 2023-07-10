@@ -25,8 +25,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        test-strategy: ["min_cohort", "min_isolated_", "release", "max"]
-    uses: insightsengineering/r.pkg.template/.github/workflows/verdepcheck.yaml@main
+        test-strategy: ["min_cohort", "min_isolated", "release", "max"]
+    uses: averissimo/r.pkg.template/.github/workflows/verdepcheck.yaml@training-improvements
     name: Dependency Test - ${{ matrix.test-strategy }} 🔢
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
