@@ -125,14 +125,12 @@ radpc <- function(adsl,
   }
 
   adpc <- adpc %>%
-    rename(
-      AVALCAT1 = AVALC,
-      NFRLT = NRELTM1,
-      AFRLT = ARELTM1,
-      NRRLT = NRELTM2,
-      ARRLT = ARELTM2
-    ) %>%
-    mutate(ANL02FL = "Y")
+    rename(AVALCAT1 = AVALC,
+           NFRLT = NRELTM1,
+           AFRLT = ARELTM1,
+           NRRLT=  NRELTM2,
+           ARRLT = ARELTM2) %>%
+    mutate(ANL02FL = 'Y')
 
   adpc <- apply_metadata(adpc, "metadata/ADPC.yml")
 }

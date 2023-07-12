@@ -127,10 +127,10 @@ radab <- function(adsl,
           ARM,
           ACTARM,
           VISITDY,
-          ARELTM1,
-          NRELTM1,
-          ARELTM2,
-          NRELTM2,
+          AFRLT,
+          NFRLT,
+          ARRLT,
+          NRRLT,
           RELTMU
         ) %>%
         unique(),
@@ -139,7 +139,7 @@ radab <- function(adsl,
     rename(ISTPT = PCTPT)
 
   # mutate time from dose variables from adpc to convert into Days
-  adab_visit <- adab_visit %>% dplyr::mutate_at(c("ARELTM1", "NRELTM1", "ARELTM2", "NRELTM2"), ~ . / 24)
+  adab_visit <- adab_visit %>% dplyr::mutate_at(c("AFRLT", "NFRLT", "ARRLT", "NRRLT"), ~ . / 24)
 
 
 
@@ -230,12 +230,12 @@ radab <- function(adsl,
   adab <- adab %>%
     dplyr::mutate(
       RELTMU = "day",
-      ABLFL = ifelse(!is.na(NRELTM1) & NRELTM1 == 0, "Y", NA) # Baseline Record Flag
+      ABLFL = ifelse(!is.na(NFRLT) & NFRLT == 0, "Y", NA) # Baseline Record Flag
       ,
-      ADABLPFL = ifelse(PARAMCD == "RESULT1" & !is.na(NRELTM1) & NRELTM1 == 0, "Y", NA)
+      ADABLPFL = ifelse(PARAMCD == "RESULT1" & !is.na(NFRLT) & NFRLT == 0, "Y", NA)
       # Baseline ADA Eval. Param-Level Flag, only populate for ADA, not for NAB
       ,
-      ADPBLPFL = ifelse(PARAMCD == "RESULT1" & !is.na(NRELTM1) & NRELTM1 > 0 & !is.na(AVAL), "Y", NA)
+      ADPBLPFL = ifelse(PARAMCD == "RESULT1" & !is.na(NFRLT) & NFRLT > 0 & !is.na(AVAL), "Y", NA)
       # Post-Baseline ADA Eval. Param-Level Flag, only populate for ADA, not for NAB
     ) %>%
     dplyr::group_by(USUBJID) %>%
@@ -254,7 +254,7 @@ radab <- function(adsl,
       any_pos_postbl_nab = any(PARAM == "NAB interpreted per sample result" &
         is.na(ABLFL) & AVALC == "POSITIVE"),
       pos_last_postbl = any(PARAM == "ADA interpreted per sample result" &
-        NRELTM1 == max(NRELTM1) & AVALC == "POSITIVE"),
+        NFRLT == max(NFRLT) & AVALC == "POSITIVE"),
       ada_bl = AVAL[PARAM == "Antibody titer units" & !is.na(ABLFL)],
       nab_bl = AVAL[PARAM == "Neutralizing Antibody titer units" & !is.na(ABLFL)]
     )
@@ -267,13 +267,13 @@ radab <- function(adsl,
         is.na(ABLFL) & (AVAL - nab_bl) > 0.60),
       onset_ada = if (any(PARAM == "ADA interpreted per sample result" &
         AVALC == "POSITIVE")) {
-        min(NRELTM1[PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"])
+        min(NFRLT[PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"])
       } else {
         NA
       },
       last_ada = if (any(PARAM == "ADA interpreted per sample result" &
         AVALC == "POSITIVE")) {
-        max(NRELTM1[PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"])
+        max(NFRLT[PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"])
       } else {
         NA
       }
@@ -282,7 +282,7 @@ radab <- function(adsl,
     dplyr::left_join(pos_tots, by = "USUBJID") %>%
     dplyr::select(
       USUBJID,
-      NRELTM1,
+      NFRLT,
       pos_bl,
       pos_bl_nab,
       any_pos_postbl,
@@ -298,7 +298,7 @@ radab <- function(adsl,
 
   # add flags to ADAB dataset
   adab <- adab %>%
-    dplyr::left_join(adab_subj, by = c("USUBJID", "NRELTM1"))
+    dplyr::left_join(adab_subj, by = c("USUBJID", "NFRLT"))
 
   # derive subject-level variables
   adab[!(adab$PARAM %in% visit_lvl_params), ] <- adab %>%
