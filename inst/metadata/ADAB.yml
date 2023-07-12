@@ -42,15 +42,15 @@ variables:
  RELTMU:
     label: Relative Actual/Nominal Time Units
     type: factor
- NRELTM1:
-    label: Nominal Relative Time from First Dose
+ NFRLT:
+    label: Nom. Rel. Time from Analyte First Dose
     type: numeric
- ARELTM1:
-    label: Analysis Rel. Actual Time from First Dose
+ AFRLT:
+    label: Act. Rel. Time from Analyte First Dose
     type: numeric
- NRELTM2:
-    label: Nominal Relative Time from Most Recent Dose
+ NRRLT:
+    label: Nominal Rel. Time from Ref. Dose
     type: numeric
- ARELTM2:
-    label: Analysis Rel. Actual Time from Most Recent Dose
+ ARRLT:
+    label: Actual Rel. Time from Ref. Dose
     type: numeric
