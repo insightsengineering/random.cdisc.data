@@ -13,7 +13,7 @@ variables:
     label: Nominal Rel. Time from Ref. Dose
     type: numeric
  ARRLT:
-    label:Actual Rel. Time from Ref. Dose
+    label: Actual Rel. Time from Ref. Dose
     type: numeric
  PCTPTNUM:
     label: Planned Time Point Number
