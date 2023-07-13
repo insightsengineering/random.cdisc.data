@@ -29,7 +29,6 @@ radqlqc <- function(adsl,
                     number,
                     seed = NULL,
                     cached = FALSE) {
-  load(system.file("sysdata.rda", package = "random.cdisc.data"))
   checkmate::assert_flag(cached)
   if (cached) {
     return(get_cached_data("cadqlqc"))
@@ -291,6 +290,7 @@ get_qs_data <- function(adsl,
                           QSORRES = c(1234, 0.2),
                           QSSTRESC = c(1234, 0.2)
                         )) {
+  load(system.file("sysdata.rda", package = "random.cdisc.data"))
   checkmate::assert_string(visit_format)
   checkmate::assert_integer(n_assessments, len = 1, any.missing = FALSE)
   checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
@@ -657,6 +657,7 @@ prep_adqlqc <- function(df) {
       TRUE ~ QSTESTCD
     )
   )
+  load(system.file("sysdata.rda", package = "random.cdisc.data"))
   adqlqc1 <- dplyr::left_join(
     adqlqc,
     gdsr_param_adqlqc,
@@ -680,7 +681,7 @@ calc_scales <- function(adqlqc1) {
   # parcat2 = scales or global health status
   # global health status/scales data
   # QSTESTCD: EOR0131 to EOR0145 (global health status and scales)
-
+  load(system.file("sysdata.rda", package = "random.cdisc.data"))
   eortc_qlq_c30_sub <- filter(
     eortc_qlq_c30,
     !(as.numeric(str_extract(QSTESTCD, "\\d+$")) >= 101 &
