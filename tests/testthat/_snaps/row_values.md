@@ -4145,7 +4145,7 @@
     Code
       first_pt_rows
     Output
-      # A tibble: 30 x 71
+      # A tibble: 30 x 72
          STUDYID USUBJID            SUBJID SITEID   AGE AGEU  SEX  
          <chr>   <chr>              <chr>  <chr>  <int> <fct> <fct>
        1 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
@@ -4434,77 +4434,109 @@
       28 COMPLETED 2024-01-18  1096 <NA>    NA     <NA>    <NA>         NA <NA>    
       29 COMPLETED 2024-01-18  1096 <NA>    NA     <NA>    <NA>         NA <NA>    
       30 COMPLETED 2024-01-18  1096 <NA>    NA     <NA>    <NA>         NA <NA>    
-         LSTALVDT   DTHADY ADTHAUT NRELTM1 ARELTM1 NRELTM2 ARELTM2 PCTPTNUM PCTPT   
-         <date>      <int> <fct>     <dbl>   <dbl>   <dbl>   <dbl>    <dbl> <fct>   
-       1 2024-02-10     NA <NA>        0       0       0       0        0   Predose 
-       2 2024-02-10     NA <NA>        0.5     0.5     0.5     0.5      0.5 0.5H    
-       3 2024-02-10     NA <NA>        1       1       1       1        1   1H      
-       4 2024-02-10     NA <NA>        1.5     1.5     1.5     1.5      1.5 1.5H    
-       5 2024-02-10     NA <NA>        2       2       2       2        2   2H      
-       6 2024-02-10     NA <NA>        3       3       3       3        3   3H      
-       7 2024-02-10     NA <NA>        4       4       4       4        4   4H      
-       8 2024-02-10     NA <NA>        8       8       8       8        8   8H      
-       9 2024-02-10     NA <NA>       12      12      12      12       12   12H     
-      10 2024-02-10     NA <NA>        0       0       0       0        0   Predose 
-      11 2024-02-10     NA <NA>        0.5     0.5     0.5     0.5      0.5 0.5H    
-      12 2024-02-10     NA <NA>        1       1       1       1        1   1H      
-      13 2024-02-10     NA <NA>        1.5     1.5     1.5     1.5      1.5 1.5H    
-      14 2024-02-10     NA <NA>        2       2       2       2        2   2H      
-      15 2024-02-10     NA <NA>        3       3       3       3        3   3H      
-      16 2024-02-10     NA <NA>        4       4       4       4        4   4H      
-      17 2024-02-10     NA <NA>        8       8       8       8        8   8H      
-      18 2024-02-10     NA <NA>       12      12      12      12       12   12H     
-      19 2024-02-10     NA <NA>        0       0       0       0        0   Predose 
-      20 2024-02-10     NA <NA>        4       4       4       4        4   0H - 4H 
-      21 2024-02-10     NA <NA>        8       8       8       8        8   4H - 8H 
-      22 2024-02-10     NA <NA>       12      12      12      12       12   8H - 12H
-      23 2024-02-10     NA <NA>        0       0       0       0        0   Predose 
-      24 2024-02-10     NA <NA>        4       4       4       4        4   0H - 4H 
-      25 2024-02-10     NA <NA>        8       8       8       8        8   4H - 8H 
-      26 2024-02-10     NA <NA>       12      12      12      12       12   8H - 12H
-      27 2024-02-10     NA <NA>       24      24       0       0       24   24H     
-      28 2024-02-10     NA <NA>       24      24       0       0       24   24H     
-      29 2024-02-10     NA <NA>       24      24       0       0       24   0H - 24H
-      30 2024-02-10     NA <NA>       24      24       0       0       24   0H - 24H
-         PCVOL PCVOLU   AVAL AVALC  AVALU RELTMU PARAM         ASMED  VISIT VISITDY
-         <dbl> <fct>   <dbl> <chr>  <fct> <fct>  <fct>         <fct>  <fct>   <int>
-       1   NA  ""      0     BLQ    ug/mL hr     Plasma Drug X PLASMA Day 1       1
-       2   NA  ""     15.3   15.3   ug/mL hr     Plasma Drug X PLASMA Day 1       1
-       3   NA  ""     19.2   19.205 ug/mL hr     Plasma Drug X PLASMA Day 1       1
-       4   NA  ""     18.1   18.082 ug/mL hr     Plasma Drug X PLASMA Day 1       1
-       5   NA  ""     15.1   15.136 ug/mL hr     Plasma Drug X PLASMA Day 1       1
-       6   NA  ""      8.95  8.953  ug/mL hr     Plasma Drug X PLASMA Day 1       1
-       7   NA  ""      4.71  4.71   ug/mL hr     Plasma Drug X PLASMA Day 1       1
-       8   NA  ""      0.23  0.23   ug/mL hr     Plasma Drug X PLASMA Day 1       1
-       9   NA  ""      0.008 0.008  ug/mL hr     Plasma Drug X PLASMA Day 1       1
-      10   NA  ""      0     BLQ    ug/mL hr     Plasma Drug Y PLASMA Day 1       1
-      11   NA  ""     30.6   30.6   ug/mL hr     Plasma Drug Y PLASMA Day 1       1
-      12   NA  ""     38.4   38.409 ug/mL hr     Plasma Drug Y PLASMA Day 1       1
-      13   NA  ""     36.2   36.164 ug/mL hr     Plasma Drug Y PLASMA Day 1       1
-      14   NA  ""     30.3   30.272 ug/mL hr     Plasma Drug Y PLASMA Day 1       1
-      15   NA  ""     17.9   17.905 ug/mL hr     Plasma Drug Y PLASMA Day 1       1
-      16   NA  ""      9.42  9.419  ug/mL hr     Plasma Drug Y PLASMA Day 1       1
-      17   NA  ""      0.459 0.459  ug/mL hr     Plasma Drug Y PLASMA Day 1       1
-      18   NA  ""      0.017 0.017  ug/mL hr     Plasma Drug Y PLASMA Day 1       1
-      19 1122. "mL"    0     BLQ    ug/mL hr     Urine Drug X  URINE  Day 1       1
-      20  152. "mL"    4.71  4.71   ug/mL hr     Urine Drug X  URINE  Day 1       1
-      21  370. "mL"    0.23  0.23   ug/mL hr     Urine Drug X  URINE  Day 1       1
-      22  605. "mL"    0.008 0.008  ug/mL hr     Urine Drug X  URINE  Day 1       1
-      23 1122. "mL"    0     BLQ    ug/mL hr     Urine Drug Y  URINE  Day 1       1
-      24  152. "mL"    4.71  4.71   ug/mL hr     Urine Drug Y  URINE  Day 1       1
-      25  370. "mL"    0.23  0.23   ug/mL hr     Urine Drug Y  URINE  Day 1       1
-      26  605. "mL"    0.008 0.008  ug/mL hr     Urine Drug Y  URINE  Day 1       1
-      27   NA  ""      0     BLQ    ug/mL hr     Plasma Drug X PLASMA Day 2       2
-      28   NA  ""      0     BLQ    ug/mL hr     Plasma Drug Y PLASMA Day 2       2
-      29 1055. "mL"    0     BLQ    ug/mL hr     Urine Drug X  URINE  Day 2       2
-      30 1055. "mL"    0     BLQ    ug/mL hr     Urine Drug Y  URINE  Day 2       2
+         LSTALVDT   DTHADY ADTHAUT NFRLT AFRLT NRRLT ARRLT PCTPTNUM PCTPT    PCVOL
+         <date>      <int> <fct>   <dbl> <dbl> <dbl> <dbl>    <dbl> <fct>    <dbl>
+       1 2024-02-10     NA <NA>      0     0     0     0        0   Predose    NA 
+       2 2024-02-10     NA <NA>      0.5   0.5   0.5   0.5      0.5 0.5H       NA 
+       3 2024-02-10     NA <NA>      1     1     1     1        1   1H         NA 
+       4 2024-02-10     NA <NA>      1.5   1.5   1.5   1.5      1.5 1.5H       NA 
+       5 2024-02-10     NA <NA>      2     2     2     2        2   2H         NA 
+       6 2024-02-10     NA <NA>      3     3     3     3        3   3H         NA 
+       7 2024-02-10     NA <NA>      4     4     4     4        4   4H         NA 
+       8 2024-02-10     NA <NA>      8     8     8     8        8   8H         NA 
+       9 2024-02-10     NA <NA>     12    12    12    12       12   12H        NA 
+      10 2024-02-10     NA <NA>      0     0     0     0        0   Predose    NA 
+      11 2024-02-10     NA <NA>      0.5   0.5   0.5   0.5      0.5 0.5H       NA 
+      12 2024-02-10     NA <NA>      1     1     1     1        1   1H         NA 
+      13 2024-02-10     NA <NA>      1.5   1.5   1.5   1.5      1.5 1.5H       NA 
+      14 2024-02-10     NA <NA>      2     2     2     2        2   2H         NA 
+      15 2024-02-10     NA <NA>      3     3     3     3        3   3H         NA 
+      16 2024-02-10     NA <NA>      4     4     4     4        4   4H         NA 
+      17 2024-02-10     NA <NA>      8     8     8     8        8   8H         NA 
+      18 2024-02-10     NA <NA>     12    12    12    12       12   12H        NA 
+      19 2024-02-10     NA <NA>      0     0     0     0        0   Predose  1122.
+      20 2024-02-10     NA <NA>      4     4     4     4        4   0H - 4H   152.
+      21 2024-02-10     NA <NA>      8     8     8     8        8   4H - 8H   370.
+      22 2024-02-10     NA <NA>     12    12    12    12       12   8H - 12H  605.
+      23 2024-02-10     NA <NA>      0     0     0     0        0   Predose  1122.
+      24 2024-02-10     NA <NA>      4     4     4     4        4   0H - 4H   152.
+      25 2024-02-10     NA <NA>      8     8     8     8        8   4H - 8H   370.
+      26 2024-02-10     NA <NA>     12    12    12    12       12   8H - 12H  605.
+      27 2024-02-10     NA <NA>     24    24     0     0       24   24H        NA 
+      28 2024-02-10     NA <NA>     24    24     0     0       24   24H        NA 
+      29 2024-02-10     NA <NA>     24    24     0     0       24   0H - 24H 1055.
+      30 2024-02-10     NA <NA>     24    24     0     0       24   0H - 24H 1055.
+         PCVOLU   AVAL AVALCAT1 AVALU RELTMU PARAM         ASMED  VISIT VISITDY
+         <fct>   <dbl> <chr>    <fct> <fct>  <fct>         <fct>  <fct>   <int>
+       1 ""      0     BLQ      ug/mL hr     Plasma Drug X PLASMA Day 1       1
+       2 ""     15.3   15.3     ug/mL hr     Plasma Drug X PLASMA Day 1       1
+       3 ""     19.2   19.205   ug/mL hr     Plasma Drug X PLASMA Day 1       1
+       4 ""     18.1   18.082   ug/mL hr     Plasma Drug X PLASMA Day 1       1
+       5 ""     15.1   15.136   ug/mL hr     Plasma Drug X PLASMA Day 1       1
+       6 ""      8.95  8.953    ug/mL hr     Plasma Drug X PLASMA Day 1       1
+       7 ""      4.71  4.71     ug/mL hr     Plasma Drug X PLASMA Day 1       1
+       8 ""      0.23  0.23     ug/mL hr     Plasma Drug X PLASMA Day 1       1
+       9 ""      0.008 0.008    ug/mL hr     Plasma Drug X PLASMA Day 1       1
+      10 ""      0     BLQ      ug/mL hr     Plasma Drug Y PLASMA Day 1       1
+      11 ""     30.6   30.6     ug/mL hr     Plasma Drug Y PLASMA Day 1       1
+      12 ""     38.4   38.409   ug/mL hr     Plasma Drug Y PLASMA Day 1       1
+      13 ""     36.2   36.164   ug/mL hr     Plasma Drug Y PLASMA Day 1       1
+      14 ""     30.3   30.272   ug/mL hr     Plasma Drug Y PLASMA Day 1       1
+      15 ""     17.9   17.905   ug/mL hr     Plasma Drug Y PLASMA Day 1       1
+      16 ""      9.42  9.419    ug/mL hr     Plasma Drug Y PLASMA Day 1       1
+      17 ""      0.459 0.459    ug/mL hr     Plasma Drug Y PLASMA Day 1       1
+      18 ""      0.017 0.017    ug/mL hr     Plasma Drug Y PLASMA Day 1       1
+      19 "mL"    0     BLQ      ug/mL hr     Urine Drug X  URINE  Day 1       1
+      20 "mL"    4.71  4.71     ug/mL hr     Urine Drug X  URINE  Day 1       1
+      21 "mL"    0.23  0.23     ug/mL hr     Urine Drug X  URINE  Day 1       1
+      22 "mL"    0.008 0.008    ug/mL hr     Urine Drug X  URINE  Day 1       1
+      23 "mL"    0     BLQ      ug/mL hr     Urine Drug Y  URINE  Day 1       1
+      24 "mL"    4.71  4.71     ug/mL hr     Urine Drug Y  URINE  Day 1       1
+      25 "mL"    0.23  0.23     ug/mL hr     Urine Drug Y  URINE  Day 1       1
+      26 "mL"    0.008 0.008    ug/mL hr     Urine Drug Y  URINE  Day 1       1
+      27 ""      0     BLQ      ug/mL hr     Plasma Drug X PLASMA Day 2       2
+      28 ""      0     BLQ      ug/mL hr     Plasma Drug Y PLASMA Day 2       2
+      29 "mL"    0     BLQ      ug/mL hr     Urine Drug X  URINE  Day 2       2
+      30 "mL"    0     BLQ      ug/mL hr     Urine Drug Y  URINE  Day 2       2
+         ANL02FL
+         <chr>  
+       1 Y      
+       2 Y      
+       3 Y      
+       4 Y      
+       5 Y      
+       6 Y      
+       7 Y      
+       8 Y      
+       9 Y      
+      10 Y      
+      11 Y      
+      12 Y      
+      13 Y      
+      14 Y      
+      15 Y      
+      16 Y      
+      17 Y      
+      18 Y      
+      19 Y      
+      20 Y      
+      21 Y      
+      22 Y      
+      23 Y      
+      24 Y      
+      25 Y      
+      26 Y      
+      27 Y      
+      28 Y      
+      29 Y      
+      30 Y      
 
 ---
 
     Code
       rand_rows
     Output
-      # A tibble: 10 x 71
+      # A tibble: 10 x 72
          STUDYID USUBJID             SUBJID SITEID   AGE AGEU  SEX  
          <chr>   <chr>               <chr>  <chr>  <int> <fct> <fct>
        1 AB12345 AB12345-USA-13-id-3 id-3   USA-13    35 YEARS F    
@@ -4613,42 +4645,42 @@
        8 2022-09-21 20:25:18 COMPLETED COMPLETED 2022-09-21  1096 <NA>    NA    
        9 2023-10-27 16:16:26 COMPLETED COMPLETED 2023-10-27  1096 <NA>    NA    
       10 2022-09-21 20:25:18 COMPLETED COMPLETED 2022-09-21  1096 <NA>    NA    
-         DTHCAUS DTHCAT LDDTHELD LDDTHGR1 LSTALVDT   DTHADY ADTHAUT NRELTM1 ARELTM1
-         <fct>   <fct>     <int> <fct>    <date>      <int> <fct>     <dbl>   <dbl>
-       1 <NA>    <NA>         NA <NA>     2022-10-30     NA <NA>       24      24  
-       2 <NA>    <NA>         NA <NA>     2022-10-30     NA <NA>        4       4  
-       3 <NA>    <NA>         NA <NA>     2023-07-10     NA <NA>        8       8  
-       4 <NA>    <NA>         NA <NA>     2023-07-10     NA <NA>        4       4  
-       5 <NA>    <NA>         NA <NA>     2023-07-10     NA <NA>        4       4  
-       6 <NA>    <NA>         NA <NA>     NA             NA <NA>        3       3  
-       7 <NA>    <NA>         NA <NA>     2024-02-10     NA <NA>        0.5     0.5
-       8 <NA>    <NA>         NA <NA>     2022-10-09     NA <NA>       12      12  
-       9 <NA>    <NA>         NA <NA>     2023-11-13     NA <NA>        4       4  
-      10 <NA>    <NA>         NA <NA>     2022-10-09     NA <NA>        8       8  
-         NRELTM2 ARELTM2 PCTPTNUM PCTPT    PCVOL PCVOLU   AVAL AVALC AVALU RELTMU
-           <dbl>   <dbl>    <dbl> <fct>    <dbl> <fct>   <dbl> <chr> <fct> <fct> 
-       1     0       0       24   24H       NA   ""      0     BLQ   ug/mL hr    
-       2     4       4        4   0H - 4H  120.  "mL"    5.27  5.269 ug/mL hr    
-       3     8       8        8   4H - 8H  236.  "mL"    0.665 0.665 ug/mL hr    
-       4     4       4        4   0H - 4H   97.1 "mL"    6.11  6.106 ug/mL hr    
-       5     4       4        4   4H        NA   ""      6.11  6.106 ug/mL hr    
-       6     3       3        3   3H        NA   ""      9.11  9.113 ug/mL hr    
-       7     0.5     0.5      0.5 0.5H      NA   ""     15.3   15.3  ug/mL hr    
-       8    12      12       12   8H - 12H 528.  "mL"    0.005 0.005 ug/mL hr    
-       9     4       4        4   0H - 4H  117.  "mL"    4.37  4.371 ug/mL hr    
-      10     8       8        8   8H        NA   ""      0.151 0.151 ug/mL hr    
-         PARAM         ASMED  VISIT VISITDY
-         <fct>         <fct>  <fct>   <int>
-       1 Plasma Drug X PLASMA Day 2       2
-       2 Urine Drug X  URINE  Day 1       1
-       3 Urine Drug X  URINE  Day 1       1
-       4 Urine Drug Y  URINE  Day 1       1
-       5 Plasma Drug X PLASMA Day 1       1
-       6 Plasma Drug X PLASMA Day 1       1
-       7 Plasma Drug X PLASMA Day 1       1
-       8 Urine Drug X  URINE  Day 1       1
-       9 Urine Drug X  URINE  Day 1       1
-      10 Plasma Drug X PLASMA Day 1       1
+         DTHCAUS DTHCAT LDDTHELD LDDTHGR1 LSTALVDT   DTHADY ADTHAUT NFRLT AFRLT NRRLT
+         <fct>   <fct>     <int> <fct>    <date>      <int> <fct>   <dbl> <dbl> <dbl>
+       1 <NA>    <NA>         NA <NA>     2022-10-30     NA <NA>     24    24     0  
+       2 <NA>    <NA>         NA <NA>     2022-10-30     NA <NA>      4     4     4  
+       3 <NA>    <NA>         NA <NA>     2023-07-10     NA <NA>      8     8     8  
+       4 <NA>    <NA>         NA <NA>     2023-07-10     NA <NA>      4     4     4  
+       5 <NA>    <NA>         NA <NA>     2023-07-10     NA <NA>      4     4     4  
+       6 <NA>    <NA>         NA <NA>     NA             NA <NA>      3     3     3  
+       7 <NA>    <NA>         NA <NA>     2024-02-10     NA <NA>      0.5   0.5   0.5
+       8 <NA>    <NA>         NA <NA>     2022-10-09     NA <NA>     12    12    12  
+       9 <NA>    <NA>         NA <NA>     2023-11-13     NA <NA>      4     4     4  
+      10 <NA>    <NA>         NA <NA>     2022-10-09     NA <NA>      8     8     8  
+         ARRLT PCTPTNUM PCTPT    PCVOL PCVOLU   AVAL AVALCAT1 AVALU RELTMU
+         <dbl>    <dbl> <fct>    <dbl> <fct>   <dbl> <chr>    <fct> <fct> 
+       1   0       24   24H       NA   ""      0     BLQ      ug/mL hr    
+       2   4        4   0H - 4H  120.  "mL"    5.27  5.269    ug/mL hr    
+       3   8        8   4H - 8H  236.  "mL"    0.665 0.665    ug/mL hr    
+       4   4        4   0H - 4H   97.1 "mL"    6.11  6.106    ug/mL hr    
+       5   4        4   4H        NA   ""      6.11  6.106    ug/mL hr    
+       6   3        3   3H        NA   ""      9.11  9.113    ug/mL hr    
+       7   0.5      0.5 0.5H      NA   ""     15.3   15.3     ug/mL hr    
+       8  12       12   8H - 12H 528.  "mL"    0.005 0.005    ug/mL hr    
+       9   4        4   0H - 4H  117.  "mL"    4.37  4.371    ug/mL hr    
+      10   8        8   8H        NA   ""      0.151 0.151    ug/mL hr    
+         PARAM         ASMED  VISIT VISITDY ANL02FL
+         <fct>         <fct>  <fct>   <int> <chr>  
+       1 Plasma Drug X PLASMA Day 2       2 Y      
+       2 Urine Drug X  URINE  Day 1       1 Y      
+       3 Urine Drug X  URINE  Day 1       1 Y      
+       4 Urine Drug Y  URINE  Day 1       1 Y      
+       5 Plasma Drug X PLASMA Day 1       1 Y      
+       6 Plasma Drug X PLASMA Day 1       1 Y      
+       7 Plasma Drug X PLASMA Day 1       1 Y      
+       8 Urine Drug X  URINE  Day 1       1 Y      
+       9 Urine Drug X  URINE  Day 1       1 Y      
+      10 Plasma Drug X PLASMA Day 1       1 Y      
 
 # radab produces expected values
 
@@ -4740,62 +4772,62 @@
       24 Treatment unaffected, Neutralizing Antibody          EMERPOS2 <NA>       NA
       25 Time to onset of ADA                                 BFLAG2   <NA>       NA
       26 ADA Duration                                         TRUNAFF2 <NA>       NA
-         PARCAT1                         ADABLPFL ADPBLPFL ABLFL RELTMU NRELTM1
-         <fct>                           <fct>    <fct>    <fct> <fct>    <dbl>
-       1 A: Drug X Antibody              <NA>     <NA>     Y     day          0
-       2 A: Drug X Antibody              <NA>     <NA>     <NA>  day          1
-       3 A: Drug X Antibody              Y        <NA>     Y     day          0
-       4 A: Drug X Antibody              <NA>     Y        <NA>  day          1
-       5 A: Drug X Antibody              <NA>     <NA>     Y     day          0
-       6 A: Drug X Antibody              <NA>     <NA>     <NA>  day          1
-       7 A: Drug X Antibody              <NA>     <NA>     Y     day          0
-       8 A: Drug X Antibody              <NA>     <NA>     <NA>  day          1
-       9 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
-      10 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
-      11 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
-      12 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
-      13 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
-      14 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
-      15 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
-      16 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
-      17 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
-      18 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day         NA
-      19 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day         NA
-      20 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day         NA
-      21 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day         NA
-      22 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day         NA
-      23 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
-      24 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day         NA
-      25 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
-      26 A: Drug X Antibody              <NA>     <NA>     <NA>  day         NA
-         ARELTM1 NRELTM2 ARELTM2
-           <dbl>   <dbl>   <dbl>
-       1       0       0       0
-       2       1       0       0
-       3       0       0       0
-       4       1       0       0
-       5       0       0       0
-       6       1       0       0
-       7       0       0       0
-       8       1       0       0
-       9      NA      NA      NA
-      10      NA      NA      NA
-      11      NA      NA      NA
-      12      NA      NA      NA
-      13      NA      NA      NA
-      14      NA      NA      NA
-      15      NA      NA      NA
-      16      NA      NA      NA
-      17      NA      NA      NA
-      18      NA      NA      NA
-      19      NA      NA      NA
-      20      NA      NA      NA
-      21      NA      NA      NA
-      22      NA      NA      NA
-      23      NA      NA      NA
-      24      NA      NA      NA
-      25      NA      NA      NA
-      26      NA      NA      NA
+         PARCAT1                         ADABLPFL ADPBLPFL ABLFL RELTMU NFRLT AFRLT
+         <fct>                           <fct>    <fct>    <fct> <fct>  <dbl> <dbl>
+       1 A: Drug X Antibody              <NA>     <NA>     Y     day        0     0
+       2 A: Drug X Antibody              <NA>     <NA>     <NA>  day        1     1
+       3 A: Drug X Antibody              Y        <NA>     Y     day        0     0
+       4 A: Drug X Antibody              <NA>     Y        <NA>  day        1     1
+       5 A: Drug X Antibody              <NA>     <NA>     Y     day        0     0
+       6 A: Drug X Antibody              <NA>     <NA>     <NA>  day        1     1
+       7 A: Drug X Antibody              <NA>     <NA>     Y     day        0     0
+       8 A: Drug X Antibody              <NA>     <NA>     <NA>  day        1     1
+       9 A: Drug X Antibody              <NA>     <NA>     <NA>  day       NA    NA
+      10 A: Drug X Antibody              <NA>     <NA>     <NA>  day       NA    NA
+      11 A: Drug X Antibody              <NA>     <NA>     <NA>  day       NA    NA
+      12 A: Drug X Antibody              <NA>     <NA>     <NA>  day       NA    NA
+      13 A: Drug X Antibody              <NA>     <NA>     <NA>  day       NA    NA
+      14 A: Drug X Antibody              <NA>     <NA>     <NA>  day       NA    NA
+      15 A: Drug X Antibody              <NA>     <NA>     <NA>  day       NA    NA
+      16 A: Drug X Antibody              <NA>     <NA>     <NA>  day       NA    NA
+      17 A: Drug X Antibody              <NA>     <NA>     <NA>  day       NA    NA
+      18 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day       NA    NA
+      19 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day       NA    NA
+      20 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day       NA    NA
+      21 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day       NA    NA
+      22 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day       NA    NA
+      23 A: Drug X Antibody              <NA>     <NA>     <NA>  day       NA    NA
+      24 A: Drug X Neutralizing Antibody <NA>     <NA>     <NA>  day       NA    NA
+      25 A: Drug X Antibody              <NA>     <NA>     <NA>  day       NA    NA
+      26 A: Drug X Antibody              <NA>     <NA>     <NA>  day       NA    NA
+         NRRLT ARRLT
+         <dbl> <dbl>
+       1     0     0
+       2     0     0
+       3     0     0
+       4     0     0
+       5     0     0
+       6     0     0
+       7     0     0
+       8     0     0
+       9    NA    NA
+      10    NA    NA
+      11    NA    NA
+      12    NA    NA
+      13    NA    NA
+      14    NA    NA
+      15    NA    NA
+      16    NA    NA
+      17    NA    NA
+      18    NA    NA
+      19    NA    NA
+      20    NA    NA
+      21    NA    NA
+      22    NA    NA
+      23    NA    NA
+      24    NA    NA
+      25    NA    NA
+      26    NA    NA
 
 ---
 
@@ -4839,18 +4871,18 @@
        8 PERSADA1 <NA>       NA A: Drug X Antibody              <NA>     <NA>    
        9 EMERNEG1 <NA>       NA A: Drug X Antibody              <NA>     <NA>    
       10 ADASTAT1 <NA>       NA A: Drug X Antibody              <NA>     <NA>    
-         ABLFL RELTMU NRELTM1 ARELTM1 NRELTM2 ARELTM2
-         <fct> <fct>    <dbl>   <dbl>   <dbl>   <dbl>
-       1 <NA>  day         NA      NA      NA      NA
-       2 <NA>  day          1       1       0       0
-       3 <NA>  day         NA      NA      NA      NA
-       4 <NA>  day          1       1       0       0
-       5 <NA>  day         NA      NA      NA      NA
-       6 Y     day          0       0       0       0
-       7 <NA>  day         NA      NA      NA      NA
-       8 <NA>  day         NA      NA      NA      NA
-       9 <NA>  day         NA      NA      NA      NA
-      10 <NA>  day         NA      NA      NA      NA
+         ABLFL RELTMU NFRLT AFRLT NRRLT ARRLT
+         <fct> <fct>  <dbl> <dbl> <dbl> <dbl>
+       1 <NA>  day       NA    NA    NA    NA
+       2 <NA>  day        1     1     0     0
+       3 <NA>  day       NA    NA    NA    NA
+       4 <NA>  day        1     1     0     0
+       5 <NA>  day       NA    NA    NA    NA
+       6 Y     day        0     0     0     0
+       7 <NA>  day       NA    NA    NA    NA
+       8 <NA>  day       NA    NA    NA    NA
+       9 <NA>  day       NA    NA    NA    NA
+      10 <NA>  day       NA    NA    NA    NA
 
 # radpp produces expected values
 
@@ -9207,14 +9239,14 @@
       8 Overall Response by Investigator - by visit     OVRINV      3 SD   
         ADTM                  ADY AVISIT           AVISITN
         <dttm>              <int> <fct>              <int>
-      1 2021-10-12 20:00:00   269 CYCLE 2 DAY 1          2
-      2 2021-11-10 19:00:00   298 END OF INDUCTION     999
-      3 2020-10-08 20:00:00  -100 SCREENING             -1
-      4 2021-01-16 19:00:00     0 BASELINE               0
-      5 2021-10-12 20:00:00   269 CYCLE 2 DAY 1          2
-      6 2021-12-11 19:00:00   329 CYCLE 4 DAY 1          4
-      7 2021-11-10 19:00:00   298 END OF INDUCTION     999
-      8 2022-05-01 20:00:00   470 FOLLOW UP            999
+      1 2021-10-13 00:00:00   269 CYCLE 2 DAY 1          2
+      2 2021-11-11 00:00:00   298 END OF INDUCTION     999
+      3 2020-10-09 00:00:00  -100 SCREENING             -1
+      4 2021-01-17 00:00:00     0 BASELINE               0
+      5 2021-10-13 00:00:00   269 CYCLE 2 DAY 1          2
+      6 2021-12-12 00:00:00   329 CYCLE 4 DAY 1          4
+      7 2021-11-11 00:00:00   298 END OF INDUCTION     999
+      8 2022-05-02 00:00:00   470 FOLLOW UP            999
 
 ---
 
@@ -9368,16 +9400,16 @@
       10 Overall Response by Investigator - by visit     OVRINV      3 SD   
          ADTM                  ADY AVISIT           AVISITN
          <dttm>              <int> <fct>              <int>
-       1 2021-04-27 20:00:00   361 CYCLE 2 DAY 1          2
-       2 2021-06-20 20:00:00   613 CYCLE 2 DAY 1          2
-       3 2021-07-08 20:00:00   377 END OF INDUCTION     999
-       4 2021-12-31 19:00:00   491 END OF INDUCTION     999
-       5 2020-08-27 20:00:00     0 BASELINE               0
-       6 2019-06-13 20:00:00  -100 SCREENING             -1
-       7 2021-08-31 20:00:00   888 END OF INDUCTION     999
-       8 2020-12-14 19:00:00   329 END OF INDUCTION     999
-       9 2021-10-12 20:00:00   269 CYCLE 2 DAY 1          2
-      10 2020-03-18 20:00:00  -100 SCREENING             -1
+       1 2021-04-28 00:00:00   361 CYCLE 2 DAY 1          2
+       2 2021-06-21 00:00:00   613 CYCLE 2 DAY 1          2
+       3 2021-07-09 00:00:00   377 END OF INDUCTION     999
+       4 2022-01-01 00:00:00   491 END OF INDUCTION     999
+       5 2020-08-28 00:00:00     0 BASELINE               0
+       6 2019-06-14 00:00:00  -100 SCREENING             -1
+       7 2021-09-01 00:00:00   888 END OF INDUCTION     999
+       8 2020-12-15 00:00:00   329 END OF INDUCTION     999
+       9 2021-10-13 00:00:00   269 CYCLE 2 DAY 1          2
+      10 2020-03-19 00:00:00  -100 SCREENING             -1
 
 # radsaftte produces expected values
 
@@ -9782,11 +9814,11 @@
       5 2024-02-10     NA <NA>    Baseline Biomarker Mutation BBMRKR1   1   WILD TYPE
         AVALU   AVALCAT1 ADTM                AVISIT   AVISITN SRCSEQ
         <fct>   <chr>    <dttm>              <fct>      <int>  <int>
-      1 "kg"    ""       2021-01-07 19:00:00 BASELINE       0      1
-      2 "m"     ""       2021-01-07 19:00:00 BASELINE       0      1
-      3 "kg/m2" ">30"    2021-01-07 19:00:00 BASELINE       0      1
-      4 ""      "4-5"    2021-01-07 19:00:00 BASELINE       0      1
-      5 ""      ""       2021-01-07 19:00:00 BASELINE       0      1
+      1 "kg"    ""       2021-01-08 00:00:00 BASELINE       0      1
+      2 "m"     ""       2021-01-08 00:00:00 BASELINE       0      1
+      3 "kg/m2" ">30"    2021-01-08 00:00:00 BASELINE       0      1
+      4 ""      "4-5"    2021-01-08 00:00:00 BASELINE       0      1
+      5 ""      ""       2021-01-08 00:00:00 BASELINE       0      1
 
 ---
 
@@ -9928,16 +9960,16 @@
       10 Baseline ECOG               BECOG     0   0         ""      "0-1"   
          ADTM                AVISIT   AVISITN SRCSEQ
          <dttm>              <fct>      <int>  <int>
-       1 2019-09-19 20:00:00 BASELINE       0      1
-       2 2020-10-24 20:00:00 BASELINE       0      1
-       3 2019-03-25 20:00:00 BASELINE       0      1
-       4 2019-09-19 20:00:00 BASELINE       0      1
-       5 2020-08-24 20:00:00 BASELINE       0      1
-       6 2020-02-24 19:00:00 BASELINE       0      1
-       7 2020-01-16 19:00:00 BASELINE       0      1
-       8 2020-08-24 20:00:00 BASELINE       0      1
-       9 2019-03-25 20:00:00 BASELINE       0      1
-      10 2020-02-24 19:00:00 BASELINE       0      1
+       1 2019-09-20 00:00:00 BASELINE       0      1
+       2 2020-10-25 00:00:00 BASELINE       0      1
+       3 2019-03-26 00:00:00 BASELINE       0      1
+       4 2019-09-20 00:00:00 BASELINE       0      1
+       5 2020-08-25 00:00:00 BASELINE       0      1
+       6 2020-02-25 00:00:00 BASELINE       0      1
+       7 2020-01-17 00:00:00 BASELINE       0      1
+       8 2020-08-25 00:00:00 BASELINE       0      1
+       9 2019-03-26 00:00:00 BASELINE       0      1
+      10 2020-02-25 00:00:00 BASELINE       0      1
 
 # radtr produces expected values
 
@@ -10032,22 +10064,22 @@
       5 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 2 DAY 1       2
       6 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 4 DAY 1       4
       7 Sum of Longest Diameter by Investigator  SLDINV      END OF INDUCTION     999
-                       ADTM  ADY   DTYPE     AVAL            AVALC AVALU    BASE
-      1 2022-05-01 20:00:00  470         145.9484 145.948361883575    mm 209.412
-      2 2021-12-11 19:00:00  329 MINIMUM 118.6760 118.675961210504    mm 209.412
-      3 2020-10-08 20:00:00 -100         192.9907 192.990711051031    mm 209.412
-      4 2021-01-16 19:00:00    0               NA             <NA>    mm 209.412
-      5 2021-10-12 20:00:00  269         138.9834 138.983355706005    mm 209.412
-      6 2021-12-11 19:00:00  329         118.6760 118.675961210504    mm 209.412
-      7 2021-11-10 19:00:00  298         167.0916 167.091588823272    mm 209.412
-        ABLFL       CHG      PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
-      1       -63.46364 -30.30563               Y       Y        
-      2       -90.73604 -43.32896       Y                       Y
-      3              NA        NA                                
-      4     Y        NA        NA                       Y       Y
-      5       -70.42864 -33.63162       Y       Y                
-      6       -90.73604 -43.32896       Y       Y                
-      7       -42.32041 -20.20916       Y       Y                
+              ADTM  ADY   DTYPE     AVAL            AVALC AVALU    BASE ABLFL
+      1 2022-05-02  470         145.9484 145.948361883575    mm 209.412      
+      2 2021-12-12  329 MINIMUM 118.6760 118.675961210504    mm 209.412      
+      3 2020-10-09 -100         192.9907 192.990711051031    mm 209.412      
+      4 2021-01-17    0               NA             <NA>    mm 209.412     Y
+      5 2021-10-13  269         138.9834 138.983355706005    mm 209.412      
+      6 2021-12-12  329         118.6760 118.675961210504    mm 209.412      
+      7 2021-11-11  298         167.0916 167.091588823272    mm 209.412      
+              CHG      PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
+      1 -63.46364 -30.30563               Y       Y        
+      2 -90.73604 -43.32896       Y                       Y
+      3        NA        NA                                
+      4        NA        NA                       Y       Y
+      5 -70.42864 -33.63162       Y       Y                
+      6 -90.73604 -43.32896       Y       Y                
+      7 -42.32041 -20.20916       Y       Y                
 
 ---
 
@@ -10186,28 +10218,28 @@
       2  Sum of Longest Diameter by Investigator  SLDINV POST-BASELINE MINIMUM
       1  Sum of Longest Diameter by Investigator  SLDINV             FOLLOW UP
       3  Sum of Longest Diameter by Investigator  SLDINV             SCREENING
-         AVISITN                ADTM  ADY   DTYPE     AVAL            AVALC AVALU
-      32     999 2021-08-31 20:00:00  888         104.2930 104.292995987107    mm
-      39       0 2020-06-26 20:00:00    0               NA             <NA>    mm
-      37     999 2021-07-08 20:00:00  377         158.0130 158.012963723167    mm
-      12       0 2020-01-20 19:00:00    0               NA             <NA>    mm
-      14      -1 2019-10-12 20:00:00 -100         222.0485 222.048532815143    mm
-      16     999 2021-02-14 19:00:00  289 MINIMUM 128.7016 128.701607072346    mm
-      15       4 2021-06-26 20:00:00  421         215.1784 215.178350110865    mm
-      2        4 2021-12-11 19:00:00  329 MINIMUM 118.6760 118.675961210504    mm
-      1      999 2022-05-01 20:00:00  470         145.9484 145.948361883575    mm
-      3       -1 2020-10-08 20:00:00 -100         192.9907 192.990711051031    mm
-             BASE ABLFL        CHG       PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
-      32 132.3144       -28.021376 -21.177878       Y       Y       Y        
-      39 159.9885     Y         NA         NA                       Y       Y
-      37 159.9885        -1.975547  -1.234806       Y       Y       Y        
-      12 148.8228     Y         NA         NA                       Y       Y
-      14 148.8228               NA         NA                                
-      16 193.9666       -65.265039 -33.647558       Y                       Y
-      15 193.9666        21.211704  10.935748       Y       Y       Y        
-      2  209.4120       -90.736036 -43.328958       Y                       Y
-      1  209.4120       -63.463635 -30.305635               Y       Y        
-      3  209.4120               NA         NA                                
+         AVISITN       ADTM  ADY   DTYPE     AVAL            AVALC AVALU     BASE
+      32     999 2021-09-01  888         104.2930 104.292995987107    mm 132.3144
+      39       0 2020-06-27    0               NA             <NA>    mm 159.9885
+      37     999 2021-07-09  377         158.0130 158.012963723167    mm 159.9885
+      12       0 2020-01-21    0               NA             <NA>    mm 148.8228
+      14      -1 2019-10-13 -100         222.0485 222.048532815143    mm 148.8228
+      16     999 2021-02-15  289 MINIMUM 128.7016 128.701607072346    mm 193.9666
+      15       4 2021-06-27  421         215.1784 215.178350110865    mm 193.9666
+      2        4 2021-12-12  329 MINIMUM 118.6760 118.675961210504    mm 209.4120
+      1      999 2022-05-02  470         145.9484 145.948361883575    mm 209.4120
+      3       -1 2020-10-09 -100         192.9907 192.990711051031    mm 209.4120
+         ABLFL        CHG       PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
+      32       -28.021376 -21.177878       Y       Y       Y        
+      39     Y         NA         NA                       Y       Y
+      37        -1.975547  -1.234806       Y       Y       Y        
+      12     Y         NA         NA                       Y       Y
+      14               NA         NA                                
+      16       -65.265039 -33.647558       Y                       Y
+      15        21.211704  10.935748       Y       Y       Y        
+      2        -90.736036 -43.328958       Y                       Y
+      1        -63.463635 -30.305635               Y       Y        
+      3                NA         NA                                
 
 # radtte produces expected values
 

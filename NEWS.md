@@ -1,6 +1,8 @@
 # random.cdisc.data 0.3.13.9062
 
 ### Enhancements
+* Refactor `adpc` and `adab` following the new CDISC standard.
+
 * Refactor `abab` parameters and visits to align with `adpc`.
 
 ### Breaking changes

@@ -29,5 +29,6 @@ utils::globalVariables(c(
   "VSSTRESC", "WEIGHT", "WORS01FL", "ada_bl", "any_pos_postbl", "any_pos_postbl_nab",
   "changeind", "comp_count", "first_date", "inc_postbl", "inc_postbl_nab", "ka", "ke",
   "last_ada", "n_pos", "nab_bl", "onset_ada", "pos_bl", "pos_bl_nab", "pos_last_postbl",
-  "publication_name", "row_check"
+  "publication_name", "row_check", "AFRLT", "ARRLT", "NFRLT", "NRRLT",
+  "eortc_qlq_c30", "expect", "gdsr_param_adqlqc"
 ))
