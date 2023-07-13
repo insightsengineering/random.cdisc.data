@@ -5171,6 +5171,3342 @@
       218 17.516212762    17.5162127621668       %     BID  Drug D
       553  0.052351750  0.0523517502481331    L/hr     BID  Drug I
 
+# radqlqc produces expected values
+
+    Code
+      first_pt_rows
+    Output
+      # A tibble: 288 x 50
+          STUDYID USUBJID            SUBJID SITEID   AGE AGEU  SEX  
+          <chr>   <chr>              <chr>  <chr>  <int> <fct> <fct>
+        1 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+        2 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+        3 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+        4 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+        5 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+        6 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+        7 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+        8 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+        9 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       10 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       11 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       12 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       13 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       14 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       15 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       16 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       17 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       18 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       19 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       20 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       21 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       22 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       23 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       24 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       25 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       26 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       27 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       28 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       29 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       30 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       31 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       32 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       33 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       34 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       35 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       36 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       37 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       38 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       39 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       40 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       41 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       42 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       43 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       44 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       45 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       46 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       47 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       48 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       49 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       50 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       51 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       52 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       53 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       54 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       55 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       56 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       57 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       58 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       59 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       60 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       61 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       62 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       63 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       64 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       65 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       66 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       67 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       68 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       69 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       70 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       71 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       72 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       73 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       74 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       75 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       76 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       77 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       78 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       79 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       80 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       81 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       82 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       83 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       84 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       85 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       86 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       87 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       88 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       89 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       90 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       91 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       92 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       93 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       94 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       95 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       96 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       97 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       98 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+       99 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      100 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      101 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      102 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      103 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      104 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      105 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      106 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      107 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      108 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      109 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      110 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      111 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      112 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      113 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      114 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      115 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      116 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      117 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      118 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      119 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      120 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      121 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      122 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      123 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      124 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      125 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      126 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      127 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      128 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      129 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      130 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      131 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      132 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      133 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      134 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      135 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      136 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      137 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      138 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      139 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      140 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      141 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      142 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      143 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      144 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      145 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      146 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      147 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      148 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      149 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      150 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      151 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      152 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      153 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      154 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      155 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      156 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      157 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      158 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      159 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      160 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      161 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      162 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      163 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      164 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      165 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      166 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      167 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      168 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      169 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      170 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      171 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      172 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      173 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      174 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      175 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      176 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      177 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      178 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      179 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      180 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      181 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      182 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      183 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      184 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      185 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      186 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      187 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      188 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      189 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      190 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      191 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      192 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      193 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      194 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      195 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      196 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      197 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      198 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      199 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      200 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      201 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      202 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      203 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      204 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      205 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      206 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      207 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      208 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      209 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      210 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      211 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      212 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      213 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      214 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      215 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      216 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      217 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      218 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      219 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      220 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      221 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      222 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      223 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      224 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      225 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      226 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      227 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      228 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      229 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      230 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      231 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      232 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      233 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      234 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      235 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      236 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      237 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      238 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      239 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      240 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      241 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      242 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      243 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      244 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      245 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      246 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      247 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      248 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      249 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      250 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      251 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      252 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      253 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      254 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      255 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      256 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      257 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      258 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      259 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      260 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      261 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      262 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      263 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      264 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      265 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      266 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      267 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      268 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      269 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      270 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      271 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      272 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      273 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      274 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      275 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      276 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      277 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      278 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      279 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      280 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      281 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      282 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      283 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      284 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      285 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      286 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      287 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+      288 AB12345 AB12345-BRA-1-id-9 id-9   BRA-1     35 YEARS F    
+          RACE                      ETHNIC  COUNTRY TRT01P         TRT01A        
+          <fct>                     <fct>   <fct>   <fct>          <fct>         
+        1 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+        2 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+        3 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+        4 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+        5 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+        6 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+        7 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+        8 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+        9 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       10 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       11 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       12 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       13 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       14 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       15 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       16 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       17 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       18 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       19 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       20 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       21 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       22 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       23 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       24 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       25 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       26 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       27 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       28 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       29 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       30 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       31 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       32 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       33 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       34 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       35 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       36 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       37 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       38 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       39 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       40 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       41 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       42 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       43 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       44 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       45 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       46 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       47 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       48 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       49 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       50 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       51 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       52 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       53 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       54 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       55 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       56 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       57 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       58 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       59 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       60 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       61 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       62 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       63 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       64 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       65 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       66 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       67 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       68 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       69 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       70 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       71 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       72 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       73 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       74 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       75 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       76 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       77 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       78 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       79 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       80 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       81 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       82 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       83 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       84 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       85 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       86 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       87 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       88 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       89 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       90 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       91 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       92 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       93 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       94 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       95 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       96 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       97 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       98 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+       99 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      100 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      101 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      102 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      103 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      104 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      105 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      106 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      107 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      108 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      109 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      110 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      111 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      112 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      113 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      114 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      115 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      116 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      117 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      118 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      119 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      120 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      121 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      122 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      123 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      124 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      125 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      126 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      127 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      128 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      129 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      130 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      131 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      132 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      133 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      134 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      135 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      136 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      137 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      138 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      139 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      140 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      141 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      142 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      143 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      144 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      145 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      146 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      147 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      148 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      149 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      150 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      151 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      152 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      153 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      154 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      155 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      156 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      157 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      158 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      159 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      160 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      161 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      162 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      163 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      164 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      165 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      166 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      167 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      168 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      169 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      170 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      171 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      172 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      173 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      174 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      175 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      176 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      177 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      178 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      179 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      180 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      181 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      182 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      183 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      184 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      185 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      186 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      187 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      188 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      189 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      190 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      191 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      192 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      193 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      194 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      195 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      196 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      197 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      198 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      199 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      200 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      201 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      202 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      203 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      204 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      205 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      206 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      207 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      208 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      209 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      210 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      211 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      212 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      213 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      214 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      215 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      216 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      217 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      218 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      219 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      220 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      221 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      222 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      223 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      224 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      225 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      226 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      227 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      228 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      229 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      230 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      231 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      232 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      233 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      234 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      235 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      236 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      237 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      238 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      239 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      240 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      241 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      242 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      243 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      244 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      245 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      246 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      247 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      248 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      249 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      250 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      251 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      252 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      253 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      254 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      255 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      256 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      257 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      258 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      259 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      260 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      261 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      262 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      263 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      264 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      265 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      266 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      267 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      268 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      269 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      270 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      271 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      272 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      273 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      274 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      275 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      276 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      277 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      278 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      279 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      280 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      281 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      282 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      283 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      284 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      285 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      286 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      287 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+      288 BLACK OR AFRICAN AMERICAN UNKNOWN BRA     C: Combination C: Combination
+          REGION1       ITTFL SAFFL TRTSDTM             TRTEDTM             QSSEQ
+          <fct>         <fct> <fct> <dttm>              <dttm>              <int>
+        1 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53     1
+        2 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53     2
+        3 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53     3
+        4 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53     4
+        5 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53     5
+        6 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53     6
+        7 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53     7
+        8 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53     8
+        9 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53     9
+       10 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    10
+       11 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    11
+       12 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    12
+       13 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    13
+       14 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    14
+       15 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    15
+       16 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    16
+       17 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    17
+       18 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    18
+       19 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    19
+       20 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    20
+       21 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    21
+       22 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    22
+       23 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    23
+       24 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    24
+       25 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    25
+       26 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    26
+       27 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    27
+       28 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    28
+       29 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    29
+       30 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    30
+       31 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       32 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       33 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       34 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       35 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       36 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       37 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       38 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       39 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       40 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       41 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       42 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       43 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       44 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       45 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       46 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       47 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    31
+       48 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    32
+       49 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    33
+       50 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    34
+       51 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    35
+       52 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    36
+       53 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    37
+       54 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    38
+       55 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    39
+       56 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    40
+       57 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    41
+       58 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    42
+       59 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    43
+       60 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    44
+       61 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    45
+       62 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    46
+       63 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    47
+       64 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    48
+       65 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    49
+       66 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    50
+       67 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    51
+       68 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    52
+       69 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    53
+       70 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    54
+       71 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    55
+       72 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    56
+       73 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    57
+       74 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    58
+       75 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    59
+       76 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    60
+       77 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       78 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       79 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       80 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       81 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       82 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       83 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       84 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       85 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       86 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       87 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       88 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       89 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       90 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       91 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       92 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+       93 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    61
+       94 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    62
+       95 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    63
+       96 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    64
+       97 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    65
+       98 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    66
+       99 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    67
+      100 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    68
+      101 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    69
+      102 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    70
+      103 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    71
+      104 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    72
+      105 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    73
+      106 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    74
+      107 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    75
+      108 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    76
+      109 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    77
+      110 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    78
+      111 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    79
+      112 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    80
+      113 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    81
+      114 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    82
+      115 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    83
+      116 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    84
+      117 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    85
+      118 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    86
+      119 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    87
+      120 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    88
+      121 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    89
+      122 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    90
+      123 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      124 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      125 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      126 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      127 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      128 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      129 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      130 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      131 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      132 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      133 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      134 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      135 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      136 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      137 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      138 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      139 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      140 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      141 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      142 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    91
+      143 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    92
+      144 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    93
+      145 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    94
+      146 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    95
+      147 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    96
+      148 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    97
+      149 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    98
+      150 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    99
+      151 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   100
+      152 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   101
+      153 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   102
+      154 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   103
+      155 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   104
+      156 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   105
+      157 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   106
+      158 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   107
+      159 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   108
+      160 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   109
+      161 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   110
+      162 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   111
+      163 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   112
+      164 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   113
+      165 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   114
+      166 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   115
+      167 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   116
+      168 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   117
+      169 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   118
+      170 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   119
+      171 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   120
+      172 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      173 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      174 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      175 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      176 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      177 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      178 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      179 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      180 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      181 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      182 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      183 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      184 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      185 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      186 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      187 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      188 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      189 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      190 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      191 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   121
+      192 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   122
+      193 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   123
+      194 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   124
+      195 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   125
+      196 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   126
+      197 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   127
+      198 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   128
+      199 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   129
+      200 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   130
+      201 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   131
+      202 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   132
+      203 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   133
+      204 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   134
+      205 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   135
+      206 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   136
+      207 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   137
+      208 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   138
+      209 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   139
+      210 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   140
+      211 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   141
+      212 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   142
+      213 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   143
+      214 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   144
+      215 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   145
+      216 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   146
+      217 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   147
+      218 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   148
+      219 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   149
+      220 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   150
+      221 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      222 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      223 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      224 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      225 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      226 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      227 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      228 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      229 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      230 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      231 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      232 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      233 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      234 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      235 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      236 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      237 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      238 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      239 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      240 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   151
+      241 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   152
+      242 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   153
+      243 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   154
+      244 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   155
+      245 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   156
+      246 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   157
+      247 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   158
+      248 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   159
+      249 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   160
+      250 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   161
+      251 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   162
+      252 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   163
+      253 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   164
+      254 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   165
+      255 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   166
+      256 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   167
+      257 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   168
+      258 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   169
+      259 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   170
+      260 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   171
+      261 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   172
+      262 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   173
+      263 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   174
+      264 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   175
+      265 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   176
+      266 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   177
+      267 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   178
+      268 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   179
+      269 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53   180
+      270 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      271 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      272 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      273 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      274 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      275 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      276 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      277 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      278 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      279 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      280 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      281 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      282 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      283 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      284 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      285 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      286 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      287 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+      288 South America Y     Y     2021-01-17 22:43:53 2024-01-18 16:43:53    NA
+          QSCAT              QSSCAT QSDTC               QSSTAT   QSSTRESC QSSTRESU
+          <fct>              <fct>  <dttm>              <fct>    <fct>    <fct>   
+        1 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     1        <NA>    
+        2 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     3        <NA>    
+        3 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     1        <NA>    
+        4 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 NOT DONE <NA>     <NA>    
+        5 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     1        <NA>    
+        6 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     2        <NA>    
+        7 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     4        <NA>    
+        8 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     3        <NA>    
+        9 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     1        <NA>    
+       10 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 NOT DONE <NA>     <NA>    
+       11 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     3        <NA>    
+       12 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     2        <NA>    
+       13 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     1        <NA>    
+       14 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     3        <NA>    
+       15 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     1        <NA>    
+       16 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     1        <NA>    
+       17 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     1        <NA>    
+       18 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     4        <NA>    
+       19 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     1        <NA>    
+       20 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     2        <NA>    
+       21 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     2        <NA>    
+       22 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 NOT DONE <NA>     <NA>    
+       23 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     2        <NA>    
+       24 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     4        <NA>    
+       25 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     1        <NA>    
+       26 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     2        <NA>    
+       27 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     2        <NA>    
+       28 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     1        <NA>    
+       29 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     7        <NA>    
+       30 EORTC QLQ-C30 V3.0 <NA>   2021-01-13 22:43:53 <NA>     1        <NA>    
+       31 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       32 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       33 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       34 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       35 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       36 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       37 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       38 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       39 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       40 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       41 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       42 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       43 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       44 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       45 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       46 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+       47 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     4        <NA>    
+       48 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     3        <NA>    
+       49 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     1        <NA>    
+       50 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     3        <NA>    
+       51 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     1        <NA>    
+       52 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     2        <NA>    
+       53 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     3        <NA>    
+       54 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     4        <NA>    
+       55 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     3        <NA>    
+       56 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 NOT DONE <NA>     <NA>    
+       57 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 NOT DONE <NA>     <NA>    
+       58 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     1        <NA>    
+       59 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     3        <NA>    
+       60 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     4        <NA>    
+       61 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     4        <NA>    
+       62 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     3        <NA>    
+       63 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     4        <NA>    
+       64 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     1        <NA>    
+       65 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 NOT DONE <NA>     <NA>    
+       66 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     2        <NA>    
+       67 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     4        <NA>    
+       68 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     2        <NA>    
+       69 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     3        <NA>    
+       70 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     1        <NA>    
+       71 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     4        <NA>    
+       72 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     3        <NA>    
+       73 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 NOT DONE <NA>     <NA>    
+       74 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     2        <NA>    
+       75 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 <NA>     6        <NA>    
+       76 EORTC QLQ-C30 V3.0 <NA>   2021-01-17 22:43:53 NOT DONE <NA>     <NA>    
+       77 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       78 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       79 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       80 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       81 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       82 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       83 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       84 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       85 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       86 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       87 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       88 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       89 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       90 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       91 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+       92 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+       93 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 NOT DONE <NA>     <NA>    
+       94 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 NOT DONE <NA>     <NA>    
+       95 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     1        <NA>    
+       96 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     1        <NA>    
+       97 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     2        <NA>    
+       98 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 NOT DONE <NA>     <NA>    
+       99 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     2        <NA>    
+      100 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     4        <NA>    
+      101 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     2        <NA>    
+      102 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     4        <NA>    
+      103 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 NOT DONE <NA>     <NA>    
+      104 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     2        <NA>    
+      105 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     3        <NA>    
+      106 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     2        <NA>    
+      107 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     1        <NA>    
+      108 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     2        <NA>    
+      109 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     2        <NA>    
+      110 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     1        <NA>    
+      111 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 NOT DONE <NA>     <NA>    
+      112 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     4        <NA>    
+      113 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     3        <NA>    
+      114 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     2        <NA>    
+      115 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 NOT DONE <NA>     <NA>    
+      116 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     4        <NA>    
+      117 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     2        <NA>    
+      118 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     3        <NA>    
+      119 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     4        <NA>    
+      120 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     1        <NA>    
+      121 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 <NA>     3        <NA>    
+      122 EORTC QLQ-C30 V3.0 <NA>   2021-01-18 22:43:53 NOT DONE <NA>     <NA>    
+      123 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      124 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      125 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      126 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      127 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      128 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      129 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      130 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      131 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      132 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      133 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      134 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      135 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      136 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      137 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      138 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+      139 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+      140 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+      141 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+      142 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     1        <NA>    
+      143 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     2        <NA>    
+      144 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 NOT DONE <NA>     <NA>    
+      145 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     3        <NA>    
+      146 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     1        <NA>    
+      147 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 NOT DONE <NA>     <NA>    
+      148 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     2        <NA>    
+      149 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 NOT DONE <NA>     <NA>    
+      150 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     1        <NA>    
+      151 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     2        <NA>    
+      152 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 NOT DONE <NA>     <NA>    
+      153 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     2        <NA>    
+      154 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 NOT DONE <NA>     <NA>    
+      155 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     4        <NA>    
+      156 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     4        <NA>    
+      157 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     4        <NA>    
+      158 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     1        <NA>    
+      159 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 NOT DONE <NA>     <NA>    
+      160 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     3        <NA>    
+      161 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     3        <NA>    
+      162 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 NOT DONE <NA>     <NA>    
+      163 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     1        <NA>    
+      164 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     1        <NA>    
+      165 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     3        <NA>    
+      166 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 NOT DONE <NA>     <NA>    
+      167 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     1        <NA>    
+      168 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 NOT DONE <NA>     <NA>    
+      169 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     3        <NA>    
+      170 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     3        <NA>    
+      171 EORTC QLQ-C30 V3.0 <NA>   2021-02-15 22:43:53 <NA>     6        <NA>    
+      172 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      173 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      174 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      175 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      176 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      177 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      178 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      179 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      180 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      181 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      182 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      183 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      184 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      185 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      186 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      187 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+      188 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+      189 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+      190 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+      191 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     2        <NA>    
+      192 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 NOT DONE <NA>     <NA>    
+      193 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 NOT DONE <NA>     <NA>    
+      194 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     1        <NA>    
+      195 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     1        <NA>    
+      196 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     3        <NA>    
+      197 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     2        <NA>    
+      198 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     2        <NA>    
+      199 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     4        <NA>    
+      200 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     2        <NA>    
+      201 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 NOT DONE <NA>     <NA>    
+      202 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     2        <NA>    
+      203 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 NOT DONE <NA>     <NA>    
+      204 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     3        <NA>    
+      205 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     1        <NA>    
+      206 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 NOT DONE <NA>     <NA>    
+      207 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     4        <NA>    
+      208 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     3        <NA>    
+      209 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     3        <NA>    
+      210 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     4        <NA>    
+      211 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     4        <NA>    
+      212 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     3        <NA>    
+      213 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     4        <NA>    
+      214 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     3        <NA>    
+      215 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 NOT DONE <NA>     <NA>    
+      216 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     1        <NA>    
+      217 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     1        <NA>    
+      218 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     2        <NA>    
+      219 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 NOT DONE <NA>     <NA>    
+      220 EORTC QLQ-C30 V3.0 <NA>   2021-03-15 22:43:53 <NA>     1        <NA>    
+      221 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      222 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      223 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      224 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      225 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      226 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      227 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      228 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      229 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      230 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      231 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      232 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      233 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      234 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      235 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      236 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+      237 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+      238 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+      239 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+      240 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     1        <NA>    
+      241 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     3        <NA>    
+      242 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 NOT DONE <NA>     <NA>    
+      243 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     1        <NA>    
+      244 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 NOT DONE <NA>     <NA>    
+      245 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     1        <NA>    
+      246 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     2        <NA>    
+      247 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     4        <NA>    
+      248 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     4        <NA>    
+      249 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     3        <NA>    
+      250 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     2        <NA>    
+      251 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     2        <NA>    
+      252 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     3        <NA>    
+      253 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     3        <NA>    
+      254 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     4        <NA>    
+      255 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     1        <NA>    
+      256 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     4        <NA>    
+      257 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     2        <NA>    
+      258 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 NOT DONE <NA>     <NA>    
+      259 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     2        <NA>    
+      260 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     3        <NA>    
+      261 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     3        <NA>    
+      262 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     2        <NA>    
+      263 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     4        <NA>    
+      264 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 NOT DONE <NA>     <NA>    
+      265 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     2        <NA>    
+      266 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     1        <NA>    
+      267 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     3        <NA>    
+      268 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     1        <NA>    
+      269 EORTC QLQ-C30 V3.0 <NA>   2021-04-12 22:43:53 <NA>     2        <NA>    
+      270 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      271 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      272 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      273 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      274 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      275 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      276 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      277 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      278 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      279 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      280 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      281 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      282 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      283 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      284 EORTC QLQ-C30 V3.0 <NA>   NA                  <NA>     <NA>     <NA>    
+      285 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+      286 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+      287 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+      288 <NA>               <NA>   NA                  <NA>     <NA>     <NA>    
+          QSORRES       QSORRESU QSTEST                                   QSTESTCD
+          <fct>         <fct>    <fct>                                    <fct>   
+        1 NOT AT ALL    <NA>     EOR01-Trouble Doing Strenuous Activities EOR0101 
+        2 QUITE A BIT   <NA>     EOR01-Trouble Taking Long Walk           EOR0102 
+        3 NOT AT ALL    <NA>     EOR01-Trouble Taking Short Walk Outside  EOR0103 
+        4 <NA>          <NA>     EOR01-Stay in Bed/Chair During the Day   EOR0104 
+        5 NOT AT ALL    <NA>     EOR01-Need Help Eating/Dressing/Washing  EOR0105 
+        6 A LITTLE      <NA>     EOR01-Limited in Work/Daily Activities   EOR0106 
+        7 VERY MUCH     <NA>     EOR01-Limited Hobbies/Leisure Activities EOR0107 
+        8 QUITE A BIT   <NA>     EOR01-Were You Short of Breath           EOR0108 
+        9 NOT AT ALL    <NA>     EOR01-Have You Had Pain                  EOR0109 
+       10 <NA>          <NA>     EOR01-Did You Need to Rest               EOR0110 
+       11 QUITE A BIT   <NA>     EOR01-Have You Had Trouble Sleeping      EOR0111 
+       12 A LITTLE      <NA>     EOR01-Have You Felt Weak                 EOR0112 
+       13 NOT AT ALL    <NA>     EOR01-Have You Lacked Appetite           EOR0113 
+       14 QUITE A BIT   <NA>     EOR01-Have You Felt Nauseated            EOR0114 
+       15 NOT AT ALL    <NA>     EOR01-Have You Vomited                   EOR0115 
+       16 NOT AT ALL    <NA>     EOR01-Have You Been Constipated          EOR0116 
+       17 NOT AT ALL    <NA>     EOR01-Have You Had Diarrhea              EOR0117 
+       18 VERY MUCH     <NA>     EOR01-Were You Tired                     EOR0118 
+       19 NOT AT ALL    <NA>     EOR01-Pain Interfere Daily Activities    EOR0119 
+       20 A LITTLE      <NA>     EOR01-Difficulty Concentrating on Things EOR0120 
+       21 A LITTLE      <NA>     EOR01-Did You Feel Tense                 EOR0121 
+       22 <NA>          <NA>     EOR01-Did You Worry                      EOR0122 
+       23 A LITTLE      <NA>     EOR01-Did You Feel Irritable             EOR0123 
+       24 VERY MUCH     <NA>     EOR01-Did You Feel Depressed             EOR0124 
+       25 NOT AT ALL    <NA>     EOR01-Had Difficulty Remembering Things  EOR0125 
+       26 A LITTLE      <NA>     EOR01-Condition Interfered Family Life   EOR0126 
+       27 A LITTLE      <NA>     EOR01-Condition Interfered Social Activ  EOR0127 
+       28 NOT AT ALL    <NA>     EOR01-Condition Caused Financial Diff    EOR0128 
+       29 7 - EXCELLENT <NA>     EOR01-Rate Your Overall Health           EOR0129 
+       30 1 - VERY POOR <NA>     EOR01-Rate Your Overall Quality of Life  EOR0130 
+       31 <NA>          <NA>     EOR01-Global Health Status/QoL           EOR0131 
+       32 <NA>          <NA>     EOR01-FS:Physical Functioning            EOR0132 
+       33 <NA>          <NA>     EOR01-FS:Role Functioning                EOR0133 
+       34 <NA>          <NA>     EOR01-FS:Emotional Functioning           EOR0134 
+       35 <NA>          <NA>     EOR01-FS:Cognitive Functioning           EOR0135 
+       36 <NA>          <NA>     EOR01-FS:Social Functioning              EOR0136 
+       37 <NA>          <NA>     EOR01-SS:Fatigue                         EOR0137 
+       38 <NA>          <NA>     EOR01-SS:Nausea and Vomiting             EOR0138 
+       39 <NA>          <NA>     EOR01-SS:Pain                            EOR0139 
+       40 <NA>          <NA>     EOR01-SS:Dyspnoea                        EOR0140 
+       41 <NA>          <NA>     EOR01-SS:Insomnia                        EOR0141 
+       42 <NA>          <NA>     EOR01-SS:Appetite Loss                   EOR0142 
+       43 <NA>          <NA>     EOR01-SS:Constipation                    EOR0143 
+       44 <NA>          <NA>     EOR01-SS:Diarrhoea                       EOR0144 
+       45 <NA>          <NA>     EOR01-SS:Financial Difficulties          EOR0145 
+       46 <NA>          <NA>     <NA>                                     <NA>    
+       47 VERY MUCH     <NA>     EOR01-Trouble Doing Strenuous Activities EOR0101 
+       48 QUITE A BIT   <NA>     EOR01-Trouble Taking Long Walk           EOR0102 
+       49 NOT AT ALL    <NA>     EOR01-Trouble Taking Short Walk Outside  EOR0103 
+       50 QUITE A BIT   <NA>     EOR01-Stay in Bed/Chair During the Day   EOR0104 
+       51 NOT AT ALL    <NA>     EOR01-Need Help Eating/Dressing/Washing  EOR0105 
+       52 A LITTLE      <NA>     EOR01-Limited in Work/Daily Activities   EOR0106 
+       53 QUITE A BIT   <NA>     EOR01-Limited Hobbies/Leisure Activities EOR0107 
+       54 VERY MUCH     <NA>     EOR01-Were You Short of Breath           EOR0108 
+       55 QUITE A BIT   <NA>     EOR01-Have You Had Pain                  EOR0109 
+       56 <NA>          <NA>     EOR01-Did You Need to Rest               EOR0110 
+       57 <NA>          <NA>     EOR01-Have You Had Trouble Sleeping      EOR0111 
+       58 NOT AT ALL    <NA>     EOR01-Have You Felt Weak                 EOR0112 
+       59 QUITE A BIT   <NA>     EOR01-Have You Lacked Appetite           EOR0113 
+       60 VERY MUCH     <NA>     EOR01-Have You Felt Nauseated            EOR0114 
+       61 VERY MUCH     <NA>     EOR01-Have You Vomited                   EOR0115 
+       62 QUITE A BIT   <NA>     EOR01-Have You Been Constipated          EOR0116 
+       63 VERY MUCH     <NA>     EOR01-Have You Had Diarrhea              EOR0117 
+       64 NOT AT ALL    <NA>     EOR01-Were You Tired                     EOR0118 
+       65 <NA>          <NA>     EOR01-Pain Interfere Daily Activities    EOR0119 
+       66 A LITTLE      <NA>     EOR01-Difficulty Concentrating on Things EOR0120 
+       67 VERY MUCH     <NA>     EOR01-Did You Feel Tense                 EOR0121 
+       68 A LITTLE      <NA>     EOR01-Did You Worry                      EOR0122 
+       69 QUITE A BIT   <NA>     EOR01-Did You Feel Irritable             EOR0123 
+       70 NOT AT ALL    <NA>     EOR01-Did You Feel Depressed             EOR0124 
+       71 VERY MUCH     <NA>     EOR01-Had Difficulty Remembering Things  EOR0125 
+       72 QUITE A BIT   <NA>     EOR01-Condition Interfered Family Life   EOR0126 
+       73 <NA>          <NA>     EOR01-Condition Interfered Social Activ  EOR0127 
+       74 A LITTLE      <NA>     EOR01-Condition Caused Financial Diff    EOR0128 
+       75 6             <NA>     EOR01-Rate Your Overall Health           EOR0129 
+       76 <NA>          <NA>     EOR01-Rate Your Overall Quality of Life  EOR0130 
+       77 <NA>          <NA>     EOR01-Global Health Status/QoL           EOR0131 
+       78 <NA>          <NA>     EOR01-FS:Physical Functioning            EOR0132 
+       79 <NA>          <NA>     EOR01-FS:Role Functioning                EOR0133 
+       80 <NA>          <NA>     EOR01-FS:Emotional Functioning           EOR0134 
+       81 <NA>          <NA>     EOR01-FS:Cognitive Functioning           EOR0135 
+       82 <NA>          <NA>     EOR01-FS:Social Functioning              EOR0136 
+       83 <NA>          <NA>     EOR01-SS:Fatigue                         EOR0137 
+       84 <NA>          <NA>     EOR01-SS:Nausea and Vomiting             EOR0138 
+       85 <NA>          <NA>     EOR01-SS:Pain                            EOR0139 
+       86 <NA>          <NA>     EOR01-SS:Dyspnoea                        EOR0140 
+       87 <NA>          <NA>     EOR01-SS:Insomnia                        EOR0141 
+       88 <NA>          <NA>     EOR01-SS:Appetite Loss                   EOR0142 
+       89 <NA>          <NA>     EOR01-SS:Constipation                    EOR0143 
+       90 <NA>          <NA>     EOR01-SS:Diarrhoea                       EOR0144 
+       91 <NA>          <NA>     EOR01-SS:Financial Difficulties          EOR0145 
+       92 <NA>          <NA>     <NA>                                     <NA>    
+       93 <NA>          <NA>     EOR01-Trouble Doing Strenuous Activities EOR0101 
+       94 <NA>          <NA>     EOR01-Trouble Taking Long Walk           EOR0102 
+       95 NOT AT ALL    <NA>     EOR01-Trouble Taking Short Walk Outside  EOR0103 
+       96 NOT AT ALL    <NA>     EOR01-Stay in Bed/Chair During the Day   EOR0104 
+       97 A LITTLE      <NA>     EOR01-Need Help Eating/Dressing/Washing  EOR0105 
+       98 <NA>          <NA>     EOR01-Limited in Work/Daily Activities   EOR0106 
+       99 A LITTLE      <NA>     EOR01-Limited Hobbies/Leisure Activities EOR0107 
+      100 VERY MUCH     <NA>     EOR01-Were You Short of Breath           EOR0108 
+      101 A LITTLE      <NA>     EOR01-Have You Had Pain                  EOR0109 
+      102 VERY MUCH     <NA>     EOR01-Did You Need to Rest               EOR0110 
+      103 <NA>          <NA>     EOR01-Have You Had Trouble Sleeping      EOR0111 
+      104 A LITTLE      <NA>     EOR01-Have You Felt Weak                 EOR0112 
+      105 QUITE A BIT   <NA>     EOR01-Have You Lacked Appetite           EOR0113 
+      106 A LITTLE      <NA>     EOR01-Have You Felt Nauseated            EOR0114 
+      107 NOT AT ALL    <NA>     EOR01-Have You Vomited                   EOR0115 
+      108 A LITTLE      <NA>     EOR01-Have You Been Constipated          EOR0116 
+      109 A LITTLE      <NA>     EOR01-Have You Had Diarrhea              EOR0117 
+      110 NOT AT ALL    <NA>     EOR01-Were You Tired                     EOR0118 
+      111 <NA>          <NA>     EOR01-Pain Interfere Daily Activities    EOR0119 
+      112 VERY MUCH     <NA>     EOR01-Difficulty Concentrating on Things EOR0120 
+      113 QUITE A BIT   <NA>     EOR01-Did You Feel Tense                 EOR0121 
+      114 A LITTLE      <NA>     EOR01-Did You Worry                      EOR0122 
+      115 <NA>          <NA>     EOR01-Did You Feel Irritable             EOR0123 
+      116 VERY MUCH     <NA>     EOR01-Did You Feel Depressed             EOR0124 
+      117 A LITTLE      <NA>     EOR01-Had Difficulty Remembering Things  EOR0125 
+      118 QUITE A BIT   <NA>     EOR01-Condition Interfered Family Life   EOR0126 
+      119 VERY MUCH     <NA>     EOR01-Condition Interfered Social Activ  EOR0127 
+      120 NOT AT ALL    <NA>     EOR01-Condition Caused Financial Diff    EOR0128 
+      121 3             <NA>     EOR01-Rate Your Overall Health           EOR0129 
+      122 <NA>          <NA>     EOR01-Rate Your Overall Quality of Life  EOR0130 
+      123 <NA>          <NA>     EOR01-Global Health Status/QoL           EOR0131 
+      124 <NA>          <NA>     EOR01-FS:Physical Functioning            EOR0132 
+      125 <NA>          <NA>     EOR01-FS:Role Functioning                EOR0133 
+      126 <NA>          <NA>     EOR01-FS:Emotional Functioning           EOR0134 
+      127 <NA>          <NA>     EOR01-FS:Cognitive Functioning           EOR0135 
+      128 <NA>          <NA>     EOR01-FS:Social Functioning              EOR0136 
+      129 <NA>          <NA>     EOR01-SS:Fatigue                         EOR0137 
+      130 <NA>          <NA>     EOR01-SS:Nausea and Vomiting             EOR0138 
+      131 <NA>          <NA>     EOR01-SS:Pain                            EOR0139 
+      132 <NA>          <NA>     EOR01-SS:Dyspnoea                        EOR0140 
+      133 <NA>          <NA>     EOR01-SS:Insomnia                        EOR0141 
+      134 <NA>          <NA>     EOR01-SS:Appetite Loss                   EOR0142 
+      135 <NA>          <NA>     EOR01-SS:Constipation                    EOR0143 
+      136 <NA>          <NA>     EOR01-SS:Diarrhoea                       EOR0144 
+      137 <NA>          <NA>     EOR01-SS:Financial Difficulties          EOR0145 
+      138 <NA>          <NA>     <NA>                                     <NA>    
+      139 <NA>          <NA>     <NA>                                     <NA>    
+      140 <NA>          <NA>     <NA>                                     <NA>    
+      141 <NA>          <NA>     <NA>                                     <NA>    
+      142 NOT AT ALL    <NA>     EOR01-Trouble Doing Strenuous Activities EOR0101 
+      143 A LITTLE      <NA>     EOR01-Trouble Taking Long Walk           EOR0102 
+      144 <NA>          <NA>     EOR01-Trouble Taking Short Walk Outside  EOR0103 
+      145 QUITE A BIT   <NA>     EOR01-Stay in Bed/Chair During the Day   EOR0104 
+      146 NOT AT ALL    <NA>     EOR01-Need Help Eating/Dressing/Washing  EOR0105 
+      147 <NA>          <NA>     EOR01-Limited in Work/Daily Activities   EOR0106 
+      148 A LITTLE      <NA>     EOR01-Limited Hobbies/Leisure Activities EOR0107 
+      149 <NA>          <NA>     EOR01-Were You Short of Breath           EOR0108 
+      150 NOT AT ALL    <NA>     EOR01-Have You Had Pain                  EOR0109 
+      151 A LITTLE      <NA>     EOR01-Did You Need to Rest               EOR0110 
+      152 <NA>          <NA>     EOR01-Have You Had Trouble Sleeping      EOR0111 
+      153 A LITTLE      <NA>     EOR01-Have You Felt Weak                 EOR0112 
+      154 <NA>          <NA>     EOR01-Have You Lacked Appetite           EOR0113 
+      155 VERY MUCH     <NA>     EOR01-Have You Felt Nauseated            EOR0114 
+      156 VERY MUCH     <NA>     EOR01-Have You Vomited                   EOR0115 
+      157 VERY MUCH     <NA>     EOR01-Have You Been Constipated          EOR0116 
+      158 NOT AT ALL    <NA>     EOR01-Have You Had Diarrhea              EOR0117 
+      159 <NA>          <NA>     EOR01-Were You Tired                     EOR0118 
+      160 QUITE A BIT   <NA>     EOR01-Pain Interfere Daily Activities    EOR0119 
+      161 QUITE A BIT   <NA>     EOR01-Difficulty Concentrating on Things EOR0120 
+      162 <NA>          <NA>     EOR01-Did You Feel Tense                 EOR0121 
+      163 NOT AT ALL    <NA>     EOR01-Did You Worry                      EOR0122 
+      164 NOT AT ALL    <NA>     EOR01-Did You Feel Irritable             EOR0123 
+      165 QUITE A BIT   <NA>     EOR01-Did You Feel Depressed             EOR0124 
+      166 <NA>          <NA>     EOR01-Had Difficulty Remembering Things  EOR0125 
+      167 NOT AT ALL    <NA>     EOR01-Condition Interfered Family Life   EOR0126 
+      168 <NA>          <NA>     EOR01-Condition Interfered Social Activ  EOR0127 
+      169 QUITE A BIT   <NA>     EOR01-Condition Caused Financial Diff    EOR0128 
+      170 3             <NA>     EOR01-Rate Your Overall Health           EOR0129 
+      171 6             <NA>     EOR01-Rate Your Overall Quality of Life  EOR0130 
+      172 <NA>          <NA>     EOR01-Global Health Status/QoL           EOR0131 
+      173 <NA>          <NA>     EOR01-FS:Physical Functioning            EOR0132 
+      174 <NA>          <NA>     EOR01-FS:Role Functioning                EOR0133 
+      175 <NA>          <NA>     EOR01-FS:Emotional Functioning           EOR0134 
+      176 <NA>          <NA>     EOR01-FS:Cognitive Functioning           EOR0135 
+      177 <NA>          <NA>     EOR01-FS:Social Functioning              EOR0136 
+      178 <NA>          <NA>     EOR01-SS:Fatigue                         EOR0137 
+      179 <NA>          <NA>     EOR01-SS:Nausea and Vomiting             EOR0138 
+      180 <NA>          <NA>     EOR01-SS:Pain                            EOR0139 
+      181 <NA>          <NA>     EOR01-SS:Dyspnoea                        EOR0140 
+      182 <NA>          <NA>     EOR01-SS:Insomnia                        EOR0141 
+      183 <NA>          <NA>     EOR01-SS:Appetite Loss                   EOR0142 
+      184 <NA>          <NA>     EOR01-SS:Constipation                    EOR0143 
+      185 <NA>          <NA>     EOR01-SS:Diarrhoea                       EOR0144 
+      186 <NA>          <NA>     EOR01-SS:Financial Difficulties          EOR0145 
+      187 <NA>          <NA>     <NA>                                     <NA>    
+      188 <NA>          <NA>     <NA>                                     <NA>    
+      189 <NA>          <NA>     <NA>                                     <NA>    
+      190 <NA>          <NA>     <NA>                                     <NA>    
+      191 A LITTLE      <NA>     EOR01-Trouble Doing Strenuous Activities EOR0101 
+      192 <NA>          <NA>     EOR01-Trouble Taking Long Walk           EOR0102 
+      193 <NA>          <NA>     EOR01-Trouble Taking Short Walk Outside  EOR0103 
+      194 NOT AT ALL    <NA>     EOR01-Stay in Bed/Chair During the Day   EOR0104 
+      195 NOT AT ALL    <NA>     EOR01-Need Help Eating/Dressing/Washing  EOR0105 
+      196 QUITE A BIT   <NA>     EOR01-Limited in Work/Daily Activities   EOR0106 
+      197 A LITTLE      <NA>     EOR01-Limited Hobbies/Leisure Activities EOR0107 
+      198 A LITTLE      <NA>     EOR01-Were You Short of Breath           EOR0108 
+      199 VERY MUCH     <NA>     EOR01-Have You Had Pain                  EOR0109 
+      200 A LITTLE      <NA>     EOR01-Did You Need to Rest               EOR0110 
+      201 <NA>          <NA>     EOR01-Have You Had Trouble Sleeping      EOR0111 
+      202 A LITTLE      <NA>     EOR01-Have You Felt Weak                 EOR0112 
+      203 <NA>          <NA>     EOR01-Have You Lacked Appetite           EOR0113 
+      204 QUITE A BIT   <NA>     EOR01-Have You Felt Nauseated            EOR0114 
+      205 NOT AT ALL    <NA>     EOR01-Have You Vomited                   EOR0115 
+      206 <NA>          <NA>     EOR01-Have You Been Constipated          EOR0116 
+      207 VERY MUCH     <NA>     EOR01-Have You Had Diarrhea              EOR0117 
+      208 QUITE A BIT   <NA>     EOR01-Were You Tired                     EOR0118 
+      209 QUITE A BIT   <NA>     EOR01-Pain Interfere Daily Activities    EOR0119 
+      210 VERY MUCH     <NA>     EOR01-Difficulty Concentrating on Things EOR0120 
+      211 VERY MUCH     <NA>     EOR01-Did You Feel Tense                 EOR0121 
+      212 QUITE A BIT   <NA>     EOR01-Did You Worry                      EOR0122 
+      213 VERY MUCH     <NA>     EOR01-Did You Feel Irritable             EOR0123 
+      214 QUITE A BIT   <NA>     EOR01-Did You Feel Depressed             EOR0124 
+      215 <NA>          <NA>     EOR01-Had Difficulty Remembering Things  EOR0125 
+      216 NOT AT ALL    <NA>     EOR01-Condition Interfered Family Life   EOR0126 
+      217 NOT AT ALL    <NA>     EOR01-Condition Interfered Social Activ  EOR0127 
+      218 A LITTLE      <NA>     EOR01-Condition Caused Financial Diff    EOR0128 
+      219 <NA>          <NA>     EOR01-Rate Your Overall Health           EOR0129 
+      220 1 - VERY POOR <NA>     EOR01-Rate Your Overall Quality of Life  EOR0130 
+      221 <NA>          <NA>     EOR01-Global Health Status/QoL           EOR0131 
+      222 <NA>          <NA>     EOR01-FS:Physical Functioning            EOR0132 
+      223 <NA>          <NA>     EOR01-FS:Role Functioning                EOR0133 
+      224 <NA>          <NA>     EOR01-FS:Emotional Functioning           EOR0134 
+      225 <NA>          <NA>     EOR01-FS:Cognitive Functioning           EOR0135 
+      226 <NA>          <NA>     EOR01-FS:Social Functioning              EOR0136 
+      227 <NA>          <NA>     EOR01-SS:Fatigue                         EOR0137 
+      228 <NA>          <NA>     EOR01-SS:Nausea and Vomiting             EOR0138 
+      229 <NA>          <NA>     EOR01-SS:Pain                            EOR0139 
+      230 <NA>          <NA>     EOR01-SS:Dyspnoea                        EOR0140 
+      231 <NA>          <NA>     EOR01-SS:Insomnia                        EOR0141 
+      232 <NA>          <NA>     EOR01-SS:Appetite Loss                   EOR0142 
+      233 <NA>          <NA>     EOR01-SS:Constipation                    EOR0143 
+      234 <NA>          <NA>     EOR01-SS:Diarrhoea                       EOR0144 
+      235 <NA>          <NA>     EOR01-SS:Financial Difficulties          EOR0145 
+      236 <NA>          <NA>     <NA>                                     <NA>    
+      237 <NA>          <NA>     <NA>                                     <NA>    
+      238 <NA>          <NA>     <NA>                                     <NA>    
+      239 <NA>          <NA>     <NA>                                     <NA>    
+      240 NOT AT ALL    <NA>     EOR01-Trouble Doing Strenuous Activities EOR0101 
+      241 QUITE A BIT   <NA>     EOR01-Trouble Taking Long Walk           EOR0102 
+      242 <NA>          <NA>     EOR01-Trouble Taking Short Walk Outside  EOR0103 
+      243 NOT AT ALL    <NA>     EOR01-Stay in Bed/Chair During the Day   EOR0104 
+      244 <NA>          <NA>     EOR01-Need Help Eating/Dressing/Washing  EOR0105 
+      245 NOT AT ALL    <NA>     EOR01-Limited in Work/Daily Activities   EOR0106 
+      246 A LITTLE      <NA>     EOR01-Limited Hobbies/Leisure Activities EOR0107 
+      247 VERY MUCH     <NA>     EOR01-Were You Short of Breath           EOR0108 
+      248 VERY MUCH     <NA>     EOR01-Have You Had Pain                  EOR0109 
+      249 QUITE A BIT   <NA>     EOR01-Did You Need to Rest               EOR0110 
+      250 A LITTLE      <NA>     EOR01-Have You Had Trouble Sleeping      EOR0111 
+      251 A LITTLE      <NA>     EOR01-Have You Felt Weak                 EOR0112 
+      252 QUITE A BIT   <NA>     EOR01-Have You Lacked Appetite           EOR0113 
+      253 QUITE A BIT   <NA>     EOR01-Have You Felt Nauseated            EOR0114 
+      254 VERY MUCH     <NA>     EOR01-Have You Vomited                   EOR0115 
+      255 NOT AT ALL    <NA>     EOR01-Have You Been Constipated          EOR0116 
+      256 VERY MUCH     <NA>     EOR01-Have You Had Diarrhea              EOR0117 
+      257 A LITTLE      <NA>     EOR01-Were You Tired                     EOR0118 
+      258 <NA>          <NA>     EOR01-Pain Interfere Daily Activities    EOR0119 
+      259 A LITTLE      <NA>     EOR01-Difficulty Concentrating on Things EOR0120 
+      260 QUITE A BIT   <NA>     EOR01-Did You Feel Tense                 EOR0121 
+      261 QUITE A BIT   <NA>     EOR01-Did You Worry                      EOR0122 
+      262 A LITTLE      <NA>     EOR01-Did You Feel Irritable             EOR0123 
+      263 VERY MUCH     <NA>     EOR01-Did You Feel Depressed             EOR0124 
+      264 <NA>          <NA>     EOR01-Had Difficulty Remembering Things  EOR0125 
+      265 A LITTLE      <NA>     EOR01-Condition Interfered Family Life   EOR0126 
+      266 NOT AT ALL    <NA>     EOR01-Condition Interfered Social Activ  EOR0127 
+      267 QUITE A BIT   <NA>     EOR01-Condition Caused Financial Diff    EOR0128 
+      268 1 - VERY POOR <NA>     EOR01-Rate Your Overall Health           EOR0129 
+      269 2             <NA>     EOR01-Rate Your Overall Quality of Life  EOR0130 
+      270 <NA>          <NA>     EOR01-Global Health Status/QoL           EOR0131 
+      271 <NA>          <NA>     EOR01-FS:Physical Functioning            EOR0132 
+      272 <NA>          <NA>     EOR01-FS:Role Functioning                EOR0133 
+      273 <NA>          <NA>     EOR01-FS:Emotional Functioning           EOR0134 
+      274 <NA>          <NA>     EOR01-FS:Cognitive Functioning           EOR0135 
+      275 <NA>          <NA>     EOR01-FS:Social Functioning              EOR0136 
+      276 <NA>          <NA>     EOR01-SS:Fatigue                         EOR0137 
+      277 <NA>          <NA>     EOR01-SS:Nausea and Vomiting             EOR0138 
+      278 <NA>          <NA>     EOR01-SS:Pain                            EOR0139 
+      279 <NA>          <NA>     EOR01-SS:Dyspnoea                        EOR0140 
+      280 <NA>          <NA>     EOR01-SS:Insomnia                        EOR0141 
+      281 <NA>          <NA>     EOR01-SS:Appetite Loss                   EOR0142 
+      282 <NA>          <NA>     EOR01-SS:Constipation                    EOR0143 
+      283 <NA>          <NA>     EOR01-SS:Diarrhoea                       EOR0144 
+      284 <NA>          <NA>     EOR01-SS:Financial Difficulties          EOR0145 
+      285 <NA>          <NA>     <NA>                                     <NA>    
+      286 <NA>          <NA>     <NA>                                     <NA>    
+      287 <NA>          <NA>     <NA>                                     <NA>    
+      288 <NA>          <NA>     <NA>                                     <NA>    
+          QSREASND QSEVLINT VISIT         VISITNUM  ASEQ
+          <fct>    <fct>    <fct>            <int> <int>
+        1 <NA>     <NA>     SCREENING           -1     1
+        2 <NA>     <NA>     SCREENING           -1     2
+        3 <NA>     <NA>     SCREENING           -1     3
+        4 <NA>     <NA>     SCREENING           -1     4
+        5 <NA>     <NA>     SCREENING           -1     5
+        6 <NA>     -P1W     SCREENING           -1     6
+        7 <NA>     -P1W     SCREENING           -1     7
+        8 <NA>     -P1W     SCREENING           -1     8
+        9 <NA>     -P1W     SCREENING           -1     9
+       10 <NA>     -P1W     SCREENING           -1    10
+       11 <NA>     -P1W     SCREENING           -1    11
+       12 <NA>     -P1W     SCREENING           -1    12
+       13 <NA>     -P1W     SCREENING           -1    13
+       14 <NA>     -P1W     SCREENING           -1    14
+       15 <NA>     -P1W     SCREENING           -1    15
+       16 <NA>     -P1W     SCREENING           -1    16
+       17 <NA>     -P1W     SCREENING           -1    17
+       18 <NA>     -P1W     SCREENING           -1    18
+       19 <NA>     -P1W     SCREENING           -1    19
+       20 <NA>     -P1W     SCREENING           -1    20
+       21 <NA>     -P1W     SCREENING           -1    21
+       22 <NA>     -P1W     SCREENING           -1    22
+       23 <NA>     -P1W     SCREENING           -1    23
+       24 <NA>     -P1W     SCREENING           -1    24
+       25 <NA>     -P1W     SCREENING           -1    25
+       26 <NA>     -P1W     SCREENING           -1    26
+       27 <NA>     -P1W     SCREENING           -1    27
+       28 <NA>     -P1W     SCREENING           -1    28
+       29 <NA>     -P1W     SCREENING           -1    29
+       30 <NA>     -P1W     SCREENING           -1    30
+       31 <NA>     <NA>     <NA>                NA    31
+       32 <NA>     <NA>     <NA>                NA    32
+       33 <NA>     <NA>     <NA>                NA    33
+       34 <NA>     <NA>     <NA>                NA    34
+       35 <NA>     <NA>     <NA>                NA    35
+       36 <NA>     <NA>     <NA>                NA    36
+       37 <NA>     <NA>     <NA>                NA    37
+       38 <NA>     <NA>     <NA>                NA    38
+       39 <NA>     <NA>     <NA>                NA    39
+       40 <NA>     <NA>     <NA>                NA    40
+       41 <NA>     <NA>     <NA>                NA    41
+       42 <NA>     <NA>     <NA>                NA    42
+       43 <NA>     <NA>     <NA>                NA    43
+       44 <NA>     <NA>     <NA>                NA    44
+       45 <NA>     <NA>     <NA>                NA    45
+       46 <NA>     <NA>     <NA>                NA    46
+       47 <NA>     <NA>     CYCLE 1 DAY 1        0    47
+       48 <NA>     <NA>     CYCLE 1 DAY 1        0    48
+       49 <NA>     <NA>     CYCLE 1 DAY 1        0    49
+       50 <NA>     <NA>     CYCLE 1 DAY 1        0    50
+       51 <NA>     <NA>     CYCLE 1 DAY 1        0    51
+       52 <NA>     -P1W     CYCLE 1 DAY 1        0    52
+       53 <NA>     -P1W     CYCLE 1 DAY 1        0    53
+       54 <NA>     -P1W     CYCLE 1 DAY 1        0    54
+       55 <NA>     -P1W     CYCLE 1 DAY 1        0    55
+       56 <NA>     -P1W     CYCLE 1 DAY 1        0    56
+       57 <NA>     -P1W     CYCLE 1 DAY 1        0    57
+       58 <NA>     -P1W     CYCLE 1 DAY 1        0    58
+       59 <NA>     -P1W     CYCLE 1 DAY 1        0    59
+       60 <NA>     -P1W     CYCLE 1 DAY 1        0    60
+       61 <NA>     -P1W     CYCLE 1 DAY 1        0    61
+       62 <NA>     -P1W     CYCLE 1 DAY 1        0    62
+       63 <NA>     -P1W     CYCLE 1 DAY 1        0    63
+       64 <NA>     -P1W     CYCLE 1 DAY 1        0    64
+       65 <NA>     -P1W     CYCLE 1 DAY 1        0    65
+       66 <NA>     -P1W     CYCLE 1 DAY 1        0    66
+       67 <NA>     -P1W     CYCLE 1 DAY 1        0    67
+       68 <NA>     -P1W     CYCLE 1 DAY 1        0    68
+       69 <NA>     -P1W     CYCLE 1 DAY 1        0    69
+       70 <NA>     -P1W     CYCLE 1 DAY 1        0    70
+       71 <NA>     -P1W     CYCLE 1 DAY 1        0    71
+       72 <NA>     -P1W     CYCLE 1 DAY 1        0    72
+       73 <NA>     -P1W     CYCLE 1 DAY 1        0    73
+       74 <NA>     -P1W     CYCLE 1 DAY 1        0    74
+       75 <NA>     -P1W     CYCLE 1 DAY 1        0    75
+       76 <NA>     -P1W     CYCLE 1 DAY 1        0    76
+       77 <NA>     <NA>     <NA>                NA    77
+       78 <NA>     <NA>     <NA>                NA    78
+       79 <NA>     <NA>     <NA>                NA    79
+       80 <NA>     <NA>     <NA>                NA    80
+       81 <NA>     <NA>     <NA>                NA    81
+       82 <NA>     <NA>     <NA>                NA    82
+       83 <NA>     <NA>     <NA>                NA    83
+       84 <NA>     <NA>     <NA>                NA    84
+       85 <NA>     <NA>     <NA>                NA    85
+       86 <NA>     <NA>     <NA>                NA    86
+       87 <NA>     <NA>     <NA>                NA    87
+       88 <NA>     <NA>     <NA>                NA    88
+       89 <NA>     <NA>     <NA>                NA    89
+       90 <NA>     <NA>     <NA>                NA    90
+       91 <NA>     <NA>     <NA>                NA    91
+       92 <NA>     <NA>     <NA>                NA    92
+       93 <NA>     <NA>     CYCLE 2 DAY 1        1    93
+       94 <NA>     <NA>     CYCLE 2 DAY 1        1    94
+       95 <NA>     <NA>     CYCLE 2 DAY 1        1    95
+       96 <NA>     <NA>     CYCLE 2 DAY 1        1    96
+       97 <NA>     <NA>     CYCLE 2 DAY 1        1    97
+       98 <NA>     -P1W     CYCLE 2 DAY 1        1    98
+       99 <NA>     -P1W     CYCLE 2 DAY 1        1    99
+      100 <NA>     -P1W     CYCLE 2 DAY 1        1   100
+      101 <NA>     -P1W     CYCLE 2 DAY 1        1   101
+      102 <NA>     -P1W     CYCLE 2 DAY 1        1   102
+      103 <NA>     -P1W     CYCLE 2 DAY 1        1   103
+      104 <NA>     -P1W     CYCLE 2 DAY 1        1   104
+      105 <NA>     -P1W     CYCLE 2 DAY 1        1   105
+      106 <NA>     -P1W     CYCLE 2 DAY 1        1   106
+      107 <NA>     -P1W     CYCLE 2 DAY 1        1   107
+      108 <NA>     -P1W     CYCLE 2 DAY 1        1   108
+      109 <NA>     -P1W     CYCLE 2 DAY 1        1   109
+      110 <NA>     -P1W     CYCLE 2 DAY 1        1   110
+      111 <NA>     -P1W     CYCLE 2 DAY 1        1   111
+      112 <NA>     -P1W     CYCLE 2 DAY 1        1   112
+      113 <NA>     -P1W     CYCLE 2 DAY 1        1   113
+      114 <NA>     -P1W     CYCLE 2 DAY 1        1   114
+      115 <NA>     -P1W     CYCLE 2 DAY 1        1   115
+      116 <NA>     -P1W     CYCLE 2 DAY 1        1   116
+      117 <NA>     -P1W     CYCLE 2 DAY 1        1   117
+      118 <NA>     -P1W     CYCLE 2 DAY 1        1   118
+      119 <NA>     -P1W     CYCLE 2 DAY 1        1   119
+      120 <NA>     -P1W     CYCLE 2 DAY 1        1   120
+      121 <NA>     -P1W     CYCLE 2 DAY 1        1   121
+      122 <NA>     -P1W     CYCLE 2 DAY 1        1   122
+      123 <NA>     <NA>     <NA>                NA   123
+      124 <NA>     <NA>     <NA>                NA   124
+      125 <NA>     <NA>     <NA>                NA   125
+      126 <NA>     <NA>     <NA>                NA   126
+      127 <NA>     <NA>     <NA>                NA   127
+      128 <NA>     <NA>     <NA>                NA   128
+      129 <NA>     <NA>     <NA>                NA   129
+      130 <NA>     <NA>     <NA>                NA   130
+      131 <NA>     <NA>     <NA>                NA   131
+      132 <NA>     <NA>     <NA>                NA   132
+      133 <NA>     <NA>     <NA>                NA   133
+      134 <NA>     <NA>     <NA>                NA   134
+      135 <NA>     <NA>     <NA>                NA   135
+      136 <NA>     <NA>     <NA>                NA   136
+      137 <NA>     <NA>     <NA>                NA   137
+      138 <NA>     <NA>     <NA>                NA   138
+      139 <NA>     <NA>     <NA>                NA   139
+      140 <NA>     <NA>     <NA>                NA   140
+      141 <NA>     <NA>     <NA>                NA   141
+      142 <NA>     <NA>     CYCLE 3 DAY 1        2   142
+      143 <NA>     <NA>     CYCLE 3 DAY 1        2   143
+      144 <NA>     <NA>     CYCLE 3 DAY 1        2   144
+      145 <NA>     <NA>     CYCLE 3 DAY 1        2   145
+      146 <NA>     <NA>     CYCLE 3 DAY 1        2   146
+      147 <NA>     -P1W     CYCLE 3 DAY 1        2   147
+      148 <NA>     -P1W     CYCLE 3 DAY 1        2   148
+      149 <NA>     -P1W     CYCLE 3 DAY 1        2   149
+      150 <NA>     -P1W     CYCLE 3 DAY 1        2   150
+      151 <NA>     -P1W     CYCLE 3 DAY 1        2   151
+      152 <NA>     -P1W     CYCLE 3 DAY 1        2   152
+      153 <NA>     -P1W     CYCLE 3 DAY 1        2   153
+      154 <NA>     -P1W     CYCLE 3 DAY 1        2   154
+      155 <NA>     -P1W     CYCLE 3 DAY 1        2   155
+      156 <NA>     -P1W     CYCLE 3 DAY 1        2   156
+      157 <NA>     -P1W     CYCLE 3 DAY 1        2   157
+      158 <NA>     -P1W     CYCLE 3 DAY 1        2   158
+      159 <NA>     -P1W     CYCLE 3 DAY 1        2   159
+      160 <NA>     -P1W     CYCLE 3 DAY 1        2   160
+      161 <NA>     -P1W     CYCLE 3 DAY 1        2   161
+      162 <NA>     -P1W     CYCLE 3 DAY 1        2   162
+      163 <NA>     -P1W     CYCLE 3 DAY 1        2   163
+      164 <NA>     -P1W     CYCLE 3 DAY 1        2   164
+      165 <NA>     -P1W     CYCLE 3 DAY 1        2   165
+      166 <NA>     -P1W     CYCLE 3 DAY 1        2   166
+      167 <NA>     -P1W     CYCLE 3 DAY 1        2   167
+      168 <NA>     -P1W     CYCLE 3 DAY 1        2   168
+      169 <NA>     -P1W     CYCLE 3 DAY 1        2   169
+      170 <NA>     -P1W     CYCLE 3 DAY 1        2   170
+      171 <NA>     -P1W     CYCLE 3 DAY 1        2   171
+      172 <NA>     <NA>     <NA>                NA   172
+      173 <NA>     <NA>     <NA>                NA   173
+      174 <NA>     <NA>     <NA>                NA   174
+      175 <NA>     <NA>     <NA>                NA   175
+      176 <NA>     <NA>     <NA>                NA   176
+      177 <NA>     <NA>     <NA>                NA   177
+      178 <NA>     <NA>     <NA>                NA   178
+      179 <NA>     <NA>     <NA>                NA   179
+      180 <NA>     <NA>     <NA>                NA   180
+      181 <NA>     <NA>     <NA>                NA   181
+      182 <NA>     <NA>     <NA>                NA   182
+      183 <NA>     <NA>     <NA>                NA   183
+      184 <NA>     <NA>     <NA>                NA   184
+      185 <NA>     <NA>     <NA>                NA   185
+      186 <NA>     <NA>     <NA>                NA   186
+      187 <NA>     <NA>     <NA>                NA   187
+      188 <NA>     <NA>     <NA>                NA   188
+      189 <NA>     <NA>     <NA>                NA   189
+      190 <NA>     <NA>     <NA>                NA   190
+      191 <NA>     <NA>     CYCLE 4 DAY 1        3   191
+      192 <NA>     <NA>     CYCLE 4 DAY 1        3   192
+      193 <NA>     <NA>     CYCLE 4 DAY 1        3   193
+      194 <NA>     <NA>     CYCLE 4 DAY 1        3   194
+      195 <NA>     <NA>     CYCLE 4 DAY 1        3   195
+      196 <NA>     -P1W     CYCLE 4 DAY 1        3   196
+      197 <NA>     -P1W     CYCLE 4 DAY 1        3   197
+      198 <NA>     -P1W     CYCLE 4 DAY 1        3   198
+      199 <NA>     -P1W     CYCLE 4 DAY 1        3   199
+      200 <NA>     -P1W     CYCLE 4 DAY 1        3   200
+      201 <NA>     -P1W     CYCLE 4 DAY 1        3   201
+      202 <NA>     -P1W     CYCLE 4 DAY 1        3   202
+      203 <NA>     -P1W     CYCLE 4 DAY 1        3   203
+      204 <NA>     -P1W     CYCLE 4 DAY 1        3   204
+      205 <NA>     -P1W     CYCLE 4 DAY 1        3   205
+      206 <NA>     -P1W     CYCLE 4 DAY 1        3   206
+      207 <NA>     -P1W     CYCLE 4 DAY 1        3   207
+      208 <NA>     -P1W     CYCLE 4 DAY 1        3   208
+      209 <NA>     -P1W     CYCLE 4 DAY 1        3   209
+      210 <NA>     -P1W     CYCLE 4 DAY 1        3   210
+      211 <NA>     -P1W     CYCLE 4 DAY 1        3   211
+      212 <NA>     -P1W     CYCLE 4 DAY 1        3   212
+      213 <NA>     -P1W     CYCLE 4 DAY 1        3   213
+      214 <NA>     -P1W     CYCLE 4 DAY 1        3   214
+      215 <NA>     -P1W     CYCLE 4 DAY 1        3   215
+      216 <NA>     -P1W     CYCLE 4 DAY 1        3   216
+      217 <NA>     -P1W     CYCLE 4 DAY 1        3   217
+      218 <NA>     -P1W     CYCLE 4 DAY 1        3   218
+      219 <NA>     -P1W     CYCLE 4 DAY 1        3   219
+      220 <NA>     -P1W     CYCLE 4 DAY 1        3   220
+      221 <NA>     <NA>     <NA>                NA   221
+      222 <NA>     <NA>     <NA>                NA   222
+      223 <NA>     <NA>     <NA>                NA   223
+      224 <NA>     <NA>     <NA>                NA   224
+      225 <NA>     <NA>     <NA>                NA   225
+      226 <NA>     <NA>     <NA>                NA   226
+      227 <NA>     <NA>     <NA>                NA   227
+      228 <NA>     <NA>     <NA>                NA   228
+      229 <NA>     <NA>     <NA>                NA   229
+      230 <NA>     <NA>     <NA>                NA   230
+      231 <NA>     <NA>     <NA>                NA   231
+      232 <NA>     <NA>     <NA>                NA   232
+      233 <NA>     <NA>     <NA>                NA   233
+      234 <NA>     <NA>     <NA>                NA   234
+      235 <NA>     <NA>     <NA>                NA   235
+      236 <NA>     <NA>     <NA>                NA   236
+      237 <NA>     <NA>     <NA>                NA   237
+      238 <NA>     <NA>     <NA>                NA   238
+      239 <NA>     <NA>     <NA>                NA   239
+      240 <NA>     <NA>     CYCLE 5 DAY 1        4   240
+      241 <NA>     <NA>     CYCLE 5 DAY 1        4   241
+      242 <NA>     <NA>     CYCLE 5 DAY 1        4   242
+      243 <NA>     <NA>     CYCLE 5 DAY 1        4   243
+      244 <NA>     <NA>     CYCLE 5 DAY 1        4   244
+      245 <NA>     -P1W     CYCLE 5 DAY 1        4   245
+      246 <NA>     -P1W     CYCLE 5 DAY 1        4   246
+      247 <NA>     -P1W     CYCLE 5 DAY 1        4   247
+      248 <NA>     -P1W     CYCLE 5 DAY 1        4   248
+      249 <NA>     -P1W     CYCLE 5 DAY 1        4   249
+      250 <NA>     -P1W     CYCLE 5 DAY 1        4   250
+      251 <NA>     -P1W     CYCLE 5 DAY 1        4   251
+      252 <NA>     -P1W     CYCLE 5 DAY 1        4   252
+      253 <NA>     -P1W     CYCLE 5 DAY 1        4   253
+      254 <NA>     -P1W     CYCLE 5 DAY 1        4   254
+      255 <NA>     -P1W     CYCLE 5 DAY 1        4   255
+      256 <NA>     -P1W     CYCLE 5 DAY 1        4   256
+      257 <NA>     -P1W     CYCLE 5 DAY 1        4   257
+      258 <NA>     -P1W     CYCLE 5 DAY 1        4   258
+      259 <NA>     -P1W     CYCLE 5 DAY 1        4   259
+      260 <NA>     -P1W     CYCLE 5 DAY 1        4   260
+      261 <NA>     -P1W     CYCLE 5 DAY 1        4   261
+      262 <NA>     -P1W     CYCLE 5 DAY 1        4   262
+      263 <NA>     -P1W     CYCLE 5 DAY 1        4   263
+      264 <NA>     -P1W     CYCLE 5 DAY 1        4   264
+      265 <NA>     -P1W     CYCLE 5 DAY 1        4   265
+      266 <NA>     -P1W     CYCLE 5 DAY 1        4   266
+      267 <NA>     -P1W     CYCLE 5 DAY 1        4   267
+      268 <NA>     -P1W     CYCLE 5 DAY 1        4   268
+      269 <NA>     -P1W     CYCLE 5 DAY 1        4   269
+      270 <NA>     <NA>     <NA>                NA   270
+      271 <NA>     <NA>     <NA>                NA   271
+      272 <NA>     <NA>     <NA>                NA   272
+      273 <NA>     <NA>     <NA>                NA   273
+      274 <NA>     <NA>     <NA>                NA   274
+      275 <NA>     <NA>     <NA>                NA   275
+      276 <NA>     <NA>     <NA>                NA   276
+      277 <NA>     <NA>     <NA>                NA   277
+      278 <NA>     <NA>     <NA>                NA   278
+      279 <NA>     <NA>     <NA>                NA   279
+      280 <NA>     <NA>     <NA>                NA   280
+      281 <NA>     <NA>     <NA>                NA   281
+      282 <NA>     <NA>     <NA>                NA   282
+      283 <NA>     <NA>     <NA>                NA   283
+      284 <NA>     <NA>     <NA>                NA   284
+      285 <NA>     <NA>     <NA>                NA   285
+      286 <NA>     <NA>     <NA>                NA   286
+      287 <NA>     <NA>     <NA>                NA   287
+      288 <NA>     <NA>     <NA>                NA   288
+          PARAM                                                           PARAMCD 
+          <fct>                                                           <fct>   
+        1 EORTC QLQ-C30: Trouble doing strenuous activities               QS02801 
+        2 EORTC QLQ-C30: Trouble taking a long walk                       QS02802 
+        3 EORTC QLQ-C30: Trouble taking a short walk                      QS02803 
+        4 EORTC QLQ-C30: Stay in bed or chair during the day              QS02804 
+        5 EORTC QLQ-C30: Need help eating, dressing, washing              QS02805 
+        6 EORTC QLQ-C30: Limited in work or daily activities              QS02806 
+        7 EORTC QLQ-C30: Limited in hobbies or leisure activities         QS02807 
+        8 EORTC QLQ-C30: Were you short of breath                         QS02808 
+        9 EORTC QLQ-C30: Have you had pain                                QS02809 
+       10 EORTC QLQ-C30: Did you need to rest                             QS02810 
+       11 EORTC QLQ-C30: Have you had trouble sleeping                    QS02811 
+       12 EORTC QLQ-C30: Have you felt weak                               QS02812 
+       13 EORTC QLQ-C30: Have you lacked appetite                         QS02813 
+       14 EORTC QLQ-C30: Have you felt nauseated                          QS02814 
+       15 EORTC QLQ-C30: Have you vomited                                 QS02815 
+       16 EORTC QLQ-C30: Have you been constipated                        QS02816 
+       17 EORTC QLQ-C30: Have you had diarrhea                            QS02817 
+       18 EORTC QLQ-C30: Were you tired                                   QS02818 
+       19 EORTC QLQ-C30: Pain interfere with daily activities             QS02819 
+       20 EORTC QLQ-C30: Had difficulty concentrating                     QS02820 
+       21 EORTC QLQ-C30: Did you feel tense                               QS02821 
+       22 EORTC QLQ-C30: Did you worry                                    QS02822 
+       23 EORTC QLQ-C30: Did you feel irritable                           QS02823 
+       24 EORTC QLQ-C30: Did you feel depressed                           QS02824 
+       25 EORTC QLQ-C30: Had difficulty remembering things                QS02825 
+       26 EORTC QLQ-C30: Interfered with your family life                 QS02826 
+       27 EORTC QLQ-C30: Interfered with your social activities           QS02827 
+       28 EORTC QLQ-C30: Caused you financial difficulties                QS02828 
+       29 EORTC QLQ-C30: How would you rate your overall health           QS02829 
+       30 EORTC QLQ-C30: Rate your overall quality of life                QS02830 
+       31 EORTC QLQ-C30: Global health status/QoL (revised)               QS028QL2
+       32 EORTC QLQ-C30: Physical functioning (revised)                   QS028PF2
+       33 EORTC QLQ-C30: Role functioning (revised)                       QS028RF2
+       34 EORTC QLQ-C30: Emotional functioning                            QS028EF 
+       35 EORTC QLQ-C30: Cognitive functioning                            QS028CF 
+       36 EORTC QLQ-C30: Social functioning                               QS028SF 
+       37 EORTC QLQ-C30: Fatigue                                          QS028FA 
+       38 EORTC QLQ-C30: Nausea and vomiting                              QS028NV 
+       39 EORTC QLQ-C30: Pain                                             QS028PA 
+       40 EORTC QLQ-C30: Dyspnoea                                         QS028DY 
+       41 EORTC QLQ-C30: Insomnia                                         QS028SL 
+       42 EORTC QLQ-C30: Appetite loss                                    QS028AP 
+       43 EORTC QLQ-C30: Constipation                                     QS028CO 
+       44 EORTC QLQ-C30: Diarrhoea                                        QS028DI 
+       45 EORTC QLQ-C30: Financial difficulties                           QS028FI 
+       46 EORTC QLQ-C30: Completion - Expectation                         EX028   
+       47 EORTC QLQ-C30: Trouble doing strenuous activities               QS02801 
+       48 EORTC QLQ-C30: Trouble taking a long walk                       QS02802 
+       49 EORTC QLQ-C30: Trouble taking a short walk                      QS02803 
+       50 EORTC QLQ-C30: Stay in bed or chair during the day              QS02804 
+       51 EORTC QLQ-C30: Need help eating, dressing, washing              QS02805 
+       52 EORTC QLQ-C30: Limited in work or daily activities              QS02806 
+       53 EORTC QLQ-C30: Limited in hobbies or leisure activities         QS02807 
+       54 EORTC QLQ-C30: Were you short of breath                         QS02808 
+       55 EORTC QLQ-C30: Have you had pain                                QS02809 
+       56 EORTC QLQ-C30: Did you need to rest                             QS02810 
+       57 EORTC QLQ-C30: Have you had trouble sleeping                    QS02811 
+       58 EORTC QLQ-C30: Have you felt weak                               QS02812 
+       59 EORTC QLQ-C30: Have you lacked appetite                         QS02813 
+       60 EORTC QLQ-C30: Have you felt nauseated                          QS02814 
+       61 EORTC QLQ-C30: Have you vomited                                 QS02815 
+       62 EORTC QLQ-C30: Have you been constipated                        QS02816 
+       63 EORTC QLQ-C30: Have you had diarrhea                            QS02817 
+       64 EORTC QLQ-C30: Were you tired                                   QS02818 
+       65 EORTC QLQ-C30: Pain interfere with daily activities             QS02819 
+       66 EORTC QLQ-C30: Had difficulty concentrating                     QS02820 
+       67 EORTC QLQ-C30: Did you feel tense                               QS02821 
+       68 EORTC QLQ-C30: Did you worry                                    QS02822 
+       69 EORTC QLQ-C30: Did you feel irritable                           QS02823 
+       70 EORTC QLQ-C30: Did you feel depressed                           QS02824 
+       71 EORTC QLQ-C30: Had difficulty remembering things                QS02825 
+       72 EORTC QLQ-C30: Interfered with your family life                 QS02826 
+       73 EORTC QLQ-C30: Interfered with your social activities           QS02827 
+       74 EORTC QLQ-C30: Caused you financial difficulties                QS02828 
+       75 EORTC QLQ-C30: How would you rate your overall health           QS02829 
+       76 EORTC QLQ-C30: Rate your overall quality of life                QS02830 
+       77 EORTC QLQ-C30: Global health status/QoL (revised)               QS028QL2
+       78 EORTC QLQ-C30: Physical functioning (revised)                   QS028PF2
+       79 EORTC QLQ-C30: Role functioning (revised)                       QS028RF2
+       80 EORTC QLQ-C30: Emotional functioning                            QS028EF 
+       81 EORTC QLQ-C30: Cognitive functioning                            QS028CF 
+       82 EORTC QLQ-C30: Social functioning                               QS028SF 
+       83 EORTC QLQ-C30: Fatigue                                          QS028FA 
+       84 EORTC QLQ-C30: Nausea and vomiting                              QS028NV 
+       85 EORTC QLQ-C30: Pain                                             QS028PA 
+       86 EORTC QLQ-C30: Dyspnoea                                         QS028DY 
+       87 EORTC QLQ-C30: Insomnia                                         QS028SL 
+       88 EORTC QLQ-C30: Appetite loss                                    QS028AP 
+       89 EORTC QLQ-C30: Constipation                                     QS028CO 
+       90 EORTC QLQ-C30: Diarrhoea                                        QS028DI 
+       91 EORTC QLQ-C30: Financial difficulties                           QS028FI 
+       92 EORTC QLQ-C30: Completion - Expectation                         EX028   
+       93 EORTC QLQ-C30: Trouble doing strenuous activities               QS02801 
+       94 EORTC QLQ-C30: Trouble taking a long walk                       QS02802 
+       95 EORTC QLQ-C30: Trouble taking a short walk                      QS02803 
+       96 EORTC QLQ-C30: Stay in bed or chair during the day              QS02804 
+       97 EORTC QLQ-C30: Need help eating, dressing, washing              QS02805 
+       98 EORTC QLQ-C30: Limited in work or daily activities              QS02806 
+       99 EORTC QLQ-C30: Limited in hobbies or leisure activities         QS02807 
+      100 EORTC QLQ-C30: Were you short of breath                         QS02808 
+      101 EORTC QLQ-C30: Have you had pain                                QS02809 
+      102 EORTC QLQ-C30: Did you need to rest                             QS02810 
+      103 EORTC QLQ-C30: Have you had trouble sleeping                    QS02811 
+      104 EORTC QLQ-C30: Have you felt weak                               QS02812 
+      105 EORTC QLQ-C30: Have you lacked appetite                         QS02813 
+      106 EORTC QLQ-C30: Have you felt nauseated                          QS02814 
+      107 EORTC QLQ-C30: Have you vomited                                 QS02815 
+      108 EORTC QLQ-C30: Have you been constipated                        QS02816 
+      109 EORTC QLQ-C30: Have you had diarrhea                            QS02817 
+      110 EORTC QLQ-C30: Were you tired                                   QS02818 
+      111 EORTC QLQ-C30: Pain interfere with daily activities             QS02819 
+      112 EORTC QLQ-C30: Had difficulty concentrating                     QS02820 
+      113 EORTC QLQ-C30: Did you feel tense                               QS02821 
+      114 EORTC QLQ-C30: Did you worry                                    QS02822 
+      115 EORTC QLQ-C30: Did you feel irritable                           QS02823 
+      116 EORTC QLQ-C30: Did you feel depressed                           QS02824 
+      117 EORTC QLQ-C30: Had difficulty remembering things                QS02825 
+      118 EORTC QLQ-C30: Interfered with your family life                 QS02826 
+      119 EORTC QLQ-C30: Interfered with your social activities           QS02827 
+      120 EORTC QLQ-C30: Caused you financial difficulties                QS02828 
+      121 EORTC QLQ-C30: How would you rate your overall health           QS02829 
+      122 EORTC QLQ-C30: Rate your overall quality of life                QS02830 
+      123 EORTC QLQ-C30: Global health status/QoL (revised)               QS028QL2
+      124 EORTC QLQ-C30: Physical functioning (revised)                   QS028PF2
+      125 EORTC QLQ-C30: Role functioning (revised)                       QS028RF2
+      126 EORTC QLQ-C30: Emotional functioning                            QS028EF 
+      127 EORTC QLQ-C30: Cognitive functioning                            QS028CF 
+      128 EORTC QLQ-C30: Social functioning                               QS028SF 
+      129 EORTC QLQ-C30: Fatigue                                          QS028FA 
+      130 EORTC QLQ-C30: Nausea and vomiting                              QS028NV 
+      131 EORTC QLQ-C30: Pain                                             QS028PA 
+      132 EORTC QLQ-C30: Dyspnoea                                         QS028DY 
+      133 EORTC QLQ-C30: Insomnia                                         QS028SL 
+      134 EORTC QLQ-C30: Appetite loss                                    QS028AP 
+      135 EORTC QLQ-C30: Constipation                                     QS028CO 
+      136 EORTC QLQ-C30: Diarrhoea                                        QS028DI 
+      137 EORTC QLQ-C30: Financial difficulties                           QS028FI 
+      138 EORTC QLQ-C30: Completion - Expectation                         EX028   
+      139 EORTC QLQ-C30: Completion - Completed all questions             CO028ALL
+      140 EORTC QLQ-C30: Completion - Completed at least 80% of questions CO02880P
+      141 EORTC QLQ-C30: Completion - Completed at least 2 question(s)    CO0282Q 
+      142 EORTC QLQ-C30: Trouble doing strenuous activities               QS02801 
+      143 EORTC QLQ-C30: Trouble taking a long walk                       QS02802 
+      144 EORTC QLQ-C30: Trouble taking a short walk                      QS02803 
+      145 EORTC QLQ-C30: Stay in bed or chair during the day              QS02804 
+      146 EORTC QLQ-C30: Need help eating, dressing, washing              QS02805 
+      147 EORTC QLQ-C30: Limited in work or daily activities              QS02806 
+      148 EORTC QLQ-C30: Limited in hobbies or leisure activities         QS02807 
+      149 EORTC QLQ-C30: Were you short of breath                         QS02808 
+      150 EORTC QLQ-C30: Have you had pain                                QS02809 
+      151 EORTC QLQ-C30: Did you need to rest                             QS02810 
+      152 EORTC QLQ-C30: Have you had trouble sleeping                    QS02811 
+      153 EORTC QLQ-C30: Have you felt weak                               QS02812 
+      154 EORTC QLQ-C30: Have you lacked appetite                         QS02813 
+      155 EORTC QLQ-C30: Have you felt nauseated                          QS02814 
+      156 EORTC QLQ-C30: Have you vomited                                 QS02815 
+      157 EORTC QLQ-C30: Have you been constipated                        QS02816 
+      158 EORTC QLQ-C30: Have you had diarrhea                            QS02817 
+      159 EORTC QLQ-C30: Were you tired                                   QS02818 
+      160 EORTC QLQ-C30: Pain interfere with daily activities             QS02819 
+      161 EORTC QLQ-C30: Had difficulty concentrating                     QS02820 
+      162 EORTC QLQ-C30: Did you feel tense                               QS02821 
+      163 EORTC QLQ-C30: Did you worry                                    QS02822 
+      164 EORTC QLQ-C30: Did you feel irritable                           QS02823 
+      165 EORTC QLQ-C30: Did you feel depressed                           QS02824 
+      166 EORTC QLQ-C30: Had difficulty remembering things                QS02825 
+      167 EORTC QLQ-C30: Interfered with your family life                 QS02826 
+      168 EORTC QLQ-C30: Interfered with your social activities           QS02827 
+      169 EORTC QLQ-C30: Caused you financial difficulties                QS02828 
+      170 EORTC QLQ-C30: How would you rate your overall health           QS02829 
+      171 EORTC QLQ-C30: Rate your overall quality of life                QS02830 
+      172 EORTC QLQ-C30: Global health status/QoL (revised)               QS028QL2
+      173 EORTC QLQ-C30: Physical functioning (revised)                   QS028PF2
+      174 EORTC QLQ-C30: Role functioning (revised)                       QS028RF2
+      175 EORTC QLQ-C30: Emotional functioning                            QS028EF 
+      176 EORTC QLQ-C30: Cognitive functioning                            QS028CF 
+      177 EORTC QLQ-C30: Social functioning                               QS028SF 
+      178 EORTC QLQ-C30: Fatigue                                          QS028FA 
+      179 EORTC QLQ-C30: Nausea and vomiting                              QS028NV 
+      180 EORTC QLQ-C30: Pain                                             QS028PA 
+      181 EORTC QLQ-C30: Dyspnoea                                         QS028DY 
+      182 EORTC QLQ-C30: Insomnia                                         QS028SL 
+      183 EORTC QLQ-C30: Appetite loss                                    QS028AP 
+      184 EORTC QLQ-C30: Constipation                                     QS028CO 
+      185 EORTC QLQ-C30: Diarrhoea                                        QS028DI 
+      186 EORTC QLQ-C30: Financial difficulties                           QS028FI 
+      187 EORTC QLQ-C30: Completion - Expectation                         EX028   
+      188 EORTC QLQ-C30: Completion - Completed all questions             CO028ALL
+      189 EORTC QLQ-C30: Completion - Completed at least 80% of questions CO02880P
+      190 EORTC QLQ-C30: Completion - Completed at least 2 question(s)    CO0282Q 
+      191 EORTC QLQ-C30: Trouble doing strenuous activities               QS02801 
+      192 EORTC QLQ-C30: Trouble taking a long walk                       QS02802 
+      193 EORTC QLQ-C30: Trouble taking a short walk                      QS02803 
+      194 EORTC QLQ-C30: Stay in bed or chair during the day              QS02804 
+      195 EORTC QLQ-C30: Need help eating, dressing, washing              QS02805 
+      196 EORTC QLQ-C30: Limited in work or daily activities              QS02806 
+      197 EORTC QLQ-C30: Limited in hobbies or leisure activities         QS02807 
+      198 EORTC QLQ-C30: Were you short of breath                         QS02808 
+      199 EORTC QLQ-C30: Have you had pain                                QS02809 
+      200 EORTC QLQ-C30: Did you need to rest                             QS02810 
+      201 EORTC QLQ-C30: Have you had trouble sleeping                    QS02811 
+      202 EORTC QLQ-C30: Have you felt weak                               QS02812 
+      203 EORTC QLQ-C30: Have you lacked appetite                         QS02813 
+      204 EORTC QLQ-C30: Have you felt nauseated                          QS02814 
+      205 EORTC QLQ-C30: Have you vomited                                 QS02815 
+      206 EORTC QLQ-C30: Have you been constipated                        QS02816 
+      207 EORTC QLQ-C30: Have you had diarrhea                            QS02817 
+      208 EORTC QLQ-C30: Were you tired                                   QS02818 
+      209 EORTC QLQ-C30: Pain interfere with daily activities             QS02819 
+      210 EORTC QLQ-C30: Had difficulty concentrating                     QS02820 
+      211 EORTC QLQ-C30: Did you feel tense                               QS02821 
+      212 EORTC QLQ-C30: Did you worry                                    QS02822 
+      213 EORTC QLQ-C30: Did you feel irritable                           QS02823 
+      214 EORTC QLQ-C30: Did you feel depressed                           QS02824 
+      215 EORTC QLQ-C30: Had difficulty remembering things                QS02825 
+      216 EORTC QLQ-C30: Interfered with your family life                 QS02826 
+      217 EORTC QLQ-C30: Interfered with your social activities           QS02827 
+      218 EORTC QLQ-C30: Caused you financial difficulties                QS02828 
+      219 EORTC QLQ-C30: How would you rate your overall health           QS02829 
+      220 EORTC QLQ-C30: Rate your overall quality of life                QS02830 
+      221 EORTC QLQ-C30: Global health status/QoL (revised)               QS028QL2
+      222 EORTC QLQ-C30: Physical functioning (revised)                   QS028PF2
+      223 EORTC QLQ-C30: Role functioning (revised)                       QS028RF2
+      224 EORTC QLQ-C30: Emotional functioning                            QS028EF 
+      225 EORTC QLQ-C30: Cognitive functioning                            QS028CF 
+      226 EORTC QLQ-C30: Social functioning                               QS028SF 
+      227 EORTC QLQ-C30: Fatigue                                          QS028FA 
+      228 EORTC QLQ-C30: Nausea and vomiting                              QS028NV 
+      229 EORTC QLQ-C30: Pain                                             QS028PA 
+      230 EORTC QLQ-C30: Dyspnoea                                         QS028DY 
+      231 EORTC QLQ-C30: Insomnia                                         QS028SL 
+      232 EORTC QLQ-C30: Appetite loss                                    QS028AP 
+      233 EORTC QLQ-C30: Constipation                                     QS028CO 
+      234 EORTC QLQ-C30: Diarrhoea                                        QS028DI 
+      235 EORTC QLQ-C30: Financial difficulties                           QS028FI 
+      236 EORTC QLQ-C30: Completion - Expectation                         EX028   
+      237 EORTC QLQ-C30: Completion - Completed all questions             CO028ALL
+      238 EORTC QLQ-C30: Completion - Completed at least 80% of questions CO02880P
+      239 EORTC QLQ-C30: Completion - Completed at least 2 question(s)    CO0282Q 
+      240 EORTC QLQ-C30: Trouble doing strenuous activities               QS02801 
+      241 EORTC QLQ-C30: Trouble taking a long walk                       QS02802 
+      242 EORTC QLQ-C30: Trouble taking a short walk                      QS02803 
+      243 EORTC QLQ-C30: Stay in bed or chair during the day              QS02804 
+      244 EORTC QLQ-C30: Need help eating, dressing, washing              QS02805 
+      245 EORTC QLQ-C30: Limited in work or daily activities              QS02806 
+      246 EORTC QLQ-C30: Limited in hobbies or leisure activities         QS02807 
+      247 EORTC QLQ-C30: Were you short of breath                         QS02808 
+      248 EORTC QLQ-C30: Have you had pain                                QS02809 
+      249 EORTC QLQ-C30: Did you need to rest                             QS02810 
+      250 EORTC QLQ-C30: Have you had trouble sleeping                    QS02811 
+      251 EORTC QLQ-C30: Have you felt weak                               QS02812 
+      252 EORTC QLQ-C30: Have you lacked appetite                         QS02813 
+      253 EORTC QLQ-C30: Have you felt nauseated                          QS02814 
+      254 EORTC QLQ-C30: Have you vomited                                 QS02815 
+      255 EORTC QLQ-C30: Have you been constipated                        QS02816 
+      256 EORTC QLQ-C30: Have you had diarrhea                            QS02817 
+      257 EORTC QLQ-C30: Were you tired                                   QS02818 
+      258 EORTC QLQ-C30: Pain interfere with daily activities             QS02819 
+      259 EORTC QLQ-C30: Had difficulty concentrating                     QS02820 
+      260 EORTC QLQ-C30: Did you feel tense                               QS02821 
+      261 EORTC QLQ-C30: Did you worry                                    QS02822 
+      262 EORTC QLQ-C30: Did you feel irritable                           QS02823 
+      263 EORTC QLQ-C30: Did you feel depressed                           QS02824 
+      264 EORTC QLQ-C30: Had difficulty remembering things                QS02825 
+      265 EORTC QLQ-C30: Interfered with your family life                 QS02826 
+      266 EORTC QLQ-C30: Interfered with your social activities           QS02827 
+      267 EORTC QLQ-C30: Caused you financial difficulties                QS02828 
+      268 EORTC QLQ-C30: How would you rate your overall health           QS02829 
+      269 EORTC QLQ-C30: Rate your overall quality of life                QS02830 
+      270 EORTC QLQ-C30: Global health status/QoL (revised)               QS028QL2
+      271 EORTC QLQ-C30: Physical functioning (revised)                   QS028PF2
+      272 EORTC QLQ-C30: Role functioning (revised)                       QS028RF2
+      273 EORTC QLQ-C30: Emotional functioning                            QS028EF 
+      274 EORTC QLQ-C30: Cognitive functioning                            QS028CF 
+      275 EORTC QLQ-C30: Social functioning                               QS028SF 
+      276 EORTC QLQ-C30: Fatigue                                          QS028FA 
+      277 EORTC QLQ-C30: Nausea and vomiting                              QS028NV 
+      278 EORTC QLQ-C30: Pain                                             QS028PA 
+      279 EORTC QLQ-C30: Dyspnoea                                         QS028DY 
+      280 EORTC QLQ-C30: Insomnia                                         QS028SL 
+      281 EORTC QLQ-C30: Appetite loss                                    QS028AP 
+      282 EORTC QLQ-C30: Constipation                                     QS028CO 
+      283 EORTC QLQ-C30: Diarrhoea                                        QS028DI 
+      284 EORTC QLQ-C30: Financial difficulties                           QS028FI 
+      285 EORTC QLQ-C30: Completion - Expectation                         EX028   
+      286 EORTC QLQ-C30: Completion - Completed all questions             CO028ALL
+      287 EORTC QLQ-C30: Completion - Completed at least 80% of questions CO02880P
+      288 EORTC QLQ-C30: Completion - Completed at least 2 question(s)    CO0282Q 
+          PARCAT1       PARCAT1N PARCAT2                AVAL
+          <fct>            <dbl> <fct>                 <dbl>
+        1 EORTC QLQ-C30       28 Original Items         1   
+        2 EORTC QLQ-C30       28 Original Items         3   
+        3 EORTC QLQ-C30       28 Original Items         1   
+        4 EORTC QLQ-C30       28 Original Items        NA   
+        5 EORTC QLQ-C30       28 Original Items         1   
+        6 EORTC QLQ-C30       28 Original Items         2   
+        7 EORTC QLQ-C30       28 Original Items         4   
+        8 EORTC QLQ-C30       28 Original Items         3   
+        9 EORTC QLQ-C30       28 Original Items         1   
+       10 EORTC QLQ-C30       28 Original Items        NA   
+       11 EORTC QLQ-C30       28 Original Items         3   
+       12 EORTC QLQ-C30       28 Original Items         2   
+       13 EORTC QLQ-C30       28 Original Items         1   
+       14 EORTC QLQ-C30       28 Original Items         3   
+       15 EORTC QLQ-C30       28 Original Items         1   
+       16 EORTC QLQ-C30       28 Original Items         1   
+       17 EORTC QLQ-C30       28 Original Items         1   
+       18 EORTC QLQ-C30       28 Original Items         4   
+       19 EORTC QLQ-C30       28 Original Items         1   
+       20 EORTC QLQ-C30       28 Original Items         2   
+       21 EORTC QLQ-C30       28 Original Items         2   
+       22 EORTC QLQ-C30       28 Original Items        NA   
+       23 EORTC QLQ-C30       28 Original Items         2   
+       24 EORTC QLQ-C30       28 Original Items         4   
+       25 EORTC QLQ-C30       28 Original Items         1   
+       26 EORTC QLQ-C30       28 Original Items         2   
+       27 EORTC QLQ-C30       28 Original Items         2   
+       28 EORTC QLQ-C30       28 Original Items         1   
+       29 EORTC QLQ-C30       28 Original Items         7   
+       30 EORTC QLQ-C30       28 Original Items         1   
+       31 EORTC QLQ-C30       28 Global Health Status  50   
+       32 EORTC QLQ-C30       28 Functional Scales     83.3 
+       33 EORTC QLQ-C30       28 Functional Scales     33.3 
+       34 EORTC QLQ-C30       28 Functional Scales     44.4 
+       35 EORTC QLQ-C30       28 Functional Scales     83.3 
+       36 EORTC QLQ-C30       28 Functional Scales     66.7 
+       37 EORTC QLQ-C30       28 Symptom Scales        66.7 
+       38 EORTC QLQ-C30       28 Symptom Scales        33.3 
+       39 EORTC QLQ-C30       28 Symptom Scales         0   
+       40 EORTC QLQ-C30       28 Symptom Scales        66.7 
+       41 EORTC QLQ-C30       28 Symptom Scales        66.7 
+       42 EORTC QLQ-C30       28 Symptom Scales         0   
+       43 EORTC QLQ-C30       28 Symptom Scales         0   
+       44 EORTC QLQ-C30       28 Symptom Scales         0   
+       45 EORTC QLQ-C30       28 Symptom Scales         0   
+       46 EORTC QLQ-C30       28 Completion             0   
+       47 EORTC QLQ-C30       28 Original Items         4   
+       48 EORTC QLQ-C30       28 Original Items         3   
+       49 EORTC QLQ-C30       28 Original Items         1   
+       50 EORTC QLQ-C30       28 Original Items         3   
+       51 EORTC QLQ-C30       28 Original Items         1   
+       52 EORTC QLQ-C30       28 Original Items         2   
+       53 EORTC QLQ-C30       28 Original Items         3   
+       54 EORTC QLQ-C30       28 Original Items         4   
+       55 EORTC QLQ-C30       28 Original Items         3   
+       56 EORTC QLQ-C30       28 Original Items        NA   
+       57 EORTC QLQ-C30       28 Original Items        NA   
+       58 EORTC QLQ-C30       28 Original Items         1   
+       59 EORTC QLQ-C30       28 Original Items         3   
+       60 EORTC QLQ-C30       28 Original Items         4   
+       61 EORTC QLQ-C30       28 Original Items         4   
+       62 EORTC QLQ-C30       28 Original Items         3   
+       63 EORTC QLQ-C30       28 Original Items         4   
+       64 EORTC QLQ-C30       28 Original Items         1   
+       65 EORTC QLQ-C30       28 Original Items        NA   
+       66 EORTC QLQ-C30       28 Original Items         2   
+       67 EORTC QLQ-C30       28 Original Items         4   
+       68 EORTC QLQ-C30       28 Original Items         2   
+       69 EORTC QLQ-C30       28 Original Items         3   
+       70 EORTC QLQ-C30       28 Original Items         1   
+       71 EORTC QLQ-C30       28 Original Items         4   
+       72 EORTC QLQ-C30       28 Original Items         3   
+       73 EORTC QLQ-C30       28 Original Items        NA   
+       74 EORTC QLQ-C30       28 Original Items         2   
+       75 EORTC QLQ-C30       28 Original Items         6   
+       76 EORTC QLQ-C30       28 Original Items        NA   
+       77 EORTC QLQ-C30       28 Global Health Status  83.3 
+       78 EORTC QLQ-C30       28 Functional Scales     53.3 
+       79 EORTC QLQ-C30       28 Functional Scales     50   
+       80 EORTC QLQ-C30       28 Functional Scales     50   
+       81 EORTC QLQ-C30       28 Functional Scales     33.3 
+       82 EORTC QLQ-C30       28 Functional Scales     33.3 
+       83 EORTC QLQ-C30       28 Symptom Scales         0   
+       84 EORTC QLQ-C30       28 Symptom Scales       100   
+       85 EORTC QLQ-C30       28 Symptom Scales        66.7 
+       86 EORTC QLQ-C30       28 Symptom Scales       100   
+       87 EORTC QLQ-C30       28 Symptom Scales        NA   
+       88 EORTC QLQ-C30       28 Symptom Scales        66.7 
+       89 EORTC QLQ-C30       28 Symptom Scales        66.7 
+       90 EORTC QLQ-C30       28 Symptom Scales       100   
+       91 EORTC QLQ-C30       28 Symptom Scales        33.3 
+       92 EORTC QLQ-C30       28 Completion             0   
+       93 EORTC QLQ-C30       28 Original Items        NA   
+       94 EORTC QLQ-C30       28 Original Items        NA   
+       95 EORTC QLQ-C30       28 Original Items         1   
+       96 EORTC QLQ-C30       28 Original Items         1   
+       97 EORTC QLQ-C30       28 Original Items         2   
+       98 EORTC QLQ-C30       28 Original Items        NA   
+       99 EORTC QLQ-C30       28 Original Items         2   
+      100 EORTC QLQ-C30       28 Original Items         4   
+      101 EORTC QLQ-C30       28 Original Items         2   
+      102 EORTC QLQ-C30       28 Original Items         4   
+      103 EORTC QLQ-C30       28 Original Items        NA   
+      104 EORTC QLQ-C30       28 Original Items         2   
+      105 EORTC QLQ-C30       28 Original Items         3   
+      106 EORTC QLQ-C30       28 Original Items         2   
+      107 EORTC QLQ-C30       28 Original Items         1   
+      108 EORTC QLQ-C30       28 Original Items         2   
+      109 EORTC QLQ-C30       28 Original Items         2   
+      110 EORTC QLQ-C30       28 Original Items         1   
+      111 EORTC QLQ-C30       28 Original Items        NA   
+      112 EORTC QLQ-C30       28 Original Items         4   
+      113 EORTC QLQ-C30       28 Original Items         3   
+      114 EORTC QLQ-C30       28 Original Items         2   
+      115 EORTC QLQ-C30       28 Original Items        NA   
+      116 EORTC QLQ-C30       28 Original Items         4   
+      117 EORTC QLQ-C30       28 Original Items         2   
+      118 EORTC QLQ-C30       28 Original Items         3   
+      119 EORTC QLQ-C30       28 Original Items         4   
+      120 EORTC QLQ-C30       28 Original Items         1   
+      121 EORTC QLQ-C30       28 Original Items         3   
+      122 EORTC QLQ-C30       28 Original Items        NA   
+      123 EORTC QLQ-C30       28 Global Health Status  33.3 
+      124 EORTC QLQ-C30       28 Functional Scales     88.9 
+      125 EORTC QLQ-C30       28 Functional Scales     66.7 
+      126 EORTC QLQ-C30       28 Functional Scales     33.3 
+      127 EORTC QLQ-C30       28 Functional Scales     33.3 
+      128 EORTC QLQ-C30       28 Functional Scales     16.7 
+      129 EORTC QLQ-C30       28 Symptom Scales        44.4 
+      130 EORTC QLQ-C30       28 Symptom Scales        16.7 
+      131 EORTC QLQ-C30       28 Symptom Scales        33.3 
+      132 EORTC QLQ-C30       28 Symptom Scales       100   
+      133 EORTC QLQ-C30       28 Symptom Scales        NA   
+      134 EORTC QLQ-C30       28 Symptom Scales        66.7 
+      135 EORTC QLQ-C30       28 Symptom Scales        33.3 
+      136 EORTC QLQ-C30       28 Symptom Scales        33.3 
+      137 EORTC QLQ-C30       28 Symptom Scales         0   
+      138 EORTC QLQ-C30       28 Completion             1   
+      139 EORTC QLQ-C30       NA Completion             0   
+      140 EORTC QLQ-C30       NA Completion             0   
+      141 EORTC QLQ-C30       NA Completion             1   
+      142 EORTC QLQ-C30       28 Original Items         1   
+      143 EORTC QLQ-C30       28 Original Items         2   
+      144 EORTC QLQ-C30       28 Original Items        NA   
+      145 EORTC QLQ-C30       28 Original Items         3   
+      146 EORTC QLQ-C30       28 Original Items         1   
+      147 EORTC QLQ-C30       28 Original Items        NA   
+      148 EORTC QLQ-C30       28 Original Items         2   
+      149 EORTC QLQ-C30       28 Original Items        NA   
+      150 EORTC QLQ-C30       28 Original Items         1   
+      151 EORTC QLQ-C30       28 Original Items         2   
+      152 EORTC QLQ-C30       28 Original Items        NA   
+      153 EORTC QLQ-C30       28 Original Items         2   
+      154 EORTC QLQ-C30       28 Original Items        NA   
+      155 EORTC QLQ-C30       28 Original Items         4   
+      156 EORTC QLQ-C30       28 Original Items         4   
+      157 EORTC QLQ-C30       28 Original Items         4   
+      158 EORTC QLQ-C30       28 Original Items         1   
+      159 EORTC QLQ-C30       28 Original Items        NA   
+      160 EORTC QLQ-C30       28 Original Items         3   
+      161 EORTC QLQ-C30       28 Original Items         3   
+      162 EORTC QLQ-C30       28 Original Items        NA   
+      163 EORTC QLQ-C30       28 Original Items         1   
+      164 EORTC QLQ-C30       28 Original Items         1   
+      165 EORTC QLQ-C30       28 Original Items         3   
+      166 EORTC QLQ-C30       28 Original Items        NA   
+      167 EORTC QLQ-C30       28 Original Items         1   
+      168 EORTC QLQ-C30       28 Original Items        NA   
+      169 EORTC QLQ-C30       28 Original Items         3   
+      170 EORTC QLQ-C30       28 Original Items         3   
+      171 EORTC QLQ-C30       28 Original Items         6   
+      172 EORTC QLQ-C30       28 Global Health Status  58.3 
+      173 EORTC QLQ-C30       28 Functional Scales     75   
+      174 EORTC QLQ-C30       28 Functional Scales     66.7 
+      175 EORTC QLQ-C30       28 Functional Scales     77.8 
+      176 EORTC QLQ-C30       28 Functional Scales     33.3 
+      177 EORTC QLQ-C30       28 Functional Scales    100   
+      178 EORTC QLQ-C30       28 Symptom Scales        33.3 
+      179 EORTC QLQ-C30       28 Symptom Scales       100   
+      180 EORTC QLQ-C30       28 Symptom Scales        33.3 
+      181 EORTC QLQ-C30       28 Symptom Scales        NA   
+      182 EORTC QLQ-C30       28 Symptom Scales        NA   
+      183 EORTC QLQ-C30       28 Symptom Scales        NA   
+      184 EORTC QLQ-C30       28 Symptom Scales       100   
+      185 EORTC QLQ-C30       28 Symptom Scales         0   
+      186 EORTC QLQ-C30       28 Symptom Scales        66.7 
+      187 EORTC QLQ-C30       28 Completion             1   
+      188 EORTC QLQ-C30       NA Completion             0   
+      189 EORTC QLQ-C30       NA Completion             0   
+      190 EORTC QLQ-C30       NA Completion             1   
+      191 EORTC QLQ-C30       28 Original Items         2   
+      192 EORTC QLQ-C30       28 Original Items        NA   
+      193 EORTC QLQ-C30       28 Original Items        NA   
+      194 EORTC QLQ-C30       28 Original Items         1   
+      195 EORTC QLQ-C30       28 Original Items         1   
+      196 EORTC QLQ-C30       28 Original Items         3   
+      197 EORTC QLQ-C30       28 Original Items         2   
+      198 EORTC QLQ-C30       28 Original Items         2   
+      199 EORTC QLQ-C30       28 Original Items         4   
+      200 EORTC QLQ-C30       28 Original Items         2   
+      201 EORTC QLQ-C30       28 Original Items        NA   
+      202 EORTC QLQ-C30       28 Original Items         2   
+      203 EORTC QLQ-C30       28 Original Items        NA   
+      204 EORTC QLQ-C30       28 Original Items         3   
+      205 EORTC QLQ-C30       28 Original Items         1   
+      206 EORTC QLQ-C30       28 Original Items        NA   
+      207 EORTC QLQ-C30       28 Original Items         4   
+      208 EORTC QLQ-C30       28 Original Items         3   
+      209 EORTC QLQ-C30       28 Original Items         3   
+      210 EORTC QLQ-C30       28 Original Items         4   
+      211 EORTC QLQ-C30       28 Original Items         4   
+      212 EORTC QLQ-C30       28 Original Items         3   
+      213 EORTC QLQ-C30       28 Original Items         4   
+      214 EORTC QLQ-C30       28 Original Items         3   
+      215 EORTC QLQ-C30       28 Original Items        NA   
+      216 EORTC QLQ-C30       28 Original Items         1   
+      217 EORTC QLQ-C30       28 Original Items         1   
+      218 EORTC QLQ-C30       28 Original Items         2   
+      219 EORTC QLQ-C30       28 Original Items        NA   
+      220 EORTC QLQ-C30       28 Original Items         1   
+      221 EORTC QLQ-C30       28 Global Health Status   0   
+      222 EORTC QLQ-C30       28 Functional Scales     88.9 
+      223 EORTC QLQ-C30       28 Functional Scales     50   
+      224 EORTC QLQ-C30       28 Functional Scales     16.7 
+      225 EORTC QLQ-C30       28 Functional Scales      0   
+      226 EORTC QLQ-C30       28 Functional Scales    100   
+      227 EORTC QLQ-C30       28 Symptom Scales        44.4 
+      228 EORTC QLQ-C30       28 Symptom Scales        33.3 
+      229 EORTC QLQ-C30       28 Symptom Scales        83.3 
+      230 EORTC QLQ-C30       28 Symptom Scales        33.3 
+      231 EORTC QLQ-C30       28 Symptom Scales        NA   
+      232 EORTC QLQ-C30       28 Symptom Scales        NA   
+      233 EORTC QLQ-C30       28 Symptom Scales        NA   
+      234 EORTC QLQ-C30       28 Symptom Scales       100   
+      235 EORTC QLQ-C30       28 Symptom Scales        33.3 
+      236 EORTC QLQ-C30       28 Completion             1   
+      237 EORTC QLQ-C30       NA Completion             0   
+      238 EORTC QLQ-C30       NA Completion             0   
+      239 EORTC QLQ-C30       NA Completion             1   
+      240 EORTC QLQ-C30       28 Original Items         1   
+      241 EORTC QLQ-C30       28 Original Items         3   
+      242 EORTC QLQ-C30       28 Original Items        NA   
+      243 EORTC QLQ-C30       28 Original Items         1   
+      244 EORTC QLQ-C30       28 Original Items        NA   
+      245 EORTC QLQ-C30       28 Original Items         1   
+      246 EORTC QLQ-C30       28 Original Items         2   
+      247 EORTC QLQ-C30       28 Original Items         4   
+      248 EORTC QLQ-C30       28 Original Items         4   
+      249 EORTC QLQ-C30       28 Original Items         3   
+      250 EORTC QLQ-C30       28 Original Items         2   
+      251 EORTC QLQ-C30       28 Original Items         2   
+      252 EORTC QLQ-C30       28 Original Items         3   
+      253 EORTC QLQ-C30       28 Original Items         3   
+      254 EORTC QLQ-C30       28 Original Items         4   
+      255 EORTC QLQ-C30       28 Original Items         1   
+      256 EORTC QLQ-C30       28 Original Items         4   
+      257 EORTC QLQ-C30       28 Original Items         2   
+      258 EORTC QLQ-C30       28 Original Items        NA   
+      259 EORTC QLQ-C30       28 Original Items         2   
+      260 EORTC QLQ-C30       28 Original Items         3   
+      261 EORTC QLQ-C30       28 Original Items         3   
+      262 EORTC QLQ-C30       28 Original Items         2   
+      263 EORTC QLQ-C30       28 Original Items         4   
+      264 EORTC QLQ-C30       28 Original Items        NA   
+      265 EORTC QLQ-C30       28 Original Items         2   
+      266 EORTC QLQ-C30       28 Original Items         1   
+      267 EORTC QLQ-C30       28 Original Items         3   
+      268 EORTC QLQ-C30       28 Original Items         1   
+      269 EORTC QLQ-C30       28 Original Items         2   
+      270 EORTC QLQ-C30       28 Global Health Status   8.33
+      271 EORTC QLQ-C30       28 Functional Scales     77.8 
+      272 EORTC QLQ-C30       28 Functional Scales     83.3 
+      273 EORTC QLQ-C30       28 Functional Scales     33.3 
+      274 EORTC QLQ-C30       28 Functional Scales     66.7 
+      275 EORTC QLQ-C30       28 Functional Scales     83.3 
+      276 EORTC QLQ-C30       28 Symptom Scales        44.4 
+      277 EORTC QLQ-C30       28 Symptom Scales        83.3 
+      278 EORTC QLQ-C30       28 Symptom Scales       100   
+      279 EORTC QLQ-C30       28 Symptom Scales       100   
+      280 EORTC QLQ-C30       28 Symptom Scales        33.3 
+      281 EORTC QLQ-C30       28 Symptom Scales        66.7 
+      282 EORTC QLQ-C30       28 Symptom Scales         0   
+      283 EORTC QLQ-C30       28 Symptom Scales       100   
+      284 EORTC QLQ-C30       28 Symptom Scales        66.7 
+      285 EORTC QLQ-C30       28 Completion             1   
+      286 EORTC QLQ-C30       NA Completion             0   
+      287 EORTC QLQ-C30       NA Completion             1   
+      288 EORTC QLQ-C30       NA Completion             1   
+          AVALC                                       BASE ABLFL    CHG   PCHG
+          <fct>                                      <dbl> <fct>  <dbl>  <dbl>
+        1 NOT AT ALL                                  NA   ""      NA     NA  
+        2 QUITE A BIT                                 NA   ""      NA     NA  
+        3 NOT AT ALL                                  NA   ""      NA     NA  
+        4 <NA>                                        NA   ""      NA     NA  
+        5 NOT AT ALL                                  NA   ""      NA     NA  
+        6 A LITTLE                                    NA   ""      NA     NA  
+        7 VERY MUCH                                   NA   ""      NA     NA  
+        8 QUITE A BIT                                 NA   ""      NA     NA  
+        9 NOT AT ALL                                  NA   ""      NA     NA  
+       10 <NA>                                        NA   ""      NA     NA  
+       11 QUITE A BIT                                 NA   ""      NA     NA  
+       12 A LITTLE                                    NA   ""      NA     NA  
+       13 NOT AT ALL                                  NA   ""      NA     NA  
+       14 QUITE A BIT                                 NA   ""      NA     NA  
+       15 NOT AT ALL                                  NA   ""      NA     NA  
+       16 NOT AT ALL                                  NA   ""      NA     NA  
+       17 NOT AT ALL                                  NA   ""      NA     NA  
+       18 VERY MUCH                                   NA   ""      NA     NA  
+       19 NOT AT ALL                                  NA   ""      NA     NA  
+       20 A LITTLE                                    NA   ""      NA     NA  
+       21 A LITTLE                                    NA   ""      NA     NA  
+       22 <NA>                                        NA   ""      NA     NA  
+       23 A LITTLE                                    NA   ""      NA     NA  
+       24 VERY MUCH                                   NA   ""      NA     NA  
+       25 NOT AT ALL                                  NA   ""      NA     NA  
+       26 A LITTLE                                    NA   ""      NA     NA  
+       27 A LITTLE                                    NA   ""      NA     NA  
+       28 NOT AT ALL                                  NA   ""      NA     NA  
+       29 7 - EXCELLENT                               NA   ""      NA     NA  
+       30 1 - VERY POOR                               NA   ""      NA     NA  
+       31 50                                          NA   ""      NA     NA  
+       32 83.3333333333333                            NA   ""      NA     NA  
+       33 33.3333333333333                            NA   ""      NA     NA  
+       34 44.4444444444444                            NA   ""      NA     NA  
+       35 83.3333333333333                            NA   ""      NA     NA  
+       36 66.6666666666667                            NA   ""      NA     NA  
+       37 66.6666666666667                            NA   ""      NA     NA  
+       38 33.3333333333333                            NA   ""      NA     NA  
+       39 0                                           NA   ""      NA     NA  
+       40 66.6666666666667                            NA   ""      NA     NA  
+       41 66.6666666666667                            NA   ""      NA     NA  
+       42 0                                           NA   ""      NA     NA  
+       43 0                                           NA   ""      NA     NA  
+       44 0                                           NA   ""      NA     NA  
+       45 0                                           NA   ""      NA     NA  
+       46 Not expected to complete questionnaire      NA   ""      NA     NA  
+       47 VERY MUCH                                    4   "Y"      0      0  
+       48 QUITE A BIT                                  3   "Y"      0      0  
+       49 NOT AT ALL                                   1   "Y"      0      0  
+       50 QUITE A BIT                                  3   "Y"      0      0  
+       51 NOT AT ALL                                   1   "Y"      0      0  
+       52 A LITTLE                                     2   "Y"      0      0  
+       53 QUITE A BIT                                  3   "Y"      0      0  
+       54 VERY MUCH                                    4   "Y"      0      0  
+       55 QUITE A BIT                                  3   "Y"      0      0  
+       56 <NA>                                        NA   "Y"     NA     NA  
+       57 <NA>                                        NA   "Y"     NA     NA  
+       58 NOT AT ALL                                   1   "Y"      0      0  
+       59 QUITE A BIT                                  3   "Y"      0      0  
+       60 VERY MUCH                                    4   "Y"      0      0  
+       61 VERY MUCH                                    4   "Y"      0      0  
+       62 QUITE A BIT                                  3   "Y"      0      0  
+       63 VERY MUCH                                    4   "Y"      0      0  
+       64 NOT AT ALL                                   1   "Y"      0      0  
+       65 <NA>                                        NA   "Y"     NA     NA  
+       66 A LITTLE                                     2   "Y"      0      0  
+       67 VERY MUCH                                    4   "Y"      0      0  
+       68 A LITTLE                                     2   "Y"      0      0  
+       69 QUITE A BIT                                  3   "Y"      0      0  
+       70 NOT AT ALL                                   1   "Y"      0      0  
+       71 VERY MUCH                                    4   "Y"      0      0  
+       72 QUITE A BIT                                  3   "Y"      0      0  
+       73 <NA>                                        NA   "Y"     NA     NA  
+       74 A LITTLE                                     2   "Y"      0      0  
+       75 6                                            6   "Y"      0      0  
+       76 <NA>                                        NA   "Y"     NA     NA  
+       77 83.3333333333333                            83.3 "Y"      0      0  
+       78 53.3333333333333                            53.3 "Y"      0      0  
+       79 50                                          50   "Y"      0      0  
+       80 50                                          50   "Y"      0      0  
+       81 33.3333333333333                            33.3 "Y"      0      0  
+       82 33.3333333333333                            33.3 "Y"      0      0  
+       83 0                                            0   "Y"      0    NaN  
+       84 100                                        100   "Y"      0      0  
+       85 66.6666666666667                            66.7 "Y"      0      0  
+       86 100                                        100   "Y"      0      0  
+       87 <NA>                                        NA   "Y"     NA     NA  
+       88 66.6666666666667                            66.7 "Y"      0      0  
+       89 66.6666666666667                            66.7 "Y"      0      0  
+       90 100                                        100   "Y"      0      0  
+       91 33.3333333333333                            33.3 "Y"      0      0  
+       92 Not expected to complete questionnaire      NA   ""      NA     NA  
+       93 <NA>                                         4   ""      NA     NA  
+       94 <NA>                                         3   ""      NA     NA  
+       95 NOT AT ALL                                   1   ""       0      0  
+       96 NOT AT ALL                                   3   ""      -2    -66.7
+       97 A LITTLE                                     1   ""       1    100  
+       98 <NA>                                         2   ""      NA     NA  
+       99 A LITTLE                                     3   ""      -1    -33.3
+      100 VERY MUCH                                    4   ""       0      0  
+      101 A LITTLE                                     3   ""      -1    -33.3
+      102 VERY MUCH                                   NA   ""      NA     NA  
+      103 <NA>                                        NA   ""      NA     NA  
+      104 A LITTLE                                     1   ""       1    100  
+      105 QUITE A BIT                                  3   ""       0      0  
+      106 A LITTLE                                     4   ""      -2    -50  
+      107 NOT AT ALL                                   4   ""      -3    -75  
+      108 A LITTLE                                     3   ""      -1    -33.3
+      109 A LITTLE                                     4   ""      -2    -50  
+      110 NOT AT ALL                                   1   ""       0      0  
+      111 <NA>                                        NA   ""      NA     NA  
+      112 VERY MUCH                                    2   ""       2    100  
+      113 QUITE A BIT                                  4   ""      -1    -25  
+      114 A LITTLE                                     2   ""       0      0  
+      115 <NA>                                         3   ""      NA     NA  
+      116 VERY MUCH                                    1   ""       3    300  
+      117 A LITTLE                                     4   ""      -2    -50  
+      118 QUITE A BIT                                  3   ""       0      0  
+      119 VERY MUCH                                   NA   ""      NA     NA  
+      120 NOT AT ALL                                   2   ""      -1    -50  
+      121 3                                            6   ""      -3    -50  
+      122 <NA>                                        NA   ""      NA     NA  
+      123 33.3333333333333                            83.3 ""     -50    -60  
+      124 88.8888888888889                            53.3 ""      35.6   66.7
+      125 66.6666666666667                            50   ""      16.7   33.3
+      126 33.3333333333333                            50   ""     -16.7  -33.3
+      127 33.3333333333333                            33.3 ""       0      0  
+      128 16.6666666666667                            33.3 ""     -16.7  -50  
+      129 44.4444444444444                             0   ""      44.4  Inf  
+      130 16.6666666666667                           100   ""     -83.3  -83.3
+      131 33.3333333333333                            66.7 ""     -33.3  -50  
+      132 100                                        100   ""       0      0  
+      133 <NA>                                        NA   ""      NA     NA  
+      134 66.6666666666667                            66.7 ""       0      0  
+      135 33.3333333333333                            66.7 ""     -33.3  -50  
+      136 33.3333333333333                           100   ""     -66.7  -66.7
+      137 0                                           33.3 ""     -33.3 -100  
+      138 Expected to complete questionnaire          NA   ""      NA     NA  
+      139 Did not complete all questions              NA   <NA>    NA     NA  
+      140 Did not complete at least 80% of questions  NA   <NA>    NA     NA  
+      141 Completed at least 2 questions              NA   <NA>    NA     NA  
+      142 NOT AT ALL                                   4   ""      -3    -75  
+      143 A LITTLE                                     3   ""      -1    -33.3
+      144 <NA>                                         1   ""      NA     NA  
+      145 QUITE A BIT                                  3   ""       0      0  
+      146 NOT AT ALL                                   1   ""       0      0  
+      147 <NA>                                         2   ""      NA     NA  
+      148 A LITTLE                                     3   ""      -1    -33.3
+      149 <NA>                                         4   ""      NA     NA  
+      150 NOT AT ALL                                   3   ""      -2    -66.7
+      151 A LITTLE                                    NA   ""      NA     NA  
+      152 <NA>                                        NA   ""      NA     NA  
+      153 A LITTLE                                     1   ""       1    100  
+      154 <NA>                                         3   ""      NA     NA  
+      155 VERY MUCH                                    4   ""       0      0  
+      156 VERY MUCH                                    4   ""       0      0  
+      157 VERY MUCH                                    3   ""       1     33.3
+      158 NOT AT ALL                                   4   ""      -3    -75  
+      159 <NA>                                         1   ""      NA     NA  
+      160 QUITE A BIT                                 NA   ""      NA     NA  
+      161 QUITE A BIT                                  2   ""       1     50  
+      162 <NA>                                         4   ""      NA     NA  
+      163 NOT AT ALL                                   2   ""      -1    -50  
+      164 NOT AT ALL                                   3   ""      -2    -66.7
+      165 QUITE A BIT                                  1   ""       2    200  
+      166 <NA>                                         4   ""      NA     NA  
+      167 NOT AT ALL                                   3   ""      -2    -66.7
+      168 <NA>                                        NA   ""      NA     NA  
+      169 QUITE A BIT                                  2   ""       1     50  
+      170 3                                            6   ""      -3    -50  
+      171 6                                           NA   ""      NA     NA  
+      172 58.3333333333333                            83.3 ""     -25    -30  
+      173 75                                          53.3 ""      21.7   40.6
+      174 66.6666666666667                            50   ""      16.7   33.3
+      175 77.7777777777778                            50   ""      27.8   55.6
+      176 33.3333333333333                            33.3 ""       0      0  
+      177 100                                         33.3 ""      66.7  200  
+      178 33.3333333333333                             0   ""      33.3  Inf  
+      179 100                                        100   ""       0      0  
+      180 33.3333333333333                            66.7 ""     -33.3  -50  
+      181 <NA>                                       100   ""      NA     NA  
+      182 <NA>                                        NA   ""      NA     NA  
+      183 <NA>                                        66.7 ""      NA     NA  
+      184 100                                         66.7 ""      33.3   50  
+      185 0                                          100   ""    -100   -100  
+      186 66.6666666666667                            33.3 ""      33.3  100  
+      187 Expected to complete questionnaire          NA   ""      NA     NA  
+      188 Did not complete all questions              NA   <NA>    NA     NA  
+      189 Did not complete at least 80% of questions  NA   <NA>    NA     NA  
+      190 Completed at least 2 questions              NA   <NA>    NA     NA  
+      191 A LITTLE                                     4   ""      -2    -50  
+      192 <NA>                                         3   ""      NA     NA  
+      193 <NA>                                         1   ""      NA     NA  
+      194 NOT AT ALL                                   3   ""      -2    -66.7
+      195 NOT AT ALL                                   1   ""       0      0  
+      196 QUITE A BIT                                  2   ""       1     50  
+      197 A LITTLE                                     3   ""      -1    -33.3
+      198 A LITTLE                                     4   ""      -2    -50  
+      199 VERY MUCH                                    3   ""       1     33.3
+      200 A LITTLE                                    NA   ""      NA     NA  
+      201 <NA>                                        NA   ""      NA     NA  
+      202 A LITTLE                                     1   ""       1    100  
+      203 <NA>                                         3   ""      NA     NA  
+      204 QUITE A BIT                                  4   ""      -1    -25  
+      205 NOT AT ALL                                   4   ""      -3    -75  
+      206 <NA>                                         3   ""      NA     NA  
+      207 VERY MUCH                                    4   ""       0      0  
+      208 QUITE A BIT                                  1   ""       2    200  
+      209 QUITE A BIT                                 NA   ""      NA     NA  
+      210 VERY MUCH                                    2   ""       2    100  
+      211 VERY MUCH                                    4   ""       0      0  
+      212 QUITE A BIT                                  2   ""       1     50  
+      213 VERY MUCH                                    3   ""       1     33.3
+      214 QUITE A BIT                                  1   ""       2    200  
+      215 <NA>                                         4   ""      NA     NA  
+      216 NOT AT ALL                                   3   ""      -2    -66.7
+      217 NOT AT ALL                                  NA   ""      NA     NA  
+      218 A LITTLE                                     2   ""       0      0  
+      219 <NA>                                         6   ""      NA     NA  
+      220 1 - VERY POOR                               NA   ""      NA     NA  
+      221 0                                           83.3 ""     -83.3 -100  
+      222 88.8888888888889                            53.3 ""      35.6   66.7
+      223 50                                          50   ""       0      0  
+      224 16.6666666666667                            50   ""     -33.3  -66.7
+      225 0                                           33.3 ""     -33.3 -100  
+      226 100                                         33.3 ""      66.7  200  
+      227 44.4444444444444                             0   ""      44.4  Inf  
+      228 33.3333333333333                           100   ""     -66.7  -66.7
+      229 83.3333333333333                            66.7 ""      16.7   25.0
+      230 33.3333333333333                           100   ""     -66.7  -66.7
+      231 <NA>                                        NA   ""      NA     NA  
+      232 <NA>                                        66.7 ""      NA     NA  
+      233 <NA>                                        66.7 ""      NA     NA  
+      234 100                                        100   ""       0      0  
+      235 33.3333333333333                            33.3 ""       0      0  
+      236 Expected to complete questionnaire          NA   ""      NA     NA  
+      237 Did not complete all questions              NA   <NA>    NA     NA  
+      238 Did not complete at least 80% of questions  NA   <NA>    NA     NA  
+      239 Completed at least 2 questions              NA   <NA>    NA     NA  
+      240 NOT AT ALL                                   4   ""      -3    -75  
+      241 QUITE A BIT                                  3   ""       0      0  
+      242 <NA>                                         1   ""      NA     NA  
+      243 NOT AT ALL                                   3   ""      -2    -66.7
+      244 <NA>                                         1   ""      NA     NA  
+      245 NOT AT ALL                                   2   ""      -1    -50  
+      246 A LITTLE                                     3   ""      -1    -33.3
+      247 VERY MUCH                                    4   ""       0      0  
+      248 VERY MUCH                                    3   ""       1     33.3
+      249 QUITE A BIT                                 NA   ""      NA     NA  
+      250 A LITTLE                                    NA   ""      NA     NA  
+      251 A LITTLE                                     1   ""       1    100  
+      252 QUITE A BIT                                  3   ""       0      0  
+      253 QUITE A BIT                                  4   ""      -1    -25  
+      254 VERY MUCH                                    4   ""       0      0  
+      255 NOT AT ALL                                   3   ""      -2    -66.7
+      256 VERY MUCH                                    4   ""       0      0  
+      257 A LITTLE                                     1   ""       1    100  
+      258 <NA>                                        NA   ""      NA     NA  
+      259 A LITTLE                                     2   ""       0      0  
+      260 QUITE A BIT                                  4   ""      -1    -25  
+      261 QUITE A BIT                                  2   ""       1     50  
+      262 A LITTLE                                     3   ""      -1    -33.3
+      263 VERY MUCH                                    1   ""       3    300  
+      264 <NA>                                         4   ""      NA     NA  
+      265 A LITTLE                                     3   ""      -1    -33.3
+      266 NOT AT ALL                                  NA   ""      NA     NA  
+      267 QUITE A BIT                                  2   ""       1     50  
+      268 1 - VERY POOR                                6   ""      -5    -83.3
+      269 2                                           NA   ""      NA     NA  
+      270 8.33333333333333                            83.3 ""     -75    -90  
+      271 77.7777777777778                            53.3 ""      24.4   45.8
+      272 83.3333333333333                            50   ""      33.3   66.7
+      273 33.3333333333333                            50   ""     -16.7  -33.3
+      274 66.6666666666667                            33.3 ""      33.3  100  
+      275 83.3333333333333                            33.3 ""      50    150  
+      276 44.4444444444444                             0   ""      44.4  Inf  
+      277 83.3333333333333                           100   ""     -16.7  -16.7
+      278 100                                         66.7 ""      33.3   50  
+      279 100                                        100   ""       0      0  
+      280 33.3333333333333                            NA   ""      NA     NA  
+      281 66.6666666666667                            66.7 ""       0      0  
+      282 0                                           66.7 ""     -66.7 -100  
+      283 100                                        100   ""       0      0  
+      284 66.6666666666667                            33.3 ""      33.3  100  
+      285 Expected to complete questionnaire          NA   ""      NA     NA  
+      286 Did not complete all questions              NA   <NA>    NA     NA  
+      287 Completed at least 80% of questions         NA   <NA>    NA     NA  
+      288 Completed at least 2 questions              NA   <NA>    NA     NA  
+          CHGCAT1                    ADTM                  ADY AVISIT        AVISITN
+          <fct>                      <dttm>              <int> <fct>           <int>
+        1  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+        2  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+        3  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+        4  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+        5  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+        6  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+        7  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+        8  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+        9  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       10  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       11  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       12  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       13  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       14  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       15  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       16  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       17  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       18  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       19  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       20  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       21  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       22  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       23  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       24  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       25  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       26  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       27  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       28  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       29  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       30  <NA>                      2021-01-13 22:43:53    -4 SCREENING          -1
+       31 ""                         2021-01-13 22:43:53    -4 SCREENING          -1
+       32 ""                         2021-01-13 22:43:53    -4 SCREENING          -1
+       33 ""                         2021-01-13 22:43:53    -4 SCREENING          -1
+       34 ""                         2021-01-13 22:43:53    -4 SCREENING          -1
+       35 ""                         2021-01-13 22:43:53    -4 SCREENING          -1
+       36 ""                         2021-01-13 22:43:53    -4 SCREENING          -1
+       37 ""                         2021-01-13 22:43:53    -4 SCREENING          -1
+       38 ""                         2021-01-13 22:43:53    -4 SCREENING          -1
+       39 ""                         2021-01-13 22:43:53    -4 SCREENING          -1
+       40 ""                         2021-01-13 22:43:53    -4 SCREENING          -1
+       41 ""                         2021-01-13 22:43:53    -4 SCREENING          -1
+       42 ""                         2021-01-13 22:43:53    -4 SCREENING          -1
+       43 ""                         2021-01-13 22:43:53    -4 SCREENING          -1
+       44 ""                         2021-01-13 22:43:53    -4 SCREENING          -1
+       45 ""                         2021-01-13 22:43:53    -4 SCREENING          -1
+       46 ""                         NA                     NA SCREENING          -1
+       47 "No changed"               2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       48 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       49 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       50 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       51 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       52 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       53 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       54 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       55 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       56  <NA>                      2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       57  <NA>                      2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       58 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       59 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       60 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       61 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       62 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       63 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       64 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       65  <NA>                      2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       66 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       67 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       68 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       69 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       70 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       71 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       72 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       73  <NA>                      2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       74 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       75 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       76  <NA>                      2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       77 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       78 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       79 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       80 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       81 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       82 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       83 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       84 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       85 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       86 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       87 ""                         2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       88 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       89 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       90 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       91 "No change"                2021-01-17 22:43:53     1 CYCLE 1 DAY 1       0
+       92 ""                         NA                     NA CYCLE 1 DAY 1       0
+       93  <NA>                      2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+       94  <NA>                      2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+       95 "No change"                2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+       96 "Improved by two levels"   2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+       97 "Worsened by one level"    2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+       98  <NA>                      2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+       99 "Improved by one level"    2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      100 "No change"                2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      101 "Improved by one level"    2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      102  <NA>                      2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      103  <NA>                      2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      104 "Worsened by one level"    2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      105 "No change"                2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      106 "Improved by two levels"   2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      107 "Improved by three levels" 2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      108 "Improved by one level"    2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      109 "Improved by two levels"   2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      110 "No change"                2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      111  <NA>                      2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      112 "Worsened by two levels"   2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      113 "Improved by one level"    2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      114 "No change"                2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      115  <NA>                      2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      116 "Worsened by three levels" 2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      117 "Improved by two levels"   2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      118 "No change"                2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      119  <NA>                      2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      120 "Improved by one level"    2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      121 "Worsened by three levels" 2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      122  <NA>                      2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      123 "Worsened"                 2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      124 "Improved"                 2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      125 "Improved"                 2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      126 "Worsened"                 2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      127 "No change"                2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      128 "Worsened"                 2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      129 "Worsened"                 2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      130 "Improved"                 2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      131 "Improved"                 2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      132 "No change"                2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      133 ""                         2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      134 "No change"                2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      135 "Improved"                 2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      136 "Improved"                 2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      137 "Improved"                 2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      138 ""                         NA                     NA CYCLE 2 DAY 1       1
+      139  <NA>                      2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      140  <NA>                      2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      141  <NA>                      2021-01-18 22:43:53     2 CYCLE 2 DAY 1       1
+      142 "Improved by three levels" 2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      143 "Improved by one level"    2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      144  <NA>                      2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      145 "No change"                2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      146 "No change"                2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      147  <NA>                      2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      148 "Improved by one level"    2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      149  <NA>                      2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      150 "Improved by two levels"   2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      151  <NA>                      2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      152  <NA>                      2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      153 "Worsened by one level"    2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      154  <NA>                      2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      155 "No change"                2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      156 "No change"                2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      157 "Worsened by one level"    2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      158 "Improved by three levels" 2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      159  <NA>                      2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      160  <NA>                      2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      161 "Worsened by one level"    2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      162  <NA>                      2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      163 "Improved by one level"    2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      164 "Improved by two levels"   2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      165 "Worsened by two levels"   2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      166  <NA>                      2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      167 "Improved by two levels"   2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      168  <NA>                      2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      169 "Worsened by one level"    2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      170 "Worsened by three levels" 2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      171  <NA>                      2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      172 "Worsened"                 2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      173 "Improved"                 2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      174 "Improved"                 2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      175 "Improved"                 2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      176 "No change"                2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      177 "Improved"                 2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      178 "Worsened"                 2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      179 "No change"                2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      180 "Improved"                 2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      181 ""                         2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      182 ""                         2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      183 ""                         2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      184 "Worsened"                 2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      185 "Improved"                 2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      186 "Worsened"                 2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      187 ""                         NA                     NA CYCLE 3 DAY 1       2
+      188  <NA>                      2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      189  <NA>                      2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      190  <NA>                      2021-02-15 22:43:53    30 CYCLE 3 DAY 1       2
+      191 "Improved by two levels"   2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      192  <NA>                      2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      193  <NA>                      2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      194 "Improved by two levels"   2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      195 "No change"                2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      196 "Worsened by one level"    2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      197 "Improved by one level"    2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      198 "Improved by two levels"   2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      199 "Worsened by one level"    2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      200  <NA>                      2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      201  <NA>                      2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      202 "Worsened by one level"    2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      203  <NA>                      2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      204 "Improved by one level"    2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      205 "Improved by three levels" 2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      206  <NA>                      2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      207 "No change"                2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      208 "Worsened by two levels"   2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      209  <NA>                      2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      210 "Worsened by two levels"   2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      211 "No change"                2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      212 "Worsened by one level"    2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      213 "Worsened by one level"    2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      214 "Worsened by two levels"   2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      215  <NA>                      2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      216 "Improved by two levels"   2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      217  <NA>                      2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      218 "No change"                2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      219  <NA>                      2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      220  <NA>                      2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      221 "Worsened"                 2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      222 "Improved"                 2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      223 "No change"                2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      224 "Worsened"                 2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      225 "Worsened"                 2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      226 "Improved"                 2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      227 "Worsened"                 2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      228 "Improved"                 2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      229 "Worsened"                 2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      230 "Improved"                 2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      231 ""                         2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      232 ""                         2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      233 ""                         2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      234 "No change"                2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      235 "No change"                2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      236 ""                         NA                     NA CYCLE 4 DAY 1       3
+      237  <NA>                      2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      238  <NA>                      2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      239  <NA>                      2021-03-15 22:43:53    58 CYCLE 4 DAY 1       3
+      240 "Improved by three levels" 2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      241 "No change"                2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      242  <NA>                      2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      243 "Improved by two levels"   2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      244  <NA>                      2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      245 "Improved by one level"    2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      246 "Improved by one level"    2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      247 "No change"                2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      248 "Worsened by one level"    2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      249  <NA>                      2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      250  <NA>                      2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      251 "Worsened by one level"    2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      252 "No change"                2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      253 "Improved by one level"    2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      254 "No change"                2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      255 "Improved by two levels"   2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      256 "No change"                2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      257 "Worsened by one level"    2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      258  <NA>                      2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      259 "No change"                2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      260 "Improved by one level"    2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      261 "Worsened by one level"    2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      262 "Improved by one level"    2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      263 "Worsened by three levels" 2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      264  <NA>                      2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      265 "Improved by one level"    2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      266  <NA>                      2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      267 "Worsened by one level"    2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      268 "Worsened by five levels"  2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      269  <NA>                      2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      270 "Worsened"                 2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      271 "Improved"                 2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      272 "Improved"                 2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      273 "Worsened"                 2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      274 "Improved"                 2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      275 "Improved"                 2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      276 "Worsened"                 2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      277 "Improved"                 2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      278 "Worsened"                 2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      279 "No change"                2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      280 ""                         2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      281 "No change"                2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      282 "Improved"                 2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      283 "No change"                2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      284 "Worsened"                 2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      285 ""                         NA                     NA CYCLE 5 DAY 1       4
+      286  <NA>                      2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      287  <NA>                      2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+      288  <NA>                      2021-04-12 22:43:53    86 CYCLE 5 DAY 1       4
+          ANL01FL
+          <fct>  
+        1 <NA>   
+        2 <NA>   
+        3 <NA>   
+        4 <NA>   
+        5 <NA>   
+        6 <NA>   
+        7 <NA>   
+        8 <NA>   
+        9 <NA>   
+       10 <NA>   
+       11 <NA>   
+       12 <NA>   
+       13 <NA>   
+       14 <NA>   
+       15 <NA>   
+       16 <NA>   
+       17 <NA>   
+       18 <NA>   
+       19 <NA>   
+       20 <NA>   
+       21 <NA>   
+       22 <NA>   
+       23 <NA>   
+       24 <NA>   
+       25 <NA>   
+       26 <NA>   
+       27 <NA>   
+       28 <NA>   
+       29 <NA>   
+       30 <NA>   
+       31 <NA>   
+       32 <NA>   
+       33 <NA>   
+       34 <NA>   
+       35 <NA>   
+       36 <NA>   
+       37 <NA>   
+       38 <NA>   
+       39 <NA>   
+       40 <NA>   
+       41 <NA>   
+       42 <NA>   
+       43 <NA>   
+       44 <NA>   
+       45 <NA>   
+       46 <NA>   
+       47 Y      
+       48 Y      
+       49 Y      
+       50 Y      
+       51 Y      
+       52 Y      
+       53 Y      
+       54 Y      
+       55 Y      
+       56 Y      
+       57 Y      
+       58 Y      
+       59 Y      
+       60 Y      
+       61 Y      
+       62 Y      
+       63 Y      
+       64 Y      
+       65 Y      
+       66 Y      
+       67 Y      
+       68 Y      
+       69 Y      
+       70 Y      
+       71 Y      
+       72 Y      
+       73 Y      
+       74 Y      
+       75 Y      
+       76 Y      
+       77 Y      
+       78 Y      
+       79 Y      
+       80 Y      
+       81 Y      
+       82 Y      
+       83 Y      
+       84 Y      
+       85 Y      
+       86 Y      
+       87 Y      
+       88 Y      
+       89 Y      
+       90 Y      
+       91 Y      
+       92 <NA>   
+       93 Y      
+       94 Y      
+       95 Y      
+       96 Y      
+       97 Y      
+       98 Y      
+       99 Y      
+      100 Y      
+      101 Y      
+      102 Y      
+      103 Y      
+      104 Y      
+      105 Y      
+      106 Y      
+      107 Y      
+      108 Y      
+      109 Y      
+      110 Y      
+      111 Y      
+      112 Y      
+      113 Y      
+      114 Y      
+      115 Y      
+      116 Y      
+      117 Y      
+      118 Y      
+      119 Y      
+      120 Y      
+      121 Y      
+      122 Y      
+      123 Y      
+      124 Y      
+      125 Y      
+      126 Y      
+      127 Y      
+      128 Y      
+      129 Y      
+      130 Y      
+      131 Y      
+      132 Y      
+      133 Y      
+      134 Y      
+      135 Y      
+      136 Y      
+      137 Y      
+      138 <NA>   
+      139 Y      
+      140 Y      
+      141 Y      
+      142 Y      
+      143 Y      
+      144 Y      
+      145 Y      
+      146 Y      
+      147 Y      
+      148 Y      
+      149 Y      
+      150 Y      
+      151 Y      
+      152 Y      
+      153 Y      
+      154 Y      
+      155 Y      
+      156 Y      
+      157 Y      
+      158 Y      
+      159 Y      
+      160 Y      
+      161 Y      
+      162 Y      
+      163 Y      
+      164 Y      
+      165 Y      
+      166 Y      
+      167 Y      
+      168 Y      
+      169 Y      
+      170 Y      
+      171 Y      
+      172 Y      
+      173 Y      
+      174 Y      
+      175 Y      
+      176 Y      
+      177 Y      
+      178 Y      
+      179 Y      
+      180 Y      
+      181 Y      
+      182 Y      
+      183 Y      
+      184 Y      
+      185 Y      
+      186 Y      
+      187 <NA>   
+      188 Y      
+      189 Y      
+      190 Y      
+      191 Y      
+      192 Y      
+      193 Y      
+      194 Y      
+      195 Y      
+      196 Y      
+      197 Y      
+      198 Y      
+      199 Y      
+      200 Y      
+      201 Y      
+      202 Y      
+      203 Y      
+      204 Y      
+      205 Y      
+      206 Y      
+      207 Y      
+      208 Y      
+      209 Y      
+      210 Y      
+      211 Y      
+      212 Y      
+      213 Y      
+      214 Y      
+      215 Y      
+      216 Y      
+      217 Y      
+      218 Y      
+      219 Y      
+      220 Y      
+      221 Y      
+      222 Y      
+      223 Y      
+      224 Y      
+      225 Y      
+      226 Y      
+      227 Y      
+      228 Y      
+      229 Y      
+      230 Y      
+      231 Y      
+      232 Y      
+      233 Y      
+      234 Y      
+      235 Y      
+      236 <NA>   
+      237 Y      
+      238 Y      
+      239 Y      
+      240 Y      
+      241 Y      
+      242 Y      
+      243 Y      
+      244 Y      
+      245 Y      
+      246 Y      
+      247 Y      
+      248 Y      
+      249 Y      
+      250 Y      
+      251 Y      
+      252 Y      
+      253 Y      
+      254 Y      
+      255 Y      
+      256 Y      
+      257 Y      
+      258 Y      
+      259 Y      
+      260 Y      
+      261 Y      
+      262 Y      
+      263 Y      
+      264 Y      
+      265 Y      
+      266 Y      
+      267 Y      
+      268 Y      
+      269 Y      
+      270 Y      
+      271 Y      
+      272 Y      
+      273 Y      
+      274 Y      
+      275 Y      
+      276 Y      
+      277 Y      
+      278 Y      
+      279 Y      
+      280 Y      
+      281 Y      
+      282 Y      
+      283 Y      
+      284 Y      
+      285 <NA>   
+      286 Y      
+      287 Y      
+      288 Y      
+
+---
+
+    Code
+      rand_rows
+    Output
+      # A tibble: 10 x 50
+         STUDYID USUBJID             SUBJID SITEID   AGE AGEU  SEX  
+         <chr>   <chr>               <chr>  <chr>  <int> <fct> <fct>
+       1 AB12345 AB12345-CHN-11-id-1 id-1   CHN-11    35 YEARS F    
+       2 AB12345 AB12345-USA-13-id-3 id-3   USA-13    35 YEARS F    
+       3 AB12345 AB12345-RUS-1-id-4  id-4   RUS-1     36 YEARS M    
+       4 AB12345 AB12345-RUS-1-id-6  id-6   RUS-1     36 YEARS F    
+       5 AB12345 AB12345-CHN-11-id-2 id-2   CHN-11    35 YEARS M    
+       6 AB12345 AB12345-CHN-3-id-10 id-10  CHN-3     35 YEARS M    
+       7 AB12345 AB12345-CHN-3-id-5  id-5   CHN-3     36 YEARS F    
+       8 AB12345 AB12345-JPN-4-id-7  id-7   JPN-4     30 YEARS F    
+       9 AB12345 AB12345-BRA-9-id-8  id-8   BRA-9     31 YEARS F    
+      10 AB12345 AB12345-CHN-11-id-2 id-2   CHN-11    35 YEARS M    
+         RACE                             ETHNIC                 COUNTRY
+         <fct>                            <fct>                  <fct>  
+       1 WHITE                            NOT HISPANIC OR LATINO CHN    
+       2 AMERICAN INDIAN OR ALASKA NATIVE NOT HISPANIC OR LATINO USA    
+       3 BLACK OR AFRICAN AMERICAN        NOT HISPANIC OR LATINO RUS    
+       4 ASIAN                            NOT HISPANIC OR LATINO RUS    
+       5 BLACK OR AFRICAN AMERICAN        NOT HISPANIC OR LATINO CHN    
+       6 ASIAN                            NOT HISPANIC OR LATINO CHN    
+       7 ASIAN                            NOT HISPANIC OR LATINO CHN    
+       8 ASIAN                            NOT HISPANIC OR LATINO JPN    
+       9 ASIAN                            NOT HISPANIC OR LATINO BRA    
+      10 BLACK OR AFRICAN AMERICAN        NOT HISPANIC OR LATINO CHN    
+         TRT01P         TRT01A         REGION1       ITTFL SAFFL TRTSDTM            
+         <fct>          <fct>          <fct>         <fct> <fct> <dttm>             
+       1 C: Combination C: Combination Asia          Y     Y     2020-05-02 02:28:45
+       2 A: Drug X      A: Drug X      North America Y     Y     2019-10-17 17:56:02
+       3 B: Placebo     B: Placebo     Eurasia       Y     Y     2020-08-28 20:42:09
+       4 A: Drug X      A: Drug X      Eurasia       Y     Y     2020-10-26 22:16:26
+       5 A: Drug X      A: Drug X      Asia          Y     Y     2020-02-26 18:15:59
+       6 B: Placebo     B: Placebo     Asia          Y     Y     2019-03-28 12:07:16
+       7 A: Drug X      A: Drug X      Asia          Y     Y     2020-06-27 04:48:00
+       8 A: Drug X      A: Drug X      Asia          Y     Y     2019-09-22 02:25:18
+       9 A: Drug X      A: Drug X      South America Y     Y     2020-01-21 10:19:08
+      10 A: Drug X      A: Drug X      Asia          Y     Y     2020-02-26 18:15:59
+         TRTEDTM             QSSEQ QSCAT              QSSCAT QSDTC              
+         <dttm>              <int> <fct>              <fct>  <dttm>             
+       1 2021-09-08 20:09:38    25 EORTC QLQ-C30 V3.0 <NA>   2020-04-25 02:28:45
+       2 2022-10-17 11:56:02    NA <NA>               <NA>   NA                 
+       3 2022-01-23 08:46:48    NA <NA>               <NA>   NA                 
+       4 2023-10-27 16:16:26    NA EORTC QLQ-C30 V3.0 <NA>   NA                 
+       5 NA                     27 EORTC QLQ-C30 V3.0 <NA>   2020-02-19 18:15:59
+       6 2022-03-28 06:07:16    41 EORTC QLQ-C30 V3.0 <NA>   2019-03-28 12:07:16
+       7 2023-06-27 22:48:00    13 EORTC QLQ-C30 V3.0 <NA>   2020-06-21 04:48:00
+       8 2022-09-21 20:25:18    NA EORTC QLQ-C30 V3.0 <NA>   NA                 
+       9 2021-10-16 19:37:36   133 EORTC QLQ-C30 V3.0 <NA>   2020-03-18 10:19:08
+      10 NA                     NA <NA>               <NA>   NA                 
+         QSSTAT   QSSTRESC QSSTRESU QSORRES     QSORRESU
+         <fct>    <fct>    <fct>    <fct>       <fct>   
+       1 <NA>     3        <NA>     QUITE A BIT <NA>    
+       2 <NA>     <NA>     <NA>     <NA>        <NA>    
+       3 <NA>     <NA>     <NA>     <NA>        <NA>    
+       4 <NA>     <NA>     <NA>     <NA>        <NA>    
+       5 <NA>     4        <NA>     VERY MUCH   <NA>    
+       6 <NA>     3        <NA>     QUITE A BIT <NA>    
+       7 <NA>     3        <NA>     QUITE A BIT <NA>    
+       8 <NA>     <NA>     <NA>     <NA>        <NA>    
+       9 NOT DONE <NA>     <NA>     <NA>        <NA>    
+      10 <NA>     <NA>     <NA>     <NA>        <NA>    
+         QSTEST                                  QSTESTCD QSREASND QSEVLINT
+         <fct>                                   <fct>    <fct>    <fct>   
+       1 EOR01-Had Difficulty Remembering Things EOR0125  <NA>     -P1W    
+       2 <NA>                                    <NA>     <NA>     <NA>    
+       3 <NA>                                    <NA>     <NA>     <NA>    
+       4 EOR01-SS:Appetite Loss                  EOR0142  <NA>     <NA>    
+       5 EOR01-Condition Interfered Social Activ EOR0127  <NA>     -P1W    
+       6 EOR01-Have You Had Trouble Sleeping     EOR0111  <NA>     -P1W    
+       7 EOR01-Have You Lacked Appetite          EOR0113  <NA>     -P1W    
+       8 EOR01-FS:Emotional Functioning          EOR0134  <NA>     <NA>    
+       9 EOR01-Have You Lacked Appetite          EOR0113  <NA>     -P1W    
+      10 <NA>                                    <NA>     <NA>     <NA>    
+         VISIT         VISITNUM  ASEQ
+         <fct>            <int> <int>
+       1 SCREENING           -1    25
+       2 <NA>                NA    97
+       3 <NA>                NA    94
+       4 <NA>                NA   189
+       5 SCREENING           -1    27
+       6 CYCLE 1 DAY 1        0    60
+       7 SCREENING           -1    13
+       8 <NA>                NA   181
+       9 CYCLE 4 DAY 1        3   200
+      10 <NA>                NA    48
+         PARAM                                                           PARAMCD 
+         <fct>                                                           <fct>   
+       1 EORTC QLQ-C30: Had difficulty remembering things                QS02825 
+       2 EORTC QLQ-C30: Completion - Completed at least 80% of questions CO02880P
+       3 EORTC QLQ-C30: Completion - Completed at least 80% of questions CO02880P
+       4 EORTC QLQ-C30: Appetite loss                                    QS028AP 
+       5 EORTC QLQ-C30: Interfered with your social activities           QS02827 
+       6 EORTC QLQ-C30: Have you had trouble sleeping                    QS02811 
+       7 EORTC QLQ-C30: Have you lacked appetite                         QS02813 
+       8 EORTC QLQ-C30: Emotional functioning                            QS028EF 
+       9 EORTC QLQ-C30: Have you lacked appetite                         QS02813 
+      10 EORTC QLQ-C30: Completion - Completed at least 80% of questions CO02880P
+         PARCAT1       PARCAT1N PARCAT2            AVAL
+         <fct>            <dbl> <fct>             <dbl>
+       1 EORTC QLQ-C30       28 Original Items      3  
+       2 EORTC QLQ-C30       NA Completion          1  
+       3 EORTC QLQ-C30       NA Completion          1  
+       4 EORTC QLQ-C30       28 Symptom Scales    100  
+       5 EORTC QLQ-C30       28 Original Items      4  
+       6 EORTC QLQ-C30       28 Original Items      3  
+       7 EORTC QLQ-C30       28 Original Items      3  
+       8 EORTC QLQ-C30       28 Functional Scales  58.3
+       9 EORTC QLQ-C30       28 Original Items     NA  
+      10 EORTC QLQ-C30       NA Completion          1  
+         AVALC                                BASE ABLFL   CHG  PCHG CHGCAT1  
+         <fct>                               <dbl> <fct> <dbl> <dbl> <fct>    
+       1 QUITE A BIT                          NA   ""    NA     NA   <NA>     
+       2 Completed at least 80% of questions  NA   <NA>  NA     NA   <NA>     
+       3 Completed at least 80% of questions  NA   <NA>  NA     NA   <NA>     
+       4 100                                  33.3 ""    66.7  200   Worsened 
+       5 VERY MUCH                            NA   ""    NA     NA   <NA>     
+       6 QUITE A BIT                           3   "Y"    0      0   No change
+       7 QUITE A BIT                          NA   ""    NA     NA   <NA>     
+       8 58.3333333333333                     50   ""     8.33  16.7 No change
+       9 <NA>                                  1   ""    NA     NA   <NA>     
+      10 Completed at least 80% of questions  NA   <NA>  NA     NA   <NA>     
+         ADTM                  ADY AVISIT        AVISITN ANL01FL
+         <dttm>              <int> <fct>           <int> <fct>  
+       1 2020-04-25 02:28:45    -7 SCREENING          -1 <NA>   
+       2 2019-10-17 17:56:02     1 CYCLE 1 DAY 1       0 Y      
+       3 2020-08-28 20:42:09     1 CYCLE 1 DAY 1       0 Y      
+       4 2020-11-24 22:16:26    30 CYCLE 3 DAY 1       2 Y      
+       5 2020-02-19 18:15:59    -7 SCREENING          -1 <NA>   
+       6 2019-03-28 12:07:16     1 CYCLE 1 DAY 1       0 Y      
+       7 2020-06-21 04:48:00    -6 SCREENING          -1 <NA>   
+       8 2019-10-21 02:25:18    30 CYCLE 3 DAY 1       2 Y      
+       9 2020-03-18 10:19:08    58 CYCLE 4 DAY 1       3 Y      
+      10 2020-02-19 18:15:59    -7 SCREENING          -1 <NA>   
+
 # radqs produces expected values
 
     Code
