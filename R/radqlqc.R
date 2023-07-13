@@ -290,6 +290,7 @@ get_qs_data <- function(adsl,
                           QSORRES = c(1234, 0.2),
                           QSSTRESC = c(1234, 0.2)
                         )) {
+  load(system.file("sysdata.rda", package = "random.cdisc.data"))
   checkmate::assert_string(visit_format)
   checkmate::assert_integer(n_assessments, len = 1, any.missing = FALSE)
   checkmate::assert_integer(n_days, len = 1, any.missing = FALSE)
