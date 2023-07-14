@@ -3,7 +3,7 @@
 ### Enhancements
 * Refactor `adpc` and `adab` following the new CDISC standard.
 * Refactor `abab` parameters and visits to align with `adpc`.
-* Skiping examples in `h_adqlqc` documentation.
+* Skipping examples in `h_adqlqc` documentation.
 * Changed example in `apply_metadata` to reduce example run time. 
 
 ### Breaking changes
