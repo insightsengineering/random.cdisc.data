@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   rebuild_cached_data: rebuild_cached_data.html
-last_built: 2023-07-14T14:40Z
+last_built: 2023-07-14T15:16Z
 urls:
   reference: https://insightsengineering.github.io/random.cdisc.data/main/reference
   article: https://insightsengineering.github.io/random.cdisc.data/main/articles
