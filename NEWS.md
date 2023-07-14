@@ -1,10 +1,4 @@
-# random.cdisc.data 0.3.13.9064
-
-### Enhancements
-* Refactor `adpc` and `adab` following the new CDISC standard.
-* Refactor `abab` parameters and visits to align with `adpc`.
-* Skipping examples in `h_adqlqc` documentation.
-* Changed example in `apply_metadata` to reduce example run time. 
+# random.cdisc.data 0.3.14
 
 ### Breaking changes
 * Renamed `ADSL` argument to `adsl` in `radab`, `radae`, `radaette`, `radcm`, `raddv`, `radeg`, `radex`, `radhy`, `radlb`,
@@ -14,14 +8,7 @@
 
 ### New features
 * Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (`radab`).
-
-### Bug fixes
-* Updated all the `ANL01FL` `NA` values to `""` in `adae`.
-* Updated `DVDECOD` and `DVSCAT` values in `addv`.
-* Fixed `adtm` calculations so that records with same `AVISIT` have the same `ADTM` for each patient.
-* Fixed checks for `na_percentage` argument that is in most datasets.
-* Updated package for breaking changes in `tidyselect`.
-* Updated `adtte` so that the events, analysis values and censor values make logical sense. 
+* Added new random dataset generator: EORTC QLQ-C30 V3 Analysis Dataset (`radqlqc`).
 
 ### Enhancements
 * Added variables `ASTDY`, `AENDY`, `EXDOSFRQ`, `EXROUTE`, `VISIT`, `VISITDY`, `EXSTDTC`, `EXENDTC`, `EXSTDY`, 
@@ -46,6 +33,14 @@
 * Added "datetime" and "date" as valid variable types to apply in `apply_metadata`.
 * Implemented the `lubridate` package in all date/datetime variable derivations.
 
+### Bug fixes
+* Updated all the `ANL01FL` `NA` values to `""` in `adae`.
+* Updated `DVDECOD` and `DVSCAT` values in `addv`.
+* Fixed `adtm` calculations so that records with same `AVISIT` have the same `ADTM` for each patient.
+* Fixed checks for `na_percentage` argument that is in most datasets.
+* Updated package for breaking changes in `tidyselect`.
+* Updated `adtte` so that the events, analysis values and censor values make logical sense.
+
 ### Miscellaneous
 * Updated installation method and aligned with other packages.
 * Updated tests to use `testthat` 3rd edition and added snapshot testing for random rows.
@@ -55,6 +50,10 @@
 * Renamed `random.cdisc.data.R` file to `package.R` and cleaned up contents.
 * Added more detailed documentation for function parameters.
 * Converted all dataset names to lowercase/snake case for consistency with other NEST packages.
+* Refactor `adpc` and `adab` following the new CDISC standard.
+* Refactor `abab` parameters and visits to align with `adpc`.
+* Skipping examples in `h_adqlqc` documentation.
+* Changed example in `apply_metadata` to reduce example run time. 
 
 # random.cdisc.data 0.3.13
 

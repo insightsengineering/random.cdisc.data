@@ -23,7 +23,6 @@ The `random.cdisc.data` is a package for creating random CDISC data.
 The random datasets available to create are:
 
 - `radsl`: Subject-Level Analysis Dataset (ADSL)
-
 - `radab`: Anti-Drug Antibody Analysis Dataset (ADAB)
 - `radae`: Adverse Event Analysis Dataset (ADAE)
 - `radaette`: Time to Adverse Event Analysis Dataset (ADAETTE)
