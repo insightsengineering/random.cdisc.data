@@ -277,8 +277,10 @@ NULL
 #' @keywords internal
 #'
 #' @examples
+#' \dontrun{
 #' qs <- random.cdisc.data:::get_qs_data(adsl, n_assessments = 5L, seed = 1, na_percentage = 0.1)
 #' qs
+#' }
 get_qs_data <- function(adsl,
                         visit_format = "CYCLE",
                         n_assessments = 5L,
@@ -573,6 +575,7 @@ get_qs_data <- function(adsl,
 #' @keywords internal
 #'
 #' @examples
+#' \dontrun{
 #' df <- dplyr::left_join(
 #'   adsl,
 #'   qs,
@@ -586,6 +589,7 @@ get_qs_data <- function(adsl,
 #'   ) |>
 #'   dplyr::mutate(ADTM = random.cdisc.data:::get_random_dates_between(TRTSDTM, TRTEDTM, AVISITN))
 #' df
+#' }
 get_random_dates_between <- function(from, to, visit_id) {
   min_date <- min(lubridate::as_datetime(from), na.rm = TRUE)
   max_date <- max(lubridate::as_datetime(to), na.rm = TRUE)
@@ -617,8 +621,10 @@ get_random_dates_between <- function(from, to, visit_id) {
 #' @keywords internal
 #'
 #' @examples
+#' \dontrun{
 #' adqlqc1 <- random.cdisc.data:::prep_adqlqc(df = qs)
 #' adqlqc1
+#' }
 prep_adqlqc <- function(df) {
   # create PARAMCD from QSTESTCD
   adqlqc <- dplyr::mutate(
@@ -674,8 +680,10 @@ prep_adqlqc <- function(df) {
 #' @keywords internal
 #'
 #' @examples
+#' \dontrun{
 #' df_scales <- random.cdisc.data:::calc_scales(df)
 #' df_scales
+#' }
 calc_scales <- function(adqlqc1) {
   # Prep scale data ---------------------------------------------------------
   # parcat2 = scales or global health status
@@ -954,8 +962,10 @@ calc_scales <- function(adqlqc1) {
 #' @keywords internal
 #'
 #' @examples
+#' \dontrun{
 #' adqlqc <- random.cdisc.data:::derv_chgcat1(dataset = adqlqc |> dplyr::select(-CHGCAT1))
 #' adqlqc
+#' }
 derv_chgcat1 <- function(dataset) {
   # derivation of CHGCAT1
   check_vars <- c("PARCAT2", "CHG")
@@ -1118,8 +1128,10 @@ derv_chgcat1 <- function(dataset) {
 #' @keywords internal
 #'
 #' @examples
+#' \dontrun{
 #' compliance_data <- random.cdisc.data:::comp_derv(adqlqc, 80, 2)
 #' compliance_data
+#' }
 comp_derv <- function(dataset, percent, number) {
   # original items data
   orig_data <- filter(

@@ -26,14 +26,12 @@ Apply label and variable ordering attributes to domains.
 \examples{
 seed <- 1
 adsl <- radsl(seed = seed)
-adlb <- radlb(adsl, seed = seed)
-\dontrun{
+adsub <- radsub(adsl, seed = seed)
 yaml_path <- file.path(path.package("random.cdisc.data"), "inst", "metadata")
 adsl <- random.cdisc.data:::apply_metadata(adsl, file.path(yaml_path, "ADSL.yml"), FALSE)
-adlb <- random.cdisc.data:::apply_metadata(
-  adlb, file.path(yaml_path, "ADLB.yml"), TRUE,
+adsub <- random.cdisc.data:::apply_metadata(
+  adsub, file.path(yaml_path, "ADSUB.yml"), TRUE,
   file.path(yaml_path, "ADSL.yml")
 )
-}
 }
 \keyword{internal}
