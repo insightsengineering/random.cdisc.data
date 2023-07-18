@@ -19,7 +19,7 @@
 * Added new random dataset generator: EORTC QLQ-C30 V3 Analysis Dataset (`radqlqc`).
 
 ### Enhancements
-* Added variables `ASTDY`, `AENDY`, `EXDOSFRQ`, `EXROUTE`, `VISIT`, `VISITDY`, `EXSTDTC`, `EXENDTC`, `EXSTDY`,
+* Added variables `ASTDY`, `AENDY`, `EXDOSFRQ`, `EXROUTE`, `VISIT`, `VISITDY`, `EXSTDTC`, `EXENDTC`, `EXSTDY`, 
   `EXENDY`, `TRTSDT`, and `TRTEDT` to `adex`.
 * Added more default `PARAM`s and new variables `PPSTINT`, `PPENINT`, `REGIMEN`, and `PKARMCD` to `adpp`.
 * Added `TNE` to `PARAMCD`, `Total Number of Exacerbations` to `PARAM`, and new variable `lgTMATRSK` to `adtte`.
@@ -29,13 +29,13 @@
 * Added variable `ATIREL` to `admh`.
 * Added variables `CMSTRTPT`, `CMENRTPT`, `ADURN`, and `ADURU` to `adcm`.
 * Added variables `AESCONG`, `AESDISAB`, `AESHOSP`, `AESLIFE`, `AESMIE`, and `LDOSEDTM` to `adae`.
-* Added parameter `with_trt02` to `radsl` to make the second treatment period available. When `with_trt02 = TRUE`
-  (default), add variables `TRT02A`, `TRT02P`, `TRT02SDTM`, `TRT02EDTM`, `AP02SDTM`, `AP02EDTM`, `TRT01SDTM`,
+* Added parameter `with_trt02` to `radsl` to make the second treatment period available. When `with_trt02 = TRUE` 
+  (default), add variables `TRT02A`, `TRT02P`, `TRT02SDTM`, `TRT02EDTM`, `AP02SDTM`, `AP02EDTM`, `TRT01SDTM`, 
   `TRT01EDTM`, `AP01SDTM`, and `AP01EDTM` to `adsl`, and set `TRTSDTM` as `TRT01SDTM`, `TRTEDTM` as `TRT02EDTM`.
 * Added variable `LDRELTM` to `adae`.
-* Aligned logic for `ADTM`, `ADY`, and `ONTRTFL` variables with `AVISIT` where applicable within `adeg`, `adlb`,
+* Aligned logic for `ADTM`, `ADY`, and `ONTRTFL` variables with `AVISIT` where applicable within `adeg`, `adlb`, 
   `adqs`, `adsub`, `adtr`, and `advs`.
-* Made `AVAL` values more realistic and updated derivations of `ANRIND`, `*STRESC`, and `LOQFL` to depend on value
+* Made `AVAL` values more realistic and updated derivations of `ANRIND`, `*STRESC`, and `LOQFL` to depend on value 
   of `PARAMCD` in `adlb` and `advs`.
 * Added tests to increase package test coverage.
 * Added "datetime" and "date" as valid variable types to apply in `apply_metadata`.
@@ -61,7 +61,7 @@
 * Refactor `adpc` and `adab` following the new CDISC standard.
 * Refactor `abab` parameters and visits to align with `adpc`.
 * Skipping examples in `h_adqlqc` documentation.
-* Changed example in `apply_metadata` to reduce example run time.
+* Changed example in `apply_metadata` to reduce example run time. 
 
 # random.cdisc.data 0.3.13
 
