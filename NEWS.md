@@ -16,14 +16,7 @@
 
 ### New features
 * Added new random dataset generator: Anti-Drug Antibody Analysis Dataset (`radab`).
-
-### Bug fixes
-* Updated all the `ANL01FL` `NA` values to `""` in `adae`.
-* Updated `DVDECOD` and `DVSCAT` values in `addv`.
-* Fixed `adtm` calculations so that records with same `AVISIT` have the same `ADTM` for each patient.
-* Fixed checks for `na_percentage` argument that is in most datasets.
-* Updated package for breaking changes in `tidyselect`.
-* Updated `adtte` so that the events, analysis values and censor values make logical sense.
+* Added new random dataset generator: EORTC QLQ-C30 V3 Analysis Dataset (`radqlqc`).
 
 ### Enhancements
 * Added variables `ASTDY`, `AENDY`, `EXDOSFRQ`, `EXROUTE`, `VISIT`, `VISITDY`, `EXSTDTC`, `EXENDTC`, `EXSTDY`,
