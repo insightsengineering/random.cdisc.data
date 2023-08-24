@@ -76,7 +76,7 @@ radsl <- function(N = 400, # nolint
   country_site_prob <- c(.5, .121, .077, .077, .075, .052, .046, .025, .014, .003)
 
   adsl <- tibble::tibble(
-    STUDYID = rep("AB1234", N),
+    STUDYID = rep("AB12345", N),
     COUNTRY = sample_fct(
       c("CHN", "USA", "BRA", "PAK", "NGA", "RUS", "JPN", "GBR", "CAN", "CHE"),
       N,

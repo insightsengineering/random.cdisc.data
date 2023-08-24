@@ -50,7 +50,7 @@ radab <- function(adsl,
                     "titer", "", "titer", "", "", "", "", "", "", "", "", "", "", "weeks", "weeks",
                     "", "", "", "", "", "", ""
                   ),
-                  seed = NULL,
+                  seed = 1,
                   na_percentage = 0,
                   na_vars = list(
                     AVAL = c(NA, 0.1)
