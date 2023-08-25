@@ -69,7 +69,7 @@ for (dat in data_to_update) {
   dat_args <- default_args[names(default_args) %in% names(formals(paste0("r", dat)))]
   dat_deps <- lapply(data_deps[[dat]], function(x) get(paste0("c", x)))
   cdataset <- do.call(paste0("r", dat), c(dat_args, dat_deps))
-  attr(cdataset, "creation date") <- Sys.Date()
+  attr(cdataset, "creation date") <- Sys.Date() # nolint
 
   # Preview differences (optional)
   print(paste("Dataset:", dat))
