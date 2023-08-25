@@ -1,8 +1,8 @@
 ---
-title: "Updating Cached Random CDISC Data"
+title: "Rebuilding Cached Random CDISC Data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Rebuilding Random CDISC Cached Data}
+  %\VignetteIndexEntry{Rebuilding Cached Random CDISC Data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}{inputenc}
 ---
