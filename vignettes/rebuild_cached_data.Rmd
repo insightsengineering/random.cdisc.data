@@ -43,11 +43,11 @@ RNGkind(sample.kind = "Rounding")
 # Datasets must be listed after all of their dependencies
 # e.g. adsl is a dependency for all other datasets so it is listed first.
 data_nms <- c(
-  "adsl", "adae", "adaette", "adcm", "adex", "adlb", "admh", "adpc", "adpp", "adab", 
+  "adsl", "adae", "adaette", "adcm", "adex", "adlb", "admh", "adpc", "adpp", "adab",
   "adqs", "adrs", "adtte", "advs", "adeg", "adtr", "addv", "adsub", "adhy", "adqlqc"
 )
 data_deps <- sapply(
-  data_nms, 
+  data_nms,
   function(x) {
     dat_args <- names(formals(paste0("r", x)))
     dat_args[dat_args %in% data_nms]
@@ -70,11 +70,11 @@ for (dat in data_to_update) {
   dat_deps <- lapply(data_deps[[dat]], function(x) get(paste0("c", x)))
   cdataset <- do.call(paste0("r", dat), c(dat_args, dat_deps))
   attr(cdataset, "creation date") <- Sys.Date()
-  
+
   # Preview differences (optional)
   print(paste("Dataset:", dat))
   print(diffdf(get(paste0("c", dat)), cdataset))
-  
+
   # Save new cached dataset
   assign(paste0("c", dat), cdataset)
   save(list = paste0("c", dat), file = paste0("../data/c", dat, ".RData"), compress = "xz")
