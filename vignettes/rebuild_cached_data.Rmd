@@ -18,8 +18,7 @@ function `RNGkind(sample.kind = "Rounding")`.
 It throws the expected warning:
 
 ```
-Warning message:
-In RNGkind(sample.kind = "Rounding") : non-uniform 'Rounding' sampler used
+Warning: non-uniform 'Rounding' sampler used
 ```
 
 ## Code Maintenance
@@ -62,7 +61,7 @@ update_after_deps <- unlist(
   sapply(updated_data, function(x) data_nms[sapply(data_deps, function(deps) x %in% deps)])
 )
 data_to_update <- unique(c(updated_data, update_after_deps))
-data_to_update <- data_to_update[order(match(data_to_update, data_nms))] # order so dependencies first
+data_to_update <- data_to_update[order(match(data_to_update, data_nms))] # order dependencies first
 
 # Generate and save updated cached datasets
 default_args <- list(seed = 1, na_vars = list(), who_coding = TRUE, percent = 80, number = 2)
