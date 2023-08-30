@@ -58,7 +58,7 @@ radab <- function(adsl,
                   cached = FALSE) {
   checkmate::assert_flag(cached)
   if (cached) {
-    return(get_cached_data("cadpc"))
+    return(get_cached_data("cadab"))
   }
 
   checkmate::assert_data_frame(adpc)

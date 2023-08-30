@@ -1,4 +1,6 @@
 # random.cdisc.data 0.3.14.9002
+### New Features
+* Asynchronous changes of caches; only if a source file changes, the cached data dependending on it is updated.
 
 # random.cdisc.data 0.3.14
 
