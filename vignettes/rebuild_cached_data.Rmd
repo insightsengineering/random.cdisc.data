@@ -42,9 +42,10 @@ RNGkind(sample.kind = "Rounding")
 
 # Datasets must be listed after all of their dependencies
 # e.g. adsl is a dependency for all other datasets so it is listed first.
+pkg_dir <- dirname(getwd())
 
 # Listing source files and extraction of datasets' names
-src_files <- list.files(paste0(dirname(getwd()), "/R"))
+src_files <- list.files(paste0(pkg_dir, "/R"))
 data_nms <- src_files[grepl("^ra*", src_files)] %>% 
   stringr::str_remove(pattern = "^r") %>% 
   stringr::str_remove(pattern = ".R$") %>% 
@@ -62,12 +63,20 @@ data_deps <- sapply(
   }
 )
 
-updated_files <- system("git diff main --name-only", intern = TRUE)
-updated_data <- gsub("R/r|.R", "", grep("R/r", updated_files, value = TRUE))
+updated_files <- system("git diff origin/main --name-only", intern = TRUE)
+updated_data <- updated_files[grepl("^R\\/", updated_files)] %>% 
+  stringr::str_remove("^R\\/") %>% 
+  stringr::str_remove(pattern = "^r") %>% 
+  stringr::str_remove(pattern = ".R$") 
 
 if (length(updated_data) != 0) {
+  # Extracting relative dependencies
   update_after_deps <- unlist(
-    sapply(updated_data, function(x) data_nms[sapply(data_deps, function(deps) x %in% deps)])
+    sapply(seq_along(data_deps), function(x) {
+      if (updated_data %in% data_deps[[x]]) {
+        names(data_deps)[x]
+      }
+    })
   )
   data_to_update <- unique(c(updated_data, update_after_deps))
   data_to_update <- data_to_update[order(match(data_to_update, data_nms))] # order dependencies first
@@ -75,18 +84,25 @@ if (length(updated_data) != 0) {
   # Generate and save updated cached datasets
   default_args <- list(seed = 1, na_vars = list(), who_coding = TRUE, percent = 80, number = 2)
   for (dat in data_to_update) {
+    # Match arguments with defaults
     dat_args <- default_args[names(default_args) %in% names(formals(paste0("r", dat)))]
+    
+    # Get the data deps cache that is already there (if adsl returns list())
     dat_deps <- lapply(data_deps[[dat]], function(x) get(paste0("c", x)))
+    
+    # Main call to creation function
     cdataset <- do.call(paste0("r", dat), c(dat_args, dat_deps))
-    attr(cdataset, "creation date") <- Sys.Date() # nolint
+    attr(cdataset, "creation date") <- lubridate::date() # nolint
   
     # Preview differences (optional)
-    print(paste("Dataset:", dat))
+    cat("Saving cache for dataset", dat, "with following changes (diffdf):\n")
     print(diffdf(get(paste0("c", dat)), cdataset))
   
     # Save new cached dataset
     assign(paste0("c", dat), cdataset)
-    save(list = paste0("c", dat), file = paste0("../data/c", dat, ".RData"), compress = "xz")
+    fl_save <- paste0(pkg_dir, "/data/c", dat, ".RData")
+    save(list = paste0("c", dat), file = fl_save, compress = "xz")
+    cat("Dataset cache updated for", dat, "in file", basename(fl_save), "\n")
   }
 } else {
   message("No source file changed, hence no data cache is to be updated at the moment.")
