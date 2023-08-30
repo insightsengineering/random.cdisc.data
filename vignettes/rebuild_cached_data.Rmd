@@ -46,10 +46,10 @@ pkg_dir <- dirname(getwd())
 
 # Listing source files and extraction of datasets' names
 src_files <- list.files(paste0(pkg_dir, "/R"))
-data_nms <- src_files[grepl("^ra*", src_files)] %>% 
-  stringr::str_remove(pattern = "^r") %>% 
-  stringr::str_remove(pattern = ".R$") %>% 
-  sort() 
+data_nms <- src_files[grepl("^ra*", src_files)] %>%
+  stringr::str_remove(pattern = "^r") %>%
+  stringr::str_remove(pattern = ".R$") %>%
+  sort()
 
 # Exception handling
 data_nms <- data_nms[data_nms != "adsaftte"] # Unbuilt for now
@@ -64,10 +64,10 @@ data_deps <- sapply(
 )
 
 updated_files <- system("git diff origin/main --name-only", intern = TRUE)
-updated_data <- updated_files[grepl("^R\\/", updated_files)] %>% 
-  stringr::str_remove("^R\\/") %>% 
-  stringr::str_remove(pattern = "^r") %>% 
-  stringr::str_remove(pattern = ".R$") 
+updated_data <- updated_files[grepl("^R\\/", updated_files)] %>%
+  stringr::str_remove("^R\\/") %>%
+  stringr::str_remove(pattern = "^r") %>%
+  stringr::str_remove(pattern = ".R$")
 
 if (length(updated_data) != 0) {
   # Extracting relative dependencies
@@ -80,24 +80,24 @@ if (length(updated_data) != 0) {
   )
   data_to_update <- unique(c(updated_data, update_after_deps))
   data_to_update <- data_to_update[order(match(data_to_update, data_nms))] # order dependencies first
-  
+
   # Generate and save updated cached datasets
   default_args <- list(seed = 1, na_vars = list(), who_coding = TRUE, percent = 80, number = 2)
   for (dat in data_to_update) {
     # Match arguments with defaults
     dat_args <- default_args[names(default_args) %in% names(formals(paste0("r", dat)))]
-    
+
     # Get the data deps cache that is already there (if adsl returns list())
     dat_deps <- lapply(data_deps[[dat]], function(x) get(paste0("c", x)))
-    
+
     # Main call to creation function
     cdataset <- do.call(paste0("r", dat), c(dat_args, dat_deps))
     attr(cdataset, "creation date") <- lubridate::date() # nolint
-  
+
     # Preview differences (optional)
     cat("\nSaving cache for dataset", dat, "with the following changes (diffdf):\n")
     print(diffdf(get(paste0("c", dat)), cdataset))
-  
+
     # Save new cached dataset
     assign(paste0("c", dat), cdataset)
     fl_save <- paste0(pkg_dir, "/data/c", dat, ".RData")
