@@ -1,6 +1,7 @@
 # random.cdisc.data 0.3.14.9002
-### New Features
-* Asynchronous changes of caches; only if a source file changes, the cached data dependending on it is updated.
+
+### New features
+* Asynchronous cached data updates in `rebuild_cached_data` vignette - data is only updated if its (or its dependency's) source file has been updated.
 
 # random.cdisc.data 0.3.14
 
