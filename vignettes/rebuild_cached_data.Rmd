@@ -32,6 +32,7 @@ datasets should be updated, edit the `data_to_update` vector below, entering the
 
 **Note:** Prior to running the following code chunk, please ensure that you have reinstalled the `random.cdisc.data` 
 package after completing all dataset modifications.
+
 ```{r, eval=FALSE}
 library(random.cdisc.data)
 library(diffdf)
@@ -42,17 +43,10 @@ RNGkind(sample.kind = "Rounding")
 
 # Datasets must be listed after all of their dependencies
 # e.g. adsl is a dependency for all other datasets so it is listed first.
-pkg_dir <- dirname(getwd())
-
-# Listing source files and extraction of datasets' names
-src_files <- list.files(paste0(pkg_dir, "/R"))
-data_nms <- src_files[grepl("^ra*", src_files)] %>%
-  stringr::str_remove(pattern = "^r") %>%
-  stringr::str_remove(pattern = ".R$") %>%
-  sort()
-
-# Exception handling
-data_nms <- data_nms[data_nms != "adsaftte"] # Unbuilt for now
+data_nms <- c(
+  "adsl", "adae", "adaette", "adcm", "adex", "adlb", "admh", "adpc", "adpp", "adab",
+  "adqs", "adrs", "adtte", "advs", "adeg", "adtr", "addv", "adsub", "adhy", "adqlqc"
+)
 
 # Construction of dependency tree based on formals
 data_deps <- sapply(
@@ -72,11 +66,7 @@ updated_data <- updated_files[grepl("^R\\/", updated_files)] %>%
 if (length(updated_data) != 0) {
   # Extracting relative dependencies
   update_after_deps <- unlist(
-    sapply(seq_along(data_deps), function(x) {
-      if (updated_data %in% data_deps[[x]]) {
-        names(data_deps)[x]
-      }
-    })
+    sapply(updated_data, function(x) data_nms[sapply(data_deps, function(deps) x %in% deps)])
   )
   data_to_update <- unique(c(updated_data, update_after_deps))
   data_to_update <- data_to_update[order(match(data_to_update, data_nms))] # order dependencies first
@@ -95,16 +85,16 @@ if (length(updated_data) != 0) {
     attr(cdataset, "creation date") <- lubridate::date() # nolint
 
     # Preview differences (optional)
-    cat("\nSaving cache for dataset", dat, "with the following changes (diffdf):\n")
+    cat("\nSaving cached data for dataset", paste0("*", dat, "*"), "with the following changes found (diffdf):\n")
     print(diffdf(get(paste0("c", dat)), cdataset))
 
     # Save new cached dataset
     assign(paste0("c", dat), cdataset)
-    fl_save <- paste0(pkg_dir, "/data/c", dat, ".RData")
+    fl_save <- paste0(dirname(getwd()), "/data/c", dat, ".RData")
     save(list = paste0("c", dat), file = fl_save, compress = "xz")
-    cat("Dataset cache updated for", dat, "in file", basename(fl_save), "\n")
+    cat("Cached dataset updated for", paste0("*", dat, "*"), "in", paste0("data/", basename(fl_save), "."), "\n")
   }
 } else {
-  message("No source file changed, hence no data cache is to be updated at the moment.")
+  message("No source files changed: No cached datasets currently require updates.")
 }
 ```
