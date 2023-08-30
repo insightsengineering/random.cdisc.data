@@ -32,20 +32,28 @@ datasets should be updated, edit the `data_to_update` vector below, entering the
 
 **Note:** Prior to running the following code chunk, please ensure that you have reinstalled the `random.cdisc.data` 
 package after completing all dataset modifications.
-
 ```{r, eval=FALSE}
 library(random.cdisc.data)
 library(diffdf)
+library(dplyr)
 
 # Call function to match random number generation from previous R versions
 RNGkind(sample.kind = "Rounding")
 
 # Datasets must be listed after all of their dependencies
 # e.g. adsl is a dependency for all other datasets so it is listed first.
-data_nms <- c(
-  "adsl", "adae", "adaette", "adcm", "adex", "adlb", "admh", "adpc", "adpp", "adab",
-  "adqs", "adrs", "adtte", "advs", "adeg", "adtr", "addv", "adsub", "adhy", "adqlqc"
-)
+
+# Listing source files and extraction of datasets' names
+src_files <- list.files(paste0(dirname(getwd()), "/R"))
+data_nms <- src_files[grepl("^ra*", src_files)] %>% 
+  stringr::str_remove(pattern = "^r") %>% 
+  stringr::str_remove(pattern = ".R$") %>% 
+  sort() 
+
+# Exception handling
+data_nms <- data_nms[data_nms != "adsaftte"] # Unbuilt for now
+
+# Construction of dependency tree based on formals
 data_deps <- sapply(
   data_nms,
   function(x) {
@@ -56,27 +64,31 @@ data_deps <- sapply(
 
 updated_files <- system("git diff main --name-only", intern = TRUE)
 updated_data <- gsub("R/r|.R", "", grep("R/r", updated_files, value = TRUE))
-if (length(updated_data) == 0) stop("No data-generating functions were updated.")
-update_after_deps <- unlist(
-  sapply(updated_data, function(x) data_nms[sapply(data_deps, function(deps) x %in% deps)])
-)
-data_to_update <- unique(c(updated_data, update_after_deps))
-data_to_update <- data_to_update[order(match(data_to_update, data_nms))] # order dependencies first
 
-# Generate and save updated cached datasets
-default_args <- list(seed = 1, na_vars = list(), who_coding = TRUE, percent = 80, number = 2)
-for (dat in data_to_update) {
-  dat_args <- default_args[names(default_args) %in% names(formals(paste0("r", dat)))]
-  dat_deps <- lapply(data_deps[[dat]], function(x) get(paste0("c", x)))
-  cdataset <- do.call(paste0("r", dat), c(dat_args, dat_deps))
-  attr(cdataset, "creation date") <- Sys.Date() # nolint
-
-  # Preview differences (optional)
-  print(paste("Dataset:", dat))
-  print(diffdf(get(paste0("c", dat)), cdataset))
-
-  # Save new cached dataset
-  assign(paste0("c", dat), cdataset)
-  save(list = paste0("c", dat), file = paste0("../data/c", dat, ".RData"), compress = "xz")
+if (length(updated_data) != 0) {
+  update_after_deps <- unlist(
+    sapply(updated_data, function(x) data_nms[sapply(data_deps, function(deps) x %in% deps)])
+  )
+  data_to_update <- unique(c(updated_data, update_after_deps))
+  data_to_update <- data_to_update[order(match(data_to_update, data_nms))] # order dependencies first
+  
+  # Generate and save updated cached datasets
+  default_args <- list(seed = 1, na_vars = list(), who_coding = TRUE, percent = 80, number = 2)
+  for (dat in data_to_update) {
+    dat_args <- default_args[names(default_args) %in% names(formals(paste0("r", dat)))]
+    dat_deps <- lapply(data_deps[[dat]], function(x) get(paste0("c", x)))
+    cdataset <- do.call(paste0("r", dat), c(dat_args, dat_deps))
+    attr(cdataset, "creation date") <- Sys.Date() # nolint
+  
+    # Preview differences (optional)
+    print(paste("Dataset:", dat))
+    print(diffdf(get(paste0("c", dat)), cdataset))
+  
+    # Save new cached dataset
+    assign(paste0("c", dat), cdataset)
+    save(list = paste0("c", dat), file = paste0("../data/c", dat, ".RData"), compress = "xz")
+  }
+} else {
+  message("No source file changed, hence no data cache is to be updated at the moment.")
 }
 ```
