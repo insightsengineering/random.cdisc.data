@@ -95,7 +95,7 @@ if (length(updated_data) != 0) {
     attr(cdataset, "creation date") <- lubridate::date() # nolint
   
     # Preview differences (optional)
-    cat("\nSaving cache for dataset", dat, "with following changes (diffdf):\n")
+    cat("\nSaving cache for dataset", dat, "with the following changes (diffdf):\n")
     print(diffdf(get(paste0("c", dat)), cdataset))
   
     # Save new cached dataset
