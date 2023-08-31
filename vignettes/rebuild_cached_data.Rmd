@@ -96,7 +96,6 @@ if (length(updated_data) != 0) {
   }
   
   # Firstly, lets sort by dependencies the initial updated data
-  updated_data <- c("adab", "adsl")
   fin_up <- sort_data_deps(updated_data, data_deps)
   
   # Extracting higher dependencies for each value
