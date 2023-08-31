@@ -118,7 +118,8 @@ updated_files <- tryCatch(
   system(git_call, intern = TRUE),
   error = function(e) e
 )
-if (is(e, "error")) {
+status_uf <- attr(updated_files, "status")
+if (is(updated_files, "error") || (!is.null(status_uf) && status_uf == 1)) {
   message("Found following error in git call: ", git_call)
   message(e)
   message(
@@ -150,7 +151,7 @@ if (length(updated_data) != 0) {
     # Main call to creation function
     cdataset <- do.call(paste0("r", dat), c(dat_args, dat_deps))
 
-    # Preview differences (optional)
+    # Preview differences
     cat("\nSaving cached data for dataset", paste0("*", dat, "*"), "with the following changes found (diffdf):\n")
     diff_test <- diffdf(get(paste0("c", dat)), cdataset)
     print(diff_test)
