@@ -122,8 +122,10 @@ updated_files <- tryCatch(
 if (is(e, "error")) {
   message("Found following error in git call: ", git_call)
   message(e)
-  message("The calculation continues as default by recreating all datasets ",
-          "and updating the cached data if any change is found.")
+  message(
+    "The calculation continues as default by recreating all datasets ",
+    "and updating the cached data if any change is found."
+  )
   updated_data <- data_nms
 } else {
   updated_data <- updated_files[grepl("^R\\/", updated_files)] %>%
