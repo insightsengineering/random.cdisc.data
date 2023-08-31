@@ -34,6 +34,57 @@ datasets should be updated, edit the `data_to_update` vector below, entering the
 package after completing all dataset modifications.
 
 ```{r, eval=FALSE}
+# Helper functions
+# 
+flatten_list_of_deps <- function(updated_data, data_deps) {
+  
+  # Get higher deps fnc
+  get_higher_deps <- function(cur_dep, data_deps) {
+    sapply(seq_along(data_deps), function(x) {
+      if (any(cur_dep %in% data_deps[[x]])) {
+        names(data_deps)[x]
+      }
+    })
+  }
+  
+  # Get lower deps fnc
+  get_lower_deps <- function(cur_dep, data_deps) {
+    data_deps[sapply(cur_dep, function(x) which(x == names(data_deps)))]
+  }
+  
+  # Sort data_deps
+  sort_data_deps <- function(upd_data, data_deps) {
+    iup <- upd_data
+    for (ud in upd_data) {
+      up <- unlist(get_lower_deps(ud, data_deps))
+      if (any(up %in% upd_data)) {
+        iup <- unique(unlist(c(up[up %in% upd_data], iup)))
+      }
+    }
+    iup
+  }
+  
+  # Firstly, lets sort by dependencies the initial updated data
+  fin_up <- sort_data_deps(updated_data, data_deps)
+  
+  # Extracting higher dependencies for each value
+  cnt <- 1
+  while (cnt < length(fin_up)) {
+    cur_deps <- unlist(
+      get_higher_deps(fin_up[cnt], data_deps)
+    )
+    if (!is.null(cur_deps)) {
+      cur_deps <- sort_data_deps(cur_deps, data_deps)
+      fin_up <- unique(c(fin_up[seq_len(cnt)], cur_deps, fin_up[-seq_len(cnt)]))
+    }
+    cnt <- cnt + 1
+  }
+  
+  fin_up
+}
+```
+
+```{r, eval=FALSE}
 library(random.cdisc.data)
 library(diffdf)
 library(dplyr)
@@ -84,47 +135,7 @@ if (is(e, "error")) {
 if (length(updated_data) != 0) {
   stopifnot(all(updated_data %in% names(data_deps)))
 
-  get_higher_deps <- function(cur_dep, data_deps) {
-    sapply(seq_along(data_deps), function(x) {
-      if (any(cur_dep %in% data_deps[[x]])) {
-        names(data_deps)[x]
-      }
-    })
-  }
-
-  get_lower_deps <- function(cur_dep, data_deps) {
-    data_deps[sapply(cur_dep, function(x) which(x == names(data_deps)))]
-  }
-
-  sort_data_deps <- function(upd_data, data_deps) {
-    iup <- upd_data
-    for (ud in upd_data) {
-      up <- unlist(get_lower_deps(ud, data_deps))
-      if (any(up %in% upd_data)) {
-        iup <- unique(unlist(c(up[up %in% upd_data], iup)))
-      }
-    }
-    iup
-  }
-
-  # Firstly, lets sort by dependencies the initial updated data
-  fin_up <- sort_data_deps(updated_data, data_deps)
-
-  # Extracting higher dependencies for each value
-  cnt <- 1
-  while (cnt < length(fin_up)) {
-    cur_deps <- unlist(
-      get_higher_deps(fin_up[cnt], data_deps)
-    )
-    if (!is.null(cur_deps)) {
-      cur_deps <- sort_data_deps(cur_deps, data_deps)
-      fin_up <- unique(c(fin_up[seq_len(cnt)], cur_deps, fin_up[-seq_len(cnt)]))
-    }
-    cnt <- cnt + 1
-  }
-
-
-  data_to_update <- fin_up
+  data_to_update <- flatten_list_of_deps(updated_data, data_deps)
   default_args <- list(seed = 1, na_vars = list(), who_coding = TRUE, percent = 80, number = 2)
 
   # Generate and save updated cached datasets
