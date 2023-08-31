@@ -71,19 +71,19 @@ updated_data <- updated_files[grepl("^R\\/", updated_files)] %>%
 
 if (length(updated_data) != 0) {
   stopifnot(all(updated_data %in% names(data_deps)))
-  
+
   get_higher_deps <- function(cur_dep, data_deps) {
     sapply(seq_along(data_deps), function(x) {
-        if (any(cur_dep %in% data_deps[[x]])) {
-          names(data_deps)[x]
-        }
-      })
+      if (any(cur_dep %in% data_deps[[x]])) {
+        names(data_deps)[x]
+      }
+    })
   }
-  
+
   get_lower_deps <- function(cur_dep, data_deps) {
-    data_deps[sapply(cur_dep, function(x)  which(x == names(data_deps)))]
+    data_deps[sapply(cur_dep, function(x) which(x == names(data_deps)))]
   }
-  
+
   sort_data_deps <- function(upd_data, data_deps) {
     iup <- upd_data
     for (ud in upd_data) {
@@ -94,10 +94,10 @@ if (length(updated_data) != 0) {
     }
     iup
   }
-  
+
   # Firstly, lets sort by dependencies the initial updated data
   fin_up <- sort_data_deps(updated_data, data_deps)
-  
+
   # Extracting higher dependencies for each value
   cnt <- 1
   while (cnt < length(fin_up)) {
@@ -110,7 +110,7 @@ if (length(updated_data) != 0) {
     }
     cnt <- cnt + 1
   }
-  
+
 
   data_to_update <- fin_up
   default_args <- list(seed = 1, na_vars = list(), who_coding = TRUE, percent = 80, number = 2)
@@ -129,10 +129,10 @@ if (length(updated_data) != 0) {
     # Preview differences (optional)
     cat("\nSaving cached data for dataset", paste0("*", dat, "*"), "with the following changes found (diffdf):\n")
     diff_test <- diffdf(get(paste0("c", dat)), cdataset)
-    print(diff_test) 
-    
+    print(diff_test)
+
     # Check if there is any actual change to the data
-    if (length(diff_test) > 0) {# If no difference -> list()
+    if (length(diff_test) > 0) { # If no difference -> list()
       # Save new cached dataset
       assign(paste0("c", dat), cdataset)
       fl_save <- paste0(dirname(getwd()), "/data/c", dat, ".RData")
