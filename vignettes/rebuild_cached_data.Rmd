@@ -1,128 +1,174 @@
 ---
-title: "Rebuilding Random CDISC Cached Data"
-author: "NEST team"
-date: "8/17/2020"
+title: "Rebuilding Cached Random CDISC Data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Rebuilding Random CDISC Cached Data}
+  %\VignetteIndexEntry{Rebuilding Cached Random CDISC Data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}{inputenc}
 ---
 
-# Getting Started
+## Getting Started
 
-The following script is used to create, compare and save cached data to `data/` directory.
+The following script is used to create, compare and save cached data to the `data/` directory.
 
 Starting in `R 3.6.0` the default kind of under-the-hood random-number generator was changed.
 Now, in order to get the results from `set.seed()` to match, you have to first call the
 function `RNGkind(sample.kind = "Rounding")`.
 
-It does throw an expected warning
+It throws the expected warning:
 
 ```
-Warning message:
-In RNGkind(sample.kind = "Rounding") : non-uniform 'Rounding' sampler used
+Warning: non-uniform 'Rounding' sampler used
 ```
 
-# Code maintenance
+## Code Maintenance
 
-Currently, when a new random.cdisc.data function is created then this script needs to be manually updated to include the new cached data set in the rebuild process. If an existing function is modified then the cached data also need to be updated by running through the rebuild process.
+Currently, when a `random.cdisc.data` data-generating function is created or modified, then the below code chunk must
+be run to build the new/updated cached dataset and add it to the `data/` directory. If a dataset that is a dependency
+for another dataset has been updated then the dependent dataset will also be updated. To manually specify which 
+datasets should be updated, edit the `data_to_update` vector below, entering the desired dataset names.
 
-# Code to run interactively
+## Update Cached Data
+
+**Note:** Prior to running the following code chunk, please ensure that you have reinstalled the `random.cdisc.data` 
+package after completing all dataset modifications.
 
 ```{r, eval=FALSE}
-library(dplyr)
+# Helper functions
+#
+flatten_list_of_deps <- function(updated_data, data_deps) {
+  # Get higher deps fnc
+  get_higher_deps <- function(cur_dep, data_deps) {
+    sapply(seq_along(data_deps), function(x) {
+      if (any(cur_dep %in% data_deps[[x]])) {
+        names(data_deps)[x]
+      }
+    })
+  }
+
+  # Get lower deps fnc
+  get_lower_deps <- function(cur_dep, data_deps) {
+    data_deps[sapply(cur_dep, function(x) which(x == names(data_deps)))]
+  }
+
+  # Sort data_deps
+  sort_data_deps <- function(upd_data, data_deps) {
+    iup <- upd_data
+    for (ud in upd_data) {
+      up <- unlist(get_lower_deps(ud, data_deps))
+      if (any(up %in% upd_data)) {
+        iup <- unique(unlist(c(up[up %in% upd_data], iup)))
+      }
+    }
+    iup
+  }
+
+  # Firstly, lets sort by dependencies the initial updated data
+  fin_up <- sort_data_deps(updated_data, data_deps)
+
+  # Extracting higher dependencies for each value
+  cnt <- 1
+  while (cnt < length(fin_up)) {
+    cur_deps <- unlist(
+      get_higher_deps(fin_up[cnt], data_deps)
+    )
+    if (!is.null(cur_deps)) {
+      cur_deps <- sort_data_deps(cur_deps, data_deps)
+      fin_up <- unique(c(fin_up[seq_len(cnt)], cur_deps, fin_up[-seq_len(cnt)]))
+    }
+    cnt <- cnt + 1
+  }
+
+  fin_up
+}
+```
+
+```{r, eval=FALSE}
 library(random.cdisc.data)
 library(diffdf)
+library(dplyr)
 
-# call function to be able to match random number generation from previous R versions
+# Call function to match random number generation from previous R versions
 RNGkind(sample.kind = "Rounding")
 
-# create the new cached data sets
-cadsl_new <- radsl(seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadae_new <- radae(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadaette_new <- radaette(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadcm_new <- radcm(cadsl_new, seed = 1, who_coding = TRUE, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadex_new <- radex(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadlb_new <- radlb(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadmh_new <- radmh(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadpc_new <- radpc(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadpp_new <- radpp(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadab_new <- radab(cadsl_new, cadpc_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadqs_new <- radqs(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadrs_new <- radrs(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadtte_new <- radtte(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadvs_new <- radvs(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadeg_new <- radeg(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadtr_new <- radtr(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-caddv_new <- raddv(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadsub_new <- radsub(cadsl_new, seed = 1, na_vars = list()) %>% `attr<-`("creation date", Sys.Date())
-cadhy_new <- radhy(cadsl_new, seed = 1) %>% `attr<-`("creation date", Sys.Date())
-cadqlqc_new <- radqlqc(cadsl_new, percent = 80, number = 2, seed = 1) %>% `attr<-`("creation date", Sys.Date())
+# Datasets must be listed after all of their dependencies
+# e.g. adsl is a dependency for all other datasets so it is listed first.
 
-# use diffdf package: diffdf() to compare cached vs new and review/verify differences
-diffdf(cadsl, cadsl_new)
-diffdf(cadab, cadab_new)
-diffdf(cadae, cadae_new)
-diffdf(cadaette, cadaette_new)
-diffdf(cadcm, cadcm_new)
-diffdf(cadex, cadex_new)
-diffdf(cadlb, cadlb_new)
-diffdf(cadmh, cadmh_new)
-diffdf(cadpc, cadpc_new)
-diffdf(cadpp, cadpp_new)
-diffdf(cadqs, cadqs_new)
-diffdf(cadrs, cadrs_new)
-diffdf(cadtte, cadtte_new)
-diffdf(cadvs, cadvs_new)
-diffdf(cadeg, cadeg_new)
-diffdf(cadtr, cadtr_new)
-diffdf(caddv, caddv_new)
-diffdf(cadsub, cadsub_new)
-diffdf(cadhy, cadhy_new)
-diffdf(cadqlqc, cadqlqc_new)
+pkg_dir <- dirname(getwd())
+# Listing source files and extraction of datasets' names
+src_files <- list.files(paste0(pkg_dir, "/R"))
+data_nms <- src_files[grepl("^ra*", src_files)] %>%
+  stringr::str_remove(pattern = "^r") %>%
+  stringr::str_remove(pattern = ".R$") %>%
+  sort()
+# Exception handling
+data_nms <- data_nms[data_nms != "adsaftte"] # Unbuilt for now
 
-# when diff reflects changes accurately then create environment objects to save out to cache
-cadsl <- cadsl_new
-cadab <- cadab_new
-cadae <- cadae_new
-cadaette <- cadaette_new
-cadcm <- cadcm_new
-cadeg <- cadeg_new
-cadex <- cadex_new
-cadlb <- cadlb_new
-cadmh <- cadmh_new
-cadpc <- cadpc_new
-cadpp <- cadpp_new
-cadqs <- cadqs_new
-cadrs <- cadrs_new
-cadtr <- cadtr_new
-cadtte <- cadtte_new
-cadvs <- cadvs_new
-caddv <- caddv_new
-cadsub <- cadsub_new
-cadhy <- cadhy_new
-cadqlqc <- cadqlqc_new
+# Construction of dependency tree based on formals
+data_deps <- sapply(
+  data_nms,
+  function(x) {
+    dat_args <- names(formals(paste0("r", x)))
+    dat_args[dat_args %in% data_nms]
+  }
+)
 
-# update cache
-save(cadsl, file = "data/cadsl.RData", compress = "xz")
-save(cadab, file = "data/cadab.RData", compress = "xz")
-save(cadae, file = "data/cadae.RData", compress = "xz")
-save(cadaette, file = "data/cadaette.RData", compress = "xz")
-save(cadcm, file = "data/cadcm.RData", compress = "xz")
-save(cadeg, file = "data/cadeg.RData", compress = "xz")
-save(cadex, file = "data/cadex.RData", compress = "xz")
-save(cadlb, file = "data/cadlb.RData", compress = "xz")
-save(cadmh, file = "data/cadmh.RData", compress = "xz")
-save(cadpc, file = "data/cadpc.RData", compress = "xz")
-save(cadpp, file = "data/cadpp.RData", compress = "xz")
-save(cadqs, file = "data/cadqs.RData", compress = "xz")
-save(cadrs, file = "data/cadrs.RData", compress = "xz")
-save(cadtr, file = "data/cadtr.RData", compress = "xz")
-save(cadtte, file = "data/cadtte.RData", compress = "xz")
-save(cadvs, file = "data/cadvs.RData", compress = "xz")
-save(caddv, file = "data/caddv.RData", compress = "xz")
-save(cadsub, file = "data/cadsub.RData", compress = "xz")
-save(cadhy, file = "data/cadhy.RData", compress = "xz")
-save(cadqlqc, file = "data/cadqlqc.RData", compress = "xz")
+git_call <- "git diff origin/main --name-only"
+updated_files <- tryCatch(
+  system(git_call, intern = TRUE),
+  error = function(e) e
+)
+status_uf <- attr(updated_files, "status")
+if (is(updated_files, "error") || (!is.null(status_uf) && status_uf == 1)) {
+  message("Found following error in git call: ", git_call)
+  message(e)
+  message(
+    "The calculation continues as default by recreating all datasets ",
+    "and updating the cached data if any change is found."
+  )
+  updated_data <- data_nms
+} else {
+  updated_data <- updated_files[grepl("^R\\/", updated_files)] %>%
+    stringr::str_remove("^R\\/") %>%
+    stringr::str_remove(pattern = "^r") %>%
+    stringr::str_remove(pattern = ".R$")
+}
+
+if (length(updated_data) != 0) {
+  stopifnot(all(updated_data %in% names(data_deps)))
+
+  data_to_update <- flatten_list_of_deps(updated_data, data_deps)
+  default_args <- list(seed = 1, na_vars = list(), who_coding = TRUE, percent = 80, number = 2)
+
+  # Generate and save updated cached datasets
+  for (dat in data_to_update) {
+    # Match arguments with defaults
+    dat_args <- default_args[names(default_args) %in% names(formals(paste0("r", dat)))]
+
+    # Get the data deps cache that is already there (if adsl returns list())
+    dat_deps <- lapply(data_deps[[dat]], function(x) get(paste0("c", x)))
+
+    # Main call to creation function
+    cdataset <- do.call(paste0("r", dat), c(dat_args, dat_deps))
+
+    # Preview differences
+    cat("\nSaving cached data for dataset", paste0("*", dat, "*"), "with the following changes found (diffdf):\n")
+    diff_test <- diffdf(get(paste0("c", dat)), cdataset)
+    print(diff_test)
+
+    # Check if there is any actual change to the data
+    if (length(diff_test) > 0) { # If no difference -> list()
+      # Save new cached dataset
+      assign(paste0("c", dat), cdataset)
+      fl_save <- paste0(dirname(getwd()), "/data/c", dat, ".RData")
+      attr(cdataset, "creation date") <- lubridate::date() # This should NOT be updated if no changes in diffdf # nolint
+      save(list = paste0("c", dat), file = fl_save, compress = "xz")
+      cat("Cached dataset updated for", paste0("*", dat, "*"), "in", paste0("data/", basename(fl_save), "."), "\n")
+    } else {
+      message("No update detected on the final data. No cached data was updated for *", dat, "*.")
+    }
+  }
+} else {
+  message("No source files changed: no cached datasets currently require updates.")
+}
 ```
