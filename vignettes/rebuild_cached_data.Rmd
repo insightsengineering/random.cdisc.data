@@ -161,7 +161,7 @@ if (length(updated_data) != 0) {
       # Save new cached dataset
       assign(paste0("c", dat), cdataset)
       fl_save <- paste0(dirname(getwd()), "/data/c", dat, ".RData")
-      attr(cdataset, "creation date") <- lubridate::date() # This needs to NOT be updated if diffdf is not there
+      attr(cdataset, "creation date") <- lubridate::date() # This should NOT be updated if no changes in diffdf # nolint
       save(list = paste0("c", dat), file = fl_save, compress = "xz")
       cat("Cached dataset updated for", paste0("*", dat, "*"), "in", paste0("data/", basename(fl_save), "."), "\n")
     } else {
