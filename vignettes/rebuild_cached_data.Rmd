@@ -35,9 +35,8 @@ package after completing all dataset modifications.
 
 ```{r, eval=FALSE}
 # Helper functions
-# 
+#
 flatten_list_of_deps <- function(updated_data, data_deps) {
-  
   # Get higher deps fnc
   get_higher_deps <- function(cur_dep, data_deps) {
     sapply(seq_along(data_deps), function(x) {
@@ -46,12 +45,12 @@ flatten_list_of_deps <- function(updated_data, data_deps) {
       }
     })
   }
-  
+
   # Get lower deps fnc
   get_lower_deps <- function(cur_dep, data_deps) {
     data_deps[sapply(cur_dep, function(x) which(x == names(data_deps)))]
   }
-  
+
   # Sort data_deps
   sort_data_deps <- function(upd_data, data_deps) {
     iup <- upd_data
@@ -63,10 +62,10 @@ flatten_list_of_deps <- function(updated_data, data_deps) {
     }
     iup
   }
-  
+
   # Firstly, lets sort by dependencies the initial updated data
   fin_up <- sort_data_deps(updated_data, data_deps)
-  
+
   # Extracting higher dependencies for each value
   cnt <- 1
   while (cnt < length(fin_up)) {
@@ -79,7 +78,7 @@ flatten_list_of_deps <- function(updated_data, data_deps) {
     }
     cnt <- cnt + 1
   }
-  
+
   fin_up
 }
 ```
