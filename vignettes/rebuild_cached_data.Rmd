@@ -63,11 +63,23 @@ data_deps <- sapply(
   }
 )
 
-updated_files <- system("git diff origin/main --name-only", intern = TRUE)
-updated_data <- updated_files[grepl("^R\\/", updated_files)] %>%
-  stringr::str_remove("^R\\/") %>%
-  stringr::str_remove(pattern = "^r") %>%
-  stringr::str_remove(pattern = ".R$")
+git_call <- "git diff origin/main --name-only"
+updated_files <- tryCatch(
+  system(git_call, intern = TRUE),
+  error = function(e) e
+)
+if (is(e, "error")) {
+  message("Found following error in git call: ", git_call)
+  message(e)
+  message("The calculation continues as default by recreating all datasets ",
+          "and updating the cached data if any change is found.")
+  updated_data <- data_nms
+} else {
+  updated_data <- updated_files[grepl("^R\\/", updated_files)] %>%
+    stringr::str_remove("^R\\/") %>%
+    stringr::str_remove(pattern = "^r") %>%
+    stringr::str_remove(pattern = ".R$")
+}
 
 if (length(updated_data) != 0) {
   stopifnot(all(updated_data %in% names(data_deps)))
