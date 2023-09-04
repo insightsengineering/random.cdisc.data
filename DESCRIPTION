@@ -18,7 +18,7 @@ Depends:
     R (>= 3.6)
 Imports:
     checkmate (>= 2.1.0),
-    dplyr (>= 1.1.1),
+    dplyr (>= 1.1.2),
     lifecycle (>= 1.0.3),
     lubridate (>= 1.7.10),
     magrittr (>= 1.5),
@@ -30,6 +30,7 @@ Imports:
 Suggests:
     diffdf,
     knitr (>= 1.42),
+    rmarkdown (>= 2.19),
     testthat (>= 3.0.4)
 VignetteBuilder:
     knitr
@@ -49,6 +50,7 @@ Config/Needs/verdepcheck:
     yaml=vubiostat/r-yaml,
     gowerc/diffdf,
     yihui/knitr,
+    rstudio/rmarkdown,
     r-lib/testthat
 Config/testthat/edition: 3
 Encoding: UTF-8
