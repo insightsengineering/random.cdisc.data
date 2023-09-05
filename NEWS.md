@@ -4,7 +4,7 @@
 * Asynchronous cached data updates in `rebuild_cached_data` vignette - data is only updated if its (or its dependency's) source file has been updated.
 
 ### Miscellaneous
-* Specify minimal version of dependent packages.
+* Specified minimal version of package dependencies.
 
 # random.cdisc.data 0.3.14
 
