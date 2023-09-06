@@ -230,7 +230,7 @@ radsl <- function(N = 400, # nolint
   # add random ETHNIC (Ethnicity)
   adsl <- adsl %>%
     dplyr::mutate(ETHNIC = sample(
-      x = c("HISPANIC OR LATINO", "NOT HISPANIC OR LATINO", " NOT REPORTED", "UNKNOWN"),
+      x = c("HISPANIC OR LATINO", "NOT HISPANIC OR LATINO", "NOT REPORTED", "UNKNOWN"),
       size = N, replace = TRUE, prob = c(.1, .8, .06, .04)
     ))
 

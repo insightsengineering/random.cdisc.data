@@ -68,7 +68,7 @@ flatten_list_of_deps <- function(updated_data, data_deps) {
 
   # Extracting higher dependencies for each value
   cnt <- 1
-  while (cnt < length(fin_up)) {
+  while (cnt <= length(fin_up)) {
     cur_deps <- unlist(
       get_higher_deps(fin_up[cnt], data_deps)
     )
