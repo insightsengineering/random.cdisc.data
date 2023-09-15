@@ -1,8 +1,8 @@
 Type: Package
 Package: random.cdisc.data
 Title: Create Random SDTM and ADAM Datasets
-Version: 0.3.14.9004
-Date: 2023-09-06
+Version: 0.3.14.9005
+Date: 2023-09-15
 Authors@R: c(
     person("Pawel", "Rucki", , "pawel.rucki@roche.com", role = c("aut", "cre")),
     person("Nick", "Paszty", , "npaszty@gene.com", role = "aut"),
@@ -36,22 +36,12 @@ VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
-Config/Needs/website: insightsengineering/nesttemplate
-Config/Needs/verdepcheck:
-    mllg/checkmate,
-    tidyverse/dplyr,
-    r-lib/lifecycle,
-    tidyverse/lubridate,
-    tidyverse/magrittr,
-    r-lib/rlang,
-    tidyverse/stringr,
-    tidyverse/tibble,
-    tidyverse/tidyr,
-    yaml=vubiostat/r-yaml,
-    gowerc/diffdf,
-    yihui/knitr,
-    rstudio/rmarkdown,
+Config/Needs/verdepcheck: mllg/checkmate, tidyverse/dplyr,
+    r-lib/lifecycle, tidyverse/lubridate, tidyverse/magrittr, r-lib/rlang,
+    tidyverse/stringr, tidyverse/tibble, tidyverse/tidyr,
+    yaml=vubiostat/r-yaml, gowerc/diffdf, yihui/knitr, rstudio/rmarkdown,
     r-lib/testthat
+Config/Needs/website: insightsengineering/nesttemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
