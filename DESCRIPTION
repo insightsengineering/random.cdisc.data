@@ -17,26 +17,41 @@ License: Apache License 2.0 | file LICENSE
 Depends:
     R (>= 3.6)
 Imports:
-    checkmate,
+    checkmate (>= 2.1.0),
     dplyr (>= 1.1.2),
-    lifecycle,
-    lubridate,
-    magrittr,
-    rlang,
-    stringr,
-    tibble,
-    tidyr,
-    yaml
+    lifecycle (>= 1.0.3),
+    lubridate (>= 1.7.10),
+    magrittr (>= 1.5),
+    rlang (>= 1.1.0),
+    stringr (>= 1.4.1),
+    tibble (>= 3.2.1),
+    tidyr (>= 1.1.4),
+    yaml (>= 2.1.19)
 Suggests:
     diffdf,
-    knitr,
-    rmarkdown,
-    testthat (>= 3.0)
+    knitr (>= 1.42),
+    rmarkdown (>= 2.19),
+    testthat (>= 3.0.4)
 VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
 Config/Needs/website: insightsengineering/nesttemplate
+Config/Needs/verdepcheck:
+    mllg/checkmate,
+    tidyverse/dplyr,
+    r-lib/lifecycle,
+    tidyverse/lubridate,
+    tidyverse/magrittr,
+    r-lib/rlang,
+    tidyverse/stringr,
+    tidyverse/tibble,
+    tidyverse/tidyr,
+    yaml=vubiostat/r-yaml,
+    gowerc/diffdf,
+    yihui/knitr,
+    rstudio/rmarkdown,
+    r-lib/testthat
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US

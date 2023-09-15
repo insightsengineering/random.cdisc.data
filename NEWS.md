@@ -6,6 +6,9 @@
 ### Enhancements
 * Updated level of `ETHNIC` variable in all datasets from `" NOT REPORTED"` to `"NOT REPORTED"`.
 
+### Miscellaneous
+* Specified minimal version of package dependencies.
+
 # random.cdisc.data 0.3.14
 
 ### Breaking changes
