@@ -1,7 +1,10 @@
-# random.cdisc.data 0.3.14.9003
+# random.cdisc.data 0.3.14.9004
 
 ### New features
 * Asynchronous cached data updates in `rebuild_cached_data` vignette - data is only updated if its (or its dependency's) source file has been updated.
+
+### Enhancements
+* Updated level of `ETHNIC` variable in all datasets from `" NOT REPORTED"` to `"NOT REPORTED"`.
 
 ### Miscellaneous
 * Specified minimal version of package dependencies.
