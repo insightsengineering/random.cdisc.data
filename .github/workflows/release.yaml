@@ -50,6 +50,7 @@ jobs:
         checking R code for possible problems .* NOTE
         checking examples .* NOTE
         checking Rd line widths .* NOTE
+        checking top-level files .* NOTE
   coverage:
     name: Coverage 📔
     needs: [release, docs]
