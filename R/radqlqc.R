@@ -19,7 +19,6 @@
 #' @export
 #'
 #' @examples
-#' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 #'
 #' adqlqc <- radqlqc(adsl, seed = 1, percent = 80, number = 2)

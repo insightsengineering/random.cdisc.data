@@ -55,7 +55,6 @@ One record per each record in the corresponding SDTM domain.
 Keys: \code{STUDYID}, \code{USUBJID}, \code{ASTDT}, \code{DVTERM}, \code{DVSEQ}
 }
 \examples{
-library(random.cdisc.data)
 adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
 addv <- raddv(adsl, seed = 2)

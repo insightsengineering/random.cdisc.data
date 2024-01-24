@@ -31,7 +31,8 @@ Suggests:
     diffdf,
     knitr (>= 1.42),
     rmarkdown (>= 2.19),
-    testthat (>= 3.0.4)
+    testthat (>= 3.0.4),
+    withr (>= 2.0.0)
 VignetteBuilder:
     knitr
 RdMacros:
@@ -40,11 +41,11 @@ Config/Needs/verdepcheck: mllg/checkmate, tidyverse/dplyr,
     r-lib/lifecycle, tidyverse/lubridate, tidyverse/magrittr, r-lib/rlang,
     tidyverse/stringr, tidyverse/tibble, tidyverse/tidyr,
     yaml=vubiostat/r-yaml, gowerc/diffdf, yihui/knitr, rstudio/rmarkdown,
-    r-lib/testthat
+    r-lib/testthat, r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.0

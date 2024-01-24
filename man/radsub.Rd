@@ -52,7 +52,6 @@ One record per subject.
 Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}, \code{AVISITN}, \code{ADTM}, \code{SRCSEQ}
 }
 \examples{
-library(random.cdisc.data)
 adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
 adsub <- radsub(adsl, seed = 2)

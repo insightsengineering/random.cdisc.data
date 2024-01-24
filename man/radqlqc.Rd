@@ -31,7 +31,6 @@ Subject-Level Analysis Dataset.
 Keys: \code{STUDYID}, \code{USUBJID}, \code{PARCAT1N}, \code{PARAMCD}, \code{BASETYPE}, \code{AVISITN}, \code{ATPTN}, \code{ADTM}, \code{QSSEQ}
 }
 \examples{
-library(random.cdisc.data)
 adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 
 adqlqc <- radqlqc(adsl, seed = 1, percent = 80, number = 2)

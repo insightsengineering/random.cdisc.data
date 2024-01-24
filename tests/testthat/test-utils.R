@@ -4,7 +4,6 @@ test_that("get_cached_data returns correct error message", {
     random.cdisc.data:::get_cached_data("fakedata"),
     "cached data can only be loaded if the random.cdisc.data package is attached"
   )
-  library(random.cdisc.data)
 })
 
 test_that("sample_fct works as expected", {

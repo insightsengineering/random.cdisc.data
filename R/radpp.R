@@ -17,7 +17,6 @@
 #' @export
 #'
 #' @examples
-#' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
 #' adpp <- radpp(adsl, seed = 2)

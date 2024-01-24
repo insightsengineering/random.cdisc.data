@@ -73,7 +73,6 @@ Subject-Level Analysis Dataset and Pharmacokinetics Analysis Dataset.
 One record per study per subject per parameter per time point: "R1800000", "RESULT1", "R1800001", "RESULT2".
 }
 \examples{
-library(random.cdisc.data)
 adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 adpc <- radpc(adsl, seed = 2, duration = 9 * 7)
 

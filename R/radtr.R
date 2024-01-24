@@ -20,7 +20,6 @@
 #' @author tomlinsj, npaszty, Xuefeng Hou, dipietrc
 #'
 #' @examples
-#' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
 #' adtr <- radtr(adsl, seed = 2)

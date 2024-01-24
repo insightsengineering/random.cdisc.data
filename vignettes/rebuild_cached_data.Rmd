@@ -25,12 +25,12 @@ Warning: non-uniform 'Rounding' sampler used
 
 Currently, when a `random.cdisc.data` data-generating function is created or modified, then the below code chunk must
 be run to build the new/updated cached dataset and add it to the `data/` directory. If a dataset that is a dependency
-for another dataset has been updated then the dependent dataset will also be updated. To manually specify which 
+for another dataset has been updated then the dependent dataset will also be updated. To manually specify which
 datasets should be updated, edit the `data_to_update` vector below, entering the desired dataset names.
 
 ## Update Cached Data
 
-**Note:** Prior to running the following code chunk, please ensure that you have reinstalled the `random.cdisc.data` 
+**Note:** Prior to running the following code chunk, please ensure that you have reinstalled the `random.cdisc.data`
 package after completing all dataset modifications.
 
 ```{r, eval=FALSE}
@@ -161,7 +161,7 @@ if (length(updated_data) != 0) {
       # Save new cached dataset
       assign(paste0("c", dat), cdataset)
       fl_save <- paste0(dirname(getwd()), "/data/c", dat, ".RData")
-      attr(cdataset, "creation date") <- lubridate::date() # This should NOT be updated if no changes in diffdf # nolint
+      attr(cdataset, "creation date") <- lubridate::date() # This should NOT be updated if no changes in diffdf
       save(list = paste0("c", dat), file = fl_save, compress = "xz")
       cat("Cached dataset updated for", paste0("*", dat, "*"), "in", paste0("data/", basename(fl_save), "."), "\n")
     } else {

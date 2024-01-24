@@ -52,7 +52,6 @@ Subject-Level Analysis Dataset.
 Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}
 }
 \examples{
-library(random.cdisc.data)
 adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
 adtte <- radtte(adsl, seed = 2)

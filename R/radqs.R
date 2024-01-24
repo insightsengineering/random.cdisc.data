@@ -19,7 +19,6 @@
 #' @author npaszty
 #'
 #' @examples
-#' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
 #' adqs <- radqs(adsl, visit_format = "WEEK", n_assessments = 7L, seed = 2)

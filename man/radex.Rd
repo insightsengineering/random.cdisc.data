@@ -78,7 +78,6 @@ Keys: \code{STUDYID}, \code{USUBJID}, \code{EXSEQ}, \code{PARAMCD}, \code{PARCAT
 \code{AVISITN}, \code{EXDOSFRQ}, \code{EXROUTE}, \code{VISIT}, \code{VISITDY}, \code{EXSTDTC}, \code{EXENDTC}, \code{EXSTDY}, \code{EXENDY}
 }
 \examples{
-library(random.cdisc.data)
 adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 
 adex <- radex(adsl, seed = 2)
