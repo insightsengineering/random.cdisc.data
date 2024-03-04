@@ -51,7 +51,6 @@ One record per each record in the corresponding SDTM domain.
 Keys: \code{STUDYID}, \code{USUBJID}, \code{ASTDTM}, \code{MHSEQ}
 }
 \examples{
-library(random.cdisc.data)
 adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 
 admh <- radmh(adsl, seed = 2)

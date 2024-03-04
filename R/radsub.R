@@ -21,7 +21,6 @@
 #' @keywords internal
 #'
 #' @examples
-#' library(random.cdisc.data)
 #' adsl <- radsl(N = 5, seed = 1)
 #'
 #' df_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = adsl)
@@ -97,7 +96,6 @@ h_anthropometrics_by_sex <- function(df,
 #' @author tomlinsj, npaszty, Xuefeng Hou, dipietrc
 #'
 #' @examples
-#' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
 #' adsub <- radsub(adsl, seed = 2)

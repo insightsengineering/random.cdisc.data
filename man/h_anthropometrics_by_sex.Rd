@@ -48,7 +48,6 @@ as provided to the function.
 One record per subject.
 }
 \examples{
-library(random.cdisc.data)
 adsl <- radsl(N = 5, seed = 1)
 
 df_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = adsl)

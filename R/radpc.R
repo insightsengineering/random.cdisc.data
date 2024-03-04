@@ -18,7 +18,6 @@
 #' @export
 #'
 #' @examples
-#' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
 #' adpc <- radpc(adsl, seed = 2)
@@ -67,8 +66,7 @@ radpc <- function(adsl,
       PCTPTNUM = if (day == 1) c(0, 0.5, 1, 1.5, 2, 3, 4, 8, 12) else 24 * (day - 1),
       PARAM = factor(c("Plasma Drug X", "Urine Drug X", "Plasma Drug Y", "Urine Drug Y"))
     )
-    adpc_day <- adpc_day[!(grepl("Urine", adpc_day$PARAM) &
-      adpc_day$PCTPTNUM %in% c(0.5, 1, 1.5, 2, 3)), ] %>%
+    adpc_day <- adpc_day[!(grepl("Urine", adpc_day$PARAM) & adpc_day$PCTPTNUM %in% c(0.5, 1, 1.5, 2, 3)), ] %>%
       dplyr::arrange(USUBJID, PARAM) %>%
       dplyr::mutate(
         VISITDY = day,
@@ -97,8 +95,11 @@ radpc <- function(adsl,
         )
       ) %>%
       dplyr::mutate(
-        PCVOL = ifelse(ASMED == "URINE", round(abs(((PCTPTNUM - 1) %% 24) *
-          A0 * ka * exp(PCTPTNUM %% 1.8 / 10)), 2), NA),
+        PCVOL = ifelse(
+          ASMED == "URINE",
+          round(abs(((PCTPTNUM - 1) %% 24) * A0 * ka * exp(PCTPTNUM %% 1.8 / 10)), 2),
+          NA
+        ),
         # PK Equation
         AVALC = ifelse(AVAL == 0, "BLQ", as.character(AVAL)),
         AVALU = avalu,

@@ -60,8 +60,6 @@ One record per subject.
 Keys: \code{STUDYID}, \code{USUBJID}
 }
 \examples{
-library(random.cdisc.data)
-
 adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 adsl
 

@@ -17,7 +17,6 @@
 #' @details One record per study per subject per parameter per time point: "R1800000", "RESULT1", "R1800001", "RESULT2".
 #'
 #' @examples
-#' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #' adpc <- radpc(adsl, seed = 2, duration = 9 * 7)
 #'
@@ -245,34 +244,25 @@ radab <- function(adsl,
   adab_subj <- adab %>%
     dplyr::group_by(USUBJID) %>%
     dplyr::mutate(
-      pos_bl = any(PARAM == "ADA interpreted per sample result" &
-        !is.na(ABLFL) & AVALC == "POSITIVE"),
-      pos_bl_nab = any(PARAM == "NAB interpreted per sample result" &
-        !is.na(ABLFL) & AVALC == "POSITIVE"),
-      any_pos_postbl = any(PARAM == "ADA interpreted per sample result" &
-        is.na(ABLFL) & AVALC == "POSITIVE"),
-      any_pos_postbl_nab = any(PARAM == "NAB interpreted per sample result" &
-        is.na(ABLFL) & AVALC == "POSITIVE"),
-      pos_last_postbl = any(PARAM == "ADA interpreted per sample result" &
-        NFRLT == max(NFRLT) & AVALC == "POSITIVE"),
+      pos_bl = any(PARAM == "ADA interpreted per sample result" & !is.na(ABLFL) & AVALC == "POSITIVE"),
+      pos_bl_nab = any(PARAM == "NAB interpreted per sample result" & !is.na(ABLFL) & AVALC == "POSITIVE"),
+      any_pos_postbl = any(PARAM == "ADA interpreted per sample result" & is.na(ABLFL) & AVALC == "POSITIVE"),
+      any_pos_postbl_nab = any(PARAM == "NAB interpreted per sample result" & is.na(ABLFL) & AVALC == "POSITIVE"),
+      pos_last_postbl = any(PARAM == "ADA interpreted per sample result" & NFRLT == max(NFRLT) & AVALC == "POSITIVE"),
       ada_bl = AVAL[PARAM == "Antibody titer units" & !is.na(ABLFL)],
       nab_bl = AVAL[PARAM == "Neutralizing Antibody titer units" & !is.na(ABLFL)]
     )
   pos_tots <- adab_subj %>%
     dplyr::summarise(
       n_pos = sum(PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"),
-      inc_postbl = sum(PARAM == "ADA interpreted per sample result" &
-        is.na(ABLFL) & (AVAL - ada_bl) > 0.60),
-      inc_postbl_nab = sum(PARAM == "NAB interpreted per sample result" &
-        is.na(ABLFL) & (AVAL - nab_bl) > 0.60),
-      onset_ada = if (any(PARAM == "ADA interpreted per sample result" &
-        AVALC == "POSITIVE")) {
+      inc_postbl = sum(PARAM == "ADA interpreted per sample result" & is.na(ABLFL) & (AVAL - ada_bl) > 0.60),
+      inc_postbl_nab = sum(PARAM == "NAB interpreted per sample result" & is.na(ABLFL) & (AVAL - nab_bl) > 0.60),
+      onset_ada = if (any(PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE")) {
         min(NFRLT[PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"])
       } else {
         NA
       },
-      last_ada = if (any(PARAM == "ADA interpreted per sample result" &
-        AVALC == "POSITIVE")) {
+      last_ada = if (any(PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE")) {
         max(NFRLT[PARAM == "ADA interpreted per sample result" & AVALC == "POSITIVE"])
       } else {
         NA
@@ -304,6 +294,7 @@ radab <- function(adsl,
   adab[!(adab$PARAM %in% visit_lvl_params), ] <- adab %>%
     dplyr::filter(!(PARAM %in% visit_lvl_params)) %>%
     dplyr::mutate(
+      # nolint start indentation_linter
       AVALC = dplyr::case_when(
         (PARAM == "ADA Status of a patient" & any_pos_postbl) ~ "POSITIVE",
         (PARAM == "ADA Status of a patient" & !any_pos_postbl) ~ "NEGATIVE",
@@ -366,6 +357,7 @@ radab <- function(adsl,
           !((!pos_bl_nab & any_pos_postbl_nab) | (pos_bl_nab & inc_postbl_nab > 0))) ~ 1,
         TRUE ~ 0
       ),
+      # nolint end indentation_linter
       PARCAT1 = dplyr::case_when(
         PARAM %in% c(
           "Neutralizing Antibody titer units", "NAB interpreted per sample result",

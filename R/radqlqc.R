@@ -19,7 +19,6 @@
 #' @export
 #'
 #' @examples
-#' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 #'
 #' adqlqc <- radqlqc(adsl, seed = 1, percent = 80, number = 2)
@@ -692,8 +691,7 @@ calc_scales <- function(adqlqc1) {
   load(system.file("sysdata.rda", package = "random.cdisc.data"))
   eortc_qlq_c30_sub <- filter(
     eortc_qlq_c30,
-    !(as.numeric(str_extract(QSTESTCD, "\\d+$")) >= 101 &
-      as.numeric(str_extract(QSTESTCD, "\\d+$")) <= 130)
+    !(as.numeric(str_extract(QSTESTCD, "\\d+$")) >= 101 & as.numeric(str_extract(QSTESTCD, "\\d+$")) <= 130)
   ) %>%
     mutate(
       PARAMCD = case_when(
@@ -971,113 +969,146 @@ derv_chgcat1 <- function(dataset) {
   check_vars <- c("PARCAT2", "CHG")
 
   if (all(check_vars %in% names(dataset))) {
-    dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 == "Symptom Scales" & !is.na(dataset$CHG) & dataset$CHG <= -10,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARCAT2 == "Symptom Scales" & !is.na(dataset$CHG) & dataset$CHG <= -10,
       "Improved", ""
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 == "Symptom Scales" & !is.na(dataset$CHG) & dataset$CHG >= 10,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARCAT2 == "Symptom Scales" & !is.na(dataset$CHG) & dataset$CHG >= 10,
       "Worsened", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 == "Symptom Scales" &
-      !is.na(dataset$CHG) & dataset$CHG > -10 &
-      dataset$CHG < 10,
-    "No change", dataset$CHGCAT1
-    )
-
-    dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 %in% c("Functional Scales", "Global Health Status") &
-      !is.na(dataset$CHG) & dataset$CHG >= 10,
-    "Improved", dataset$CHGCAT1
-    )
-    dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 %in% c("Functional Scales", "Global Health Status") &
-      !is.na(dataset$CHG) & dataset$CHG <= -10,
-    "Worsened", dataset$CHGCAT1
-    )
-    dataset$CHGCAT1 <- ifelse(dataset$PARCAT2 %in% c("Functional Scales", "Global Health Status") &
-      !is.na(dataset$CHG) &
-      dataset$CHG > -10 & dataset$CHG < 10,
-    "No change", dataset$CHGCAT1
-    )
-
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 6,
-      "Improved by six levels", dataset$CHGCAT1
-    )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 5,
-      "Improved by five levels", dataset$CHGCAT1
-    )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 4,
-      "Improved by four levels", dataset$CHGCAT1
-    )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 3,
-      "Improved by three levels", dataset$CHGCAT1
-    )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 2,
-      "Improved by two levels", dataset$CHGCAT1
-    )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 1,
-      "Improved by one level", dataset$CHGCAT1
-    )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 0,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARCAT2 == "Symptom Scales" &
+        !is.na(dataset$CHG) & dataset$CHG > -10 &
+        dataset$CHG < 10,
       "No change", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -1,
+
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARCAT2 %in% c("Functional Scales", "Global Health Status") &
+        !is.na(dataset$CHG) & dataset$CHG >= 10,
+      "Improved", dataset$CHGCAT1
+    )
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARCAT2 %in% c("Functional Scales", "Global Health Status") &
+        !is.na(dataset$CHG) & dataset$CHG <= -10,
+      "Worsened", dataset$CHGCAT1
+    )
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARCAT2 %in% c("Functional Scales", "Global Health Status") &
+        !is.na(dataset$CHG) &
+        dataset$CHG > -10 & dataset$CHG < 10,
+      "No change", dataset$CHGCAT1
+    )
+
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 6,
+      "Improved by six levels", dataset$CHGCAT1
+    )
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 5,
+      "Improved by five levels", dataset$CHGCAT1
+    )
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 4,
+      "Improved by four levels", dataset$CHGCAT1
+    )
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 3,
+      "Improved by three levels", dataset$CHGCAT1
+    )
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 2,
+      "Improved by two levels", dataset$CHGCAT1
+    )
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 1,
+      "Improved by one level", dataset$CHGCAT1
+    )
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == 0,
+      "No change", dataset$CHGCAT1
+    )
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -1,
       "Worsened by one level", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -2,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -2,
       "Worsened by two levels", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -3,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -3,
       "Worsened by three levels", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -4,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -4,
       "Worsened by four levels", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -5,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -5,
       "Worsened by five levels", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -6,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02829", "QS02830") & dataset$CHG == -6,
       "Worsened by six levels", dataset$CHGCAT1
     )
 
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == -3,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == -3,
       "Improved by three levels", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == -2,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == -2,
       "Improved by two levels", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == -1,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == -1,
       "Improved by one level", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 0,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 0,
       "No change", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 1,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 1,
       "Worsened by one level", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 2,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 2,
       "Worsened by two levels", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 3,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% c("QS02802", "QS02806") & dataset$CHG == 3,
       "Worsened by three levels", dataset$CHGCAT1
     )
 
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == -3,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD == "QS02801" & dataset$CHG == -3,
       "Improved by three levels", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == -2,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD == "QS02801" & dataset$CHG == -2,
       "Improved by two levels", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == -1,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD == "QS02801" & dataset$CHG == -1,
       "Improved by one level", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == 0,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD == "QS02801" & dataset$CHG == 0,
       "No changed", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == 1,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD == "QS02801" & dataset$CHG == 1,
       "Worsened by one level", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == 2,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD == "QS02801" & dataset$CHG == 2,
       "Worsened by two levels", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD == "QS02801" & dataset$CHG == 3,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD == "QS02801" & dataset$CHG == 3,
       "Worsened by three levels", dataset$CHGCAT1
     )
 
@@ -1088,25 +1119,32 @@ derv_chgcat1 <- function(dataset) {
       "QS02825", "QS02826", "QS02827", "QS02828"
     )
 
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == -3,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% paramcd_vec & dataset$CHG == -3,
       "Improved by three levels", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == -2,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% paramcd_vec & dataset$CHG == -2,
       "Improved by two levels", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == -1,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% paramcd_vec & dataset$CHG == -1,
       "Improved by one level", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 0,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 0,
       "No change", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 1,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 1,
       "Worsened by one level", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 2,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 2,
       "Worsened by two levels", dataset$CHGCAT1
     )
-    dataset$CHGCAT1 <- ifelse(dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 3,
+    dataset$CHGCAT1 <- ifelse(
+      dataset$PARAMCD %in% paramcd_vec & dataset$CHG == 3,
       "Worsened by three levels", dataset$CHGCAT1
     )
 

@@ -17,7 +17,6 @@
 #' @export
 #'
 #' @examples
-#' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 #'
 #' adpp <- radpp(adsl, seed = 2)
@@ -138,8 +137,10 @@ radpp <- function(adsl,
     dplyr::left_join(t1_t2, by = c("PARAMCD"), multiple = "all", relationship = "many-to-many")
 
   adpp <- dplyr::inner_join(adpp, adsl, by = c("STUDYID", "USUBJID")) %>%
-    dplyr::filter(ACTARM != "B: Placebo", !(ACTARM == "A: Drug X" &
-      (PPCAT == "Plasma Drug Y" | PPCAT == "Metabolite Drug Y")))
+    dplyr::filter(
+      ACTARM != "B: Placebo",
+      !(ACTARM == "A: Drug X" & (PPCAT == "Plasma Drug Y" | PPCAT == "Metabolite Drug Y"))
+    )
 
   # derive PKARMCD column for creating more cohorts
   adpp <- adpp %>%

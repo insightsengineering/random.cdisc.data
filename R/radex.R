@@ -21,7 +21,6 @@
 #' @export
 #'
 #' @examples
-#' library(random.cdisc.data)
 #' adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 #'
 #' adex <- radex(adsl, seed = 2)

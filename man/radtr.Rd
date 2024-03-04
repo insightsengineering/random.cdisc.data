@@ -42,7 +42,6 @@ One record per subject per parameter per analysis visit per analysis date.
 Keys: \code{STUDYID}, \code{USUBJID}, \code{PARAMCD}, \code{BASETYPE}, \code{AVISITN}, \code{DTYPE}
 }
 \examples{
-library(random.cdisc.data)
 adsl <- radsl(N = 10, seed = 1, study_duration = 2)
 
 adtr <- radtr(adsl, seed = 2)
