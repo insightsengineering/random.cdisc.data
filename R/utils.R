@@ -251,20 +251,21 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
     }
 
     if (type == "character" && !is.character(df[[var]])) {
-      df[[var]] <<- as.character(df[[var]])
+      df[[var]] <- as.character(df[[var]])
     } else if (type == "factor" && !is.factor(df[[var]])) {
-      df[[var]] <<- as.factor(df[[var]])
+      df[[var]] <- as.factor(df[[var]])
     } else if (type == "integer" && !is.integer(df[[var]])) {
-      df[[var]] <<- as.integer(df[[var]])
+      df[[var]] <- as.integer(df[[var]])
     } else if (type == "numeric" && !is.numeric(df[[var]])) {
-      df[[var]] <<- as.numeric(df[[var]])
+      df[[var]] <- as.numeric(df[[var]])
     } else if (type == "logical" && !is.logical(df[[var]])) {
-      df[[var]] <<- as.logical(df[[var]])
+      df[[var]] <- as.logical(df[[var]])
     } else if (type == "datetime" && !lubridate::is.POSIXct(df[[var]])) {
-      df[[var]] <<- as.POSIXct(df[[var]])
+      df[[var]] <- as.POSIXct(df[[var]])
     } else if (type == "date" && !lubridate::is.Date(df[[var]])) {
-      df[[var]] <<- as.Date(df[[var]])
+      df[[var]] <- as.Date(df[[var]])
     }
+    return(df)
   }
 
   # remove existing attributes
@@ -307,7 +308,7 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
 
   # assign labels to variables
   for (var in metadata_varnames) {
-    apply_type(df, var, metadata_variables[[var]]$type)
+    df <- apply_type(df, var, metadata_variables[[var]]$type)
     attr(df[[var]], "label") <- metadata_variables[[var]]$label
   }
 
