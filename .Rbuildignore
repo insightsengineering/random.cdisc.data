@@ -37,6 +37,7 @@
 ^staged_dependencies\.yaml$
 ^\.gitlab-ci\.yml$
 ^LICENSE\.md$
+^LICENSE$
 coverage.*
 ^\.markdownlint\.json$
 .pre-commit-config.yaml
