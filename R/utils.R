@@ -26,11 +26,11 @@ get_cached_data <- function(dataname) {
 #' @param ... Additional arguments to be passed to `sample`.
 #'
 #' @return A factor of length `N`.
-#' @keywords internal
+#' @export
 #'
 #' @examples
-#' random.cdisc.data:::sample_fct(letters[1:3], 10)
-#' random.cdisc.data:::sample_fct(iris$Species, 10)
+#' sample_fct(letters[1:3], 10)
+#' sample_fct(iris$Species, 10)
 sample_fct <- function(x, N, ...) { # nolint
   checkmate::assert_number(N)
 
@@ -228,13 +228,14 @@ var_relabel <- function(x, ...) {
 #'
 #' @keywords internal
 #'
+#' @export
 #' @examples
 #' seed <- 1
 #' adsl <- radsl(seed = seed)
 #' adsub <- radsub(adsl, seed = seed)
 #' yaml_path <- file.path(path.package("random.cdisc.data"), "inst", "metadata")
-#' adsl <- random.cdisc.data:::apply_metadata(adsl, file.path(yaml_path, "ADSL.yml"), FALSE)
-#' adsub <- random.cdisc.data:::apply_metadata(
+#' adsl <- apply_metadata(adsl, file.path(yaml_path, "ADSL.yml"), FALSE)
+#' adsub <- apply_metadata(
 #'   adsub, file.path(yaml_path, "ADSUB.yml"), TRUE,
 #'   file.path(yaml_path, "ADSL.yml")
 #' )
@@ -361,6 +362,8 @@ replace_na <- function(v, percentage = 0.05, seed = NULL) {
 #'
 #' @inheritParams argument_convention
 #' @param ds (`data.frame`)\cr Any data set.
+#'
+#' @return dataframe without `NA` values.
 #'
 #' @export
 mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {
