@@ -16,9 +16,6 @@ A vector of n elements.
 }
 \description{
 Verify and initialize related variable values.
-}
-\examples{
-random.cdisc.data:::relvar_init("Alanine Aminotransferase Measurement", "ALT")
-random.cdisc.data:::relvar_init("Alanine Aminotransferase Measurement", "U/L")
+For example, \code{relvar_init("Alanine Aminotransferase Measurement", "ALT")}.
 }
 \keyword{internal}

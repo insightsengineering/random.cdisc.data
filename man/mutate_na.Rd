@@ -19,6 +19,9 @@ If \code{NA}, \code{na_percentage} is used as a default.}
 
 \item{na_percentage}{(\code{proportion})\cr Default percentage of values to be replaced by \code{NA}.}
 }
+\value{
+dataframe without \code{NA} values.
+}
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 

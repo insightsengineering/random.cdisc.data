@@ -23,7 +23,6 @@ Create a visit schedule as a factor.
 X number of visits, or X number of cycles and Y number of days.
 }
 \examples{
-random.cdisc.data:::visit_schedule(visit_format = "WEeK", n_assessments = 10L)
-random.cdisc.data:::visit_schedule(visit_format = "CyCLE", n_assessments = 5L, n_days = 2L)
+visit_schedule(visit_format = "WEeK", n_assessments = 10L)
+visit_schedule(visit_format = "CyCLE", n_assessments = 5L, n_days = 2L)
 }
-\keyword{internal}

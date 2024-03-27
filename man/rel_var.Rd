@@ -32,7 +32,7 @@ adlb_df <- data.frame(
     levels = params
   )
 )
-random.cdisc.data:::rel_var(
+rel_var(
   df = adlb_df,
   var_name = "PARAMCD",
   var_values = c("A", "B", "C"),
@@ -47,11 +47,10 @@ adlb_tbl <- tibble::tibble(
     levels = params
   )
 )
-random.cdisc.data:::rel_var(
+rel_var(
   df = adlb_tbl,
   var_name = "PARAMCD",
   var_values = c("A", "B", "C"),
   related_var = "PARAM"
 )
 }
-\keyword{internal}
