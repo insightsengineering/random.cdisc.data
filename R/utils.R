@@ -216,7 +216,7 @@ var_relabel <- function(x, ...) {
 #' @param filename (`yaml`)\cr File containing domain metadata.
 #' @param add_adsl (`logical`)\cr Should ADSL data be merged to domain.
 #' @param adsl_filename (`yaml`)\cr File containing ADSL metadata.
-#' @return df (`data.frame`)\cr Data frame with metadata applied.
+#' @return Data frame with metadata applied.
 #'
 #' @export
 #' @examples

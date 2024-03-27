@@ -21,7 +21,7 @@ apply_metadata(
 \item{adsl_filename}{(\code{yaml})\cr File containing ADSL metadata.}
 }
 \value{
-df (\code{data.frame})\cr Data frame with metadata applied.
+Data frame with metadata applied.
 }
 \description{
 Apply label and variable ordering attributes to domains.
