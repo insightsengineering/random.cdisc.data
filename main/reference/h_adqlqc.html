@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">random.cdisc.data</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.14.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.15</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,14 +30,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/random.cdisc.data/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/random.cdisc.data/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/random.cdisc.data/v0.3.14">v0.3.14</a> </div></li>
-<!-- end dropdown for versions -->
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-reports">
@@ -207,41 +199,6 @@ If <code>NA</code>, <code>na_percentage</code> is used as a default.</p></li>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">adsl</span> <span class="op">&lt;-</span> <span class="fu"><a href="radsl.html">radsl</a></span><span class="op">(</span>N <span class="op">=</span> <span class="fl">10</span>, study_duration <span class="op">=</span> <span class="fl">2</span>, seed <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">adqlqc</span> <span class="op">&lt;-</span> <span class="fu"><a href="radqlqc.html">radqlqc</a></span><span class="op">(</span><span class="va">adsl</span>, seed <span class="op">=</span> <span class="fl">1</span>, percent <span class="op">=</span> <span class="fl">80</span>, number <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">qs</span> <span class="op">&lt;-</span> <span class="fu">random.cdisc.data</span><span class="fu">:::</span><span class="fu">get_qs_data</span><span class="op">(</span><span class="va">adsl</span>, n_assessments <span class="op">=</span> <span class="fl">5L</span>, seed <span class="op">=</span> <span class="fl">1</span>, na_percentage <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">qs</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">adsl</span>,</span></span>
-<span class="r-in"><span>  <span class="va">qs</span>,</span></span>
-<span class="r-in"><span>  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"STUDYID"</span>, <span class="st">"USUBJID"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  multiple <span class="op">=</span> <span class="st">"all"</span></span></span>
-<span class="r-in"><span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    AVISIT <span class="op">=</span> <span class="va">VISIT</span>,</span></span>
-<span class="r-in"><span>    PARAMCD <span class="op">=</span> <span class="va">QSTESTCD</span>,</span></span>
-<span class="r-in"><span>    AVISITN <span class="op">=</span> <span class="va">VISITNUM</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ADTM <span class="op">=</span> <span class="fu">random.cdisc.data</span><span class="fu">:::</span><span class="fu">get_random_dates_between</span><span class="op">(</span><span class="va">TRTSDTM</span>, <span class="va">TRTEDTM</span>, <span class="va">AVISITN</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">df</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">adqlqc1</span> <span class="op">&lt;-</span> <span class="fu">random.cdisc.data</span><span class="fu">:::</span><span class="fu">prep_adqlqc</span><span class="op">(</span>df <span class="op">=</span> <span class="va">qs</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">adqlqc1</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">df_scales</span> <span class="op">&lt;-</span> <span class="fu">random.cdisc.data</span><span class="fu">:::</span><span class="fu">calc_scales</span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">df_scales</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">adqlqc</span> <span class="op">&lt;-</span> <span class="fu">random.cdisc.data</span><span class="fu">:::</span><span class="fu">derv_chgcat1</span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">adqlqc</span> <span class="op">|&gt;</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">CHGCAT1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">adqlqc</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">compliance_data</span> <span class="op">&lt;-</span> <span class="fu">random.cdisc.data</span><span class="fu">:::</span><span class="fu">comp_derv</span><span class="op">(</span><span class="va">adqlqc</span>, <span class="fl">80</span>, <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">compliance_data</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

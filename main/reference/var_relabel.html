@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">random.cdisc.data</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.14.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.15</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,14 +30,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/random.cdisc.data/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/random.cdisc.data/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/random.cdisc.data/v0.3.14">v0.3.14</a> </div></li>
-<!-- end dropdown for versions -->
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-reports">
@@ -86,27 +78,33 @@
 name in <code>x</code> and the value to the new variable label.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    
+
+<p>x (<code>data.frame</code>)<br> Data frame with labels applied.</p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">adsl</span> <span class="op">&lt;-</span> <span class="fu"><a href="radsl.html">radsl</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">random.cdisc.data</span><span class="fu">:::</span><span class="fu">var_relabel</span><span class="op">(</span><span class="va">adsl</span>,</span></span>
+<span class="r-in"><span><span class="fu">var_relabel</span><span class="op">(</span><span class="va">adsl</span>,</span></span>
 <span class="r-in"><span>  STUDYID <span class="op">=</span> <span class="st">"Study Identifier"</span>,</span></span>
 <span class="r-in"><span>  USUBJID <span class="op">=</span> <span class="st">"Unique Subject Identifier"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 400 × 55</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    STUDYID USUBJID    SUBJID SITEID   AGE AGEU  SEX   RACE  ETHNIC COUNTRY DTHFL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AB12345 AB12345-C… id-118 CAN-17    34 YEARS M     ASIAN NOT H… CAN     N    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AB12345 AB12345-R… id-384 RUS-1     37 YEARS M     WHITE NOT H… RUS     N    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AB12345 AB12345-C… id-38  CHE-11    35 YEARS F     ASIAN NOT H… CHE     N    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AB12345 AB12345-J… id-267 JPN-5     38 YEARS M     ASIAN NOT H… JPN     Y    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AB12345 AB12345-C… id-139 CHN-2     33 YEARS M     ASIAN NOT H… CHN     N    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AB12345 AB12345-C… id-199 CHN-11    31 YEARS M     BLAC… NOT R… CHN     N    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AB12345 AB12345-C… id-133 CHN-1     33 YEARS F     ASIAN NOT H… CHN     N    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AB12345 AB12345-B… id-175 BRA-1     33 YEARS M     ASIAN HISPA… BRA     Y    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AB12345 AB12345-P… id-197 PAK-17    29 YEARS M     ASIAN NOT H… PAK     N    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AB12345 AB12345-C… id-201 CHN-11    55 YEARS F     ASIAN HISPA… CHN     N    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AB12345 AB12345-C… id-199 CHN-11    33 YEARS F     BLAC… NOT H… CHN     N    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AB12345 AB12345-C… id-146 CHN-14    27 YEARS M     BLAC… NOT H… CHN     N    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AB12345 AB12345-C… id-179 CHN-12    40 YEARS M     UNKN… NOT H… CHN     N    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AB12345 AB12345-U… id-42  USA-1     29 YEARS F     ASIAN NOT H… USA     N    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AB12345 AB12345-C… id-87  CAN-1     30 YEARS M     BLAC… NOT H… CAN     N    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AB12345 AB12345-J… id-353 JPN-11    33 YEARS M     ASIAN NOT H… JPN     N    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AB12345 AB12345-B… id-315 BRA-12    36 YEARS M     ASIAN NOT H… BRA     Y    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AB12345 AB12345-U… id-299 USA-11    56 YEARS F     AMER… NOT H… USA     N    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AB12345 AB12345-J… id-80  JPN-12    29 YEARS F     ASIAN NOT H… JPN     N    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AB12345 AB12345-C… id-131 CHN-6     36 YEARS F     BLAC… NOT H… CHN     N    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 390 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 44 more variables: INVID &lt;chr&gt;, INVNAM &lt;chr&gt;, ARM &lt;fct&gt;, ARMCD &lt;fct&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ACTARM &lt;fct&gt;, ACTARMCD &lt;fct&gt;, TRT01P &lt;fct&gt;, TRT01A &lt;fct&gt;, TRT02P &lt;fct&gt;,</span></span>
