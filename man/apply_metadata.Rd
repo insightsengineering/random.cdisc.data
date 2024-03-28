@@ -20,6 +20,9 @@ apply_metadata(
 
 \item{adsl_filename}{(\code{yaml})\cr File containing ADSL metadata.}
 }
+\value{
+Data frame with metadata applied.
+}
 \description{
 Apply label and variable ordering attributes to domains.
 }
@@ -28,10 +31,9 @@ seed <- 1
 adsl <- radsl(seed = seed)
 adsub <- radsub(adsl, seed = seed)
 yaml_path <- file.path(path.package("random.cdisc.data"), "inst", "metadata")
-adsl <- random.cdisc.data:::apply_metadata(adsl, file.path(yaml_path, "ADSL.yml"), FALSE)
-adsub <- random.cdisc.data:::apply_metadata(
+adsl <- apply_metadata(adsl, file.path(yaml_path, "ADSL.yml"), FALSE)
+adsub <- apply_metadata(
   adsub, file.path(yaml_path, "ADSUB.yml"), TRUE,
   file.path(yaml_path, "ADSL.yml")
 )
 }
-\keyword{internal}

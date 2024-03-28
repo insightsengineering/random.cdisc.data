@@ -26,11 +26,11 @@ get_cached_data <- function(dataname) {
 #' @param ... Additional arguments to be passed to `sample`.
 #'
 #' @return A factor of length `N`.
-#' @keywords internal
+#' @export
 #'
 #' @examples
-#' random.cdisc.data:::sample_fct(letters[1:3], 10)
-#' random.cdisc.data:::sample_fct(iris$Species, 10)
+#' sample_fct(letters[1:3], 10)
+#' sample_fct(iris$Species, 10)
 sample_fct <- function(x, N, ...) { # nolint
   checkmate::assert_number(N)
 
@@ -40,6 +40,7 @@ sample_fct <- function(x, N, ...) { # nolint
 #' Related Variables: Initialize
 #'
 #' Verify and initialize related variable values.
+#' For example, `relvar_init("Alanine Aminotransferase Measurement", "ALT")`.
 #'
 #' @param relvar1 (`list` of `character`)\cr List of n elements.
 #' @param relvar2 (`list` of `character`)\cr List of n elements.
@@ -47,10 +48,6 @@ sample_fct <- function(x, N, ...) { # nolint
 #' @return A vector of n elements.
 #'
 #' @keywords internal
-#'
-#' @examples
-#' random.cdisc.data:::relvar_init("Alanine Aminotransferase Measurement", "ALT")
-#' random.cdisc.data:::relvar_init("Alanine Aminotransferase Measurement", "U/L")
 relvar_init <- function(relvar1, relvar2) {
   checkmate::assert_character(relvar1, min.len = 1, any.missing = FALSE)
   checkmate::assert_character(relvar2, min.len = 1, any.missing = FALSE)
@@ -75,7 +72,7 @@ relvar_init <- function(relvar1, relvar2) {
 #' of `var_name` must relate.
 #'
 #' @return `df` with added factor variable `var_name` containing `var_values` corresponding to `related_var`.
-#' @keywords internal
+#' @export
 #'
 #' @examples
 #' # Example with data.frame.
@@ -87,7 +84,7 @@ relvar_init <- function(relvar1, relvar2) {
 #'     levels = params
 #'   )
 #' )
-#' random.cdisc.data:::rel_var(
+#' rel_var(
 #'   df = adlb_df,
 #'   var_name = "PARAMCD",
 #'   var_values = c("A", "B", "C"),
@@ -102,7 +99,7 @@ relvar_init <- function(relvar1, relvar2) {
 #'     levels = params
 #'   )
 #' )
-#' random.cdisc.data:::rel_var(
+#' rel_var(
 #'   df = adlb_tbl,
 #'   var_name = "PARAMCD",
 #'   var_values = c("A", "B", "C"),
@@ -135,11 +132,11 @@ rel_var <- function(df, var_name, related_var, var_values = NULL) {
 #' @inheritParams argument_convention
 #'
 #' @return A factor of length `n_assessments`.
-#' @keywords internal
+#' @export
 #'
 #' @examples
-#' random.cdisc.data:::visit_schedule(visit_format = "WEeK", n_assessments = 10L)
-#' random.cdisc.data:::visit_schedule(visit_format = "CyCLE", n_assessments = 5L, n_days = 2L)
+#' visit_schedule(visit_format = "WEeK", n_assessments = 10L)
+#' visit_schedule(visit_format = "CyCLE", n_assessments = 5L, n_days = 2L)
 visit_schedule <- function(visit_format = "WEEK",
                            n_assessments = 10L,
                            n_days = 5L) {
@@ -173,15 +170,8 @@ visit_schedule <- function(visit_format = "WEEK",
 #' @param value_var (`any`)\cr Variable in `df` containing the value to be retained.
 #' @param event (`expression`)\cr Expression returning a logical value to trigger the retain.
 #' @param outside (`any`)\cr Additional value to retain. Defaults to `NA`.
-#'
+#' @return A vector of values where expression is true.
 #' @keywords internal
-#'
-#' @examples
-#' adlb <- radlb(radsl(N = 10, na_percentage = 0), na_vars = list())
-#' adlb$BASE2 <- random.cdisc.data:::retain(
-#'   df = adlb, value_var = adlb$AVAL,
-#'   event = adlb$ABLFL2 == "Y"
-#' )
 retain <- function(df, value_var, event, outside = NA) {
   indices <- c(1, which(event == TRUE), nrow(df) + 1)
   values <- c(outside, value_var[event == TRUE])
@@ -195,12 +185,13 @@ retain <- function(df, value_var, event, outside = NA) {
 #' @param x (`data.frame`)\cr Data frame containing variables to which labels are applied.
 #' @param ... (`named character`)\cr Name-Value pairs, where name corresponds to a variable
 #' name in `x` and the value to the new variable label.
+#' @return x (`data.frame`)\cr Data frame with labels applied.
 #'
-#' @keywords internal
+#' @export
 #'
 #' @examples
 #' adsl <- radsl()
-#' random.cdisc.data:::var_relabel(adsl,
+#' var_relabel(adsl,
 #'   STUDYID = "Study Identifier",
 #'   USUBJID = "Unique Subject Identifier"
 #' )
@@ -225,16 +216,16 @@ var_relabel <- function(x, ...) {
 #' @param filename (`yaml`)\cr File containing domain metadata.
 #' @param add_adsl (`logical`)\cr Should ADSL data be merged to domain.
 #' @param adsl_filename (`yaml`)\cr File containing ADSL metadata.
+#' @return Data frame with metadata applied.
 #'
-#' @keywords internal
-#'
+#' @export
 #' @examples
 #' seed <- 1
 #' adsl <- radsl(seed = seed)
 #' adsub <- radsub(adsl, seed = seed)
 #' yaml_path <- file.path(path.package("random.cdisc.data"), "inst", "metadata")
-#' adsl <- random.cdisc.data:::apply_metadata(adsl, file.path(yaml_path, "ADSL.yml"), FALSE)
-#' adsub <- random.cdisc.data:::apply_metadata(
+#' adsl <- apply_metadata(adsl, file.path(yaml_path, "ADSL.yml"), FALSE)
+#' adsub <- apply_metadata(
 #'   adsub, file.path(yaml_path, "ADSUB.yml"), TRUE,
 #'   file.path(yaml_path, "ADSL.yml")
 #' )
@@ -250,20 +241,21 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
     }
 
     if (type == "character" && !is.character(df[[var]])) {
-      df[[var]] <<- as.character(df[[var]])
+      df[[var]] <- as.character(df[[var]])
     } else if (type == "factor" && !is.factor(df[[var]])) {
-      df[[var]] <<- as.factor(df[[var]])
+      df[[var]] <- as.factor(df[[var]])
     } else if (type == "integer" && !is.integer(df[[var]])) {
-      df[[var]] <<- as.integer(df[[var]])
+      df[[var]] <- as.integer(df[[var]])
     } else if (type == "numeric" && !is.numeric(df[[var]])) {
-      df[[var]] <<- as.numeric(df[[var]])
+      df[[var]] <- as.numeric(df[[var]])
     } else if (type == "logical" && !is.logical(df[[var]])) {
-      df[[var]] <<- as.logical(df[[var]])
+      df[[var]] <- as.logical(df[[var]])
     } else if (type == "datetime" && !lubridate::is.POSIXct(df[[var]])) {
-      df[[var]] <<- as.POSIXct(df[[var]])
+      df[[var]] <- as.POSIXct(df[[var]])
     } else if (type == "date" && !lubridate::is.Date(df[[var]])) {
-      df[[var]] <<- as.Date(df[[var]])
+      df[[var]] <- as.Date(df[[var]])
     }
+    return(df)
   }
 
   # remove existing attributes
@@ -306,7 +298,7 @@ apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metad
 
   # assign labels to variables
   for (var in metadata_varnames) {
-    apply_type(df, var, metadata_variables[[var]]$type)
+    df <- apply_type(df, var, metadata_variables[[var]]$type)
     attr(df[[var]], "label") <- metadata_variables[[var]]$label
   }
 
@@ -361,6 +353,8 @@ replace_na <- function(v, percentage = 0.05, seed = NULL) {
 #'
 #' @inheritParams argument_convention
 #' @param ds (`data.frame`)\cr Any data set.
+#'
+#' @return dataframe without `NA` values.
 #'
 #' @export
 mutate_na <- function(ds, na_vars = NULL, na_percentage = 0.05) {

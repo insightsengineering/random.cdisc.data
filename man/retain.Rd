@@ -15,14 +15,10 @@ retain(df, value_var, event, outside = NA)
 
 \item{outside}{(\code{any})\cr Additional value to retain. Defaults to \code{NA}.}
 }
+\value{
+A vector of values where expression is true.
+}
 \description{
 Retain values within primary keys.
-}
-\examples{
-adlb <- radlb(radsl(N = 10, na_percentage = 0), na_vars = list())
-adlb$BASE2 <- random.cdisc.data:::retain(
-  df = adlb, value_var = adlb$AVAL,
-  event = adlb$ABLFL2 == "Y"
-)
 }
 \keyword{internal}

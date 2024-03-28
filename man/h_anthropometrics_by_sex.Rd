@@ -47,10 +47,4 @@ as provided to the function.
 \details{
 One record per subject.
 }
-\examples{
-adsl <- radsl(N = 5, seed = 1)
-
-df_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = adsl)
-df_with_measurements
-}
 \keyword{internal}

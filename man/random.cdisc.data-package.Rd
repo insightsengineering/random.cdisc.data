@@ -9,13 +9,15 @@
 Package to create random SDTM and ADAM datasets.
 }
 \author{
-\strong{Maintainer}: Pawel Rucki \email{pawel.rucki@roche.com}
+\strong{Maintainer}: Joe Zhu \email{joe.zhu@roche.com}
 
 Authors:
 \itemize{
+  \item Pawel Rucki \email{pawel.rucki@roche.com}
   \item Nick Paszty \email{npaszty@gene.com}
   \item Jana Stoilova \email{jana.stoilova@roche.com}
-  \item Joe Zhu \email{joe.zhu@roche.com}
+  \item Davide Garolini \email{davide.garolini@roche.com}
+  \item Emily de la Rua \email{emily.de_la_rua@contractors.roche.com}
   \item Christopher DiPietrantonio
   \item Adrian Waddell \email{adrian.waddell@gene.com}
 }
