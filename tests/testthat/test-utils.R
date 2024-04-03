@@ -80,7 +80,7 @@ test_that("retain works as expected", {
 })
 
 test_that("rcd_var_relabel works as expected", {
-  result <- rcd_rcd_var_relabel(
+  result <- rcd_var_relabel(
     data.frame(letters = letters[1:5]),
     letters = "Letter Variable"
   )
@@ -89,7 +89,7 @@ test_that("rcd_var_relabel works as expected", {
 
 test_that("rcd_var_relabel returns correct error message", {
   expect_error(
-    rcd_rcd_var_relabel(
+    rcd_var_relabel(
       data.frame(letters = letters[1:5]),
       "Letter Variable"
     ), "missing variable declarations"

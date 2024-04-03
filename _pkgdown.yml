@@ -96,4 +96,5 @@ reference:
       - rtexp
       - rtpois
       - sample_fct
+      - rcd_var_relabel
       - visit_schedule

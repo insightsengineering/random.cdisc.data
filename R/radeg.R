@@ -167,11 +167,7 @@ radeg <- function(adsl,
     dplyr::mutate(BNRIND = ANRIND[ABLFL == "Y"]) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(ATPTN = 1) %>%
-    dplyr::mutate(DTYPE = NA) %>%
-    rcd_var_relabel(
-      STUDYID = attr(adeg$STUDYID, "label"),
-      USUBJID = attr(adeg$USUBJID, "label")
-    )
+    dplyr::mutate(DTYPE = NA)
 
   adeg$ANRIND <- factor(adeg$ANRIND, levels = c("LOW", "NORMAL", "HIGH"))
   adeg$BNRIND <- factor(adeg$BNRIND, levels = c("LOW", "NORMAL", "HIGH"))
