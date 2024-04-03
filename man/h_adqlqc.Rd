@@ -107,40 +107,5 @@ Function for generating random Questionnaires SDTM domain
 adsl <- radsl(N = 10, study_duration = 2, seed = 1)
 adqlqc <- radqlqc(adsl, seed = 1, percent = 80, number = 2)
 
-\dontrun{
-qs <- random.cdisc.data:::get_qs_data(adsl, n_assessments = 5L, seed = 1, na_percentage = 0.1)
-qs
-}
-\dontrun{
-df <- dplyr::left_join(
-  adsl,
-  qs,
-  by = c("STUDYID", "USUBJID"),
-  multiple = "all"
-) |>
-  dplyr::mutate(
-    AVISIT = VISIT,
-    PARAMCD = QSTESTCD,
-    AVISITN = VISITNUM
-  ) |>
-  dplyr::mutate(ADTM = random.cdisc.data:::get_random_dates_between(TRTSDTM, TRTEDTM, AVISITN))
-df
-}
-\dontrun{
-adqlqc1 <- random.cdisc.data:::prep_adqlqc(df = qs)
-adqlqc1
-}
-\dontrun{
-df_scales <- random.cdisc.data:::calc_scales(df)
-df_scales
-}
-\dontrun{
-adqlqc <- random.cdisc.data:::derv_chgcat1(dataset = adqlqc |> dplyr::select(-CHGCAT1))
-adqlqc
-}
-\dontrun{
-compliance_data <- random.cdisc.data:::comp_derv(adqlqc, 80, 2)
-compliance_data
-}
 }
 \keyword{internal}

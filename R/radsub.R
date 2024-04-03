@@ -19,12 +19,6 @@
 #'
 #' @return a dataframe with anthropometric measurements for each subject in analysis dataset.
 #' @keywords internal
-#'
-#' @examples
-#' adsl <- radsl(N = 5, seed = 1)
-#'
-#' df_with_measurements <- random.cdisc.data:::h_anthropometrics_by_sex(df = adsl)
-#' df_with_measurements
 h_anthropometrics_by_sex <- function(df,
                                      seed = 1,
                                      id_var = "USUBJID",
