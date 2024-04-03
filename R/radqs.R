@@ -128,12 +128,12 @@ radqs <- function(adsl,
     dplyr::mutate(PCHG2 = 100 * (CHG2 / BASE2)) %>%
     dplyr::mutate(CHG = AVAL - BASE) %>%
     dplyr::mutate(PCHG = 100 * (CHG / BASE)) %>%
-    var_relabel(
+    rcd_var_relabel(
       STUDYID = attr(adsl$STUDYID, "label"),
       USUBJID = attr(adsl$USUBJID, "label")
     )
 
-  adqs <- var_relabel(
+  adqs <- rcd_var_relabel(
     adqs,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"

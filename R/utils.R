@@ -191,21 +191,17 @@ retain <- function(df, value_var, event, outside = NA) {
 #'
 #' @examples
 #' adsl <- radsl()
-#' var_relabel(adsl,
+#' rcd_var_relabel(adsl,
 #'   STUDYID = "Study Identifier",
 #'   USUBJID = "Unique Subject Identifier"
 #' )
-var_relabel <- function(x, ...) {
+rcd_var_relabel <- function(x, ...) {
   dots <- list(...)
   varnames <- names(dots)
   if (is.null(varnames)) {
     stop("missing variable declarations")
   }
-  map_varnames <- match(varnames, names(x))
-  for (i in seq_along(map_varnames)) {
-    attr(x[[map_varnames[[i]]]], "label") <- dots[[i]]
-  }
-  x
+  formatters::var_relabel(x, ...)
 }
 
 #' Apply Metadata

@@ -79,17 +79,17 @@ test_that("retain works as expected", {
   expect_equal(result, expected)
 })
 
-test_that("var_relabel works as expected", {
-  result <- random.cdisc.data:::var_relabel(
+test_that("rcd_var_relabel works as expected", {
+  result <- rcd_rcd_var_relabel(
     data.frame(letters = letters[1:5]),
     letters = "Letter Variable"
   )
   expect_identical(attr(result$letters, "label"), "Letter Variable")
 })
 
-test_that("var_relabel returns correct error message", {
+test_that("rcd_var_relabel returns correct error message", {
   expect_error(
-    random.cdisc.data:::var_relabel(
+    rcd_rcd_var_relabel(
       data.frame(letters = letters[1:5]),
       "Letter Variable"
     ), "missing variable declarations"

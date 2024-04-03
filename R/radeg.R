@@ -168,7 +168,7 @@ radeg <- function(adsl,
     dplyr::ungroup() %>%
     dplyr::mutate(ATPTN = 1) %>%
     dplyr::mutate(DTYPE = NA) %>%
-    var_relabel(
+    rcd_var_relabel(
       STUDYID = attr(adeg$STUDYID, "label"),
       USUBJID = attr(adeg$USUBJID, "label")
     )
@@ -176,7 +176,7 @@ radeg <- function(adsl,
   adeg$ANRIND <- factor(adeg$ANRIND, levels = c("LOW", "NORMAL", "HIGH"))
   adeg$BNRIND <- factor(adeg$BNRIND, levels = c("LOW", "NORMAL", "HIGH"))
 
-  adeg <- var_relabel(
+  adeg <- rcd_var_relabel(
     adeg,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"

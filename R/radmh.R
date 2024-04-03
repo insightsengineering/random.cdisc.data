@@ -81,7 +81,7 @@ radmh <- function(adsl,
     `[`(c(4, 5, 1, 2, 3)) %>%
     dplyr::mutate(MHTERM = MHDECOD)
 
-  admh <- var_relabel(
+  admh <- rcd_var_relabel(
     admh,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
