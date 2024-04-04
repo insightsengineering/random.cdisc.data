@@ -16,7 +16,8 @@ name in \code{x} and the value to the new variable label.}
 x (\code{data.frame})\cr Data frame with labels applied.
 }
 \description{
-Relabel a subset of variables in a data set.
+Shallow copy of \code{formatters::var_relabel()}. Used mainly internally to
+relabel a subset of variables in a data set.
 }
 \examples{
 adsl <- radsl()
@@ -24,4 +25,5 @@ rcd_var_relabel(adsl,
   STUDYID = "Study Identifier",
   USUBJID = "Unique Subject Identifier"
 )
+
 }

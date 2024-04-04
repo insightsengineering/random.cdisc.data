@@ -24,7 +24,6 @@ Depends:
 Imports:
     checkmate (>= 2.1.0),
     dplyr (>= 1.1.2),
-    formatters (>= 0.5.5.9013),
     lifecycle (>= 1.0.3),
     lubridate (>= 1.7.10),
     magrittr (>= 1.5),

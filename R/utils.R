@@ -180,14 +180,13 @@ retain <- function(df, value_var, event, outside = NA) {
 
 #' Primary Keys: Labels
 #'
-#' Relabel a subset of variables in a data set.
+#' @description Shallow copy of `formatters::var_relabel()`. Used mainly internally to
+#'   relabel a subset of variables in a data set.
 #'
 #' @param x (`data.frame`)\cr Data frame containing variables to which labels are applied.
 #' @param ... (`named character`)\cr Name-Value pairs, where name corresponds to a variable
-#' name in `x` and the value to the new variable label.
+#'   name in `x` and the value to the new variable label.
 #' @return x (`data.frame`)\cr Data frame with labels applied.
-#'
-#' @export
 #'
 #' @examples
 #' adsl <- radsl()
@@ -195,13 +194,30 @@ retain <- function(df, value_var, event, outside = NA) {
 #'   STUDYID = "Study Identifier",
 #'   USUBJID = "Unique Subject Identifier"
 #' )
+#'
+#' @export
 rcd_var_relabel <- function(x, ...) {
+  stopifnot(is.data.frame(x))
+  if (missing(...)) {
+    return(x)
+  }
   dots <- list(...)
   varnames <- names(dots)
   if (is.null(varnames)) {
     stop("missing variable declarations")
   }
-  formatters::var_relabel(x, ...)
+  map_varnames <- match(varnames, colnames(x))
+  if (any(is.na(map_varnames))) {
+    stop("variables: ", paste(varnames[is.na(map_varnames)],
+                              collapse = ", "), " not found")
+  }
+  if (any(vapply(dots, Negate(is.character), logical(1)))) {
+    stop("all variable labels must be of type character")
+  }
+  for (i in seq_along(map_varnames)) {
+    attr(x[[map_varnames[[i]]]], "label") <- dots[[i]]
+  }
+  x
 }
 
 #' Apply Metadata
