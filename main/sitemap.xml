@@ -178,6 +178,9 @@
     <loc>https://insightsengineering.github.io/random.cdisc.data/reference/random.cdisc.data-package.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/random.cdisc.data/reference/rcd_var_relabel.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/random.cdisc.data/reference/rel_var.html</loc>
   </url>
   <url>
@@ -197,9 +200,6 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/random.cdisc.data/reference/sample_fct.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/random.cdisc.data/reference/var_relabel.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/random.cdisc.data/reference/visit_schedule.html</loc>
