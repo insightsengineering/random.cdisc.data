@@ -213,7 +213,7 @@ radex <- function(adsl,
       AVAL
     ))
 
-  adex <- var_relabel(
+  adex <- rcd_var_relabel(
     adex,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"

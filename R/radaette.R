@@ -223,12 +223,12 @@ radaette <- function(adsl,
       dplyr::bind_rows(patient_data, ae_data)
     }) %>%
     Reduce(rbind, .) %>%
-    var_relabel(
+    rcd_var_relabel(
       STUDYID = "Study Identifier",
       USUBJID = "Unique Subject Identifier"
     )
 
-  adaette <- var_relabel(
+  adaette <- rcd_var_relabel(
     adaette,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"

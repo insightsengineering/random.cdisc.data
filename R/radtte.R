@@ -105,7 +105,7 @@ radtte <- function(adsl,
         dplyr::select(-"LAMBDA", -"CNSR_P")
     }) %>%
     Reduce(rbind, .) %>%
-    var_relabel(
+    rcd_var_relabel(
       STUDYID = "Study Identifier",
       USUBJID = "Unique Subject Identifier" # )
     )
@@ -202,7 +202,7 @@ radtte <- function(adsl,
   adtte <- do.call("rbind", adtte_lst)
   rownames(adtte) <- NULL
 
-  adtte <- var_relabel(
+  adtte <- rcd_var_relabel(
     adtte,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"

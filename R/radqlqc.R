@@ -111,14 +111,14 @@ radqlqc <- function(adsl,
     dplyr::mutate(PCHG2 = 100 * (CHG2 / BASE2)) %>%
     dplyr::mutate(CHG = AVAL - BASE) %>%
     dplyr::mutate(PCHG = 100 * (CHG / BASE)) %>%
-    var_relabel(
+    rcd_var_relabel(
       STUDYID = attr(adsl$STUDYID, "label"),
       USUBJID = attr(adsl$USUBJID, "label")
     )
   # derive CHGCAT1 ----------------------------------------------------------
   adqlqc_tmp <- derv_chgcat1(dataset = adqlqc_tmp)
 
-  adqlqc_tmp <- var_relabel(
+  adqlqc_tmp <- rcd_var_relabel(
     adqlqc_tmp,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"

@@ -143,7 +143,7 @@ radsub <- function(adsl,
 
   adsub <- adsub[order(adsub$STUDYID, adsub$USUBJID, adsub$PARAMCD), ]
 
-  adsub <- var_relabel(
+  adsub <- rcd_var_relabel(
     adsub,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
