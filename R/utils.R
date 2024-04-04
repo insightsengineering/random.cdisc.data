@@ -188,14 +188,7 @@ retain <- function(df, value_var, event, outside = NA) {
 #'   name in `x` and the value to the new variable label.
 #' @return x (`data.frame`)\cr Data frame with labels applied.
 #'
-#' @examples
-#' adsl <- radsl()
-#' rcd_var_relabel(adsl,
-#'   STUDYID = "Study Identifier",
-#'   USUBJID = "Unique Subject Identifier"
-#' )
-#'
-#' @export
+#' @keywords internal
 rcd_var_relabel <- function(x, ...) {
   stopifnot(is.data.frame(x))
   if (missing(...)) {
