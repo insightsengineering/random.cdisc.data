@@ -209,7 +209,8 @@ rcd_var_relabel <- function(x, ...) {
   map_varnames <- match(varnames, colnames(x))
   if (any(is.na(map_varnames))) {
     stop("variables: ", paste(varnames[is.na(map_varnames)],
-                              collapse = ", "), " not found")
+      collapse = ", "
+    ), " not found")
   }
   if (any(vapply(dots, Negate(is.character), logical(1)))) {
     stop("all variable labels must be of type character")
