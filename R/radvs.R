@@ -184,12 +184,12 @@ radvs <- function(adsl,
     dplyr::ungroup() %>%
     dplyr::mutate(ATPTN = 1) %>%
     dplyr::mutate(DTYPE = NA) %>%
-    var_relabel(
+    rcd_var_relabel(
       USUBJID = attr(adsl$USUBJID, "label"),
       STUDYID = attr(adsl$STUDYID, "label")
     )
 
-  advs <- var_relabel(
+  advs <- rcd_var_relabel(
     advs,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"

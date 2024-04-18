@@ -145,12 +145,12 @@ radrs <- function(adsl,
     }) %>%
     Reduce(rbind, .) %>%
     dplyr::mutate(AVALC = factor(AVALC, levels = names(param_codes))) %>%
-    var_relabel(
+    rcd_var_relabel(
       STUDYID = "Study Identifier",
       USUBJID = "Unique Subject Identifier"
     )
 
-  adrs <- var_relabel(
+  adrs <- rcd_var_relabel(
     adrs,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"

@@ -82,7 +82,7 @@ radcm <- function(adsl,
     `[`(c(4, 5, 1, 2, 3)) %>%
     dplyr::mutate(CMCAT = CMCLAS)
 
-  adcm <- var_relabel(
+  adcm <- rcd_var_relabel(
     adcm,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"

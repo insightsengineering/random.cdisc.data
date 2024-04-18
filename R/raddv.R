@@ -101,7 +101,7 @@ raddv <- function(adsl,
     Reduce(rbind, .) %>%
     dplyr::mutate(DVSCAT = DVCAT)
 
-  addv <- var_relabel(
+  addv <- rcd_var_relabel(
     addv,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"

@@ -8,6 +8,15 @@
 \description{
 Package to create random SDTM and ADAM datasets.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://insightsengineering.github.io/random.cdisc.data/}
+  \item \url{https://github.com/insightsengineering/random.cdisc.data/}
+  \item Report bugs at \url{https://github.com/insightsengineering/random.cdisc.data/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Joe Zhu \email{joe.zhu@roche.com}
 

@@ -168,7 +168,7 @@ radhy <- function(adsl,
     dplyr::ungroup()
 
   adhy <- adhy %>%
-    var_relabel(
+    rcd_var_relabel(
       STUDYID = attr(adsl$STUDYID, "label"),
       USUBJID = attr(adsl$USUBJID, "label")
     )

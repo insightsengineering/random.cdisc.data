@@ -260,7 +260,7 @@ radlb <- function(adsl,
       ATOXGR == "-3" ~ "<Missing>",
       ATOXGR == "-4" ~ "<Missing>",
     ))) %>%
-    var_relabel(
+    rcd_var_relabel(
       STUDYID = attr(adsl$STUDYID, "label"),
       USUBJID = attr(adsl$USUBJID, "label")
     )
@@ -294,7 +294,7 @@ radlb <- function(adsl,
   # merge grade_lookup onto adlb
   adlb <- dplyr::left_join(adlb, grade_lookup, by = "PARAMCD")
 
-  adlb <- var_relabel(
+  adlb <- rcd_var_relabel(
     adlb,
     STUDYID = "Study Identifier",
     USUBJID = "Unique Subject Identifier"
