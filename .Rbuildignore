@@ -44,3 +44,5 @@ coverage.*
 SECURITY.md
 ^man-roxygen$
 ^pkgdown$
+^revdeprefs\.yaml$
+^revdep$
