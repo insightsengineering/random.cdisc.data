@@ -27,3 +27,5 @@ vignettes/*.html
 vignettes/*.md
 vignettes/*.R
 coverage.*
+tests/testthat/_snaps/**/*.new.md
+tests/testthat/_snaps/**/*.new.svg
