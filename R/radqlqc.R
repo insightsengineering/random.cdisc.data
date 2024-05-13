@@ -646,8 +646,6 @@ prep_adqlqc <- function(df) {
 #' @param adsl (`data.frame`)\cr ADSL dataset.
 #' @return `data.frame`
 #' @keywords internal
-#'
-#' @examples
 get_ex028 <- function(adsl = adsl) {
   # https://rochewiki.roche.com/confluence/pages/viewpage.action?spaceKey=GDSO&title=ADQLQC
   # EX028
