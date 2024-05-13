@@ -648,7 +648,7 @@ prep_adqlqc <- function(df) {
 #' @keywords internal
 #'
 #' @examples
-get_ex028 <- function() {
+get_ex028 <- function(adsl) {
   # https://rochewiki.roche.com/confluence/pages/viewpage.action?spaceKey=GDSO&title=ADQLQC
   # EX028
   # start with the cartesian (i.e. outer) product of all possible combinations of
