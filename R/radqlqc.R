@@ -648,7 +648,7 @@ prep_adqlqc <- function(df) {
 #' @keywords internal
 #'
 #' @examples
-get_ex028 <- function(adsl) {
+get_ex028 <- function(adsl = adsl) {
   # https://rochewiki.roche.com/confluence/pages/viewpage.action?spaceKey=GDSO&title=ADQLQC
   # EX028
   # start with the cartesian (i.e. outer) product of all possible combinations of
@@ -660,14 +660,18 @@ get_ex028 <- function(adsl) {
 
   # common scenarios, why a subject wasn't expected to complete a questionnaire, are:
   # Questionnaires aren't to be completed at the specific visit (e.g. ADQLQC.AVISIT has a certain value).
-  # The subject hasn't reached the visit yet (e.g. ADQLQC.AVISIT is greater than the last visit present in the SV-domain for this subject).
+  # The subject hasn't reached the visit yet (e.g. ADQLQC.AVISIT is greater than the last visit present
+  # in the SV-domain for this subject).
   # The subject switched to the follow-up period after disease progression
-  # (e.g. ADQLQC.AVISIT is not a follow-up visit and is greater than the last non-follow-up visit present in the SV-domain for this subject).
-  # The subject died (e.g. ADSL.DTHDT is not missing and the difference between ADSL.DTHDT and ADSL.TRTSDT is less than the study day at
+  # (e.g. ADQLQC.AVISIT is not a follow-up visit and is greater than the last non-follow-up visit present
+  # in the SV-domain for this subject).
+  # The subject died (e.g. ADSL.DTHDT is not missing and the difference between ADSL.DTHDT and
+  # ADSL.TRTSDT is less than the study day at
   # which the visit should have occurred).
-  # The subject discontinued from the study (e.g. ADSL.EOSDT is not missing and the difference between ADSL.EOSDT and ADSL.TRTSDT is less
-  # than the study day at which the visit should have occurred).
-  # The above list is not complete. The study protocol must be consulted and the derivations must be chosen in a way to accurately reflect the protocol.
+  # The subject discontinued from the study (e.g. ADSL.EOSDT is not missing and the difference between
+  # ADSL.EOSDT and ADSL.TRTSDT is less than the study day at which the visit should have occurred).
+  # The above list is not complete. The study protocol must be consulted and the derivations must be chosen
+  # in a way to accurately reflect the protocol.
   # The details of the derivation have to be documented in the DAP M3.
 
   # using ADSL
