@@ -58,7 +58,7 @@ radqlqc <- function(adsl,
     ADTM = QSDTC
   )
   # include scale calculation
-  adqlqc_tmp <- calc_scales(adqlqc1)
+  adqlqc_tmp <- calc_scales(adqlqc1, ex028)
   # order to prepare for change from screening and baseline values
   adqlqc_tmp <- adqlqc_tmp[order(adqlqc_tmp$STUDYID, adqlqc_tmp$USUBJID, adqlqc_tmp$PARAMCD, adqlqc_tmp$AVISITN), ]
 
@@ -642,13 +642,135 @@ prep_adqlqc <- function(df) {
   return(adqlqc1)
 }
 
-#' @describeIn h_adqlqc Scale calculation for ADQLQC data
-#'
-#' @param adqlqc1 (`data.frame`)\cr Prepared data generated from the [prep_adqlqc()] function.
+#' @describeIn h_adqlqc derive EX028
 #'
 #' @return `data.frame`
 #' @keywords internal
-calc_scales <- function(adqlqc1) {
+#'
+#' @examples
+get_ex028 <- function() {
+  # https://rochewiki.roche.com/confluence/pages/viewpage.action?spaceKey=GDSO&title=ADQLQC
+  # EX028
+  # start with the cartesian (i.e. outer) product of all possible combinations of
+  # subjects (ADSL.USUBJID) and protocol-defined visits (TV-domain)
+
+  # If questionnaire data is collected by an ePRO-device,
+  # a list of possible assessments will usually have to be created manually
+  # by the statistical programmer.
+
+  # common scenarios, why a subject wasn't expected to complete a questionnaire, are:
+  # Questionnaires aren't to be completed at the specific visit (e.g. ADQLQC.AVISIT has a certain value).
+  # The subject hasn't reached the visit yet (e.g. ADQLQC.AVISIT is greater than the last visit present in the SV-domain for this subject).
+  # The subject switched to the follow-up period after disease progression
+  # (e.g. ADQLQC.AVISIT is not a follow-up visit and is greater than the last non-follow-up visit present in the SV-domain for this subject).
+  # The subject died (e.g. ADSL.DTHDT is not missing and the difference between ADSL.DTHDT and ADSL.TRTSDT is less than the study day at
+  # which the visit should have occurred).
+  # The subject discontinued from the study (e.g. ADSL.EOSDT is not missing and the difference between ADSL.EOSDT and ADSL.TRTSDT is less
+  # than the study day at which the visit should have occurred).
+  # The above list is not complete. The study protocol must be consulted and the derivations must be chosen in a way to accurately reflect the protocol.
+  # The details of the derivation have to be documented in the DAP M3.
+
+  # using ADSL
+  adsl_subj <- select(
+    adsl,
+    USUBJID,
+    TRTSDTM,
+    EOSDT,
+    EOSSTT,
+    DCSREAS,
+    DTHDT
+  )
+
+  # We are not fully following the creation of 'expected' visit metadata due to the data limitation.
+  # using visits from QS (should use TV or SV)
+  # select VISIT, VISITNUM only
+  qs <- get_qs_data(adsl, n_assessments = 5L, seed = 1, na_percentage = 0.1)
+  qs_sub <- select(
+    qs,
+    STUDYID,
+    VISIT,
+    VISITNUM
+  ) %>%
+    distinct()
+  # cartesian product of subjects and visits
+  subj_vis <- crossing(
+    adsl_subj,
+    qs_sub
+  ) %>%
+    # bring in QSDTC from QS
+    left_join(
+      select(
+        qs,
+        STUDYID,
+        USUBJID,
+        VISIT,
+        VISITNUM,
+        QSDTC,
+        QSREASND
+      ) %>%
+        distinct(),
+      by = c("STUDYID","USUBJID", "VISIT", "VISITNUM")
+    )
+  # evaluate each combination to see if a subject is expected to complete a
+  # questionnaire at the specific visit or not.
+  # start with AVAL = 1
+  subj_vis_param <- mutate(
+    subj_vis,
+    PARAMCD = "EX028",
+    AVAL = 1
+  )
+  # Look for a reason why subject wasn't expected to complete a question i.e.
+  # switch to AVAL = 0, if a certain condition is met.
+  subj_vis_param2 <- mutate(
+    subj_vis_param,
+    AVAL = case_when(
+      EOSSTT == "DISCONTINUED" & is.na(QSDTC) ~ 0,
+      EOSSTT == "ONGOING" & is.na(QSDTC) & !is.na(QSREASND) ~ 0,
+      TRUE ~ AVAL
+    ),
+    AVALC = case_when(
+      AVAL == 0 ~ "Not expected to complete questionnaire",
+      AVAL == 1 ~ "Expected to complete questionnaire"
+    ),
+    AREASND = case_when(
+      is.na(QSDTC) & !is.na(DCSREAS) ~ str_to_sentence(DCSREAS),
+      is.na(QSDTC) & is.na(DCSREAS) ~ str_to_sentence(QSREASND),
+      is.na(QSDTC) & is.na(DCSREAS) & is.na(QSREASND) ~ "Visit not reached"
+    )
+  )
+  # select only required variables
+  subj_vis_param3 <- select(
+    subj_vis_param2,
+    STUDYID,
+    USUBJID,
+    VISITNUM,
+    VISIT,
+    PARAMCD,
+    AVISITN = VISITNUM,
+    AVISIT = VISIT,
+    AVAL,
+    AVALC,
+    AREASND
+  )
+
+  load(system.file("sysdata.rda", package = "random.cdisc.data"))
+
+  subj_vis_param4 <- left_join(
+    subj_vis_param3,
+    expect,
+    by = c("PARAMCD")
+  )
+
+  return (subj_vis_param4)
+}
+
+#' @describeIn h_adqlqc Scale calculation for ADQLQC data
+#'
+#' @param adqlqc1 (`data.frame`)\cr Prepared data generated from the [prep_adqlqc()] function.
+#' @param ex028 (`data.frame`)\cr Prepared data generated from the [get_ex028()] function.
+#' @return `data.frame`
+#' @keywords internal
+calc_scales <- function(adqlqc1, ex028) {
   # Prep scale data ---------------------------------------------------------
   # parcat2 = scales or global health status
   # global health status/scales data
@@ -795,18 +917,8 @@ calc_scales <- function(adqlqc1) {
     "new_value = (1 - ((temp_val/var_length)-1)/3)*100.0",
     "new_value = ((temp_val/var_length-1)/3)*100.0"
   )
-
-  expect_data <- data.frame(
-    PARAM = expect$PARAM,
-    PARAMCD = expect$PARAMCD,
-    PARCAT2 = expect$PARCAT2,
-    PARCAT1N = expect$PARCAT1N,
-    AVAL = c(0, 1),
-    AVALC = c(
-      "Not expected to complete questionnaire",
-      "Expected to complete questionnaire"
-    )
-  )
+  # ex028 data
+  ex028 <- get_ex028()
 
   df_saved <- data.frame()
 
@@ -817,6 +929,7 @@ calc_scales <- function(adqlqc1) {
     unique_avisit <- unique(id_data$AVISIT)
     for (visit in unique_avisit) {
       if (is.na(visit)) {
+        if(ex028$AVAL == 1)
         next
       }
       id_data_at_visit <- id_data[id_data$AVISIT == visit, ]
@@ -867,29 +980,6 @@ calc_scales <- function(adqlqc1) {
           df_saved <- rbind(df_saved, new_data_row) #####
         } # idx
       }
-      # add expect data
-      expect_value <- sample(expect_data$AVAL, 1, prob = c(0.10, 0.90))
-      expect_valuec <- expect_data$AVALC[expect_data$AVAL == expect_value]
-
-      new_data_row <- data.frame(
-        study = str_extract(id, "[A-Z]+[0-9]+"),
-        id,
-        visit,
-        id_data_at_visit$AVISITN[1],
-        datetime = NA,
-        expect_data$PARCAT2[1],
-        expect_data$PARAM[1],
-        expect_data$PARAMCD[1],
-        expect_value,
-        expect_valuec,
-        stringsAsFactors = FALSE
-      )
-      colnames(new_data_row) <- c(
-        "STUDYID", "USUBJID", "AVISIT", "AVISITN",
-        "ADTM", "PARCAT2", "PARAM", "PARAMCD", "AVAL",
-        "AVALC"
-      ) ###
-      df_saved <- rbind(df_saved, new_data_row)
     } # visit
   } # id
 
@@ -901,14 +991,9 @@ calc_scales <- function(adqlqc1) {
       "PARAMCD",
       "PARCAT2"
     )
-  ) %>%
-    mutate(
-      AVALC = ifelse(is.na(AVALC), as.character(AVAL), AVALC),
-      PARCAT1 = ifelse(PARAMCD == "EX028", expect$PARCAT1, PARCAT1),
-      PARCAT1N = ifelse(PARAMCD == "EX028", expect$PARCAT1N, PARCAT1N)
-    )
+  )
 
-  adqlqc_tmp <- bind_rows(adqlqc1, df_saved1) %>%
+  adqlqc_tmp <- bind_rows(adqlqc1, df_saved1, ex028) %>%
     arrange(
       USUBJID,
       AVISITN,
