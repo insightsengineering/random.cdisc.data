@@ -709,7 +709,7 @@ get_ex028 <- function(adsl) {
         QSREASND
       ) %>%
         distinct(),
-      by = c("STUDYID","USUBJID", "VISIT", "VISITNUM")
+      by = c("STUDYID", "USUBJID", "VISIT", "VISITNUM")
     )
   # evaluate each combination to see if a subject is expected to complete a
   # questionnaire at the specific visit or not.
@@ -761,7 +761,7 @@ get_ex028 <- function(adsl) {
     by = c("PARAMCD")
   )
 
-  return (subj_vis_param4)
+  return(subj_vis_param4)
 }
 
 #' @describeIn h_adqlqc Scale calculation for ADQLQC data
@@ -929,8 +929,9 @@ calc_scales <- function(adqlqc1, ex028) {
     unique_avisit <- unique(id_data$AVISIT)
     for (visit in unique_avisit) {
       if (is.na(visit)) {
-        if(ex028$AVAL == 1)
-        next
+        if (ex028$AVAL == 1) {
+          next
+        }
       }
       id_data_at_visit <- id_data[id_data$AVISIT == visit, ]
 
