@@ -35,7 +35,7 @@ derv_chgcat1(dataset)
 comp_derv(dataset, percent, number)
 }
 \arguments{
-\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr ADSL dataset.}
 
 \item{visit_format}{(\code{character})\cr Type of visit. Options are "WEEK" and "CYCLE".}
 
