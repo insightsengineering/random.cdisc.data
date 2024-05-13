@@ -695,7 +695,7 @@ get_ex028 <- function(adsl = adsl) {
   ) %>%
     distinct()
   # cartesian product of subjects and visits
-  subj_vis <- crossing(
+  subj_vis <- tidyr::crossing(
     adsl_subj,
     qs_sub
   ) %>%
