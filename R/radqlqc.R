@@ -643,7 +643,7 @@ prep_adqlqc <- function(df) {
 }
 
 #' @describeIn h_adqlqc derive EX028
-#'
+#' @param adsl (`data.frame`)\cr ADSL dataset.
 #' @return `data.frame`
 #' @keywords internal
 #'
