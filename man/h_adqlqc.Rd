@@ -26,7 +26,7 @@ get_random_dates_between(from, to, visit_id)
 
 prep_adqlqc(df)
 
-get_ex028()
+get_ex028(adsl)
 
 calc_scales(adqlqc1, ex028)
 
