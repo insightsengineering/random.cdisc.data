@@ -1,126 +1,27 @@
-#' Load Cached Data
-#'
-#' Return data attached to package.
-#'
-#' @keywords internal
-#' @noRd
-get_cached_data <- function(dataname) {
-  checkmate::assert_string(dataname)
-  if (!("package:random.cdisc.data" %in% search())) {
-    stop("cached data can only be loaded if the random.cdisc.data package is attached.",
-      "Please run library(random.cdisc.data) before loading cached data.",
-      call. = FALSE
-    )
-  } else {
-    get(dataname, envir = asNamespace("random.cdisc.data"))
-  }
-}
-
+# Exported utils -------------------------------------------------------------------------
 #' Create a Factor with Random Elements of x
 #'
 #' Sample elements from `x` with replacement to build a factor.
 #'
-#' @param x (`character vector` or `factor`)\cr If character vector then it is also used
+#' @param x (`character` or `factor`)\cr If character vector then it is also used
 #'   as levels of the returned factor. If factor then the levels are used as the new levels.
-#' @param N (`numeric`)\cr Number of items to choose.
+#' @param N (`numeric(1)`)\cr Number of items to choose.
+#' @param random_seed (`numeric(1)`)\cr Seed for random number generation. Default is `Sys.time()`.
 #' @param ... Additional arguments to be passed to `sample`.
 #'
 #' @return A factor of length `N`.
-#' @export
 #'
 #' @examples
 #' sample_fct(letters[1:3], 10)
 #' sample_fct(iris$Species, 10)
-sample_fct <- function(x, N, ...) { # nolint
+#'
+#' @export
+sample_fct <- function(x, N, random_seed = Sys.time(), ...) { # nolint
   checkmate::assert_number(N)
 
+  set.seed(random_seed)
+
   factor(sample(x, N, replace = TRUE, ...), levels = if (is.factor(x)) levels(x) else x)
-}
-
-#' Related Variables: Initialize
-#'
-#' Verify and initialize related variable values.
-#' For example, `relvar_init("Alanine Aminotransferase Measurement", "ALT")`.
-#'
-#' @param relvar1 (`list` of `character`)\cr List of n elements.
-#' @param relvar2 (`list` of `character`)\cr List of n elements.
-#'
-#' @return A vector of n elements.
-#'
-#' @keywords internal
-relvar_init <- function(relvar1, relvar2) {
-  checkmate::assert_character(relvar1, min.len = 1, any.missing = FALSE)
-  checkmate::assert_character(relvar2, min.len = 1, any.missing = FALSE)
-
-  if (length(relvar1) != length(relvar2)) {
-    message(simpleError(
-      "The argument value length of relvar1 and relvar2 differ. They must contain the same number of elements."
-    ))
-    return(NA)
-  }
-  return(list("relvar1" = relvar1, "relvar2" = relvar2))
-}
-
-#' Related Variables: Assign
-#'
-#' Assign values to a related variable within a domain.
-#'
-#' @param df (`data.frame`)\cr Data frame containing the related variables.
-#' @param var_name (`character`)\cr Name of variable related to `rel_var` to add to `df`.
-#' @param var_values (`any`)\cr Vector of values related to values of `related_var`.
-#' @param related_var (`character`)\cr Name of variable within `df` with values to which values
-#' of `var_name` must relate.
-#'
-#' @return `df` with added factor variable `var_name` containing `var_values` corresponding to `related_var`.
-#' @export
-#'
-#' @examples
-#' # Example with data.frame.
-#' params <- c("Level A", "Level B", "Level C")
-#' adlb_df <- data.frame(
-#'   ID = 1:9,
-#'   PARAM = factor(
-#'     rep(c("Level A", "Level B", "Level C"), 3),
-#'     levels = params
-#'   )
-#' )
-#' rel_var(
-#'   df = adlb_df,
-#'   var_name = "PARAMCD",
-#'   var_values = c("A", "B", "C"),
-#'   related_var = "PARAM"
-#' )
-#'
-#' # Example with tibble.
-#' adlb_tbl <- tibble::tibble(
-#'   ID = 1:9,
-#'   PARAM = factor(
-#'     rep(c("Level A", "Level B", "Level C"), 3),
-#'     levels = params
-#'   )
-#' )
-#' rel_var(
-#'   df = adlb_tbl,
-#'   var_name = "PARAMCD",
-#'   var_values = c("A", "B", "C"),
-#'   related_var = "PARAM"
-#' )
-rel_var <- function(df, var_name, related_var, var_values = NULL) {
-  checkmate::assert_data_frame(df)
-  checkmate::assert_string(var_name)
-  checkmate::assert_string(related_var)
-  n_relvar1 <- length(unique(df[, related_var, drop = TRUE]))
-  checkmate::assert_vector(var_values, null.ok = TRUE, len = n_relvar1, any.missing = FALSE)
-  if (is.null(var_values)) var_values <- rep(NA, n_relvar1)
-
-  relvar1 <- unique(df[, related_var, drop = TRUE])
-  relvar2_values <- rep(NA, nrow(df))
-  for (r in seq_len(n_relvar1)) {
-    matched <- which(df[, related_var, drop = TRUE] == relvar1[r])
-    relvar2_values[matched] <- var_values[r]
-  }
-  df[[var_name]] <- factor(relvar2_values)
-  return(df)
 }
 
 #' Create Visit Schedule
@@ -132,11 +33,12 @@ rel_var <- function(df, var_name, related_var, var_values = NULL) {
 #' @inheritParams argument_convention
 #'
 #' @return A factor of length `n_assessments`.
-#' @export
 #'
 #' @examples
 #' visit_schedule(visit_format = "WEeK", n_assessments = 10L)
 #' visit_schedule(visit_format = "CyCLE", n_assessments = 5L, n_days = 2L)
+#'
+#' @export
 visit_schedule <- function(visit_format = "WEEK",
                            n_assessments = 10L,
                            n_days = 5L) {
@@ -162,55 +64,6 @@ visit_schedule <- function(visit_format = "WEEK",
   visit_values <- stats::reorder(factor(visit_values), assessments_ord)
 }
 
-#' Primary Keys: Retain Values
-#'
-#' Retain values within primary keys.
-#'
-#' @param df (`data.frame`)\cr Data frame in which to apply the retain.
-#' @param value_var (`any`)\cr Variable in `df` containing the value to be retained.
-#' @param event (`expression`)\cr Expression returning a logical value to trigger the retain.
-#' @param outside (`any`)\cr Additional value to retain. Defaults to `NA`.
-#' @return A vector of values where expression is true.
-#' @keywords internal
-retain <- function(df, value_var, event, outside = NA) {
-  indices <- c(1, which(event == TRUE), nrow(df) + 1)
-  values <- c(outside, value_var[event == TRUE])
-  rep(values, diff(indices))
-}
-
-#' Primary Keys: Labels
-#'
-#' @description Shallow copy of `formatters::var_relabel()`. Used mainly internally to
-#'   relabel a subset of variables in a data set.
-#'
-#' @param x (`data.frame`)\cr Data frame containing variables to which labels are applied.
-#' @param ... (`named character`)\cr Name-Value pairs, where name corresponds to a variable
-#'   name in `x` and the value to the new variable label.
-#' @return x (`data.frame`)\cr Data frame with labels applied.
-#'
-#' @keywords internal
-rcd_var_relabel <- function(x, ...) {
-  stopifnot(is.data.frame(x))
-  if (missing(...)) {
-    return(x)
-  }
-  dots <- list(...)
-  varnames <- names(dots)
-  if (is.null(varnames)) {
-    stop("missing variable declarations")
-  }
-  map_varnames <- match(varnames, colnames(x))
-  if (any(is.na(map_varnames))) {
-    stop("variables: ", paste(varnames[is.na(map_varnames)], collapse = ", "), " not found")
-  }
-  if (any(vapply(dots, Negate(is.character), logical(1)))) {
-    stop("all variable labels must be of type character")
-  }
-  for (i in seq_along(map_varnames)) {
-    attr(x[[map_varnames[[i]]]], "label") <- dots[[i]]
-  }
-  x
-}
 
 #' Apply Metadata
 #'
@@ -222,7 +75,6 @@ rcd_var_relabel <- function(x, ...) {
 #' @param adsl_filename (`yaml`)\cr File containing ADSL metadata.
 #' @return Data frame with metadata applied.
 #'
-#' @export
 #' @examples
 #' seed <- 1
 #' adsl <- radsl(seed = seed)
@@ -233,6 +85,8 @@ rcd_var_relabel <- function(x, ...) {
 #'   adsub, file.path(yaml_path, "ADSUB.yml"), TRUE,
 #'   file.path(yaml_path, "ADSL.yml")
 #' )
+#'
+#' @export
 apply_metadata <- function(df, filename, add_adsl = TRUE, adsl_filename = "metadata/ADSL.yml") {
   checkmate::assert_data_frame(df)
   checkmate::assert_string(filename)
@@ -397,6 +251,7 @@ ungroup_rowwise_df <- function(x) {
   return(x)
 }
 
+
 #' Zero-Truncated Poisson Distribution
 #'
 #' @description `r lifecycle::badge("stable")`
@@ -411,7 +266,6 @@ ungroup_rowwise_df <- function(x) {
 #' @param lambda (`numeric`)\cr Non-negative mean(s).
 #'
 #' @return The random numbers.
-#' @export
 #'
 #' @examples
 #' x <- rpois(1e6, lambda = 5)
@@ -420,6 +274,8 @@ ungroup_rowwise_df <- function(x) {
 #'
 #' y <- rtpois(1e6, lambda = 5)
 #' hist(y)
+#'
+#' @export
 rtpois <- function(n, lambda) {
   stats::qpois(stats::runif(n, stats::dpois(0, lambda), 1), lambda)
 }
@@ -441,7 +297,6 @@ rtpois <- function(n, lambda) {
 #'
 #' @return The random numbers. If neither `l` nor `r` are provided then the usual Exponential
 #'  distribution is used.
-#' @export
 #'
 #' @examples
 #' x <- stats::rexp(1e6, rate = 5)
@@ -453,6 +308,8 @@ rtpois <- function(n, lambda) {
 #'
 #' z <- rtexp(1e6, rate = 5, r = 0.5)
 #' hist(z)
+#'
+#' @export
 rtexp <- function(n, rate, l = NULL, r = NULL) {
   if (!is.null(l)) {
     l - log(1 - stats::runif(n)) / rate
@@ -465,17 +322,17 @@ rtexp <- function(n, rate, l = NULL, r = NULL) {
 
 
 # Helper function to reduce the number of levels in a column of a data frame
-level_reducer <- function(dt, variable, p_to_keep = 0.7,
-                          num_max_values = NULL, num_of_rare_values = 0, explorative = FALSE,
-                          add_specific_value = NULL, keep_spec_rows = NULL) { # Latter no exploration
+reduce_num_levels_in_df <- function(dt, variable, p_to_keep = 0.7,
+                                    num_max_values = NULL, num_of_rare_values = 0, explorative = FALSE,
+                                    add_specific_value = NULL, keep_spec_rows = NULL) { # Latter no exploration
   checkmate::assert_number(p_to_keep, lower = 0, upper = 1)
   checkmate::assert_data_frame(dt)
   checkmate::assert_string(variable)
   checkmate::assert_character(add_specific_value, null.ok = TRUE)
   checkmate::assert_choice(variable, names(dt))
   checkmate::assert_integer(keep_spec_rows,
-                            null.ok = TRUE,
-                            lower = 1, upper = nrow(dt), unique = TRUE
+    null.ok = TRUE,
+    lower = 1, upper = nrow(dt), unique = TRUE
   )
   checkmate::assert_flag(explorative)
   cur_vec <- dt[[variable]]
@@ -619,4 +476,164 @@ level_reducer <- function(dt, variable, p_to_keep = 0.7,
 
     out
   }
+}
+
+# Internal utils ---------------------------------------------------------------------------------
+#' Load Cached Data
+#'
+#' Return data attached to package.
+#'
+#' @keywords internal
+#' @noRd
+get_cached_data <- function(dataname) {
+  checkmate::assert_string(dataname)
+  if (!("package:random.cdisc.data" %in% search())) {
+    stop("cached data can only be loaded if the random.cdisc.data package is attached.",
+      "Please run library(random.cdisc.data) before loading cached data.",
+      call. = FALSE
+    )
+  } else {
+    get(dataname, envir = asNamespace("random.cdisc.data"))
+  }
+}
+
+
+# Related Variables ---------------------------------------------------------------------------------
+#' Related Variables: Initialize
+#'
+#' Verify and initialize related variable values.
+#' For example, `relvar_init("Alanine Aminotransferase Measurement", "ALT")`.
+#'
+#' @param relvar1 (`list` of `character`)\cr List of n elements.
+#' @param relvar2 (`list` of `character`)\cr List of n elements.
+#'
+#' @return A vector of n elements.
+#'
+#' @keywords internal
+relvar_init <- function(relvar1, relvar2) {
+  checkmate::assert_character(relvar1, min.len = 1, any.missing = FALSE)
+  checkmate::assert_character(relvar2, min.len = 1, any.missing = FALSE)
+
+  if (length(relvar1) != length(relvar2)) {
+    message(simpleError(
+      "The argument value length of relvar1 and relvar2 differ. They must contain the same number of elements."
+    ))
+    return(NA)
+  }
+  return(list("relvar1" = relvar1, "relvar2" = relvar2))
+}
+
+#' Related Variables: Assign
+#'
+#' Assign values to a related variable within a domain.
+#'
+#' @param df (`data.frame`)\cr Data frame containing the related variables.
+#' @param var_name (`character`)\cr Name of variable related to `rel_var` to add to `df`.
+#' @param var_values (`any`)\cr Vector of values related to values of `related_var`.
+#' @param related_var (`character`)\cr Name of variable within `df` with values to which values
+#' of `var_name` must relate.
+#'
+#' @return `df` with added factor variable `var_name` containing `var_values` corresponding to `related_var`.
+#'
+#' @examples
+#' # Example with data.frame.
+#' params <- c("Level A", "Level B", "Level C")
+#' adlb_df <- data.frame(
+#'   ID = 1:9,
+#'   PARAM = factor(
+#'     rep(c("Level A", "Level B", "Level C"), 3),
+#'     levels = params
+#'   )
+#' )
+#' rel_var(
+#'   df = adlb_df,
+#'   var_name = "PARAMCD",
+#'   var_values = c("A", "B", "C"),
+#'   related_var = "PARAM"
+#' )
+#'
+#' # Example with tibble.
+#' adlb_tbl <- tibble::tibble(
+#'   ID = 1:9,
+#'   PARAM = factor(
+#'     rep(c("Level A", "Level B", "Level C"), 3),
+#'     levels = params
+#'   )
+#' )
+#' rel_var(
+#'   df = adlb_tbl,
+#'   var_name = "PARAMCD",
+#'   var_values = c("A", "B", "C"),
+#'   related_var = "PARAM"
+#' )
+#'
+#' @export
+rel_var <- function(df, var_name, related_var, var_values = NULL) {
+  checkmate::assert_data_frame(df)
+  checkmate::assert_string(var_name)
+  checkmate::assert_string(related_var)
+  n_relvar1 <- length(unique(df[, related_var, drop = TRUE]))
+  checkmate::assert_vector(var_values, null.ok = TRUE, len = n_relvar1, any.missing = FALSE)
+  if (is.null(var_values)) var_values <- rep(NA, n_relvar1)
+
+  relvar1 <- unique(df[, related_var, drop = TRUE])
+  relvar2_values <- rep(NA, nrow(df))
+  for (r in seq_len(n_relvar1)) {
+    matched <- which(df[, related_var, drop = TRUE] == relvar1[r])
+    relvar2_values[matched] <- var_values[r]
+  }
+  df[[var_name]] <- factor(relvar2_values)
+  return(df)
+}
+# Primary Keys --------------------------------------------------------------------
+#' Primary Keys: Retain Values
+#'
+#' Retain values within primary keys.
+#'
+#' @param df (`data.frame`)\cr Data frame in which to apply the retain.
+#' @param value_var (`any`)\cr Variable in `df` containing the value to be retained.
+#' @param event (`expression`)\cr Expression returning a logical value to trigger the retain.
+#' @param outside (`any`)\cr Additional value to retain. Defaults to `NA`.
+#'
+#' @return A vector of values where expression is true.
+#'
+#' @keywords internal
+retain <- function(df, value_var, event, outside = NA) {
+  indices <- c(1, which(event == TRUE), nrow(df) + 1)
+  values <- c(outside, value_var[event == TRUE])
+  rep(values, diff(indices))
+}
+
+#' Primary Keys: Labels
+#'
+#' @description Shallow copy of `formatters::var_relabel()`. Used mainly internally to
+#'   relabel a subset of variables in a data set.
+#'
+#' @param x (`data.frame`)\cr Data frame containing variables to which labels are applied.
+#' @param ... (`named character`)\cr Name-Value pairs, where name corresponds to a variable
+#'   name in `x` and the value to the new variable label.
+#' @return x (`data.frame`)\cr Data frame with labels applied.
+#'
+#' @keywords internal
+rcd_var_relabel <- function(x, ...) {
+  stopifnot(is.data.frame(x))
+  if (missing(...)) {
+    return(x)
+  }
+  dots <- list(...)
+  varnames <- names(dots)
+  if (is.null(varnames)) {
+    stop("missing variable declarations")
+  }
+  map_varnames <- match(varnames, colnames(x))
+  if (any(is.na(map_varnames))) {
+    stop("variables: ", paste(varnames[is.na(map_varnames)], collapse = ", "), " not found")
+  }
+  if (any(vapply(dots, Negate(is.character), logical(1)))) {
+    stop("all variable labels must be of type character")
+  }
+  for (i in seq_along(map_varnames)) {
+    attr(x[[map_varnames[[i]]]], "label") <- dots[[i]]
+  }
+  x
 }
