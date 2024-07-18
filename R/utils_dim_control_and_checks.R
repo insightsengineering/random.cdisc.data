@@ -32,13 +32,13 @@
 #' @examples
 #' # real case scenario: trimming of variables with too many levels
 # random.cdisc.data::cadae %>%
-#   reduce_num_levels_in_df(adae_pharmaverse, "AEDECOD",
-#     num_max_values = 7, num_of_rare_values = 1,
-#     add_specific_value = c(
-#       "VOMITING", "NAUSEA", "SKIN IRRITATION", "HEADACHE", # For SMQ01NAM, SMQ02NAM, CQ01NAM
-#       "MYOCARDIAL INFARCTION" # for aet07 AESDTH == "Y"
-#     )
-#   )
+#' #  reduce_num_levels_in_df(adae_pharmaverse, "AEDECOD",
+#' #    num_max_values = 7, num_of_rare_values = 1,
+#' #    add_specific_value = c(
+#' #      "VOMITING", "NAUSEA", "SKIN IRRITATION", "HEADACHE", # For SMQ01NAM, SMQ02NAM, CQ01NAM
+#' #      "MYOCARDIAL INFARCTION" # for aet07 AESDTH == "Y"
+#' #    )
+#' #  )
 #'
 #' @export
 reduce_num_levels_in_df <- function(dt,
@@ -55,8 +55,8 @@ reduce_num_levels_in_df <- function(dt,
   checkmate::assert_character(add_specific_value, null.ok = TRUE)
   checkmate::assert_choice(variable, names(dt))
   checkmate::assert_integerish(keep_spec_rows,
-                               null.ok = TRUE,
-                               lower = 1, upper = nrow(dt), unique = TRUE
+    null.ok = TRUE,
+    lower = 1, upper = nrow(dt), unique = TRUE
   )
   checkmate::assert_flag(explorative)
   cur_vec <- dt[[variable]]
