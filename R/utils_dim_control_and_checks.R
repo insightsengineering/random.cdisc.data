@@ -20,6 +20,7 @@
 #' @param add_specific_value (`character`)\cr specific values to keep.
 #' @param keep_spec_rows (`integer`)\cr specific rows to keep.
 #' @param explorative (`logical(1)`)\cr if `TRUE`, a plot with the frequency distribution of levels is shown.
+#' @param verbose (`logical(1)`)\cr if `TRUE`, messages are printed.
 #'
 #' @details
 #' If necessary, a number of additional rare values can be picked from the least represented levels
@@ -48,7 +49,8 @@ reduce_num_levels_in_df <- function(dt,
                                     num_of_rare_values = 0,
                                     add_specific_value = NULL,
                                     keep_spec_rows = NULL,
-                                    explorative = FALSE) {
+                                    explorative = FALSE,
+                                    verbose = TRUE) {
   checkmate::assert_number(p_to_keep, lower = 0, upper = 1)
   checkmate::assert_data_frame(dt)
   checkmate::assert_string(variable)
@@ -59,6 +61,7 @@ reduce_num_levels_in_df <- function(dt,
     lower = 1, upper = nrow(dt), unique = TRUE
   )
   checkmate::assert_flag(explorative)
+  checkmate::assert_flag(verbose)
   cur_vec <- dt[[variable]]
 
   if (is.factor(cur_vec)) {
@@ -68,7 +71,7 @@ reduce_num_levels_in_df <- function(dt,
   lev_freq <- sort(table(cur_vec), decreasing = TRUE)
 
   # Explorative plot
-  if (explorative && interactive()) {
+  if (explorative) {
     require(ggplot2)
     plot_tbl <- tibble(
       level = names(lev_freq),
@@ -138,8 +141,6 @@ reduce_num_levels_in_df <- function(dt,
         annotate("text", x = annot_x, y = annot_y, label = annot_label, vjust = 0, hjust = 0)
     }
 
-    print(gg)
-
     #  Effective calculations
   } else {
     checkmate::assert_int(num_of_rare_values, lower = 0, upper = length(lev_freq))
@@ -179,7 +180,7 @@ reduce_num_levels_in_df <- function(dt,
       }
     }
 
-    if (interactive()) {
+    if (verbose) {
       if (length(keep_spec_rows) > 0) {
         core_msg <- paste0(
           length(lev_to_keep), " + ", length(keep_spec_rows), " (from keep_spec_rows) levels out of ",
@@ -206,6 +207,9 @@ reduce_num_levels_in_df <- function(dt,
     out <- out %>%
       mutate(!!sym(variable) := factor(!!sym(variable)))
 
+    if (explorative) {
+      return(gg)
+    }
     invisible(out)
   }
 }

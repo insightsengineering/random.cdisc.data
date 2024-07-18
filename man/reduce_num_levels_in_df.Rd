@@ -12,7 +12,8 @@ reduce_num_levels_in_df(
   num_of_rare_values = 0,
   add_specific_value = NULL,
   keep_spec_rows = NULL,
-  explorative = FALSE
+  explorative = FALSE,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -35,6 +36,8 @@ from the least frequent levels.}
 \item{keep_spec_rows}{(\code{integer})\cr specific rows to keep.}
 
 \item{explorative}{(\code{logical(1)})\cr if \code{TRUE}, a plot with the frequency distribution of levels is shown.}
+
+\item{verbose}{(\code{logical(1)})\cr if \code{TRUE}, messages are printed.}
 }
 \value{
 A modified \code{data.frame} and a plot if \code{exporative = TRUE}.

@@ -6,7 +6,7 @@
 #' @param x (`character` or `factor`)\cr If character vector then it is also used
 #'   as levels of the returned factor. If factor then the levels are used as the new levels.
 #' @param N (`numeric(1)`)\cr Number of items to choose.
-#' @param random_seed (`numeric(1)`)\cr Seed for random number generation. Default is `Sys.time()`.
+#' @param random_seed (`numeric(1)` or `NULL`)\cr Seed for random number generation.
 #' @param ... Additional arguments to be passed to `sample`.
 #'
 #' @return A factor of length `N`.
@@ -16,10 +16,12 @@
 #' sample_fct(iris$Species, 10)
 #'
 #' @export
-sample_fct <- function(x, N, random_seed = Sys.time(), ...) { # nolint
+sample_fct <- function(x, N, random_seed = NULL, ...) { # nolint
   checkmate::assert_number(N)
 
-  set.seed(random_seed)
+  if (!is.null(random_seed)) {
+    set.seed(random_seed)
+  }
 
   factor(sample(x, N, replace = TRUE, ...), levels = if (is.factor(x)) levels(x) else x)
 }

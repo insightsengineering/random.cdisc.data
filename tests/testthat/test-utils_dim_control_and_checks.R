@@ -42,7 +42,7 @@ test_that("reduce_num_levels_in_df(num_max_values, num_of_rare_values) works", {
 })
 
 test_that("reduce_num_levels_in_df(add_specific_value) works", {
-  cadae_tmp <- cadae %>% mutate(AEDECOD = as.character(AEDECOD))
+  cadae_tmp <- random.cdisc.data::cadae %>% mutate(AEDECOD = as.character(AEDECOD))
   cadae_tmp$AEDECOD[1] <- "an_outlier"
   rlang::with_interactive(
     expect_message(
@@ -58,7 +58,7 @@ test_that("reduce_num_levels_in_df(add_specific_value) works", {
 })
 
 test_that("reduce_num_levels_in_df(add_specific_value) works", {
-  cadae_tmp <- cadae %>% mutate(AEDECOD = as.character(AEDECOD))
+  cadae_tmp <- random.cdisc.data::cadae %>% mutate(AEDECOD = as.character(AEDECOD))
   cadae_tmp$AEDECOD[1] <- "an_outlier"
   rlang::with_interactive(
     expect_message(

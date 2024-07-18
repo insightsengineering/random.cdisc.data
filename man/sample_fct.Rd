@@ -4,7 +4,7 @@
 \alias{sample_fct}
 \title{Create a Factor with Random Elements of x}
 \usage{
-sample_fct(x, N, random_seed = Sys.time(), ...)
+sample_fct(x, N, random_seed = NULL, ...)
 }
 \arguments{
 \item{x}{(\code{character} or \code{factor})\cr If character vector then it is also used
@@ -12,7 +12,7 @@ as levels of the returned factor. If factor then the levels are used as the new 
 
 \item{N}{(\code{numeric(1)})\cr Number of items to choose.}
 
-\item{random_seed}{(\code{numeric(1)})\cr Seed for random number generation. Default is \code{Sys.time()}.}
+\item{random_seed}{(\code{numeric(1)} or \code{NULL})\cr Seed for random number generation.}
 
 \item{...}{Additional arguments to be passed to \code{sample}.}
 }
