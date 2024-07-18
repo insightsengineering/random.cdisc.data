@@ -18,7 +18,6 @@ For our purposes, we only use `random.cdisc.data::cadae` as example data because
 
 ```{r}
 library(random.cdisc.data)
-
 ```
 
 ## Reducing number of levels per variable
