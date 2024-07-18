@@ -54,9 +54,9 @@ reduce_num_levels_in_df <- function(dt,
   checkmate::assert_string(variable)
   checkmate::assert_character(add_specific_value, null.ok = TRUE)
   checkmate::assert_choice(variable, names(dt))
-  checkmate::assert_integer(keep_spec_rows,
-                            null.ok = TRUE,
-                            lower = 1, upper = nrow(dt), unique = TRUE
+  checkmate::assert_integerish(keep_spec_rows,
+                               null.ok = TRUE,
+                               lower = 1, upper = nrow(dt), unique = TRUE
   )
   checkmate::assert_flag(explorative)
   cur_vec <- dt[[variable]]
@@ -166,38 +166,46 @@ reduce_num_levels_in_df <- function(dt,
       checkmate::assert_subset(add_specific_value, names(lev_freq))
       lev_to_keep <- unique(c(lev_to_keep, add_specific_value))
     }
+    out <- dt %>% filter(!!sym(variable) %in% lev_to_keep)
 
     if (!is.null(keep_spec_rows)) {
-      lev_to_keep <- c(lev_to_keep, keep_spec_rows)
-      filter1 <- which(cur_vec %in% lev_to_keep)
-      keep_spec_rows <- keep_spec_rows[!keep_spec_rows %in% filter1]
+      lev_new_rows <- cur_vec[keep_spec_rows]
+      what_is_new_row <- which(!lev_new_rows %in% lev_to_keep)
+      lev_new_rows <- lev_new_rows[what_is_new_row]
+      keep_spec_rows <- keep_spec_rows[what_is_new_row]
+
+      if (length(keep_spec_rows) > 0) {
+        out <- rbind(out, dt %>% slice(keep_spec_rows))
+      }
     }
 
     if (interactive()) {
-      msg <- paste0(
-        "Reducing levels of ", deparse(substitute(dt)), " for variable ",
-        variable, ": keeping ", length(lev_to_keep),
-        " levels out of ", length(lev_freq), " levels. Total kept (%): ",
-        round(sum(lev_freq[lev_to_keep]) * 100 / sum(lev_freq), 1)
-      )
       if (length(keep_spec_rows) > 0) {
-        msg <- paste0(
-          msg, "\n", "Keeping other rows for a total: ",
+        core_msg <- paste0(
+          length(lev_to_keep), " + ", length(keep_spec_rows), " (from keep_spec_rows) levels out of ",
+          length(lev_freq), " levels. Total rows kept (%): ",
           round((sum(lev_freq[lev_to_keep]) + length(keep_spec_rows)) * 100 / sum(lev_freq), 1)
         )
+      } else {
+        core_msg <- paste0(
+          length(lev_to_keep), " levels out of ", length(lev_freq), " levels. Total rows kept (%): ",
+          round(sum(lev_freq[lev_to_keep]) * 100 / sum(lev_freq), 1)
+        )
       }
+      msg <- paste0(
+        "Reducing levels of ", deparse(substitute(dt)), " for variable ",
+        variable, ": keeping ", core_msg
+      )
       message(msg)
     }
 
-    out <- dt %>% filter(!!sym(variable) %in% lev_to_keep)
-
-    if (length(keep_spec_rows) > 0) {
-      out <- rbind(out, dt %>% slice(keep_spec_rows))
-    }
-
     # Simple check of filtering
-    stopifnot(nrow(out) == sum(cur_vec %in% lev_to_keep))
+    stopifnot(nrow(out) == sum(cur_vec %in% lev_to_keep) + length(keep_spec_rows))
 
-    out
+    # We want a factor anyway (drop unused levels)
+    out <- out %>%
+      mutate(!!sym(variable) := factor(!!sym(variable)))
+
+    invisible(out)
   }
 }
