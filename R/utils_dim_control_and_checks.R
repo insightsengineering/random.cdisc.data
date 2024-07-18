@@ -1,23 +1,31 @@
-
-# _Dimension control and df checks ----------------------------------------------
+# Dimension control and df checks ----------------------------------------------
 
 #' Reduce number of levels in a column of a df
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("experimental")`
 #'
 #' Use this function to reduce the number of levels in a `data.frame` column called `variable`.
 #' This function calculates the frequency distribution of levels and sets either a soft threshold
 #' based on the probability cut-off (`p_to_keep`) and/or an hard threshold (`num_max_values`).
 #'
 #' @param dt (`data.frame`)\cr data.frame with too many levels for a `variable`.
-#' @param variable (`character`)\cr
+#' @param variable (`character(1)`)\cr string with the name of the column to be reduced.
+#' @param p_to_keep (`numeric(1)`)\cr probability cut-off to keep the most frequent levels. If `num_max_values` is
+#'   specified (i.e. not `NULL`) this is not used.
+#' @param num_max_values (`integer(1)`)\cr maximum number of levels to keep. This encompasses only
+#'   rare values (`num_of_rare_values`) but not additional desired values (`add_specific_value`)
+#'   and rows (`keep_spec_rows`).
+#' @param num_of_rare_values (`integer(1)`)\cr number of additional rare values to keep. These are selected
+#'   from the least frequent levels.
+#' @param add_specific_value (`character`)\cr specific values to keep.
+#' @param keep_spec_rows (`integer`)\cr specific rows to keep.
+#' @param explorative (`logical(1)`)\cr if `TRUE`, a plot with the frequency distribution of levels is shown.
 #'
 #' @details
 #' If necessary, a number of additional rare values can be picked from the least represented levels
 #' (`num_of_rare_values`). For general use it is also possible to keep certain values
-#' (`add_specific_value`) and rows (`keep_spec_rows`). Exploratory plots can be also inspectioned with
+#' (`add_specific_value`) and rows (`keep_spec_rows`). Exploratory plots can be also appreciated with
 #' `explorative = TRUE`.
-#'
 #'
 #' @return A modified `data.frame` and a plot if `exporative = TRUE`.
 #'
@@ -33,9 +41,14 @@
 #   )
 #'
 #' @export
-reduce_num_levels_in_df <- function(dt, variable, p_to_keep = 0.7,
-                                    num_max_values = NULL, num_of_rare_values = 0, explorative = FALSE,
-                                    add_specific_value = NULL, keep_spec_rows = NULL) { # Latter no exploration
+reduce_num_levels_in_df <- function(dt,
+                                    variable,
+                                    p_to_keep = 0.7,
+                                    num_max_values = NULL,
+                                    num_of_rare_values = 0,
+                                    add_specific_value = NULL,
+                                    keep_spec_rows = NULL,
+                                    explorative = FALSE) {
   checkmate::assert_number(p_to_keep, lower = 0, upper = 1)
   checkmate::assert_data_frame(dt)
   checkmate::assert_string(variable)
