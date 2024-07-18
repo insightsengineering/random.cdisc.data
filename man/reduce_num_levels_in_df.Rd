@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils_dim_control_and_checks.R
 \name{reduce_num_levels_in_df}
 \alias{reduce_num_levels_in_df}
-\title{Reduce number of levels in a column of a df}
+\title{Reduce number of levels in a column of a \code{data.frame}}
 \usage{
 reduce_num_levels_in_df(
   dt,
