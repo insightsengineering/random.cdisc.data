@@ -1,6 +1,6 @@
 # Dimension control and df checks ----------------------------------------------
 
-#' Reduce number of levels in a column of a df
+#' Reduce number of levels in a column of a `data.frame`
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'

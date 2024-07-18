@@ -1,9 +1,9 @@
 ---
-title: "Short data pre-processing tutorial"
+title: "Short data analysis tutorial"
 output: rmarkdown::html_vignette
 author: Davide Garolini
 vignette: >
-  %\VignetteIndexEntry{Short data pre-processing tutorial}
+  %\VignetteIndexEntry{Short data analysis tutorial}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}{inputenc}
 ---
@@ -18,15 +18,12 @@ For our purposes, we only use `random.cdisc.data::cadae` as example data because
 
 ```{r}
 library(random.cdisc.data)
-<<<<<<< HEAD
 data("cadae")
 ```
 
 ```{r}
 # desc_ae <- Hmisc::describe(cadae)
 # desc_ae$SEX
-=======
->>>>>>> 43337d714f94ee0883510ac7966320adb1edeaec
 ```
 
 ## Reducing number of levels per variable
