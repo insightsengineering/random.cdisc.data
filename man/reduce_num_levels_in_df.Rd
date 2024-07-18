@@ -54,5 +54,12 @@ If necessary, a number of additional rare values can be picked from the least re
 }
 \examples{
 # real case scenario: trimming of variables with too many levels
+#  reduce_num_levels_in_df(adae_pharmaverse, "AEDECOD",
+#    num_max_values = 7, num_of_rare_values = 1,
+#    add_specific_value = c(
+#      "VOMITING", "NAUSEA", "SKIN IRRITATION", "HEADACHE", # For SMQ01NAM, SMQ02NAM, CQ01NAM
+#      "MYOCARDIAL INFARCTION" # for aet07 AESDTH == "Y"
+#    )
+#  )
 
 }
