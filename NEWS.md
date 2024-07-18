@@ -1,4 +1,6 @@
 # random.cdisc.data 0.3.15.9004
+### Enhancements
+* Added `reduce_num_levels_in_df` for dimensionality control in realistic data to maximize information content while limiting the number of levels in categorical variables.
 
 ### Miscellaneous
 * Renamed `var_relabel` into `rcd_var_relabel` and copied new functionalities to avoid namespace conflict with `formatters` package.

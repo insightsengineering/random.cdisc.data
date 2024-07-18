@@ -1,21 +1,24 @@
 test_that("Checking that levels are reduced correctly for multiple variables with defaults", {
   rlang::with_interactive(
     expect_message(
-      out <- reduce_num_levels_in_df(cadae, "AEDECOD"),
-      "Reducing levels of cadae for variable AEDECOD: keeping 6 levels out of 10 levels. Total kept \\(%\\): 63.3"
+      out <- reduce_num_levels_in_df(random.cdisc.data::cadae, "AEDECOD"),
+      paste0(
+        "Reducing levels of random.cdisc.data::cadae for variable AEDECOD: ",
+        "keeping 6 levels out of 10 levels. Total rows kept \\(\\%\\): 63.3"
+      )
     )
   )
   expect_equal(length(levels(out$AEDECOD)), 6L)
 
-  skip_if_not_installed(ggplot2)
-  suppressMessages(a_plot <- reduce_num_levels_in_df(cadae, "AEDECOD", explorative = TRUE))
+  skip_if_not_installed("ggplot2")
+  suppressMessages(a_plot <- reduce_num_levels_in_df(random.cdisc.data::cadae, "AEDECOD", explorative = TRUE))
   expect_true(ggplot2::is.ggplot(a_plot))
 })
 
 test_that("reduce_num_levels_in_df(num_max_values) works", {
   rlang::with_interactive(
     expect_message(
-      out <- reduce_num_levels_in_df(cadae, "AEDECOD", num_max_values = 5),
+      out <- reduce_num_levels_in_df(random.cdisc.data::cadae, "AEDECOD", num_max_values = 5),
       "keeping 5 levels out of 10 levels"
     )
   )
@@ -23,7 +26,7 @@ test_that("reduce_num_levels_in_df(num_max_values) works", {
 })
 
 test_that("reduce_num_levels_in_df(num_max_values, num_of_rare_values) works", {
-  cadae_tmp <- cadae %>% mutate(AEDECOD = as.character(AEDECOD))
+  cadae_tmp <- random.cdisc.data::cadae %>% mutate(AEDECOD = as.character(AEDECOD))
   cadae_tmp$AEDECOD[1] <- "an_outlier"
   rlang::with_interactive(
     expect_message(
