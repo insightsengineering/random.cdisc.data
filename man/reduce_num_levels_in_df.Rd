@@ -40,7 +40,8 @@ from the least frequent levels.}
 \item{verbose}{(\code{logical(1)})\cr if \code{TRUE}, messages are printed.}
 }
 \value{
-A modified \code{data.frame} and a plot if \code{exporative = TRUE}.
+A modified \code{data.frame} and a plot if \code{explorative = TRUE}. If not interactive and \code{explorative = TRUE},
+a plot object is returned.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

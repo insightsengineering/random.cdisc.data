@@ -28,7 +28,8 @@
 #' (`add_specific_value`) and rows (`keep_spec_rows`). Exploratory plots can be also appreciated with
 #' `explorative = TRUE`.
 #'
-#' @return A modified `data.frame` and a plot if `exporative = TRUE`.
+#' @return A modified `data.frame` and a plot if `explorative = TRUE`. If not interactive and `explorative = TRUE`,
+#'   a plot object is returned.
 #'
 #' @examples
 #' # real case scenario: trimming of variables with too many levels
@@ -208,7 +209,10 @@ reduce_num_levels_in_df <- function(dt,
       mutate(!!sym(variable) := factor(!!sym(variable)))
 
     if (explorative) {
-      return(gg)
+      if (!interactive()) { # for testing
+        return(gg)
+      }
+      print(gg)
     }
     invisible(out)
   }

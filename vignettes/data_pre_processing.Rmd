@@ -21,10 +21,6 @@ library(random.cdisc.data)
 data("cadae")
 ```
 
-```{r}
-# desc_ae <- Hmisc::describe(cadae)
-# desc_ae$SEX
-```
 
 ## Reducing number of levels per variable
 
