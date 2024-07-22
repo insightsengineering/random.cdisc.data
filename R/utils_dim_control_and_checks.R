@@ -28,8 +28,7 @@
 #' (`add_specific_value`) and rows (`keep_spec_rows`). Exploratory plots can be also appreciated with
 #' `explorative = TRUE`.
 #'
-#' @return A modified `data.frame` and a plot if `explorative = TRUE`. If not interactive and `explorative = TRUE`,
-#'   a plot object is returned.
+#' @return A modified `data.frame` or a plot if `explorative = TRUE`.
 #'
 #' @examples
 #' # real case scenario: trimming of variables with too many levels
@@ -142,78 +141,73 @@ reduce_num_levels_in_df <- function(dt,
         annotate("text", x = annot_x, y = annot_y, label = annot_label, vjust = 0, hjust = 0)
     }
 
+    return(gg)
+
     #  Effective calculations
-  } else {
-    checkmate::assert_int(num_of_rare_values, lower = 0, upper = length(lev_freq))
-    checkmate::assert_int(num_max_values, lower = num_of_rare_values, upper = length(lev_freq), null.ok = TRUE)
-
-    if (!is.null(num_max_values)) {
-      lev_to_keep <- names(lev_freq)[seq(1, num_max_values - num_of_rare_values)]
-
-      if (num_of_rare_values > 0) {
-        lev_to_keep <- c(
-          lev_to_keep,
-          names(lev_freq)[seq(length(lev_freq) - num_of_rare_values + 1, length(lev_freq))]
-        )
-      }
-    } else {
-      cum_freq <- cumsum(lev_freq) / sum(lev_freq)
-      if (p_to_keep < min(cum_freq)) {
-        stop(paste0("p_to_keep is too low. The minimum value of p_to_keep is ", round(min(cum_freq), 3)))
-      }
-      lev_to_keep <- names(lev_freq)[cum_freq <= p_to_keep]
-    }
-
-    if (!is.null(add_specific_value)) {
-      checkmate::assert_subset(add_specific_value, names(lev_freq))
-      lev_to_keep <- unique(c(lev_to_keep, add_specific_value))
-    }
-    out <- dt %>% filter(!!sym(variable) %in% lev_to_keep)
-
-    if (!is.null(keep_spec_rows)) {
-      lev_new_rows <- cur_vec[keep_spec_rows]
-      what_is_new_row <- which(!lev_new_rows %in% lev_to_keep)
-      lev_new_rows <- lev_new_rows[what_is_new_row]
-      keep_spec_rows <- keep_spec_rows[what_is_new_row]
-
-      if (length(keep_spec_rows) > 0) {
-        out <- rbind(out, dt %>% slice(keep_spec_rows))
-      }
-    }
-
-    if (verbose) {
-      if (length(keep_spec_rows) > 0) {
-        core_msg <- paste0(
-          length(lev_to_keep), " + ", length(keep_spec_rows), " (from keep_spec_rows) levels out of ",
-          length(lev_freq), " levels. Total rows kept (%): ",
-          round((sum(lev_freq[lev_to_keep]) + length(keep_spec_rows)) * 100 / sum(lev_freq), 1)
-        )
-      } else {
-        core_msg <- paste0(
-          length(lev_to_keep), " levels out of ", length(lev_freq), " levels. Total rows kept (%): ",
-          round(sum(lev_freq[lev_to_keep]) * 100 / sum(lev_freq), 1)
-        )
-      }
-      msg <- paste0(
-        "Reducing levels of ", deparse(substitute(dt)), " for variable ",
-        variable, ": keeping ", core_msg
-      )
-      message(msg)
-    }
-
-    # Simple check of filtering
-    stopifnot(nrow(out) == sum(cur_vec %in% lev_to_keep) + length(keep_spec_rows))
-
-    # We want a factor anyway (drop unused levels)
-    out <- out %>%
-      mutate(!!sym(variable) := factor(!!sym(variable)))
-
-    if (explorative) {
-      if (!interactive()) { # for testing
-        return(gg)
-      }
-      print(gg)
-    }
-    invisible(out)
   }
+  checkmate::assert_int(num_of_rare_values, lower = 0, upper = length(lev_freq))
+  checkmate::assert_int(num_max_values, lower = num_of_rare_values, upper = length(lev_freq), null.ok = TRUE)
+
+  if (!is.null(num_max_values)) {
+    lev_to_keep <- names(lev_freq)[seq(1, num_max_values - num_of_rare_values)]
+
+    if (num_of_rare_values > 0) {
+      lev_to_keep <- c(
+        lev_to_keep,
+        names(lev_freq)[seq(length(lev_freq) - num_of_rare_values + 1, length(lev_freq))]
+      )
+    }
+  } else {
+    cum_freq <- cumsum(lev_freq) / sum(lev_freq)
+    if (p_to_keep < min(cum_freq)) {
+      stop(paste0("p_to_keep is too low. The minimum value of p_to_keep is ", round(min(cum_freq), 3)))
+    }
+    lev_to_keep <- names(lev_freq)[cum_freq <= p_to_keep]
+  }
+
+  if (!is.null(add_specific_value)) {
+    checkmate::assert_subset(add_specific_value, names(lev_freq))
+    lev_to_keep <- unique(c(lev_to_keep, add_specific_value))
+  }
+  out <- dt %>% filter(!!sym(variable) %in% lev_to_keep)
+
+  if (!is.null(keep_spec_rows)) {
+    lev_new_rows <- cur_vec[keep_spec_rows]
+    what_is_new_row <- which(!lev_new_rows %in% lev_to_keep)
+    lev_new_rows <- lev_new_rows[what_is_new_row]
+    keep_spec_rows <- keep_spec_rows[what_is_new_row]
+
+    if (length(keep_spec_rows) > 0) {
+      out <- rbind(out, dt %>% slice(keep_spec_rows))
+    }
+  }
+
+  if (verbose) {
+    if (length(keep_spec_rows) > 0) {
+      core_msg <- paste0(
+        length(lev_to_keep), " + ", length(keep_spec_rows), " (from keep_spec_rows) levels out of ",
+        length(lev_freq), " levels. Total rows kept (%): ",
+        round((sum(lev_freq[lev_to_keep]) + length(keep_spec_rows)) * 100 / sum(lev_freq), 1)
+      )
+    } else {
+      core_msg <- paste0(
+        length(lev_to_keep), " levels out of ", length(lev_freq), " levels. Total rows kept (%): ",
+        round(sum(lev_freq[lev_to_keep]) * 100 / sum(lev_freq), 1)
+      )
+    }
+    msg <- paste0(
+      "Reducing levels of ", deparse(substitute(dt)), " for variable ",
+      variable, ": keeping ", core_msg
+    )
+    message(msg)
+  }
+
+  # Simple check of filtering
+  stopifnot(nrow(out) == sum(cur_vec %in% lev_to_keep) + length(keep_spec_rows))
+
+  # We want a factor anyway (drop unused levels)
+  out <- out %>%
+    mutate(!!sym(variable) := factor(!!sym(variable)))
+
+  invisible(out)
 }
