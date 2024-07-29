@@ -5,7 +5,7 @@
 \title{Reduce number of levels in a column of a \code{data.frame}}
 \usage{
 reduce_num_levels_in_df(
-  dt,
+  df,
   variable,
   p_to_keep = 0.7,
   num_max_values = NULL,
@@ -17,7 +17,7 @@ reduce_num_levels_in_df(
 )
 }
 \arguments{
-\item{dt}{(\code{data.frame})\cr data.frame with too many levels for a \code{variable}.}
+\item{df}{(\code{data.frame})\cr data.frame with too many levels for a \code{variable}.}
 
 \item{variable}{(\code{character(1)})\cr string with the name of the column to be reduced.}
 
@@ -48,6 +48,7 @@ A modified \code{data.frame} or a plot if \code{explorative = TRUE}.
 Use this function to reduce the number of levels in a \code{data.frame} column called \code{variable}.
 This function calculates the frequency distribution of levels and sets either a soft threshold
 based on the probability cut-off (\code{p_to_keep}) and/or an hard threshold (\code{num_max_values}).
+Consider checking the number of unique values in each pivotal data column with \code{\link[=describe_cols]{describe_cols()}}.
 }
 \details{
 If necessary, a number of additional rare values can be picked from the least represented levels
@@ -57,12 +58,13 @@ If necessary, a number of additional rare values can be picked from the least re
 }
 \examples{
 # real case scenario: trimming of variables with too many levels
-#  reduce_num_levels_in_df(adae_pharmaverse, "AEDECOD",
-#    num_max_values = 7, num_of_rare_values = 1,
-#    add_specific_value = c(
-#      "VOMITING", "NAUSEA", "SKIN IRRITATION", "HEADACHE", # For SMQ01NAM, SMQ02NAM, CQ01NAM
-#      "MYOCARDIAL INFARCTION" # for aet07 AESDTH == "Y"
-#    )
-#  )
+random.cdisc.data::cadae \%>\%
+  reduce_num_levels_in_df(adae_pharmaverse, "AEDECOD",
+    num_max_values = 7, num_of_rare_values = 1,
+    add_specific_value = c(
+      "VOMITING", "NAUSEA", "SKIN IRRITATION", "HEADACHE", # For SMQ01NAM, SMQ02NAM, CQ01NAM
+      "MYOCARDIAL INFARCTION" # for aet07 AESDTH == "Y"
+    )
+  )
 
 }

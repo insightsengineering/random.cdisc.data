@@ -7,9 +7,29 @@ test_that("Checking that levels are reduced correctly for multiple variables wit
     )
   )
   expect_equal(length(levels(out$AEDECOD)), 6L)
+})
 
+test_that("reduce_num_levels_in_df(explorative = TRUE) Plots are returned", {
   skip_if_not_installed("ggplot2")
   suppressMessages(a_plot <- reduce_num_levels_in_df(random.cdisc.data::cadae, "AEDECOD", explorative = TRUE))
+  expect_true(ggplot2::is.ggplot(a_plot))
+  suppressMessages(a_plot <- reduce_num_levels_in_df(random.cdisc.data::cadae, "AEDECOD",
+    explorative = TRUE,
+    num_max_values = 5
+  ))
+  expect_true(ggplot2::is.ggplot(a_plot))
+  cadae_tmp <- random.cdisc.data::cadae %>% mutate(AEDECOD = as.character(AEDECOD))
+  cadae_tmp$AEDECOD[1] <- "an_outlier"
+  cadae_tmp$AEDECOD[2] <- "another_outlier"
+  suppressMessages(a_plot <- reduce_num_levels_in_df(random.cdisc.data::cadae, "AEDECOD",
+    explorative = TRUE,
+    num_max_values = 5, add_specific_value = "an_outlier"
+  ))
+  expect_true(ggplot2::is.ggplot(a_plot))
+  suppressMessages(suppressWarnings(a_plot <- reduce_num_levels_in_df(random.cdisc.data::cadae, "AEDECOD",
+    explorative = TRUE,
+    num_max_values = 5, add_specific_value = c("an_outlier", "another_outlier")
+  )))
   expect_true(ggplot2::is.ggplot(a_plot))
 })
 
@@ -61,4 +81,13 @@ test_that("reduce_num_levels_in_df(add_specific_value) works", {
   expect_true(cadae_tmp$AEDECOD[1] %in% names(table(out$AEDECOD)))
 
   expect_error(reduce_num_levels_in_df(cadae_tmp, "AEDECOD", num_max_values = 5, keep_spec_rows = "asdsa"))
+})
+
+# describe_cols ----------------------------------------------------------------
+test_that("describe_cols(df) works", {
+  adae <- random.cdisc.data::cadae
+  expect_equal(
+    describe_cols(adae)$col.name,
+    colnames(adae)
+  )
 })
