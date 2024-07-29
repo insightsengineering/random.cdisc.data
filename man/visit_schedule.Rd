@@ -25,4 +25,5 @@ X number of visits, or X number of cycles and Y number of days.
 \examples{
 visit_schedule(visit_format = "WEeK", n_assessments = 10L)
 visit_schedule(visit_format = "CyCLE", n_assessments = 5L, n_days = 2L)
+
 }

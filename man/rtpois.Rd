@@ -30,4 +30,5 @@ hist(x)
 
 y <- rtpois(1e6, lambda = 5)
 hist(y)
+
 }

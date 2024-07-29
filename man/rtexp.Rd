@@ -38,4 +38,5 @@ hist(y)
 
 z <- rtexp(1e6, rate = 5, r = 0.5)
 hist(z)
+
 }

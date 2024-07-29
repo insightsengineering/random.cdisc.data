@@ -1,0 +1,29 @@
+---
+title: "Short data preprocessing tutorial"
+output: rmarkdown::html_vignette
+author: Davide Garolini
+vignette: >
+  %\VignetteIndexEntry{Short data preprocessing tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}{inputenc}
+---
+
+## Introduction
+  
+This short tutorial aims at giving you a couple of simple approaches to massive and seemingly confusing data. We start with general column summaries, that is something you may already know well, and we will end up into reducing number of levels per variable and identify and split the strings that are too long.
+
+## General data summaries
+
+For our purposes, we only use `random.cdisc.data::cadae` as example data because it has the right amount of complexity and size. Real version of ADAE have been proven very large too. As this first part covers also direct comparisons, we use `pharmaverseadam` package to get the ADAE data.
+
+```{r}
+library(random.cdisc.data)
+data("cadae")
+```
+
+
+## Reducing number of levels per variable
+
+## Identifying and splitting long strings
+
+## Find custom issues in data
