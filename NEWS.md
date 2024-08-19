@@ -1,4 +1,4 @@
-# random.cdisc.data 0.3.15.9005
+# random.cdisc.data 0.3.15.9006
 
 ### Miscellaneous
 * Renamed `var_relabel` into `rcd_var_relabel` and copied new functionalities to avoid namespace conflict with `formatters` package.
