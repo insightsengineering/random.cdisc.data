@@ -43,7 +43,7 @@ Suggests:
     withr (>= 2.0.0)
 VignetteBuilder:
     knitr,
-    rmarkdown (>= 2.23)
+    rmarkdown
 RdMacros:
     lifecycle
 Config/Needs/verdepcheck: mllg/checkmate, tidyverse/dplyr,
