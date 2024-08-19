@@ -42,7 +42,8 @@ Suggests:
     testthat (>= 3.0.4),
     withr (>= 2.0.0)
 VignetteBuilder:
-    knitr
+    knitr,
+    rmarkdown (>= 2.23)
 RdMacros:
     lifecycle
 Config/Needs/verdepcheck: mllg/checkmate, tidyverse/dplyr,
