@@ -386,6 +386,14 @@ radab <- function(adsl,
       last_ada
     ))
 
+  # Carry over ARM and ACTARM for all records.
+  arm <- adab %>%
+    filter(!is.na(ARM), !is.na(ACTARM)) %>%
+    select(USUBJID, ARM, ACTARM) %>%
+    distinct(.)
+  adab$ARM <- arm$ARM[match(adab$USUBJID, arm$USUBJID)]
+  adab$ACTARM <- arm$ACTARM[match(adab$USUBJID, arm$USUBJID)]
+
   if (length(na_vars) > 0 && na_percentage > 0) {
     adab <- mutate_na(ds = adab, na_vars = na_vars, na_percentage = na_percentage)
   }
