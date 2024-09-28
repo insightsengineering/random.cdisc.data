@@ -76,8 +76,8 @@ radab <- function(adsl,
   }
 
   # validate and initialize related variables
-  param_init_list <- random.cdisc.data:::relvar_init(param, paramcd)
-  unit_init_list <- random.cdisc.data:::relvar_init(param, avalu)
+  param_init_list <- relvar_init(param, paramcd)
+  unit_init_list <- relvar_init(param, avalu)
 
   adpc <- adpc %>% dplyr::filter(ASMED == "PLASMA")
   adab0 <- expand.grid(
