@@ -76,8 +76,8 @@ radab <- function(adsl,
   }
 
   # validate and initialize related variables
-  param_init_list <- relvar_init(param, paramcd)
-  unit_init_list <- relvar_init(param, avalu)
+  param_init_list <- random.cdisc.data:::relvar_init(param, paramcd)
+  unit_init_list <- random.cdisc.data:::relvar_init(param, avalu)
 
   adpc <- adpc %>% dplyr::filter(ASMED == "PLASMA")
   adab0 <- expand.grid(
@@ -385,6 +385,11 @@ radab <- function(adsl,
       onset_ada,
       last_ada
     ))
+
+  # Carry over ARM and ACTARM for all records.
+  arm <- adab %>% filter(!is.na(ARM), !is.na(ACTARM)) %>% select(USUBJID, ARM, ACTARM) %>% distinct(.)
+  adab$ARM <- arm$ARM[match(adab$USUBJID, arm$USUBJID)]
+  adab$ACTARM <- arm$ACTARM[match(adab$USUBJID, arm$USUBJID)]
 
   if (length(na_vars) > 0 && na_percentage > 0) {
     adab <- mutate_na(ds = adab, na_vars = na_vars, na_percentage = na_percentage)
