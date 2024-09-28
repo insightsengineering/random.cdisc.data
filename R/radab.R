@@ -387,7 +387,10 @@ radab <- function(adsl,
     ))
 
   # Carry over ARM and ACTARM for all records.
-  arm <- adab %>% filter(!is.na(ARM), !is.na(ACTARM)) %>% select(USUBJID, ARM, ACTARM) %>% distinct(.)
+  arm <- adab %>%
+    filter(!is.na(ARM), !is.na(ACTARM)) %>%
+    select(USUBJID, ARM, ACTARM) %>%
+    distinct(.)
   adab$ARM <- arm$ARM[match(adab$USUBJID, arm$USUBJID)]
   adab$ACTARM <- arm$ACTARM[match(adab$USUBJID, arm$USUBJID)]
 
