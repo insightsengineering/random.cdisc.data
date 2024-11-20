@@ -72,6 +72,9 @@ variables:
   AVALC:
     label: Analysis Value (C)
     type: factor
+  AREASND:
+    label: Analysis Reason Not Performed
+    type: factor
   BASE:
     label: Baseline Value
     type: numeric
