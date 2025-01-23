@@ -10,7 +10,7 @@ navbar:
     right: [search, github]
   components:
     developers:
-      text: Dev guide
+      text: Developers guide
       menu:
         - text: Rebuilding Cached Random CDISC Data
           href: articles/rebuild_cached_data.html
