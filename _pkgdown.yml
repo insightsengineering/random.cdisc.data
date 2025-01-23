@@ -6,9 +6,14 @@ template:
 
 navbar:
   structure:
-    left: [intro, reference, articles, tutorials, news, reports]
+    left: [intro, developers, reference, tutorials, news, reports]
     right: [search, github]
   components:
+    developers:
+      text: Dev guide
+      menu:
+        - text: Rebuilding Cached Random CDISC Data
+          href: articles/rebuild_cached_data.html
     reports:
       text: Reports
       menu:
@@ -21,6 +26,13 @@ navbar:
     github:
       icon: fa-github
       href: https://github.com/insightsengineering/random.cdisc.data/
+
+articles:
+  - title: Dev guide
+    contents:
+    - rebuild_cached_data
+
+
 
 reference:
   - title: Overview Page
