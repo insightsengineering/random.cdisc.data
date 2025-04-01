@@ -8,6 +8,7 @@ radsl(
   N = 400,
   study_duration = 2,
   seed = NULL,
+  female_prob = 0.52,
   with_trt02 = TRUE,
   na_percentage = 0,
   na_vars = list(AGE = NA, SEX = NA, RACE = NA, STRATA1 = NA, STRATA2 = NA, BMRKR1 =
@@ -22,6 +23,8 @@ radsl(
 \item{study_duration}{(\code{numeric})\cr Duration of study in years.}
 
 \item{seed}{(\code{numeric})\cr Seed to use for reproducible random number generation.}
+
+\item{female_prob}{(\code{proportion})\cr Probability of a subject being female, male is calculated by \code{1-female_prob}.}
 
 \item{with_trt02}{(\code{logical})\cr Should period 2 be added.}
 
