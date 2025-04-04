@@ -16,6 +16,7 @@
 #' @inheritParams argument_convention
 #' @param N (`numeric`)\cr Number of patients.
 #' @param study_duration (`numeric`)\cr Duration of study in years.
+#' @param female_prob (`proportion`)\cr Probability of a subject being female, male is calculated by `1-female_prob`.
 #' @param with_trt02 (`logical`)\cr Should period 2 be added.
 #' @param ae_withdrawal_prob (`proportion`)\cr Probability that there is at least one
 #' Adverse Event leading to the withdrawal of a study drug.
@@ -44,6 +45,7 @@
 radsl <- function(N = 400, # nolint
                   study_duration = 2,
                   seed = NULL,
+                  female_prob = 0.52,
                   with_trt02 = TRUE,
                   na_percentage = 0,
                   na_vars = list(
@@ -61,6 +63,7 @@ radsl <- function(N = 400, # nolint
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
   checkmate::assert_number(study_duration, lower = 1)
+  checkmate::assert_number(female_prob, lower = 0, upper = 1)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
   checkmate::assert_true(na_percentage < 1)
 
@@ -84,7 +87,7 @@ radsl <- function(N = 400, # nolint
     SUBJID = paste("id", seq_len(N), sep = "-"),
     AGE = sapply(stats::rchisq(N, df = 5, ncp = 10), max, 0) + 20,
     AGEU = "YEARS",
-    SEX = c("F", "M") %>% sample_fct(N, prob = c(.52, .48)),
+    SEX = c("F", "M") %>% sample_fct(N, prob = c(female_prob, 1-female_prob)),
     ARMCD = c("ARM A", "ARM B", "ARM C") %>% sample_fct(N),
     RACE = c(
       "ASIAN", "BLACK OR AFRICAN AMERICAN", "WHITE", "AMERICAN INDIAN OR ALASKA NATIVE",
