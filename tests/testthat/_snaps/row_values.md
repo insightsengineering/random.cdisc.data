@@ -9239,14 +9239,14 @@
       8 Overall Response by Investigator - by visit     OVRINV      3 SD   
         ADTM                  ADY AVISIT           AVISITN
         <dttm>              <int> <fct>              <int>
-      1 2021-10-13 00:00:00   269 CYCLE 2 DAY 1          2
+      1 2021-10-13 01:00:00   269 CYCLE 2 DAY 1          2
       2 2021-11-11 00:00:00   298 END OF INDUCTION     999
-      3 2020-10-09 00:00:00  -100 SCREENING             -1
+      3 2020-10-09 01:00:00  -100 SCREENING             -1
       4 2021-01-17 00:00:00     0 BASELINE               0
-      5 2021-10-13 00:00:00   269 CYCLE 2 DAY 1          2
+      5 2021-10-13 01:00:00   269 CYCLE 2 DAY 1          2
       6 2021-12-12 00:00:00   329 CYCLE 4 DAY 1          4
       7 2021-11-11 00:00:00   298 END OF INDUCTION     999
-      8 2022-05-02 00:00:00   470 FOLLOW UP            999
+      8 2022-05-02 01:00:00   470 FOLLOW UP            999
 
 ---
 
@@ -9400,15 +9400,15 @@
       10 Overall Response by Investigator - by visit     OVRINV      3 SD   
          ADTM                  ADY AVISIT           AVISITN
          <dttm>              <int> <fct>              <int>
-       1 2021-04-28 00:00:00   361 CYCLE 2 DAY 1          2
-       2 2021-06-21 00:00:00   613 CYCLE 2 DAY 1          2
-       3 2021-07-09 00:00:00   377 END OF INDUCTION     999
+       1 2021-04-28 01:00:00   361 CYCLE 2 DAY 1          2
+       2 2021-06-21 01:00:00   613 CYCLE 2 DAY 1          2
+       3 2021-07-09 01:00:00   377 END OF INDUCTION     999
        4 2022-01-01 00:00:00   491 END OF INDUCTION     999
-       5 2020-08-28 00:00:00     0 BASELINE               0
-       6 2019-06-14 00:00:00  -100 SCREENING             -1
-       7 2021-09-01 00:00:00   888 END OF INDUCTION     999
+       5 2020-08-28 01:00:00     0 BASELINE               0
+       6 2019-06-14 01:00:00  -100 SCREENING             -1
+       7 2021-09-01 01:00:00   888 END OF INDUCTION     999
        8 2020-12-15 00:00:00   329 END OF INDUCTION     999
-       9 2021-10-13 00:00:00   269 CYCLE 2 DAY 1          2
+       9 2021-10-13 01:00:00   269 CYCLE 2 DAY 1          2
       10 2020-03-19 00:00:00  -100 SCREENING             -1
 
 # radsaftte produces expected values
@@ -9960,14 +9960,14 @@
       10 Baseline ECOG               BECOG     0   0         ""      "0-1"   
          ADTM                AVISIT   AVISITN SRCSEQ
          <dttm>              <fct>      <int>  <int>
-       1 2019-09-20 00:00:00 BASELINE       0      1
-       2 2020-10-25 00:00:00 BASELINE       0      1
+       1 2019-09-20 01:00:00 BASELINE       0      1
+       2 2020-10-25 01:00:00 BASELINE       0      1
        3 2019-03-26 00:00:00 BASELINE       0      1
-       4 2019-09-20 00:00:00 BASELINE       0      1
-       5 2020-08-25 00:00:00 BASELINE       0      1
+       4 2019-09-20 01:00:00 BASELINE       0      1
+       5 2020-08-25 01:00:00 BASELINE       0      1
        6 2020-02-25 00:00:00 BASELINE       0      1
        7 2020-01-17 00:00:00 BASELINE       0      1
-       8 2020-08-25 00:00:00 BASELINE       0      1
+       8 2020-08-25 01:00:00 BASELINE       0      1
        9 2019-03-26 00:00:00 BASELINE       0      1
       10 2020-02-25 00:00:00 BASELINE       0      1
 
@@ -10064,22 +10064,22 @@
       5 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 2 DAY 1       2
       6 Sum of Longest Diameter by Investigator  SLDINV         CYCLE 4 DAY 1       4
       7 Sum of Longest Diameter by Investigator  SLDINV      END OF INDUCTION     999
-              ADTM  ADY   DTYPE     AVAL            AVALC AVALU    BASE ABLFL
-      1 2022-05-02  470         145.9484 145.948361883575    mm 209.412      
-      2 2021-12-12  329 MINIMUM 118.6760 118.675961210504    mm 209.412      
-      3 2020-10-09 -100         192.9907 192.990711051031    mm 209.412      
-      4 2021-01-17    0               NA             <NA>    mm 209.412     Y
-      5 2021-10-13  269         138.9834 138.983355706005    mm 209.412      
-      6 2021-12-12  329         118.6760 118.675961210504    mm 209.412      
-      7 2021-11-11  298         167.0916 167.091588823272    mm 209.412      
-              CHG      PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
-      1 -63.46364 -30.30563               Y       Y        
-      2 -90.73604 -43.32896       Y                       Y
-      3        NA        NA                                
-      4        NA        NA                       Y       Y
-      5 -70.42864 -33.63162       Y       Y                
-      6 -90.73604 -43.32896       Y       Y                
-      7 -42.32041 -20.20916       Y       Y                
+                       ADTM  ADY   DTYPE     AVAL            AVALC AVALU    BASE
+      1 2022-05-02 01:00:00  470         145.9484 145.948361883575    mm 209.412
+      2 2021-12-12 00:00:00  329 MINIMUM 118.6760 118.675961210504    mm 209.412
+      3 2020-10-09 01:00:00 -100         192.9907 192.990711051031    mm 209.412
+      4 2021-01-17 00:00:00    0               NA             <NA>    mm 209.412
+      5 2021-10-13 01:00:00  269         138.9834 138.983355706005    mm 209.412
+      6 2021-12-12 00:00:00  329         118.6760 118.675961210504    mm 209.412
+      7 2021-11-11 00:00:00  298         167.0916 167.091588823272    mm 209.412
+        ABLFL       CHG      PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
+      1       -63.46364 -30.30563               Y       Y        
+      2       -90.73604 -43.32896       Y                       Y
+      3              NA        NA                                
+      4     Y        NA        NA                       Y       Y
+      5       -70.42864 -33.63162       Y       Y                
+      6       -90.73604 -43.32896       Y       Y                
+      7       -42.32041 -20.20916       Y       Y                
 
 ---
 
@@ -10218,28 +10218,28 @@
       2  Sum of Longest Diameter by Investigator  SLDINV POST-BASELINE MINIMUM
       1  Sum of Longest Diameter by Investigator  SLDINV             FOLLOW UP
       3  Sum of Longest Diameter by Investigator  SLDINV             SCREENING
-         AVISITN       ADTM  ADY   DTYPE     AVAL            AVALC AVALU     BASE
-      32     999 2021-09-01  888         104.2930 104.292995987107    mm 132.3144
-      39       0 2020-06-27    0               NA             <NA>    mm 159.9885
-      37     999 2021-07-09  377         158.0130 158.012963723167    mm 159.9885
-      12       0 2020-01-21    0               NA             <NA>    mm 148.8228
-      14      -1 2019-10-13 -100         222.0485 222.048532815143    mm 148.8228
-      16     999 2021-02-15  289 MINIMUM 128.7016 128.701607072346    mm 193.9666
-      15       4 2021-06-27  421         215.1784 215.178350110865    mm 193.9666
-      2        4 2021-12-12  329 MINIMUM 118.6760 118.675961210504    mm 209.4120
-      1      999 2022-05-02  470         145.9484 145.948361883575    mm 209.4120
-      3       -1 2020-10-09 -100         192.9907 192.990711051031    mm 209.4120
-         ABLFL        CHG       PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
-      32       -28.021376 -21.177878       Y       Y       Y        
-      39     Y         NA         NA                       Y       Y
-      37        -1.975547  -1.234806       Y       Y       Y        
-      12     Y         NA         NA                       Y       Y
-      14               NA         NA                                
-      16       -65.265039 -33.647558       Y                       Y
-      15        21.211704  10.935748       Y       Y       Y        
-      2        -90.736036 -43.328958       Y                       Y
-      1        -63.463635 -30.305635               Y       Y        
-      3                NA         NA                                
+         AVISITN                ADTM  ADY   DTYPE     AVAL            AVALC AVALU
+      32     999 2021-09-01 01:00:00  888         104.2930 104.292995987107    mm
+      39       0 2020-06-27 01:00:00    0               NA             <NA>    mm
+      37     999 2021-07-09 01:00:00  377         158.0130 158.012963723167    mm
+      12       0 2020-01-21 00:00:00    0               NA             <NA>    mm
+      14      -1 2019-10-13 01:00:00 -100         222.0485 222.048532815143    mm
+      16     999 2021-02-15 00:00:00  289 MINIMUM 128.7016 128.701607072346    mm
+      15       4 2021-06-27 01:00:00  421         215.1784 215.178350110865    mm
+      2        4 2021-12-12 00:00:00  329 MINIMUM 118.6760 118.675961210504    mm
+      1      999 2022-05-02 01:00:00  470         145.9484 145.948361883575    mm
+      3       -1 2020-10-09 01:00:00 -100         192.9907 192.990711051031    mm
+             BASE ABLFL        CHG       PCHG ONTRTFL ANL01FL ANL02FL ANL03FL
+      32 132.3144       -28.021376 -21.177878       Y       Y       Y        
+      39 159.9885     Y         NA         NA                       Y       Y
+      37 159.9885        -1.975547  -1.234806       Y       Y       Y        
+      12 148.8228     Y         NA         NA                       Y       Y
+      14 148.8228               NA         NA                                
+      16 193.9666       -65.265039 -33.647558       Y                       Y
+      15 193.9666        21.211704  10.935748       Y       Y       Y        
+      2  209.4120       -90.736036 -43.328958       Y                       Y
+      1  209.4120       -63.463635 -30.305635               Y       Y        
+      3  209.4120               NA         NA                                
 
 # radtte produces expected values
 
