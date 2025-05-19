@@ -8,8 +8,11 @@ radsl(
   N = 400,
   study_duration = 2,
   seed = NULL,
+  female_prob = 0.52,
   with_trt02 = TRUE,
   na_percentage = 0,
+  race_list = NULL,
+  race_prob = NULL,
   na_vars = list(AGE = NA, SEX = NA, RACE = NA, STRATA1 = NA, STRATA2 = NA, BMRKR1 =
     c(seed = 1234, percentage = 0.1), BMRKR2 = c(1234, 0.1), BEP01FL = NA),
   ae_withdrawal_prob = 0.05,
@@ -23,9 +26,15 @@ radsl(
 
 \item{seed}{(\code{numeric})\cr Seed to use for reproducible random number generation.}
 
+\item{female_prob}{(\code{proportion})\cr Probability of a subject being female, male is calculated by \code{1-female_prob}.}
+
 \item{with_trt02}{(\code{logical})\cr Should period 2 be added.}
 
 \item{na_percentage}{(\code{proportion})\cr Default percentage of values to be replaced by \code{NA}.}
+
+\item{race_list}{character vector of RACE}
+
+\item{race_prob}{numeric vector of probabilities of being assigned to a RACE}
 
 \item{na_vars}{(\code{list})\cr A named list where the name of each element is a column name of \code{ds}. Each
 element of this list should be a numeric vector with two elements:

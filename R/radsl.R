@@ -16,6 +16,9 @@
 #' @inheritParams argument_convention
 #' @param N (`numeric`)\cr Number of patients.
 #' @param study_duration (`numeric`)\cr Duration of study in years.
+#' @param race_list character vector of RACE
+#' @param race_prob numeric vector of probabilities of being assigned to a RACE
+#' @param female_prob (`proportion`)\cr Probability of a subject being female, male is calculated by `1-female_prob`.
 #' @param with_trt02 (`logical`)\cr Should period 2 be added.
 #' @param ae_withdrawal_prob (`proportion`)\cr Probability that there is at least one
 #' Adverse Event leading to the withdrawal of a study drug.
@@ -44,8 +47,13 @@
 radsl <- function(N = 400, # nolint
                   study_duration = 2,
                   seed = NULL,
+                  female_prob = 0.52,
                   with_trt02 = TRUE,
                   na_percentage = 0,
+
+                  # set race and probabilities to NULL
+                  race_list  = NULL,
+                  race_prob = NULL,
                   na_vars = list(
                     "AGE" = NA, "SEX" = NA, "RACE" = NA, "STRATA1" = NA, "STRATA2" = NA,
                     "BMRKR1" = c(seed = 1234, percentage = 0.1), "BMRKR2" = c(1234, 0.1), "BEP01FL" = NA
@@ -61,12 +69,26 @@ radsl <- function(N = 400, # nolint
   checkmate::assert_number(seed, null.ok = TRUE)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1, na.ok = TRUE)
   checkmate::assert_number(study_duration, lower = 1)
+  checkmate::assert_number(female_prob, lower = 0, upper = 1)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
   checkmate::assert_true(na_percentage < 1)
 
   if (!is.null(seed)) {
     set.seed(seed)
   }
+
+
+  # stop if race_list  lengths do not match race probability length
+  if (length(race_list ) != length(race_prob) ){
+    stop("race_list  and race_prob must all be the same length.")
+  }
+
+  # stop if race_prob is not numeric or if values do not sum to 1
+  if (!is.null(race_prob) && !is.numeric(race_prob) ||
+      !is.null(race_prob) && sum(race_prob) != 1) {
+    stop("race_prob must be a vector of numeric values and must sum to 1.")
+  }
+
 
   study_duration_secs <- lubridate::seconds(lubridate::years(study_duration))
   sys_dtm <- lubridate::fast_strptime("20/2/2019 11:16:16.683", "%d/%m/%Y %H:%M:%OS")
@@ -84,13 +106,19 @@ radsl <- function(N = 400, # nolint
     SUBJID = paste("id", seq_len(N), sep = "-"),
     AGE = sapply(stats::rchisq(N, df = 5, ncp = 10), max, 0) + 20,
     AGEU = "YEARS",
-    SEX = c("F", "M") %>% sample_fct(N, prob = c(.52, .48)),
+    SEX = c("F", "M") %>% sample_fct(N, prob = c(female_prob, 1-female_prob)),
     ARMCD = c("ARM A", "ARM B", "ARM C") %>% sample_fct(N),
-    RACE = c(
-      "ASIAN", "BLACK OR AFRICAN AMERICAN", "WHITE", "AMERICAN INDIAN OR ALASKA NATIVE",
-      "MULTIPLE", "NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER", "OTHER", "UNKNOWN"
-    ) %>%
-      sample_fct(N, prob = c(.55, .23, .16, .05, .004, .003, .002, .002)),
+
+    # if the user does not specify race values or probabilities
+    # i.e. by default race_list  = NULL and race_prob = NULL
+    # then RACE is computed using default values
+    # else RACE is computed using user-defined race_list  and race_prob
+    RACE = if (is.null(race_list ) && is.null(race_prob))
+      c("ASIAN", "BLACK OR AFRICAN AMERICAN", "WHITE", "AMERICAN INDIAN OR ALASKA NATIVE",
+        "MULTIPLE", "NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER", "OTHER", "UNKNOWN"
+      ) %>% sample_fct(N, prob = c(.55, .23, .16, .05, .004, .003, .002, .002)) else
+        sample(race_list , N, prob = race_prob, replace = TRUE),
+
     TRTSDTM = sys_dtm + sample(seq(0, study_duration_secs), size = N, replace = TRUE),
     RANDDT = lubridate::date(TRTSDTM - lubridate::days(floor(stats::runif(N, min = 0, max = 5)))),
     TRTEDTM = TRTSDTM + study_duration_secs,
