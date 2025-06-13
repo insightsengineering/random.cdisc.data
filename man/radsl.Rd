@@ -13,6 +13,7 @@ radsl(
   na_vars = list(AGE = NA, SEX = NA, RACE = NA, STRATA1 = NA, STRATA2 = NA, BMRKR1 =
     c(seed = 1234, percentage = 0.1), BMRKR2 = c(1234, 0.1), BEP01FL = NA),
   ae_withdrawal_prob = 0.05,
+  female_prob = 0.52,
   cached = FALSE
 )
 }
@@ -37,6 +38,8 @@ If \code{NA}, \code{na_percentage} is used as a default.}
 
 \item{ae_withdrawal_prob}{(\code{proportion})\cr Probability that there is at least one
 Adverse Event leading to the withdrawal of a study drug.}
+
+\item{female_prob}{(\code{proportion})\cr Probability of a subject being female, male is calculated by \code{1-female_prob}.}
 
 \item{cached}{boolean whether the cached ADSL data \code{cadsl} should be returned or new data
 should be generated. If set to \code{TRUE} then the other arguments to \code{radsl} will be ignored.}
