@@ -112,3 +112,10 @@ reference:
       - sample_fct
       - rcd_var_relabel
       - visit_schedule
+
+  - title: Utility Functions For Dimensionaly Control and Reduction
+    desc: Function to simplify data pre-processing and recognize error-prone inputs
+    contents:
+      - reduce_num_levels_in_df
+      - describe_cols
+      -

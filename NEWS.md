@@ -1,5 +1,7 @@
 # random.cdisc.data 0.3.16.9003
-
+* Added `reduce_num_levels_in_df` for dimensionality control in realistic data to maximize information content while limiting the number of levels in categorical variables.
+* Added vignette about data handling called `data_pre_processing.Rmd`.
+* 
 # random.cdisc.data 0.3.16
 
 ### Miscellaneous

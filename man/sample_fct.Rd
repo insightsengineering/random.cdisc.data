@@ -4,13 +4,15 @@
 \alias{sample_fct}
 \title{Create a Factor with Random Elements of x}
 \usage{
-sample_fct(x, N, ...)
+sample_fct(x, N, random_seed = NULL, ...)
 }
 \arguments{
-\item{x}{(\verb{character vector} or \code{factor})\cr If character vector then it is also used
+\item{x}{(\code{character} or \code{factor})\cr If character vector then it is also used
 as levels of the returned factor. If factor then the levels are used as the new levels.}
 
-\item{N}{(\code{numeric})\cr Number of items to choose.}
+\item{N}{(\code{numeric(1)})\cr Number of items to choose.}
+
+\item{random_seed}{(\code{numeric(1)} or \code{NULL})\cr Seed for random number generation.}
 
 \item{...}{Additional arguments to be passed to \code{sample}.}
 }
@@ -23,4 +25,5 @@ Sample elements from \code{x} with replacement to build a factor.
 \examples{
 sample_fct(letters[1:3], 10)
 sample_fct(iris$Species, 10)
+
 }
