@@ -4698,24 +4698,24 @@
        6 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X 24H     1.08 
        7 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X Predose 1    
        8 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X 24H     1    
-       9 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
-      10 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
-      11 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
-      12 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
-      13 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
-      14 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
-      15 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
-      16 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
-      17 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
-      18 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
-      19 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
-      20 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
-      21 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
-      22 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
-      23 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
-      24 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    1    
-      25 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0    
-      26 AB12345 AB12345-JPN-4-id-7 <NA>      <NA>      <NA>    0.143
+       9 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    1    
+      10 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    0    
+      11 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    0    
+      12 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    1    
+      13 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    1    
+      14 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    0    
+      15 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    0    
+      16 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    1    
+      17 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    1    
+      18 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    1    
+      19 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    0    
+      20 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    0    
+      21 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    1    
+      22 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    0    
+      23 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    1    
+      24 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    1    
+      25 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    0    
+      26 AB12345 AB12345-JPN-4-id-7 A: Drug X A: Drug X <NA>    0.143
          AVALC             AVALU  
          <chr>             <fct>  
        1 POSITIVE          "titer"
@@ -4837,16 +4837,16 @@
       # A tibble: 10 x 21
          STUDYID USUBJID             ARM            ACTARM         ISTPT     AVAL
          <chr>   <chr>               <fct>          <fct>          <fct>    <dbl>
-       1 AB12345 AB12345-USA-13-id-3 <NA>           <NA>           <NA>     0    
+       1 AB12345 AB12345-USA-13-id-3 A: Drug X      A: Drug X      <NA>     0    
        2 AB12345 AB12345-CHN-3-id-5  A: Drug X      A: Drug X      24H     NA    
-       3 AB12345 AB12345-BRA-9-id-8  <NA>           <NA>           <NA>     1    
+       3 AB12345 AB12345-BRA-9-id-8  A: Drug X      A: Drug X      <NA>     1    
        4 AB12345 AB12345-CHN-11-id-1 C: Combination C: Combination 24H     NA    
-       5 AB12345 AB12345-BRA-9-id-8  <NA>           <NA>           <NA>     0    
+       5 AB12345 AB12345-BRA-9-id-8  A: Drug X      A: Drug X      <NA>     0    
        6 AB12345 AB12345-CHN-3-id-5  A: Drug X      A: Drug X      Predose  1    
-       7 AB12345 AB12345-BRA-1-id-9  <NA>           <NA>           <NA>     0.143
-       8 AB12345 AB12345-CHN-11-id-1 <NA>           <NA>           <NA>     0    
-       9 AB12345 AB12345-USA-13-id-3 <NA>           <NA>           <NA>     1    
-      10 AB12345 AB12345-JPN-4-id-7  <NA>           <NA>           <NA>     1    
+       7 AB12345 AB12345-BRA-1-id-9  C: Combination C: Combination <NA>     0.143
+       8 AB12345 AB12345-CHN-11-id-1 C: Combination C: Combination <NA>     0    
+       9 AB12345 AB12345-USA-13-id-3 A: Drug X      A: Drug X      <NA>     1    
+      10 AB12345 AB12345-JPN-4-id-7  A: Drug X      A: Drug X      <NA>     1    
          AVALC             AVALU   PARAM                                        
          <chr>             <fct>   <fct>                                        
        1 N                 ""      Treatment enhanced ADA, Neutralizing Antibody

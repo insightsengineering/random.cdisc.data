@@ -1,11 +1,13 @@
-# random.cdisc.data 0.3.15.9004
-### Enhancements
+# random.cdisc.data 0.3.16.9003
 * Added `reduce_num_levels_in_df` for dimensionality control in realistic data to maximize information content while limiting the number of levels in categorical variables.
 * Added vignette about data handling called `data_pre_processing.Rmd`.
+* 
+# random.cdisc.data 0.3.16
 
 ### Miscellaneous
 * Renamed `var_relabel` into `rcd_var_relabel` and copied new functionalities to avoid namespace conflict with `formatters` package.
 * Made `rcd_var_relabel` internal as it was intended for developers use only.
+* Updated `ARM` and `ACTARM` variables in the `ADAB` data. 
 
 # random.cdisc.data 0.3.15
 
