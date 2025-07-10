@@ -1,4 +1,5 @@
 options(pillar.print_max = Inf, pillar.width = Inf)
+withr::local_timezone("UTC")
 
 set.seed(1)
 adsl <- radsl(10, seed = 1)
