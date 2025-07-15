@@ -76,7 +76,7 @@ data_deps <- sapply(
   }
 )
 
-git_call <- "git diff origin/main --name-only"
+git_call <- "bash data-raw/git_diff_main.sh https://github.com/insightsengineering/random.cdisc.data/"
 updated_files <- tryCatch(
   system(git_call, intern = TRUE),
   error = function(e) e
