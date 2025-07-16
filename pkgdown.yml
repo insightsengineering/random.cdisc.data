@@ -1,9 +1,9 @@
-pandoc: 3.6.4
-pkgdown: 2.1.2
+pandoc: 3.7.0.2
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   rebuild_cached_data: rebuild_cached_data.html
-last_built: 2025-05-19T07:22Z
+last_built: 2025-07-16T16:46Z
 urls:
   reference: https://insightsengineering.github.io/random.cdisc.data/main/reference
   article: https://insightsengineering.github.io/random.cdisc.data/main/articles
