@@ -46,10 +46,12 @@ flatten_list_of_deps <- function(updated_data, data_deps) {
   fin_up
 }
 
-
-library(random.cdisc.data)
-library(diffdf)
-library(dplyr)
+# Loading libs - not useful messaging is suppressed
+suppressMessages({
+  library(random.cdisc.data)
+  library(diffdf)
+  library(dplyr)
+})
 
 # Call function to match random number generation from previous R versions
 RNGkind(sample.kind = "Rounding")
@@ -76,7 +78,11 @@ data_deps <- sapply(
   }
 )
 
-git_call <- "bash data-raw/git_diff_main.sh https://github.com/insightsengineering/random.cdisc.data/"
+if (!grepl(x = getwd(), pattern = "data-raw")) {
+  stop("This script should be run in the data-raw directory.")
+}
+
+git_call <- "bash ./git_diff_main.sh https://github.com/insightsengineering/random.cdisc.data/"
 updated_files <- tryCatch(
   system(git_call, intern = TRUE),
   error = function(e) e

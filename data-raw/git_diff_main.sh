@@ -12,11 +12,11 @@ set -e # Exit immediately if a command exits with a non-zero status.
 # This function reliably extracts the 'owner/repo' part from various URL formats.
 normalize_git_url() {
   local url=$1
-  # First, remove the optional .git suffix
-  local repo_path=${url%.git}
-
-  # Then, remove everything before the last colon or slash,
-  # which typically separates the host from the repo path.
+  # Step 1: Remove an optional trailing slash
+  local repo_path=${url%/}
+  # Step 2: Remove the optional .git suffix
+  repo_path=${repo_path%.git}
+  # Step 3: Remove everything up to the last colon or slash
   repo_path=${repo_path##*[:/]}
 
   echo "$repo_path"
@@ -31,6 +31,7 @@ if [ -z "$UPSTREAM_URL" ]; then
 fi
 
 # --- 2. Determine Target and Fetch ---
+echo "Info: Analyzing repository remotes..." >&2
 TARGET_REMOTE=""
 ORIGIN_URL=$(git remote get-url origin 2>/dev/null || echo "") # Get origin URL or empty string
 
@@ -41,13 +42,13 @@ NORM_ORIGIN_URL=$(normalize_git_url "$ORIGIN_URL")
 # Check if the normalized 'owner/repo' strings match
 if [[ -n "$NORM_ORIGIN_URL" && "$NORM_ORIGIN_URL" == "$NORM_UPSTREAM_URL" ]]; then
   # Scenario: Running in the main (non-forked) repository.
-  echo "Info: Running in main repo. Comparing against 'origin/main'." >&2
+  echo "Info: Detected main repository." >&2
   TARGET_REMOTE="origin"
-  git fetch origin main --quiet # Quietly fetch the main branch
+  echo "Info: Fetching latest data from 'origin' remote... (this may take a moment)" >&2
+  git fetch origin main --quiet
 else
-  # Scenario: Running in a fork or in a misconfigured repo.
-  echo "Info: Running in a fork. Comparing against 'upstream/main'." >&2
-  echo "$NORM_ORIGIN_URL $NORM_UPSTREAM_URL" >&2
+  # Scenario: Running in a fork or a repo with a mismatched origin URL.
+  echo "Info: Detected fork. Configuring 'upstream' remote." >&2
   TARGET_REMOTE="upstream"
   # Add or update the 'upstream' remote to point to the main repo
   if ! git remote get-url "$TARGET_REMOTE" &>/dev/null; then
@@ -55,7 +56,8 @@ else
   else
     git remote set-url "$TARGET_REMOTE" "$UPSTREAM_URL"
   fi
-  git fetch "$TARGET_REMOTE" main --quiet # Quietly fetch the main branch
+  echo "Info: Fetching latest data from 'upstream' remote... (this may take a moment)" >&2
+  git fetch "$TARGET_REMOTE" main --quiet
 fi
 
 TARGET_BRANCH="$TARGET_REMOTE/main"
@@ -70,6 +72,7 @@ if [[ "$CURRENT_TRACKING_BRANCH" == "$TARGET_BRANCH" ]]; then
 fi
 
 # --- 4. Final Output ---
-# This is the script's primary output. It prints the list of changed
-# files to standard output, which the calling script can capture.
+echo "Info: Comparing files against '$TARGET_BRANCH'..." >&2
 git diff "$TARGET_BRANCH" --name-only
+
+echo "Info: Done." >&2
