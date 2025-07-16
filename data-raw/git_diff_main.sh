@@ -63,7 +63,7 @@ fi
 TARGET_BRANCH="$TARGET_REMOTE/main"
 
 # --- 3. Safety Check: Avoid Diffing a Branch Against Itself ---
-CURRENT_TRACKING_BRANCH=$(git rev-parse --abbrev-ref @{u} 2>/dev/null || echo "")
+CURRENT_TRACKING_BRANCH=$(git rev-parse --abbrev-ref '@{u}' 2>/dev/null || echo "")
 
 if [[ "$CURRENT_TRACKING_BRANCH" == "$TARGET_BRANCH" ]]; then
   echo "Warning: Current branch is already tracking '$TARGET_BRANCH'. No changes to diff." >&2
