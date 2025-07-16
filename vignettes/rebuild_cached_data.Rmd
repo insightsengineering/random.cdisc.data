@@ -29,5 +29,5 @@ datasets should be updated, edit the `data_to_update` vector below, entering the
 ## Update Cached Data
 
 **Note:** Prior to running the following code chunk, please ensure that you have reinstalled the `random.cdisc.data`
-package after completing all dataset modifications. Or use `devtools::load_all()` to reload functions. Execute the `data-raw/rebuild_cached_data.R` script to create, compare and save cached data to the `data/` directory.
+package after completing all dataset modifications. Or use `devtools::load_all()` to reload functions. Execute the `data-raw/rebuild_cached_data.R` script to create, compare and save cached data to the `data/` directory. We suggest to do `Rscript rebuild_cached_data.R` or `source("rebuild_cached_data.R")` from the `data-raw/` directory.
 
