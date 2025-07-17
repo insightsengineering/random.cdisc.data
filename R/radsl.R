@@ -18,7 +18,8 @@
 #' @param study_duration (`numeric`)\cr Duration of study in years.
 #' @param with_trt02 (`logical`)\cr Should period 2 be added.
 #' @param ae_withdrawal_prob (`proportion`)\cr Probability that there is at least one
-#' Adverse Event leading to the withdrawal of a study drug.
+#'   Adverse Event leading to the withdrawal of a study drug.
+#' @param female_prob (`proportion`)\cr Probability of a subject being female, male is calculated by `1-female_prob`.
 #' @template param_cached
 #' @templateVar data adsl
 #'
@@ -51,6 +52,7 @@ radsl <- function(N = 400, # nolint
                     "BMRKR1" = c(seed = 1234, percentage = 0.1), "BMRKR2" = c(1234, 0.1), "BEP01FL" = NA
                   ),
                   ae_withdrawal_prob = 0.05,
+                  female_prob = 0.52,
                   cached = FALSE) {
   checkmate::assert_flag(cached)
   if (cached) {
@@ -63,6 +65,7 @@ radsl <- function(N = 400, # nolint
   checkmate::assert_number(study_duration, lower = 1)
   checkmate::assert_number(na_percentage, lower = 0, upper = 1)
   checkmate::assert_true(na_percentage < 1)
+  checkmate::assert_number(female_prob, lower = 0, upper = 1)
 
   if (!is.null(seed)) {
     set.seed(seed)
@@ -84,7 +87,7 @@ radsl <- function(N = 400, # nolint
     SUBJID = paste("id", seq_len(N), sep = "-"),
     AGE = sapply(stats::rchisq(N, df = 5, ncp = 10), max, 0) + 20,
     AGEU = "YEARS",
-    SEX = c("F", "M") %>% sample_fct(N, prob = c(.52, .48)),
+    SEX = c("F", "M") %>% sample_fct(N, prob = c(female_prob, 1 - female_prob)),
     ARMCD = c("ARM A", "ARM B", "ARM C") %>% sample_fct(N),
     RACE = c(
       "ASIAN", "BLACK OR AFRICAN AMERICAN", "WHITE", "AMERICAN INDIAN OR ALASKA NATIVE",
