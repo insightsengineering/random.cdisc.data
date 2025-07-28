@@ -54,7 +54,6 @@ install.packages("random.cdisc.data")
 
 Alternatively, you might also use the development version.
 
-
 ```r
 # install.packages("pak")
 pak::pak("insightsengineering/random.cdisc.data")
