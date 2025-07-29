@@ -10,14 +10,15 @@ set -e # Exit immediately if a command exits with a non-zero status.
 
 # --- Helper Function to Normalize Git URLs ---
 # This function reliably extracts the 'owner/repo' part from various URL formats.
+# This function reliably extracts the 'owner/repo' part from various URL formats.
 normalize_git_url() {
   local url=$1
   # Step 1: Remove an optional trailing slash
   local repo_path=${url%/}
   # Step 2: Remove the optional .git suffix
   repo_path=${repo_path%.git}
-  # Step 3: Remove everything up to the last colon or slash
-  repo_path=${repo_path##*[:/]}
+  # Step 3: Use a regular expression to extract the 'owner/repo' part
+  repo_path=$(echo "$repo_path" | sed -E 's|.*[:/]([^/]+/[^/]+)$|\1|')
 
   echo "$repo_path"
 }
@@ -38,6 +39,17 @@ ORIGIN_URL=$(git remote get-url origin 2>/dev/null || echo "") # Get origin URL 
 # Normalize both URLs to get just the 'owner/repo' string for comparison.
 NORM_UPSTREAM_URL=$(normalize_git_url "$UPSTREAM_URL")
 NORM_ORIGIN_URL=$(normalize_git_url "$ORIGIN_URL")
+
+# Show the normalized URLs for debugging
+if [[ -z "$NORM_ORIGIN_URL" ]]; then
+  echo "Warning: 'origin' remote not found or has no URL." >&2
+else
+  echo "Info: 'origin' remote URL found." >&2
+fi
+
+echo "Info: Normalized URLs (owner/repo):" >&2
+echo "Info:      ORIGIN_URL  -  $NORM_ORIGIN_URL" >&2
+echo "Info:    UPSTREAM_URL  -  $NORM_UPSTREAM_URL" >&2
 
 # Check if the normalized 'owner/repo' strings match
 if [[ -n "$NORM_ORIGIN_URL" && "$NORM_ORIGIN_URL" == "$NORM_UPSTREAM_URL" ]]; then
