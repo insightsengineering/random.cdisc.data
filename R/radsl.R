@@ -50,7 +50,7 @@ radsl <- function(N = 400, # nolint
                   with_trt02 = TRUE,
                   na_percentage = 0,
                   # set race and probabilities to NULL
-                  race_list  = NULL,
+                  race_list = NULL,
                   race_prob = NULL,
                   na_vars = list(
                     "AGE" = NA, "SEX" = NA, "RACE" = NA, "RACE" = NA, "STRATA1" = NA, "STRATA2" = NA,
@@ -77,13 +77,12 @@ radsl <- function(N = 400, # nolint
   }
 
   # stop if race_list  lengths do not match race probability length
-  if (length(race_list ) != length(race_prob) ){
+  if (length(race_list) != length(race_prob)) {
     stop("race_list  and race_prob must all be the same length.")
   }
 
   # stop if race_prob is not numeric or if values do not sum to 1
-  if (!is.null(race_prob) && !is.numeric(race_prob) ||
-      !is.null(race_prob) && sum(race_prob) != 1) {
+  if (!is.null(race_prob) && !is.numeric(race_prob) || !is.null(race_prob) && sum(race_prob) != 1) {
     stop("race_prob must be a vector of numeric values and must sum to 1.")
   }
 
@@ -110,12 +109,14 @@ radsl <- function(N = 400, # nolint
     # i.e. by default race_list  = NULL and race_prob = NULL
     # then RACE is computed using default values
     # else RACE is computed using user-defined race_list  and race_prob
-    RACE = if (is.null(race_list ) && is.null(race_prob))
-      c("ASIAN", "BLACK OR AFRICAN AMERICAN", "WHITE", "AMERICAN INDIAN OR ALASKA NATIVE",
+    RACE = if (is.null(race_list) && is.null(race_prob)) {
+      c(
+        "ASIAN", "BLACK OR AFRICAN AMERICAN", "WHITE", "AMERICAN INDIAN OR ALASKA NATIVE",
         "MULTIPLE", "NATIVE HAWAIIAN OR OTHER PACIFIC ISLANDER", "OTHER", "UNKNOWN"
-      ) %>% sample_fct(N, prob = c(.55, .23, .16, .05, .004, .003, .002, .002)) else
-        sample(race_list , N, prob = race_prob, replace = TRUE),
-
+      ) %>% sample_fct(N, prob = c(.55, .23, .16, .05, .004, .003, .002, .002))
+    } else {
+      sample(race_list, N, prob = race_prob, replace = TRUE)
+    },
     TRTSDTM = sys_dtm + sample(seq(0, study_duration_secs), size = N, replace = TRUE),
     RANDDT = lubridate::date(TRTSDTM - lubridate::days(floor(stats::runif(N, min = 0, max = 5)))),
     TRTEDTM = TRTSDTM + study_duration_secs,
