@@ -12,8 +12,8 @@ radsl(
   na_percentage = 0,
   race_list = NULL,
   race_prob = NULL,
-  na_vars = list(AGE = NA, SEX = NA, RACE = NA, RACE = NA, STRATA1 = NA, STRATA2 = NA,
-    BMRKR1 = c(seed = 1234, percentage = 0.1), BMRKR2 = c(1234, 0.1), BEP01FL = NA),
+  na_vars = list(AGE = NA, SEX = NA, RACE = NA, STRATA1 = NA, STRATA2 = NA, BMRKR1 =
+    c(seed = 1234, percentage = 0.1), BMRKR2 = c(1234, 0.1), BEP01FL = NA),
   ae_withdrawal_prob = 0.05,
   female_prob = 0.52,
   cached = FALSE

@@ -53,7 +53,7 @@ radsl <- function(N = 400, # nolint
                   race_list = NULL,
                   race_prob = NULL,
                   na_vars = list(
-                    "AGE" = NA, "SEX" = NA, "RACE" = NA, "RACE" = NA, "STRATA1" = NA, "STRATA2" = NA,
+                    "AGE" = NA, "SEX" = NA, "RACE" = NA, "STRATA1" = NA, "STRATA2" = NA,
                     "BMRKR1" = c(seed = 1234, percentage = 0.1), "BMRKR2" = c(1234, 0.1), "BEP01FL" = NA
                   ),
                   ae_withdrawal_prob = 0.05,
@@ -76,9 +76,9 @@ radsl <- function(N = 400, # nolint
     set.seed(seed)
   }
 
-  # stop if race_list  lengths do not match race probability length
+  # stop if race_list length does not match race probability length
   if (length(race_list) != length(race_prob)) {
-    stop("race_list  and race_prob must all be the same length.")
+    stop("race_list and race_prob must all be the same length.")
   }
 
   # stop if race_prob is not numeric or if values do not sum to 1

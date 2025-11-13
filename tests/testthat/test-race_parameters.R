@@ -41,3 +41,17 @@ test_that("radsl stops if race_list and race_prob do not have the same length", 
     race_prob = c(0.4, 0.3, 0.6)
   ))
 })
+
+test_that("radsl stops if only race_list is provided", {
+  # expect an error if only race_list is provided
+  expect_error(radsl(
+    race_list = c("ASIAN", "BLACK OR AFRICAN AMERICAN")
+  ))
+})
+
+test_that("radsl stops if only race_prob is provided", {
+  # expect an error if only race_prob is provided
+  expect_error(radsl(
+    race_prob = c(0.4, 0.3, 0.6)
+  ))
+})
