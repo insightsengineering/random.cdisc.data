@@ -5,6 +5,7 @@
 \alias{get_qs_data}
 \alias{get_random_dates_between}
 \alias{prep_adqlqc}
+\alias{get_ex028}
 \alias{calc_scales}
 \alias{derv_chgcat1}
 \alias{comp_derv}
@@ -25,14 +26,16 @@ get_random_dates_between(from, to, visit_id)
 
 prep_adqlqc(df)
 
-calc_scales(adqlqc1)
+get_ex028(adsl = adsl)
+
+calc_scales(adqlqc1, ex028)
 
 derv_chgcat1(dataset)
 
 comp_derv(dataset, percent, number)
 }
 \arguments{
-\item{adsl}{(\code{data.frame})\cr Subject-Level Analysis Dataset (ADSL).}
+\item{adsl}{(\code{data.frame})\cr ADSL dataset.}
 
 \item{visit_format}{(\code{character})\cr Type of visit. Options are "WEEK" and "CYCLE".}
 
@@ -64,6 +67,8 @@ If \code{NA}, \code{na_percentage} is used as a default.}
 
 \item{adqlqc1}{(\code{data.frame})\cr Prepared data generated from the \code{\link[=prep_adqlqc]{prep_adqlqc()}} function.}
 
+\item{ex028}{(\code{data.frame})\cr Prepared data generated from the \code{\link[=get_ex028]{get_ex028()}} function.}
+
 \item{dataset}{(\code{data.frame})\cr Dataset.}
 
 \item{percent}{(\code{numeric})\cr Completion - Completed at least y percent of questions, 1 record per visit}
@@ -74,6 +79,8 @@ If \code{NA}, \code{na_percentage} is used as a default.}
 a dataframe with SDTM questionnaire data
 
 Data frame with new randomly generated dates variable.
+
+\code{data.frame}
 
 \code{data.frame}
 
@@ -95,6 +102,8 @@ Function for generating random Questionnaires SDTM domain
 \item \code{get_random_dates_between()}: Function for generating random dates between 2 dates
 
 \item \code{prep_adqlqc()}: Prepare ADaM ADQLQC data, adding PARAMCD to SDTM QS data
+
+\item \code{get_ex028()}: derive EX028
 
 \item \code{calc_scales()}: Scale calculation for ADQLQC data
 
